@@ -21,10 +21,16 @@ div#outer {
     height: 100%;
     width: 100%;
 }
+div#pane {
+	display: table-cell;
+    text-align: left;
+    vertical-align: top;
+	width: 100%;
+}
 div#container {
 	display: table-cell;
     text-align: center;
-    vertical-align: middle;
+    vertical-align: top;
 }
 div#pane {
 	display: table-cell;
@@ -63,6 +69,9 @@ div#pane {
 	color: #FF8000;
 }
 
+h1 {
+	color: white;
+}
 </style>
 <link href="../help.css" type="text/css" rel="stylesheet" />
 <link href="../scrollbar/flexcroll.css" type="text/css" rel="stylesheet" />
@@ -71,8 +80,11 @@ div#pane {
 </head>
 <body>
 <div id="outer">
-<a href="calculator.html" class="button">配票計算機</a>
 <div id="container">
+<div id="pane">
+<a href="calculator.html" class="button">配票計算機</a>
+</div>
+<h1>前言</h1>
 <p class="paragraph">
 2020區選報捷大快人心，但立法會選舉是多議席單票制，沒有良好的配票方案，隨時贏總票數卻輸議席。像2016年朱凱迪吸票8萬幾只係赢一席，但何君堯3萬幾票又係贏一席，如果得票可以平均一點，少一點票落在𠝹黨上，便可多送一名同路人入議會。
 不要妄想一張名單取得超過一席，在比例代表制下，要先全取一席的票數，再用餘數决勝，比起每張名單不用全取一席的門檻，只需得票較高便取勝，絕不化算，萬一餘數不足，更白白浪費許多選票。
@@ -83,9 +95,9 @@ div#pane {
 <br/><br/>
 我認為:
 <br/>
-1. 實時民調未必準確。
+1. 實時民調未必準確。無論是哪個陣營，民調時大家都興fake人。
 <br/>
-2. 民調變化大，使選民接收到的投票建議跟不上實時民調。
+2. 民調變化大，使選民接收到的投票建議跟不上實時民調。尤其是大家都想做策略性選民，個個等旁晚邊個告急先去投票，以致臨尾出現誤差，未必能有效助取末席。
 <br/><br/>
 這個配票計劃不像雷動用在投票時才提供投票建議，它在投票前預先配票，選民只要輸入六位數字身份證號碼，系統便會用數學方法計算投票建議，由於身份證號碼只用作運算，系統並不儲存資料，所以不用擔心安全問題。
 由於種種政治因素，全黄陣營的跨黨派初選似乎是不可能，退而求其次，我以選舉前一星期的民調作配票基礎，以數學方法盡量把選票平均分給每一區中，民調最高的幾位侯選人。 <a href="method.html">按此了解更多</a>
@@ -95,6 +107,7 @@ div#pane {
 <br/><br/>
 
 </p>
+<h1>光復香港 時代革命</h1>
 </div>
 </div>
 
