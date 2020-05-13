@@ -2,7 +2,7 @@
 <html class="img-no-display"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Free Hong Kong</title>
+<title>配票計算機</title>
 <style>
 html {
     height: 100%;
@@ -26,32 +26,157 @@ body {
 	font-weight: bold;
 	font-family: Verdana;
 }
+
+.button {
+	background-color: black; 
+	color: white; 
+	padding: 10px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	border: 2px solid;
+	border-radius: 12px;
+	transition-duration: 0.4s;
+}
+
+.button:hover {
+	background-color: white;
+	color: black;
+}
+
+.result {
+	border-collapse: collapse;
+	border: 1px solid black;
+}
+
+th {
+	background-color: black;
+	color: white;
+	width: 700px;
+	text-align: center;
+}
 </style>
 <script type="text/javascript">
+<!--
+
 function calculate() {
 	var HKID = document.getElementById("HKID").value;
 	var GC = document.getElementById("seGC").value;
-
 	var seat = 0;
 
 	if (GC == "HKI") {
-		seat = 6;
+//6席搶4席
+		seat = 4;
 	} else if (GC == "KLW") {
-		seat = 6;
+//6席搶4席	
+		seat = 4;
 	} else if (GC == "KLE") {
-		seat = 5;
+//5席搶3席	
+		seat = 3;
 	} else if (GC == "NTW") {
-		seat = 9;
+//9席搶6席	
+		seat = 6;
 	} else if (GC == "NTE") {
+//9席搶6席	
 		seat = 9;
 	}
 	
 	if (validate(HKID)) {
-		var result = HKID%seat;
-		alert(result);
+		
+		var GCresult = HKID%seat;
+//區議會（第二）功能界別 5席搶3席		
+		var DCresult = HKID%3;
+		
+		var html = "<table class='result'><tr><th>地區直選 Geographical Constituency Election</th><th>區議會（第二）功能界別 District Council (Second) Functional Constituency</th></tr>"
+			+ "<tr><td class='result'>" + getGCCandidate(GC, GCresult) + "</td><td class='result'>" + getDCCandidate(DCresult) + "</td></tr></table> ";
+			
+		document.getElementById("result").innerHTML = html;
+		
+
 	}
 
 	return false;
+}
+
+function getGCCandidate(GC, result) {
+	var html = "Error: please send email report to <a href='mailto:bankcheck@hotmail.com'>bankcheck@hotmail.com</a>";
+	
+	if (GC == "HKI") {
+		if (result == 1) {
+			return "<img src='HKI/1.png' />";
+		} else if (result == 2) {
+			return "<img src='HKI/1.png' />";
+		} else if (result == 3) {		
+			return "<img src='HKI/1.png' />";
+		} else if (result == 0) {
+			return "<img src='HKI/1.png' />";
+		} 
+	} else if (GC == "KLW") {
+		if (result == 1) {
+			return "<img src='KLW/1.png' />";
+		} else if (result == 2) {
+			return "<img src='KLW/1.png' />";
+		} else if (result == 3) {		
+			return "<img src='KLW/1.png' />";
+		} else if (result == 0) {
+			return "<img src='KLW/1.png' />";
+		} 
+	} else if (GC == "KLE") {
+		if (result == 1) {
+			return "<img src='KLE/1.png' />";
+		} else if (result == 2) {
+			return "<img src='KLE/1.png' />";
+		} else if (result == 0) {
+			return "<img src='KLE/1.png' />";
+		} 
+	} else if (GC == "NTW") {
+		if (result == 1) {
+			return "<img src='NTW/1.png' />";
+		} else if (result == 2) {
+			return "<img src='NTW/1.png' />";
+		} else if (result == 3) {		
+			return "<img src='NTW/1.png' />";
+		} else if (result == 4) {		
+			return "<img src='NTW/1.png' />";
+		} else if (result == 5) {		
+			return "<img src='NTW/1.png' />";	
+		} else if (result == 0) {
+			return "<img src='NTW/1.png' />";
+		} 
+	} else if (GC == "NTE") {
+		if (result == 1) {
+			return "<img src='NTE/1.png' />";
+		} else if (result == 2) {
+			return "<img src='NTE/1.png' />";
+		} else if (result == 3) {		
+			return "<img src='NTE/1.png' />";
+		} else if (result == 4) {		
+			return "<img src='NTE/1.png' />";
+		} else if (result == 5) {		
+			return "<img src='NTE/1.png' />";	
+		} else if (result == 0) {
+			return "<img src='NTE/1.png' />";
+		} 
+	}
+	
+	return html;
+}
+
+function getDCCandidate(result) {
+	var html = "Error: please send email report to <a href='mailto:bankcheck@hotmail.com'>bankcheck@hotmail.com</a>";
+
+	if (result == 1) {
+		html = "<img src='DC/1.png' />";
+	} else if (result == 2) {
+		html = "<img src='DC/1.png' />";
+	} else if (result == 0) {		
+		html = "<img src='DC/1.png' />";
+	} 
+	
+	return html;
 }
 
 function validate(HKID) {
@@ -67,15 +192,13 @@ function validate(HKID) {
 
 	return true;
 }
+-->
 </script>
 </head>
 <body>
-<table>
-<tr><td><div id="GC"></div></td>
-<td><div id="DC"></div></td></tr>
-</table>
-<div id=""></div>
-<form id="form1">
+<a href="index.html" class="button">前言</a>
+<div id="result"></div>
+<form id="form1" onsubmit="return calculate();">
 <table>
 <tr><td><p class="main">選區<br/>Geographical Constituency</p></td>
 <td><select id="seGC">
@@ -87,6 +210,6 @@ function validate(HKID) {
 </select></td></tr>
 <tr><td><p class="main">香港身份證頭6位數字<br/>First 6 digits of HKID</p></td><td><input id="HKID" maxlength=6/></td></tr>
 </table>
-<p class="main"><button type="button" onclick="calculate();">投票建議 Voting Recommendation</button></p>
+<p class="main"><button id="action" type="button" onclick="calculate();">投票建議 Voting Recommendation</button></p>
 </form>
 </body></html>
