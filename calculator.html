@@ -201,7 +201,7 @@ function validate(HKID) {
 <form id="form1" onsubmit="return calculate();">
 <table>
 <tr><td><p class="main">選區<br/>Geographical Constituency</p></td>
-<td><select id="seGC">
+<td><select id="seGC" class="main">
 <option value="HKI">香港島 Hong Kong Island</option>
 <option value="KLW">九龍西 Kowloon West</option>
 <option value="KLE">九龍東 Kowloon East</option>
@@ -210,6 +210,6 @@ function validate(HKID) {
 </select></td></tr>
 <tr><td><p class="main">香港身份證頭6位數字<br/>First 6 digits of HKID</p></td><td><input id="HKID" maxlength=6/></td></tr>
 </table>
-<p class="main"><button id="action" type="button" onclick="calculate();">投票建議 Voting Recommendation</button></p>
+<p class="main"><button id="action" type="button" onclick="calculate();" class="main">投票建議 Voting Recommendation</button></p>
 </form>
 </body></html>
