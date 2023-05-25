@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>test</title>
+<style>
+body {
+  background-color: LightGreen;
+  text-align: center;
+}
+
+p {
+  font-size: 200px;
+  font-weight: bold;
+}
+
+input {
+  font-size: 100px;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	$("#counter").val("1");
+	next();
+
+	$("#cal").click(function(){
+		var answer = $("#answer").val().trim();
+
+		if (answer == getAnswer()) {
+			alert("Good Job! Next question");
+			$("#counter").val(parseInt($("#counter").val())+1);
+			next();
+		} else {
+			alert("Wrong, please try again");
+		}
+	});
+});
+
+function next() {
+	var title = "Q" + $("#counter").val();
+	$("title").text(title);
+
+	var no1 = getNum();
+	var no2 = getNum();
+	var sign = getSign();
+
+	if ((sign == "-") && (no2 > no1)){
+		$("#no1").val(no2);
+		$("#no2").val(no1);
+	} else {
+		$("#no1").val(no1);
+		$("#no2").val(no2);
+	}
+
+	$("#sign").val(sign);
+
+	var question = $("#no1").val() + " " + $("#sign").val() + " " + $("#no2").val();
+	$("#display").html(question);
+}
+
+function getNum() {
+	return Math.floor(Math.random() * 10);
+}
+
+function getSign() {
+	if (Math.random() > 0.5) 
+		return "+";
+	else
+		return "-";
+}
+
+function getAnswer() {
+	var no1 = $("#no1").val();
+	var no2 = $("#no2").val();
+	var sign = $("#sign").val();
+
+	if (sign == "+")
+		return parseInt(no1) + parseInt(no2);
+	else
+		return parseInt(no1) - parseInt(no2);
+}
+</script>
+</head>
+<body >
+<p id="display">HELLO</p>
+<input id="answer" type="text" size="2" maxlength="2" />
+<input id="cal" type="button" value="Go" />
+<input id="counter" type="hidden" />
+<input id="no1" type="hidden" />
+<input id="no2" type="hidden" />
+<input id="sign" type="hidden" />
+</body>
+</html>
