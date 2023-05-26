@@ -5,11 +5,19 @@
 <style>
 body {
   background-color: LightGreen;
+}
+
+#heading {
+  font-size: 100px;
+  font-weight: bold;
+}
+
+#main {
   text-align: center;
 }
 
-p {
-  font-size: 200px;
+#question {
+  font-size: 150px;
   font-weight: bold;
 }
 
@@ -40,7 +48,8 @@ function next() {
 	$("#answer").val("");
 
 	var title = "Q" + $("#counter").val();
-	$("title").text(title);
+	$("title").text(title);	
+	$("#heading").text(title);
 
 	var no1 = getNum();
 	var no2 = getNum();
@@ -56,8 +65,8 @@ function next() {
 
 	$("#sign").val(sign);
 
-	var question = title + ". " + $("#no1").val() + " " + $("#sign").val() + " " + $("#no2").val();
-	$("#display").html(question);
+	var question = $("#no1").val() + " " + $("#sign").val() + " " + $("#no2").val() + " = ";
+	$("#question").html(question);
 }
 
 function getNum() {
@@ -84,9 +93,13 @@ function getAnswer() {
 </script>
 </head>
 <body >
-<p id="display">HELLO</p>
-<input id="answer" type="number" min="0" max="99" />
+<p id="heading"></p>
+<p id="main">
+<span id="question" ></span>
+<br />
+<input id="answer" type="number" min="0" max="99" size="2" maxlength="2" />
 <input id="cal" type="button" value="Go" />
+</p>
 <input id="counter" type="hidden" />
 <input id="no1" type="hidden" />
 <input id="no2" type="hidden" />
