@@ -7,6 +7,10 @@ body {
   background-color: LightGreen;
 }
 
+#time {
+  font-size: 20px;
+}
+
 #heading {
   font-size: 100px;
   font-weight: bold;
@@ -27,11 +31,15 @@ input {
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
+
 $(document).ready(function(){
+
 	$("#counter").val("1");
+	$("#startTime").val(new Date());
 	next();
 
 	$("#cal").click(function(){
+		timeLapse();
 		var answer = $("#answer").val().trim();
 
 		if (answer == getAnswer()) {
@@ -90,19 +98,33 @@ function getAnswer() {
 	else
 		return parseInt(no1) - parseInt(no2);
 }
+
+function timeLapse() {
+	var start = new Date($("#startTime").val());
+	var end = new Date();
+
+	var min = Math.floor((end - start) / 60000);
+	var sec = Math.floor((end - start) % 60000 / 1000);
+
+	var text = min + " min " + sec + " sec";
+	$("#time").text(text);
+}
+
 </script>
 </head>
 <body >
+<p id="time" >Start</p>
 <p id="heading"></p>
 <p id="main">
 <span id="question" ></span>
 <br />
-<input id="answer" type="number" min="0" max="99" size="2" maxlength="2" />
+<input id="answer" type="number" />
 <input id="cal" type="button" value="Go" />
 </p>
 <input id="counter" type="hidden" />
 <input id="no1" type="hidden" />
 <input id="no2" type="hidden" />
 <input id="sign" type="hidden" />
+<input id="startTime" type="hidden" />
 </body>
 </html>
