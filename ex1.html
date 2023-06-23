@@ -35,7 +35,7 @@ input {
 $(document).ready(function(){
 
 	$("#counter").val("1");
-	$("#startTime").val(new Date());
+	$("#start").val(new Date());
 	next();
 
 	$("#cal").click(function(){
@@ -100,7 +100,7 @@ function getAnswer() {
 }
 
 function timeLapse() {
-	var start = new Date($("#startTime").val());
+	var start = new Date($("#start").val());
 	var end = new Date();
 
 	var min = Math.floor((end - start) / 60000);
@@ -118,13 +118,13 @@ function timeLapse() {
 <p id="main">
 <span id="question" ></span>
 <br />
-<input id="answer" type="number" />
+<input id="answer" type="number" size="3" />
 <input id="cal" type="button" value="Go" />
 </p>
 <input id="counter" type="hidden" />
 <input id="no1" type="hidden" />
 <input id="no2" type="hidden" />
 <input id="sign" type="hidden" />
-<input id="startTime" type="hidden" />
+<input id="start" type="hidden" />
 </body>
 </html>
