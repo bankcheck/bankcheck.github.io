@@ -7,7 +7,7 @@ body {
   background-color: LightGreen;
 }
 
-#time {
+#mini-head {
   font-size: 20px;
 }
 
@@ -33,29 +33,29 @@ input {
 <script>
 
 $(document).ready(function(){
-
-	$("#counter").val("1");
-	$("#start").val(new Date());
-	next();
+	var start = new Date();
+	var cnt = next(1);
+	var wrong = 0;
 
 	$("#cal").click(function(){
-		timeLapse();
 		var answer = $("#answer").val().trim();
 
 		if (answer == getAnswer()) {
 			alert("Good Job! Next question");
-			$("#counter").val(parseInt($("#counter").val())+1);
-			next();
+			cnt = next(cnt);
 		} else {
 			alert("Wrong, please try again");
+			wrong++;
 		}
+		
+		setMiniHead(timeLapse(start), wrong);
 	});
 });
 
-function next() {
+function next(no) {
 	$("#answer").val("");
 
-	var title = "Q" + $("#counter").val();
+	var title = "Q" + no;
 	$("title").text(title);	
 	$("#heading").text(title);
 
@@ -75,6 +75,8 @@ function next() {
 
 	var question = $("#no1").val() + " " + $("#sign").val() + " " + $("#no2").val() + " = ";
 	$("#question").html(question);
+
+	return ++no;
 }
 
 function getNum() {
@@ -99,21 +101,40 @@ function getAnswer() {
 		return parseInt(no1) - parseInt(no2);
 }
 
-function timeLapse() {
-	var start = new Date($("#start").val());
+function timeLapse(start) {
 	var end = new Date();
 
 	var min = Math.floor((end - start) / 60000);
 	var sec = Math.floor((end - start) % 60000 / 1000);
 
 	var text = min + " min " + sec + " sec";
-	$("#time").text(text);
+	$("#mini-head").text(text);
+
+	return text;
 }
+
+function timeLapse(start) {
+	var end = new Date();
+
+	var min = Math.floor((end - start) / 60000);
+	var sec = Math.floor((end - start) % 60000 / 1000);
+
+	var text = min + " min " + sec + " sec";
+
+	return text;
+}  
+
+function setMiniHead(time, wcnt) {
+	if (wcnt > 0)
+		$("#mini-head").text(time + "\twrong:" + wcnt);
+	else
+		$("#mini-head").text(time);
+}  
 
 </script>
 </head>
 <body >
-<p id="time" >Start</p>
+<p id="mini-head" >Start</p>
 <p id="heading"></p>
 <p id="main">
 <span id="question" ></span>
@@ -121,10 +142,8 @@ function timeLapse() {
 <input id="answer" type="number" min="0" max="99" size="2" maxlength="2" />
 <input id="cal" type="button" value="Go" />
 </p>
-<input id="counter" type="hidden" />
 <input id="no1" type="hidden" />
 <input id="no2" type="hidden" />
 <input id="sign" type="hidden" />
-<input id="start" type="hidden" />
 </body>
 </html>
