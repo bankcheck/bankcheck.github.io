@@ -48,7 +48,7 @@ $(document).ready(function(){
 			wrong++;
 		}
 		
-		setMiniHead(timeLapse(start), wrong);
+		setMiniHead(start, cnt - 1, wrong);
 	});
 });
 
@@ -101,34 +101,21 @@ function getAnswer() {
 		return parseInt(no1) - parseInt(no2);
 }
 
-function timeLapse(start) {
+function setMiniHead(start, no, wcnt) {
 	var end = new Date();
-
+	
 	var min = Math.floor((end - start) / 60000);
 	var sec = Math.floor((end - start) % 60000 / 1000);
 
-	var text = min + " min " + sec + " sec";
-	$("#mini-head").text(text);
-
-	return text;
-}
-
-function timeLapse(start) {
-	var end = new Date();
-
-	var min = Math.floor((end - start) / 60000);
-	var sec = Math.floor((end - start) % 60000 / 1000);
-
-	var text = min + " min " + sec + " sec";
-
-	return text;
-}  
-
-function setMiniHead(time, wcnt) {
+	var timeLapse = min + " min " + sec + " sec";
+	
+	var time = (end - start) / 60000;
+	var rate = no/time;
+			
 	if (wcnt > 0)
-		$("#mini-head").text(time + "\twrong:" + wcnt);
+		$("#mini-head").text(timeLapse + "\t" + rate + "per min\twrong:" + wcnt);
 	else
-		$("#mini-head").text(time);
+		$("#mini-head").text(timeLapse + "\t" + rate + "per min");
 }  
 
 </script>
