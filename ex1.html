@@ -36,14 +36,13 @@ $(document).ready(function(){
 	var start = new Date();
 	var cnt = next(1);
 	var wrong = 0;
-	alert(cnt);
 
 	$("#cal").click(function(){
 		var answer = $("#answer").val().trim();
 
 		if (answer == getAnswer()) {
 			//alert("Good Job! Next question");
-			cnt = next(cnt);
+			next(++cnt);
 		} else {
 			alert("Wrong, please try again");
 			wrong++;
@@ -76,8 +75,6 @@ function next(no) {
 
 	var question = $("#no1").val() + " " + $("#sign").val() + " " + $("#no2").val() + " = ";
 	$("#question").html(question);
-
-	return ++no;
 }
 
 function getNum() {
