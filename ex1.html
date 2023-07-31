@@ -115,7 +115,7 @@ function setMiniHead(start, no, wcnt) {
 	var rate = no/time;
 			
 	if (wcnt > 0)
-		$("#mini-head").text(timeLapse + ", " + rate.toFixed(2) + "per min\twrong:" + wcnt);
+		$("#mini-head").text(timeLapse + ", " + rate.toFixed(2) + "per min, wrong:" + wcnt);
 	else
 		$("#mini-head").text(timeLapse + ", " + rate.toFixed(2) + "per min");
 }  
