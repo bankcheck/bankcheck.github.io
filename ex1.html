@@ -103,7 +103,7 @@ function getAnswer() {
 		return parseInt(no1) - parseInt(no2);
 }
 
-function setMiniHead(start, no, wcnt) {
+function setMiniHead(start, no, wrong) {
 	var end = new Date();
 	
 	var min = Math.floor((end - start) / 60000);
@@ -113,11 +113,13 @@ function setMiniHead(start, no, wcnt) {
 	
 	var time = (end - start) / 60000;
 	var rate = no/time;
-			
+/*			
 	if (wcnt > 0)
-		$("#mini-head").text(timeLapse + ", " + rate.toFixed(2) + "per min, wrong:" + wcnt);
+		$("#mini-head").text(timeLapse + ", " + rate.toFixed(2) + "per min, wrong:" + wrong);
 	else
 		$("#mini-head").text(timeLapse + ", " + rate.toFixed(2) + "per min");
+*/  
+	$("#mini-head").text(timeLapse + ", " + rate.toFixed(2) + "/min, right:" + no + " wrong:" + wrong) + " pct:" + Math.round(no / (no + wrong) * 100) + "%";
 }  
 
 </script>
