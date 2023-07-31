@@ -111,6 +111,7 @@ function setMiniHead(start, no, wcnt) {
 	
 	var time = (end - start) / 60000;
 	var rate = no/time;
+	alert rate;
 			
 	if (wcnt > 0)
 		$("#mini-head").text(timeLapse + "\t" + rate + "per min\twrong:" + wcnt);
