@@ -34,7 +34,7 @@ input {
 
 $(document).ready(function(){
 	var start = new Date();
-	var cnt = next(1);
+	var cnt = next(0);
 	var wrong = 0;
 
 	$("#cal").click(function(){
@@ -42,7 +42,7 @@ $(document).ready(function(){
 
 		if (answer == getAnswer()) {
 			//alert("Good Job! Next question");
-			next(++cnt);
+			cnt = next(cnt);
 		} else {
 			alert("Wrong, please try again");
 			wrong++;
@@ -53,6 +53,8 @@ $(document).ready(function(){
 });
 
 function next(no) {
+	no++;
+	
 	$("#answer").val("");
 
 	var title = "Q" + no;
@@ -75,6 +77,8 @@ function next(no) {
 
 	var question = $("#no1").val() + " " + $("#sign").val() + " " + $("#no2").val() + " = ";
 	$("#question").html(question);
+	
+	return no;
 }
 
 function getNum() {
@@ -109,13 +113,11 @@ function setMiniHead(start, no, wcnt) {
 	
 	var time = (end - start) / 60000;
 	var rate = no/time;
-	alert (rate);
-	alert (no);
 			
 	if (wcnt > 0)
-		$("#mini-head").text(timeLapse + "\t" + rate + "per min\twrong:" + wcnt);
+		$("#mini-head").text(timeLapse + ", " + rate.toFixed(2) + "per min\twrong:" + wcnt);
 	else
-		$("#mini-head").text(timeLapse + "\t" + rate + "per min");
+		$("#mini-head").text(timeLapse + ", " + rate.toFixed(2) + "per min");
 }  
 
 </script>
