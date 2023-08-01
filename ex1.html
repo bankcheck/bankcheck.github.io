@@ -113,13 +113,8 @@ function setMiniHead(start, no, wrong) {
 	
 	var time = (end - start) / 60000;
 	var rate = no/time;
-/*			
-	if (wcnt > 0)
-		$("#mini-head").text(timeLapse + ", " + rate.toFixed(2) + "per min, wrong:" + wrong);
-	else
-		$("#mini-head").text(timeLapse + ", " + rate.toFixed(2) + "per min");
-*/  
-	$("#mini-head").text(timeLapse + ", " + rate.toFixed(2) + "/min, right:" + no + " wrong:" + wrong + " pct:" + Math.round(no / (no + wrong) * 100) + "%";
+ 
+	$("#mini-head").text(timeLapse + ", " + rate.toFixed(2) + "/min, right:" + no + " wrong:" + wrong + " pct:" + Math.round(no / (no + wrong) * 100) + "%");
 }  
 
 </script>
