@@ -1,7 +1,7 @@
-# user input last
+#user input variable integer last
 last = int(input("Input an integer: "))
 
-# result
+#variable result to store result and initialize it to 1
 result = 1
 
 #print the first part of the output
