@@ -64,7 +64,7 @@ function next(no) {
 
 	var no1 = $("#no1").val();
 
-	if (isNaN(no1)) {
+	if (isNaN(no1) || (no1.trim() == "")) {
 		no1 = getNum();
 		$("#no1").val(no1);
 	}
