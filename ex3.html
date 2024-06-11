@@ -33,6 +33,9 @@ input {
 <script>
 
 $(document).ready(function(){
+	var no1 = prompt("Please enter a number");
+	$("#no1").val(no1);
+	
 	var start = new Date();
 	var cnt = next(1);
 	var wrong = 0;
@@ -59,18 +62,17 @@ function next(no) {
 	$("title").text(title);	
 	$("#heading").text(title);
 
-	var no1 = getNum();
-	var no2 = getNum();
-	var sign = getSign();
+	var no1 = $("#no1").val();
 
-	if ((sign == "-") && (no2 > no1)){
-		$("#no1").val(no2);
-		$("#no2").val(no1);
-	} else {
+	if (isNaN(no1)) {
+		no1 = getNum();
 		$("#no1").val(no1);
-		$("#no2").val(no2);
 	}
+		
+	var no2 = getNum();
+	$("#no2").val(no2);
 
+	var sign = "x";
 	$("#sign").val(sign);
 
 	var question = $("#no1").val() + " " + $("#sign").val() + " " + $("#no2").val() + " = ";
@@ -80,30 +82,14 @@ function next(no) {
 }
 
 function getNum() {
-	//return Math.floor(Math.random() * 10);
 	return Math.floor(Math.random() * 10) + 1;
-}
-
-function getSign() {
-/*
-	if (Math.random() > 0.5) 
-		return "+";
-	else
-		return "-";
-*/
-	return "x";
 }
 
 function getAnswer() {
 	var no1 = $("#no1").val();
 	var no2 = $("#no2").val();
 	var sign = $("#sign").val();
-/*
-	if (sign == "+")
-		return parseInt(no1) + parseInt(no2);
-	else
-		return parseInt(no1) - parseInt(no2);
-*/
+
 	return parseInt(no1) * parseInt(no2);
 }
 
