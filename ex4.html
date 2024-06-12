@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>test</title>
+<style>
+body {
+  background-color: LightYellow;
+}
+
+#mini-head {
+  font-size: 20px;
+}
+
+#heading {
+  font-size: 100px;
+  font-weight: bold;
+}
+
+#main {
+  text-align: center;
+}
+
+#question {
+  font-size: 150px;
+  font-weight: bold;
+}
+
+input {
+  font-size: 100px;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+
+$(document).ready(function(){
+	var start = new Date();
+	var cnt = next(0);
+	var wrong = 0;
+
+	$("#cal").click(function(){
+		var answer = $("#answer").val().trim();
+
+		if (answer == getAnswer()) {
+			cnt = next(cnt);
+		} else {
+			alert("Wrong, please try again");
+			wrong++;
+		}
+		
+		setMiniHead(start, cnt - 1, wrong);
+	});
+});
+
+function next(no) {
+	no++;
+	
+	$("#answer").val("");
+
+	var title = "Q" + no;
+	$("title").text(title);	
+	$("#heading").text(title);
+
+	var no1 = getNum();
+	var no2 = getNum();
+	var sign = getSign();
+
+	if ((sign == "-") && (no2 > no1)){
+		$("#no1").val(no2);
+		$("#no2").val(no1);
+	} else if (sign == String.fromCharCode(247)){
+		$("#no1").val(no1 * no2);
+		$("#no2").val(no2);
+	} else {
+		$("#no1").val(no1);
+		$("#no2").val(no2);
+	}
+
+	$("#sign").val(sign);
+
+	var question = $("#no1").val() + " " + $("#sign").val() + " " + $("#no2").val() + " = ";
+	$("#question").html(question);
+	
+	return no;
+}
+
+function getNum() {
+	return Math.floor(Math.random() * 10);
+}
+
+function getSign() {
+	var num = Math.random()
+	
+	if (num < 0.25) 
+		return "+";
+	else if (num < 0.5) 
+		return "-";
+	else if (num < 0.75) 
+		return "x";
+	else
+		return String.fromCharCode(247);
+}
+
+function getAnswer() {
+	var no1 = $("#no1").val();
+	var no2 = $("#no2").val();
+	var sign = $("#sign").val();
+
+	if (sign == "+")
+		return parseInt(no1) + parseInt(no2);
+	else if (sign == "-")
+		return parseInt(no1) - parseInt(no2);
+	else if (sign == "x")
+		return parseInt(no1) * parseInt(no2);
+	else
+		return parseInt(no1) / parseInt(no2);		
+}
+
+function setMiniHead(start, no, wrong) {
+	var end = new Date();
+	
+	var min = Math.floor((end - start) / 60000);
+	var sec = Math.floor((end - start) % 60000 / 1000);
+
+	var timeLapse = min + " min " + sec + " sec";
+	
+	var time = (end - start) / 60000;
+	var rate = no/time;
+ 
+	$("#mini-head").text(timeLapse + ", " + rate.toFixed(2) + "/min, right:" + no + " wrong:" + wrong + ", pct:" + Math.round(no / (no + wrong) * 100) + "%");
+}  
+
+</script>
+</head>
+<body >
+<p id="mini-head" >Start</p>
+<p id="heading"></p>
+<p id="main">
+<span id="question" ></span>
+<br />
+<input id="answer" type="number" min="0" max="99" size="2" maxlength="2" />
+<input id="cal" type="button" value="Go" />
+</p>
+<input id="no1" type="hidden" />
+<input id="no2" type="hidden" />
+<input id="sign" type="hidden" />
+</body>
+</html>
