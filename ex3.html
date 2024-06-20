@@ -37,7 +37,7 @@ $(document).ready(function(){
 	$("#no1").val(no1);
 	
 	var start = new Date();
-	var cnt = next(1);
+	var cnt = next(0);
 	var wrong = 0;
 
 	$("#cal").click(function(){
@@ -56,29 +56,32 @@ $(document).ready(function(){
 });
 
 function next(no) {
+	no++;
+	
 	$("#answer").val("");
 
 	var title = "Q" + no;
 	$("title").text(title);	
 	$("#heading").text(title);
 
-	var no1 = $("#no1").val();
-
-	if (isNaN(no1) || (no1.trim() == "")) {
-		no1 = getNum();
-		$("#no1").val(no1);
-	}
-		
+	var no1 = getNum();
 	var no2 = getNum();
-	$("#no2").val(no2);
+	var sign = getSign();
 
-	var sign = "x";
+	if ((sign == "-") && (no2 > no1)){
+		$("#no1").val(no2);
+		$("#no2").val(no1);
+	} else {
+		$("#no1").val(no1);
+		$("#no2").val(no2);
+	}
+
 	$("#sign").val(sign);
 
 	var question = $("#no1").val() + " " + $("#sign").val() + " " + $("#no2").val() + " = ";
 	$("#question").html(question);
-
-	return ++no;
+	
+	return no;
 }
 
 function getNum() {
