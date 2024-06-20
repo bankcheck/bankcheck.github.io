@@ -64,17 +64,10 @@ function next(no) {
 	$("title").text(title);	
 	$("#heading").text(title);
 
-	var no1 = getNum();
 	var no2 = getNum();
-	var sign = getSign();
+	var sign = String.fromCharCode(215);
 
-	if ((sign == "-") && (no2 > no1)){
-		$("#no1").val(no2);
-		$("#no2").val(no1);
-	} else {
-		$("#no1").val(no1);
-		$("#no2").val(no2);
-	}
+	$("#no2").val(no2);
 
 	$("#sign").val(sign);
 
