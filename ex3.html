@@ -64,7 +64,8 @@ function next(no) {
 	$("title").text(title);	
 	$("#heading").text(title);
  
-	if (isNaN($("#no1").val()))
+	var no1 = $("#no1").val();
+	if (isNaN(no1))
 		$("#no1").val(getNum());
 
 	var no2 = getNum();
