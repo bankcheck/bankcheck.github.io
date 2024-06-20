@@ -51,7 +51,7 @@ $(document).ready(function(){
 			wrong++;
 		}
 		
-		setMiniHead(timeLapse(start), wrong);
+		setMiniHead(start, cnt - 1, wrong);
 	});
 });
 
@@ -93,36 +93,19 @@ function getAnswer() {
 	return parseInt(no1) * parseInt(no2);
 }
 
-function timeLapse(start) {
+function setMiniHead(start, no, wrong) {
 	var end = new Date();
-
+	
 	var min = Math.floor((end - start) / 60000);
 	var sec = Math.floor((end - start) % 60000 / 1000);
 
-	var text = min + " min " + sec + " sec";
-	$("#mini-head").text(text);
-
-	return text;
-}
-
-function timeLapse(start) {
-	var end = new Date();
-
-	var min = Math.floor((end - start) / 60000);
-	var sec = Math.floor((end - start) % 60000 / 1000);
-
-	var text = min + " min " + sec + " sec";
-
-	return text;
+	var timeLapse = min + " min " + sec + " sec";
+	
+	var time = (end - start) / 60000;
+	var rate = no/time;
+ 
+	$("#mini-head").text(timeLapse + ", " + rate.toFixed(2) + "/min, right:" + no + " wrong:" + wrong + ", pct:" + Math.round(no / (no + wrong) * 100) + "%");
 }  
-
-function setMiniHead(time, wcnt) {
-	if (wcnt > 0)
-		$("#mini-head").text(time + "\twrong:" + wcnt);
-	else
-		$("#mini-head").text(time);
-}  
-
 </script>
 </head>
 <body >
