@@ -63,12 +63,14 @@ function next(no) {
 	var title = "Q" + no;
 	$("title").text(title);	
 	$("#heading").text(title);
+ 
+	if (Number.isNan($("#no1").val()))
+		$("#no1").val(getNum);
 
 	var no2 = getNum();
-	var sign = String.fromCharCode(215);
-
 	$("#no2").val(no2);
 
+	var sign = String.fromCharCode(215);
 	$("#sign").val(sign);
 
 	var question = $("#no1").val() + " " + $("#sign").val() + " " + $("#no2").val() + " = ";
