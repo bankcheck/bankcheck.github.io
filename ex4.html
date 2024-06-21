@@ -31,6 +31,8 @@ input {
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
+const mul = String.fromCharCode(215);
+const div = String.fromCharCode(247);
 
 $(document).ready(function(){
 	var start = new Date();
@@ -67,7 +69,7 @@ function next(no) {
 	if ((sign == "-") && (no2 > no1)){
 		$("#no1").val(no2);
 		$("#no2").val(no1);
-	} else if (sign == String.fromCharCode(247)){
+	} else if (sign == div){
 		$("#no1").val(no1 * no2);
 		$("#no2").val(no2);
 	} else {
@@ -84,7 +86,7 @@ function next(no) {
 }
 
 function getNum() {
-	return Math.floor(Math.random() * 10);
+	return Math.floor(Math.random() * 10) + 1;
 }
 
 function getSign() {
@@ -95,9 +97,9 @@ function getSign() {
 	else if (num < 0.5) 
 		return "-";
 	else if (num < 0.75) 
-		return "x";
+		return mul;
 	else
-		return String.fromCharCode(247);
+		return div;
 }
 
 function getAnswer() {
@@ -109,7 +111,7 @@ function getAnswer() {
 		return parseInt(no1) + parseInt(no2);
 	else if (sign == "-")
 		return parseInt(no1) - parseInt(no2);
-	else if (sign == "x")
+	else if (sign == mul)
 		return parseInt(no1) * parseInt(no2);
 	else
 		return parseInt(no1) / parseInt(no2);		

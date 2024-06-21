@@ -34,10 +34,10 @@ input {
 
 $(document).ready(function(){
 	var no1 = prompt("Please enter a number");
-	$("#no1").val(no1);
+	$("#no1").val(no1.trim());
 	
 	var start = new Date();
-	var cnt = next(1);
+	var cnt = next(0);
 	var wrong = 0;
 
 	$("#cal").click(function(){
@@ -51,34 +51,33 @@ $(document).ready(function(){
 			wrong++;
 		}
 		
-		setMiniHead(timeLapse(start), wrong);
+		setMiniHead(start, cnt - 1, wrong);
 	});
 });
 
 function next(no) {
+	no++;
+	
 	$("#answer").val("");
 
 	var title = "Q" + no;
 	$("title").text(title);	
 	$("#heading").text(title);
-
+ 
 	var no1 = $("#no1").val();
+	if (isNaN(no1) || no1 == "")
+		$("#no1").val(getNum());
 
-	if (isNaN(no1) || (no1.trim() == "")) {
-		no1 = getNum();
-		$("#no1").val(no1);
-	}
-		
 	var no2 = getNum();
 	$("#no2").val(no2);
 
-	var sign = "x";
+	var sign = String.fromCharCode(215);
 	$("#sign").val(sign);
 
 	var question = $("#no1").val() + " " + $("#sign").val() + " " + $("#no2").val() + " = ";
 	$("#question").html(question);
-
-	return ++no;
+	
+	return no;
 }
 
 function getNum() {
@@ -93,36 +92,19 @@ function getAnswer() {
 	return parseInt(no1) * parseInt(no2);
 }
 
-function timeLapse(start) {
+function setMiniHead(start, no, wrong) {
 	var end = new Date();
-
+	
 	var min = Math.floor((end - start) / 60000);
 	var sec = Math.floor((end - start) % 60000 / 1000);
 
-	var text = min + " min " + sec + " sec";
-	$("#mini-head").text(text);
-
-	return text;
-}
-
-function timeLapse(start) {
-	var end = new Date();
-
-	var min = Math.floor((end - start) / 60000);
-	var sec = Math.floor((end - start) % 60000 / 1000);
-
-	var text = min + " min " + sec + " sec";
-
-	return text;
+	var timeLapse = min + " min " + sec + " sec";
+	
+	var time = (end - start) / 60000;
+	var rate = no/time;
+ 
+	$("#mini-head").text(timeLapse + ", " + rate.toFixed(2) + "/min, right:" + no + " wrong:" + wrong + ", pct:" + Math.round(no / (no + wrong) * 100) + "%");
 }  
-
-function setMiniHead(time, wcnt) {
-	if (wcnt > 0)
-		$("#mini-head").text(time + "\twrong:" + wcnt);
-	else
-		$("#mini-head").text(time);
-}  
-
 </script>
 </head>
 <body >
