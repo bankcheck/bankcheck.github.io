@@ -1,0 +1,16 @@
+Notes for compiling test.cpp:
+
+To compile test.cpp you'll have to copy the following files to the directory where the TEST project is:
+	faxcpp.lib
+	faxcpp.dll
+	tiff.dll
+	image.dll
+	jpeg.dll
+	faxmng.dll
+	faxdrv.exe
+	faxcpp.h
+	faxtype.h
+	port32.h
+
+You can open the TEST.MAK file with Microsoft Visual C++ 1.5, or if you use a different compiler, you have to create a new makefile, which includes TEST.CPP, TEST.DEF and FAXCPP.LIB.
+Remember to modify the settings in lines 18-22 in TEST.CPP to the proper settings on your system.

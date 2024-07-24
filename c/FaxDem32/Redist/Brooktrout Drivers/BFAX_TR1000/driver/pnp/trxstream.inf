@@ -1,0 +1,218 @@
+
+; trxstream.inf - Installation file Brooktrout TRxStream series voice/fax processing platform
+; Copyright (c) 1989-2006 Brooktrout Technology Inc.  All rights reserved.
+
+
+
+
+;=======================Version Section==============================
+[Version]
+Signature="$Chicago$"
+Class=ComputerTelephony
+ClassGuid = {8CF4CA66-A2CC-48fa-BC1D-6A64E47F6D27}
+Provider=%BRKTINC%
+DriverVer=10/26/2006,5.3.0.3
+CatalogFile=brooktrout.cat
+
+[ControlFlags]
+ExcludeFromSelect=*
+
+;======================= Class Section =======================================
+
+[ClassInstall32] 
+AddReg=Brooktroutclassaddreg
+
+[Brooktroutclassaddreg]
+HKR,,,0,"ComputerTelephony"
+HKR,,Icon,,-5
+
+;======================= Custom Settings =======================================
+
+[CoInstallerInfo]
+PackageName="DEFAULT";                 Name of the Software Package to be launched from the coinstaller. This will be defaulted to "sdk_windows.exe"
+PackageLocation="DEFAULT";             Location of the Software Package. This will be defaulted to "Software\Windows"
+LaunchConfigTool=1;                    1 => TRUE/Lauch Configuration Tool, 0=> FALSE/Do not launch Configuration Tool
+ConfigToolName="DEFAULT";              Configuration tool file name e.g configtool.exe,
+ConfigToolLocation="DEFAULT";          Configuration tool location.
+ConfigToolTimeout=60;                  Timeout value in seconds. Default = 60 sec.                                   
+DisplayInformation="DEFAULT";          Information to be displayed by the coinstaller page.
+
+;======================Device Install Section=========================
+[Manufacturer]
+%BRKTINC% = BRKTINC.BOSTON,ntamd64,ntia64
+
+;======================Device Model====================================
+[BRKTINC.BOSTON]
+%TRxStream%=TRxStream.Install, PCI\VEN_12E4&DEV_0000&SUBSYS_000012E4; Fake
+%TRxStream%=TRxStream.Install, PCI\VEN_1011&DEV_0046&SUBSYS_100012E4; Sombrero
+%TRxStream%=TRxStream.Install, PCI\VEN_8086&DEV_B555&SUBSYS_100012E4; Sombrero
+%TRxStream%=TRxStream.Install, PCI\VEN_1057&DEV_0006&SUBSYS_100012E4; Cabernet
+%TRxStream%=TRxStream.Install, PCI\VEN_1057&DEV_0006&SUBSYS_B00512E4; Barossa
+%TRxStream%=TRxStream.Install, PCI\VEN_1057&DEV_0006&SUBSYS_B00612E4; Applegate
+%TRxStream%=TRxStream.Install, PCI\VEN_8086&DEV_B555&SUBSYS_B00712E4; Escher
+%TRxStream%=TRxStream.Install, PCI\VEN_1057&DEV_0006&SUBSYS_B00812E4; Puma
+%TRxStream%=TRxStream.Install, PCI\VEN_8086&DEV_B555&SUBSYS_B00912E4; Raoul
+
+[BRKTINC.BOSTON.ntamd64]
+%TRxStream%=TRxStream.Install, PCI\VEN_12E4&DEV_0000&SUBSYS_000012E4; Fake
+%TRxStream%=TRxStream.Install, PCI\VEN_1011&DEV_0046&SUBSYS_100012E4; Sombrero
+%TRxStream%=TRxStream.Install, PCI\VEN_8086&DEV_B555&SUBSYS_100012E4; Sombrero
+%TRxStream%=TRxStream.Install, PCI\VEN_1057&DEV_0006&SUBSYS_100012E4; Cabernet
+%TRxStream%=TRxStream.Install, PCI\VEN_1057&DEV_0006&SUBSYS_B00512E4; Barossa
+%TRxStream%=TRxStream.Install, PCI\VEN_1057&DEV_0006&SUBSYS_B00612E4; Applegate
+%TRxStream%=TRxStream.Install, PCI\VEN_8086&DEV_B555&SUBSYS_B00712E4; Escher
+%TRxStream%=TRxStream.Install, PCI\VEN_1057&DEV_0006&SUBSYS_B00812E4; Puma
+%TRxStream%=TRxStream.Install, PCI\VEN_8086&DEV_B555&SUBSYS_B00912E4; Raoul
+
+[BRKTINC.BOSTON.ntia64]
+%TRxStream%=TRxStream.Install, PCI\VEN_12E4&DEV_0000&SUBSYS_000012E4; Fake
+%TRxStream%=TRxStream.Install, PCI\VEN_1011&DEV_0046&SUBSYS_100012E4; Sombrero
+%TRxStream%=TRxStream.Install, PCI\VEN_8086&DEV_B555&SUBSYS_100012E4; Sombrero
+%TRxStream%=TRxStream.Install, PCI\VEN_1057&DEV_0006&SUBSYS_100012E4; Cabernet
+%TRxStream%=TRxStream.Install, PCI\VEN_1057&DEV_0006&SUBSYS_B00512E4; Barossa
+%TRxStream%=TRxStream.Install, PCI\VEN_1057&DEV_0006&SUBSYS_B00612E4; Applegate
+%TRxStream%=TRxStream.Install, PCI\VEN_8086&DEV_B555&SUBSYS_B00712E4; Escher
+%TRxStream%=TRxStream.Install, PCI\VEN_1057&DEV_0006&SUBSYS_B00812E4; Puma
+%TRxStream%=TRxStream.Install, PCI\VEN_8086&DEV_B555&SUBSYS_B00912E4; Raoul
+
+[SourceDisksNames]
+1="Brooktrout TRxStream Software",,,
+
+[SourceDisksFiles.x86]
+boston.sys=1,trxstream\x86
+brktBdevco.dll=1,trxstream\x86
+brktBdevpp.dll=1,trxstream\x86
+
+[SourceDisksFiles.amd64]
+boston.sys=1,trxstream\x64
+brktBdevco.dll=1,trxstream\x64
+brktBdevpp.dll=1,trxstream\x64
+
+[SourceDisksFiles.ia64]
+boston.sys=1,trxstream\ia64
+brktBdevco.dll=1,trxstream\ia64
+brktBdevpp.dll=1,trxstream\ia64
+
+[DestinationDirs]
+boston.Files.Driver.NT=10,system32\drivers
+boston.Files.PropertyPage.NT=11                  ;system directory(system32)
+boston.Files.Coinstaller.NT=11                   ;system directory(system32)
+
+[boston.Files.PropertyPage.NT]
+brktBdevpp.dll,,,%COPYFLG_NOSKIP%
+
+[boston.Files.Coinstaller.NT]
+brktBdevco.dll,,,%COPYFLG_NOSKIP%
+
+[boston.Files.Driver.NT]
+boston.sys,,,%COPYFLG_NOSKIP%
+
+[TRxStream.Install.ntx86]
+CopyFiles=boston.Files.Driver.NT, boston.Files.PropertyPage.NT,
+AddReg= boston.PropertyPageAddReg, boston.DriverAddReg
+
+[TRxStream.Install.ntamd64]
+CopyFiles=boston.Files.Driver.NT, boston.Files.PropertyPage.NT,
+AddReg= boston.PropertyPageAddReg64, boston.DriverAddReg
+
+[TRxStream.Install.ntia64]
+CopyFiles=boston.Files.Driver.NT, boston.Files.PropertyPage.NT,
+AddReg= boston.PropertyPageAddReg64, boston.DriverAddReg
+
+[TRxStream.Install.NTx86.CoInstallers]  
+CopyFiles = boston.Files.Coinstaller.NT
+AddReg = boston.CoinstallerAddReg
+
+[TRxStream.Install.NTamd64.CoInstallers]  
+CopyFiles = boston.Files.Coinstaller.NT
+AddReg = boston.CoinstallerAddReg
+
+[TRxStream.Install.NTia64.CoInstallers]  
+CopyFiles = boston.Files.Coinstaller.NT
+AddReg = boston.CoinstallerAddReg
+
+[TRxStream.Install.NTx86.Services]
+AddService = boston, %SPSVCINST_ASSOCSERVICE%, boston.Service, boston.EventLog
+
+[TRxStream.Install.NTamd64.Services]
+AddService = boston, %SPSVCINST_ASSOCSERVICE%, boston.Service, boston.EventLog
+
+[TRxStream.Install.NTia64.Services]
+AddService = boston, %SPSVCINST_ASSOCSERVICE%, boston.Service, boston.EventLog
+
+[boston.Service]
+DisplayName    = %boston.ServiceName%
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_DEMAND_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %10%\system32\drivers\boston.sys
+
+[boston.PropertyPageAddReg]
+HKR,,EnumPropPages32,,"brktBdevpp.dll,EnumPropPages"
+HKLM,SOFTWARE\Brooktrout Technology\DevicePropertyPage\brktBdevpp,"LaunchConfigToolOption", 0x00010001, 1
+HKLM,SOFTWARE\Brooktrout Technology\DevicePropertyPage\brktBdevpp,"ConfigToolName", , "DEFAULT"
+HKLM,SOFTWARE\Brooktrout Technology\DevicePropertyPage\brktBdevpp,"ConfigToolLocation", , "DEFAULT"
+
+[boston.PropertyPageAddReg64]
+HKR,,EnumPropPages32,,"brktBdevpp.dll,EnumPropPages"
+HKLM,SOFTWARE\Wow6432Node\Brooktrout Technology\DevicePropertyPage\brktBdevpp,"LaunchConfigToolOption", 0x00010001, 1
+HKLM,SOFTWARE\Wow6432Node\Brooktrout Technology\DevicePropertyPage\brktBdevpp,"ConfigToolName", , "DEFAULT"
+HKLM,SOFTWARE\Wow6432Node\Brooktrout Technology\DevicePropertyPage\brktBdevpp,"ConfigToolLocation", , "DEFAULT"
+
+[boston.EventLog]
+AddReg = boston.EventLogAddReg
+
+[boston.EventLogAddReg]
+HKR,,EventMessageFile,0x00020000,"%%SystemRoot%%\System32\drivers\boston.sys"
+HKR,,TypesSupported,0x00010001,7 
+
+[boston.CoinstallerAddReg]
+HKR,,CoInstallers32,0x00010000,"brktBdevco.dll,BostonCoInstaller"
+
+
+;=============================================================================
+; Required Driver Parameters.
+;=============================================================================
+
+[boston.DriverAddReg]
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,MILL_NUM_ISA_ADDRS,0x00010003,0x00000000
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,MILL_ISA_ADDRS,0x00000003,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,MILL_ISA_HW_INT,0x00010003,0xffffffff
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,MILL_MAX_PCI_HW_MODULES,0x00010003,0x00000010
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,PHYBUFSIZE,0x00010003,0x00008000
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,APPBUFSIZE,0x00010003,0x00002800
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,MACHINE_ID,0x00010003,0x00000001
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,MILL_HISTORY_ENABLE,0x00010003,0x00000000
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,MILL_HISTORY_SIZE,0x00010003,0x000fa000
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,MILL_NUM_HISTS_PHY,0x00010003,0x00000000
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,MILL_NUM_HISTS_APL,0x00010003,0x00000000
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,MILL_HIST_PHY_ADMIN_ONLY,0x00010003,0x00000001
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,DO_INITIAL_RESET,0x00010003,0x00000001
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,MILL_DRIVER_FC_INTERVAL,0x00010003,0x000000fa
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,NUM_I2O_FRAMES_PER_MODULE,0x00010003,0x00000010
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,MEM_DRV_ALLOC_MIN,0x00010003,0x00000098  
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,MEM_DRV_ALLOC_QUANTA,0x00010003,0x00000080  
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,MILL_TEST1,0x00010003,0x00000000
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,MILL_TEST2,0x00010003,0x00000000
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,MILL_TEST3,0x00010003,0x00000000
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,MILL_NUM_RESERVED_MODULES,0x00010003,0x00000000
+HKLM,SYSTEM\CurrentControlSet\Services\boston\Parameters,MILL_RESERVED_MODULES,0x00000003,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+
+
+;=============================================================================
+; Strings
+;=============================================================================
+
+[Strings]
+BRKTINC="Brooktrout"
+TRxStream="Brooktrout TRxStream Board"
+boston.ServiceName="boston"
+
+SPSVCINST_ASSOCSERVICE=0x00000002 ; Driver service is associated with device being installed
+COPYFLG_NOSKIP=2   ; Do not allow user to skip file
+SERVICE_KERNEL_DRIVER=1
+;SERVICE_AUTO_START=2
+SERVICE_DEMAND_START=3
+SERVICE_ERROR_NORMAL=1
+
+

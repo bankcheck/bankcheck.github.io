@@ -1,0 +1,323 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\FAXSEND.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.chs\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\FAXSEND.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 FAXSEND"
+FONT 9, "宋体"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "FAXSEND 1.0 版",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "版权所有 (C) 2004",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "确定",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_FAXSEND_DIALOG DIALOGEX 0, 0, 259, 385
+STYLE DS_MODALFRAME | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
+    WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "发送传真(纠错版本 1.2)"
+FONT 9, "宋体"
+BEGIN
+    DEFPUSHBUTTON   "发送",IDC_BUTTON1,11,351,50,14
+    PUSHBUTTON      "关闭",IDOK,200,351,50,14
+    LTEXT           "当前状态:",IDC_STATIC_STATE,14,253,47,8
+    LTEXT           "设备:",IDC_STATIC,12,13,21,8
+    COMBOBOX        IDC_MODEM_LIST,51,9,191,70,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "远程ID:",IDC_STATIC_CIS,14,267,29,8
+    LTEXT           "发送数据:",IDC_FAX_DATA,14,282,39,8
+    LTEXT           "传真文件:",IDC_STATIC,12,31,37,8
+    EDITTEXT        IDC_EDIT1,51,27,191,14,ES_AUTOHSCROLL
+    LTEXT           "传真号码:",IDC_STATIC,12,49,37,8
+    EDITTEXT        IDC_EDIT2,51,46,191,14,ES_AUTOHSCROLL
+    LTEXT           "传真速度:",IDC_SPEED,14,296,39,8
+    LTEXT           "",IDC_STATIC_SPEED,61,297,97,8
+    COMBOBOX        IDC_MODEM_LIST2,39,118,81,70,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "启用高速度压缩算法 (2D).",IDC_2DCOMPRESS,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,11,191,129,10
+    CONTROL         "生成传真文件头.",IDC_CREATE_HEAD,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,11,227,83,10
+    COMBOBOX        IDC_MODEM_LIST3,168,117,81,70,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "速度:",IDC_STATIC,13,120,21,8
+    LTEXT           "协议:",IDC_STATIC,132,119,21,8
+    LTEXT           "身份:",IDC_IDENTIFI,132,142,21,8
+    EDITTEXT        IDC_EDIT3,168,139,81,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "中断操作",IDC_CANCEL_FAX,65,351,50,14,WS_DISABLED
+    GROUPBOX        "音量",IDC_STATIC,11,68,233,40
+    LTEXT           "关闭",IDC_STATIC,23,82,17,8
+    CONTROL         "Slider1",ID_SLIDER1,"msctls_trackbar32",TBS_AUTOTICKS | 
+                    WS_TABSTOP,42,80,169,20
+    LTEXT           "高",IDC_STATIC,224,84,15,8
+    CONTROL         "启用纠错模式(ECM).",IDC_2DCOMPRESS2,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,11,209,92,10
+    LTEXT           "时间:",IDC_STATIC,14,310,21,8
+    LTEXT           "",IDC_TIME,61,310,71,8
+    LTEXT           "页码:",IDC_STATIC,14,324,21,8
+    LTEXT           "",IDC_PAGE,61,324,71,8
+    LTEXT           "",IDC_STATIC_REMOTE,61,267,132,8
+    COMBOBOX        IDC_MODEM_LIST4,39,139,81,70,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "端口:",IDC_STATIC,12,143,21,8
+    CONTROL         "",ID_LINE,"Static",SS_ETCHEDHORZ,10,183,242,1
+    LTEXT           "从:",IDC_STATIC_FROM,12,164,13,8
+    EDITTEXT        IDC_EDIT4,168,161,81,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT5,39,161,81,14,ES_AUTOHSCROLL
+    LTEXT           "到:",IDC_STATIC_TO,132,164,13,8
+    CONTROL         "",ID_LINE2,"Static",SS_ETCHEDHORZ,10,245,242,1
+    LTEXT           "",IDC_STATIC_OP,61,254,157,8
+    LTEXT           "",IDC_STATIC_FAX_DATA,61,282,161,8
+    CONTROL         "",ID_LINE3,"Static",SS_ETCHEDHORZ,11,342,241,1
+    GROUPBOX        "分辨率",IDC_STATIC_RESOLUTION,163,193,88,46,WS_GROUP
+    CONTROL         "高清晰",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,173,207,40,10
+    CONTROL         "标准",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,173,221,32,
+                    10
+    LTEXT           "www.i-enet.com",IDC_STATIC_WWW,11,369,106,8,SS_NOTIFY
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "FAXSEND Microsoft 基础类应用程序\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "FAXSEND\0"
+            VALUE "LegalCopyright", "版权所有 (C) 2004\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "FAXSEND.EXE\0"
+            VALUE "ProductName", "FAXSEND 应用程序\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_FAXSEND_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 252
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 378
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_FAXSEND_DIALOG DLGINIT
+BEGIN
+    IDC_MODEM_LIST2, 0x403, 10, 0
+0x3431, 0x3034, 0x2030, 0x7062, 0x0073, 
+    IDC_MODEM_LIST2, 0x403, 10, 0
+0x3231, 0x3030, 0x2030, 0x7062, 0x0073, 
+    IDC_MODEM_LIST2, 0x403, 10, 0
+0x3639, 0x3030, 0x2020, 0x7062, 0x0073, 
+    IDC_MODEM_LIST2, 0x403, 10, 0
+0x3237, 0x3030, 0x2020, 0x7062, 0x0073, 
+    IDC_MODEM_LIST2, 0x403, 10, 0
+0x3834, 0x3030, 0x2020, 0x7062, 0x0073, 
+    IDC_MODEM_LIST2, 0x403, 10, 0
+0x3432, 0x3030, 0x2020, 0x7062, 0x0073, 
+    IDC_MODEM_LIST3, 0x403, 8, 0
+0x6c43, 0x7361, 0x2073, 0x0031, 
+    IDC_MODEM_LIST3, 0x403, 8, 0
+0x6c43, 0x7361, 0x2073, 0x0032, 
+    IDC_MODEM_LIST4, 0x403, 5, 0
+0x4154, 0x4950, "\000" 
+    IDC_MODEM_LIST4, 0x403, 5, 0
+0x4f43, 0x314d, "\000" 
+    IDC_MODEM_LIST4, 0x403, 5, 0
+0x4f43, 0x324d, "\000" 
+    IDC_MODEM_LIST4, 0x403, 5, 0
+0x4f43, 0x334d, "\000" 
+    IDC_MODEM_LIST4, 0x403, 5, 0
+0x4f43, 0x344d, "\000" 
+    IDC_MODEM_LIST4, 0x403, 5, 0
+0x4f43, 0x354d, "\000" 
+    IDC_MODEM_LIST4, 0x403, 5, 0
+0x4f43, 0x364d, "\000" 
+    IDC_MODEM_LIST4, 0x403, 5, 0
+0x4f43, 0x374d, "\000" 
+    IDC_MODEM_LIST4, 0x403, 5, 0
+0x4f43, 0x384d, "\000" 
+    IDC_MODEM_LIST4, 0x403, 5, 0
+0x4f43, 0x394d, "\000" 
+    IDC_MODEM_LIST4, 0x403, 6, 0
+0x4f43, 0x314d, 0x0030, 
+    IDC_MODEM_LIST4, 0x403, 6, 0
+0x4f43, 0x314d, 0x0031, 
+    IDC_MODEM_LIST4, 0x403, 6, 0
+0x4f43, 0x314d, 0x0032, 
+    IDC_MODEM_LIST4, 0x403, 6, 0
+0x4f43, 0x314d, 0x0033, 
+    IDC_MODEM_LIST4, 0x403, 6, 0
+0x4f43, 0x314d, 0x0034, 
+    IDC_MODEM_LIST4, 0x403, 6, 0
+0x4f43, 0x314d, 0x0035, 
+    IDC_MODEM_LIST4, 0x403, 6, 0
+0x4f43, 0x314d, 0x0036, 
+    IDC_MODEM_LIST4, 0x403, 6, 0
+0x4f43, 0x314d, 0x0037, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "关于 FAXSEND(&A)..."
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE 4, 2
+#pragma code_page(936)
+#endif //_WIN32
+#include "res\FAXSEND.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.chs\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

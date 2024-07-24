@@ -1,0 +1,53 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: roller - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPF46.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/roller.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\dev\roller\CVT-CX.C"
+"D:\dev\roller\GETDATA.C"
+"D:\dev\roller\LOADREG.C"
+"D:\dev\roller\LOG.C"
+"D:\dev\roller\RECV.C"
+"D:\dev\roller\roller.C"
+"D:\dev\roller\SERVICE.C"
+"D:\dev\roller\TOOL.C"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPF46.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPF47.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/roller.pdb" /debug /machine:I386 /out:"Debug/roller.exe" /pdbtype:sept 
+".\Debug\CVT-CX.OBJ"
+.\Debug\GETDATA.OBJ
+.\Debug\LOADREG.OBJ
+.\Debug\LOG.OBJ
+.\Debug\RECV.OBJ
+.\Debug\roller.obj
+.\Debug\SERVICE.OBJ
+.\Debug\TOOL.OBJ
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPF47.tmp"
+<h3>Output Window</h3>
+Compiling...
+CVT-CX.C
+GETDATA.C
+LOADREG.C
+LOG.C
+RECV.C
+roller.C
+SERVICE.C
+TOOL.C
+Linking...
+
+
+
+<h3>Results</h3>
+roller.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

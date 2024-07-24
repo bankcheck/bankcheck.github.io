@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SCReceiveFax", "SCReceiveFax_DotNet2003.vcproj", "{214A4C92-4734-48A3-8A4B-442AE22EA5BC}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{214A4C92-4734-48A3-8A4B-442AE22EA5BC}.Debug.ActiveCfg = Debug|Win32
+		{214A4C92-4734-48A3-8A4B-442AE22EA5BC}.Debug.Build.0 = Debug|Win32
+		{214A4C92-4734-48A3-8A4B-442AE22EA5BC}.Release.ActiveCfg = Release|Win32
+		{214A4C92-4734-48A3-8A4B-442AE22EA5BC}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

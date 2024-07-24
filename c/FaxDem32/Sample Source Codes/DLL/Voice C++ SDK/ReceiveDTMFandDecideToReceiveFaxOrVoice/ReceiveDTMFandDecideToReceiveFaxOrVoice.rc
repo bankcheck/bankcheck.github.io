@@ -1,0 +1,447 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Hungarian resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_HUN)
+#ifdef _WIN32
+LANGUAGE LANG_HUNGARIAN, SUBLANG_DEFAULT
+#pragma code_page(1250)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\ReceiveDTMFandDecideToReceiveFaxOrVoice.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\ReceiveDTMFandDecideToReceiveFaxOrVoice.ico"
+#endif    // Hungarian resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_CHELPDIALOG DIALOG DISCARDABLE  0, 0, 453, 175
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Sample working"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,201,154,50,14
+    LISTBOX         IDC_LIST1,14,13,424,135,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 251, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About ReceiveDTMFandDecideToReceiveFaxOrVoice"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,21,20
+    LTEXT           "ReceiveDTMFandDecideToReceiveFaxOrVoice Version 2.0",
+                    IDC_STATIC,40,10,197,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2006",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "OK",IDOK,187,23,50,14,WS_GROUP
+END
+
+IDD_RECEIVEDTMFANDDECIDETORECEIVEFAXORVOICE_DIALOG DIALOGEX 0, 0, 214, 199
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "ReceiveDTMFandDecideToReceiveFaxOrVoice"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "E&xit",IDCANCEL,157,180,50,14
+    GROUPBOX        "Open port/channel",IDC_STATIC,7,7,200,43
+    DEFPUSHBUTTON   "Open COM Port",IDC_COMM,19,16,84,13
+    DEFPUSHBUTTON   "Open Brooktrout channel",IDC_BROOK,19,31,84,13
+    DEFPUSHBUTTON   "Open Dialogic channel",IDC_DIALOGIC,110,16,86,13
+    DEFPUSHBUTTON   "Open NMS channel",IDC_NMS,110,31,86,13
+    GROUPBOX        "Functions",IDC_STATIC,7,53,200,34
+    PUSHBUTTON      "Receive Fax",IDC_RECEIVEFAX,13,65,62,14
+    PUSHBUTTON      "Wait for DTMF",IDC_REC_DTMF,80,65,61,14
+    GROUPBOX        "Port status",IDC_STATIC,7,89,200,86
+    LISTBOX         IDC_PORT_STATUS,15,100,184,55,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Clear",IDC_CLEARLISTBOX,17,158,50,14
+    PUSHBUTTON      "Record message",IDC_RECMSG,146,65,60,14
+    PUSHBUTTON      "Close port/channel",IDC_CLOSEPORT,15,180,71,14
+    PUSHBUTTON      "Help",IDC_CHELP,95,180,50,14
+    PUSHBUTTON      "Hang Up",IDC_HANGUP_BUTTON,149,157,50,14
+END
+
+IDD_OPEN_PORT DIALOG DISCARDABLE  0, 0, 205, 161
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Open COM port"
+FONT 8, "MS Sans Serif"
+BEGIN
+    COMBOBOX        IDC_COMM_PORT,7,16,59,49,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_MODEM_TYPES,7,39,139,87,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_MANUFACTURE,7,88,191,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_MODEL,7,113,191,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_CAPABILITIES,7,139,191,14,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    DEFPUSHBUTTON   "&Open Port",IDOK,148,7,50,14
+    PUSHBUTTON      "&Test Modem",IDC_TEST_MODEM,148,22,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,148,38,50,14
+    PUSHBUTTON      "&Voice formats",IDC_VOICE_FORMATS,148,62,50,14
+    LTEXT           "&Modem Type:",IDC_STATIC,7,31,44,8
+    LTEXT           "&Serial port to use:",IDC_STATIC,7,7,61,8
+    LTEXT           "Manufacture",IDC_STATIC1,7,80,41,8
+    LTEXT           "Model",IDC_STATIC2,7,104,20,8
+    LTEXT           "Modem Capabilities",IDC_STATIC3,7,130,62,8
+END
+
+IDD_WAITFORDTMF DIALOG DISCARDABLE  0, 0, 151, 63
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Wait for DTMF code"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_NUMBER_OF_DTMF,104,7,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_DELIM_OF_DTMF,104,23,40,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,20,42,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,82,42,50,14
+    LTEXT           "Number of DTMF digits:",IDC_STATIC,7,7,76,8
+    LTEXT           "Delimiter digit:",IDC_STATIC,7,23,44,8
+END
+
+IDD_VOICE_FORMATS DIALOG DISCARDABLE  0, 0, 260, 153
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Voice Formats"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,101,132,50,14
+    LTEXT           "The modem supports the following voice formats:",
+                    IDC_STATIC,7,7,246,10
+    EDITTEXT        IDC_VOICEFORMATS,7,22,246,105,ES_MULTILINE | 
+                    ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_READONLY | 
+                    WS_VSCROLL | WS_HSCROLL
+END
+
+IDD_BROOK_OPEN DIALOGEX 0, 0, 265, 68
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Open Brooktrout Channel"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    LISTBOX         IDC_CHANNEL_LIST,7,15,64,45,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_CONFIG,77,15,119,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,208,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,208,24,50,14
+    PUSHBUTTON      "&Test",IDC_TEST,208,41,50,14
+    LTEXT           "Available Channels",IDC_STATIC,7,7,61,8
+    LTEXT           "Config File",IDC_STATIC,77,7,34,8
+    LTEXT           "Modem Type",IDC_STATIC,77,33,42,8
+    LTEXT           "Static",IDC_TEST_RESULT,77,41,119,14,0,WS_EX_CLIENTEDGE
+END
+
+IDD_DIALOGIC_OPEN DIALOG DISCARDABLE  0, 0, 266, 121
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Open Dialogic Channel"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,209,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,209,24,50,14
+    CONTROL         "List1",IDC_LIST1,"SysListView32",LVS_REPORT | 
+                    LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,7,199,76
+    COMBOBOX        IDC_LINETYPE,42,102,98,59,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Line Type:",IDC_STATIC,7,104,34,10
+    LTEXT           "Protocol:",IDC_STATIC,146,104,31,10
+    EDITTEXT        IDC_PROTOCOL,177,101,82,13,ES_AUTOHSCROLL
+    CONTROL         "&Enable answering machine detection",IDC_PAMD,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,88,200,8
+END
+
+IDD_NMS_OPEN DIALOG DISCARDABLE  0, 0, 277, 145
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Open NMS channel"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,219,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,219,24,50,14
+    CONTROL         "List1",IDC_LIST1,"SysListView32",LVS_REPORT | 
+                    LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,7,199,76
+    LTEXT           "&NMS Telephony Protocol:",IDC_STATIC,7,92,81,8
+    COMBOBOX        IDC_PROTOCOLL,7,104,215,67,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "&DNIS/DID digits:",IDC_STATIC,7,127,53,8
+    EDITTEXT        IDC_DID,66,126,40,12,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "Spin1",IDC_SPINDID,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_AUTOBUDDY | UDS_ARROWKEYS,106,126,11,12
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_CHELPDIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 446
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 168
+    END
+
+    IDD_BROOK_OPEN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+    END
+
+    IDD_DIALOGIC_OPEN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 88
+    END
+
+    IDD_NMS_OPEN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 88
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "ReceiveDTMFandDecideToReceiveFaxOrVoice MFC Application\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "ReceiveDTMFandDecideToReceiveFaxOrVoice\0"
+            VALUE "LegalCopyright", "Copyright (C) 2006\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "ReceiveDTMFandDecideToReceiveFaxOrVoice.EXE\0"
+            VALUE "ProductName", "ReceiveDTMFandDecideToReceiveFaxOrVoice Application\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_OPEN_PORT DLGINIT
+BEGIN
+    IDC_MODEM_TYPES, 0x403, 23, 0
+0x7541, 0x6f74, 0x6420, 0x7465, 0x6365, 0x2074, 0x6f6d, 0x6564, 0x206d, 
+0x7974, 0x6570, "\000" 
+    IDC_MODEM_TYPES, 0x403, 29, 0
+0x6f52, 0x6b63, 0x6577, 0x6c6c, 0x4320, 0x6968, 0x7370, 0x7465, 0x4220, 
+0x7361, 0x6465, 0x4d20, 0x646f, 0x6d65, "\000" 
+    IDC_MODEM_TYPES, 0x403, 26, 0
+0x5355, 0x6f52, 0x6f62, 0x6974, 0x7363, 0x5320, 0x6f70, 0x7472, 0x6573, 
+0x2072, 0x6f4d, 0x6564, 0x006d, 
+    IDC_MODEM_TYPES, 0x403, 27, 0
+0x754c, 0x6563, 0x746e, 0x4320, 0x6968, 0x7370, 0x7465, 0x4220, 0x7361, 
+0x6465, 0x4d20, 0x646f, 0x6d65, "\000" 
+    IDC_MODEM_TYPES, 0x403, 33, 0
+0x6943, 0x7272, 0x7375, 0x4c20, 0x676f, 0x6369, 0x4320, 0x6968, 0x7370, 
+0x7465, 0x4220, 0x7361, 0x6465, 0x4d20, 0x646f, 0x6d65, "\000" 
+    IDC_MODEM_TYPES, 0x403, 37, 0
+0x6f52, 0x6b63, 0x6577, 0x6c6c, 0x432f, 0x6e6f, 0x7865, 0x6e61, 0x2074, 
+0x4348, 0x2046, 0x6863, 0x7069, 0x6573, 0x2074, 0x6f6d, 0x6564, 0x736d, 
+"\000" 
+    0
+END
+
+IDD_DIALOGIC_OPEN DLGINIT
+BEGIN
+    IDC_LINETYPE, 0x403, 18, 0
+0x6e41, 0x6c61, 0x676f, 0x4c20, 0x6f6f, 0x2070, 0x7453, 0x7261, 0x0074, 
+
+    IDC_LINETYPE, 0x403, 9, 0
+0x5349, 0x4e44, 0x5020, 0x4952, "\000" 
+    IDC_LINETYPE, 0x403, 14, 0
+0x3154, 0x5220, 0x626f, 0x6562, 0x2064, 0x6942, 0x0074, 
+    IDC_LINETYPE, 0x403, 7, 0
+0x3145, 0x4320, 0x5341, "\000" 
+    0
+END
+
+IDD_NMS_OPEN DLGINIT
+BEGIN
+    IDC_PROTOCOLL, 0x403, 25, 0
+0x6e41, 0x6c61, 0x676f, 0x4c20, 0x6f6f, 0x2070, 0x7453, 0x7261, 0x2074, 
+0x4c28, 0x5350, 0x2930, "\000" 
+    IDC_PROTOCOLL, 0x403, 48, 0
+0x6944, 0x6967, 0x6174, 0x2f6c, 0x6e41, 0x6c61, 0x676f, 0x5720, 0x6e69, 
+0x206b, 0x7453, 0x7261, 0x2074, 0x6928, 0x626e, 0x756f, 0x646e, 0x6f20, 
+0x6c6e, 0x2979, 0x2820, 0x4944, 0x3044, 0x0029, 
+    IDC_PROTOCOLL, 0x403, 49, 0
+0x6944, 0x6967, 0x6174, 0x2f6c, 0x6e41, 0x6c61, 0x676f, 0x5720, 0x6e69, 
+0x206b, 0x7453, 0x7261, 0x2074, 0x6f28, 0x7475, 0x6f62, 0x6e75, 0x2064, 
+0x6e6f, 0x796c, 0x2029, 0x4f28, 0x5447, 0x2930, "\000" 
+    IDC_PROTOCOLL, 0x403, 33, 0
+0x6944, 0x6967, 0x6174, 0x2f6c, 0x6e41, 0x6c61, 0x676f, 0x5720, 0x6e69, 
+0x206b, 0x7453, 0x7261, 0x2074, 0x5728, 0x4b4e, 0x2930, "\000" 
+    IDC_PROTOCOLL, 0x403, 25, 0
+0x6e41, 0x6c61, 0x676f, 0x5720, 0x6e69, 0x206b, 0x7453, 0x7261, 0x2074, 
+0x5728, 0x4b4e, 0x2931, "\000" 
+    IDC_PROTOCOLL, 0x403, 33, 0
+0x6944, 0x6967, 0x6174, 0x206c, 0x6f4c, 0x706f, 0x5320, 0x6174, 0x7472, 
+0x4f20, 0x5350, 0x462d, 0x2058, 0x4c28, 0x5350, 0x2938, "\000" 
+    IDC_PROTOCOLL, 0x403, 38, 0
+0x6546, 0x7461, 0x7275, 0x2065, 0x7247, 0x756f, 0x2070, 0x2044, 0x6928, 
+0x626e, 0x756f, 0x646e, 0x6f20, 0x6c6e, 0x2979, 0x2820, 0x4446, 0x3049, 
+0x0029, 
+    IDC_PROTOCOLL, 0x403, 33, 0
+0x6944, 0x6967, 0x6174, 0x206c, 0x6f4c, 0x706f, 0x5320, 0x6174, 0x7472, 
+0x4f20, 0x5350, 0x532d, 0x2041, 0x4c28, 0x5350, 0x2939, "\000" 
+    IDC_PROTOCOLL, 0x403, 35, 0
+0x6944, 0x6967, 0x6174, 0x206c, 0x7247, 0x756f, 0x646e, 0x5320, 0x6174, 
+0x7472, 0x4f20, 0x5350, 0x462d, 0x2058, 0x4728, 0x5453, 0x2938, "\000" 
+    IDC_PROTOCOLL, 0x403, 35, 0
+0x6944, 0x6967, 0x6174, 0x206c, 0x7247, 0x756f, 0x646e, 0x5320, 0x6174, 
+0x7472, 0x4f20, 0x5350, 0x532d, 0x2041, 0x4728, 0x5453, 0x2939, "\000" 
+    IDC_PROTOCOLL, 0x403, 21, 0
+0x5349, 0x4e44, 0x7020, 0x6f72, 0x6f74, 0x6f63, 0x206c, 0x4928, 0x4453, 
+0x2930, "\000" 
+    IDC_PROTOCOLL, 0x403, 14, 0
+0x464d, 0x2043, 0x3252, 0x2820, 0x464d, 0x3043, 0x0029, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "&About ReceiveDTMFandDecideToReceiveFaxOrVoice..."
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\ReceiveDTMFandDecideToReceiveFaxOrVoice.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,53 @@
+#
+# APPVER = [ 3.51 | 4.0 ]                       4.0
+# TARGETOS = [ WIN95 | WINNT | BOTH ]           WINNT
+# TARGETLANG = [ LANG_JAPANESE | LANG_CHINESE | LANG_KOREAN ]
+# CPU = [ i386 | MIPS | ALPHA | PPC ]           i386
+# NOANSI
+# SEHMAP
+# NODEBUG
+# PROFILE
+# TUNE
+#
+APPVER=4.0
+TARGETOS=WINNT
+CPU=i386
+NODEBUG=1
+
+!include <ntwin32.mak>
+
+mc=mc.exe
+rc=rc.exe
+
+all: errors labsrv.exe
+
+errors:
+    @if exist error.log del /f/q error.log
+
+.c.obj:
+    @echo Compiling $*.c...
+    @$(cc) $(cflags) $(cdebug) $(cvarsmt) $*.c >> error.log
+
+my_objs = labsrv.obj  \
+          timer.obj     \
+          log.obj       \
+          loadreg.obj   \
+          tool.obj      \
+          recv.obj      \
+          service.obj
+
+my_libs = $(conlibsmt) advapi32.lib shell32.lib wsock32.lib
+
+message.rc: message.mc
+    @$(mc) message.mc
+
+message.bin: message.mc
+    @$(mc) message.mc
+
+message.res: message.rc message.bin
+    @$(rc) message.rc
+
+labsrv.exe: $(my_objs) message.res
+    @echo Linking....
+    @$(link) $(conflags) $(ldebug) -out:labsrv.exe $(my_objs) $(my_libs) message.res >> error.log
+

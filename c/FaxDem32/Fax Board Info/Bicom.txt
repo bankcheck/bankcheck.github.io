@@ -1,0 +1,24 @@
+Using Fax C++ with Bicom Sonic C4 fax boards
+
+To develop software for Bicom boards, you must also have the driver of
+the board installed and properly configured on your system.
+
+Fax C++ will try to locate the Bicom dlls using the registry. If the driver
+of the Bicom board is correctly installed, the
+HKEY_LOCAL_MACHINE\SOFWARE\BICOM path in the registry will contain a key
+named SupportPath. This key stores the path of the Bicom dlls.
+If this key does not exist or the path is invalid or does not contains the Bicom dlls
+Fax C++ will not work with the Bicom board.
+It's also necessary to run the BCMLOAD.EXE program (shipped with the Bicom board)
+before using the Bicom board with Fax C++.
+
+Since the Bicom API already has a channel naming convention (BCM_MBxCHy),
+Fax C++ uses the same channel names when working with Bicom boards.
+The general form is `BCM_MBxCHy' where `x' is the number of the board and
+`y' is the number of the channel on the board specified by `x'.
+This is the name that must be passed to ConnectChannel()
+to open a channel. For example to open the second channel of the first board
+     pFaxport = ConnectChannel( "BCM_MB1CH2", NULL, BRD_BICOM );
+The board and channel numbers start with 1.
+As you can see the second parameter is NULL, meaning that it is not necessary to
+specify any INI or configuration files when working with Bicom boards.

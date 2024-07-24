@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecDTMF_FaxOrVoiceCSharp", "RecDTMF_FaxOrVoiceCSharp.csproj", "{B07BFD8E-BCCD-4EE3-B550-B25AAB269C1B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B07BFD8E-BCCD-4EE3-B550-B25AAB269C1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B07BFD8E-BCCD-4EE3-B550-B25AAB269C1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B07BFD8E-BCCD-4EE3-B550-B25AAB269C1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B07BFD8E-BCCD-4EE3-B550-B25AAB269C1B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

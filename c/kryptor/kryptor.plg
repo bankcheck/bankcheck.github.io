@@ -1,0 +1,56 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: kryptor - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP37.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/kryptor.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\dev\kryptor\CVT-CX.C"
+"D:\dev\kryptor\GETDATA.C"
+"D:\dev\kryptor\kryptor.C"
+"D:\dev\kryptor\LOADREG.C"
+"D:\dev\kryptor\LOG.C"
+"D:\dev\kryptor\RECV.C"
+"D:\dev\kryptor\SENDDATA.C"
+"D:\dev\kryptor\SERVICE.C"
+"D:\dev\kryptor\TOOL.C"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP37.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP38.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/kryptor.pdb" /debug /machine:I386 /out:"Debug/kryptor.exe" /pdbtype:sept 
+".\Debug\CVT-CX.OBJ"
+.\Debug\GETDATA.OBJ
+.\Debug\kryptor.obj
+.\Debug\LOADREG.OBJ
+.\Debug\LOG.OBJ
+.\Debug\RECV.OBJ
+.\Debug\SENDDATA.OBJ
+.\Debug\SERVICE.OBJ
+.\Debug\TOOL.OBJ
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP38.tmp"
+<h3>Output Window</h3>
+Compiling...
+CVT-CX.C
+GETDATA.C
+kryptor.C
+LOADREG.C
+LOG.C
+RECV.C
+SENDDATA.C
+SERVICE.C
+TOOL.C
+Linking...
+
+
+
+<h3>Results</h3>
+kryptor.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

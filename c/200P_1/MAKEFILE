@@ -1,0 +1,67 @@
+#
+# APPVER = [ 3.51 | 4.0 ]
+# TARGETOS = [ WIN95 | WINNT | BOTH ]
+# CPU = [ i386 | MIPS | ALPHA | PPC ]
+# TARGETLANG = [ LANG_JAPANESE | LANG_CHINESE | LANG_KOREAN ]
+# NOANSI
+# SEHMAP
+# NODEBUG
+# PROFILE
+# TUNE
+#
+APPVER=4.0
+TARGETOS=WINNT
+CPU=i386
+NODEBUG=1
+PROG=200P_1
+DEST=..\..\$(PROG)
+
+!include <ntwin32.mak>
+
+mc=mc.exe
+rc=rc.exe
+
+all: errors $(PROG).exe
+
+errors:
+    @if exist error.log del /f/q error.log
+
+.c.obj:
+    @echo Compiling $*.c...
+    @$(cc) $(cflags) $(cdebug) $(cvarsmt) $*.c >> error.log
+
+my_objs = 200p_1.obj    \
+          recv.obj      \
+          process.obj   \
+          log.obj       \
+          loadreg.obj   \
+          tool.obj      \
+          service.obj
+
+my_libs = $(conlibsmt) advapi32.lib shell32.lib wsock32.lib
+
+message.rc: message.mc
+    @$(mc) message.mc
+
+message.bin: message.mc
+    @$(mc) message.mc
+
+message.res: message.rc message.bin
+    @$(rc) message.rc
+
+$(PROG).exe: $(my_objs) message.res
+    @echo Linking....
+    @$(link) $(conflags) $(ldebug) -out:$(PROG).exe $(my_objs) $(my_libs) message.res >> error.log
+
+install: all
+    @echo Install to $(DEST)
+    @if exist $(DEST)\$(PROG).old del /f/q $(DEST)\$(PROG).old
+    @if exist $(DEST)\$(PROG).exe ren $(DEST)\$(PROG).exe $(PROG).old
+    @copy $(PROG).exe $(DEST)\$(PROG).exe
+
+clean:
+    @echo Remove files...
+    @del /f/q $(my_objs) $(PROG).exe
+
+rebuild: clean all
+

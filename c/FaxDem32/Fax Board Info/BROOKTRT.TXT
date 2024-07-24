@@ -1,0 +1,131 @@
+Installing Brooktrout fax-board driver
+
+Follow these steps to install the Brooktrout driver on NT:
+
+1.  Go to BFAX_NT\INSTALL directory and run install.exe. This program installs
+and sets up the various parameters of the Brooktrout driver.
+
+2.  If you chose to start the driver manually, you have to type at command
+prompt:
+     net start bfax
+After this you also have to run faxinit.exe. The faxinit.exe is in BFAX_NT\USER
+directory.
+If you chose to start the driver automatically, you have to restart the
+system.
+
+3.  If you have TR114 board, you have to include the name of the firmware file
+in the configuration file 'BTCALL.CFG'. This file can be found in the BFAX_NT
+directory. If your TR114 board works with FX16 CPU, include the name of the
+firmware (the default is tr114-16.pex) in the line starting with the keyword
+'firm16'.  If you have a TR114 board which works with FX164 CPU, include the
+name of the firmware (the default is tr114-164.pex) in the line starting with
+the keyword 'firmware' or 'firm164'. The firmware file must be in the current
+directory ( where you running the executable ) or the correct path must be
+included with its name.
+
+4. If you have a TruFax 200 or TruFax 100 board, and their installation
+causes any conflicts with other hardware on your system, you may need to
+create a config.txt configuration file and pass it with full path as
+parameter to the faxinit.exe. This can be done at installation time,
+when the install program asks the user to enter optional parameters for
+faxinit.exe.
+The config.txt should have the following format:
+
+addrs 140 2
+
+This file set up for a single TruFax 200 board with the default configuration.
+The parameters indicate a two channel TruFax board installed at base address
+140 and is using interrupt 5.
+
+If you installed two TruFax 200 boards in your system (one at address 140 and
+the other at address 148), you must change the contents of the configuration
+file:
+
+addrs 140 2
+addrs 148 2
+
+
+5.  BTCALL.CFG also contains the name of the country-specific configuration
+file. This file is shipped with the Brooktrout boards and usually its name is
+BT_CPARM.CFG. Have a look at the line in BTCALL.CFG which starts with the
+keyword 'bt_cparm' and if the entry afterwards differs from the name of your
+country-specific configuration file, enter the right name. You have to enter
+the filename with full path unless you copy the file in the directory where
+BTCALL.CFG is.
+
+6. BTCALL.CFG also contains references to a font file and several other
+config files ( digital.cfg, isdn.cfg ). These files have to be located in the
+current directory or the full path must be specified.
+
+When you open a brooktrout fax channel with demo32.exe, you have to give the
+name of this BTCALL.CFG file. If you don't include the path, the file should
+be in the same subdirectory as demo32.exe .  If you want to recompile the demo
+application, first you have to choose the proper built target. The code to support
+Brooktrout fax board will be included in the demo,  you will choose either 'Debug
+for Brooktrout' or "Release for Brooktrout'.
+
+
+Follow these steps to install the Brooktrout driver on Windows 95:
+
+1.  Go to BFAX_95\INSTALL directory and run install.exe. This program installs
+and sets up the various parameters of the Brooktrout driver.
+
+2.  If you chose to start the driver manually, you have to type at command
+prompt:
+     bfaxload.exe
+After this you also have to run faxinit.exe. The faxinit.exe is in BFAX_95\USER
+directory.
+If you chose to start the driver automatically, you have to restart the
+system.
+
+3.  If you have TR114 board, you have to include the name of the firmware file
+in the configuration file 'BTCALL.CFG'. This file can be found in the BFAX_95
+directory. If your TR114 board works with FX16 CPU, include the name of the
+firmware (the default is tr114-16.pex) in the line starting with the keyword
+'firm16'.  If you have a TR114 board which works with FX164 CPU, include the
+name of the firmware (the default is tr114-164.pex) in the line starting with
+the keyword 'firmware' or 'firm164'. The firmware file must be in the current
+directory ( where you running the executable ) or the correct path must be
+included with its name.
+
+4. If you have a TruFax 200 or TruFax 100 board, and their installation
+causes any conflicts with other hardware on your system, you may need to
+create a config.txt configuration file and pass it with full path as
+parameter to the faxinit.exe. This can be done at installation time,
+when the install program asks the user to enter optional parameters for
+faxinit.exe.
+The config.txt should have the following format:
+
+addrs 140 2
+
+This file set up for a single TruFax 200 board with the default configuration.
+The parameters indicate a two channel TruFax board installed at base address
+140 and is using interrupt 5.
+
+If you installed two TruFax 200 boards in your system (one at address 140 and
+the other at address 148), you must change the contents of the configuration
+file:
+
+addrs 140 2
+addrs 148 2
+
+
+5.  BTCALL.CFG also contains the name of the country-specific configuration
+file. This file is shipped with the Brooktrout boards and usually its name is
+BT_CPARM.CFG. Have a look at the line in BTCALL.CFG which starts with the
+keyword 'bt_cparm' and if the entry afterwards differs from the name of your
+country-specific configuration file, enter the right name. You have to enter
+the filename with full path unless you copy the file in the directory where
+BTCALL.CFG is.
+
+6. BTCALL.CFG also contains references to a font file and several other
+config files ( digital.cfg, isdn.cfg ). These files have to be located in the
+current directory or the full path must be specified.
+
+
+When you open a brooktrout fax channel with demo32.exe, you have to give the
+name of this BTCALL.CFG file. If you don't include the path, the file should
+be in the same subdirectory as demo32.exe .  If you want to recompile the demo
+application, first you have to choose the proper built target. The code to support
+Brooktrout fax board will be included in the demo,  you will choose either 'Debug
+for Brooktrout' or "Release for Brooktrout'.

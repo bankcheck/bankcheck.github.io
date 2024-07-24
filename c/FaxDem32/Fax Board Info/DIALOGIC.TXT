@@ -1,0 +1,20 @@
+
+Using Fax C++ with Dialogic fax boards
+
+To develop software for Dialogic boards, you must also have the driver of
+the board installed and properly configured on your system.
+The driver can be downloaded for Windows 95 and NT from
+ftp://support.dialogic.com/releases .
+
+Since the Dialogic API already has a channel naming convention (dxxxB1C1),
+Fax C++ uses the same channel names when working with Dialogic boards.
+The general form is `dxxxBXCY' where `X' is the number of the board and
+`Y' is the number of the channel on the board specified by `X'.
+This is the name that must be passed to ConnectChannel()
+to open a channel. For example to open the second channel of the first board
+     pFaxport = ConnectChannel( "dxxxB1C2", NULL, BRD_DIALOGIC );
+The board and channel numbers start with 1.
+As you can see the second parameter is NULL, meaning that it is not necessary to
+specify any INI or configuration files when working with Dialogic boards.
+
+

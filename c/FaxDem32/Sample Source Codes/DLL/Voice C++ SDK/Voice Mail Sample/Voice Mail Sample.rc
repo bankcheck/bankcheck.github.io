@@ -1,0 +1,762 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif\r\n"
+    "#include ""res\\Voice Mail Sample.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\Voice Mail Sample.ico"
+IDR_VOCMTYPE            ICON    DISCARDABLE     "res\\Voice Mail SampleDoc.ico"
+IDR_FAXDOC              ICON    DISCARDABLE     "res\\FaxDoc.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_SPLASH              BITMAP  DISCARDABLE     "Splsh16.bmp"
+IDR_MAINFRAME           BITMAP  MOVEABLE PURE   "TOOLBAR.BMP"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR DISCARDABLE  16, 15
+BEGIN
+    BUTTON      ID_VOICEFAX_OPENPORT_COMPORT
+    BUTTON      ID_VOICEFAX_OPENPORT_BROOKTROUTCHANNEL
+    BUTTON      ID_VOICEFAX_OPENPORT_DIALOGICCHANNEL
+    BUTTON      ID_VOICEFAX_OPENPORT_NMS
+    BUTTON      ID_FILE_CLOSE
+    SEPARATOR
+    BUTTON      IDM_DISP_NORMAL
+    BUTTON      IDM_SCALE_DPI
+    BUTTON      IDM_FITOWINDOW
+    BUTTON      IDM_CENTERIMAGE
+    SEPARATOR
+    BUTTON      IDM_PAGEFORWARD
+    BUTTON      IDM_PAGEBACKWAD
+    SEPARATOR
+    BUTTON      IDM_HELP
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Received Faxes",             ID_VIEW_RECEIVEDFAXES
+        MENUITEM SEPARATOR
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+    END
+    POPUP "V&oice/Fax"
+    BEGIN
+        POPUP "&Open Port"
+        BEGIN
+            MENUITEM "&COM Port...",                ID_VOICEFAX_OPENPORT_COMPORT
+
+            MENUITEM "&Dialogic channel...",        ID_VOICEFAX_OPENPORT_DIALOGICCHANNEL
+
+            MENUITEM "B&rooktrout channel...",      ID_VOICEFAX_OPENPORT_BROOKTROUTCHANNEL
+
+            MENUITEM "&NMS Channel...",             ID_VOICEFAX_OPENPORT_NMS
+        END
+        MENUITEM "Close Port",                  ID_FILE_CLOSE
+    END
+    POPUP "&Utilities"
+    BEGIN
+        MENUITEM "&Answerphone Configuration",  ID_ANSWERPHONE_CONFIG
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About Voice Mail Sample...", ID_APP_ABOUT
+        MENUITEM "&Help",                       IDM_HELP
+    END
+END
+
+IDR_FAXDOC MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Received Faxes...",          ID_VIEW_RECEIVEDFAXES
+        MENUITEM SEPARATOR
+        MENUITEM "&Scale DPI",                  IDM_SCALE_DPI
+        MENUITEM "&Normal",                     IDM_DISP_NORMAL
+        MENUITEM "&Fit Into Window",            IDM_FITOWINDOW
+        MENUITEM "&Center Image",               IDM_CENTERIMAGE
+        MENUITEM SEPARATOR
+        MENUITEM "Page &Forward",               IDM_PAGEFORWARD, HELP
+        MENUITEM "Page &Backward",              IDM_PAGEBACKWAD, HELP
+        MENUITEM SEPARATOR
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+    END
+    POPUP "&Voice/Fax"
+    BEGIN
+        POPUP "&Open Port"
+        BEGIN
+            MENUITEM "&COM Port...",                ID_VOICEFAX_OPENPORT_COMPORT
+
+            MENUITEM "&Dialogic Channel...",        ID_VOICEFAX_OPENPORT_DIALOGICCHANNEL
+
+            MENUITEM "B&rooktrout Channel...",      ID_VOICEFAX_OPENPORT_BROOKTROUTCHANNEL
+
+            MENUITEM "&NMS Channel...",             ID_VOICEFAX_OPENPORT_NMS
+        END
+        MENUITEM "Close Port...",               ID_FILE_CLOSE
+    END
+    POPUP "&Utilities"
+    BEGIN
+        MENUITEM "&Answerphone Configuration...", ID_ANSWERPHONE_CONFIG
+    END
+    POPUP "&Window"
+    BEGIN
+        MENUITEM "&Cascade",                    ID_WINDOW_CASCADE
+        MENUITEM "&Tile",                       ID_WINDOW_TILE_HORZ
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About Voice Mail Sample...", ID_APP_ABOUT
+        MENUITEM "&Help",                       IDM_HELP
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS PRELOAD MOVEABLE PURE 
+BEGIN
+    "O",            ID_VOICEFAX_OPENPORT_COMPORT, VIRTKEY, CONTROL, NOINVERT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ANSWER_CONFIG DIALOG DISCARDABLE  0, 0, 286, 71
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Answer Config"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_GREETING_MSG,7,15,213,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MAX_RINGS,93,31,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MAX_RECTIME,93,47,40,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "&Browse",IDC_BROWSE,229,17,50,14
+    DEFPUSHBUTTON   "OK",IDOK,229,33,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,229,50,50,14
+    LTEXT           "Greeting message file:",IDC_STATIC,7,7,70,8
+    LTEXT           "Rings before answering:",IDC_STATIC,7,34,77,8
+    LTEXT           "Max recording time (sec):",IDC_STATIC,7,50,80,8
+END
+
+IDD_BROOK_OPEN DIALOGEX 0, 0, 265, 79
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Open Brooktrout Channel"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    LISTBOX         IDC_CHANNEL_LIST,7,15,64,45,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Enable Log",IDC_LOG,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,63,79,10
+    EDITTEXT        IDC_CONFIG,77,15,119,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,208,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,208,24,50,14
+    PUSHBUTTON      "&Test",IDC_TEST,208,41,50,14
+    LTEXT           "Available Channels",IDC_STATIC,7,7,61,8
+    LTEXT           "Config File",IDC_STATIC,77,7,34,8
+    LTEXT           "Modem Type",IDC_STATIC,77,33,42,8
+    LTEXT           "Static",IDC_TEST_RESULT,77,41,119,14,0,WS_EX_CLIENTEDGE
+END
+
+IDD_DIALOGIC_OPEN DIALOG DISCARDABLE  0, 0, 266, 103
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Open Dialogic Channel"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,209,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,209,24,50,14
+    CONTROL         "List1",IDC_LIST1,"SysListView32",LVS_REPORT | 
+                    LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,7,199,61
+    LTEXT           "Line Type:",IDC_STATIC,7,86,36,9
+    COMBOBOX        IDC_LINETYPE,45,83,89,55,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Protocol:",IDC_STATIC,141,86,29,9
+    EDITTEXT        IDC_PROTOCOL,173,83,84,13,ES_AUTOHSCROLL
+END
+
+IDD_FAX_MANAGER DIALOG DISCARDABLE  0, 0, 287, 98
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Received Faxes"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "E&xit",IDCANCEL,230,50,50,14
+    LTEXT           "Received faxes:",IDC_IOFAXES,7,7,91,8
+    LISTBOX         IDC_RECFAX_FILES,7,16,217,75,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Delete",IDC_RECFAX_DELETE,230,33,50,14
+    PUSHBUTTON      "&View",IDC_RECFAX_VIEW,230,16,50,14
+END
+
+IDD_OPEN_PORT DIALOG DISCARDABLE  0, 0, 205, 175
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Open Rockwell/USRobotics Modem"
+FONT 8, "MS Sans Serif"
+BEGIN
+    COMBOBOX        IDC_COMM_PORT,7,16,59,49,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_MODEM_TYPES,7,39,125,74,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_FAXCLASS_TYPE,7,63,126,54,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_MANUFACTURE,7,88,191,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_MODEL,7,113,191,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_CAPABILITIES,7,139,191,14,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    CONTROL         "&Enable Log",IDC_LOG,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,146,158,52,10
+    DEFPUSHBUTTON   "&Open Port",IDOK,148,7,50,14
+    PUSHBUTTON      "&Test Modem",IDC_TEST_MODEM,148,22,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,148,38,50,14
+    LTEXT           "&Modem Type:",IDC_STATIC,7,31,44,8
+    LTEXT           "&Fax class type:",IDC_STATIC,7,55,61,8
+    LTEXT           "&Serial port to use:",IDC_STATIC,7,7,61,8
+    LTEXT           "Manufacture",IDC_STATIC1,7,80,41,8
+    LTEXT           "Model",IDC_STATIC2,7,104,20,8
+    LTEXT           "Modem Capabilities",IDC_STATIC3,7,130,62,8
+END
+
+IDD_SELECT_PORT DIALOG DISCARDABLE  0, 0, 174, 71
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Select Port"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LISTBOX         IDC_ACTIVE_PORTS,7,15,101,49,LBS_SORT | LBS_USETABSTOPS | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "OK",IDOK,117,15,50,14,WS_DISABLED
+    PUSHBUTTON      "Cancel",IDCANCEL,117,32,50,14
+    LTEXT           "Active Ports/Channels:",IDC_STATIC,7,7,74,8
+END
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 186, 154
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "",IDC_FONTBOX,157,139,22,8,NOT WS_VISIBLE
+    CTEXT           "Copyright ©  Black Ice Software Inc., 1989 - 99",
+                    IDC_STATIC,7,18,172,8
+    GROUPBOX        "",IDC_STATIC,7,28,172,46
+    CTEXT           "FAX: (603) 882-1344",IDC_STATIC,23,48,140,8
+    CTEXT           "Internet: blackice@mv.mv.com",IDC_STATIC,22,57,140,8
+    CTEXT           "Tel: (603) 882-7711",IDC_STATIC,23,38,140,8
+    RTEXT           "TIFF SDK",IDC_STATIC,13,80,76,8
+    RTEXT           "IMAGE DLL",IDC_STATIC,13,93,76,8
+    LTEXT           "",IDC_TIFFVERSION,99,80,65,8
+    CTEXT           "Voice Mail Sample",IDC_STATIC,7,7,172,10
+    RTEXT           "FAXCPP32.DLL",IDC_STATIC,13,104,76,8
+    LTEXT           "",IDC_FAXCPP_VERSION,99,104,65,8
+    LTEXT           "",IDC_IMAGE_VERSION,99,93,65,8
+    LTEXT           "",IDC_VOICECPP_VERSION,99,117,64,9
+    LTEXT           "VOICE DLL",IDC_STATIC,51,117,38,8
+    DEFPUSHBUTTON   "OK",IDOK,68,133,50,14
+END
+
+IDD_NMS_OPEN DIALOG DISCARDABLE  0, 0, 266, 151
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Open NMS channel"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,209,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,209,24,50,14
+    CONTROL         "List1",IDC_LIST1,"SysListView32",LVS_REPORT | 
+                    LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,7,199,76
+    CONTROL         "Enable Log",IDC_LOG,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,87,97,10
+    LTEXT           "&NMS Telephony Protocol:",IDC_STATIC,7,101,81,8
+    COMBOBOX        IDC_PROTOCOLL,7,113,215,67,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "&DNIS/DID digits:",IDC_STATIC,7,134,53,8
+    EDITTEXT        IDC_DID,68,132,40,12,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "Spin1",IDC_SPINDID,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_AUTOBUDDY | UDS_ARROWKEYS,108,132,11,12
+END
+
+IDD_HELP DIALOGEX 0, 0, 348, 250
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Interactive Voice Sample Help"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_TEXT,"RICHEDIT",ES_MULTILINE | ES_READONLY | 
+                    WS_BORDER | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,1,0,346,
+                    231,WS_EX_DLGMODALFRAME
+    DEFPUSHBUTTON   "Close",IDOK,145,233,57,15
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "Voice Mail Sample MFC Application\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "Voice Mail Sample\0"
+            VALUE "LegalCopyright", "Copyright (C) 1999\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "Voice Mail Sample.EXE\0"
+            VALUE "ProductName", "Voice Mail Sample Application\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ANSWER_CONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 279
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 64
+    END
+
+    IDD_BROOK_OPEN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 258
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 72
+    END
+
+    IDD_DIALOGIC_OPEN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 259
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 96
+    END
+
+    IDD_FAX_MANAGER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 280
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 91
+    END
+
+    IDD_OPEN_PORT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 198
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 168
+    END
+
+    IDD_SELECT_PORT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 167
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 64
+    END
+
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 147
+    END
+
+    IDD_NMS_OPEN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 259
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 144
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_OPEN_PORT DLGINIT
+BEGIN
+    IDC_MODEM_TYPES, 0x403, 23, 0
+0x7541, 0x6f74, 0x6420, 0x7465, 0x6365, 0x2074, 0x6f4d, 0x6564, 0x206d, 
+0x7974, 0x6570, "\000" 
+    IDC_MODEM_TYPES, 0x403, 29, 0
+0x6f52, 0x6b63, 0x6577, 0x6c6c, 0x4320, 0x6968, 0x7370, 0x7465, 0x4220, 
+0x7361, 0x6465, 0x4d20, 0x646f, 0x6d65, "\000" 
+    IDC_MODEM_TYPES, 0x403, 26, 0
+0x5355, 0x6f52, 0x6f62, 0x6974, 0x7363, 0x5320, 0x6f70, 0x7472, 0x6573, 
+0x2072, 0x6f4d, 0x6564, 0x006d, 
+    IDC_MODEM_TYPES, 0x403, 27, 0
+0x754c, 0x6563, 0x746e, 0x4320, 0x6968, 0x7370, 0x7465, 0x4220, 0x7361, 
+0x6465, 0x4d20, 0x646f, 0x6d65, "\000" 
+    IDC_MODEM_TYPES, 0x403, 33, 0
+0x6943, 0x7272, 0x7375, 0x4c20, 0x676f, 0x6369, 0x4320, 0x6968, 0x7370, 
+0x7465, 0x4220, 0x7361, 0x6465, 0x4d20, 0x646f, 0x6d65, "\000" 
+    IDC_MODEM_TYPES, 0x403, 37, 0
+0x6f52, 0x6b63, 0x6577, 0x6c6c, 0x432f, 0x6e6f, 0x7865, 0x6e61, 0x2074, 
+0x4348, 0x2046, 0x6863, 0x7069, 0x6573, 0x2074, 0x6f6d, 0x6564, 0x736d, 
+"\000" 
+    IDC_FAXCLASS_TYPE, 0x403, 15, 0
+0x6547, 0x656e, 0x6972, 0x2063, 0x6c43, 0x7361, 0x3173, "\000" 
+    IDC_FAXCLASS_TYPE, 0x403, 17, 0
+0x6547, 0x656e, 0x6972, 0x2063, 0x6c43, 0x7361, 0x3273, 0x302e, "\000" 
+    0
+END
+
+IDD_NMS_OPEN DLGINIT
+BEGIN
+    IDC_PROTOCOLL, 0x403, 25, 0
+0x6e41, 0x6c61, 0x676f, 0x4c20, 0x6f6f, 0x2070, 0x7453, 0x7261, 0x2074, 
+0x4c28, 0x5350, 0x2930, "\000" 
+    IDC_PROTOCOLL, 0x403, 48, 0
+0x6944, 0x6967, 0x6174, 0x2f6c, 0x6e41, 0x6c61, 0x676f, 0x5720, 0x6e69, 
+0x206b, 0x7453, 0x7261, 0x2074, 0x6928, 0x626e, 0x756f, 0x646e, 0x6f20, 
+0x6c6e, 0x2979, 0x2820, 0x4944, 0x3044, 0x0029, 
+    IDC_PROTOCOLL, 0x403, 49, 0
+0x6944, 0x6967, 0x6174, 0x2f6c, 0x6e41, 0x6c61, 0x676f, 0x5720, 0x6e69, 
+0x206b, 0x7453, 0x7261, 0x2074, 0x6f28, 0x7475, 0x6f62, 0x6e75, 0x2064, 
+0x6e6f, 0x796c, 0x2029, 0x4f28, 0x5447, 0x2930, "\000" 
+    IDC_PROTOCOLL, 0x403, 33, 0
+0x6944, 0x6967, 0x6174, 0x2f6c, 0x6e41, 0x6c61, 0x676f, 0x5720, 0x6e69, 
+0x206b, 0x7453, 0x7261, 0x2074, 0x5728, 0x4b4e, 0x2930, "\000" 
+    IDC_PROTOCOLL, 0x403, 25, 0
+0x6e41, 0x6c61, 0x676f, 0x5720, 0x6e69, 0x206b, 0x7453, 0x7261, 0x2074, 
+0x5728, 0x4b4e, 0x2931, "\000" 
+    IDC_PROTOCOLL, 0x403, 33, 0
+0x6944, 0x6967, 0x6174, 0x206c, 0x6f4c, 0x706f, 0x5320, 0x6174, 0x7472, 
+0x4f20, 0x5350, 0x462d, 0x2058, 0x4c28, 0x5350, 0x2938, "\000" 
+    IDC_PROTOCOLL, 0x403, 38, 0
+0x6546, 0x7461, 0x7275, 0x2065, 0x7247, 0x756f, 0x2070, 0x2044, 0x6928, 
+0x626e, 0x756f, 0x646e, 0x6f20, 0x6c6e, 0x2979, 0x2820, 0x4446, 0x3049, 
+0x0029, 
+    IDC_PROTOCOLL, 0x403, 33, 0
+0x6944, 0x6967, 0x6174, 0x206c, 0x6f4c, 0x706f, 0x5320, 0x6174, 0x7472, 
+0x4f20, 0x5350, 0x532d, 0x2041, 0x4c28, 0x5350, 0x2939, "\000" 
+    IDC_PROTOCOLL, 0x403, 35, 0
+0x6944, 0x6967, 0x6174, 0x206c, 0x7247, 0x756f, 0x646e, 0x5320, 0x6174, 
+0x7472, 0x4f20, 0x5350, 0x462d, 0x2058, 0x4728, 0x5453, 0x2938, "\000" 
+    IDC_PROTOCOLL, 0x403, 35, 0
+0x6944, 0x6967, 0x6174, 0x206c, 0x7247, 0x756f, 0x646e, 0x5320, 0x6174, 
+0x7472, 0x4f20, 0x5350, 0x532d, 0x2041, 0x4728, 0x5453, 0x2939, "\000" 
+    IDC_PROTOCOLL, 0x403, 21, 0
+0x5349, 0x4e44, 0x7020, 0x6f72, 0x6f74, 0x6f63, 0x206c, 0x4928, 0x4453, 
+0x2930, "\000" 
+    IDC_PROTOCOLL, 0x403, 23, 0
+0x464d, 0x2043, 0x3252, 0x7020, 0x6f72, 0x6f74, 0x6f63, 0x206c, 0x4d28, 
+0x4346, 0x2930, "\000" 
+    0
+END
+
+IDD_DIALOGIC_OPEN DLGINIT
+BEGIN
+    IDC_LINETYPE, 0x403, 18, 0
+0x6e41, 0x6c61, 0x676f, 0x4c20, 0x6f6f, 0x2070, 0x7453, 0x7261, 0x0074, 
+
+    IDC_LINETYPE, 0x403, 9, 0
+0x5349, 0x4e44, 0x5020, 0x4952, "\000" 
+    IDC_LINETYPE, 0x403, 3, 0
+0x3154, "\000" 
+    IDC_LINETYPE, 0x403, 3, 0
+0x3145, "\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    IDR_MAINFRAME           "Voice Mail Sample"
+    IDR_VOCMTYPE            "\nVocM\nVocM\n\n\nVoiceMailSample.Document\nVoiceMail Document"
+END
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    AFX_IDS_APP_TITLE       "Voice Mail Sample"
+    AFX_IDS_IDLEMESSAGE     "Ready"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_NEW             "Create a new document\nNew"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_SAVE            "Save the active document\nSave"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_MRU_FILE1       "Open this document"
+    ID_FILE_MRU_FILE2       "Open this document"
+    ID_FILE_MRU_FILE3       "Open this document"
+    ID_FILE_MRU_FILE4       "Open this document"
+    ID_FILE_MRU_FILE5       "Open this document"
+    ID_FILE_MRU_FILE6       "Open this document"
+    ID_FILE_MRU_FILE7       "Open this document"
+    ID_FILE_MRU_FILE8       "Open this document"
+    ID_FILE_MRU_FILE9       "Open this document"
+    ID_FILE_MRU_FILE10      "Open this document"
+    ID_FILE_MRU_FILE11      "Open this document"
+    ID_FILE_MRU_FILE12      "Open this document"
+    ID_FILE_MRU_FILE13      "Open this document"
+    ID_FILE_MRU_FILE14      "Open this document"
+    ID_FILE_MRU_FILE15      "Open this document"
+    ID_FILE_MRU_FILE16      "Open this document"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_WINDOW_NEW           "Open another window for the active document\nNew Window"
+    ID_WINDOW_ARRANGE       "Arrange icons at the bottom of the window\nArrange Icons"
+    ID_WINDOW_CASCADE       "Arrange windows so they overlap\nCascade Windows"
+    ID_WINDOW_TILE_HORZ     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_TILE_VERT     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_CLEAR           "Erase the selection\nErase"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
+    ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_FIND            "Find the specified text\nFind"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_EDIT_REPEAT          "Repeat the last action\nRepeat"
+    ID_EDIT_REPLACE         "Replace specific text with different text\nReplace"
+    ID_EDIT_SELECT_ALL      "Select the entire document\nSelect All"
+    ID_EDIT_UNDO            "Undo the last action\nUndo"
+    ID_EDIT_REDO            "Redo the previously undone action\nRedo"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle ToolBar"
+    ID_VIEW_STATUS_BAR      "Show or hide the status bar\nToggle StatusBar"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCSIZE          "Change the window size"
+    AFX_IDS_SCMOVE          "Change the window position"
+    AFX_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    AFX_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    AFX_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    AFX_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    AFX_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCRESTORE       "Restore the window to normal size"
+    AFX_IDS_SCTASKLIST      "Activate Task List"
+    AFX_IDS_MDICHILD        "Activate this window"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VOICEFAX_OPENPORT_COMPORT "Open COM port\nOpen COM port"
+    ID_VOICEFAX_OPENPORT_DIALOGICCHANNEL 
+                            "Open a Dialogic Channel\nOpen a Dialogic Channel"
+    ID_VOICEFAX_OPENPORT_BROOKTROUTCHANNEL 
+                            "Open a Brooktrout Channel\nOpen a Brooktrout Channel"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDM_FITOWINDOW          "Fit to Window\nFit to Window"
+    IDM_CENTERIMAGE         "Center image\nCenter image"
+    ID_VOICEFAX_OPENPORT_NMS "Open a NMS Channel\nOpen a NMS Channel"
+    ID_BUTTON32773          "Open a DIalogic channel"
+    IDM_HELP                "Help\nHelp"
+    IDM_PAGEFORWARD         "Page forward\nPage forward"
+    IDM_PAGEBACKWAD         "Page backward\nPage backward"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_RECEIVEDFAXES   "Received faxes\nReceived faxes"
+    ID_FAX_PORT_CLOSE       "Close a Port/Channel"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDM_SCALE_DPI           "Scale to DPI\nScale to DPI"
+    IDM_DISP_NORMAL         "Normal view\nNormal view"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif
+#include "res\Voice Mail Sample.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

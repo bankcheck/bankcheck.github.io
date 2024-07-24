@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SCSendFax", "SCSendFax_DotNet2003.vcproj", "{58BAEAC2-68DE-4B5C-BA0B-E447C14BFAD7}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{58BAEAC2-68DE-4B5C-BA0B-E447C14BFAD7}.Debug.ActiveCfg = Debug|Win32
+		{58BAEAC2-68DE-4B5C-BA0B-E447C14BFAD7}.Debug.Build.0 = Debug|Win32
+		{58BAEAC2-68DE-4B5C-BA0B-E447C14BFAD7}.Release.ActiveCfg = Release|Win32
+		{58BAEAC2-68DE-4B5C-BA0B-E447C14BFAD7}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

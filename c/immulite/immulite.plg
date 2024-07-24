@@ -1,0 +1,56 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: immulite - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP31A.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/immulite.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\dev\immulite\CVT-CX.C"
+"D:\dev\immulite\GETDATA.C"
+"D:\dev\immulite\immulite.C"
+"D:\dev\immulite\LOADREG.C"
+"D:\dev\immulite\LOG.C"
+"D:\dev\immulite\RECV.C"
+"D:\dev\immulite\SENDDATA.C"
+"D:\dev\immulite\SERVICE.C"
+"D:\dev\immulite\TOOL.C"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP31A.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP31B.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/immulite.pdb" /debug /machine:I386 /out:"Debug/immulite.exe" /pdbtype:sept 
+".\Debug\CVT-CX.OBJ"
+.\Debug\GETDATA.OBJ
+.\Debug\immulite.obj
+.\Debug\LOADREG.OBJ
+.\Debug\LOG.OBJ
+.\Debug\RECV.OBJ
+.\Debug\SENDDATA.OBJ
+.\Debug\SERVICE.OBJ
+.\Debug\TOOL.OBJ
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP31B.tmp"
+<h3>Output Window</h3>
+Compiling...
+CVT-CX.C
+GETDATA.C
+immulite.C
+LOADREG.C
+LOG.C
+RECV.C
+SENDDATA.C
+SERVICE.C
+TOOL.C
+Linking...
+
+
+
+<h3>Results</h3>
+immulite.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: SendFax - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x409 /fo"Debug/SendFax.res" /d "_DEBUG" /d "_AFXDLL" "D:\dev\FaxDem32\Sample Source Codes\DLL\Fax C++ SDK\SendFax\SendFax.rc"" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP221.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\..\..\..\inc" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/SendFax.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\dev\FaxDem32\Sample Source Codes\DLL\Fax C++ SDK\SendFax\DlgFaxClose.cpp"
+"D:\dev\FaxDem32\Sample Source Codes\DLL\Fax C++ SDK\SendFax\dlgFaxPortSetup.cpp"
+"D:\dev\FaxDem32\Sample Source Codes\DLL\Fax C++ SDK\SendFax\DlgSendFax.cpp"
+"D:\dev\FaxDem32\Sample Source Codes\DLL\Fax C++ SDK\SendFax\SendFax.cpp"
+"D:\dev\FaxDem32\Sample Source Codes\DLL\Fax C++ SDK\SendFax\SendFaxDlg.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP221.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP222.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\..\..\..\inc" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/SendFax.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\dev\FaxDem32\Sample Source Codes\DLL\Fax C++ SDK\SendFax\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP222.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP223.tmp" with contents
+[
+faxcpp32.lib bitiff.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/SendFax.pdb" /debug /machine:I386 /out:"Debug/SendFax.exe" /pdbtype:sept /libpath:"..\..\..\..\Lib" 
+".\Debug\DlgFaxClose.obj"
+".\Debug\dlgFaxPortSetup.obj"
+".\Debug\DlgSendFax.obj"
+".\Debug\SendFax.obj"
+".\Debug\SendFaxDlg.obj"
+".\Debug\StdAfx.obj"
+".\Debug\SendFax.res"
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP223.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+DlgFaxClose.cpp
+dlgFaxPortSetup.cpp
+DlgSendFax.cpp
+SendFax.cpp
+SendFaxDlg.cpp
+Generating Code...
+Linking...
+   Creating library Debug/SendFax.lib and object Debug/SendFax.exp
+
+
+
+<h3>Results</h3>
+SendFax.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

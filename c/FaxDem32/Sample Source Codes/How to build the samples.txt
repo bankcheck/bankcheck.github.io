@@ -1,0 +1,293 @@
+***************************************************************************
+*                                                                         
+*  Black Ice Fax/Voice SDK/OCX
+*
+*  How to build the samples
+*
+*
+* (C)2002 Black Ice Software, Inc.
+***************************************************************************
+
+
+
+The source code of the sample applications is located in the “Sample Source Codes” folder. 
+The  “Sample Source Codes” folder is installed depending on the product, by default to:
+“C:\Program Files\BlackIce\FaxDem32\Sample Source Codes”  
+
+
+
+
+The contents of the “Sample Source Codes”:
+
+“DLL” Folder    – C++ samples, using the DLLs
+“DOTNET” Folder - .NET samples 
+“OCX” Folder    – Samples using the FaX.OCX and Voice.OCX.
+
+
+Fax C++ SDK
+-----------
+
+DEMO32
+
+Description     : A sample application to show how to use the Fax SDK
+Location        :“Sample Source Codes\DLL\Fax C++ SDK\DEMO32” Folder 
+Project file    : Demo32.dsw (Sample Source Codes\DLL\Fax C++ SDK\DEMO32\Demo32.dsp)
+Compiler        : Visual C++ 6.0
+
+
+Multiport Faxing
+
+Description     : A sample application to show how to send more then one faxes in the same time
+Location        : "Sample Source Codes\DLL\Fax C++ SDK\Multiport Faxing" Folder
+Project file    : Fax2.dsw (Sample Source Codes\DLL\Fax C++ SDK\Multiport Faxing\Fax2.dsp)
+Compiler        : Visual C++ 6.0
+
+
+SERVICE
+
+Description     : A sample Visual Basic application to show how to create a fax service
+Location        : “Sample Source Codes\DLL\Fax C++ SDK\SERVICE” Folder
+Project file    : SERVICE.DSW (Sample Source Codes\DLL\Fax C++ SDK\SERVICE\SERVICE.DSW)
+Compiler        : Visual C++ 6.0
+
+
+SIMPLE
+
+Description     : A sample C++ application to show how to use the Faxcpp32.dll
+Location        : “Sample Source Codes\DLL\Fax C++ SDK\SIMPLE” Folder
+Project file    : Test32.dsp (Sample Source Codes\DLL\Fax C++ SDK\SIMPLE\Test32.dsp)
+Compiler        : Visual C++ 6.0
+
+
+Tapi
+
+Description     : A sample C++ application to show how to use the Fax C++ with TAPI
+Location        : “\Sample Source Codes\DLL\Fax C++ SDK\TAPI Sample” Folder
+Project file    : tapi.dsp (\Sample Source Codes\DLL\Fax C++ SDK\TAPI Sample\tapi.dsp)
+Compiler        : Visual C++ 6.0
+
+
+Tapi2.1
+
+Description     : A sample C++ application to show how to use the Fax C++ with TAPI
+Location        : “Sample Source Codes\DLL\Fax C++ SDK\Tapi2.1” Folder
+Project file    : Tapicomm.dsp (Sample Source Codes\DLL\Fax C++ SDK\Tapi2.1\Tapicomm.dsp)
+Compiler        : Visual C++ 6.0
+                  You may need to install the Microsoft Platfrom SDK to build this project
+
+
+Tapi2.1
+
+Description     : A sample C++ application to show how to use the Fax C++ with TAPI
+Location        : “Sample Source Codes\DLL\Fax C++ SDK\Tapi2.1” Folder
+Project file    : Tapicomm.dsp (Sample Source Codes\DLL\Fax C++ SDK\Tapi2.1\Tapicomm.dsp)
+Compiler        : Visual C++ 6.0
+                  You may need to install the Microsoft Platfrom SDK to build this project
+
+
+TAPI3
+
+Description     : A sample FoxPro application to show how to use the Fax C++ with TAPI
+Location        : “Sample Source Codes\DLL\Fax C++ SDK\Tapi3" Folder
+Project file    : TapiSample.dsp” (Sample Source Codes\DLL\Fax C++ SDK\Tapi3\TapiSample.dsp)
+Compiler        : Visual C++ 6.0. 
+                  You may need to install the Microsoft Platfrom SDK to build this project
+
+
+Voice C++ SDK
+-------------
+
+Codec Sample
+
+Description     : A sample C++ application to show how to use the Codec.dll
+Location        : “Sample Source Codes\DLL\Voice C++ SDK\Codec Sample" Folder
+Project file    : CODECTST.DSP (Sample Source Codes\DLL\Voice C++ SDK\Codec Sample\CODECTST.DSP)
+Compiler        : Visual C++ 6.0. 
+             
+
+Dialogic MSI Sample
+
+Description     : A sample C++ application to show how to use Fax C++ the Dialogic MSI boards
+Location        : “Sample Source Codes\DLL\Voice C++ SDK\Dialogic MSI Sample" Folder
+Project file    : Dialogic MSI Sample.dsp (Sample Source Codes\DLL\Voice C++ SDK\Dialogic MSI Sample\Dialogic MSI Sample.dsp)
+Compiler        : Visual C++ 6.0. 
+
+
+Interactive Voice Sample
+
+Description     : A sample C++ application to show how to use the Voice.dll
+Location        : “Sample Source Codes\DLL\Voice C++ SDK\Interactive Voice Sample" Folder
+Project file    : Interactive Voice Sample.dsp (Sample Source Codes\DLL\Voice C++ SDK\Interactive Voice Sample\Interactive Voice Sample.dsp)
+Compiler        : Visual C++ 6.0. 
+
+
+SCCallMonitor
+
+Description     : A sample C++ application to show how to use the Voice.dll with SCBUS
+Location        : “Sample Source Codes\DLL\Voice C++ SDK\SCBUS\SCCallMonitor\" Folder
+Project file    : SCCallMonitor.dsp (Sample Source Codes\DLL\Voice C++ SDK\SCBUS\SCCallMonitor\SCCallMonitor.dsp)
+Compiler        : Visual C++ 6.0. 
+
+
+SCCallSwitch
+
+Description     : A sample C++ application to show how to use the Voice.dll with SCBUS
+Location        : “Sample Source Codes\DLL\Voice C++ SDK\SCBUS\SCCallSwitch\" Folder
+Project file    : SCCallSwitch.dsp (Sample Source Codes\DLL\Voice C++ SDK\SCBUS\SCCallSwitch\SCCallSwitch.dsp)
+Compiler        : Visual C++ 6.0. 
+
+
+SCFollowMe
+
+Description     : A sample C++ application to show how to use the Voice.dll with SCBUS
+Location        : “Sample Source Codes\DLL\Voice C++ SDK\SCBUS\SCFollowMe\" Folder
+Project file    : SCFollowMe.dsp (Sample Source Codes\DLL\Voice C++ SDK\SCBUS\SCFollowMe\SCFollowMe.dsp)
+Compiler        : Visual C++ 6.0. 
+
+
+SCReceiveFax
+
+Description     : A sample C++ application to show how to use the Voice.dll with SCBUS
+Location        : “Sample Source Codes\DLL\Voice C++ SDK\SCBUS\SCReceiveFax" Folder
+Project file    : SCReceiveFax.dsp (Sample Source Codes\DLL\Voice C++ SDK\SCBUS\SCReceiveFax\SCReceiveFax.dsp)
+Compiler        : Visual C++ 6.0. 
+
+
+SCSendFax
+
+Description     : A sample C++ application to show how to use the Voice.dll with SCBUS
+Location        : “Sample Source Codes\DLL\Voice C++ SDK\SCBUS\SCSendFax\" Folder
+Project file    : SCSendFax.dsp (Sample Source Codes\DLL\Voice C++ SDK\SCBUS\SCSendFax\SCSendFax.dsp)
+Compiler        : Visual C++ 6.0. 
+
+
+Voice Mail Sample
+
+Description     : A sample C++ application to show how to use the Voice.dll with SCBUS
+Location        : “Sample Source Codes\DLL\Voice C++ SDK\Voice Mail Sample" Folder
+Project file    : Voice Mail Sample.dsp (Sample Source Codes\DLL\Voice C++ SDK\Voice Mail Sample\Voice Mail Sample.dsp)
+Compiler        : Visual C++ 6.0. 
+
+
+Voice Recording Sample
+
+Description     : A sample C++ application to show how to use the Voice.dll with SCBUS
+Location        : “Sample Source Codes\DLL\Voice C++ SDK\Voice Recording Sample" Folder
+Project file    : Voice Recording Sample.dsp (Sample Source Codes\DLL\Voice C++ SDK\Voice Recording Sample\Voice Recording Sample.dsp)
+Compiler        : Visual C++ 6.0. 
+
+
+
+
+C# .NET Samples
+---------------
+
+Fax OCX
+
+Description     : A sample C++ application to show how to use the Voice.dll with SCBUS
+Location        : “Sample Source Codes\DOT NET\C#\Fax OCX" Folder
+Project file    : FaxcppDemo.csproj (Sample Source Codes\DOT NET\C#\Fax OCX\FaxcppDemo.csproj)
+Compiler        : Visual C# .NET 
+
+
+Voice OCX
+
+Description     : A sample C++ application to show how to use the Voice.dll with SCBUS
+Location        : “Sample Source Codes\DOT NET\C#\Voice OCX\" Folder
+Project file    : VoiceOCXDemo.csproj (Sample Source Codes\DOT NET\C#\Voice OCX\VoiceOCXDemo.csproj)
+Compiler        : Visual C# .NET 
+
+
+Visual Basic .NET Samples
+-------------------------
+
+
+Fax OCX
+
+Description     : A sample C++ application to show how to use the Fax.OCX
+Location        : “Sample Source Codes\DOT NET\VB .NET\Fax OCX\" Folder
+Project file    : FaxcppVBSample.vbproj (Sample Source Codes\DOT NET\VB .NET\Fax OCX\FaxcppVBSample.vbproj)
+Compiler        : Visual Basic .NET 
+
+
+Voice OCX
+
+Description     : A sample C++ application to show how to use the Voice.OCX
+Location        : “Sample Source Codes\DOT NET\VB .NET\Voice OCX\" Folder
+Project file    : VoiceVBSample.vbproj (Sample Source Codes\DOT NET\VB .NET\Voice OCX\VoiceVBSample.vbproj)
+Compiler        : Visual Basic .NET 
+
+
+
+FAX.OCX Samples
+---------------
+
+CPP Sample
+
+Description     : A sample C++ application to show how to use the Fax.ocx
+Location        : “Sample Source Codes\OCX\Fax OCX\CPP Sample" Folder
+Project file    : Ocxdemo.dsw (Sample Source Codes\OCX\Fax OCX\CPP Sample\Fax OCX\Ocxdemo.dsw)
+Compiler        : Visual C++ 6.0
+
+
+Delphi Sample
+
+Description     : A sample Delphi application to show how to use the Fax.ocx
+Location        : “Sample Source Codes\OCX\Fax OCX\Delphi Sample" Folder
+Project file    : Ocxdemo.dpr (Sample Source Codes\OCX\Fax OCX\Delphi Sample\Ocxdemo.dpr)
+Compiler        : Borland Delphi 5.0
+
+
+FoxPro
+
+Description     : A sample Foxpro application to show how to use the Fax.ocx
+Location        : “Sample Source Codes\OCX\Fax OCX\FoxPro Sample" Folder
+Project file    : foxfax.PJT (Sample Source Codes\OCX\Fax OCX\FoxPro Sample\foxfax.PJT)
+Compiler        : Visual Foxpro 6.0
+
+
+
+VB Sample
+
+Description     : A sample Visual Basic application to show how to use the Fax.ocx
+Location        : “Sample Source Codes\OCX\Fax OCX\Visual Basic Sample” Folder
+Project file    : Fax.vbp (E:\Faxsrc40\Sample Source Codes\OCX\Fax OCX\Visual Basic Sample\Fax.vbp)
+Compiler        : Visual Basic 6.0
+
+
+Voice.OCX Samples
+-----------------
+
+
+Interactive VB Voice Sample
+
+Description     : A sample Visual Basic application to show how to use the Voice.ocx
+Location        : “Sample Source Codes\OCX\Voice OCX\Interactive VB Voice Sample\” Folder
+Project file    : Interactive Voice Sample.vbp (Sample Source Codes\OCX\Voice OCX\Interactive VB Voice Sample\Interactive Voice Sample.vbp)
+Compiler        : Visual Basic 6.0
+
+
+MSI Predictive Dialing Sample
+
+Description     : A sample Visual Basic application to show how to use the Voice.ocx with MSI boards
+Location        : “Sample Source Codes\OCX\Voice OCX\MSI Predictive Dialing Sample” Folder
+Project file    : MSIPredDial.vbp (Sample Source Codes\OCX\Voice OCX\MSI Predictive Dialing Sample\MSIPredDial.vbp)
+Compiler        : Visual Basic 6.0
+
+
+Voice Mail VB Sample
+
+Description     : A sample Visual Basic application to show how to use the Voice.ocx
+Location        : “E:\Faxsrc40\Sample Source Codes\OCX\Voice OCX\Voice Mail VB Sample” Folder
+Project file    : Voice Mail Sample.vbp (E:\Faxsrc40\Sample Source Codes\OCX\Voice OCX\Voice Mail VB Sample\Voice Mail Sample.vbp)
+Compiler        : Visual Basic 6.0
+
+
+
+
+
+
+
+
+
+

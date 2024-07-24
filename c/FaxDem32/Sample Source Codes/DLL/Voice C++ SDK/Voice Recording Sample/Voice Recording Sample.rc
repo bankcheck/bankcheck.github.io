@@ -1,0 +1,332 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif\r\n"
+    "#include ""res\\Voice Recording Sample.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\Voice Recording Sample.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 217, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About Voice Recording Sample"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "Voice Recording Sample Version 2.0",IDC_STATIC,40,10,
+                    119,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 1999",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "OK",IDOK,178,7,32,14,WS_GROUP
+END
+
+IDD_VOICERECORDINGSAMPLE_DIALOG DIALOGEX 0, 0, 283, 146
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "Voice Recording Sample for voice modems"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LISTBOX         IDC_VOICE_FILES,7,15,197,81,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Play",IDC_VOICE_PLAY,226,14,50,14
+    PUSHBUTTON      "&Record",IDC_VOICE_CREATE,226,31,50,14
+    PUSHBUTTON      "&Stop",IDC_VOICE_STOP,226,48,50,14
+    PUSHBUTTON      "&Delete",IDC_VOICE_DELETE,226,65,50,14
+    PUSHBUTTON      "E&xit",IDCANCEL,226,82,50,14
+    CONTROL         "Handset",IDC_IN_HANDSET,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP | WS_TABSTOP,7,109,43,10
+    CONTROL         "Microphone",IDC_IN_MIC,"Button",BS_AUTORADIOBUTTON,49,
+                    109,53,10
+    CONTROL         "Handset",IDC_OUT_HANDSET,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP | WS_TABSTOP,115,109,43,10
+    CONTROL         "Speaker",IDC_OUT_SPEAKER,"Button",BS_AUTORADIOBUTTON,
+                    157,109,43,10
+    LTEXT           "Voice files:",IDC_STATIC,7,7,37,8
+    LTEXT           "Input device:",IDC_STATIC,7,99,42,8
+    LTEXT           "Output device:",IDC_STATIC,115,99,48,8
+    CONTROL         "Slider1",IDC_SLIDER1,"msctls_trackbar32",TBS_VERT | 
+                    TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,205,13,18,84,
+                    WS_EX_NOPARENTNOTIFY
+    PUSHBUTTON      "Open &Port",IDC_OPEN,226,99,50,14,NOT WS_VISIBLE
+    LTEXT           "You need to have a speaker a microphone and a handset connected to your modem.\nDo not connect the speaker and the microphone to your sound card.",
+                    IDC_STATIC,7,121,269,16
+END
+
+IDD_OPEN_PORT DIALOG DISCARDABLE  0, 0, 205, 175
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Open Modem Port"
+FONT 8, "MS Sans Serif"
+BEGIN
+    COMBOBOX        IDC_COMM_PORT,7,16,59,49,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_MODEM_TYPES,7,39,125,64,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_FAXCLASS_TYPE,7,63,126,54,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_MANUFACTURE,7,88,191,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_MODEL,7,113,191,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_CAPABILITIES,7,139,191,14,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    CONTROL         "&Enable Log",IDC_LOG,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,146,158,52,10
+    DEFPUSHBUTTON   "&Open Port",IDOK,148,7,50,14
+    PUSHBUTTON      "&Test Modem",IDC_TEST_MODEM,148,22,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,148,38,50,14
+    LTEXT           "&Modem Type:",IDC_STATIC,7,31,44,8
+    LTEXT           "&Fax class type:",IDC_STATIC,7,55,61,8
+    LTEXT           "&Serial port to use:",IDC_STATIC,7,7,61,8
+    LTEXT           "Manufacture",IDC_STATIC1,7,80,41,8
+    LTEXT           "Model",IDC_STATIC2,7,104,20,8
+    LTEXT           "Modem Capabilities",IDC_STATIC3,7,130,62,8
+END
+
+IDD_INPUT DIALOG DISCARDABLE  0, 0, 186, 62
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_INPUT_EDIT,7,20,172,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,26,40,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,110,40,50,14
+    LTEXT           "Static",IDC_INPUT_MSG,7,7,172,8
+END
+
+IDD_MESSAGE DIALOG DISCARDABLE  0, 0, 188, 22
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP
+FONT 8, "MS Sans Serif"
+BEGIN
+    CTEXT           "Static",IDC_MESSAGE,7,7,174,8
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "Voice Recording Sample MFC Application\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "Voice Recording Sample\0"
+            VALUE "LegalCopyright", "Copyright (C) 1999\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "Voice Recording Sample.EXE\0"
+            VALUE "ProductName", "Voice Recording Sample Application\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 210
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_VOICERECORDINGSAMPLE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 276
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 139
+    END
+
+    IDD_OPEN_PORT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 198
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 168
+    END
+
+    IDD_INPUT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_MESSAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 181
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 15
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_OPEN_PORT DLGINIT
+BEGIN
+    IDC_MODEM_TYPES, 0x403, 23, 0
+0x7541, 0x6f74, 0x6420, 0x7465, 0x6365, 0x2074, 0x6f6d, 0x6564, 0x206d, 
+0x7974, 0x6570, "\000" 
+    IDC_MODEM_TYPES, 0x403, 29, 0
+0x6f52, 0x6b63, 0x6577, 0x6c6c, 0x4320, 0x6968, 0x7370, 0x7465, 0x4220, 
+0x7361, 0x6465, 0x4d20, 0x646f, 0x6d65, "\000" 
+    IDC_MODEM_TYPES, 0x403, 26, 0
+0x5355, 0x6f52, 0x6f62, 0x6974, 0x7363, 0x5320, 0x6f70, 0x7472, 0x6573, 
+0x2072, 0x6f4d, 0x6564, 0x006d, 
+    IDC_MODEM_TYPES, 0x403, 27, 0
+0x754c, 0x6563, 0x746e, 0x4320, 0x6968, 0x7370, 0x7465, 0x4220, 0x7361, 
+0x6465, 0x4d20, 0x646f, 0x6d65, "\000" 
+    IDC_MODEM_TYPES, 0x403, 33, 0
+0x6943, 0x7272, 0x7375, 0x4c20, 0x676f, 0x6369, 0x4320, 0x6968, 0x7370, 
+0x7465, 0x4220, 0x7361, 0x6465, 0x4d20, 0x646f, 0x6d65, "\000" 
+    IDC_FAXCLASS_TYPE, 0x403, 15, 0
+0x6547, 0x656e, 0x6972, 0x2063, 0x6c43, 0x7361, 0x3173, "\000" 
+    IDC_FAXCLASS_TYPE, 0x403, 17, 0
+0x6547, 0x656e, 0x6972, 0x2063, 0x6c43, 0x7361, 0x3273, 0x302e, "\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_SPLASH              BITMAP  DISCARDABLE     "res\\Splsh16.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "&About Voice Recording Sample..."
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif
+#include "res\Voice Recording Sample.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

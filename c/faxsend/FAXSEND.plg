@@ -1,0 +1,45 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: FAXSEND - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x804 /fo"Debug/FAXSEND.res" /d "_DEBUG" "D:\dev\faxsend\FAXSEND.rc"" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP827.tmp" with contents
+[
+/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /FR"Debug/" /Fp"Debug/FAXSEND.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\dev\faxsend\FAXSEND.cpp"
+"D:\dev\faxsend\FAXSENDDlg.cpp"
+"D:\dev\faxsend\tapifax.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP827.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP828.tmp" with contents
+[
+/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /FR"Debug/" /Fp"Debug/FAXSEND.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\dev\faxsend\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP828.tmp" 
+Creating command line "link.exe SmartFax.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/FAXSEND.pdb" /debug /machine:I386 /out:"Debug/FAXSEND.exe" /pdbtype:sept  .\Debug\FAXSEND.obj .\Debug\FAXSENDDlg.obj .\Debug\StdAfx.obj .\Debug\tapifax.obj .\Debug\FAXSEND.res "
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+FAXSEND.cpp
+FAXSENDDlg.cpp
+tapifax.cpp
+Generating Code...
+Linking...
+Creating command line "bscmake.exe /nologo /o"Debug/FAXSEND.bsc"  .\Debug\StdAfx.sbr .\Debug\FAXSEND.sbr .\Debug\FAXSENDDlg.sbr .\Debug\tapifax.sbr"
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+FAXSEND.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

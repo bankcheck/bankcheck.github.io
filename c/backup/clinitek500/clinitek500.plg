@@ -1,0 +1,56 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: c500 - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPBF5.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR"Debug/" /Fp"Debug/clinitek500.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\dev\clinitek500\clinitek500.C"
+"D:\dev\clinitek500\CVT-CX.C"
+"D:\dev\clinitek500\GETDATA.C"
+"D:\dev\clinitek500\LOADREG.C"
+"D:\dev\clinitek500\LOG.C"
+"D:\dev\clinitek500\RECV.C"
+"D:\dev\clinitek500\SERVICE.C"
+"D:\dev\clinitek500\TOOL.C"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPBF5.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPBF6.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/clinitek500.pdb" /debug /machine:I386 /out:"Debug/clinitek500.exe" /pdbtype:sept 
+.\Debug\clinitek500.obj
+".\Debug\CVT-CX.OBJ"
+.\Debug\GETDATA.OBJ
+.\Debug\LOADREG.OBJ
+.\Debug\LOG.OBJ
+.\Debug\RECV.OBJ
+.\Debug\SERVICE.OBJ
+.\Debug\TOOL.OBJ
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPBF6.tmp"
+<h3>Output Window</h3>
+Compiling...
+clinitek500.C
+CVT-CX.C
+GETDATA.C
+LOADREG.C
+LOG.C
+RECV.C
+SERVICE.C
+TOOL.C
+Linking...
+Creating command line "bscmake.exe /nologo /o"Debug/clinitek500.bsc"  .\Debug\clinitek500.sbr ".\Debug\CVT-CX.SBR" .\Debug\GETDATA.SBR .\Debug\LOADREG.SBR .\Debug\LOG.SBR .\Debug\RECV.SBR .\Debug\SERVICE.SBR .\Debug\TOOL.SBR"
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+clinitek500.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

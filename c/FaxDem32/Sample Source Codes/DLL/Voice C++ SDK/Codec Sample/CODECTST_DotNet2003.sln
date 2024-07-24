@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CODECTST", "CODECTST_DotNet2003.vcproj", "{70CC3738-2A89-4C4D-93E5-07B43A900687}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{70CC3738-2A89-4C4D-93E5-07B43A900687}.Debug.ActiveCfg = Debug|Win32
+		{70CC3738-2A89-4C4D-93E5-07B43A900687}.Debug.Build.0 = Debug|Win32
+		{70CC3738-2A89-4C4D-93E5-07B43A900687}.Release.ActiveCfg = Release|Win32
+		{70CC3738-2A89-4C4D-93E5-07B43A900687}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

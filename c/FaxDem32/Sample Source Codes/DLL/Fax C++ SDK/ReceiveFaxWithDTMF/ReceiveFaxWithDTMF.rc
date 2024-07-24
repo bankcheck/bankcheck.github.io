@@ -1,0 +1,370 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\ReceiveFaxWithDTMF.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\ReceiveFaxWithDTMF.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 177, 47
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About ReceiveFaxWithDTMF"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,6,20,21,20
+    LTEXT           "ReceiveFaxWithDTMF C++ Sample",IDC_STATIC,6,9,114,8,
+                    SS_NOPREFIX
+    LTEXT           "Copyright (C) Black Ice Software, Inc.2005",IDC_STATIC,
+                    33,26,137,8
+    DEFPUSHBUTTON   "OK",IDOK,120,7,50,14,WS_GROUP
+END
+
+IDD_RECEIVEFAXWITHDTMF_DIALOG DIALOGEX 0, 0, 282, 133
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "ReceiveFaxWithDTMF C++ Sample"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "Open &Brooktrout Channel",IDC_BROOKTROUT,7,7,89,16
+    PUSHBUTTON      "Open &Dialogic Channel",IDC_DIALOGIC,7,28,89,16
+    PUSHBUTTON      "Open &GammaLink Channel",IDC_GAMMALINK,7,49,89,16
+    PUSHBUTTON      "Open &NMS Channel",IDC_NMS,7,70,89,16
+    PUSHBUTTON      "&Close Channel",IDC_CLOSE,7,91,89,16
+    PUSHBUTTON      "&Exit",IDOK2,225,112,50,14
+    LTEXT           "To close a channel push ""Close Channel"" button and select the channel to be closed if there is any open channel.",
+                    IDC_STATIC,102,87,173,25,0,WS_EX_TRANSPARENT
+    LTEXT           "The sample saves the received fax in the TIF format file specified in the ""Save As..."" dialog. The dialog appears after the fax was received. The sample will inform you about the received DTMF in a dialog box at the end of fax receiving.",
+                    IDC_STATIC,102,47,173,41
+    LTEXT           "This sample shows how to receive a fax through Brooktrout, Dialogic, Gammalink or NMS channel and get the DTMF if DTMF was sent. To open a channel push one of the Open buttons according to your board type and select from the available channels.",
+                    IDC_STATIC,102,6,173,42
+END
+
+IDD_OPENBCHANNEL DIALOG DISCARDABLE  0, 0, 191, 140
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Open Brooktrout channel"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LISTBOX         IDC_BCHANNELS,11,14,107,58,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_CFILE,77,97,105,13,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse",IDC_BROWSE,132,114,50,14
+    EDITTEXT        IDC_BDTMF,56,115,14,12,ES_AUTOHSCROLL | ES_NUMBER
+    DEFPUSHBUTTON   "OK",IDOK,132,9,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,132,37,50,14
+    LTEXT           "&Configuration file:",IDC_STATIC,11,99,59,8
+    GROUPBOX        "Channel settings",IDC_STATIC,5,83,181,51
+    GROUPBOX        "Available Channels",IDC_STATIC,5,5,119,75
+    LTEXT           "DTMF digits:",IDC_STATIC,12,116,42,10
+END
+
+IDD_CLOSEFAX DIALOG DISCARDABLE  0, 0, 135, 84
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Close Fax Channel"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LISTBOX         IDC_FAXPORTS,7,5,119,54,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "&OK",IDOK,13,63,50,14
+    PUSHBUTTON      "&Cancel",IDCANCEL,71,63,50,14
+END
+
+IDD_DCHANNEL DIALOG DISCARDABLE  0, 0, 150, 95
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Open Dialogic Channel"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LISTBOX         IDC_CHANNELS,7,15,78,67,LBS_SORT | LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_DDTMF,131,56,12,12,ES_AUTOHSCROLL | ES_NUMBER
+    DEFPUSHBUTTON   "OK",IDOK,93,14,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,93,33,50,14
+    LTEXT           "DTMF digits:",IDC_STATIC,89,58,42,10
+END
+
+IDD_OPENGCHANNEL DIALOG DISCARDABLE  0, 0, 177, 82
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Open GammaLink channel"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LISTBOX         IDC_CHANNELS,9,8,84,34,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_TABSTOP
+    EDITTEXT        IDC_CONFIG,53,49,116,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_GDTMF,53,65,18,13,ES_AUTOHSCROLL | ES_NUMBER
+    DEFPUSHBUTTON   "OK",IDOK,129,6,41,14
+    PUSHBUTTON      "Cancel",IDCANCEL,129,24,41,14
+    LTEXT           "Config file:",IDC_STATIC,7,51,39,8
+    LTEXT           "DTMF digits:",IDC_STATIC,7,67,42,10
+END
+
+IDD_OPENNMSCHANNEL DIALOG DISCARDABLE  0, 0, 161, 119
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Open NMS channel"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LISTBOX         IDC_NMS,6,4,80,80,LBS_SORT | LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_NDTMF,133,68,20,12,ES_AUTOHSCROLL | ES_NUMBER
+    COMBOBOX        IDC_PROTOCOLL,6,101,153,59,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    DEFPUSHBUTTON   "OK",IDOK,108,24,45,14
+    PUSHBUTTON      "Cancel",IDCANCEL,108,49,45,14
+    LTEXT           "NMS Telephony Protocol:",IDC_STATIC,6,89,120,10
+    LTEXT           "DTMF digits:",IDC_STATIC,89,69,42,10
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "ReceiveFaxWithDTMF MFC Application\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "ReceiveFaxWithDTMF\0"
+            VALUE "LegalCopyright", "Copyright (C) 2005\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "ReceiveFaxWithDTMF.EXE\0"
+            VALUE "ProductName", "ReceiveFaxWithDTMF Application\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 6
+        RIGHTMARGIN, 170
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 40
+    END
+
+    IDD_RECEIVEFAXWITHDTMF_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 275
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 126
+    END
+
+    IDD_OPENBCHANNEL, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 134
+    END
+
+    IDD_CLOSEFAX, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 83
+    END
+
+    IDD_DCHANNEL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 143
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 88
+    END
+
+    IDD_OPENGCHANNEL, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 78
+    END
+
+    IDD_OPENNMSCHANNEL, DIALOG
+    BEGIN
+        LEFTMARGIN, 6
+        RIGHTMARGIN, 159
+        TOPMARGIN, 4
+        BOTTOMMARGIN, 117
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_OPENNMSCHANNEL DLGINIT
+BEGIN
+    IDC_PROTOCOLL, 0x403, 25, 0
+0x6e41, 0x6c61, 0x676f, 0x4c20, 0x6f6f, 0x2070, 0x7453, 0x7261, 0x2074, 
+0x4c28, 0x5350, 0x2930, "\000" 
+    IDC_PROTOCOLL, 0x403, 48, 0
+0x6944, 0x6967, 0x6174, 0x2f6c, 0x6e41, 0x6c61, 0x676f, 0x5720, 0x6e69, 
+0x206b, 0x7453, 0x7261, 0x2074, 0x6928, 0x626e, 0x756f, 0x646e, 0x6f20, 
+0x6c6e, 0x2979, 0x2820, 0x4944, 0x3044, 0x0029, 
+    IDC_PROTOCOLL, 0x403, 49, 0
+0x6944, 0x6967, 0x6174, 0x2f6c, 0x6e41, 0x6c61, 0x676f, 0x5720, 0x6e69, 
+0x206b, 0x7453, 0x7261, 0x2074, 0x6f28, 0x7475, 0x6f62, 0x6e75, 0x2064, 
+0x6e6f, 0x796c, 0x2029, 0x4f28, 0x5447, 0x2930, "\000" 
+    IDC_PROTOCOLL, 0x403, 33, 0
+0x6944, 0x6967, 0x6174, 0x2f6c, 0x6e41, 0x6c61, 0x676f, 0x5720, 0x6e69, 
+0x206b, 0x7453, 0x7261, 0x2074, 0x5728, 0x4b4e, 0x2930, "\000" 
+    IDC_PROTOCOLL, 0x403, 25, 0
+0x6e41, 0x6c61, 0x676f, 0x5720, 0x6e69, 0x206b, 0x7453, 0x7261, 0x2074, 
+0x5728, 0x4b4e, 0x2931, "\000" 
+    IDC_PROTOCOLL, 0x403, 33, 0
+0x6944, 0x6967, 0x6174, 0x206c, 0x6f4c, 0x706f, 0x5320, 0x6174, 0x7472, 
+0x4f20, 0x5350, 0x462d, 0x2058, 0x4c28, 0x5350, 0x2938, "\000" 
+    IDC_PROTOCOLL, 0x403, 38, 0
+0x6546, 0x7461, 0x7275, 0x2065, 0x7247, 0x756f, 0x2070, 0x2044, 0x6928, 
+0x626e, 0x756f, 0x646e, 0x6f20, 0x6c6e, 0x2979, 0x2820, 0x4446, 0x3049, 
+0x0029, 
+    IDC_PROTOCOLL, 0x403, 33, 0
+0x6944, 0x6967, 0x6174, 0x206c, 0x6f4c, 0x706f, 0x5320, 0x6174, 0x7472, 
+0x4f20, 0x5350, 0x532d, 0x2041, 0x4c28, 0x5350, 0x2939, "\000" 
+    IDC_PROTOCOLL, 0x403, 35, 0
+0x6944, 0x6967, 0x6174, 0x206c, 0x7247, 0x756f, 0x646e, 0x5320, 0x6174, 
+0x7472, 0x4f20, 0x5350, 0x462d, 0x2058, 0x4728, 0x5453, 0x2938, "\000" 
+    IDC_PROTOCOLL, 0x403, 35, 0
+0x6944, 0x6967, 0x6174, 0x206c, 0x7247, 0x756f, 0x646e, 0x5320, 0x6174, 
+0x7472, 0x4f20, 0x5350, 0x532d, 0x2041, 0x4728, 0x5453, 0x2939, "\000" 
+    IDC_PROTOCOLL, 0x403, 21, 0
+0x5349, 0x4e44, 0x7020, 0x6f72, 0x6f74, 0x6f63, 0x206c, 0x4928, 0x4453, 
+0x2930, "\000" 
+    IDC_PROTOCOLL, 0x403, 23, 0
+0x464d, 0x2043, 0x3252, 0x7020, 0x6f72, 0x6f74, 0x6f63, 0x206c, 0x4d28, 
+0x4346, 0x2930, "\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "&About ReceiveFaxWithDTMF..."
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\ReceiveFaxWithDTMF.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,439 @@
+# callctrl.cfg
+#
+# Sample Call Control configuration file for Boston Bfv API.
+#
+# This is an all-in-one file that contains examples for several 
+# different types of configurations.  All of the configuration lines have 
+# been commented out.  You should uncomment the lines that are 
+# appropriate for your configuration. 
+#
+# NOTE: Ensure that you use an absolute path for all the parameters that accept
+#   file names. For example: 
+#   protocol_file=[INSTALL_LOCATION]/config/analog_loopstart_us.lec
+#   where [INSTALL_LOCATION] is the location where your software is installed.
+#
+#   For instance if the install location is C:/Brooktrout/Boston. Then  
+#   protocol_file=C:/Brooktrout/Boston/config/analog_loopstart_us.lec 
+#
+# Refer to the Call Control Configuration File section in the Brooktrout Fax
+# and Voice API Programmer's Reference Manual for more information.
+
+
+
+l3l4_trace=none
+l4l3_trace=none
+api_trace=none
+internal_trace=none
+host_module_trace=none
+ip_stack_trace=none
+# Most of the time a path should be used for this file name.
+trace_file=ecc.log
+
+#######################################################################
+#                                                                     #
+#                        S E C T I O N   F O R                        #
+#                                                                     #
+#                      A N A L O G   B O A R D S                      #
+#                                                                     #
+#######################################################################
+#[module.0]
+#[module.0/port.1]
+#       port_config=analog
+##      Most of the time a path should be used for this file name.
+#       protocol_file=analog_loopstart_us.lec
+#       num_rings=2
+#       input_gain=0
+#       output_gain=0
+#       caller_id=enabled
+##      Most of the time a path should be used for this file name.
+#       country=us600.qslac
+#[module.0/port.2]
+#       port_config=analog
+##      Most of the time a path should be used for this file name.
+#       protocol_file=analog_loopstart_us.lec
+#       num_rings=2
+#       input_gain=0
+#       output_gain=0
+#       caller_id=enabled
+##      Most of the time a path should be used for this file name.
+#       country=us600.qslac
+#[module.0/port.3]
+#       port_config=analog
+##      Most of the time a path should be used for this file name.
+#       protocol_file=analog_loopstart_us.lec
+#       num_rings=2
+#       input_gain=0
+#       output_gain=0
+#       caller_id=enabled
+##      Most of the time a path should be used for this file name.
+#       country=us600.qslac
+#[module.0/port.4]
+#       port_config=analog
+##      Most of the time a path should be used for this file name.
+#       protocol_file=analog_loopstart_us.lec
+#       num_rings=2
+#       input_gain=0
+#       output_gain=0
+#       caller_id=enabled
+##      Most of the time a path should be used for this file name.
+#       country=us600.qslac
+#[module.0/port.5]
+#       port_config=analog
+##      Most of the time a path should be used for this file name.
+#       protocol_file=analog_loopstart_us.lec
+#       num_rings=2
+#       input_gain=0
+#       output_gain=0
+#       caller_id=enabled
+##      Most of the time a path should be used for this file name.
+#       country=us600.qslac
+#[module.0/port.6]
+#       port_config=analog
+##      Most of the time a path should be used for this file name.
+#       protocol_file=analog_loopstart_us.lec
+#       num_rings=2
+#       input_gain=0
+#       output_gain=0
+#       caller_id=enabled
+##      Most of the time a path should be used for this file name.
+#       country=us600.qslac
+#[module.0/port.7]
+#       port_config=analog
+##      Most of the time a path should be used for this file name.
+#       protocol_file=analog_loopstart_us.lec
+#       num_rings=2
+#       input_gain=0
+#       output_gain=0
+#       caller_id=enabled
+##      Most of the time a path should be used for this file name.
+#       country=us600.qslac
+#[module.0/port.8]
+#       port_config=analog
+##      Most of the time a path should be used for this file name.
+#       protocol_file=analog_loopstart_us.lec
+#       num_rings=2
+#       input_gain=0
+#       output_gain=0
+#       caller_id=enabled
+##      Most of the time a path should be used for this file name.
+#       country=us600.qslac
+
+#######################################################################
+#                                                                     #
+#                        S E C T I O N   F O R                        #
+#                                                                     #
+#                         B R I   B O A R D S                         #
+#                                                                     #
+#######################################################################
+#[module.0]
+#       pcm_law=alaw
+#[module.0/port.1]
+#       emulation=CPE
+#       port_config=BRI
+#       default_caller_id_channel_0=12344
+#       default_caller_id_channel_1=67890
+#       max_did_digits=0
+#       did_timeout=10
+#       reject_incomplete_did=false
+#[module.0/port.2]
+#       emulation=CPE
+#       port_config=BRI
+#       default_caller_id_channel_0=12344
+#       default_caller_id_channel_1=67890
+#       max_did_digits=0
+#       did_timeout=10
+#       reject_incomplete_did=false
+
+#######################################################################
+#                                                                     #
+#                        S E C T I O N   F O R                        #
+#                                                                     #
+#                      E 1   I S D N   B O A R D S                    #
+#                                                                     #
+#######################################################################
+#[module.0]     
+#       pcm_law=alaw
+#       auto_connect=true
+#[module.0/clock_config]
+#       clock_mode=master
+#       clock_source=TrunkA
+#[module.0/port.1]
+#       emulation=CPE
+#       port_config=E1_ISDN
+#       line_coding=HDB3
+#       crc=enabled
+#       protocol=EURO
+#       max_did_digits=5
+#       did_timeout=10
+#       reject_incomplete_did=false
+#       default_caller_id=12344
+#[module.0/port.2]
+#       emulation=CPE
+#       port_config=E1_ISDN
+#       line_coding=HDB3
+#       crc=enabled
+#       protocol=EURO
+#       max_did_digits=5
+#       did_timeout=10
+#       reject_incomplete_did=false
+#       default_caller_id=12344
+
+#######################################################################
+#                                                                     #
+#                        S E C T I O N   F O R                        #
+#                                                                     #
+#                          T 1   B O A R D S                          #
+#                                                                     #
+#######################################################################
+#[module.0]
+#       auto_connect=true
+#       pcm_law=mulaw
+#[module.0/clock_config]
+#       clock_mode=master
+#       clock_source=TrunkA
+#[module.0/port.1]
+#       emulation=CPE
+#       port_config=T1_ROBBED_BIT
+##      Most of the time a path should be used for this file name.
+#       protocol_file=winkstart.lec
+#       line_coding=B8ZS
+#       line_type=ESF
+#       max_did_digits=4
+#       did_timeout=10
+#       reject_incomplete_did=false
+#[module.0/port.2]      
+#       emulation=CPE
+#       port_config=T1_ROBBED_BIT
+##      Most of the time a path should be used for this file name.
+#       protocol_file=winkstart.lec
+#       line_coding=B8ZS
+#       line_type=ESF
+#       max_did_digits=4
+#       did_timeout=10
+#       reject_incomplete_did=false
+
+#######################################################################
+#                                                                     #
+#                        S E C T I O N   F O R                        #
+#                                                                     #
+#                      T 1   I S D N   B O A R D S                    #
+#                                                                     #
+#######################################################################
+#[module.0]     
+#       pcm_law=mulaw
+#       auto_connect=true
+#[module.0/clock_config]
+#       clock_mode=master
+#       clock_source=TrunkA
+#[module.0/port.1]
+#       emulation=CPE
+#       port_config=T1_ISDN
+#       line_coding=B8ZS
+#       protocol=ATT
+#       max_did_digits=5
+#       did_timeout=10
+#       reject_incomplete_did=false
+#       default_caller_id=12344
+#[module.0/port.2]
+#       emulation=CPE
+#       port_config=T1_ISDN
+#       line_coding=B8ZS
+#       protocol=ATT
+#       max_did_digits=5
+#       did_timeout=10
+#       reject_incomplete_did=false
+#       default_caller_id=12344
+
+#######################################################################
+#                                                                     #
+#                        S E C T I O N   F O R                        #
+#                                                                     #
+#                       E 1   R 2   B O A R D S                       #
+#                                                                     #
+#######################################################################
+#[module.0]
+#        auto_connect=true
+#        pcm_law=alaw
+#[module.0/clock_config]
+#        clock_mode=master
+#        clock_source=TrunkA
+#[module.0/port.1]
+#        port_config=e1_r2_cas
+##       Most of the time a path should be used for this file name.
+#        protocol_file=itu_china.lec
+#        CRC=enabled
+#        line_coding=hdb3
+#        line_impedance=120
+#        max_did_digits=4
+#[module.0/port.2]       
+#        port_config=e1_r2_cas
+##       Most of the time a path should be used for this file name.
+#        protocol_file=itu_china.lec
+#        CRC=enabled
+#        line_coding=hdb3
+#        line_impedance=120
+#        max_did_digits=4
+
+#######################################################################
+#                                                                     #
+#                        S E C T I O N   F O R                        #
+#                                                                     #
+#                         S I P   M O D U L E                         #
+#                                                                     #
+#######################################################################
+#[module.0]
+#[module.0/ethernet.1]
+#       ip_address=192.168.0.2
+#       ip_netmask=255.255.255.0
+#       ip_gateway=192.168.0.1
+#       ip_arp_timeout=600
+#       media_port_min=56000
+#       media_port_max=57000
+#       ethernet_speed=auto
+#[module.0/host_cc.1]
+#       host_module=1
+#       number_of_channels=30
+#
+#[host_module.1]
+#        module_library=brktsip.dll
+#        enabled=true
+#[host_module.1/t38parameters]
+#        t38_fax_max_buffer=8192
+#        t38_fax_max_datagram_recv=256
+#        t38_fax_max_datagram_send=1024
+#        t38_max_bit_rate=14400
+#        t38_t30_fastnotify=true
+#        t38_UDPTL_redundancy_depth_control=5
+#        t38_UDPTL_redundancy_depth_image=2
+#[host_module.1/parameters]
+#        sip_Contact=
+#        sip_description_URI=http:www.brooktrout.com
+#        sip_email=default@brooktrout.com
+#        sip_From=from@brooktrout.com
+#        sip_Max-Forwards=20
+#        sip_max_sessions=30
+#        sip_phone=+1-4085551212
+#        sip_proxy_server1=
+#        sip_proxy_server2=
+#        sip_proxy_server3=
+#        sip_registration_interval=60
+#        sip_registration_server1=
+#        sip_registration_server2=
+#        sip_registration_server3=
+#        sip_session_description=description_brooktrout
+#        sip_session_name=session_brooktrout
+#        sip_username=brooktrout
+
+#######################################################################
+#                                                                     #
+#                        S E C T I O N   F O R                        #
+#                                                                     #
+#                      E 1   C A S   B O A R D S                      #
+#                                                                     #
+#######################################################################
+#[module.0]
+#        auto_connect=true
+#        pcm_law=alaw
+#[module.0/clock_config]
+#        clock_mode=master
+#        clock_source=TrunkA
+#[module.0/port.1]
+#        port_config=e1_cas
+##       Most of the time a path should be used for this file name.
+#        protocol_file=fxs_loopstart.lec
+#        CRC=enabled
+#        line_coding=hdb3
+#        line_impedance=120
+#[module.0/port.2]       
+#        port_config=e1_r2_cas
+##       Most of the time a path should be used for this file name.
+#        protocol_file=fxs_loopstart.lec
+#        CRC=enabled
+#        line_coding=hdb3
+#        line_impedance=120
+
+#######################################################################
+#                                                                     #
+#                        S E C T I O N   F O R                        #
+#                                                                     #
+#                    E 1   D P N S S   B O A R D S                    #
+#                                                                     #
+#######################################################################
+#[module.0]
+#        auto_connect=true
+#        pcm_law=alaw
+#[module.0/clock_config]
+#        clock_mode=master
+#        clock_source=TrunkA
+#[module.0/port.1]
+#        emulation=CPE
+#        port_config=e1_dpnss
+#        line_coding=HDB3
+#        line_impedance=120
+#        crc=enabled
+#        default_caller_id=12344
+#        max_did_digits=4
+#        did_timeout=5
+#        reject_incomplete_did=false
+#        did_offset=0;
+#        layer_2_designation=a
+#        layer_3_designation=x
+#[module.0/port.2]       
+#        emulation=CPE
+#        port_config=e1_dpnss
+#        line_coding=HDB3
+#        line_impedance=120
+#        crc=enabled
+#        default_caller_id=12344
+#        max_did_digits=4
+#        did_timeout=5
+#        reject_incomplete_did=false
+#        did_offset=0;
+#        layer_2_designation=a
+#        layer_3_designation=x
+
+#######################################################################
+#                                                                     #
+#                        S E C T I O N   F O R                        #
+#                                                                     #
+#                         D I D   B O A R D S                         #
+#                                                                     #
+#######################################################################
+#[module.0]
+#  pcm_law=mulaw
+#[module.0/port.1]
+#  port_config=analog_did
+#  line_coef=0
+##       Most of the time a path should be used for this file name.
+#  protocol_file=winkstart.lec
+#  reject_incomplete_did=false
+#  max_did_digits=0
+#  did_offset=0
+#  did_timeout=5
+#[module.0/port.2]
+#  port_config=analog_did
+#  line_coef=0
+##       Most of the time a path should be used for this file name.
+#  protocol_file=winkstart.lec
+#  reject_incomplete_did=false
+#  max_did_digits=0
+#  did_offset=0
+#  did_timeout=5
+#[module.0/port.3]
+#  port_config=analog_did
+#  line_coef=0
+##       Most of the time a path should be used for this file name.
+#  protocol_file=winkstart.lec
+#  reject_incomplete_did=false
+#  max_did_digits=0
+#  did_offset=0
+#  did_timeout=5
+#[module.0/port.4]
+#  port_config=analog_did
+#  line_coef=0
+##       Most of the time a path should be used for this file name.
+#  protocol_file=winkstart.lec
+#  reject_incomplete_did=false
+#  max_did_digits=0
+#  did_offset=0
+#  did_timeout=5

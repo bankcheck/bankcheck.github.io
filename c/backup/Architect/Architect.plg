@@ -1,0 +1,59 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Architect - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP106.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR"Debug/" /Fp"Debug/Architect.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\dev\Architect\Architect.C"
+"D:\dev\Architect\CVT-CX.C"
+"D:\dev\Architect\GETDATA.C"
+"D:\dev\Architect\LOADREG.C"
+"D:\dev\Architect\LOG.C"
+"D:\dev\Architect\RECV.C"
+"D:\dev\Architect\SENDDATA.C"
+"D:\dev\Architect\SERVICE.C"
+"D:\dev\Architect\TOOL.C"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP106.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP107.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/Architect.pdb" /debug /machine:I386 /out:"Debug/Architect.exe" /pdbtype:sept 
+.\Debug\Architect.obj
+".\Debug\CVT-CX.OBJ"
+.\Debug\GETDATA.OBJ
+.\Debug\LOADREG.OBJ
+.\Debug\LOG.OBJ
+.\Debug\RECV.OBJ
+.\Debug\SENDDATA.OBJ
+.\Debug\SERVICE.OBJ
+.\Debug\TOOL.OBJ
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP107.tmp"
+<h3>Output Window</h3>
+Compiling...
+Architect.C
+CVT-CX.C
+GETDATA.C
+LOADREG.C
+LOG.C
+RECV.C
+SENDDATA.C
+SERVICE.C
+TOOL.C
+Linking...
+Creating command line "bscmake.exe /nologo /o"Debug/Architect.bsc"  .\Debug\Architect.sbr ".\Debug\CVT-CX.SBR" .\Debug\GETDATA.SBR .\Debug\LOADREG.SBR .\Debug\LOG.SBR .\Debug\RECV.SBR .\Debug\SENDDATA.SBR .\Debug\SERVICE.SBR .\Debug\TOOL.SBR"
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+Architect.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

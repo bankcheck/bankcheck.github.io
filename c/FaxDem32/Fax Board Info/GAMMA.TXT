@@ -1,0 +1,28 @@
+
+Using Fax C++ with GammaLink fax boards
+
+The 32 bit version of Fax C++ works with GammaLink fax boards under Windows NT.
+To develop software for GammaLink boards, you must also have the driver of
+the board installed and properly configured on your system.
+
+The name of the GammaLink NT device driver: GNCFD.
+The names of the two Services: Dialogic and GammaFax.
+Both the device driver and the two services must be started.
+
+The GFAX environment variable, which is created by the GammaLink configuration
+utility, must point to the subdirectory which contains the configuration file.
+When you try to use a channel, you have to specify the name of the configuration
+file as the second parameter of the function "ConnectChannel()".
+If you don't specify the path, the software will look for it in the
+subdirectory specified by GFAX environment variable.
+
+The transmission parameters like, ECM, max or min transmission, baud rate,
+of the fax board can only be set through the GammaLink configuration file
+( default name: GFAX.$DC ). See Table 4.2 Summary of Configuration Commands in
+Gammalink Reference Manual for Windows NT Version 2.0.
+Because of this, Every Fax C++ function which sets or returns transmission
+parameters, will not work with GammaLink boards. For details, see the Fax
+C++ programmer's reference.
+
+If you are using FaxCpp with GammaLink driver version 3.0 you don't have to
+specify any configuration files when opening the channels.

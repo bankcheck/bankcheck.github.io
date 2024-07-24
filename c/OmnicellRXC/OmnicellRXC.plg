@@ -1,0 +1,53 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: OmnicellRXC - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP25.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/OmnicellRXC.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ  /c 
+"D:\dev\OmnicellRXC\TOOL.C"
+"D:\dev\OmnicellRXC\database.c"
+"D:\dev\OmnicellRXC\LOADREG.C"
+"D:\dev\OmnicellRXC\LOG.C"
+"D:\dev\OmnicellRXC\OmnicellRXC.C"
+"D:\dev\OmnicellRXC\RECV.C"
+"D:\dev\OmnicellRXC\SERVICE.C"
+"D:\dev\OmnicellRXC\SOCKET.C"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP25.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP26.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/OmnicellRXC.pdb" /debug /machine:I386 /out:"Debug/OmnicellRXC.exe" /pdbtype:sept 
+.\Debug\TOOL.OBJ
+.\Debug\database.obj
+.\Debug\LOADREG.OBJ
+.\Debug\LOG.OBJ
+.\Debug\OmnicellRXC.obj
+.\Debug\RECV.OBJ
+.\Debug\SERVICE.OBJ
+.\Debug\SOCKET.OBJ
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP26.tmp"
+<h3>Output Window</h3>
+Compiling...
+TOOL.C
+database.c
+LOADREG.C
+LOG.C
+OmnicellRXC.C
+RECV.C
+SERVICE.C
+SOCKET.C
+Linking...
+
+
+
+<h3>Results</h3>
+OmnicellRXC.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

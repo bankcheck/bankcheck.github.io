@@ -1,0 +1,26 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: FAXRECV - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "link.exe ..\lib\SmartFax.lib /nologo /subsystem:windows /incremental:no /pdb:"Release/RecvFax.pdb" /machine:I386 /out:"..\lib\RecvFax.exe"  .\Release\FAXRECV.obj .\Release\FAXRECVDlg.obj .\Release\StdAfx.obj .\Release\tapifax.obj .\Release\FAXRECV.res "
+<h3>Output Window</h3>
+Linking...
+FAXRECVDlg.obj : error LNK2001: unresolved external symbol "long __cdecl InitFaxTapiCall(struct HLINE__ const * &,struct HCALL__ const * &)" (?InitFaxTapiCall@@YAJAAPBUHLINE__@@AAPBUHCALL__@@@Z)
+FAXRECVDlg.obj : error LNK2001: unresolved external symbol "int __cdecl TapiSendCMD_(struct HCALL__ const * &,struct HLINE__ const * &,char const *)" (?TapiSendCMD_@@YAHAAPBUHCALL__@@AAPBUHLINE__@@PBD@Z)
+..\lib\RecvFax.exe : fatal error LNK1120: 2 unresolved externals
+Error executing link.exe.
+Creating command line "bscmake.exe /nologo /o"Release/FAXRECV.bsc"  .\Release\StdAfx.sbr .\Release\FAXRECV.sbr .\Release\FAXRECVDlg.sbr .\Release\tapifax.sbr"
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+RecvFax.exe - 3 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

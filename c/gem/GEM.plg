@@ -1,0 +1,56 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: GEM - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP147F.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/GEM.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\dev\gem\CVT-CX.C"
+"D:\dev\gem\GEM.C"
+"D:\dev\gem\GETDATA.C"
+"D:\dev\gem\LOADREG.C"
+"D:\dev\gem\LOG.C"
+"D:\dev\gem\RECV.C"
+"D:\dev\gem\SENDDATA.C"
+"D:\dev\gem\SERVICE.C"
+"D:\dev\gem\TOOL.C"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP147F.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP1480.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/GEM.pdb" /debug /machine:I386 /out:"Debug/GEM.exe" /pdbtype:sept 
+".\Debug\CVT-CX.OBJ"
+.\Debug\GEM.OBJ
+.\Debug\GETDATA.OBJ
+.\Debug\LOADREG.OBJ
+.\Debug\LOG.OBJ
+.\Debug\RECV.OBJ
+.\Debug\SENDDATA.OBJ
+.\Debug\SERVICE.OBJ
+.\Debug\TOOL.OBJ
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP1480.tmp"
+<h3>Output Window</h3>
+Compiling...
+CVT-CX.C
+GEM.C
+GETDATA.C
+LOADREG.C
+LOG.C
+RECV.C
+SENDDATA.C
+SERVICE.C
+TOOL.C
+Linking...
+
+
+
+<h3>Results</h3>
+GEM.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: ocpledia - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP514.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/ocpledia.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\dev\OCPledia\CVT-CX.C"
+"D:\dev\OCPledia\GETDATA.C"
+"D:\dev\OCPledia\LOADREG.C"
+"D:\dev\OCPledia\LOG.C"
+"D:\dev\OCPledia\ocpledia.C"
+"D:\dev\OCPledia\RECV.C"
+"D:\dev\OCPledia\SENDDATA.C"
+"D:\dev\OCPledia\SERVICE.C"
+"D:\dev\OCPledia\TOOL.C"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP514.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP515.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/ocpledia.pdb" /debug /machine:I386 /out:"Debug/ocpledia.exe" /pdbtype:sept 
+".\Debug\CVT-CX.OBJ"
+.\Debug\GETDATA.OBJ
+.\Debug\LOADREG.OBJ
+.\Debug\LOG.OBJ
+.\Debug\ocpledia.obj
+.\Debug\RECV.OBJ
+.\Debug\SENDDATA.OBJ
+.\Debug\SERVICE.OBJ
+.\Debug\TOOL.OBJ
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP515.tmp"
+<h3>Output Window</h3>
+Compiling...
+CVT-CX.C
+GETDATA.C
+LOADREG.C
+LOG.C
+ocpledia.C
+RECV.C
+SENDDATA.C
+SERVICE.C
+TOOL.C
+Linking...
+
+
+
+<h3>Results</h3>
+ocpledia.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

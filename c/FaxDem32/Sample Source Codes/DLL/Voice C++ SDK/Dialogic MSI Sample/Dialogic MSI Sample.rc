@@ -1,0 +1,266 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\Dialogic MSI Sample.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\Dialogic MSI Sample.ico"
+IDI_PHONEONHOOK         ICON    DISCARDABLE     "res\\PHONE08.ICO"
+IDI_PHONERING           ICON    DISCARDABLE     "res\\PHONE07.ICO"
+IDI_PHONEOFFHOOK        ICON    DISCARDABLE     "res\\PHONE13.ICO"
+IDI_PHONEDISABLED       ICON    DISCARDABLE     "res\\phonedis.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About Dialogic MSI Sample"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "Dialogic MSI Sample Version 1.0",IDC_STATIC,40,10,119,8,
+                    SS_NOPREFIX
+    LTEXT           "Copyright (C) 2002",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_DIALOGICMSISAMPLE_DIALOG DIALOGEX 0, 0, 287, 306
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "Voice C++ PBX sample for Dialogic MSI boards"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "E&xit",IDOK,119,285,50,14
+    GROUPBOX        "MSI Extension 1",IDC_STATICMSI1,5,5,134,44,WS_DISABLED
+    GROUPBOX        "MSI Extension 3",IDC_STATICMSI3,5,95,134,44,WS_DISABLED
+    GROUPBOX        "MSI Extension 2",IDC_STATICMSI2,5,50,134,44,WS_DISABLED
+    GROUPBOX        "MSI Extension 4",IDC_STATICMSI4,5,140,134,44,
+                    WS_DISABLED
+    GROUPBOX        "Voice channel 4",IDC_STATICVOICE4,145,140,134,44,
+                    WS_DISABLED
+    GROUPBOX        "Voice channel 1",IDC_STATICVOICE1,145,5,134,44,
+                    WS_DISABLED
+    GROUPBOX        "Voice channel 2",IDC_STATICVOICE2,145,50,134,44,
+                    WS_DISABLED
+    GROUPBOX        "Voice channel 3",IDC_STATICVOICE3,145,94,134,44,
+                    WS_DISABLED
+    ICON            IDI_PHONEONHOOK,IDC_ICONMSI1,10,20,20,20,WS_DISABLED
+    ICON            IDI_PHONEONHOOK,IDC_ICONMSI2,10,65,20,20,WS_DISABLED
+    ICON            IDI_PHONEONHOOK,IDC_ICONMSI3,10,110,20,20,WS_DISABLED
+    ICON            IDI_PHONEONHOOK,IDC_ICONMSI4,10,155,20,20,WS_DISABLED
+    ICON            IDI_PHONEONHOOK,IDC_ICONVOICE1,150,20,20,20,WS_DISABLED
+    ICON            IDI_PHONEONHOOK,IDC_ICONVOICE2,150,65,20,20,WS_DISABLED
+    ICON            IDI_PHONEONHOOK,IDC_ICONVOICE3,150,110,20,20,WS_DISABLED
+    ICON            IDI_PHONEONHOOK,IDC_ICONVOICE4,150,155,20,20,WS_DISABLED
+    CTEXT           "MSI extension 1 status",IDC_STATUSMSI1,35,15,100,12,
+                    WS_DISABLED,WS_EX_CLIENTEDGE
+    CTEXT           "MSI extension 2 status",IDC_STATUSMSI2,35,60,100,12,
+                    WS_DISABLED,WS_EX_CLIENTEDGE
+    CTEXT           "MSI extension 3 status",IDC_STATUSMSI3,35,105,100,12,
+                    WS_DISABLED,WS_EX_CLIENTEDGE
+    CTEXT           "MSI extension 4 status",IDC_STATUSMSI4,35,150,100,12,
+                    WS_DISABLED,WS_EX_CLIENTEDGE
+    CTEXT           "Voice channel 1 status",IDC_STATUSVOICE1,175,15,100,12,
+                    WS_DISABLED,WS_EX_CLIENTEDGE
+    CTEXT           "Voice channel 2 status",IDC_STATUSVOICE2,175,60,100,12,
+                    WS_DISABLED,WS_EX_CLIENTEDGE
+    CTEXT           "Voice channel 3 status",IDC_STATUSVOICE3,175,105,100,12,
+                    WS_DISABLED,WS_EX_CLIENTEDGE
+    CTEXT           "Voice channel 4 status",IDC_STATUSVOICE4,175,150,100,12,
+                    WS_DISABLED,WS_EX_CLIENTEDGE
+    GROUPBOX        "Messages:",IDC_STATIC,5,190,275,90
+    LISTBOX         IDC_MESSAGES,10,200,265,55,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Copy to clipboard",IDC_CLIPBOARD,59,260,65,15
+    PUSHBUTTON      "Clea&r",IDC_CLEAR,164,260,55,15
+    PUSHBUTTON      "&Create Conference",IDC_BUTTONCONF1,45,32,76,12,
+                    WS_DISABLED
+    PUSHBUTTON      "&Create Conference",IDC_BUTTONCONF2,45,76,76,12,
+                    WS_DISABLED
+    PUSHBUTTON      "&Create Conference",IDC_BUTTONCONF3,45,122,76,12,
+                    WS_DISABLED
+    PUSHBUTTON      "&Create Conference",IDC_BUTTONCONF4,45,167,76,12,
+                    WS_DISABLED
+    PUSHBUTTON      "&Create Conference",IDC_BUTTONCONF5,186,32,76,12,
+                    WS_DISABLED
+    PUSHBUTTON      "&Create Conference",IDC_BUTTONCONF6,186,76,76,12,
+                    WS_DISABLED
+    PUSHBUTTON      "&Create Conference",IDC_BUTTONCONF7,186,122,76,12,
+                    WS_DISABLED
+    PUSHBUTTON      "&Create Conference",IDC_BUTTONCONF8,186,167,76,12,
+                    WS_DISABLED
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "Dialogic MSI Sample MFC Application\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "Dialogic MSI Sample\0"
+            VALUE "LegalCopyright", "Copyright (C) 2002\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "Dialogic MSI Sample.EXE\0"
+            VALUE "ProductName", "Dialogic MSI Sample Application\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_DIALOGICMSISAMPLE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 280
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 299
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "&About Dialogic MSI Sample..."
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\Dialogic MSI Sample.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

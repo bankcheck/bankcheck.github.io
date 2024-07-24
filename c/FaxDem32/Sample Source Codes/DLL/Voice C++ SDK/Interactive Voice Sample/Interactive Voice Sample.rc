@@ -1,0 +1,698 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif\r\n"
+    "#include ""res\\Interactive Voice Sample.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\Interactive Voice Sample.ico"
+IDI_COMM                ICON    DISCARDABLE     "res\\icon1.ico"
+IDI_BROOK               ICON    DISCARDABLE     "res\\ico00001.ico"
+IDI_NMS                 ICON    DISCARDABLE     "res\\ico00002.ico"
+IDI_DIALOGIC            ICON    DISCARDABLE     "res\\icon2.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 217, 47
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About Interactive Voice Sample"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,13,21,20
+    LTEXT           "Interactive Voice Sample Version 2.0",IDC_STATIC,40,10,
+                    119,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2000, Black Ice Software, Inc.",
+                    IDC_STATIC,40,25,143,8
+    DEFPUSHBUTTON   "OK",IDOK,164,7,46,14,WS_GROUP
+END
+
+IDD_INTERACTIVEVOICESAMPLE_DIALOG DIALOGEX 0, 0, 213, 270
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "Interactive Voice Sample"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "&C",IDC_COMM,17,17,26,18,BS_ICON
+    PUSHBUTTON      "&B",IDC_BROOK,67,17,26,18,BS_ICON
+    PUSHBUTTON      "&D",IDC_DIALOGIC,118,17,26,18,BS_ICON
+    PUSHBUTTON      "&N",IDC_NMS,170,17,26,18,BS_ICON
+    EDITTEXT        IDC_DIAL_NUMBER,13,56,187,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "Dial",IDC_DIAL,13,73,50,14
+    PUSHBUTTON      "Answer",IDC_ANSWER,149,73,50,14
+    PUSHBUTTON      "Play Message",IDC_PLAYMSG,12,100,62,14
+    PUSHBUTTON      "Record Message",IDC_RECMSG,12,116,62,14
+    PUSHBUTTON      "Send Fax",IDC_SENDFAX,76,100,62,14
+    PUSHBUTTON      "Receive Fax",IDC_RECEIVEFAX,76,116,62,14
+    PUSHBUTTON      "STOP",IDC_STOP,140,100,62,14
+    PUSHBUTTON      "Hang Up",IDC_HANGUP,140,116,62,14
+    PUSHBUTTON      "Send DTMF",IDC_SEND_DTMF,12,132,62,14
+    PUSHBUTTON      "Wait for DTMF",IDC_REC_DTMF,76,132,62,14
+    PUSHBUTTON      "Generate Tone",IDC_GEN_TONE,140,132,62,14
+    PUSHBUTTON      "Transfer Call",IDC_TRANSFER,76,148,62,14
+    LISTBOX         IDC_PORT_STATUS,13,175,187,50,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Copy to Clipboard",IDC_COPYCLIPBOARD,13,228,63,12
+    PUSHBUTTON      "Clear",IDC_CLEARLISTBOX,92,228,43,12
+    CONTROL         "Auto scroll",IDC_AUTOSCROLL,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,153,228,47,12
+    PUSHBUTTON      "E&xit",IDCANCEL,92,251,43,12
+    PUSHBUTTON      "&Help",IDCHELP,153,251,47,12
+    GROUPBOX        "Dial/Answer",IDC_STATIC,7,39,199,51
+    LTEXT           "Phone Number:",IDC_STATIC,13,47,50,8
+    GROUPBOX        "Functions",IDC_STATIC,7,90,199,75
+    GROUPBOX        "Open port/channel",IDC_STATIC,7,7,199,32
+    GROUPBOX        "Port status",IDC_STATIC,7,165,199,80
+    CONTROL         "Blind transfer",IDC_BLINDTRANSFER,"Button",
+                    BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,142,149,64,12
+    PUSHBUTTON      "Detect Tone",IDC_DETECTTONE,12,148,62,14
+    PUSHBUTTON      "Close port/channel",IDC_CLOSEPORT,13,251,73,12
+END
+
+IDD_BROOK_OPEN DIALOGEX 0, 0, 265, 68
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Open Brooktrout Channel"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    LISTBOX         IDC_CHANNEL_LIST,7,15,64,45,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_CONFIG,77,15,119,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,208,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,208,24,50,14
+    PUSHBUTTON      "&Test",IDC_TEST,208,41,50,14
+    LTEXT           "Available Channels",IDC_STATIC,7,7,61,8
+    LTEXT           "Config File",IDC_STATIC,77,7,34,8
+    LTEXT           "Modem Type",IDC_STATIC,77,33,42,8
+    LTEXT           "Static",IDC_TEST_RESULT,77,41,119,14,0,WS_EX_CLIENTEDGE
+END
+
+IDD_DIALOGIC_OPEN DIALOG DISCARDABLE  0, 0, 266, 121
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Open Dialogic Channel"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,209,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,209,24,50,14
+    CONTROL         "List1",IDC_LIST1,"SysListView32",LVS_REPORT | 
+                    LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,7,199,76
+    COMBOBOX        IDC_LINETYPE,42,102,98,59,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Line Type:",IDC_STATIC,7,104,34,10
+    LTEXT           "Protocol:",IDC_STATIC,146,104,31,10
+    EDITTEXT        IDC_PROTOCOL,177,101,82,13,ES_AUTOHSCROLL
+    CONTROL         "&Enable answering machine detection",IDC_PAMD,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,88,200,8
+END
+
+IDD_OPEN_PORT DIALOG DISCARDABLE  0, 0, 205, 161
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Open COM port"
+FONT 8, "MS Sans Serif"
+BEGIN
+    COMBOBOX        IDC_COMM_PORT,7,16,59,49,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_MODEM_TYPES,7,39,139,87,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_FAXCLASS_TYPE,7,63,139,54,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_MANUFACTURE,7,88,191,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_MODEL,7,113,191,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_CAPABILITIES,7,139,191,14,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    DEFPUSHBUTTON   "&Open Port",IDOK,148,7,50,14
+    PUSHBUTTON      "&Test Modem",IDC_TEST_MODEM,148,22,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,148,38,50,14
+    PUSHBUTTON      "&Voice formats",IDC_VOICE_FORMATS,148,62,50,14
+    LTEXT           "&Modem Type:",IDC_STATIC,7,31,44,8
+    LTEXT           "&Fax class type:",IDC_STATIC,7,55,61,8
+    LTEXT           "&Serial port to use:",IDC_STATIC,7,7,61,8
+    LTEXT           "Manufacture",IDC_STATIC1,7,80,41,8
+    LTEXT           "Model",IDC_STATIC2,7,104,20,8
+    LTEXT           "Modem Capabilities",IDC_STATIC3,7,130,62,8
+END
+
+IDD_SELECT_MSG DIALOG DISCARDABLE  0, 0, 293, 100
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Select Message"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LISTBOX         IDC_SEND_FILES,7,15,225,75,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Select",IDC_SELECT,236,16,50,14
+    PUSHBUTTON      "E&xit",IDCANCEL,236,32,50,14
+    LTEXT           "Voice Messages:",IDC_VOICE_FILES,7,7,91,8
+END
+
+IDD_INPUT DIALOG DISCARDABLE  0, 0, 186, 62
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_INPUT_EDIT,7,20,172,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,26,40,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,110,40,50,14
+    LTEXT           "Static",IDC_INPUT_MSG,7,7,172,8
+END
+
+IDD_NMS_OPEN DIALOG DISCARDABLE  0, 0, 277, 145
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Open NMS channel"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,219,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,219,24,50,14
+    CONTROL         "List1",IDC_LIST1,"SysListView32",LVS_REPORT | 
+                    LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,7,199,76
+    LTEXT           "&NMS Telephony Protocol:",IDC_STATIC,7,92,81,8
+    COMBOBOX        IDC_PROTOCOLL,7,104,215,67,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "&DNIS/DID digits:",IDC_STATIC,7,127,53,8
+    EDITTEXT        IDC_DID,66,126,40,12,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "Spin1",IDC_SPINDID,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_AUTOBUDDY | UDS_ARROWKEYS,106,126,11,12
+END
+
+IDD_TRANSFER DIALOG DISCARDABLE  0, 0, 254, 58
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Transfer Inbound Call Parameters"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_NUMBER,7,15,240,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,63,37,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,139,37,50,14
+    LTEXT           "Extension/Phone number",IDC_STATIC,7,7,81,8
+END
+
+IDD_WAITFORDTMF DIALOG DISCARDABLE  0, 0, 151, 63
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Wait for DTMF code"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_NUMBER_OF_DTMF,104,7,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_DELIM_OF_DTMF,104,23,40,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,20,42,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,82,42,50,14
+    LTEXT           "Number of DTMF digits:",IDC_STATIC,7,7,76,8
+    LTEXT           "Delimiter digit:",IDC_STATIC,7,23,44,8
+END
+
+IDD_GEN_TONE DIALOG DISCARDABLE  0, 0, 231, 57
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Generate Tone Signal"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_FREQ_FIRST,131,7,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_FREQ_SEC,131,22,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_DURATION,131,37,40,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,175,9,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,175,26,50,14
+    LTEXT           "First Frequency (200 Hz - 3000 Hz) :",-1,7,9,121,8
+    LTEXT           "Second Frequency (200 Hz -3000 Hz):",-1,7,24,123,8
+    LTEXT           "Duration ( 0 - 40 )",-1,7,39,101,8
+END
+
+IDD_HELP DIALOGEX 0, 0, 348, 250
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Interactive Voice Sample Help"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_TEXT,"RICHEDIT",ES_MULTILINE | ES_READONLY | 
+                    WS_BORDER | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,1,0,346,
+                    231,WS_EX_DLGMODALFRAME
+    DEFPUSHBUTTON   "Close",IDOK,145,233,57,15
+END
+
+IDD_CUSTOMTONE DIALOG DISCARDABLE  0, 0, 234, 140
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Detect custom tone"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "&Single frequency tone",IDC_SINGLE_TONE,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,15,16,89,10
+    CONTROL         "&Dual frequency tone",IDC_DUAL_TONE,"Button",
+                    BS_AUTORADIOBUTTON,112,16,80,10
+    EDITTEXT        IDC_FREQ1,58,61,28,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_FREQ1DEV,179,61,28,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_FREQ2,57,76,28,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_FREQ2DEV,179,76,28,13,ES_AUTOHSCROLL
+    COMBOBOX        IDC_DETECTIONMODE,82,95,140,37,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "OK",IDOK,54,119,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,147,119,50,14
+    GROUPBOX        "Custom Tone Type",IDC_STATIC,7,7,220,24
+    GROUPBOX        "Tone parameters",IDC_STATIC,7,33,220,80
+    LTEXT           "Frequency1:",IDC_STATIC,13,63,42,9
+    LTEXT           "Frequency2:",IDC_STATIC,13,78,40,9
+    LTEXT           "Frequency1 deviation:",IDC_STATIC,104,63,70,9
+    LTEXT           "Frequency2 deviation:",IDC_STATIC,104,78,70,9
+    LTEXT           "Hz",IDC_STATIC,88,63,13,10
+    LTEXT           "Hz",IDC_STATIC,87,78,13,10
+    LTEXT           "Hz",IDC_STATIC,209,63,13,10
+    LTEXT           "Hz",IDC_STATIC,209,78,13,10
+    LTEXT           "Detection Mode:",IDC_STATIC,13,97,54,9
+    LTEXT           "ToneID:",IDC_STATIC,13,46,28,9
+    LTEXT           "",IDC_TONEID,46,46,58,10
+END
+
+IDD_VOICE_FORMATS DIALOG DISCARDABLE  0, 0, 260, 153
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Voice Formats"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,101,132,50,14
+    LTEXT           "The modem supports the following voice formats:",
+                    IDC_STATIC,7,7,246,10
+    EDITTEXT        IDC_VOICEFORMATS,7,22,246,105,ES_MULTILINE | 
+                    ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_READONLY | 
+                    WS_VSCROLL | WS_HSCROLL
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "Interactive Voice Sample MFC Application\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "Interactive Voice Sample\0"
+            VALUE "LegalCopyright", "Copyright (C) 1999\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "Interactive Voice Sample.EXE\0"
+            VALUE "ProductName", "Interactive Voice Sample Application\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 210
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 40
+    END
+
+    IDD_INTERACTIVEVOICESAMPLE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 206
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 263
+    END
+
+    IDD_BROOK_OPEN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 258
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 61
+    END
+
+    IDD_DIALOGIC_OPEN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 259
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 114
+    END
+
+    IDD_OPEN_PORT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 198
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 154
+    END
+
+    IDD_SELECT_MSG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 286
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 93
+    END
+
+    IDD_INPUT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_NMS_OPEN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 269
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 138
+    END
+
+    IDD_TRANSFER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 247
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 51
+    END
+
+    IDD_WAITFORDTMF, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 144
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 56
+    END
+
+    IDD_GEN_TONE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 224
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 50
+    END
+
+    IDD_CUSTOMTONE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 227
+        VERTGUIDE, 15
+        VERTGUIDE, 81
+        VERTGUIDE, 104
+        VERTGUIDE, 222
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 133
+    END
+
+    IDD_VOICE_FORMATS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 253
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 146
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_OPEN_PORT MENU DISCARDABLE 
+BEGIN
+    MENUITEM "&COM Port",                   ID_OPENPORT_COMPORT
+    MENUITEM "&Dialogic channel",           ID_OPENPORT_DIALOGICCHANNEL
+    MENUITEM "B&rooktrout channel",         ID_OPENPORT_BROOKTROUTCHANNEL
+    MENUITEM "NM&S channel",                ID_OPENPORT_NMSCHANNEL
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_OPEN_PORT DLGINIT
+BEGIN
+    IDC_MODEM_TYPES, 0x403, 23, 0
+0x7541, 0x6f74, 0x6420, 0x7465, 0x6365, 0x2074, 0x6f6d, 0x6564, 0x206d, 
+0x7974, 0x6570, "\000" 
+    IDC_MODEM_TYPES, 0x403, 29, 0
+0x6f52, 0x6b63, 0x6577, 0x6c6c, 0x4320, 0x6968, 0x7370, 0x7465, 0x4220, 
+0x7361, 0x6465, 0x4d20, 0x646f, 0x6d65, "\000" 
+    IDC_MODEM_TYPES, 0x403, 26, 0
+0x5355, 0x6f52, 0x6f62, 0x6974, 0x7363, 0x5320, 0x6f70, 0x7472, 0x6573, 
+0x2072, 0x6f4d, 0x6564, 0x006d, 
+    IDC_MODEM_TYPES, 0x403, 27, 0
+0x754c, 0x6563, 0x746e, 0x4320, 0x6968, 0x7370, 0x7465, 0x4220, 0x7361, 
+0x6465, 0x4d20, 0x646f, 0x6d65, "\000" 
+    IDC_MODEM_TYPES, 0x403, 33, 0
+0x6943, 0x7272, 0x7375, 0x4c20, 0x676f, 0x6369, 0x4320, 0x6968, 0x7370, 
+0x7465, 0x4220, 0x7361, 0x6465, 0x4d20, 0x646f, 0x6d65, "\000" 
+    IDC_MODEM_TYPES, 0x403, 37, 0
+0x6f52, 0x6b63, 0x6577, 0x6c6c, 0x432f, 0x6e6f, 0x7865, 0x6e61, 0x2074, 
+0x4348, 0x2046, 0x6863, 0x7069, 0x6573, 0x2074, 0x6f6d, 0x6564, 0x736d, 
+"\000" 
+    IDC_FAXCLASS_TYPE, 0x403, 15, 0
+0x6547, 0x656e, 0x6972, 0x2063, 0x6c43, 0x7361, 0x3173, "\000" 
+    IDC_FAXCLASS_TYPE, 0x403, 17, 0
+0x6547, 0x656e, 0x6972, 0x2063, 0x6c43, 0x7361, 0x3273, 0x302e, "\000" 
+    0
+END
+
+IDD_DIALOGIC_OPEN DLGINIT
+BEGIN
+    IDC_LINETYPE, 0x403, 18, 0
+0x6e41, 0x6c61, 0x676f, 0x4c20, 0x6f6f, 0x2070, 0x7453, 0x7261, 0x0074, 
+
+    IDC_LINETYPE, 0x403, 9, 0
+0x5349, 0x4e44, 0x5020, 0x4952, "\000" 
+    IDC_LINETYPE, 0x403, 14, 0
+0x3154, 0x5220, 0x626f, 0x6562, 0x2064, 0x6942, 0x0074, 
+    IDC_LINETYPE, 0x403, 7, 0
+0x3145, 0x4320, 0x5341, "\000" 
+    0
+END
+
+IDD_NMS_OPEN DLGINIT
+BEGIN
+    IDC_PROTOCOLL, 0x403, 25, 0
+0x6e41, 0x6c61, 0x676f, 0x4c20, 0x6f6f, 0x2070, 0x7453, 0x7261, 0x2074, 
+0x4c28, 0x5350, 0x2930, "\000" 
+    IDC_PROTOCOLL, 0x403, 48, 0
+0x6944, 0x6967, 0x6174, 0x2f6c, 0x6e41, 0x6c61, 0x676f, 0x5720, 0x6e69, 
+0x206b, 0x7453, 0x7261, 0x2074, 0x6928, 0x626e, 0x756f, 0x646e, 0x6f20, 
+0x6c6e, 0x2979, 0x2820, 0x4944, 0x3044, 0x0029, 
+    IDC_PROTOCOLL, 0x403, 49, 0
+0x6944, 0x6967, 0x6174, 0x2f6c, 0x6e41, 0x6c61, 0x676f, 0x5720, 0x6e69, 
+0x206b, 0x7453, 0x7261, 0x2074, 0x6f28, 0x7475, 0x6f62, 0x6e75, 0x2064, 
+0x6e6f, 0x796c, 0x2029, 0x4f28, 0x5447, 0x2930, "\000" 
+    IDC_PROTOCOLL, 0x403, 33, 0
+0x6944, 0x6967, 0x6174, 0x2f6c, 0x6e41, 0x6c61, 0x676f, 0x5720, 0x6e69, 
+0x206b, 0x7453, 0x7261, 0x2074, 0x5728, 0x4b4e, 0x2930, "\000" 
+    IDC_PROTOCOLL, 0x403, 25, 0
+0x6e41, 0x6c61, 0x676f, 0x5720, 0x6e69, 0x206b, 0x7453, 0x7261, 0x2074, 
+0x5728, 0x4b4e, 0x2931, "\000" 
+    IDC_PROTOCOLL, 0x403, 33, 0
+0x6944, 0x6967, 0x6174, 0x206c, 0x6f4c, 0x706f, 0x5320, 0x6174, 0x7472, 
+0x4f20, 0x5350, 0x462d, 0x2058, 0x4c28, 0x5350, 0x2938, "\000" 
+    IDC_PROTOCOLL, 0x403, 38, 0
+0x6546, 0x7461, 0x7275, 0x2065, 0x7247, 0x756f, 0x2070, 0x2044, 0x6928, 
+0x626e, 0x756f, 0x646e, 0x6f20, 0x6c6e, 0x2979, 0x2820, 0x4446, 0x3049, 
+0x0029, 
+    IDC_PROTOCOLL, 0x403, 33, 0
+0x6944, 0x6967, 0x6174, 0x206c, 0x6f4c, 0x706f, 0x5320, 0x6174, 0x7472, 
+0x4f20, 0x5350, 0x532d, 0x2041, 0x4c28, 0x5350, 0x2939, "\000" 
+    IDC_PROTOCOLL, 0x403, 35, 0
+0x6944, 0x6967, 0x6174, 0x206c, 0x7247, 0x756f, 0x646e, 0x5320, 0x6174, 
+0x7472, 0x4f20, 0x5350, 0x462d, 0x2058, 0x4728, 0x5453, 0x2938, "\000" 
+    IDC_PROTOCOLL, 0x403, 35, 0
+0x6944, 0x6967, 0x6174, 0x206c, 0x7247, 0x756f, 0x646e, 0x5320, 0x6174, 
+0x7472, 0x4f20, 0x5350, 0x532d, 0x2041, 0x4728, 0x5453, 0x2939, "\000" 
+    IDC_PROTOCOLL, 0x403, 21, 0
+0x5349, 0x4e44, 0x7020, 0x6f72, 0x6f74, 0x6f63, 0x206c, 0x4928, 0x4453, 
+0x2930, "\000" 
+    IDC_PROTOCOLL, 0x403, 14, 0
+0x464d, 0x2043, 0x3252, 0x2820, 0x464d, 0x3043, 0x0029, 
+    0
+END
+
+IDD_CUSTOMTONE DLGINIT
+BEGIN
+    IDC_DETECTIONMODE, 0x403, 23, 0
+0x654c, 0x6461, 0x6e69, 0x2067, 0x6445, 0x6567, 0x4420, 0x7465, 0x6365, 
+0x6974, 0x6e6f, "\000" 
+    IDC_DETECTIONMODE, 0x403, 24, 0
+0x7254, 0x6961, 0x696c, 0x676e, 0x4520, 0x6764, 0x2065, 0x6544, 0x6574, 
+0x7463, 0x6f69, 0x006e, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP2             BITMAP  DISCARDABLE     "res\\bmp00002.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "&About Interactive Voice Sample..."
+    IDS_HELP                "How to use the Interactive Voice Sample...\r\n\r\nBefore using this application, please make sure that you have the followings:\r\n- a Rockwell chipset Voice modem installed or\r\n- a US Robotics Voice modem installed o- a Lucent chipset Voice modem installed or\r\n- a Cirrus Logic chipset Voice modem installed or\r\nr\r\n- a Dialogic voice board installed or\r\n- a Brooktrout voice board installed or\r\n- a Natural Micro Systmes voice board installed."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_PICKUP_LINE         "Set modem off-hook manually."
+    IDC_DIAL_NUMBER         "Enter phone number"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_DIAL                "Dial the entered phone number in voice mode"
+    IDC_PLAYMSG             "Play a selected voice message"
+    IDC_RECMSG              "Record a new voice message"
+    IDC_SENDFAX             "Send a fax document"
+    IDC_RECEIVEFAX          "Receive a fax document"
+    IDC_STOP                "Terminate current voice/fax process"
+    IDC_ANSWER              "Answer incoming call in voice mode"
+    IDC_HANGUP              "Hang up the line"
+    IDC_SEND_DTMF           "Send sequence of digits"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_REC_DTMF            "Wait for a sequence of digits or a specific DTMF digit"
+    IDC_PORT_STATUS         "Status messages"
+    IDC_GEN_TONE            "Generate a dual-tone specified by frequencies and duration."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_TRANSFER            "Transfer inbound call"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_COMM                "Open a Rockwell/Conexant HCF/USRobotics/Lucent/Cirrus Logic modem port"
+    IDC_BROOK               "Open a Brooktrour channel"
+    IDC_DIALOGIC            "Open a Dialogic channel"
+    IDC_NMS                 "Open an NMS channel"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDCANCEL                "Exit application"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif
+#include "res\Interactive Voice Sample.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

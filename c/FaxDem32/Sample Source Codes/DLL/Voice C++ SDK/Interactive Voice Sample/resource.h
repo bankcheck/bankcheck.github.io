@@ -1,0 +1,119 @@
+//{{NO_DEPENDENCIES}}
+// Microsoft Developer Studio generated include file.
+// Used by Interactive Voice Sample.rc
+//
+#define IDC_VOICE_FORMATS               3
+#define IDM_ABOUTBOX                    0x0010
+#define ID_OPENPORT_COMPORT             0x0020
+#define ID_OPENPORT_DIALOGICCHANNEL     0x0030
+#define ID_OPENPORT_BROOKTROUTCHANNEL   0x0040
+#define ID_OPENPORT_NMSCHANNEL          0x0050
+#define IDD_ABOUTBOX                    100
+#define IDS_ABOUTBOX                    101
+#define IDD_INTERACTIVEVOICESAMPLE_DIALOG 102
+#define IDS_HELP                        102
+#define IDR_MAINFRAME                   128
+#define IDR_OPEN_PORT                   129
+#define IDC_LIST1                       130
+#define IDB_BITMAP2                     134
+#define IDI_COMM                        136
+#define IDD_OPEN_PORT                   137
+#define IDI_BROOK                       137
+#define IDI_NMS                         138
+#define IDI_DIALOGIC                    139
+#define IDD_INPUT                       140
+#define IDD_HELP                        141
+#define IDD_SELECT_MSG                  145
+#define IDD_CUSTOMTONE                  146
+#define IDD_WAITFORDTMF                 147
+#define IDD_VOICE_FORMATS               148
+#define IDD_GEN_TONE                    169
+#define IDD_DIALOGIC_OPEN               171
+#define IDD_TRANSFER                    178
+#define IDD_BROOK_OPEN                  179
+#define IDD_NMS_OPEN                    180
+#define IDC_INPUT_MSG                   203
+#define IDC_INPUT_EDIT                  204
+#define IDC_SELECT                      205
+#define IDC_SEND_FILES                  206
+#define IDC_NUMBER_OF_DTMF              210
+#define IDC_DELIM_OF_DTMF               211
+#define IDC_LOG                         221
+#define IDC_PICKUP_LINE                 222
+#define IDC_DIAL_NUMBER                 223
+#define IDC_DIAL                        224
+#define IDC_PLAYMSG                     232
+#define IDC_RECMSG                      233
+#define IDC_SENDFAX                     234
+#define IDC_RECEIVEFAX                  235
+#define IDC_STOP                        236
+#define IDC_ANSWER                      237
+#define IDC_HANGUP                      238
+#define IDC_SEND_DTMF                   239
+#define IDC_REC_DTMF                    240
+#define IDC_PORT_STATUS                 241
+#define IDC_GEN_TONE                    242
+#define IDC_FREQ_FIRST                  246
+#define IDC_FREQ_SEC                    247
+#define IDC_DURATION                    248
+#define IDC_MODEM_TYPES                 249
+#define IDC_AUTOANSWER                  253
+#define IDC_TRANSFER                    274
+#define IDCHELP                         275
+#define IDC_DIALTONE                    275
+#define IDC_DETECTTONE                  276
+#define IDC_TONE_TIME                   277
+#define IDC_NUMBER                      278
+#define IDC_TEST                        279
+#define IDC_CHANNEL_LIST                280
+#define IDC_CONFIG                      281
+#define IDC_TEST_RESULT                 284
+#define IDC_COMM_PORT                   1000
+#define IDC_TEST_MODEM                  1001
+#define IDC_FAXCLASS_TYPE               1002
+#define IDC_STATIC1                     1003
+#define IDC_STATIC2                     1004
+#define IDC_CAPABILITIES                1006
+#define IDC_MODEL                       1007
+#define IDC_MANUFACTURE                 1008
+#define IDC_STATIC3                     1009
+#define IDC_COMM                        1009
+#define IDC_BROOK                       1010
+#define IDC_DIALOGIC                    1011
+#define IDC_NMS                         1012
+#define IDC_HELP                        1014
+#define IDC_VOICE_FILES                 1015
+#define IDC_EDIT1                       1015
+#define IDC_PROTOCOL                    1015
+#define IDC_FREQ1                       1015
+#define IDC_VOICEFORMATS                1015
+#define IDC_FREQ2                       1016
+#define IDC_FREQ2DEV                    1017
+#define IDC_LINETYPE                    1018
+#define IDC_FREQ1DEV                    1018
+#define IDC_COPYCLIPBOARD               1019
+#define IDC_CLEARLISTBOX                1020
+#define IDC_AUTOSCROLL                  1021
+#define IDC_TEXT                        1022
+#define IDC_BLINDTRANSFER               1022
+#define IDC_PAMD                        1025
+#define IDC_SINGLE_TONE                 1026
+#define IDC_DUAL_TONE                   1027
+#define IDC_DETECTIONMODE               1028
+#define IDC_REPORTEVENTS                1029
+#define IDC_TONEID                      1030
+#define IDC_CLOSEPORT                   1031
+#define IDC_PROTOCOLL                   1051
+#define IDC_DID                         1052
+#define IDC_SPINDID                     1053
+
+// Next default values for new objects
+// 
+#ifdef APSTUDIO_INVOKED
+#ifndef APSTUDIO_READONLY_SYMBOLS
+#define _APS_NEXT_RESOURCE_VALUE        149
+#define _APS_NEXT_COMMAND_VALUE         32771
+#define _APS_NEXT_CONTROL_VALUE         1032
+#define _APS_NEXT_SYMED_VALUE           101
+#endif
+#endif

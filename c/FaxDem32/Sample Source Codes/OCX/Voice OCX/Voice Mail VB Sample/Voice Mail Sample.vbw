@@ -1,0 +1,11 @@
+Module1 = 88, 88, 657, 480, 
+frmMain = 66, 66, 572, 506, , 22, 22, 467, 462, C
+frmAutoAnswer = 88, 88, 594, 528, , 66, 66, 511, 506, C
+frmRecordName = 0, 0, 0, 0, C, 88, 88, 533, 528, C
+frmSelectPort = 0, 0, 0, 0, C, 110, 110, 555, 550, C
+frmSelectMessage = 0, 0, 0, 0, C, 132, 132, 577, 572, C
+AboutDlg = 44, 44, 550, 484, , 154, 154, 599, 594, C
+frmDialogicOpen = 0, 0, 0, 0, C, 176, 176, 621, 616, C
+frmOpenBrook = 0, 0, 0, 0, C, 198, 198, 643, 638, C
+frmOpenNMS = 0, 0, 0, 0, C, 220, 220, 665, 660, C
+frmHelp = 0, 0, 0, 0, C, 0, 0, 445, 440, C

@@ -1,0 +1,53 @@
+CModemInfo
+
+CLASS TO ENUMERATE MODEM NAMES, COM PORTS, AND INIT STRINGS. SEE ATTACHED SAMPLE EXE.
+
+Alright folks, this post is the result of probably a hundred email requests over the past few months, in response to my original inquiry about how to retrieve modem information. Now I'm sure 'ol BG and the boys would probably take a different approach, but this one works for me.
+
+
+Background:
+
+It's very simply really. Run the included sample exe to see what I mean.
+
+// number of modems in machine
+const int		GetModemCount() const;			
+// reset string
+const CString	GetModemResetString( const CString strName ) const;
+// init string, with optional desired volume level specified
+// error control on, compression on, hardward flow control, modulation CCITT, blind off, call setup fail timer, inactivity timer + if requested, includes  volume init
+const CString	GetModemInitString( const CString strName, const int nSpeakerVolume = -1 ) const;
+// com port
+const int		GetModemComPort( const CString strName ) const;
+// maximum bps as per control panel
+const int		GetModemBps( const CString strName ) const;
+// fills CComboBoxBox with list of modem names
+void			FillComboBoxWithModemNames( CComboBox* pComboBox );
+// fills CListBox control with list of modem names
+void			FillListBoxWithModemNames( CListBox* pListBox );
+// first listed non-virtual modem name in registry
+const CString	GetFirstModemName() const;
+// modem name based on index
+const CString	GetModemName( const int nIndex ) const;
+// does modem have speaker
+const BOOL		GetModemHasSpeaker( const CString strName ) const;
+// how many volume levels? 
+const int		GetModemVolumeLevelsCount( const CString strName ) const;
+// is strName a valid modem?
+const BOOL		GetIsModem( const CString strName ) const;
+
+
+Example Usage:
+
+	CModemInfo ModemInfo;
+	const CString strModemName = Modem.InfoGetFirstModemName();
+	const CString strInit = Modem.GetModemInit( strModemName );
+	const int nComPort = Modem.GetModemComPort( strModemName );
+
+	Pretty easy stuff.
+
+
+Enjoy!
+
+
+Seain B. Conover
+Tarasoft Corporation

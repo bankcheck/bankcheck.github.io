@@ -1,0 +1,194 @@
+To configure NMS boards to use with Fax C++, please follow the following
+steps (assuming that the board is already inserted in your computer):
+
+1. Install CT Access from NMS.
+
+2. Install AG Access from NMS.
+
+3. Install Natural Fax from NMS.
+
+4. Assuming that all three packages were installed in a directory named NMS,
+go to \NMS\AG\CFG directory. The NMS board needs a configuration file that
+will contains all the information needed to use the board.( interrupt number,
+channel settings, etc.). This configuration file is named ag.cfg and can be
+found in the \NMS\AG\CFG directory. All the other files in this directory
+are sample configuration files. For more information about the structure
+and the usage of the ag.cfg file please consult the Access Installation
+Manual and the AG Runtime Configuration & Developer's Manual, both shipped
+with the board.
+
+5.You will also have to configure your fax licenses. To do this you should
+create a file named licenses.txt in the \NMS\NFX\ directory. This file should
+contain only one line, your fax license number. This number is provided by
+Natural Micro Systems. If you don't have a valid fax license number, you
+won't be able to send and receive faxes with the board.
+
+6. After you created an ag.cfg file you should run the agmon.exe utility
+which will try to boot your board. If the information in your ag.cfg is
+correct, everything is set up and the board can be used with Fax/Voice C++.
+Otherwise you will get an error message and you should correct the
+information in your ag.cfg file.
+
+This is an ag.cfg file that can be used with Fax/Voice C++ using analog
+telephone lines:
+
+#                        ag8.cfg
+#
+#      --- Alliance Generation Configuration --
+#
+#   Sample configuration file for AG-8 (no MVIP switching).
+#
+
+[AGBOARD]
+
+#---------- COMMON section --------
+#the interrupt number that the board wil use
+Interrupt = 5
+
+# Un-comment the appropriate protocol(s)  Comment out the ones you don't need
+#wee need only the loop-start protocol
+
+# TCP = nocc.tcp              # "no trunk control" protocol
+ TCP = lps0.tcp              # loop start protocol
+# TCP = did0.tcp              # DID (incoming wink start) protocol
+# TCP = wnk0.tcp              # Two-way wink start protocol
+# TCP = ogt0.tcp              # Outgoing wink start protocol
+
+# Uncomment the appropriate DSP functions
+
+ DspFile =   tone.dsp        # Beep, tone generation, dial
+ DspFile =  callp.dsp        # Call Progress detection
+ DspFile = signal.dsp        # Out-of-band channel associated signalling
+ DspFile =   dtmf.dsp        # DTMF, cleardown and silence/energy detectors
+ DspFile =  voice.dsp        # NMS ADPCM play and record
+ DspFile =   echo.dsp
+
+# DspFile =  adsir.dsp        # Caller ID and ADSI receive
+# DspFile =     mf.dsp        # MF detection
+  DspFile = rvoice.dsp        # Unformatted PCM play and record
+#  DspFile = okiply.dsp        # OKI ADPCM play
+#  DspFile = okirec.dsp        # OKI ADPCM record
+  DspFile = wavply.dsp        # WAVE play
+  DspFile = wavrec.dsp        # WAVE record
+
+ # Begin NaturalFax overlays
+ DSPFile = m4x_tx.dsp           # ADD THIS LINE
+ DSPFile = m4x_17.dsp           # ADD THIS LINE
+ DSPFile = m4r_samp.dsp         # ADD THIS LINE
+ DSPFile = m4r_baud.dsp         # ADD THIS LINE
+ # DSPFile = m4r_hdlc.dsp         # ADD THIS LINE
+ DSPFile = m4x_300.dsp          # ADD THIS LINE
+ DSPFile = m4r_300.dsp          # ADD THIS LINE
+ # End NaturalFax overlays
+
+ IdleCode   = mu-LAW
+
+
+#--------- BOARDS section ----------
+
+ Board 0
+  RunFile = sysan.run
+  RunModule = fax.leo
+  Address = 2c0
+  ClockRef   = OSC
+  EnableMvip = No
+
+  Taskprocessor 0 = m4r_baud.dsp, m4x_tx.dsp, m4r_300.dsp, m4x_300.dsp, voice.dsp, callp.dsp, tone.dsp, wavrec.dsp, wavply.dsp, -300
+  Taskprocessor 1 = m4r_samp.dsp, dtmf.dsp, echo.dsp, signal.dsp, m4x_17.dsp, rvoice.dsp -300
+
+ End Board
+
+
+# Uncomment the following for a second board
+#
+# Board 1
+#  Address = 22C0
+# End Board
+
+# -------------------------------
+
+This ag.cfg file can be used with Fax/Voice C++ using both analog
+telephone lines and DID lines:
+
+#                        ag8.cfg
+#
+#      --- Alliance Generation Configuration --
+#
+#   Sample configuration file for AG-8 (no MVIP switching).
+#
+
+[AGBOARD]
+
+#---------- COMMON section --------
+#the interrupt number that the board wil use
+Interrupt = 5
+
+# Un-comment the appropriate protocol(s)  Comment out the ones you don't need
+#wee need the loop-start protocol and the DID protocol
+
+# TCP = nocc.tcp              # "no trunk control" protocol
+ TCP = lps0.tcp              # loop start protocol
+ TCP = did0.tcp              # DID (incoming wink start) protocol
+# TCP = wnk0.tcp              # Two-way wink start protocol
+# TCP = ogt0.tcp              # Outgoing wink start protocol
+
+# Uncomment the appropriate DSP functions
+
+ DspFile =   tone.dsp        # Beep, tone generation, dial
+ DspFile =  callp.dsp        # Call Progress detection
+ DspFile = signal.dsp        # Out-of-band channel associated signalling
+ DspFile =   dtmf.dsp        # DTMF, cleardown and silence/energy detectors
+ DspFile =  voice.dsp        # NMS ADPCM play and record
+ DspFile =   echo.dsp
+
+# DspFile =  adsir.dsp        # Caller ID and ADSI receive
+# DspFile =     mf.dsp        # MF detection
+  DspFile = rvoice.dsp        # Unformatted PCM play and record
+#  DspFile = okiply.dsp        # OKI ADPCM play
+#  DspFile = okirec.dsp        # OKI ADPCM record
+  DspFile = wavply.dsp        # WAVE play
+  DspFile = wavrec.dsp        # WAVE record
+
+ # Begin NaturalFax overlays
+ DSPFile = m4x_tx.dsp           # ADD THIS LINE
+ DSPFile = m4x_17.dsp           # ADD THIS LINE
+ DSPFile = m4r_samp.dsp         # ADD THIS LINE
+ DSPFile = m4r_baud.dsp         # ADD THIS LINE
+ # DSPFile = m4r_hdlc.dsp         # ADD THIS LINE
+ DSPFile = m4x_300.dsp          # ADD THIS LINE
+ DSPFile = m4r_300.dsp          # ADD THIS LINE
+ # End NaturalFax overlays
+
+
+
+
+
+
+ IdleCode   = mu-LAW
+
+
+#--------- BOARDS section ----------
+
+ Board 0
+  RunFile = sysan.run
+  RunModule = fax.leo
+  Address = 2c0
+  ClockRef   = OSC
+  EnableMvip = No
+
+  Taskprocessor 0 = m4r_baud.dsp, m4x_tx.dsp, m4r_300.dsp, m4x_300.dsp, voice.dsp, callp.dsp, tone.dsp, wavrec.dsp, wavply.dsp, -300
+  Taskprocessor 1 = m4r_samp.dsp, dtmf.dsp, echo.dsp, signal.dsp, m4x_17.dsp, rvoice.dsp -300
+
+ End Board
+
+
+# Uncomment the following for a second board
+#
+# Board 1
+#  Address = 22C0
+# End Board
+
+# -------------------------------
+
+
+

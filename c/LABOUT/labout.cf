@@ -1,0 +1,5 @@
+;
+port=4921
+directory=/usr/instru/test
+groupid=lab
+userid=nobody

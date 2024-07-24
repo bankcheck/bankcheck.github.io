@@ -1,0 +1,56 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: UN2000 - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP437.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/UN2000.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\dev\UN2000\getdata.c"
+"D:\dev\UN2000\LOADREG.C"
+"D:\dev\UN2000\LOG.C"
+"D:\dev\UN2000\RECV.C"
+"D:\dev\UN2000\senddata.c"
+"D:\dev\UN2000\SERVICE.C"
+"D:\dev\UN2000\SOCKET.C"
+"D:\dev\UN2000\TOOL.C"
+"D:\dev\UN2000\UN2000.C"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP437.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP438.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/UN2000.pdb" /debug /machine:I386 /out:"Debug/UN2000.exe" /pdbtype:sept 
+.\Debug\getdata.obj
+.\Debug\LOADREG.OBJ
+.\Debug\LOG.OBJ
+.\Debug\RECV.OBJ
+.\Debug\senddata.obj
+.\Debug\SERVICE.OBJ
+.\Debug\SOCKET.OBJ
+.\Debug\TOOL.OBJ
+.\Debug\UN2000.OBJ
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP438.tmp"
+<h3>Output Window</h3>
+Compiling...
+getdata.c
+LOADREG.C
+LOG.C
+RECV.C
+senddata.c
+SERVICE.C
+SOCKET.C
+TOOL.C
+UN2000.C
+Linking...
+
+
+
+<h3>Results</h3>
+UN2000.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

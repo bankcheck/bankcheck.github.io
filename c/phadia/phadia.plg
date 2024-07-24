@@ -1,0 +1,56 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: phadia - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP1864.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/phadia.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\dev\phadia\getdata.c"
+"D:\dev\phadia\LOADREG.C"
+"D:\dev\phadia\LOG.C"
+"D:\dev\phadia\MAIN.C"
+"D:\dev\phadia\phadia.C"
+"D:\dev\phadia\senddata.c"
+"D:\dev\phadia\SERVICE.C"
+"D:\dev\phadia\SOCKET.C"
+"D:\dev\phadia\TOOL.C"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP1864.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP1865.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/phadia.pdb" /debug /machine:I386 /out:"Debug/phadia.exe" /pdbtype:sept 
+.\Debug\getdata.obj
+.\Debug\LOADREG.OBJ
+.\Debug\LOG.OBJ
+.\Debug\MAIN.OBJ
+.\Debug\phadia.obj
+.\Debug\senddata.obj
+.\Debug\SERVICE.OBJ
+.\Debug\SOCKET.OBJ
+.\Debug\TOOL.OBJ
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP1865.tmp"
+<h3>Output Window</h3>
+Compiling...
+getdata.c
+LOADREG.C
+LOG.C
+MAIN.C
+phadia.C
+senddata.c
+SERVICE.C
+SOCKET.C
+TOOL.C
+Linking...
+
+
+
+<h3>Results</h3>
+phadia.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

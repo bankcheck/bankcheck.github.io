@@ -1,0 +1,365 @@
+<html>
+<head>
+<title>Remote FAX a TIFF sample HTML page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<script type="text/javascript" language="JavaScript">
+function MM_reloadPage(init)
+{
+	//reloads the window if Nav4 resized
+	if (init==true) with (navigator)
+	{
+		if ((appName=="Netscape")&&(parseInt(appVersion)==4))
+		{
+			document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage;
+		}
+	}
+	else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH)
+		location.reload();
+}
+MM_reloadPage(true);
+</script>
+<script type="text/javascript" language="JavaScript">
+
+var PageNum = 0;
+var Console;
+
+function printf(string)
+{
+	if (!Console) return;
+	if (Console.closed) return;
+
+	Console.document.write(string);
+	Console.document.write("<br>");
+	Console.scrollBy(0,20)
+	Console.focus();
+}
+
+function OnLoad()
+{
+	var BiDisp = document.getElementById("BiDisp");
+	var BiTiff = document.getElementById("BiTiff");
+	var File = document.getElementById("file").value;	
+	var PreviousPage = document.getElementById("prevpage");
+	var NextPage = document.getElementById("nextpage");
+
+	BiDisp.ScaleMode = 2;
+	BiDisp.Mapping = 1;
+	BiDisp.ScrollBars = 3;
+	BiDisp.ZoomWithKeyboard = 0;
+	BiDisp.Zoom = 0;
+}
+
+function OnUnload()
+{
+	if (Console) Console.close();
+}
+
+function OnLoadPic()
+{
+	var BiDisp = document.getElementById("BiDisp");
+	var BiTiff = document.getElementById("BiTiff");
+	var File = document.getElementById("file").value;	
+	var PreviousPage = document.getElementById("prevpage");
+	var NextPage = document.getElementById("nextpage");
+
+	if (!File)
+	{
+		top.window.alert("Please enter a TIFF file to send!");
+		return 0;
+	}
+
+	document.getElementById("sendfax").disabled = false;
+
+	if (BiTiff)
+	{
+		var hDib = BiTiff.LoadTiffIntoDIB(File, 0, false);
+		if (hDib)
+		{
+			BiDisp.hDib = hDib;
+
+			if (BiTiff.GetNumberOfImagesInTiffFile(File) > 1)
+				NextPage.disabled = false;
+		}
+		else top.window.alert("Could not load the specified file.\nPlease browse for a valid TIFF image.");
+	}
+}
+
+function OnNext()
+{
+	var BiDisp = document.getElementById("BiDisp");
+	var BiTiff = document.getElementById("BiTiff");
+	var File = document.getElementById("file").value;	
+	var PreviousPage = document.getElementById("prevpage");
+	var NextPage = document.getElementById("nextpage");
+
+	PageNum = PageNum + 1;
+	var hDib = BiTiff.LoadTiffIntoDIB(File, PageNum, false);
+	BiDisp.hDib = hDib;
+	if (PageNum > 0)
+		PreviousPage.disabled = false;
+	if (PageNum >= BiTiff.GetNumberOfImagesInTiffFile(File) - 1)
+		NextPage.disabled = true;
+	else			
+		NextPage.disabled = false;
+}
+
+function OnPrevious()
+{
+	var BiDisp = document.getElementById("BiDisp");
+	var BiTiff = document.getElementById("BiTiff");
+	var File = document.getElementById("file").value;	
+	var PreviousPage = document.getElementById("prevpage");
+	var NextPage = document.getElementById("nextpage");
+
+	PageNum = PageNum - 1;
+	var hDib = BiTiff.LoadTiffIntoDIB(File, PageNum, false);
+	BiDisp.hDib = hDib;
+	if (PageNum <= 0)
+		PreviousPage.disabled = true;
+	else			
+		PreviousPage.disabled = false;
+	if (PageNum < BiTiff.GetNumberOfImagesInTiffFile(File) - 1)
+		NextPage.disabled = false;
+}
+
+function SendFAX()
+{
+	var TYPE = 1;			// Fax type = Monochrome
+	var MAX_BAUD = 15;		// Maximum baud rate = 33600
+	var COMP = 2;			// Compression type = Group3 1D/Color FAX
+	var ECM = 3;			// ECM enabled
+	var BFT = 2;			// Binary file transfer diabled (Disabled when colorfax on!)
+	var SPK_MODE = 2;		// Speaker on while dialing
+	var SPK_VOL = 1;		// Medium volume
+
+	function OpenConsole()
+	{
+		// Get the console window style
+		var width = 400;
+		var height = 275;
+		var left = 0
+		var top = 0
+		var winspecs = "directories=no,location=no,menubar=no,resizable=no,scrollbars=yes,status=no,toolbar=no,left=" + left + ",top=" + top + ",width=" + width + ",height=" + height;
+
+		// Open the new console window
+		if (!Console || Console.closed)
+			Console = window.open('about:blank', '_blank', winspecs);
+
+		// Initialize the console window
+		Console.document.write(unescape('<html>%0D<head>%0D<title>Console Window</title>%0D</head>%0D<body leftmargin="2" topmargin="2" bgcolor="#000000" text="#C0C0C0">%0D'));
+		Console.document.write(unescape('<font face="Courier New" size="3"><b>%0D<center>Sending the Fax<br>Please wait...</center><br>%0D'));
+		Console.scrollBy(0,55)
+		Console.focus();
+	}
+
+	var Fax = document.getElementById("FaxOcx");
+	var File = document.getElementById("file").value;
+	var PortNum = document.getElementById("port").value;
+	var TelNum = document.getElementById("tel").value;
+	var AbortButton = document.getElementById("abortfax");
+	var SendButton = document.getElementById("sendfax");
+	var ErrCode = 0;
+	AbortButton.disabled = false;
+	SendButton.disabled = true;
+
+	if (!(File && PortNum && TelNum))
+	{
+		if (!File) top.window.alert("Please enter a file to send in the FAX!");
+		else if (!PortNum) top.window.alert("Please enter a COM port number through which to send the fax!");
+		else top.window.alert("Please enter a telephone number to which to send the FAX!");
+
+		return 0;
+	}
+
+	OpenConsole();						// Open the status console if not opened yet
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Send the fax
+	var PortName = "COM";					// Open a com port
+	PortName += PortNum;					// Concatenate the port number to the port type string
+
+	var Pages = 1;
+	if (File.search(".tif"))
+		Pages = Fax.GetNumberOfImages(File, 11);	// Get the number of pages
+
+	Fax.DisplayFaxManager = false;				// Do not display the Fax Manager
+	Fax.LocalID = "";
+	Fax.FaxType = "GCLASS1(SFC)";
+
+	printf("Opening port " + PortName + "...");
+	if (ErrCode = Fax.TestModem(PortName) != 0)		// Test the port
+	{
+		printf("There is no modem on " + PortName + "!");
+		printf("Code: " + ErrCode);
+		return;
+	}
+
+	if (ErrCode = Fax.OpenPort(PortName) != 0)		// Open the port
+	{
+		printf("Error opening the " + PortName + " port!");
+		printf("Code: " + ErrCode);
+		return;
+	}
+
+	Fax.SetPortCapability(PortName, 3, ECM);		// Set ECM mode
+	Fax.SetPortCapability(PortName, 4, BFT);		// Set BFT mode
+	Fax.SetPortCapability(PortName, 10, MAX_BAUD);		// Set maximum baud rate
+	Fax.PageFileName = File;				// Set file to send
+
+	printf("Creating fax object...");
+	var FaxID = Fax.CreateFaxObject(TYPE, Pages, 3, 2, 1, COMP, BFT, ECM, 2, 1); // See FAXOCX.txt for constant values
+	if (!FaxID)
+	{
+		printf("Error creating the fax object!");
+		Fax.ClosePort(PortName);
+		return;
+	}
+
+	Fax.SetFaxParam(FaxID, 9, Pages);			// Set page number to send
+	Fax.SetPhoneNumber(FaxID, TelNum);			// Set telephone number
+
+	for (var i = 1; i <= Pages; i++)
+	{
+		printf("Adding page " + i + "...");
+		ErrCode = Fax.SetFaxPage(FaxID, i, 17, i);
+		if (ErrCode == 172)
+		{
+			printf("Demo version, sending the first page only.");
+			break;
+		}
+		else if (ErrCode != 0)
+		{
+			printf("Error adding page " + i + "!");
+			printf("Code: " + ErrCode);
+			Fax.ClosePort(PortName);
+			Fax.ClearFaxObject(FaxID);
+			return;
+		}
+	}
+	
+	printf("Starting faxing...");
+	if ((ErrCode = Fax.SendNow(PortName, FaxID)) != 0)
+	{
+		printf("Error while trying to send the fax!");
+		printf("Code: " + ErrCode);
+		Fax.ClosePort(PortName);
+		Fax.ClearFaxObject(FaxID);
+		return;
+	}
+}
+
+function EndSendFAX(PortName, FaxID)
+{
+	var Fax = document.getElementById("FaxOcx");
+
+	printf("Deleting the fax object...");
+	Fax.ClearFaxObject(FaxID);
+}
+
+function AbortFAX()
+{
+	var Fax = document.getElementById("FaxOcx");
+	var AbortButton = document.getElementById("abortfax");
+	var PortNum = document.getElementById("port").value;
+	var PortName = "COM";					// Open a com port
+	PortName += PortNum;					// Concatenate the port number to the port type string
+
+	printf("Aborting " + PortName + "...");
+	Fax.Abort(PortName);					// Abort the port
+
+	AbortButton.disabled = true;
+}
+
+function TerminateFAX(PortName)
+{
+	var Fax = document.getElementById("FaxOcx");
+	var AbortButton = document.getElementById("abortfax");
+	var SendButton = document.getElementById("sendfax");
+
+	printf("Closing the port...");
+	if ((ErrCode = Fax.ClosePort(PortName)) != 0)
+	{
+		printf("Error closing the port!");
+		printf("Code: " + ErrCode);
+		return;
+	}
+
+	AbortButton.disabled = true;
+	SendButton.disabled = falseé
+
+	printf("Finished faxing.");
+}
+</script>
+</head>
+
+<body onLoad="javascript:OnLoad()" onUnload="javascript:OnUnload()" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0">
+
+<p align="center"><strong><font size="+3">Black Ice Remote FAX a TIFF sample</font></strong></p>
+<center><font size="2" color="#FF0000">You must have the TIFF SDK in order to display the picture! You may load the picture othervise as well.</font></center>
+
+      <!------------------------------------ >
+      <  Include the needed ActiveX objects  >
+      <-------------------------------------->
+
+      <!--the TIFF.LPK file can be found in the CAB directory of the TIFF SDK installation folder-->
+      <!--the FaxCpp.lpk file can be found in the CAB directory of the FaxCpp SDK installation folder-->
+      <object classid="clsid:5220cb21-c88d-11cf-b347-00aa00a28331">
+          <param name="LPKPath" value="FaxCpp.lpk">
+      </object>
+      <object classid="clsid:5220cb21-c88d-11cf-b347-00aa00a28331">
+          <param name="LPKPath" value="tiff.LPK">
+      </object>
+      <object id="FaxOcx" width="0" height="0" classid="CLSID:2E980303-C865-11CF-BA24-444553540000" codebase="http://www.blackice.com/FAXCPP_HTML_SAMPLE/FaxCpp.cab"></object>
+      <object id="BiDisp" width="100%" height="400" classid="CLSID:19B50C95-6BB5-4DFD-B20C-5B9A61FA1C0D" codebase="http://www.blackice.com/DOCIMG_HTML_SAMPLE/tiff.cab"></object>
+      <object id="BIDIB" width="0" height="0" classid="CLSID:D2797899-BE27-4CDB-892F-4FDC26EA9BA9" codebase="http://www.blackice.com/DOCIMG_HTML_SAMPLE/tiff.cab"></object>
+      <object id="BiTiff" width="0" height="0" classid="CLSID:2324B5B7-D3EF-464C-BB35-06EFF8F11EB3" codebase="http://www.blackice.com/DOCIMG_HTML_SAMPLE/tiff.cab"></object>
+
+      <script language="JavaScript">
+      function FaxOcx::EndSend(PortName, FaxID, RemoteID)
+      {
+        // Event after fax send complete
+        printf("Faxing has completed.");
+        EndSendFAX(PortName, FaxID);
+      }
+
+      function FaxOcx::Terminate(PortName, Status, PageNum, ConnectTime, szDID, szDTMF)
+      {
+        TerminateFAX(PortName);
+      }
+      </script>
+<br>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td height="22" nowrap>
+      <input type="file" name="filename" value="" id="file" maxlength="255" style="width:100%; height:22px;">
+    </td>
+    <td width="105" align="right" nowrap>
+      <input type="button" name="load" value="Load Picture" style="width:100px; height:22px;" onClick="javascript:OnLoadPic();">
+    </td>
+    <td width="4">&nbsp;</td>
+    <td width="205" align="right" nowrap>
+      <input type="button" name="prevpage" value="Previous page" disabled id="prevpage" style="width:100px; height:22px;" onClick="javascript:OnPrevious();">
+      <input type="button" name="nextpage" value="Next page" disabled id="nextpage" style="width:100px; height:22px;" onClick="javascript:OnNext();">
+    </td>
+    <td width="5">&nbsp;</td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td height="22" align="right" nowrap>
+      COM Port #:
+      <input type="text" name="port" value="1" maxLength="1" id="port" style="width:16px; height:22px;">
+      Telephone #:
+      <input type="text" name="tel" value="" maxlength="20" id="tel" style="width:100px; height:22px;">
+    </td>
+    <td width="4">&nbsp;</td>
+    <td width="205" align="right" nowrap>
+      <input type="button" name="sendfax" value="Send the FAX" disabled id="sendfax" style="width:100px; height:22px;" onClick="javascript:SendFAX();">
+      <input type="button" name="abortfax" value="Abort FAXing" disabled id="abortfax" style="width:100px; height:22px;" onClick="javascript:AbortFAX();">
+    </td>
+    <td width="5">&nbsp;</td>
+  </tr>
+</table>
+
+</body>
+</html>

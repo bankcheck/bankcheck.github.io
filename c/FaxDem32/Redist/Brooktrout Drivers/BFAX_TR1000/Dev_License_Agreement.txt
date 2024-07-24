@@ -1,0 +1,150 @@
+SOFTWARE DEVELOPER LICENSE AGREEMENT
+
+This Software Developer License Agreement is a legal agreement between Cantata Technology, Inc. and its affiliates or subsidiaries  (collectively, "Cantata") and you (either an individual or an entity) ("Developer") regarding a license from Cantata to use this Software and accompanying documentation ("Software").  IF YOU HAVE A WRITTEN, SIGNED LICENSE AGREEMENT GOVERNING THE USE OF THE ACCOMPANYING SOFTWARE, THE TERMS AND CONDITIONS OF THAT AGREEMENT WILL APPLY TO YOUR USE OF THE SOFTWARE.  IF YOU HAVE WRITTEN, SIGNED SPECIAL TERMS GOVERNING THE USE OF THE ACCOMPANYING SOFTWARE ("SPECIAL TERMS"), THOSE SPECIAL TERMS ARE HEREBY INCORPORATED INTO THIS AGREEMENT.  BEFORE YOU CLICK ON THE "YES" BUTTON AT THE END OF THIS DOCUMENT, CAREFULLY READ THE TERMS AND CONDITIONS OF THIS AGREEMENT.  BY CLICKING ON THE "YES" BUTTON OR USING THE SOFTWARE IN ANY MANNER, YOU ARE AGREEING TO BE BOUND BY AND ARE BECOMING A PARTY TO THIS AGREEMENT.  IF YOU DO NOT AGREE TO ALL OF THE TERMS OF THIS AGREEMENT, CLICK THE "NO" BUTTON AND THE SOFTWARE WILL NOT BE INSTALLED ON YOUR COMPUTER.  IF YOU DO NOT INSTALL THE SOFTWARE, PLEASE RETURN THE DEVELOPER LICENSE KEY THAT YOU OBTAINED FOR THE SOFTWARE OR THE CANTATA HARDWARE THAT YOU PURCHASED FOR USE WITH THE SOFTWARE, IF ANY.  AN INDIVIDUAL WHO DOES NOT HAVE AUTHORITY TO BIND THE ENTITY USING THE SOFTWARE SHOULD NOT CLICK THE "YES" BUTTON OR USE THE SOFTWARE WITHOUT OBTAINING APPROVAL OF THIS AGREEMENT FROM A PERSON HAVING SUCH AUTHORITY.
+
+YOU UNDERSTAND THAT IF YOU PURCHASED THE PACKAGE FROM AN AUTHORIZED RESELLER OF CANTATA, THAT RESELLER IS NOT CANTATA'S AGENT AND IS NOT AUTHORIZED TO MAKE ANY REPRESENTATIONS, CONDITIONS OR WARRANTIES, STATUTORY OR OTHERWISE, ON CANTATA'S BEHALF NOR TO VARY ANY OF THE TERMS OR CONDITIONS OF THIS AGREEMENT. IN ADDITION, YOU ACKNOWLEDGE THAT, UNLESS OTHERWISE AGREED BY THAT RESELLER IN WRITING OR PROHIBITED BY LAW, THE LIMITATIONS OF CONDITIONS AND WARRANTIES, STATUTORY OR OTHERWISE, AND LIABILITY SET FORTH IN THIS AGREEMENT ALSO APPLY TO AND BENEFIT THAT RESELLER.
+
+The Software may include object code versions of third party software packages, including one or more of the following, which are subject to the terms and conditions of the applicable license agreements found at the websites identified below.  Please refer to the attached Exhibit A to find out which, if any, licenses are applicable.
+
+ACE(TM) software and TAO(TM) software are copyrighted by Douglas C. Schmidt and his research group at Washington University, University of California, Irvine, and Vanderbilt University Copyright (c) 1993-2003, all rights reserved. More information is available at:
+http://www.cs.wustl.edu/~schmidt/ACE.html
+
+wxWindows software is copyrighted by Julian Smart, Robert Roebling  et al. Copyright (c) 1998 Julian Smart, Robert Roebling  et al.  More information is available at:
+http://www.wxWindows.org
+
+
+1.	Definitions
+
+1.1	"Cantata Hardware" means voice and/or fax processing hardware and/or any other computer hardware manufactured by or for Cantata which may (without limitation) be marketed under the brands Cantata, Brooktrout, Excel, and/or Snowshore and purchased by the End User from Cantata or one of its authorized resellers. 
+
+1.2	"Developer License Key" means an access code or activation key provided by Cantata to enable a Developer to use the Software for the purposes set forth herein.
+
+1.3	"End User" means the ultimate user of the Software who has obtained such Software pursuant to an End User Agreement.
+
+1.4	"End User Agreement" means a sublicense agreement granting an End User the right to use the Software internally but not to further distribute or sublicense such Software, which agreement meets the requirements of Section 2.8.
+
+1.5	"Integrated Product" means the Software as integrated with one or more of Developer's products to provide enhanced functionality.
+
+1.6	"License Key" means an access code or activation key provided by Cantata to enable an End User to use the Software.
+
+1.7	"Sublicensee" means any reseller, dealer, distributor or other entity authorized by Developer pursuant to a Sublicense Agreement meeting the requirements of Section 2.9, to sublicense the use of and distribution of the Software to End Users or other intermediate parties, such as dealers, in the distribution chain to End Users.
+
+2.	License
+
+2.1	Demonstration or Evaluation.  If the Software is provided to Developer as a demonstration or evaluation unit, (a) the licenses granted in Section 2.2 shall not apply and (b) Cantata grants the Developer, and the Developer accepts, a non-exclusive, non-transferable right and license (without the right to grant sublicenses) to use the Software for a period of ninety (90) days from the date of delivery of the Software to Developer for the sole purpose of evaluating the suitability of such Software.  Under no circumstances shall the Software be used for any commercial purposes, and Developer is not being granted any rights to distribute the Software under this Agreement without the express written permission of Cantata. 
+
+2.2	License Grant.  Subject to the terms and conditions contained herein, Cantata grants Developer a license to use and distribute the Software subject to and in accordance with the following provisions. 
+
+	(a)	If the Software is distributed to Developer for use with Cantata Hardware, Cantata grants Developer a royalty-free, non-transferable license (without the right to grant sublicenses, except as set forth in Section 2.9) to (i) use the Software solely for the purposes of developing Integrated Products; (ii) make copies of the Software for distribution to End Users, whether as a stand-alone product or as part of an Integrated Product, solely for use by such End Users for their internal business purposes in connection with Cantata Hardware; and (iii) distribute the Software to End Users, whether as a stand-alone product or as part of an Integrated Product, solely for use by such End Users for their internal business purposes in connection with Cantata Hardware.  The Software is used in connection with Cantata Hardware if it is operated only on the central processing unit of a computer served by one or more items of Cantata Hardware and, where appropriate in connection with such use, it is downloaded into memory located on Cantata Hardware.
+
+	(b)	If the Software is distributed to Developer as host-based media processing software, Cantata grants Developer a royalty-bearing, non-transferable license (without the right to grant sublicenses, except as set forth in Section 2.9) to (i) use the Software solely for the purpose of developing Integrated Products;  (ii) make copies of the Software for distribution to End Users, whether as a stand-alone product or as part of an Integrated Product for the End Users' internal business purposes; and (iii) distribute copies of the Software to End Users, whether as a stand-alone product or as part of an Integrated Product for the End Users' internal business purposes, subject to the purchase by the End User of a License Key.  Developer shall not distribute or otherwise transfer any Developer License Key for any purpose without Cantata's prior written consent.
+
+2.3	Copies.  Developer shall not remove or alter any copyright or other proprietary notices that appear on the Software and shall include all such notices on all copies of the Software (including without limitation all copies of the Software that are incorporated into Integrated Products). 
+
+2.4	No Reverse Engineering.  Developer shall have no rights to any source code for the Software. Developer agrees that it shall not cause or permit the disassembly, decompilation or reverse engineering of the Software or otherwise attempt to gain access to the source code to the Software.  If applicable law requires access to source code for some purpose, such as inter-operability with other software, and Developer desires access for that required purpose, Developer shall notify Cantata, and Cantata shall have the option, in its discretion, to (i) perform the work to derive any required information at Cantata's usual consulting rate, or (ii) allow Developer access to source code solely for the legally required purpose. 
+
+2.5	Additional Restrictions.  Developer shall not, and shall not permit any third party to disclose the results of any benchmark test of the Software to a third party without the prior written approval of Cantata. 
+
+2.6	Reservation of Rights.  Cantata and its licensors reserve all rights not otherwise expressly granted in this Section 2.  Any use, modification, reproduction or distribution of the Software not expressly permitted under this Agreement is hereby expressly prohibited. 
+
+2.7	License Keys.  The use of the Software may require a License Key.  Developer shall not (a) use any access code or activation key other than the Developer License Key (if any) provided by Cantata or (b) develop or alter any access code for the Software or otherwise circumvent or attempt to circumvent the License Key or Developer License Key. 
+
+2.8	End User Agreements.  The Software shall be distributed to each End User under an End User Agreement entered into by such End User which may be a shrink-wrap, break-the-seal or click-wrap or executed written agreement which provides for the same level of protection of Cantata's title, rights and defenses as this Agreement, and pursuant to which the End User agrees (a) to use the Software solely for its own internal business purposes, and not for further distribution or licensing; (b) not to copy the Software in whole or in part, except as permitted under applicable law, and then only with the inclusion of all copyright, proprietary and other notices; (c) not to permit any parent, subsidiaries, affiliated entities or third parties to use the Software; and (d) not rent, lease, loan or transfer the Software.  Where the Software or Integrated Product is distributed to an End User pursuant to Section 2.2(a), the End User shall also agree to use the Software solely in connection with Cantata Hardware.  Developer may include in such End User Agreement, the terms of the limited warranty attached as Exhibit B hereto.
+
+2.9	Sublicenses.  Developer shall have the right to sublicense its rights under Sections 2.2(a)(iii) and 2.2(b)(iii) solely to allow Sublicensees to distribute the Software to End Users, whether as a stand-alone product or as part of Developer's Integrated Product, but in no event shall any Sublicensee have the right to (a) use the Software to develop its own integrated products or (b) make copies of the Software.  Each Sublicensee shall execute a Sublicense Agreement that contains substantially similar terms and conditions as are contained in this Agreement and provides for the same level of protection of Cantata's title, rights and defenses as this Agreement. 
+
+2.10	Protection of Rights.  Developer will use the same efforts that it would use to protect its own rights, including its intellectual property rights, but not less than commercially reasonable efforts to ensure that Sublicensees and End Users comply with the terms of their respective agreements, and will notify Cantata of any known violation.  Upon Cantata's request, Developer will supply Cantata with a copy of any sublicense agreement by and between Developer and any Sublicensees or End Users.
+
+3.	Ownership
+
+3.1	Cantata or its licensors own and shall retain all proprietary rights, including all patent, copyright, trade secret, trademark and other intellectual property rights, in and to the Software and any modifications thereto made by any entity. 
+
+3.2	Except as set forth in a separate agreement between Cantata and Developer, Developer shall have no right to receive any corrections, enhancements, upgrades or other modifications to the Software ("Changes").  Unless otherwise agreed to in such separate agreement, any Changes to the Software provided by Cantata to Developer in accordance with the separate agreement shall be governed by the terms of this Agreement.  If Developer does receive Changes from Cantata, it shall incorporate those Changes into Software that it distributes to End Users under Section 2.2 for initial installation by End Users.  Developer acknowledges that the license granted under this Agreement does not provide Developer with title to or ownership of the Software, but only a right of limited use under the terms and conditions of this Agreement.  Developer shall keep the Software free and clear of all claims, liens and encumbrances. 
+
+4.	Limited Warranty
+
+4.1	Scope of Limited Warranty
+
+	(a)	Cantata warrants to Developer that for a period of ninety (90) days from delivery of the Software to Developer (the "Warranty Period"), the media on which the Software is delivered shall be free from defects in materials and workmanship.  Cantata's sole liability and Developer's exclusive remedy under this limited warranty shall be the replacement of the non-conforming media.  
+	(b)	The remedies set forth in Section 4.1(a) are available only if Cantata is promptly notified in writing, within the Warranty period, upon discovery of the defect by Developer.
+
+4.2.	Disclaimer of Any Other Warranties
+
+	(a)	NOTWITHSTANDING ANYTHING IN THIS AGREEMENT TO THE CONTRARY, ANY SOFTWARE PROVIDED UNDER SECTION 2.1 AS A DEMONSTRATION OR EVALUATION UNIT IS BEING PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND AND LICENSOR HEREBY DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS OR IMPLIED, ORAL OR WRITTEN, WITH RESPECT TO THE LICENSED SOFTWARE INCLUDING, WITHOUT LIMITATION, ALL IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR ANY PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+
+	(b)	EXCEPT FOR THE EXPRESS, LIMITED WARRANTY PROVIDED IN SECTION 4.1, CANTATA MAKES NO WARRANTIES, EITHER EXPRESS OR IMPLIED, WITH RESPECT TO THE SOFTWARE, AND CANTATA DISCLAIMS ALL IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  CANTATA DOES NOT WARRANT THAT THE SOFTWARE WILL BE UNINTERRUPTED OR ERROR-FREE, OR THAT IT WILL SATISFY DEVELOPER'S REQUIREMENTS.
+
+4.3	Cantata will not be responsible to any End User for any warranties made by Developer with respect to any Software beyond the limited warranty described in Exhibit B.
+
+5.	Limitation of Liability
+
+5.1	IN NO EVENT SHALL CANTATA'S OR ITS LICENSORS' AGGREGATE LIABILITY UNDER THIS AGREEMENT EXCEED THE AMOUNTS PAID BY DEVELOPER TO CANTATA FOR THE SOFTWARE (as "Software" is defined above).
+
+5.2	IN NO EVENT WILL CANTATA OR ITS LICENSORS BE LIABLE TO DEVELOPER OR ANY END USER OR OTHER THIRD PARTY FOR SPECIAL, INCIDENTAL, CONSEQUENTIAL, EXEMPLARY, PUNITIVE, MULTIPLE OR OTHER INDIRECT DAMAGES, OR FOR LOSS OF PROFITS, LOSS OF DATA OR LOSS OF USE DAMAGES, ARISING OUT OF THIS AGREEMENT, WHETHER BASED UPON WARRANTY, CONTRACT, TORT, STRICT LIABILITY OR OTHERWISE, EVEN IF CANTATA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES OR LOSSES.
+
+6.	Term and Termination
+
+6.1.	Termination.  Cantata shall have the right to terminate this Agreement and the license granted herein in the event Developer fails to comply with any of the terms and conditions of this Agreement and such default has not been cured within thirty (30) days after written notice of such default. 
+
+6.2.	Effect of Termination.  Upon termination of this Agreement, all licenses and other rights granted to you under this Agreement will become null and void, except that the End User Licenses and any Sublicenses shall survive termination as long as the End Users and Sublicensees are in compliance with the terms of this Agreement.  Within five (5) days after termination of this Agreement, you shall return to Cantata or destroy, at Developer's expense, the Software, including all copies thereof.  Sections 2.3-2.8, 2.10, 3, 4, 5, 6, 7, 8, and 9 of this Agreement shall survive termination of this Agreement.
+
+
+7.	U.S. Government Restricted Rights
+
+If Software is acquired by or on behalf of a unit or agency of the United States government, the Software is provided as "commercial computer software" or "commercial computer software documentation" and, absent a written agreement to the contrary, the government's rights with respect to such Software are limited by the terms of this Agreement pursuant to FAR Paragraph 12.212(a) and/or DFARS Paragraph 227.7202-1(a), as applicable. 
+
+8.	Export
+
+Developer shall comply with all export and re-export restrictions, laws and regulations of the U.S. Commerce Department and other U.S. agencies and authorities.
+
+9.	General
+
+9.1.	Assignment.  This Agreement shall be binding upon and inure to the benefit of the parties hereto, and their respective successors and permitted assigns.  Developer shall not assign or otherwise transfer this Agreement or any rights or obligations hereunder, in whole or in part, whether by operation of law or otherwise, without Cantata's prior written consent.  Any purported transfer, assignment or delegation without such prior written consent will be null and void and of no force or effect.
+
+9.2.	Entire Agreement.  This Agreement, together with any Special Terms, represents the entire agreement between the parties, and supersedes all prior agreements and understandings with respect to the matters covered by this Agreement.  In the event of a conflict between this Agreement and the Special Terms, the Special Terms shall control.  Developer agrees that it has not entered in this Agreement based on any representations other than those contained herein.  No modification of or amendment to this Agreement, nor any waiver of any rights under this Agreement, shall be effective unless in writing signed by the party to be charged.
+
+9.3.	Governing Law.  This Agreement shall in all respects be governed by the laws of the Commonwealth of Massachusetts, excluding: (i) its conflicts of laws principles; (ii) the United Nations Convention on Contracts for the International Sale of Goods; (iii) the 1974 Convention on the Limitation Period in the International Sale of Goods; and (iv) the Protocol amending the 1974 Convention, done at Vienna April 11, 1980.
+
+9.4.	Severability.  If any of the provisions of this Agreement is held by a court of competent jurisdiction to be invalid under any applicable statute or rule of law, such provision shall, to that extent, be deemed omitted, and the remaining portions of this Agreement shall remain in full force and effect.
+
+9.5.	Waiver.  The waiver of one breach or default or any delay in exercising any rights shall not constitute a waiver of any subsequent breach or default.
+
+9.6.	Notices.  All notices permitted or required under this Agreement shall be in writing and shall be delivered in person or mailed by first class, registered or certified mail, postage prepaid, to the address of the party specified on the first page of this Agreement or such other address as either party may specify in writing.  Such notice shall be deemed to have been given upon receipt.
+
+9.7.	Counterparts.  This Agreement may be executed in counterparts, each of which shall be deemed an original and all of which together shall constitute one instrument.
+
+9.8.	Headings.  The headings are for convenience and shall not be used to construe this Agreement.
+
+9.9.  No Agency; Independent Contractors.  Nothing contained in this Agreement shall be deemed to imply or constitute that either party is the agent or representative of the other party, or that both parties are joint ventures or partners for any purpose.
+
+   
+EXHIBIT A
+THIRD PARTY SOFTWARE LICENSES
+
+   The Software includes object code versions of the following third party software packages which are subject to the terms and conditions of the applicable license agreements found at the websites identified:
+* ACE(TM) software and TAO(TM) software are copyrighted by Douglas C. Schmidt and his research group at Washington University, University of California, Irvine, and Vanderbilt University.  Copyright (c) 1993-2003, all rights reserved. More information is available at:
+      http://www.cs.wustl.edu/~schmidt/ACE.html 
+
+* wxWindows software is copyrighted by Julian Smart, Robert Roebling  et al. Copyright (c) 1998 Julian Smart, Robert Roebling  et al.  More information is available at:
+      http://www.wxWindows.org
+
+* Portions of the Software are licensed under the Apache License, Version 2.0 (the "Apache License"); you may not use this file except in compliance with the Apache License.  You may obtain a copy of the Apache License at:
+      http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the Apache License for the specific language governing permissions and limitations under the Apache License.
+   
+
+EXHIBIT B
+
+Limited Warranty to End Users
+
+Developer may include the following warranty terms in the End User License Agreement:
+
+[10].1	Limited Warranty
+   	(a)	Cantata warrants to End User that for a period of ninety (90) days from delivery of the Software to End User (the "Software Warranty Period"), the Software will substantially perform in accordance with its documentation.  Cantata's sole liability and End User's exclusive remedy under this limited warranty shall be (i) the repair or replacement of the non-conforming Software or, (ii) at Cantata's option, in the case of Software licensed for use with Cantata Hardware, the refund of the price paid by End User for the Cantata Hardware or, in the case of software licensed and distributed as host-based media processing software, the refund of the price paid by End User for the License Key. 
+   	(b)	The remedies set forth in Section [10].1(a) are available only if Cantata is promptly notified in writing, within the applicable warranty period, upon discovery of the non-conformity by End User, and Cantata's examination of the Software and/or Cantata Hardware discloses that such non-conformity exists.  This limited warranty shall not apply if the Software or Cantata Hardware has been: (i) altered or modified; (ii) subjected to negligence, computer or electrical malfunction; or (iii) used, adjusted, installed or operated other than in accordance with instructions furnished by Cantata or with an application or in an environment other than that intended or recommended by Cantata.
+[10].2.	Disclaimer of Any Other Warranties.  EXCEPT FOR THE EXPRESS, LIMITED WARRANTY PROVIDED IN SECTION [10].1, CANTATA MAKES NO WARRANTIES, EITHER EXPRESS OR IMPLIED, WITH RESPECT TO THE SOFTWARE, AND CANTATA DISCLAIMS ALL IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  CANTATA DOES NOT WARRANT THAT THE SOFTWARE WILL BE UNINTERRUPTED OR ERROR-FREE, OR THAT IT WILL SATISFY END USER'S REQUIREMENTS.
+
+
+931-122-02
+

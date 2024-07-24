@@ -1,0 +1,272 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\SCCallSwitch.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\SCCallSwitch.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About SCCallSwitch"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "SCCallSwitch Version 1.0",IDC_STATIC,40,10,119,8,
+                    SS_NOPREFIX
+    LTEXT           "Copyright (C) 2000",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_SCCALLSWITCH_DIALOG DIALOGEX 0, 0, 437, 242
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "SC Bus call monitoring sample"
+FONT 8, "MS Sans Serif"
+BEGIN
+    COMBOBOX        IDC_LINERES,89,31,122,50,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_LINETYPE,44,48,73,55,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    EDITTEXT        IDC_PROTOCOL,151,49,59,12,ES_AUTOHSCROLL
+    COMBOBOX        IDC_VOICERES,87,85,124,54,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_LINERES2,306,30,122,50,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_LINETYPE2,262,48,73,55,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    EDITTEXT        IDC_PROTOCOL2,368,47,59,12,ES_AUTOHSCROLL
+    COMBOBOX        IDC_VOICERES2,304,86,124,54,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Hang Up",IDC_HANGUP1,79,109,52,14
+    PUSHBUTTON      "&Hang Up",IDC_HANGUP2,301,109,52,14
+    PUSHBUTTON      "C&lear",IDC_CLEAR,118,199,65,12
+    PUSHBUTTON      "&Copy to clipboard",IDC_COPY,272,199,65,12
+    PUSHBUTTON      "&Help",IDC_HELP,326,222,50,14
+    PUSHBUTTON      "E&xit",IDCANCEL,380,222,50,14
+    LISTBOX         IDC_MESSAGES,9,140,418,54,LBS_NOINTEGRALHEIGHT | 
+                    LBS_NOSEL | WS_VSCROLL | WS_HSCROLL
+    GROUPBOX        "Select the first line interface resource",IDC_STATIC,6,
+                    19,207,48
+    GROUPBOX        "Select the first voice resource",IDC_STATIC,6,72,207,33
+    LTEXT           "Line interface resources:",IDC_STATIC,9,33,79,10
+    LTEXT           "Voice resources:",IDC_STATIC,9,87,66,10
+    GROUPBOX        "Messages",IDC_STATIC,3,129,430,87
+    LTEXT           "Line Type:",IDC_STATIC,9,50,33,10
+    LTEXT           "Protocol:",IDC_STATIC,120,50,27,9
+    GROUPBOX        "Select the second line interface resource",IDC_STATIC,
+                    222,19,207,48
+    LTEXT           "Line interface resources:",IDC_STATIC,225,33,80,10
+    LTEXT           "Line Type:",IDC_STATIC,225,50,33,10
+    LTEXT           "Protocol:",IDC_STATIC,338,49,28,9
+    GROUPBOX        "Select the second voice resource",IDC_STATIC,223,72,207,
+                    33
+    LTEXT           "Voice resources:",IDC_STATIC,225,87,67,10
+    GROUPBOX        "Call 2",IDC_STATIC,219,7,214,121
+    GROUPBOX        "Call 1",IDC_STATIC,3,7,214,121
+    PUSHBUTTON      "Wait for calls",IDC_BUTTON1,188,222,53,14
+    PUSHBUTTON      "&Stop waiting for calls",IDC_STOPWAIT,245,222,76,14
+END
+
+IDD_HELP DIALOGEX 0, 0, 348, 250
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Interactive Voice Sample Help"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_TEXT,"RICHEDIT",ES_MULTILINE | ES_READONLY | 
+                    WS_BORDER | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,1,0,346,
+                    231,WS_EX_DLGMODALFRAME
+    DEFPUSHBUTTON   "Close",IDOK,145,233,57,15
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "SCCallSwitch MFC Application\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "SCCallSwitch\0"
+            VALUE "LegalCopyright", "Copyright (C) 2000\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "SCCallSwitch.EXE\0"
+            VALUE "ProductName", "SCCallSwitch Application\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_SCCALLMONITOR_DIALOG DLGINIT
+BEGIN
+    IDC_LINETYPE, 0x403, 18, 0
+0x6e41, 0x6c61, 0x676f, 0x4c20, 0x6f6f, 0x2070, 0x7453, 0x7261, 0x0074, 
+
+    IDC_LINETYPE, 0x403, 9, 0
+0x5349, 0x4e44, 0x5020, 0x4952, "\000" 
+    IDC_LINETYPE, 0x403, 14, 0
+0x3154, 0x5220, 0x626f, 0x6562, 0x2064, 0x6942, 0x0074, 
+    IDC_LINETYPE, 0x403, 7, 0
+0x3145, 0x4320, 0x5341, "\000" 
+    0
+END
+
+IDD_SCCALLSWITCH_DIALOG DLGINIT
+BEGIN
+    IDC_LINETYPE, 0x403, 18, 0
+0x6e41, 0x6c61, 0x676f, 0x4c20, 0x6f6f, 0x2070, 0x7453, 0x7261, 0x0074, 
+
+    IDC_LINETYPE, 0x403, 9, 0
+0x5349, 0x4e44, 0x5020, 0x4952, "\000" 
+    IDC_LINETYPE, 0x403, 14, 0
+0x3154, 0x5220, 0x626f, 0x6562, 0x2064, 0x6942, 0x0074, 
+    IDC_LINETYPE, 0x403, 7, 0
+0x3145, 0x4320, 0x5341, "\000" 
+    IDC_LINETYPE2, 0x403, 18, 0
+0x6e41, 0x6c61, 0x676f, 0x4c20, 0x6f6f, 0x2070, 0x7453, 0x7261, 0x0074, 
+
+    IDC_LINETYPE2, 0x403, 9, 0
+0x5349, 0x4e44, 0x5020, 0x4952, "\000" 
+    IDC_LINETYPE2, 0x403, 14, 0
+0x3154, 0x5220, 0x626f, 0x6562, 0x2064, 0x6942, 0x0074, 
+    IDC_LINETYPE2, 0x403, 7, 0
+0x3145, 0x4320, 0x5341, "\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "&About SCCallSwitch..."
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\SCCallSwitch.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,56 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: ocsensor - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP70F.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/ocsensor.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\dev\OCSensor\CVT-CX.C"
+"D:\dev\OCSensor\GETDATA.C"
+"D:\dev\OCSensor\LOADREG.C"
+"D:\dev\OCSensor\LOG.C"
+"D:\dev\OCSensor\ocsensor.C"
+"D:\dev\OCSensor\RECV.C"
+"D:\dev\OCSensor\SENDDATA.C"
+"D:\dev\OCSensor\SERVICE.C"
+"D:\dev\OCSensor\TOOL.C"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP70F.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP710.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/ocsensor.pdb" /debug /machine:I386 /out:"Debug/ocsensor.exe" /pdbtype:sept 
+".\Debug\CVT-CX.OBJ"
+.\Debug\GETDATA.OBJ
+.\Debug\LOADREG.OBJ
+.\Debug\LOG.OBJ
+.\Debug\ocsensor.obj
+.\Debug\RECV.OBJ
+.\Debug\SENDDATA.OBJ
+.\Debug\SERVICE.OBJ
+.\Debug\TOOL.OBJ
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP710.tmp"
+<h3>Output Window</h3>
+Compiling...
+CVT-CX.C
+GETDATA.C
+LOADREG.C
+LOG.C
+ocsensor.C
+RECV.C
+SENDDATA.C
+SERVICE.C
+TOOL.C
+Linking...
+
+
+
+<h3>Results</h3>
+ocsensor.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

@@ -1,0 +1,21 @@
+REGEDIT4
+;
+;
+
+[HKEY_LOCAL_MACHINE\Software\TeaTime Development\WinVoiceUp\Monitor]
+"DataMailSlot" = "\\\\.\\mailslot\\WinVoiceUp"
+"LogPath" = "C:\\WinVoice\\Log\\"
+"Log" = "0"
+"Channel" = "64"
+
+[HKEY_LOCAL_MACHINE\Software\TeaTime Development\WinVoiceUp\Monitor\Channel]
+"CH.Length" = "20"
+"CH.String" = "#"
+"CalledNo.Length" = "100"
+"CalledNo.String" = "CalledNo"
+"Bits.Length" = "50"
+"Bits.String" = "BITS"
+"Status.Length" = "300"
+"Status.String" = "STATUS"
+"UID.Length" = "100"
+"UID.String" = "UID"

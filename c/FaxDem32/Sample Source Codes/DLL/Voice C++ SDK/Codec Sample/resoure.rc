@@ -1,0 +1,101 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINMENU MENU DISCARDABLE 
+BEGIN
+    POPUP "&Convert"
+    BEGIN
+        MENUITEM "&WAV to VOC",                 ID_CONVERT_WAVTOVOC
+        MENUITEM "&VOC to WAV",                 ID_CONVERT_VOCTOWAV
+        MENUITEM SEPARATOR
+        MENUITEM "WAV to IMA ADPCM",            ID_CONVERT_WAVTOIMAADPCM
+        MENUITEM "IMA ADPCM to WAV",            ID_CONVERT_IMAADPCMTOWAV
+        MENUITEM SEPARATOR
+        MENUITEM "Dialogic ADPCM to PCM",       ID_CONVERT_DIALOGICADPCMTOPCM
+
+        MENUITEM "PCM to Dialogic ADPCM",       ID_CONVERT_PCMTODIALOGICADPCM
+
+        MENUITEM SEPARATOR
+        MENUITEM "PCM 8KHz to PCM 11 KHz",      ID_CONVERT_PCM8PCM11
+        MENUITEM "PCM 11KHz to PCM 8 KHz",      ID_CONVERT_PCM11PCM8
+        MENUITEM SEPARATOR
+        MENUITEM "Asynchronous",                ID_CONVERT_ASYNCHRONOUS
+    END
+    MENUITEM "E&xit",                       ID_EXIT
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON1               ICON    DISCARDABLE     "icon1.ico"
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,24 @@
+#Filenames may contain spaces if enclosed in double quotes ("")
+bft_rcv_cap             0
+bt_cparm                BT_CPARM.CFG
+cabs                    0
+call_control            callctrl.cfg
+#Other sample call ctrl config files are also in samples.cfg
+ced_timeout             4000
+country_code            0010
+ecm_enable              1
+eff_pt_caps             0
+error_mult              40
+error_thresh            3
+error_enable            1
+font_file               ../bfv.api/fonts/ibmpcps.fz8 0
+font_file               ../bfv.api/fonts/ibmpcps.fz8 255
+id_string
+line_compression        5
+max_width               0
+max_pagelist            30
+restrict_res            1
+subpwdsep               0
+tone
+v_timeout               60
+width_res_behavior      1
