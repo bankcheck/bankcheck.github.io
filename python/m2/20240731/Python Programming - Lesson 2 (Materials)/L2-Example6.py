@@ -1,0 +1,5 @@
+file = open("C:/Python/test.txt","r")
+data = file.read()
+words = data.split()
+print("How many words in text file :", len(words))
+print(words)
