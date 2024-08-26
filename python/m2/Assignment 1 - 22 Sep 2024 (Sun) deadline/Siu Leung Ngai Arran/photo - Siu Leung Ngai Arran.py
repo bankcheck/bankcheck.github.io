@@ -1,14 +1,38 @@
+#Re-submit using different alogrithm
 import os
 import glob
 import shutil
 
-#Define spath, mpath, lpath for global use
+#Function md() to create a single folder by the given parameter. 
+#Return true if successful.
+#Return false if failed
+def md(path):
+    try:
+        os.mkdir(path)
+    
+    #Considered as successful if the destination folder exists
+    except (FileExistsError):
+        return True
+    
+    #Print debug message and return false for other exceptions
+    except Exception as e:
+        print("Error: " + type(e).__name__ + " at line " + str(e.__traceback__.tb_lineno))  
+        print("Failed to create folder: " + path )
+        return False
+    
+    #Return true if successful
+    else:
+        return True
+
+#Define spath, mpath, lpath for small, medium, and large files
 spath = "C:/photos/small/"
 mpath = "C:/photos/medium/"
 lpath = "C:/photos/large/"
 
-#Function for move photos and print the summary at the end
-def movePhotos():
+#Create folder by calling function md.
+#Proceed only when folders are created successfully.
+if md(spath) and md(mpath) and md(lpath):
+
     #Define number of bytes for a megabytes
     megabytes = 1048576
 
@@ -41,23 +65,3 @@ def movePhotos():
     print("- " + str(scount) + " photos moved to 'small' folder")
     print("- " + str(mcount) + " photos moved to 'medium' folder")
     print("- " + str(lcount) + " photos moved to 'large' folder")
-
-#Main program
-try:
-
-    #Create the 3 destination folders
-    os.mkdir(spath)
-    os.mkdir(mpath)
-    os.mkdir(lpath)
-
-#If the destination folders exists, ignore the exception and continue to call movePhotos()
-except (FileExistsError):
-    movePhotos()
-
-#Halt the program and print debug message for other exceptions
-except Exception as e:
-    print("Error: " + type(e).__name__ + " at line " + str(e.__traceback__.tb_lineno))    
-
-#Call movePhotos if no exceptions
-else:
-    movePhotos()
