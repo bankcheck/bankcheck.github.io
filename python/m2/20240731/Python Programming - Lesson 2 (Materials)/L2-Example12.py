@@ -1,2 +1,3 @@
 a = {1:'a', 2:'b', 3:'c'}
-print (a[4])
+print (type(a))
+

@@ -1,3 +1,3 @@
 import glob
-for filename in glob.glob("C:/Python/*"):
+for filename in glob.glob("C:/share/*"):
     print(filename)
