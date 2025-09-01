@@ -1,0 +1,19 @@
+
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "LIS_ONLINE_2"."LABO_DISP_REPORT" ("LAB_NUM", "RPT_DATE", "RPT_BY", "TEST_CAT", "RPT_NO", "RPT_COUNT", "SERVER", "FOLDER", "SUBFOLDER", "FNAME", "RPT_STATUS", "ARCHIVE_STATUS", "ARCHIVE_MESSAGE", "FILE_ID") AS 
+  SELECT lab_num,
+    rpt_date,
+    rpt_by,
+    test_cat,
+    rpt_no,
+    rpt_count,
+    store_server,
+    store_folder,
+    store_subfolder,
+    store_file,
+    rpt_status,
+    f.status,
+    f.message,
+    m.file_id
+  FROM labo_mastrpt m
+  INNER JOIN file_store@cis f
+  ON m.file_id = f.file_id;

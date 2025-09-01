@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='container'>
+    <h1>{% block title %} Hall of Fame {% endblock %}</h1>
+    <table width="100%" class="table table-bordered">
+        <thead class="table-light"><tr>
+            <th class="col-1 text-end">Rank</th>
+            <th class="col-6">Player</th>
+            <th class="col-5 text-end">Amount</th>
+        </tr></thead>
+        <tbody>
+        {% for index, row in sorted_df.iterrows() %} 
+            <tr>
+                <td align="right">
+                    {% if index < 3: %}
+                        <img src="{{url_for('static', filename='img/' + row['rank'] + '.png')}}" width="48" height="48"/>
+                    {% endif %}
+                    {{ row['rank'] }}
+                </td>
+                <td>
+                    <img src="{{url_for('static', filename='img/avatar/'+row['avatar'])}}" width="43" height="48"/> {{ row['userid'] }}
+                </td>
+                <td align="right">{{ '${:,.2f}'.format(row['balance']) }}</td>
+            </tr>
+        {% endfor %} 
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+

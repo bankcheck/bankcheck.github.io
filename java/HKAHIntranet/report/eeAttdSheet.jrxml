@@ -1,0 +1,1063 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Class Attendance List" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5026296018031562"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="Site" class="java.lang.String"/>
+	<parameter name="eventID" class="java.lang.String"/>
+	<parameter name="scheduleID" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHIntranet\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="orderById" class="java.lang.String">
+		<defaultValueExpression><![CDATA["1"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="orderByP" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["order by " +
+("1".equals($P{orderById}) ?
+"D.CO_DEPARTMENT_DESC, ce.co_user_id" :
+("2".equals($P{orderById}) ?
+    "ce.co_user_id" :
+    "D.CO_DEPARTMENT_DESC, ce.co_user_id"
+)
+)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="module" class="java.lang.String">
+		<defaultValueExpression><![CDATA["education"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select ce.co_event_id, c.co_event_desc, c.co_event_short_desc, cs.co_schedule_desc,
+       CE.CO_SCHEDULE_ID, CE.CO_ENROLL_ID, cs.co_schedule_start, cs.co_schedule_end,
+       cs.co_schedule_duration,
+       CS.CO_LOCATION_ID, L.CO_LOCATION_DESC, CS.CO_LOCATION_DESC CO_LOCATION_OTHER, CS.CO_LECTURE_DESC, CS.CO_SCHEDULE_SIZE,
+       ce.co_attend_date,
+       CS.CO_SCHEDULE_SIZE, CS.CO_SCHEDULE_ENROLLED, CS.CO_SCHEDULE_STATUS, C.CO_REQUIRE_ASSESSMENT_PASS,
+-- TWAH use S.CO_DISPLAY_NAME, HKAH use S.CO_STAFFNAME
+       CE.CO_ATTEND_STATUS, S.CO_STAFF_ID, S.CO_STAFFNAME, S.CO_DISPLAY_NAME, S.CO_POSITION_1, S.CO_POSITION_2,
+       S.CO_DEPARTMENT_CODE, D.CO_DEPARTMENT_DESC,
+       ce.co_assessment_pass_date,
+       CE.CO_ATTEND_DATE2,CE.CO_REMARK,CS.CO_SCHEDULE_DESC,
+case when (select count(1) from co_department_event where co_module_code='staffCat' and co_department_code = S.CO_DEPARTMENT_CODE and instr(co_remarks, trim(S.CO_POSITION_1 || ' ' || S.CO_POSITION_2)) > 0) > 0 then
+        (
+            select de.co_event_id
+            from co_department_event de
+            where co_module_code='staffCat' and co_department_code = S.CO_DEPARTMENT_CODE
+            and instr(de.co_remarks, trim(S.CO_POSITION_1 || ' ' || S.CO_POSITION_2)) > 0
+            and rownum <= 1
+        )
+when (select count(1) from co_department_event where co_module_code='staffCat' and co_department_code = S.CO_DEPARTMENT_CODE and instr(co_remarks, trim(s.CO_JOB_DESCRIPTION)) > 0) > 0 then
+        (
+            select de.co_event_id
+            from co_department_event de
+            where co_module_code='staffCat' and co_department_code = S.CO_DEPARTMENT_CODE
+            and instr(de.co_remarks, trim(s.CO_JOB_DESCRIPTION)) > 0
+            and rownum <= 1
+        )
+        else
+        (
+            select de.co_event_id
+            from co_department_event de
+            where co_module_code='staffCat' and co_department_code = S.CO_DEPARTMENT_CODE
+            and de.co_remarks is null
+            and rownum <= 1
+        )
+        end category_event, s.CO_JOB_DESCRIPTION, CE.CO_LUNCH,  CS.CO_LUNCH_AVA, CE.CO_REMARK2, S.CO_LASTNAME || ' ' || S.CO_FIRSTNAME as CO_FULLNAME
+FROM   CO_ENROLLMENT CE, CO_EVENT C, CO_SCHEDULE CS, CO_STAFFS S, CO_DEPARTMENTS D, CO_LOCATION L
+WHERE  CE.CO_SITE_CODE = C.CO_SITE_CODE
+AND    CE.CO_MODULE_CODE = C.CO_MODULE_CODE
+and    ce.co_event_id = c.co_event_id
+AND    CE.CO_MODULE_CODE = $P{module}
+AND    CE.CO_SITE_CODE = CS.CO_SITE_CODE (+)
+AND    CE.CO_MODULE_CODE = CS.CO_MODULE_CODE (+)
+AND    CE.CO_EVENT_ID = CS.CO_EVENT_ID (+)
+AND    CE.CO_SCHEDULE_ID = CS.CO_SCHEDULE_ID (+)
+AND    CE.CO_USER_ID = S.CO_STAFF_ID (+)
+and    s.co_department_code = d.co_department_code (+)
+and    cs.co_site_code = l.co_site_code (+)
+AND    cS.CO_LOCATION_ID = L.CO_LOCATION_ID (+)
+and    ce.co_event_id = $P{eventID}
+AND    CE.CO_SCHEDULE_ID = $P{scheduleID}
+-- only show 3 year history
+AND    CE.CO_MODIFIED_DATE >= SYSDATE - 1095
+AND    CE.CO_ENABLED = 1
+$P!{orderByP}]]>
+	</queryString>
+	<field name="CO_EVENT_ID" class="java.math.BigDecimal"/>
+	<field name="CO_EVENT_DESC" class="java.lang.String"/>
+	<field name="CO_EVENT_SHORT_DESC" class="java.lang.String"/>
+	<field name="CO_SCHEDULE_DESC" class="java.lang.String"/>
+	<field name="CO_SCHEDULE_ID" class="java.math.BigDecimal"/>
+	<field name="CO_ENROLL_ID" class="java.math.BigDecimal"/>
+	<field name="CO_SCHEDULE_START" class="java.sql.Timestamp"/>
+	<field name="CO_SCHEDULE_END" class="java.sql.Timestamp"/>
+	<field name="CO_SCHEDULE_DURATION" class="java.math.BigDecimal"/>
+	<field name="CO_LOCATION_ID" class="java.math.BigDecimal"/>
+	<field name="CO_LOCATION_DESC" class="java.lang.String"/>
+	<field name="CO_LOCATION_OTHER" class="java.lang.String"/>
+	<field name="CO_LECTURE_DESC" class="java.lang.String"/>
+	<field name="CO_SCHEDULE_SIZE" class="java.math.BigDecimal"/>
+	<field name="CO_ATTEND_DATE" class="java.sql.Timestamp"/>
+	<field name="CO_SCHEDULE_ENROLLED" class="java.math.BigDecimal"/>
+	<field name="CO_SCHEDULE_STATUS" class="java.lang.String"/>
+	<field name="CO_REQUIRE_ASSESSMENT_PASS" class="java.lang.String"/>
+	<field name="CO_ATTEND_STATUS" class="java.math.BigDecimal"/>
+	<field name="CO_STAFF_ID" class="java.lang.String"/>
+	<field name="CO_STAFFNAME" class="java.lang.String"/>
+	<field name="CO_DISPLAY_NAME" class="java.lang.String"/>
+	<field name="CO_POSITION_1" class="java.lang.String"/>
+	<field name="CO_POSITION_2" class="java.lang.String"/>
+	<field name="CO_DEPARTMENT_CODE" class="java.lang.String"/>
+	<field name="CO_DEPARTMENT_DESC" class="java.lang.String"/>
+	<field name="CO_ASSESSMENT_PASS_DATE" class="java.sql.Timestamp"/>
+	<field name="CO_ATTEND_DATE2" class="java.sql.Timestamp"/>
+	<field name="CO_REMARK" class="java.lang.String"/>
+	<field name="CATEGORY_EVENT" class="java.math.BigDecimal"/>
+	<field name="CO_JOB_DESCRIPTION" class="java.lang.String"/>
+	<field name="CO_LUNCH" class="java.lang.String"/>
+	<field name="CO_LUNCH_AVA" class="java.lang.String"/>
+	<field name="CO_REMARK2" class="java.lang.String"/>
+	<field name="CO_FULLNAME" class="java.lang.String"/>
+	<variable name="courseDesc" class="java.lang.String">
+		<variableExpression><![CDATA[$F{CO_EVENT_DESC} +
+($F{CO_SCHEDULE_DESC} == null ?
+"" :
+" (" + $F{CO_SCHEDULE_DESC} + ")")]]></variableExpression>
+	</variable>
+	<variable name="countNursing" class="java.lang.Integer">
+		<variableExpression><![CDATA[($F{CATEGORY_EVENT}.intValue()==6338)?1:0]]></variableExpression>
+	</variable>
+	<variable name="countAldHealth" class="java.lang.Integer">
+		<variableExpression><![CDATA[($F{CATEGORY_EVENT}.intValue()==6339)?1:0]]></variableExpression>
+	</variable>
+	<variable name="countAnci" class="java.lang.Integer">
+		<variableExpression><![CDATA[($F{CATEGORY_EVENT}.intValue()==6340)?1:0]]></variableExpression>
+	</variable>
+	<variable name="countOther" class="java.lang.Integer">
+		<variableExpression><![CDATA[($F{CATEGORY_EVENT}.intValue()==6341)?1:0]]></variableExpression>
+	</variable>
+	<variable name="sumNursing" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$V{countNursing}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="sumAlliedHth" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$V{countAldHealth}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="sumAnc" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$V{countAnci}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="sumOthers" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$V{countOther}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="countOutsider" class="java.lang.Integer">
+		<variableExpression><![CDATA[($F{CATEGORY_EVENT}.intValue()==6342)?1:0]]></variableExpression>
+	</variable>
+	<variable name="countStudent" class="java.lang.Integer">
+		<variableExpression><![CDATA[($F{CATEGORY_EVENT}.intValue()==6343)?1:0]]></variableExpression>
+	</variable>
+	<variable name="countContracter" class="java.lang.Integer">
+		<variableExpression><![CDATA[($F{CATEGORY_EVENT}.intValue()==6344)?1:0]]></variableExpression>
+	</variable>
+	<variable name="countIntern" class="java.lang.Integer">
+		<variableExpression><![CDATA[($F{CATEGORY_EVENT}.intValue()==6345)?1:0]]></variableExpression>
+	</variable>
+	<variable name="sumOutsider" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$V{countOutsider}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="sumStudent" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$V{countStudent}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="sumContracter" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$V{countContracter}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="sumIntern" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$V{countIntern}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="142">
+			<staticText>
+				<reportElement x="0" y="23" width="555" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Class Attendance List]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="2" width="133" height="46">
+					<printWhenExpression><![CDATA[$P{Site}.equals("twah")]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir},
+$P{Site}.equals("hkah") ?
+"../images/hkah_portal_logo.gif" :
+($P{Site}.equals("twah") ?
+    "../images/logo_twah.gif" :
+    "../images/hkah_portal_logo.gif"
+))]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="66" width="75" height="15"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Class date]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="85" y="66" width="82" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{CO_SCHEDULE_START}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="167" y="66" width="8" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="81" width="75" height="15"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Location]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="96" width="75" height="15"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lecturer]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="85" y="81" width="470" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CO_LOCATION_OTHER} == null ?
+$F{CO_LOCATION_DESC} :
+($F{CO_LOCATION_OTHER}.equals($F{CO_LOCATION_DESC}) ?
+    $F{CO_LOCATION_OTHER} :
+    ($F{CO_LOCATION_DESC} == null ? $F{CO_LOCATION_OTHER} : $F{CO_LOCATION_DESC} + " " + $F{CO_LOCATION_OTHER})
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="85" y="96" width="470" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CO_LECTURE_DESC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="85" y="111" width="182" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CO_SCHEDULE_SIZE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="85" y="126" width="139" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CO_SCHEDULE_ENROLLED}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="126" width="75" height="15"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Enrolled no.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="111" width="75" height="15"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Class size]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="75" y="81" width="10" height="15"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="75" y="66" width="10" height="15"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="75" y="96" width="10" height="15"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="75" y="111" width="10" height="15"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="75" y="126" width="10" height="15"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="202" y="66" width="71" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CO_SCHEDULE_DURATION} == null ? "" : "(" + $F{CO_SCHEDULE_DURATION} + " hour(s))"]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="0" width="171" height="46"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir},
+$P{Site}.equals("hkah") ?
+"../images/hkah_portal_logo.gif" :
+($P{Site}.equals("twah") ?
+    "../images/logo_twah.gif" :
+    "../images/hkah_portal_logo.gif"
+))]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true" pattern="HH:mm" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="175" y="66" width="27" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{CO_SCHEDULE_END}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="48" width="555" height="15"/>
+				<subreportParameter name="courseDesc">
+					<subreportParameterExpression><![CDATA[$F{CO_EVENT_DESC} +
+($F{CO_SCHEDULE_DESC} == null ?
+"" :
+" (" + $F{CO_SCHEDULE_DESC} + ")")]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} == null ?
+"C:\\projects\\HKAHIntranet\\report" :
+$P{SUBREPORT_DIR} + "eeAttdSheet_sub_course.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="0" y="0" width="555" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Hong Kong Adventist Hospital" +
+($P{Site}.equals("hkah") ?
+" – Stubbs Road" :
+($P{Site}.equals("twah") ?
+    " – Tsuen Wan" :
+    ""
+)
+)]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="15" y="0" width="37" height="16"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Site}.equals("hkah") ?
+"Emp No" :
+($P{Site}.equals("twah") ?
+    "員工號碼<br>Emp No" :
+    ""
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="52" y="0" width="110" height="16"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Site}.equals("hkah") ?
+"Name" :
+($P{Site}.equals("twah") ?
+    "名字<br>Name" :
+    ""
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="162" y="0" width="85" height="16"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Site}.equals("hkah") ?
+"Department" :
+($P{Site}.equals("twah") ?
+    "部門<br>Department" :
+    ""
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="247" y="0" width="100" height="16"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Site}.equals("hkah") ?
+"Position" :
+($P{Site}.equals("twah") ?
+    "職位<br>Position" :
+    ""
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="403" y="0" width="50" height="16">
+					<printWhenExpression><![CDATA[$P{Site}.equals("hkah")]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Site}.equals("hkah") ?
+"Status" :
+($P{Site}.equals("twah") ?
+    "狀態<br>Status" :
+    ""
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="453" y="0" width="102" height="16">
+					<printWhenExpression><![CDATA[$P{Site}.equals("hkah")]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Site}.equals("hkah") ?
+"Signature" :
+($P{Site}.equals("twah") ?
+    "簽名欄<br>Signature" :
+    ""
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="347" y="0" width="57" height="16">
+					<printWhenExpression><![CDATA[$P{Site}.equals("hkah")]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Site}.equals("hkah") ?
+"Category" :
+($P{Site}.equals("twah") ?
+    "分類<br>Category" :
+    ""
+)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="15" height="16"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="347" y="0" width="50" height="16">
+					<printWhenExpression><![CDATA[$P{Site}.equals("twah")]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Site}.equals("hkah") ?
+"Status" :
+($P{Site}.equals("twah") ?
+    "狀態<br>Status" :
+    ""
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="397" y="0" width="158" height="16">
+					<printWhenExpression><![CDATA[$P{Site}.equals("twah")]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Site}.equals("hkah") ?
+"Signature " :
+($P{Site}.equals("twah") ?
+    "簽名欄<br>Signature" :
+    ""
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="518" y="0" width="37" height="16">
+					<printWhenExpression><![CDATA[$F{CO_LUNCH_AVA}.equals("Y")]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Lunch Ordered"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Prevent">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="15" y="0" width="37" height="30"/>
+				<box leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CO_STAFF_ID}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="52" y="0" width="110" height="30"/>
+				<box leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Site}.equals("hkah") ?
+$F{CO_FULLNAME} +
+($F{CO_REMARK2} == null? "" : " ("+ $F{CO_REMARK2}+")")
+:
+($P{Site}.equals("twah") ?
+    $F{CO_DISPLAY_NAME} + ($F{CO_REMARK2} == null? "" : " ("+ $F{CO_REMARK2}+")"):
+    ""
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="162" y="0" width="85" height="30"/>
+				<box leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CO_DEPARTMENT_DESC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="247" y="0" width="100" height="30"/>
+				<box leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Site}.equals("hkah") ?
+($F{CO_STAFF_ID}.substring(0,2).equals("se")?
+	"":
+	($F{CO_POSITION_1} == null ||$F{CO_POSITION_2} == null ?
+		($F{CO_POSITION_1} == null?
+			$F{CO_POSITION_2}:
+			$F{CO_POSITION_1}):
+		$F{CO_POSITION_1} + " " + $F{CO_POSITION_2}
+	)
+):
+($P{Site}.equals("twah") ?
+	$F{CO_JOB_DESCRIPTION} :
+	""
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="403" y="0" width="50" height="30">
+					<printWhenExpression><![CDATA[$P{Site}.equals("hkah")]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="styled">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($F{CO_ATTEND_STATUS} == new BigDecimal("0") || "0".equals($F{CO_ATTEND_STATUS}.toPlainString())) ?
+"Enrolled" :
+("Attended" +
+    ($F{CO_ATTEND_DATE2} == null ?
+        "" :
+        " (" + ($F{CO_ATTEND_DATE2}.getHours() < 10 ?
+                "0" + $F{CO_ATTEND_DATE2}.getHours() :
+                $F{CO_ATTEND_DATE2}.getHours()
+                ) + ":" +
+                ($F{CO_ATTEND_DATE2}.getMinutes() < 10 ?
+                "0" + $F{CO_ATTEND_DATE2}.getMinutes() :
+                $F{CO_ATTEND_DATE2}.getMinutes()
+                ) +
+        ")"
+    ) +
+    ("Y".equals($F{CO_REQUIRE_ASSESSMENT_PASS}) ?
+        ($F{CO_ASSESSMENT_PASS_DATE} == null ?
+            "" :
+            "<br/>" + "Passed"
+        ) :
+        ""
+    )
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="347" y="0" width="56" height="30">
+					<printWhenExpression><![CDATA[$P{Site}.equals("hkah")]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CATEGORY_EVENT} == null ?
+"" :
+(
+    $F{CATEGORY_EVENT}.toPlainString().equals("6338") ?
+    "Nursing" :
+    (
+        $F{CATEGORY_EVENT}.toPlainString().equals("6339") ?
+        "Allied Health" :
+        (
+            $F{CATEGORY_EVENT}.toPlainString().equals("6340") ?
+            "Ancillary" :
+            (
+                $F{CATEGORY_EVENT}.toPlainString().equals("6341") ?
+				"Others" :
+				(
+					$F{CATEGORY_EVENT}.toPlainString().equals("6342") ?
+					"Outsider / Dr / TW" :
+					(
+						$F{CATEGORY_EVENT}.toPlainString().equals("6343") ?
+						"Nursing School / Student" :
+						(
+							$F{CATEGORY_EVENT}.toPlainString().equals("6344") ?
+							"Contracter Staff" :
+							(
+								$F{CATEGORY_EVENT}.toPlainString().equals("6345") ?
+								"Volunteer / Intern" :
+								""
+							)
+						)
+					)
+				)
+            )
+        )
+    )
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="15" height="30"/>
+				<box leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="367" y="0" width="11" height="30">
+					<printWhenExpression><![CDATA[Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{countNursing}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="375" y="0" width="11" height="30">
+					<printWhenExpression><![CDATA[Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{countAldHealth}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="383" y="0" width="11" height="30">
+					<printWhenExpression><![CDATA[Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{countAnci}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="393" y="0" width="11" height="30">
+					<printWhenExpression><![CDATA[Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{countOther}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="453" y="0" width="102" height="30">
+					<printWhenExpression><![CDATA[$P{Site}.equals("hkah")]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Site}.equals("hkah") ?
+"" :
+($P{Site}.equals("twah") ?
+    "" :
+    ""
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="347" y="0" width="50" height="30">
+					<printWhenExpression><![CDATA[$P{Site}.equals("twah")]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="styled">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($F{CO_ATTEND_STATUS} == new BigDecimal("0") || "0".equals($F{CO_ATTEND_STATUS}.toPlainString())) ?
+"Enrolled" :
+("Attended" +
+    ($F{CO_ATTEND_DATE2} == null ?
+        "" :
+        " (" + ($F{CO_ATTEND_DATE2}.getHours() < 10 ?
+                "0" + $F{CO_ATTEND_DATE2}.getHours() :
+                $F{CO_ATTEND_DATE2}.getHours()
+                ) + ":" +
+                ($F{CO_ATTEND_DATE2}.getMinutes() < 10 ?
+                "0" + $F{CO_ATTEND_DATE2}.getMinutes() :
+                $F{CO_ATTEND_DATE2}.getMinutes()
+                ) +
+        ")"
+    ) +
+    ("Y".equals($F{CO_REQUIRE_ASSESSMENT_PASS}) ?
+        ($F{CO_ASSESSMENT_PASS_DATE} == null ?
+            "" :
+            "<br/>" + "Passed"
+        ) :
+        ""
+    )
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="397" y="0" width="158" height="30">
+					<printWhenExpression><![CDATA[$P{Site}.equals("twah")]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Site}.equals("hkah") ?
+("1".equals($F{CO_REMARK}) ?
+"Yes" :
+("0".equals($F{CO_REMARK}) ?
+    "No" :
+    ""
+)) :
+($P{Site}.equals("twah") ?
+    "" :
+    ""
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="518" y="0" width="37" height="30">
+					<printWhenExpression><![CDATA[$F{CO_LUNCH_AVA}.equals("Y")]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="styled">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Y".equals($F{CO_LUNCH}) ?
+"Yes" : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="347" y="0" width="11" height="30">
+					<printWhenExpression><![CDATA[Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{countOutsider}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="356" y="0" width="11" height="30">
+					<printWhenExpression><![CDATA[Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{countStudent}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="364" y="0" width="11" height="30">
+					<printWhenExpression><![CDATA[Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{countContracter}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="364" y="0" width="11" height="30">
+					<printWhenExpression><![CDATA[Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{countIntern}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement x="485" y="0" width="55" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" evaluationTime="Report">
+				<reportElement x="540" y="0" width="15" height="12"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="80">
+			<staticText>
+				<reportElement x="8" y="0" width="27" height="20"/>
+				<textElement/>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="35" y="0" width="30" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="106" y="0" width="39" height="20"/>
+				<textElement/>
+				<text><![CDATA[Nursing:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="144" y="0" width="31" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{sumNursing} == null ? 0 : $V{sumNursing}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="202" y="0" width="65" height="20"/>
+				<textElement/>
+				<text><![CDATA[Allied Health:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="267" y="0" width="41" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{sumAlliedHth} == null ? 0 : $V{sumAlliedHth}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="338" y="0" width="43" height="20"/>
+				<textElement/>
+				<text><![CDATA[Ancillary:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="381" y="0" width="33" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{sumAnc} == null ? 0 : $V{sumAnc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="435" y="0" width="43" height="20"/>
+				<textElement/>
+				<text><![CDATA[Other:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="478" y="0" width="40" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{sumOthers} == null ? 0 : $V{sumOthers}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="338" y="40" width="120" height="20"/>
+				<textElement/>
+				<text><![CDATA[Volunteer / Intern:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="338" y="20" width="120" height="20"/>
+				<textElement/>
+				<text><![CDATA[Nursing School / Student:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="459" y="20" width="40" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{sumStudent} == null ? 0 : $V{sumStudent}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="459" y="40" width="40" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{sumIntern} == null ? 0 : $V{sumIntern}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="106" y="40" width="97" height="20"/>
+				<textElement/>
+				<text><![CDATA[Contracter Staff:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="202" y="20" width="40" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{sumOutsider} == null ? 0 : $V{sumOutsider}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="202" y="40" width="40" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{sumContracter} == null ? 0 : $V{sumContracter}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="106" y="20" width="96" height="20"/>
+				<textElement>
+					<font isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Site}.equals("hkah") ?
+"Outsider / Dr / TW:" :
+($P{Site}.equals("twah") ?
+    "Outsider / Dr / SR:" :
+    ""
+)]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

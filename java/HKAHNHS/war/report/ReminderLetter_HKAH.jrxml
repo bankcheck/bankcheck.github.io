@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReminderLetter" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="471" leftMargin="65" rightMargin="59" topMargin="68" bottomMargin="34">
+	<property name="ireport.zoom" value="1.652892561983471"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="347"/>
+	<parameter name="totalAmt" class="java.lang.String"/>
+	<parameter name="onBefDate" class="java.lang.String"/>
+	<parameter name="rdrType" class="java.lang.String"/>
+	<parameter name="patNo" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\projects\\Reports\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="signName" class="java.lang.String"/>
+	<parameter name="signID" class="java.lang.String"/>
+	<parameter name="SubDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="isInsurance" class="java.lang.String"/>
+	<parameter name="reason" class="java.lang.String"/>
+	<parameter name="end" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="PATTITLE" class="java.lang.String"/>
+	<field name="PATFNAME" class="java.lang.String"/>
+	<field name="PATGNAME" class="java.lang.String"/>
+	<field name="PATADD1" class="java.lang.String"/>
+	<field name="PATADD2" class="java.lang.String"/>
+	<field name="PATADD3" class="java.lang.String"/>
+	<field name="PATCOUNTRY" class="java.lang.String"/>
+	<field name="PATTYPE" class="java.lang.String"/>
+	<field name="REGDATE" class="java.lang.String"/>
+	<field name="INPDDATE" class="java.lang.String"/>
+	<field name="SLPNO" class="java.lang.String"/>
+	<field name="AMT" class="java.lang.String"/>
+	<variable name="totalAmtBig" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[new BigDecimal($P{totalAmt})]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal($P{totalAmt})]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="276" splitType="Stretch">
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="323" y="48" width="148" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(new java.text.SimpleDateFormat(
+    "d MMMM yyyy",Locale.ENGLISH)).format(new java.util.Date()).toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="142" width="471" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["DEAR "+$F{PATTITLE}+" "+$F{PATFNAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="48" width="323" height="78"/>
+				<textElement verticalAlignment="Top" lineSpacing="Single" markup="styled">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATTITLE}+" "+$F{PATGNAME}+" "+$F{PATFNAME}+"\n"+
+(
+    $F{PATADD1}.getBytes().length == $F{PATADD1}.length()?
+    ("<style fontName='Arial Unicode MS'>"
+    +org.apache.commons.lang.StringEscapeUtils.escapeHtml($F{PATADD1})+"\n"
+    +"</style>"):
+    ("<style fontName='Ming(for ISO10646_V3)'>"
+    +$F{PATADD1}+"\n"
+    +"</style>")
+)+
+((!$F{PATADD2}.isEmpty())?
+    ($F{PATADD2}.getBytes().length == $F{PATADD2}.length()?
+    ("<style fontName='Arial Unicode MS'>"
+    +org.apache.commons.lang.StringEscapeUtils.escapeHtml($F{PATADD2})+"\n"
+    +"</style>"):
+    ("<style fontName='Ming(for ISO10646_V3)'>"
+    +$F{PATADD2}+"\n"
+    +"</style>")):
+    (!$F{PATCOUNTRY}.isEmpty()?$F{PATCOUNTRY}:"")
+)+
+((!$F{PATADD3}.isEmpty())?(
+    $F{PATADD3}.getBytes().length == $F{PATADD3}.length()?
+    ("<style fontName='Arial Unicode MS'>"
+    +org.apache.commons.lang.StringEscapeUtils.escapeHtml($F{PATADD3})+"\n"
+    +"</style>"):
+    ("<style fontName='Ming(for ISO10646_V3)'>"
+    +$F{PATADD3}+"\n"
+    +"</style>")
+):
+    ((!$F{PATADD2}.isEmpty()&&!$F{PATCOUNTRY}.isEmpty())?$F{PATCOUNTRY}:"")
+)+
+((!$F{PATADD2}.isEmpty()&&!$F{PATADD3}.isEmpty()&&!$F{PATCOUNTRY}.isEmpty())?(
+    $F{PATCOUNTRY}.getBytes().length == $F{PATCOUNTRY}.length()?
+    ("<style fontName='Arial Unicode MS'>"
+    +org.apache.commons.lang.StringEscapeUtils.escapeHtml($F{PATCOUNTRY})+"\n"
+    +"</style>"):
+    ("<style fontName='Ming(for ISO10646_V3)'>"
+    +$F{PATCOUNTRY}+"\n"
+    +"</style>")
+):""
+)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="165" width="471" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{rdrType}.equals( "1" )?"Outstanding Hospital Bill Notification":
+($P{rdrType}.equals( "2" )?"Outstanding Hospital Bill – Reminder":
+($P{rdrType}.equals( "3" )?"Outstanding Hospital Bill – Final Reminder":""))]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+				<reportElement x="0" y="186" width="471" height="90" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" lineSpacing="Single" markup="html">
+					<font fontName="Arial Unicode MS" size="11"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{rdrType}.equals( "1" )?
+"Thank you for using our hospital facility recently, we sincerely wish that you had recovered from the sickness.  <br><br>"+
+"According to our record, your hospital bill in amount of HK$<u>"+new DecimalFormat("#,##0").format($V{totalAmtBig})+"</u>"+
+" is now overdue for payment.  Kindly settle the amount due according to the enclosed \"Payment Instructions\" "+
+"as soon as possible.  Please refer to the following for details:<br>"+
+"<br><b>Patient No.:</b> "+$P{patNo}:
+($P{rdrType}.equals( "2" )?
+"Further to our previous letter, we are writing again regarding your overdue hospital bill.  <br><br>"+
+"According to our record, your hospital bill in amount of HK$<u>"+new DecimalFormat("#,##0").format($V{totalAmtBig})+"</u>"+
+" is now overdue for payment.  Kindly settle the amount due according to the enclosed \"Payment Instructions\" <b>on or before "+
+(new java.text.SimpleDateFormat("dd MMM yyyy",Locale.ENGLISH)).format(new SimpleDateFormat("dd/MM/yyyy").parse($P{onBefDate}))+"</b>"+
+".  Please refer to the following for details:<br>"+
+"<br><b>Patient No.:</b> "+$P{patNo}:
+($P{rdrType}.equals( "3" )?
+"Further to our previous letter, we are writing again regarding your overdue hospital bill.  <br><br>"+
+"Please note that the outstanding amount of HK$<u>"+new DecimalFormat("#,##0").format($V{totalAmtBig})+"</u>"+
+" has now been overdue beyond 30 days.  We have not received any payment as of today.  "
++" Kindly settle the amount due according to the enclosed \"Payment Instructions\" <b>as soon as possible</b>.  Please refer to the following for details:<br>"+
+"<br><b>Patient No.:</b> "+$P{patNo}:
+""))]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="21">
+			<staticText>
+				<reportElement x="0" y="5" width="55" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="5" width="85" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Bill No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="5" width="97" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Registration Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="236" y="5" width="87" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Discharge Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="329" y="5" width="134" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Outstanding Amount (HKD)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="55" height="14"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATTYPE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="55" y="1" width="85" height="14"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SLPNO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="139" y="1" width="85" height="14"/>
+				<box leftPadding="4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{REGDATE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="236" y="1" width="77" height="14"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{INPDDATE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###,###,##0.00" isBlankWhenNull="true">
+				<reportElement x="329" y="1" width="134" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[new BigDecimal($F{AMT})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="126">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="1" width="471" height="30" isPrintWhenDetailOverflows="true"/>
+				<box topPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" lineSpacing="Single" markup="styled">
+					<font fontName="Arial Unicode MS" size="11"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{isInsurance}.equals( "Y" )?"<style fontName='Arial Unicode MS'><i>Your insurance company does not reimburse the above outstanding amount at our hospital, as the coverage does not provide benefit for "+$P{reason}+". "
+    +($P{end}.equals( "Enclose" )?"Enclosed the relevant document for your reference.":
+        (($P{end}.equals( "Contact" )?"Please feel free to contact your insurer for further details. ":
+         ($P{end}.equals( "All" )?"Enclosed the relevant document for your reference. Please feel free to contact your insurer for further details. ":""))))
+    +"</i></style>\n":"")+
+($P{rdrType}.equals( "3" )?"\n\nWe regret if we do not receive your payment <style fontName='Arial Unicode MS'><b>on or before "+(new java.text.SimpleDateFormat("dd MMM yyyy",Locale.ENGLISH)).format(new SimpleDateFormat("dd/MM/yyyy").parse($P{onBefDate}))+", we shall have no alternative but to place the matter in the hands of our collection agency</b></style>.  Please ignore this letter if you have already submitted the payment.  \n":"")+
+"\nYour prompt action is highly appreciated.  Should you have any enquiries regarding the above, please do not hesitate to contact us "+
+($P{signID}.contains("DEN")?"on (852) 28350500.  \n":"on (852) 36518805 (In-patient) or (852) 36518808 (Out-patient).  \n")+
+((!$P{rdrType}.equals( "3" )?"\nPlease ignore this letter if you have already submitted the payment. \n\nYours sincerely\n":"\nYours sincerely"))+
+(
+(($P{rdrType}.equals( "1" )?
+"\n":"\n\n\n\n\n"+$P{signName}.split("/")[0]))+
+($P{rdrType}.equals( "1" )?"\n":
+"\n"+$P{signName}.split("/")[1])+
+("\nPatient Business Department")+
+($P{rdrType}.equals( "1" )?"\nThis is a computer-generated letter, no signature is required.  ":"")+
+"\n\nEncl.: "+(($P{rdrType}.equals( "1" ) && $P{isInsurance}.equals( "Y" ))?"Revised Statement, ":"")+"Payment Instructions, Credit Card Authorization Form"
+)]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

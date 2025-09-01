@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OPStatement_PNAME" pageWidth="510" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="510" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.5000000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Monospaced_font" fontName="Ming(for ISO10646_V3)" fontSize="9"/>
+	<scriptlet name="TextScriptlet" class="com.text.TextScriptlet"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<parameter name="PATNAME" class="java.lang.String"/>
+	<parameter name="PATCNAME" class="java.lang.String"/>
+	<parameter name="PatName" class="java.lang.String"/>
+	<parameter name="TreDr" class="java.lang.String"/>
+	<parameter name="BillNo" class="java.lang.String"/>
+	<parameter name="DOCNAME" class="java.lang.String"/>
+	<parameter name="DOCCNAME" class="java.lang.String"/>
+	<parameter name="SLPNO" class="java.lang.String"/>
+	<parameter name="P_SLPNO" class="java.lang.String"/>
+	<parameter name="PatNo" class="java.lang.String"/>
+	<parameter name="PATNO" class="java.lang.String"/>
+	<parameter name="OpTreDr" class="java.lang.String"/>
+	<pageHeader>
+		<band height="15">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="98" y="0" width="88" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PatNo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="186" y="0" width="154" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PATNO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="77" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[PATIENT NO.]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="17">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="98" y="2" width="88" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PatName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="2" width="77" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[PATIENT NAME]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="186" y="2" width="290" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial Unicode MS" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PATNAME}+" "+$P{PATCNAME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<summary>
+		<band height="46">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Monospaced_font" positionType="Float" stretchType="RelativeToTallestObject" x="186" y="0" width="290" height="30" isPrintWhenDetailOverflows="true"/>
+				<box topPadding="4"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial Unicode MS" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DOCNAME}+" "+$P{DOCCNAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="186" y="31" width="290" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{P_SLPNO}.replaceAll( "'", "" )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="31" width="77" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[BILL NO.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="98" y="31" width="88" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{BillNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="137" height="30" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[DOCTOR /
+HEALTHCARE PROF.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="98" y="0" width="88" height="30" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{OpTreDr}.replace("/","/<br>")]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

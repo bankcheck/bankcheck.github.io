@@ -1,0 +1,200 @@
+DROP TABLE EXCLUSIONS;
+CREATE TABLE EXCLUSIONS 
+(
+	"ID" 				VARCHAR2(2 BYTE) NOT NULL,
+	"DESCRIPTION"		VARCHAR2(100 BYTE),
+	CONSTRAINT "PK_EXCLUSIONS" PRIMARY KEY ("ID")
+);
+/
+
+
+SET DEFINE OFF
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('01', 'Aging/Menopause/Puberty');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('02', 'Drug/Alcohol addiction');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('03', 'Hair loss');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('04', 'HIV/AIDS/STD');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('05', 'Recreation/Sporting related Illness');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('06', 'Obstetric & Gynecology');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('07', 'Overweight/Obesity');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('08', 'Psychiatric disorder');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('09', 'Sleep disorder');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('10', 'Sterilization/Infertility');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('11', 'Organ Transplant');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('12', 'Contact lenses and spectacles');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('13', 'Crutches');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('14', 'Hearing aids/Kit');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('15', 'Non-medical services');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('16', 'Pillow');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('17', 'Preventative medicine/Consultation');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('18', 'Wheel chair');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('19', 'Expired Insurance Plan');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('20', 'PT Booklet');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('21', 'Non-medical expenses');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('22', 'Acupuncture');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('23', 'Chinese Herbal medicine');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('24', 'Chiropactic Treatment');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('25', 'Dental treatment');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('26', 'Elective/Cosmetic surgery');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('27', 'Eye Lasik/Eyesight corrections');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('28', 'Foot-Orthotis');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('29', 'Hormonal replacement therapy/tests');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('30', 'OTC drugs');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('31', 'Dental Pharmacy');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('32', 'Rehabilitation');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('33', 'Health Examinations');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('34', 'Sex change operations');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('35', 'Smoking Cessation');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('36', 'Special nursing care');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('37', 'Vaccination/Immunization');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('38', 'Planned treatment outside HK');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('39', 'Pre-existing conditions');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('40', 'Self inflicted injuries');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('41', 'Suicide/Attempt suicide');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('42', 'Travel costs for treatment');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('43', 'Treatment conducted by family');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('44', 'Treatment outside geographic area');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('45', 'Unproved treatment');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('46', 'War/riots/radioactive contamination');
+
+
+INSERT INTO EXCLUSIONS (ID, DESCRIPTION) 
+VALUES ('47', 'Well Baby');
+
+COMMIT;

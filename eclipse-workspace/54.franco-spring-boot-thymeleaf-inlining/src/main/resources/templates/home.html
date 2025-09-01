@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spring boot with Thymeleaf</title>
+    <style>
+    	body {
+    		color: [[${francoColor}]]
+    	}
+    </style>
+  </head>
+  <body>
+  	<script>alert("Hello, you love [[${francoColor}]]");</script>
+  	<div>
+  		Hello, <span th:text="'you love ' + ${francoColor}"></span>
+  	</div>
+  	<hr>  	
+  	<div>
+  		Hello, you love [[${francoColor}]]
+  	</div>
+  </body>
+</html>

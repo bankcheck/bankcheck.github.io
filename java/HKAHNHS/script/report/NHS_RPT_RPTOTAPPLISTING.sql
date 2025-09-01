@@ -1,0 +1,123 @@
+CREATE OR REPLACE FUNCTION "NHS_RPT_RPTOTAPPLISTING" (
+	v_OT_AppSDate VARCHAR2,
+	v_OT_AppEDate VARCHAR2,
+	v_Status      VARCHAR2,
+	v_PatNo       VARCHAR2,
+	v_PatName     VARCHAR2,
+	v_Room        VARCHAR2,
+	v_ProCode     VARCHAR2,
+	v_Surgeon     VARCHAR2,
+	v_Anesth      VARCHAR2,
+	v_Endoscop    VARCHAR2,
+	v_IsRpt       VARCHAR2,
+	v_filter      VARCHAR2
+)
+	RETURN Types.cursor_type
+AS
+	outcur types.cursor_type;
+	SQLSTR VARCHAR2(3000);
+BEGIN
+	SQLSTR := '
+		SELECT C.OTCDESC AS RMDESC,
+			DECODE(A.DOCCODE_S, NULL, H.DOCFNAME || '' '' || H.DOCGNAME, D.DOCFNAME || '' '' || D.DOCGNAME) AS DOCCODE_S,
+			D.DOCFNAME || '' '' || D.DOCGNAME AS DOCNAME,
+			TO_CHAR(A.OTAOSDATE, ''dd/mm/yyyy DY hh24:mi'', ''NLS_DATE_LANGUAGE=AMERICAN'') AS STARTTIME,
+			A.PATNO,
+			A.OTAFNAME || '' '' || A.OTAGNAME AS PATNAME,
+			'''' || A.OTATEL AS OTATEL,
+			TO_NUMBER(A.OTAOEDATE - A.OTAOSDATE) * 1440 AS DURATION,
+			(TO_NUMBER(TO_CHAR(A.OTAOEDATE, ''hh24'')) * 4 + TRUNC(TO_NUMBER(TO_CHAR(A.OTAOEDATE, ''mi'')) / 15)) -
+			(TO_NUMBER(TO_CHAR(A.OTAOSDATE, ''hh24'')) * 4 + TRUNC(TO_NUMBER(TO_CHAR(A.OTAOSDATE, ''mi'')) / 15)) + 1 AS NUM_SESSION,
+			TO_CHAR(A.OTACDATE, ''dd/mm/yyyy hh24:mi'') AS OTACDATE,
+			R.USRNAME,
+			G.OTCDESC AS AMDESC,
+			E.DOCFNAME || '' '' || E.DOCGNAME AS DOCNAME_A,
+			H.DOCFNAME || '' '' || H.DOCGNAME AS DOCNAME_E,
+			A.OTASEX AS SEX,
+			TRUNC(MONTHS_BETWEEN(SYSDATE, A.OTABDATE) / 12) AS AGE,
+			TO_CHAR(A.OTABDATE, ''DD/MM/YYYY'') AS DOB,
+			F.OTPCODE,
+			F.OTPDESC AS OT_PAA,
+			DECODE(GET_CURRENT_STECODE, ''TWAH'', ''FE Req:'' || AE.FEREQ || '' FE Rec:'' || AE.FEREC || '';'', '''') || A.OTARMK,
+			A.OTADIAG,
+			DECODE(A.PATTYPE, ''I'', ''IP'', ''D'', ''DC'', ''O'', ''OP'') AS PATTYPE,
+			(SELECT D.DOCFNAME || '' '' || D.DOCGNAME  FROM DOCTOR D WHERE OAS.DOCCODE = D.DOCCODE) AS SECSDRNAME, A.OTAID,
+			(SELECT LISTAGG(OTPDESC, '';'')  WITHIN GROUP (ORDER BY OTPDESC) FROM   OT_APP_PROC P, OT_PROC P2 WHERE P.OTPID = P2.OTPID AND P.OTAID = A.OTAID) || NVL2(A.OTAPROCRMK, '';'' || A.OTAPROCRMK, '''') || NVL2(A.OTADIAG, '';'' || A.OTADIAG,'''') || '';'' AS SECPROC
+		FROM       OT_APP A
+		LEFT  JOIN OT_APP_EXTRA AE ON A.OTAID = AE.OTAID
+		INNER JOIN OT_CODE C ON A.OTCID_RM = C.OTCID
+		INNER JOIN OT_CODE G ON A.OTCID_AM = G.OTCID
+		INNER JOIN OT_PROC F ON A.OTPID = F.OTPID
+		LEFT  JOIN OT_APP_SURG OAS ON A.OTAID = OAS.OTAID
+		LEFT  JOIN USR R ON A.OTUSRID = R.USRID
+		LEFT  JOIN DOCTOR D ON A.DOCCODE_S = D.DOCCODE
+		LEFT  JOIN DOCTOR E ON A.DOCCODE_A = E.DOCCODE
+		LEFT  JOIN DOCTOR H ON A.DOCCODE_E = H.DOCCODE
+	';
+
+	IF v_IsRpt = '0' THEN
+		SQLSTR := SQLSTR || '
+			WHERE A.OTAOSDATE >= TO_DATE(''' || v_OT_APPSDATE || ''', ''DD/MM/YYYY'')
+			AND   A.OTAOEDATE < TO_DATE(''' || v_OT_APPEDATE || ''', ''DD/MM/YYYY'') + 1
+			AND  (A.OTASTS = ''N'' OR A.OTASTS = ''F'')
+			AND   C.OTCSTS = -1
+			AND   C.OTCTYPE = ''RM''
+			ORDER BY RMDESC, A.OTAOSDATE
+		';
+	ELSE
+		SQLSTR := SQLSTR || ' WHERE A.OTASTS IN (''C'', ''N'', ''F'') ';
+
+		IF v_OT_APPSDATE IS NOT NULL THEN
+			sqlStr := sqlStr || ' AND TRUNC(A.OTAOSDATE, ''MI'') >= TO_DATE(''' || v_OT_APPSDATE || ''', ''DD/MM/YYYY HH24:MI'') ';
+		END IF;
+
+		IF v_OT_APPEDATE IS NOT NULL THEN
+			sqlStr := sqlStr || ' AND TRUNC(A.OTAOSDATE, ''MI'') <= TO_DATE(''' || v_OT_APPEDATE || ''', ''DD/MM/YYYY HH24:MI'') ';
+		END IF;
+
+		IF v_STATUS IS NOT NULL THEN
+			sqlStr := sqlStr || ' AND A.OTASTS = ''' || v_STATUS || ''' ';
+		END IF;
+
+		IF v_PATNO IS NOT NULL THEN
+			sqlStr := sqlStr || ' AND A.PATNO = ''' || v_PATNO || ''' ';
+		END IF;
+
+		IF v_PATNAME IS NOT NULL THEN
+			sqlStr := sqlStr || ' AND (A.OTAFNAME || '' '' || A.OTAGNAME LIKE ''%' || v_PATNAME || '%'' ';
+			sqlStr := sqlStr || ' OR   A.OTAFNAME LIKE ''%' || v_PATNAME || '%'' ';
+			sqlStr := sqlStr || ' OR   A.OTAGNAME LIKE ''%' || v_PATNAME || '%'') ';
+		END IF;
+
+		IF v_ROOM IS NOT NULL THEN
+			sqlStr := sqlStr || ' AND C.OTCID = ''' || v_ROOM || ''' ';
+		END IF;
+
+		IF v_PROCODE IS NOT NULL THEN
+			sqlStr := sqlStr || ' AND A.OTPID = ''' || v_PROCODE || ''' ';
+		END IF;
+
+		IF v_SURGEON IS NOT NULL THEN
+			sqlStr := sqlStr || ' AND A.DOCCODE_S = ''' || v_SURGEON || ''' ';
+		END IF;
+
+		IF v_ANESTH IS NOT NULL THEN
+			sqlStr := sqlStr || ' AND A.DOCCODE_A = ''' || v_ANESTH || ''' ';
+		END IF;
+
+		IF v_ENDOSCOP IS NOT NULL THEN
+			sqlStr := sqlStr || ' AND A.DOCCODE_E = ''' || v_ENDOSCOP|| ''' ';
+		END IF;
+
+		IF v_filter IS NOT NULL THEN
+			sqlStr := sqlStr || ' AND A.PATTYPE = ''D'' ';
+		END IF;
+
+		SQLSTR := SQLSTR || ' ORDER BY RMDESC, A.OTAOSDATE ';
+	END IF;
+
+	OPEN outcur FOR SQLSTR;
+	RETURN OUTCUR;
+
+END NHS_RPT_RPTOTAPPLISTING;
+/

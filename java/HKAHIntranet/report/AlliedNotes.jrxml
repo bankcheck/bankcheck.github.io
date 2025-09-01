@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AlliedNotes" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="5" bottomMargin="14" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="3.8974342000000037"/>
+	<property name="ireport.x" value="114"/>
+	<property name="ireport.y" value="1813"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1"/>
+	<parameter name="regid" class="java.lang.String"/>
+	<parameter name="path" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patName" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="patDOB" class="java.lang.String"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="vasPain" class="java.lang.String"/>
+	<parameter name="vasPn" class="java.lang.String"/>
+	<parameter name="vasNumb" class="java.lang.String"/>
+	<parameter name="painDesc" class="java.lang.String"/>
+	<parameter name="caseDate" class="java.lang.String"/>
+	<parameter name="patientGoal" class="java.lang.String"/>
+	<parameter name="funcAssmt" class="java.lang.String"/>
+	<parameter name="diagnosis" class="java.lang.String"/>
+	<parameter name="emotional" class="java.lang.String"/>
+	<parameter name="fallAssmt" class="java.lang.String"/>
+	<parameter name="pastMedHist" class="java.lang.String"/>
+	<parameter name="socialHistory" class="java.lang.String"/>
+	<parameter name="hpi" class="java.lang.String"/>
+	<parameter name="subjective" class="java.lang.String"/>
+	<parameter name="objective" class="java.lang.String"/>
+	<parameter name="tcp1" class="java.lang.String"/>
+	<parameter name="tcp2" class="java.lang.String"/>
+	<parameter name="tcp3" class="java.lang.String"/>
+	<parameter name="tcp4" class="java.lang.String"/>
+	<parameter name="tcp5" class="java.lang.String"/>
+	<parameter name="tcp6" class="java.lang.String"/>
+	<parameter name="tcp7" class="java.lang.String"/>
+	<parameter name="tcp8" class="java.lang.String"/>
+	<parameter name="tcp9" class="java.lang.String"/>
+	<parameter name="tcpOther1" class="java.lang.String"/>
+	<parameter name="treatmentGoal" class="java.lang.String"/>
+	<parameter name="carePlan" class="java.lang.String"/>
+	<parameter name="treatment" class="java.lang.String"/>
+	<parameter name="education" class="java.lang.String"/>
+	<parameter name="exercises" class="java.lang.String"/>
+	<parameter name="defection" class="java.lang.String"/>
+	<parameter name="postTreatment" class="java.lang.String"/>
+	<parameter name="frequency" class="java.lang.String"/>
+	<parameter name="options" class="java.lang.String"/>
+	<parameter name="peca1" class="java.lang.String"/>
+	<parameter name="peca2" class="java.lang.String"/>
+	<parameter name="pecaOther1" class="java.lang.String"/>
+	<parameter name="ad1" class="java.lang.String"/>
+	<parameter name="ad2" class="java.lang.String"/>
+	<parameter name="ad3" class="java.lang.String"/>
+	<parameter name="ad4" class="java.lang.String"/>
+	<parameter name="ad5" class="java.lang.String"/>
+	<parameter name="ad6" class="java.lang.String"/>
+	<parameter name="ad7" class="java.lang.String"/>
+	<parameter name="ad8" class="java.lang.String"/>
+	<parameter name="ad9" class="java.lang.String"/>
+	<parameter name="adOther1" class="java.lang.String"/>
+	<parameter name="adOther2" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHIntranet\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SubDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="Page" class="java.lang.String"/>
+	<parameter name="username" class="java.lang.String"/>
+	<parameter name="pt" class="java.lang.String"/>
+	<parameter name="progNotes" class="java.lang.String"/>
+	<parameter name="histProgNotes" class="java.lang.String"/>
+	<parameter name="mstrRegid" class="java.lang.String"/>
+	<pageHeader>
+		<band height="53">
+			<image scaleImage="RetainShape" isUsingCache="true" isLazy="true">
+				<reportElement x="-6" y="8" width="517" height="45"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/ah_logo.bmp")]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="170">
+			<staticText>
+				<reportElement x="0" y="15" width="51" height="15"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="51" y="15" width="134" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{caseDate}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="224" y="18" width="8" height="8" isPrintWhenDetailOverflows="true"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="349" y="18" width="8" height="8" isPrintWhenDetailOverflows="true"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="226" y="20" width="4" height="4" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA["Y".equals($P{ad1})]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="351" y="20" width="4" height="4" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA["Y".equals($P{ad5})]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="365" y="15" width="145" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Parent/ Guardian's consent to treatment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="15" width="97" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Patient consent treatment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="51" height="15"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diagnosis:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="51" y="30" width="459" height="15" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{diagnosis}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="55" width="116" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Past Medical History:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="116" y="55" width="395" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{pastMedHist}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="75" width="116" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Social History:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="116" y="75" width="395" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{socialHistory}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="95" width="116" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Psychological/Emotional:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="116" y="95" width="395" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{emotional}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="115" width="116" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Functional Assessment:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="116" y="115" width="395" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{funcAssmt}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="135" width="116" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Fall Assessment:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="117" y="135" width="395" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{fallAssmt}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="155" width="116" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Patient Goal]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="116" y="155" width="395" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patientGoal}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="40">
+			<staticText>
+				<reportElement x="0" y="10" width="511" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[History of Present Condition:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="25" width="511" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{hpi}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="55">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="6" y="40" width="500" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{subjective}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="10" width="511" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Assessment:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="25" width="116" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Subjective Examination:]]></text>
+			</staticText>
+		</band>
+		<band height="30">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="5" y="15" width="500" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{objective}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="0" width="116" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Objective Examination:]]></text>
+			</staticText>
+		</band>
+		<band height="40">
+			<staticText>
+				<reportElement x="0" y="10" width="511" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Treatment Goal:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="25" width="511" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{treatmentGoal}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="40">
+			<staticText>
+				<reportElement x="0" y="10" width="511" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Treatment:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="25" width="511" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{treatment}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="40">
+			<printWhenExpression><![CDATA[!"null".equals($P{histProgNotes})||$P{histProgNotes}!=null]]></printWhenExpression>
+			<staticText>
+				<reportElement x="0" y="10" width="510" height="15" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[!"null".equals($P{histProgNotes})||$P{histProgNotes}!=null]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Progress Notes]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="25" width="510" height="15" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[!"null".equals($P{histProgNotes})||$P{histProgNotes}!=null]]></printWhenExpression>
+				</reportElement>
+				<textElement markup="html">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{histProgNotes}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="123">
+			<frame>
+				<reportElement x="234" y="96" width="277" height="27"/>
+				<box>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="5" y="71" width="61" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Date of Birth: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="88" width="61" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Sex: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="35" width="61" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Patient No.: ]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="0" y="33" width="234" height="90"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<textField>
+				<reportElement x="66" y="35" width="168" height="16"/>
+				<box topPadding="2" leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patno}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="66" y="51" width="168" height="16"/>
+				<box topPadding="2" leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="71" width="168" height="16"/>
+				<box topPadding="2" leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patDOB}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="88" width="168" height="16"/>
+				<box topPadding="2" leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patSex}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement positionType="FixRelativeToBottom" x="109" y="102" width="116" height="18"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode($P{patno},com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="234" y="78" width="162" height="19"/>
+				<box>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aug 2020]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="395" y="77" width="116" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RHAB-MOF48]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="264" y="99" width="230" height="23"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode("RHAB-MOF48",com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="5" y="51" width="61" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Name: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="33" width="277" height="44"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Allied Health Assessment and Progress Notes]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="469" y="0" width="40" height="15"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="389" y="0" width="80" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="0" width="84" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Assessed By:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="85" y="0" width="100" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{username}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="18" width="504" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Electronically generated no signature required]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

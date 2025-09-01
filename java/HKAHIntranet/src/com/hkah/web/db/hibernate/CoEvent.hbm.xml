@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2010?~4??14?? ?W??08:52:05 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.CoEvent" table="CO_EVENT">
+        <composite-id name="id" class="com.hkah.web.db.hibernate.CoEventId">
+            <key-property name="coSiteCode" type="string">
+                <column name="CO_SITE_CODE" />
+            </key-property>
+            <key-property name="coModuleCode" type="string">
+                <column name="CO_MODULE_CODE" />
+            </key-property>
+            <key-property name="coEventId" type="big_decimal">
+                <column name="CO_EVENT_ID" />
+            </key-property>
+            <generator class="com.hkah.web.db.hibernate.id.IdGenerator"></generator>
+        </composite-id>
+        <many-to-one name="coSite" class="com.hkah.web.db.hibernate.CoSite" update="false" insert="false" fetch="select">
+            <column name="CO_SITE_CODE" not-null="true" />
+        </many-to-one>
+        <property name="coEventDesc" type="string">
+            <column name="CO_EVENT_DESC" />
+        </property>
+        <property name="coEventShortDesc" type="string">
+            <column name="CO_EVENT_SHORT_DESC" />
+        </property>
+        <property name="coEventCategory" type="string">
+            <column name="CO_EVENT_CATEGORY" />
+        </property>
+        <property name="coEventType" type="string">
+            <column name="CO_EVENT_TYPE" />
+        </property>
+        <property name="coEventType2" type="string">
+            <column name="CO_EVENT_TYPE2" />
+        </property>
+        <property name="coDepartmentCode" type="java.lang.Integer">
+            <column name="CO_DEPARTMENT_CODE" />
+        </property>
+        <property name="coEventRemark" type="string">
+            <column name="CO_EVENT_REMARK" />
+        </property>
+        <property name="coEventRemark2" type="string">
+            <column name="CO_EVENT_REMARK2" />
+        </property>
+        <property name="coCreatedDate">
+            <column name="CO_CREATED_DATE" />
+        </property>
+        <property name="coCreatedUser" type="string">
+            <column name="CO_CREATED_USER" />
+        </property>
+        <property name="coModifiedDate">
+            <column name="CO_MODIFIED_DATE" />
+        </property>
+        <property name="coModifiedUser" type="string">
+            <column name="CO_MODIFIED_USER" />
+        </property>
+        <property name="coEnabled" type="java.lang.Integer">
+            <column name="CO_ENABLED" />
+        </property>
+        <set name="crmPromotions" inverse="true">
+            <key>
+                <column name="CRM_SITE_CODE" not-null="true" />
+                <column name="CRM_MODULE_CODE" not-null="true" />
+                <column name="CRM_EVENT_ID" not-null="true" />
+            </key>
+            <one-to-many class="com.hkah.web.db.hibernate.CrmPromotion" />
+        </set>
+    </class>
+</hibernate-mapping>

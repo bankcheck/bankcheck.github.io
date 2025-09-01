@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2010?~5??21?? ?U??02:30:50 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.CrmPromotion" table="CRM_PROMOTION">
+        <composite-id name="id" class="com.hkah.web.db.hibernate.CrmPromotionId">
+            <key-property name="crmSiteCode" type="string">
+                <column name="CRM_SITE_CODE"  />
+            </key-property>
+            <key-property name="crmModuleCode" type="string">
+                <column name="CRM_MODULE_CODE"  />
+            </key-property>
+            <key-property name="crmEventId" type="big_decimal">
+                <column name="CRM_EVENT_ID"   />
+            </key-property>
+        </composite-id>
+		<many-to-one name="coEvent" class="com.hkah.web.db.hibernate.CoEvent" update="false" insert="false" fetch="select" lazy="false">
+            <column name="CRM_SITE_CODE" not-null="true" />
+            <column name="CRM_MODULE_CODE" not-null="true" />
+            <column name="CRM_EVENT_ID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="crmPromotionRefCode" class="com.hkah.web.db.hibernate.CrmPromotionRefCode" fetch="select" lazy="false">
+            <column name="CRM_REF_TYPE_CODE" />
+        </many-to-one>
+        <property name="crmInitialDateFm" >
+            <column name="CRM_INITIAL_DATE_FM"  />
+        </property>
+        <property name="crmInitialDateTo" >
+            <column name="CRM_INITIAL_DATE_TO"  />
+        </property>
+        <property name="crmPromoteRemarks" type="string">
+            <column name="CRM_PROMOTE_REMARKS"  />
+        </property>
+        <property name="crmPromoteDetails" type="string">
+            <column name="CRM_PROMOTE_DETAILS"  />
+        </property>
+        <property name="crmPromoteMaterials" type="string">
+            <column name="CRM_PROMOTE_MATERIALS"  />
+        </property>
+        <property name="crmRefCode" type="string">
+            <column name="CRM_REF_CODE"  />
+        </property>
+        <property name="crmPromoteComment" type="string">
+            <column name="CRM_PROMOTE_COMMENT"  />
+        </property>
+        <property name="crmCreatedDate" >
+            <column name="CRM_CREATED_DATE"  />
+        </property>
+        <property name="crmCreatedUser" type="string">
+            <column name="CRM_CREATED_USER"  />
+        </property>
+        <property name="crmModifiedDate" >
+            <column name="CRM_MODIFIED_DATE"  />
+        </property>
+        <property name="crmModifiedUser" type="string">
+            <column name="CRM_MODIFIED_USER"  />
+        </property>
+        <property name="crmEnabled" type="java.lang.Integer">
+            <column name="CRM_ENABLED"   />
+        </property>
+        <set name="crmPromotionDepartments" inverse="true" lazy="false" fetch="subselect" where="CRM_ENABLED = 1" order-by="CRM_DEPARTMENT_CODE">
+            <key>
+                <column name="CRM_SITE_CODE"  not-null="true" />
+                <column name="CRM_MODULE_CODE"  not-null="true" />
+                <column name="CRM_EVENT_ID"   not-null="true" />
+            </key>
+            <one-to-many class="com.hkah.web.db.hibernate.CrmPromotionDepartment" />
+        </set>
+       <set name="crmPromotionClient" inverse="true" lazy="false"  where="CRM_ENABLED = 1" order-by="CRM_CLIENT_ID">
+            <key>
+                <column name="CRM_SITE_CODE"  not-null="true" />
+                <column name="CRM_MODULE_CODE"  not-null="true" />
+                <column name="CRM_EVENT_ID"   not-null="true" />
+            </key>
+            <one-to-many class="com.hkah.web.db.hibernate.CrmPromotionClient" />
+        </set>       
+        <set name="crmPromotionTargets" inverse="true" lazy="false" fetch="subselect" where="CRM_ENABLED = 1" order-by="CRM_TARGET_ID" >
+            <key>
+                <column name="CRM_SITE_CODE"  not-null="true" />
+                <column name="CRM_MODULE_CODE"  not-null="true" />
+                <column name="CRM_EVENT_ID"   not-null="true" />
+            </key>
+            <one-to-many class="com.hkah.web.db.hibernate.CrmPromotionTarget" />
+        </set>
+        <set name="crmPromotionDocuments" inverse="true" lazy="false" fetch="subselect" where="CRM_ENABLED = 1" order-by="CRM_DOCUMENT_ID" >
+            <key>
+                <column name="CRM_SITE_CODE"  not-null="true" />
+                <column name="CRM_MODULE_CODE"  not-null="true" />
+                <column name="CRM_EVENT_ID"   not-null="true" />
+            </key>
+            <one-to-many class="com.hkah.web.db.hibernate.CrmPromotionDocument" />
+        </set>
+        <set name="crmPromotionInstructions" inverse="true" lazy="false" fetch="subselect" where="CRM_ENABLED = 1" order-by="CRM_PROMO_INSTR_PID" >
+            <key>
+                <column name="CRM_SITE_CODE"  not-null="true" />
+                <column name="CRM_MODULE_CODE"  not-null="true" />
+                <column name="CRM_EVENT_ID"   not-null="true" />
+            </key>
+            <one-to-many class="com.hkah.web.db.hibernate.CrmPromotionInstruction" />
+        </set>
+        <set name="crmPromotionEnquiries" inverse="true" lazy="false" fetch="subselect" where="CRM_ENABLED = 1" order-by="CRM_PROMO_ENQ_PID" >
+            <key>
+                <column name="CRM_SITE_CODE"  not-null="true" />
+                <column name="CRM_MODULE_CODE"  not-null="true" />
+                <column name="CRM_EVENT_ID"   not-null="true" />
+            </key>
+            <one-to-many class="com.hkah.web.db.hibernate.CrmPromotionEnquiry" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Budget EstimateB" pageWidth="594" pageHeight="841" whenNoDataType="AllSectionsNoDetail" columnWidth="516" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="564"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="Site" class="java.lang.String"/>
+	<parameter name="patcname" class="java.lang.String"/>
+	<parameter name="patname" class="java.lang.String"/>
+	<parameter name="patidno" class="java.lang.String"/>
+	<parameter name="DiagnosisText" class="java.lang.String"/>
+	<parameter name="day" class="java.lang.String"/>
+	<parameter name="acmdesc" class="java.lang.String"/>
+	<parameter name="operation" class="java.lang.String"/>
+	<parameter name="docname" class="java.lang.String"/>
+	<parameter name="docRdFee" class="java.lang.String"/>
+	<parameter name="proFee" class="java.lang.String"/>
+	<parameter name="annaesFee" class="java.lang.String"/>
+	<parameter name="otherFee1" class="java.lang.String"/>
+	<parameter name="otherFee2" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.String"/>
+	<parameter name="currentDate" class="java.lang.String"/>
+	<parameter name="drRndDaySum" class="java.lang.String"/>
+	<parameter name="otCharge" class="java.lang.String"/>
+	<parameter name="hospitalTotal" class="java.lang.String"/>
+	<parameter name="url" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="VIPRoom" class="java.lang.String"/>
+	<parameter name="privateRoom" class="java.lang.String"/>
+	<parameter name="semiPrivateRoom" class="java.lang.String"/>
+	<parameter name="standardRoom" class="java.lang.String"/>
+	<parameter name="otherFee3" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="remark1" class="java.lang.String"/>
+	<parameter name="remark2" class="java.lang.String"/>
+	<parameter name="remark3" class="java.lang.String"/>
+	<parameter name="remark4" class="java.lang.String"/>
+	<parameter name="remark5" class="java.lang.String"/>
+	<parameter name="staffID" class="java.lang.String"/>
+	<parameter name="formType" class="java.lang.String">
+		<defaultValueExpression><![CDATA["B"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<pageHeader>
+		<band height="103">
+			<image scaleImage="FillFrame">
+				<reportElement x="2" y="5" width="151" height="40"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir},
+$P{Site}.equals("hkah") ?
+"../images/hkah_portal_logo.gif" :
+($P{Site}.equals("twah") ?
+    "../images/logo_twah.gif" :
+    "../images/hkah_portal_logo.gif"
+))]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="2" y="32" width="555" height="45"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["服務費用預算 - 預算" +
+($P{formType}.equals( "A" )?("醫生"):($P{formType}.equals( "B" )?"醫院":"")) +
+"費用 (只供參考)"+"<br>"+
+"Budget Estimate - Estimated " +
+($P{formType}.equals( "A" )?("Doctor's Fees"):($P{formType}.equals( "B" )?"Hospital Charges":"")) +
+" (For Reference Only)"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1" y="79" width="553" height="20"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+					<topPen lineWidth="1.0" lineStyle="Double"/>
+					<leftPen lineWidth="1.0" lineStyle="Double"/>
+					<bottomPen lineWidth="1.0" lineStyle="Double"/>
+					<rightPen lineWidth="1.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font size="6" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["須知：務請確認已於表格上" + "<u>" + "簽署" + "</u>" + "，並須於入院當日交予病人事務部。"+"<br>"+
+"Important: Please ensure that forms A and B are both " + "<u>" + "signed" + "</u>" + " and bring them to the Patient Business Office on the day of admission"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Page">
+				<reportElement positionType="Float" x="459" y="0" width="95" height="90"/>
+				<textElement textAlignment="Right" markup="html">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{formType}.equals( "A" )?("Form A<br/>表格 A"):
+($P{formType}.equals( "B" )?"Form B<br/>表格 B":"")]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="597" splitType="Prevent">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="40"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Double"/>
+					<topPen lineWidth="0.0" lineStyle="Double"/>
+					<leftPen lineWidth="0.0" lineStyle="Double"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Double"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="html">
+					<font size="6" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["本表格正本會存放在醫院的病人醫療記錄內，副本供病人和醫生參考。費用預算只供參考，最終收費視乎病人實際接受的治療、" +
+"程序及服務而定。此「服務費用預算」有效期為三個月，由 <u>" +
+$P{currentDate} +
+"</u> 起計。<br/><br/>" +
+"The original of this form will be filed as hospital's medical records, " +
+"and copies will be given to patient and doctor for reference.  The estimated charges are for reference only." +
+"  Final payments are subject to charges incurred from treatment, procedures and services performed." +
+"  This \"Budget Estimate\" is valid for a period of 3 months starting from <u>" +
+$P{currentDate} + "</u>."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="42" width="167" height="15"/>
+				<textElement textAlignment="Left">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[病人姓名 Patient's Name  (中文 Chinese):]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="166" y="42" width="389" height="15"/>
+				<box topPadding="2" leftPadding="5" bottomPadding="2">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="MingISO10646" size="8" isBold="true" isStrikeThrough="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patcname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="103" y="57" width="64" height="15"/>
+				<box leftPadding="1"/>
+				<textElement textAlignment="Left">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[(英文 English):	]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="166" y="57" width="389" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+					<font size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="71" width="286" height="15"/>
+				<box topPadding="2"/>
+				<textElement textAlignment="Left">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[身份證 / 護照 號碼 Hong Kong Identity Card / Passport Number:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="285" y="71" width="270" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patidno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="86" width="219" height="15"/>
+				<box topPadding="2"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[初步診斷 Provisional Diagnosis:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="219" y="86" width="336" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DiagnosisText}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="102" width="219" height="15"/>
+				<box topPadding="2"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[預計住院時間 Estimated Length of Stay:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="219" y="102" width="90" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{day}+"日 Day(s)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="331" y="102" width="109" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[病房級別 Class of Ward:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="441" y="102" width="113" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{acmdesc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="118" width="219" height="30"/>
+				<textElement textAlignment="Left" markup="none">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["治療程序 / 手術 Treatment Procedure/Surgical Operation:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="219" y="118" width="336" height="30"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{operation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="149" width="219" height="15"/>
+				<box topPadding="2"/>
+				<textElement textAlignment="Left">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[主診醫生 Attending Doctor:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="219" y="149" width="336" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font fontName="MingISO10646" size="8" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docname}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="1" y="172" width="554" height="297"/>
+				<box>
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1" y="172" width="554" height="22"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.0" lineStyle="Double"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Double"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Double"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="html">
+					<font size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["預算醫院費用 "+"<b> Estimated Hospital Charges</b><br>"
++"（由醫生根據醫院提供的收費資料填寫"
++"<b> To be completed by doctor based on the charges information provided by hospital）</b>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="213" width="248" height="15"/>
+				<box leftPadding="4"/>
+				<textElement textAlignment="Left" markup="none">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["住宿Room: x " + $P{day} + "日 Day(s)"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="248" y="213" width="181" height="15"/>
+				<box topPadding="0">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{drRndDaySum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="231" width="248" height="45"/>
+				<box leftPadding="4"/>
+				<textElement textAlignment="Left" markup="none">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["手術室及相關物料費用 "
++"Operating Theatre and Associated "
++"Materials Charges (備註1 Remark 1):"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="248" y="231" width="181" height="45"/>
+				<box topPadding="2">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{otCharge}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="280" width="248" height="15"/>
+				<box leftPadding="4"/>
+				<textElement textAlignment="Left" markup="none">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["其他醫院收費 Other Hospital Charges (備註2 Remark 2):"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="247" y="280" width="181" height="15"/>
+				<box topPadding="0">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{otherFee3}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="219" y="299" width="56" height="25"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.0" lineStyle="Double"/>
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+					<rightPen lineStyle="Double"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["總計 "+
+ "<b>Total:</b>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="275" y="299" width="154" height="25"/>
+				<box leftPadding="2" rightPadding="3">
+					<pen lineWidth="0.0" lineStyle="Double"/>
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineStyle="Double"/>
+					<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+					<rightPen lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="html">
+					<font size="9" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{hospitalTotal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="429" y="299" width="121" height="25"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.0" lineStyle="Double"/>
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineStyle="Double"/>
+					<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["(備註4 Remark 4)"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1" y="328" width="554" height="14"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.0" lineStyle="Double"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Double"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Double"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="html">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["病人簽署"+"<b> Patient's Signature"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="350" width="555" height="40"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.0" lineStyle="Double"/>
+					<topPen lineWidth="0.0" lineStyle="Double"/>
+					<leftPen lineWidth="0.0" lineStyle="Double"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Double"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="html">
+					<font size="6" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["本人知悉服務預算費用並無法律效力，僅為參考，並不包括因併發症以及入院後發現的疾病所產生的額外費用。本人同意最終收費視乎病人實際接受的治療、程序及服務而定，並以醫院帳單所列為準。<br/><br/>"+
+"<b>I understand that this budget estimate is not legally binding and is for reference only.  Additional charges incurred from complications and from diseases diagnosed after admission are not covered.  I agree that final payments are subject to charges incurred from treatment, procedures and services performed and should be made in accordance with hospital invoice.</b>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="411" y="426" width="126" height="40"/>
+				<box topPadding="2">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["日期<br>Date"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="208" y="426" width="139" height="40"/>
+				<box topPadding="2">
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font size="9" isBold="false" isStrikeThrough="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["病人 / 親屬 / 獲授權人士簽署<br>Signature of Patient / Next-of-kin / Authorised Person"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="18" y="426" width="126" height="40"/>
+				<box topPadding="2">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["病人 / 親屬 / 獲授權人士姓名<br>Name of Patient / Next-of-kin / Authorised Person"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="4" y="391" width="158" height="35"/>
+				<box topPadding="2">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="411" y="393" width="126" height="32"/>
+				<box topPadding="2">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentDate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="475" width="555" height="10"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.0" lineStyle="Double"/>
+					<topPen lineWidth="0.0" lineStyle="Double"/>
+					<leftPen lineWidth="0.0" lineStyle="Double"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Double"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="html">
+					<font size="6" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["備註 Remarks:"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="490" width="18" height="29"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.0" lineStyle="Double"/>
+					<topPen lineWidth="0.0" lineStyle="Double"/>
+					<leftPen lineWidth="0.0" lineStyle="Double"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Double"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="html">
+					<font size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["1"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="17" y="490" width="538" height="29"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.0" lineStyle="Double"/>
+					<topPen lineWidth="0.0" lineStyle="Double"/>
+					<leftPen lineWidth="0.0" lineStyle="Double"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Double"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="html">
+					<font size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["表格內列出醫院費用預算的參考幅度數字，是根據去年度本院接受同類治療的相關病人出院帳單的實際費用統計及醫生初步選擇的治療項目估算所得。每位醫生處理同樣病症的方法可能會有差異(例如療程選擇、藥物處方、使用物料等)。<br/>"+
+"Figures listed under the Reference Range of Hospital Charges are derived from statistics of actual discharge bills of relevant patients who underwent similar treatment in our hospital last year and the preliminary treatment items chosen by the doctor.　Doctors' management (e.g. choice of procedures, drugs and consumables) of the same illness may differ."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="518" width="18" height="25"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.0" lineStyle="Double"/>
+					<topPen lineWidth="0.0" lineStyle="Double"/>
+					<leftPen lineWidth="0.0" lineStyle="Double"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Double"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="html">
+					<font size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["2"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="542" width="18" height="29"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.0" lineStyle="Double"/>
+					<topPen lineWidth="0.0" lineStyle="Double"/>
+					<leftPen lineWidth="0.0" lineStyle="Double"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Double"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="html">
+					<font size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["3"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="17" y="518" width="538" height="25"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.0" lineStyle="Double"/>
+					<topPen lineWidth="0.0" lineStyle="Double"/>
+					<leftPen lineWidth="0.0" lineStyle="Double"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Double"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="html">
+					<font size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["「其他醫院收費」是護理、消耗品、藥物、化驗、檢查，診斷程序及其他非手術室相關費用的估算總和。(不包括公司寄售)<br/>"+
+"Other Hospital Charges is a rough estimate of the total charges including nursing care,"+
+" consumables, drugs, laboratory tests, investigations, diagnostic procedures and other non-Operating Theatre related charges. (exclude consignment)"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="17" y="542" width="538" height="29"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.0" lineStyle="Double"/>
+					<topPen lineWidth="0.0" lineStyle="Double"/>
+					<leftPen lineWidth="0.0" lineStyle="Double"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Double"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="html">
+					<font size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{Site}.equals( "hkah" )?"本院的房間類別如下: 普通房（三至四人房），半私家（雙人 、 單人房共用洗手間），私家（單人），貴賓房（單人）。病房收費請參考網頁 <a href=\""+$P{url}+"\" target=\"_blank\">"+$P{url}+"</a><br/>"+
+"Our hospital's Room category are as follows: Standard Room (3-4 Bed), Semi-Private Room (2-Bed, Single room shared toilet), Private Room (1-Bed), VIP Room (1-Bed). For room charges, please refer to our website: <a href=\""+$P{url}+"\" target=\"_blank\">"+$P{url}+"</a>":"本院的每天住院房租如下: 三等房 $" + $P{standardRoom} + "，二等房 $" + $P{semiPrivateRoom} + "，VIP 房 $" + $P{VIPRoom} + "。" +
+"其他特殊病房收費請參考網頁 <a href=\""+$P{url}+"\" target=\"_blank\">"+$P{url}+"</a><br/>"+
+"Our hospital's Room Charges are as follows: Standard Room $" + $P{standardRoom} + ", Semi-Private Room $" + $P{semiPrivateRoom} + ", VIP Room $" + $P{VIPRoom} + ". "+
+"For other special beds, please refer to our webpage: <a href=\""+$P{url}+"\" target=\"_blank\">"+$P{url}+"</a>")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="248" y="198" width="180" height="15"/>
+				<box leftPadding="4"/>
+				<textElement textAlignment="Right" markup="none">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["參考幅度 Reference Range"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="439" y="198" width="111" height="97"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{remark3}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="570" width="18" height="18"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.0" lineStyle="Double"/>
+					<topPen lineWidth="0.0" lineStyle="Double"/>
+					<leftPen lineWidth="0.0" lineStyle="Double"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Double"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="html">
+					<font size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["4"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="17" y="570" width="538" height="18"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.0" lineStyle="Double"/>
+					<topPen lineWidth="0.0" lineStyle="Double"/>
+					<leftPen lineWidth="0.0" lineStyle="Double"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Double"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="html">
+					<font size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["實際收費可能因應病人實際入住的房間類別有所調整。如欲查詢，請致電病人事務部 (852) " +
+($P{Site}.equals( "hkah" )?"3651 8805":"2275 6022") + "。<br/>"+
+"The total fee may be adjusted subject to the patient's room category. For enquiries, please contact Patient Business Department on (852) " +
+($P{Site}.equals( "hkah" )?"3651 8805":"2275 6022") + "."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="2" y="299" width="217" height="25"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{remark2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="485" y="454" width="70" height="15"/>
+				<box topPadding="2">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{staffID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="208" y="390" width="139" height="36"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" markup="none">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{remark5}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="95">
+			<frame>
+				<reportElement x="3" y="2" width="278" height="90"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textField>
+					<reportElement positionType="Float" x="64" y="1" width="209" height="16"/>
+					<textElement textAlignment="Left" markup="none">
+						<font size="8" isBold="false" isUnderline="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{patno}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="64" y="16" width="209" height="28"/>
+					<textElement textAlignment="Left" markup="none">
+						<font size="8" isBold="false" isUnderline="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{patname}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="281" y="65" width="276" height="27"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<textField>
+				<reportElement x="441" y="45" width="116" height="20"/>
+				<box>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Site}.equals( "twah" )?
+($P{formType}.equals( "A" )?"VPMA-MZA003":"VPMA-MZA004"):
+($P{formType}.equals( "A" )?"VPMA-MLC35":"VPMA-MLC36")]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="310" y="65" width="230" height="23"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode(($P{Site}.equals( "twah" )?
+($P{formType}.equals( "A" )?"VPMA-MZA003":"VPMA-MZA004"):
+($P{formType}.equals( "A" )?"VPMA-MLC35":"VPMA-MLC36")
+),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<textField evaluationTime="Page">
+				<reportElement mode="Opaque" x="281" y="2" width="276" height="43" backcolor="#FFFFFF"/>
+				<box leftPadding="4">
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial" size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<b><font size=\"2\">ESTIMATED " +
+($P{formType}.equals( "A" )?("DOCTOR'S FEES"):($P{formType}.equals( "B" )?"HOSPITAL CHARGES":"")) +
+"</font><b><br><u>"+
+($P{formType}.equals( "A" )?("Form A"):($P{formType}.equals( "B" )?"Form B":""))
++"</u>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="289" y="45" width="116" height="20"/>
+				<textElement textAlignment="Center" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Site}.equals( "hkah" )?"Nov 2022":""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="3" width="61" height="16"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Patient No: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="18" width="61" height="16"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Name: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="45" width="61" height="16"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Date of Birth: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="60" width="61" height="16"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Gender:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="75" width="61" height="16"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Room No.:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

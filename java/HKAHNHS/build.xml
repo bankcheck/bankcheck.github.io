@@ -1,0 +1,250 @@
+<project name="HKAHNHS" basedir="." default="default">
+	<!-- property name="lib"  location="../lib" /-->
+	<property name="src" location="src" />
+	<property name="gwtbasedir" location="../HKAHGwtBase" />
+	<property name="wardir" location="../HKAHNHS" />
+	<property name="gwt.sdk" location="gwt-sdk" />
+
+	<path id="runClasspath">
+		<!-- fileset dir="${lib}" includes="**/*.jar" /-->
+		<fileset dir="war/WEB-INF/lib" includes="**/*.jar" />
+		<fileset dir="${gwt.sdk}" includes="**/gwt*.jar" />
+	</path>
+
+	<taskdef name="jrc" classname="net.sf.jasperreports.ant.JRAntCompileTask">
+		<classpath refid="runClasspath" />
+	</taskdef>
+
+	<target name="buildbaseclass">
+		<delete dir="${gwtbasedir}/bin" />
+		<mkdir dir="${gwtbasedir}/bin" />
+
+		<copy todir="${gwtbasedir}/bin">
+			<fileset dir="${gwtbasedir}/src" includes="**/*.properties" />
+			<fileset dir="${gwtbasedir}/src" includes="**/*.wav" />
+			<fileset dir="${gwtbasedir}/src" includes="**/*.gif" />
+			<fileset dir="${gwtbasedir}/src" includes="**/*.jpg" />
+			<fileset dir="${gwtbasedir}/src" includes="**/*.xml" />
+		</copy>
+
+		<javac srcdir="${gwtbasedir}/src" destdir="${gwtbasedir}/bin"
+				source="1.6" target="1.6" nowarn="on">
+			<classpath>
+				<fileset dir="${wardir}/war/WEB-INF/lib" includes="**/*.jar" />
+			</classpath>
+		</javac>
+
+		<copy todir="${gwtbasedir}/bin">
+			<fileset dir="${gwtbasedir}/src" includes="**/*.properties"/>
+			<fileset dir="${gwtbasedir}/src" includes="**/*.wav"/>
+			<fileset dir="${gwtbasedir}/src" includes="**/*.gif"/>
+			<fileset dir="${gwtbasedir}/src" includes="**/*.jpg"/>
+			<fileset dir="${gwtbasedir}/src" includes="**/*.png"/>
+			<fileset dir="${gwtbasedir}/src" includes="**/*.xml"/>
+		</copy>
+
+		<jar destfile="war/WEB-INF/lib/HKAHGwtBase.jar" basedir="${gwtbasedir}/bin" />
+	</target>
+
+	<target name="convert" description="convert properties" >
+		<delete file="${wardir}/src/MessageResources_zh_TW.properties" />
+		<delete file="${wardir}/src/MessageResources_zh_CN.properties" />
+		<delete file="${wardir}/src/MessageResources_ja_JP.properties" />
+
+		<native2ascii encoding="big5" src="${wardir}/src/resource_zh_TW" dest="${wardir}/src" />
+		<native2ascii encoding="gb2312" src="${wardir}/src/resource_zh_CN" dest="${wardir}/src" />
+		<native2ascii encoding="utf8" src="${wardir}/src/resource_ja_JP" dest="${wardir}/src" />
+	</target>
+
+	<target name="buildreport" description="compile jasper report">
+		<delete dir="build" />
+		<delete>
+			<fileset dir="war/report" includes="**/*.jasper" />
+		</delete>
+
+		<mkdir dir="build" />
+		<jrc srcdir="war/report"
+				destdir="war/report"
+				tempdir="build"
+				keepjava="true"
+				xmlvalidation="true">
+			<classpath refid="runClasspath" />
+			<include name="**/*.jrxml" />
+		</jrc>
+	</target>
+
+	<target name="buildclass" description="build NHS class" depends="buildbaseclass">
+		<delete dir="war/WEB-INF/classes" />
+		<mkdir dir="war/WEB-INF/classes" />
+
+		<copy todir="war/WEB-INF/classes">
+			<fileset dir="${src}" includes="**/*.properties" />
+			<fileset dir="${src}" includes="**/*.wav" />
+			<fileset dir="${src}" includes="**/*.gif" />
+			<fileset dir="${src}" includes="**/*.jpg" />
+			<fileset dir="${src}" includes="**/*.xml" />
+		</copy>
+
+		<javac srcdir="${src}" destdir="war/WEB-INF/classes"
+				source="1.6" target="1.6" nowarn="on">
+			<classpath refid="runClasspath" />
+		</javac>
+	</target>
+
+	<target name="buildgwt" description="compile NHS gwt" >
+		<delete dir="war/hkahnhs" />
+		<delete dir="war/WEB-INF/deploy" />
+		<java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+			<classpath>
+				<pathelement location="src" />
+				<pathelement location="${gwtbasedir}/src" />
+				<pathelement location="war/WEB-INF/classes"/>
+				<pathelement location="${gwt.sdk}/gwt-user.jar"/>
+				<fileset dir="${gwt.sdk}" includes="gwt-dev*.jar"/>
+				<fileset dir="${gwt.sdk}" includes="validation-api-*.jar"/>
+				<!-- Add any additional non-server libs (such as JUnit) -->
+				<fileset dir="war/WEB-INF/lib" includes="**/*.jar" />
+			</classpath>
+			<!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+			<jvmarg value="-Xmx512M" />
+			<jvmarg value="-Xss16M" />
+			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+			<arg line="-logLevel INFO" />
+			<arg line="-war war" />
+			<arg value="com.hkah.HKAHNHS" />
+		</java>
+	</target>
+
+	<target name="buildwar" depends="convert, buildreport, buildgwt, buildclass">
+		<tstamp>
+			<format property="time" pattern="yyyyMMdd" offset="-8" unit="hour"/>
+		</tstamp>
+
+		<copy file="src/ClientConfig.properties.hkah.uat.tomcat" tofile="war/WEB-INF/classes/ClientConfig.properties" overwrite="true" />
+		<propertyfile file="war/WEB-INF/classes/ClientConfig.properties">
+			<entry key="system.version.number" value="UAT-${time}"/>
+		</propertyfile>
+		<war basedir="war" destfile="HKAHNHS_UAT.war" webxml="war/WEB-INF/web.xml">
+			<exclude name="WEB-INF/**" />
+			<exclude name="**/*.jrxml" />
+			<webinf dir="war/WEB-INF/">
+				<include name="**/*.class" />
+				<include name="**/*.properties" />
+				<include name="**/*.wav" />
+				<include name="**/*.gif" />
+				<include name="**/*.jpg" />
+				<include name="**/*.xml" />
+				<include name="**/*.jar" />
+			</webinf>
+		</war>
+
+		<copy file="src/ClientConfig.properties.twah.uat.tomcat" tofile="war/WEB-INF/classes/ClientConfig.properties" overwrite="true" />
+		<propertyfile file="war/WEB-INF/classes/ClientConfig.properties">
+			<entry key="system.version.number" value="UAT-${time}"/>
+		</propertyfile>
+		<war basedir="war" destfile="TWAHNHS_UAT.war" webxml="war/WEB-INF/web.xml">
+			<exclude name="WEB-INF/**" />
+			<exclude name="**/*.jrxml" />
+			<webinf dir="war/WEB-INF/">
+				<include name="**/*.class" />
+				<include name="**/*.properties" />
+				<include name="**/*.wav" />
+				<include name="**/*.gif" />
+				<include name="**/*.jpg" />
+				<include name="**/*.xml" />
+				<include name="**/*.jar" />
+			</webinf>
+		</war>
+
+<!--
+		<copy file="src/ClientConfig.properties.hkah.prod.tomcat" tofile="war/WEB-INF/classes/ClientConfig.properties" overwrite="true" />
+		<propertyfile file="war/WEB-INF/classes/ClientConfig.properties">
+			<entry key="system.version.number" value="PROD-${time}"/>
+		</propertyfile>
+		<war basedir="war" destfile="HKAHNHS_PROD.war" webxml="war/WEB-INF/web.xml">
+			<exclude name="WEB-INF/**" />
+			<webinf dir="war/WEB-INF/">
+				<include name="**/*.class" />
+				<include name="**/*.properties" />
+				<include name="**/*.wav" />
+				<include name="**/*.gif" />
+				<include name="**/*.jpg" />
+				<include name="**/*.xml" />
+				<include name="**/*.jar" />
+			</webinf>
+		</war>
+
+		<copy file="src/ClientConfig.properties.twah.prod.tomcat" tofile="war/WEB-INF/classes/ClientConfig.properties" overwrite="true" />
+		<propertyfile file="war/WEB-INF/classes/ClientConfig.properties">
+			<entry key="system.version.number" value="PROD-${time}"/>
+		</propertyfile>
+		<war basedir="war" destfile="TWAHNHS_PROD.war" webxml="war/WEB-INF/web.xml">
+			<exclude name="WEB-INF/**" />
+			<webinf dir="war/WEB-INF/">
+				<include name="**/*.class" />
+				<include name="**/*.properties" />
+				<include name="**/*.wav" />
+				<include name="**/*.gif" />
+				<include name="**/*.jpg" />
+				<include name="**/*.xml" />
+				<include name="**/*.jar" />
+			</webinf>
+		</war>
+-->
+
+		<copy file="src/ClientConfig.properties.amc2.uat.tomcat" tofile="war/WEB-INF/classes/ClientConfig.properties" overwrite="true" />
+		<propertyfile file="war/WEB-INF/classes/ClientConfig.properties">
+			<entry key="system.version.number" value="UAT-${time}"/>
+		</propertyfile>
+		<war basedir="war" destfile="AMC2NHS_UAT.war" webxml="war/WEB-INF/web.xml">
+			<exclude name="WEB-INF/**" />
+			<webinf dir="war/WEB-INF/">
+				<include name="**/*.class" />
+				<include name="**/*.properties" />
+				<include name="**/*.wav" />
+				<include name="**/*.gif" />
+				<include name="**/*.jpg" />
+				<include name="**/*.xml" />
+				<include name="**/*.jar" />
+			</webinf>
+		</war>
+
+<!--
+		<copy file="src/ClientConfig.properties.amc2.prod.tomcat" tofile="war/WEB-INF/classes/ClientConfig.properties" overwrite="true" />
+		<propertyfile file="war/WEB-INF/classes/ClientConfig.properties">
+			<entry key="system.version.number" value="PROD-${time}"/>
+		</propertyfile>
+		<war basedir="war" destfile="AMC2NHS_PROD.war" webxml="war/WEB-INF/web.xml">
+			<exclude name="WEB-INF/**" />
+			<webinf dir="war/WEB-INF/">
+				<include name="**/*.class" />
+				<include name="**/*.properties" />
+				<include name="**/*.wav" />
+				<include name="**/*.gif" />
+				<include name="**/*.jpg" />
+				<include name="**/*.xml" />
+				<include name="**/*.jar" />
+			</webinf>
+		</war>
+-->
+		
+		<copy file="src/ClientConfig.properties.amc1.uat.tomcat" tofile="war/WEB-INF/classes/ClientConfig.properties" overwrite="true" />
+		<propertyfile file="war/WEB-INF/classes/ClientConfig.properties">
+			<entry key="system.version.number" value="UAT-${time}"/>
+		</propertyfile>
+		<war basedir="war" destfile="AMC1NHS_UAT.war" webxml="war/WEB-INF/web.xml">
+			<exclude name="WEB-INF/**" />
+			<webinf dir="war/WEB-INF/">
+				<include name="**/*.class" />
+				<include name="**/*.properties" />
+				<include name="**/*.wav" />
+				<include name="**/*.gif" />
+				<include name="**/*.jpg" />
+				<include name="**/*.xml" />
+				<include name="**/*.jar" />
+			</webinf>
+		</war>
+	</target>
+
+	<target name="default" depends="buildwar"></target>
+ </project>

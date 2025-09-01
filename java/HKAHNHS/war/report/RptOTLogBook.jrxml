@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptOTLogBook" language="groovy" pageWidth="540" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="510" leftMargin="15" rightMargin="15" topMargin="15" bottomMargin="15">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="667" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="0" width="60" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[rptOTLogBook]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="20" width="75" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OT Log Book]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="45" width="55" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[GENERAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="63" width="45" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient No:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="75" width="40" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Birthdate:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="87" width="65" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of Operation:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="99" width="45" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Setup Time: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="111" width="55" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient In Time:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="123" width="58" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Anesthetic Time: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="135" width="55" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Operation Start:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="147" width="55" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Into Recovery:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="159" width="62" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Phone Ward Time:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="171" width="55" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Clean up Time: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="183" width="55" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reason for late:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="64" width="25" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="76" width="20" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sex:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="88" width="25" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Room:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="113" width="40" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Out Time:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="125" width="40" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[End Time:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="137" width="40" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[End Time:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="149" width="55" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Left Recovery:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="161" width="30" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ward:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="201" width="56" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PROCEDURES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="216" width="55" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tourniquet On:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="228" width="55" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Schedule Type:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="240" width="30" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reason:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="252" width="40" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Specimens:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="218" width="55" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tourniquet Off:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="230" width="35" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Outcome:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="254" width="50" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Specimen To:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="64" width="35" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Chinese:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="218" width="45" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Blood Type:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="230" width="35" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dressing:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="6" y="53" width="2" height="2" backcolor="#000000"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="6" y="209" width="2" height="2" backcolor="#000000"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="266" width="55" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[•    Procedure:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="294" width="80" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[•    Anesthetic Method:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="322" width="90" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[•    Anesthetists Remark:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="348" width="55" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[•    Comments:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="378" width="60" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[MANPOWER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="393" width="45" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[•    Surgeon]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="421" width="60" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[•    Anesthetist(s)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="449" width="65" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[•    Endoscopist(s)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="477" width="68" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[•    Team Member(s)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="6" y="386" width="2" height="2" backcolor="#000000"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="510" width="60" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[MATERIAL]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="6" y="518" width="2" height="2" backcolor="#000000"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="525" width="40" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[•    Implant]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="553" width="50" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[•    Equipment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="581" width="50" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[•    Instrument]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="619" width="40" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[•    Drug]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="10" y="634" width="500" height="30"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="20" y="280" width="6" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="308" width="6" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="407" width="6" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="435" width="6" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="463" width="6" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="491" width="6" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="539" width="6" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="567" width="6" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="595" width="6" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="649" width="500" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="12" y="634" width="20" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Drug]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="649" width="10" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[T]]></text>
+			</staticText>
+			<line>
+				<reportElement x="120" y="634" width="1" height="30"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="170" y="634" width="1" height="30"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="220" y="634" width="1" height="30"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="270" y="634" width="1" height="30"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="122" y="634" width="20" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Cost]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="634" width="20" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Unit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="634" width="20" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="273" y="634" width="35" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Remark]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="99" width="25" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[min(s)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="171" width="25" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[min(s)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+</jasperReport>

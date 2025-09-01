@@ -1,0 +1,530 @@
+ALTER TABLE EE_MENU_CONTENT
+ DROP PRIMARY KEY CASCADE;
+DROP TABLE EE_MENU_CONTENT CASCADE CONSTRAINTS;
+
+CREATE TABLE EE_MENU_CONTENT 
+(	
+ EE_SITE_CODE VARCHAR2(10 BYTE) NOT NULL ENABLE, 
+ EE_MENU_CONTENT_ID NUMBER(*,0) NOT NULL ENABLE, 
+ EE_MODULE_CODE VARCHAR2(20 BYTE), 
+ EE_PARENT_MENU_CONTENT_ID NUMBER(*,0), 
+ EE_DESCRIPTION_EN VARCHAR2(200 BYTE), 
+ EE_DESCRIPTION_ZH VARCHAR2(200 BYTE), 
+ EE_SORT_ORDER NUMBER(*,0), 
+ EE_BG_COLOR VARCHAR2(6 BYTE),
+ EE_TYPE VARCHAR2(20 BYTE),
+ EE_CREATED_DATE DATE DEFAULT SYSDATE, 
+ EE_CREATED_USER VARCHAR2(30 BYTE) DEFAULT 'SYSTEM', 
+ EE_MODIFIED_DATE DATE DEFAULT SYSDATE, 
+ EE_MODIFIED_USER VARCHAR2(30 BYTE) DEFAULT 'SYSTEM', 
+ EE_ENABLED NUMBER(*,0) DEFAULT 1, 
+ PRIMARY KEY (EE_SITE_CODE, EE_MENU_CONTENT_ID)
+);
+
+----------------------------------
+-- Hospital Education Policies
+----------------------------------
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 1, 'education.hep', 'SQE-201 Credential Committee', null, 14);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 2, 'education.hep', 'SQE-103 Professional Registration', null, 13);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 3, 'education.hep', 'SQE-102 Orientation', null, 12);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 4, 'education.hep', 'SQE-327 Internship Student Guidelines', null, 11);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 5, 'education.hep', 'SQE-328 Volunteer Services', null, 10);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 6, 'education.hep', 'SQE-301 Job Description', null, 9);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 7, 'education.hep', 'SQE-105 Training and In-service Program', null, 8);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 8, 'education.hep', 'SQE-104 Continuous Education', null, 7);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 9, 'education.hep', 'SQE 302 Performance Appraisal', null, 6);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 10, 'education.hep', 'SQE-332 Staff Development', null, 5);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 11, 'education.hep', 'SQE-108 Employee Scholarship Loan', null, 4);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 12, 'education.hep', 'MSO-502 Continuing Education Allowance for MS', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 13, 'education.hep', 'GLD-301 Refund Policy ', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 14, 'education.hep', 'SQE-101 Recruitment and Retention Plan', null, 1);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 223, 'education.hep', 'SQE-109 Continuing Nursing Education Program', null, 1);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 224, 'education.hep', 'Providers of Continuing Nursing Education Accredited by the Nursing Council of Hong Kong for TWAH', null, 1);
+
+----------------------------------
+-- In-service Education Calendar
+----------------------------------
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 15, 'education.is_cal', '2010-1', null, 4);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 16, 'education.is_cal', '2010-2', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 17, 'education.is_cal', '2010-3', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 18, 'education.is_cal', '2010-4', null, 1);
+
+----------------------------------------------
+-- Mandatory In-service Education: Information
+----------------------------------------------
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 19, 'education.is_info', 'MIE Policy', '院內必修課程政策', 6);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 20, 'education.is_info', 'MIE Staff Category 2010', '院內必修課程員工類別 2010年', 5);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 21, 'education.is_info', 'MIE Guidelines 2010', '院內必修課程指引 2010年', 4);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 22, 'education.is_info', 'MIE Program 2010', '院內必修課程項目 2010年', 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 23, 'education.is_info', 'MIE Personal Record 2009', '院內必修課程個人學習記錄 2009年', 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 24, 'education.is_info', 'Other Personal In-service Education Record 2009', '其他院內課程個人學習記錄 2009年', 1);
+
+----------------------------------------------
+-- Mandatory In-service Education: Content
+----------------------------------------------
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_BG_COLOR, EE_TYPE) 
+  VALUES ('twah', 25, 'education.is_content', 'Hospital Orientation <font style="color: #008000">(New Staff)</font>', '醫院迎新 <font style="color: #008000">(新入職員工)</font>', 10, 'FFCC99', 'sitin');
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_BG_COLOR, EE_TYPE)  
+  VALUES ('twah', 26, 'education.is_content', 'SHARE Seminar <font style="color: #008000">(New Staff)</font>', '與爾共享研討 <font style="color: #008000">(新入職員工)</font>', 9, 'FFCC99', 'sitin');
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_BG_COLOR, EE_TYPE)  
+  VALUES ('twah', 27, 'education.is_content', 'SHARE Review <br /><font style="color: #008000">(Nursing Staff; Clinical Staff; Ancillary Staff; Other Staff)</font>', '與爾共享重温 <br /><font style="color: #008000">(護理員工；醫療員工; 輔助員工；其他員工)</font>', 8, 'FFCC99', 'online');
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_BG_COLOR, EE_TYPE) 
+  VALUES ('twah', 28, 'education.is_content', 'Basic Infection Control <font style="color: #008000">(Nursing Staff; Clinical Staff)</font>', '基本感染控制 <font style="color: #008000">(護理員工；醫療員工)</font>', 7, 'CCFFFF', 'online');
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_BG_COLOR, EE_TYPE) 
+  VALUES ('twah', 29, 'education.is_content', 'Basic Infection Control <font style="color: #008000">(Ancillary Staff; Other Staff)</font>', '基本感染控制 <font style="color: #008000">(輔助員工；其他員工)</font>', 6, 'CCFFFF', 'online');
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_BG_COLOR, EE_TYPE) 
+  VALUES ('twah', 30, 'education.is_content', 'Manual Handling <font style="color: #008000">(Nursing Staff)</font>', '人力提舉 <font style="color: #008000">(護理員工)</font>', 5, 'CCFFCC', 'online');
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_BG_COLOR, EE_TYPE) 
+  VALUES ('twah', 31, 'education.is_content', 'Manual Handling <br /><font style="color: #008000">(Clinical Staff; Ancillary Staff; Other Staff)</font>', '人力提舉 <br /><font style="color: #008000">(醫療員工；輔助員工；其他員工)</font>', 4, 'CCFFCC', 'online');
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_BG_COLOR, EE_TYPE) 
+  VALUES ('twah', 32, 'education.is_content', 'Cardio-pulmonary Resuscitation + AED <br /><font style="color: #008000">(Nursing Staff; Clinical Staff)</font>', '心肺復甦法 + 自動體外去顫術 <br /><font style="color: #008000">(護理員工；醫療員工)</font>', 3, '00FFFF', 'sitin');
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_BG_COLOR, EE_TYPE) 
+  VALUES ('twah', 33, 'education.is_content', 'Medical Gas Safety <br /><font style="color: #008000">(Nursing Staff; Clinical Staff - Laboratory Staff exempted; Maintenance Staff)</font>', '醫療氣體安全 <br /><font style="color: #008000">(護理員工；醫療員工 - 醫療化驗室員工除外；維修員工)</font>', 2, 'FFFF99', 'sitin');
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_BG_COLOR, EE_TYPE) 
+  VALUES ('twah', 34, 'education.is_content', 'Fire Safety <font style="color: #008000">(All Staff)</font>', '防火安全 <font style="color: #008000">(全院員工)</font>', 1, 'FFFF99', 'sitin');
+
+
+INSERT INTO EE_MENU_CONTENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_TYPE) VALUES('twah', 207, 25, 'education.is_content', 'This is a 4-hour introductory information session including hospital information, performance improvement, basic infection control, manual handling, and administration of medication (RN/ EN only) for new staff working at TWAH.', null, 1, 'desc');
+INSERT INTO EE_MENU_CONTENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_TYPE) VALUES('twah', 208, 26, 'education.is_content', 'This is a 6-hour customer service training with different learning activities for new staff to gain the knowledge and acquire SHARE spirit and skills to serve clients in TWAH.', null, 1, 'desc');
+--INSERT INTO EE_MENU_CONTENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_TYPE) VALUES('twah', 209, 27, 'education.is_content', 'Powerpoint Slides', '投影片', 1, 'slide');
+--INSERT INTO EE_MENU_CONTENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_TYPE) VALUES('twah', 210, 28, 'education.is_content', 'Powerpoint Slides', '投影片', 1, 'slide');
+--INSERT INTO EE_MENU_CONTENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_TYPE) VALUES('twah', 211, 29, 'education.is_content', 'Powerpoint Slides', '投影片', 1, 'slide');
+--INSERT INTO EE_MENU_CONTENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_TYPE) VALUES('twah', 212, 30, 'education.is_content', 'Video', '錄影片', 1, 'video');
+--INSERT INTO EE_MENU_CONTENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_TYPE) VALUES('twah', 213, 30, 'education.is_content', 'Powerpoint Slides + Speech', '投影片 + 聲帶', 1, 'slide');
+--INSERT INTO EE_MENU_CONTENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_TYPE) VALUES('twah', 214, 31, 'education.is_content', 'Powerpoint Slides', '投影片', 1, 'slide');
+INSERT INTO EE_MENU_CONTENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_TYPE) VALUES('twah', 215, 32, 'education.is_content', 'This is a 3-hour training session taken once every two years by Nursing Staff and Clinical Staff. Staff is required to do pre-reading and knowledge review (click the below Powerpoint Slides) before attending the training.', null, 1, 'desc');
+--INSERT INTO EE_MENU_CONTENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_TYPE) VALUES('twah', 216, 32, 'education.is_content', 'Powerpoint Slides', '投影片', 1, 'slide');
+--INSERT INTO EE_MENU_CONTENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_TYPE) VALUES('twah', 217, 33, 'education.is_content', 'Video', '錄影片', 1, 'video');
+--INSERT INTO EE_MENU_CONTENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_TYPE) VALUES('twah', 218, 33, 'education.is_content', 'Powerpoint Slides + Speech', '投影片 + 聲帶', 1, 'slide');
+--INSERT INTO EE_MENU_CONTENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_TYPE) VALUES('twah', 219, 34, 'education.is_content', 'Video', '錄影片', 1, 'video');
+--INSERT INTO EE_MENU_CONTENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_TYPE) VALUES('twah', 220, 34, 'education.is_content', 'Powerpoint Slides(Fire Service Department)', '投影片(消防局)', 2, 'slide');
+--INSERT INTO EE_MENU_CONTENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_TYPE) VALUES('twah', 221, 34, 'education.is_content', 'Powerpoint Slides(Fire Prevention Role)', '投影片(防火角式)', 1, 'slide');
+
+----------------------------------------------
+-- Continuing External Education
+----------------------------------------------
+-- 1st level content (Category)
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 35, 'education.cee', 'Tertiary Education - Distance Learning for a Bachelor Degree, Master Degree or PhD in Health Sciences', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 36, 'education.cee', 'Clinical Education', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 37, 'education.cee', 'Management Education', null, 1);
+
+-- 2nd level content
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 38, 35, 'education.cee', '2009-01-16 Deakin University, AUSTRALIA - Faculty of Health, Medicine, Nursing and Behavioural Sciences', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 39, 35, 'education.cee', ' 2009-01-16 Edith Cowan University, AUSTRALIA - School of Exercise, Biomedical and Health Sciences', null, 1);
+
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 40, 36, 'education.cee', '2009-01-16 Cardioi-pulmonary Resuscitation - Hong Kong Red Cross', null, 16);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 41, 36, 'education.cee', '2009-01-16 First Aid Training - Hong Kong Red Cross', null, 15);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 42, 36, 'education.cee', '2009-05-27 First Aid Training - Hong Kong College of Nursing', null, 14);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 43, 36, 'education.cee', '2010-2-24 Professional Diploma in Health Counselling - Hong Kong Baptism University', null, 13);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 44, 36, 'education.cee', '2010-02-28 School of Public Health & Primary Care - The Chinese University of Hong Kong', null, 12);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 45, 36, 'education.cee', '2010-02-28 Proficiency Certificate for Clinic Assistants (This course provides Chinese content only) - Institute of Professional Education and Knowledge, HONG KONG', null, 11);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 46, 36, 'education.cee', '2010-03-03 Traditional Chinese Medicine & Health Care', null, 10);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 47, 37, 'education.cee', '2009-03-20 Diploma in Business Management (Chinese) - Hong Kong Management Association', null, 9);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 48, 37, 'education.cee', '2009-03-20 Diploma in Business Management (English) - Hong Kong Management Association', null, 8);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 49, 37, 'education.cee', '2009-03-20 Master of Business Administration - University of Wales through Hong Kong Management Association', null, 7);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 50, 37, 'education.cee', '2009-03-20 Professional Certificate/ Diploma/ Bachelor Degree/ Post-graduate level - Institute of Professional Education and Knowledge, HONG KONG', null, 6);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 57, 37, 'education.cee', '2009-03-25 Seminar - Influencing others without using positional power (提升個人的影响力), Hong Kong College of Nursing, HONG KONG', null, 5);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 58, 37, 'education.cee', '2009-03-27 Professional Development on Managerial Skills, Personal Effectiveness and IT, Comunnication Engineering Limited, HONG KONG', null, 4);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 59, 37, 'education.cee', '2009-05-27 善用 Excel–建立會計系統 (進階) - Institute of Professional Education and Knowledge, HONG KONG', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 60, 37, 'education.cee', '2009-11-13  企業管理文憑課程(中文授課)嶺南大學 - Hong Kong Management Association', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 61, 37, 'education.cee', '2009-11-13 MA in Work Based Studies (Counselling) Programme - Hong Kong Management Association', null, 1);
+
+
+
+-- 3rd level content
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 51, 50, 'education.cee', '1. Design & Creative Technology', null, 6);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 52, 50, 'education.cee', '2. Financial Services', null, 5);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 53, 50, 'education.cee', '3. Information Technology', null, 4);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 54, 50, 'education.cee', '4. Languages & Communication', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 55, 50, 'education.cee', '5. Business Services & Management', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 56, 50, 'education.cee', '6. Psychology & Counselling', null, 1);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+
+  VALUES ('twah', 62, 57, 'education.cee', 'Date: 23 April 2009 (Thursday)', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 63, 57, 'education.cee', 'Time: 6:30pm-8:30pm', null, 1);
+
+----------------------------------------------
+-- Evidence-based Practice
+----------------------------------------------
+-- 1st level content (Category)
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 64, 'education.ebp', 'Evidence-based Practice Definition', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 65, 'education.ebp', 'Resources for Systematic Review', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 66, 'education.ebp', 'Clinical Practice Guideline Databases (Internet Links)', null, 1);
+
+-- 2nd level content
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 67, 65, 'education.ebp', 'Agency for Healthcare Research and Quality (AHRQ) (USA)', null, 4);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 68, 65, 'education.ebp', 'Centre for Reviews and Dissemination at the University of York, Database of Abstracts of Reviews of Effects, or DARE (UK)', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 69, 65, 'education.ebp', 'Effective Public Health Practice Project (EPHPP) (Canada))', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 70, 65, 'education.ebp', 'The Joanna Briggs Institute at the University of Adelaide (Australia)', null, 1);
+
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 71, 66, 'education.ebp', 'Best Practice Sheet Title (The Joanna Briggs Institute)', null, 8);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 72, 66, 'education.ebp', 'Best Practice Sheet Content (The Joanna Briggs Institute)', null, 7);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 73, 66, 'education.ebp', 'Joanna Briggs Institute', null, 6);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 74, 66, 'education.ebp', 'National Guideline Clearinghouse', null, 5);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 75, 66, 'education.ebp', 'Evidence-based Healthcare - The Cochrane Collaboration', null, 4);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 76, 66, 'education.ebp', 'Academic Center for Evidence-Based Practice at the University of Texas Health Science Center at San Antonio School of Nursing', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 77, 66, 'education.ebp', 'Center for Research and Evidence-Based Practice at the University of Rochester School of Nursing in New York', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 78, 66, 'education.ebp', 'Sarah Cole Hirsh Institute for Best Nursing Practices Based on Evidence at Case Western Reserve School of Nursing in Cleveland', null, 1);
+
+----------------------------------------------
+-- Literature Search Based
+----------------------------------------------
+-- 1st level content (Category)
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 79, 'education.lsb', 'Heathcare Information - Multi-disciplinary', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 80, 'education.lsb', 'Healthcare Information - Nursing', null, 1);
+
+-- 2nd level content
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 81, 79, 'education.lsb', 'Emedicine', null, 4);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 82, 79, 'education.lsb', 'Mdlinx - Medical Journal', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 83, 79, 'education.lsb', 'Wiley-Blackwell', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 84, 79, 'education.lsb', 'Wiley Interscience - Medical, Veterinary and Health Sciences', null, 1);
+
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 85, 80, 'education.lsb', 'Journal of Advanced Nursing - Table of Contents', null, 9);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 86, 80, 'education.lsb', 'American Journal of Nursing (AJN)', null, 8);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 87, 80, 'education.lsb', 'Nursing2010', null, 7);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 88, 80, 'education.lsb', 'Nursing Center', null, 6);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 89, 80, 'education.lsb', 'Infant & Young Children', null, 5);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 90, 80, 'education.lsb', 'OR Nurse', null, 4);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 91, 80, 'education.lsb', 'Critical Care Nursing Quarterly', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 92, 80, 'education.lsb', 'The Joanna Briggs Institute', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 93, 80, 'education.lsb', 'Cochrane Collaboration', null, 1);
+
+----------------------------------------------
+-- The Nursing Council of Hong Kong
+----------------------------------------------
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 94, 'education.nchk', 'List of Registered Nurses', null, 4);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 95, 'education.nchk', 'Providers of Continuing Nursing Education Accredited by the Nursing Council (as at 11 March 2010)', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 96, 'education.nchk', 'Continuing Nursing Education (A sample of personal records, NCHK)', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 97, 'education.nchk', 'Nursing Council of Hong Kong', null, 1);
+
+----------------------------------------------
+-- In-service Eduction Review
+----------------------------------------------
+-- 1st level content (Category)
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 98, 'education.is_review', null, null, 30);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 99, 'education.is_review', null, null, 29);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 100, 'education.is_review', null, null, 28);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 101, 'education.is_review', null, null, 27);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 102, 'education.is_review', null, null, 26);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 103, 'education.is_review', null, null, 25);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 104, 'education.is_review', null, null, 24);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 105, 'education.is_review', null, null, 23);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 106, 'education.is_review', null, null, 22);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 107, 'education.is_review', null, null, 21);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 108, 'education.is_review', null, null, 20);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 109, 'education.is_review', null, null, 19);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 110, 'education.is_review', null, null, 18);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 111, 'education.is_review', null, null, 17);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 112, 'education.is_review', null, null, 16);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 113, 'education.is_review', null, null, 15);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 114, 'education.is_review', null, null, 14);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_ENABLED)
+  VALUES ('twah', 115, 'education.is_review', null, null, 13, 0);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER, EE_ENABLED)
+  VALUES ('twah', 116, 'education.is_review', null, null, 12, 0);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 117, 'education.is_review', null, null, 11);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 118, 'education.is_review', null, null, 10);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 119, 'education.is_review', null, null, 9);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 120, 'education.is_review', null, null, 8);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 121, 'education.is_review', null, null, 7);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 122, 'education.is_review', null, null, 6);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 123, 'education.is_review', null, null, 5);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 124, 'education.is_review', null, null, 4);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 125, 'education.is_review', null, null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 126, 'education.is_review', null, null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 127, 'education.is_review', null, null, 1);
+
+-- 2nd level content
+-- CE-O
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 128, 119, 'education.is_review', 'Outline TWAH-HR-SE 090123 CE-O Pain Series 1-5 090529', null, 23);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 129, 119, 'education.is_review', 'CE-O Pain Series 1-5(1) 090109 Pain & JCI Perspective Mr Peter CHUK', null, 22);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 130, 119, 'education.is_review', 'CE-O Pain Series 1-5(2) 090203 Epideral Anaglesia Dr T.F. CHAN', null, 21);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 131, 119, 'education.is_review', 'CE-O Pain Series 1-5(3) 090320 Pharmacologic Measures for Pain Relief Ms Edwina YUNG', null, 20);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 132, 119, 'education.is_review', 'CE-O Pain Series 1-5(4) 090619 Non-pharmacologic Measures for Pain Relief Mr William YEUNG Speech', null, 19);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 133, 119, 'education.is_review', 'CE-O Pain Series 1-5(5) 090605 JCI Requirement - Pain Assessment & Management Ms Terry TAM', null, 18);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 134, 119, 'education.is_review', 'CE-O Pain Series 1-5(5) 090605 Pain Assessment & Management Mr Peter CHUK', null, 17);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 135, 119, 'education.is_review', 'CE-O 081009 Safety IV Cathter Training Program Video', null, 16);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 136, 119, 'education.is_review', 'CE-O 070112 Management of Panic Disorder Dr NG Fung Shing', null, 15);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 137, 119, 'education.is_review', 'CE-O 071123 Drug-induced diseases - Reporting and Monitoring of ADR Ms Clara WONG', null, 14);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 138, 119, 'education.is_review', 'CE-O 080205 Pain relief - what you need to know pain relief Dr CHAN Tsun Fai', null, 13);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 139, 119, 'education.is_review', 'CE-O 080930 Melamine Contamination of Food Dr Charles WONG', null, 12);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 140, 119, 'education.is_review', 'CE-O 081118 Pain Management - A pharmacologic approach Dr T.F. CHAN CNE', null, 11);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 141, 119, 'education.is_review', 'CE-O 090421 Intravenous Sedation Dr David T.H. LIM', null, 10);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 142, 119, 'education.is_review', 'CE-O 090522 Administration of Medication in TWAH 1 Nursing Peter (Speech)', null, 9);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 143, 119, 'education.is_review', 'CE-O 090522 Administration of Medication in TWAH 2  Inattentional Blindness Anna (Speech)', null, 8);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 144, 119, 'education.is_review', 'CE-O 090522 Administration of Medication in TWAH 2.1 Test Your Awareness (Video)', null, 7);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 145, 119, 'education.is_review', 'CE-O 090522 Administration of Medication in TWAH 2.2 Test Your Awareness (Video)', null, 6);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 146, 119, 'education.is_review', 'CE-O 090522 Administration of Medication in TWAH 3 MAR German (Speech)', null, 5);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 147, 119, 'education.is_review', 'CE-O 090522 Administration of Medication in TWAH 4 CAK&EDK Suzanne (Speech)', null, 4);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 148, 119, 'education.is_review', 'CE-O 090805 090807 Introcan Safety B. Braun Medical (H.K.) Ltd.', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 149, 119, 'education.is_review', 'CE-O 100210 Evidence-based Nursing Mr Peter CHUK', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 150, 119, 'education.is_review', 'CE-O 100305 Blood Transfusion Management & Safety', null, 1);
+
+-- CE-CC
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 151, 120, 'education.is_review', 'CE-CC 071027 Ventilator Care in HDU Dr CHAN Tsun Fai', null, 17);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 152, 120, 'education.is_review', 'CE-CC 080214 CPR Program Ms Margaret Pang', null, 16);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 153, 120, 'education.is_review', 'CE-CC 081212 Hypertensive Emergency Mr Peter CHUK CNE', null, 15);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 154, 120, 'education.is_review', 'Outline TWAH-HR-SE 081216 CE-CC Critical Care Essentials 1-11 090625 Revised CNE', null, 14);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 155, 120, 'education.is_review', 'CE-CC CCE 1-11(1) 090220 Assessing the Critically Ill Patient Mr Peter CHUK CNE', null, 13);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 156, 120, 'education.is_review', 'CE-CC CCE 1-11(2) 090311 Fluids and Electrolytes Dr C.U. YUNG CNE', null, 12);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 157, 120, 'education.is_review', 'CE-CC CCE 1-11(2) 090311 F&E A&B Immbalances Mr Peter CHUK CNE', null, 11);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 158, 120, 'education.is_review', 'CE-CC CCE 1-11(3) 090227 Hemodynamic Monitoringing Mr Peter CHUK CNE', null, 10);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 159, 120, 'education.is_review', 'CE-CC CCE 1-11(4) 090313 Shock & Management Mr Peter CHUK CNE', null, 9);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 160, 120, 'education.is_review', 'CE-CC CCE 1-11(4) 090313 Shock & Management Dr Stephen C.S. CHAN CNE', null, 8);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 161, 120, 'education.is_review', 'CE-CC CCE 1-11(5) 090327 Acute Coronary Syndromes Dr W.H. CHAN CNE', null, 7);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 162, 120, 'education.is_review', 'CE-CC CCE 1-11(6) 090612 Heart Failure Dr C.F. CHOW CNE (Speech)', null, 6);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 163, 120, 'education.is_review', 'CE-CC CCE 1-11(6) 090612 Heart Failure Mr Peter CHUK CNE', null, 5);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 164, 120, 'education.is_review', 'CE-CC CCE 1-11(7) 090417 Respiratory Failure Mr Peter CHUK CNE', null, 4);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 165, 120, 'education.is_review', 'CE-CC CCE 1-11(9) 090529 Non-invasive Positive Pressure Ventilation Dr C.H. LEE CNE', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 166, 120, 'education.is_review', 'CE-CC CCE 1-11(9) 090529 Non-invasive Positive Pressure Ventilation Mr Peter CHUK CNE', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 167, 120, 'education.is_review', 'CE-CC CCE 1-11(11) 090427 ICU Syndromes & Psychosocial Nursing Mr Peter CHUK CNE', null, 1);
+
+-- CE-MC
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 168, 121, 'education.is_review', 'CE-MC 071012 Dementia Dr CHUNG Tin Hei', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 169, 121, 'education.is_review', 'CE-MC 100224 Acute Stroke Attack Dr Sally YIU (Speech)', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 170, 121, 'education.is_review', 'CE-MC 100301 Palliative Care & Care of the Dying (ACHS) Judith Thalia Peter', null, 1);
+
+-- CE-OR
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 171, 123, 'education.is_review', 'CE-OR 070613 3M Sterilization Education Program Module 1', null, 5);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 172, 123, 'education.is_review', 'CE-OR 070613 3M Sterilization Education Program Module 2', null, 4);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 173, 123, 'education.is_review', 'CE-OR 070613 3M Sterilization Education Program Module 3', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 174, 123, 'education.is_review', 'CE-OR 070613 滅菌工作的品管概念', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 175, 123, 'education.is_review', 'CE-OR 070911 071023 Instrument Reprocessing - Cidex OPA Johnson&Johnson', null, 1);
+
+-- CE-OC
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 176, 124, 'education.is_review', 'CE-OC 070419 Puerperium Management', null, 5);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 177, 124, 'education.is_review', 'CE-OC 090803 Postnatal Care & Baby Massage Ms Sharon CHAN CNE', null, 4);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 178, 124, 'education.is_review', 'CE-OC 090814 Breast Feeding & Baby Massage Ms Sharon CHAN CNE', null, 3);
+--INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+--  VALUES ('twah', 179, 124, 'education.is_review', 'CE-OR 070613 滅菌工作的品管概念', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 180, 124, 'education.is_review', 'CE-OC 091127 Amniotic Fluid Embolism Dr Peter LO CNE', null, 1);
+
+-- CE-PC
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 181, 125, 'education.is_review', 'CE-PC 100312 Pediatric Nutrition Ms Priscilla LAU', null, 1);
+
+-- CE-CA
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 182, 126, 'education.is_review', 'PI 051216 泛險失講座 Ms Cathy YU & Mr William YEUNG', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 183, 126, 'education.is_review', 'CE-O 080328 Fall Assessment & Intervention', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 184, 126, 'education.is_review', 'CE-O 080401 Fall Assessment - Things you need to know about medications Suzanne LEE', null, 1);
+
+-- ME
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 185, 127, 'education.is_review', 'ME 080415 Teamwork–What does it mean Ms Jeri MARTIN', null, 4);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 186, 127, 'education.is_review', 'ME 081231 On-the-Job-Coaching Skills Peter CHUK CNE', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 187, 127, 'education.is_review', 'ME 091007 Racial Discrimination on Employment Mr Peter CHUK', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 188, 127, 'education.is_review', 'ME 100329-31 Advanced Nurse Management Workshop (Leadership for Change) Ms Ronnie MORRIS', null, 1);
+
+-- SC
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 189, 114, 'education.is_review', 'CS 080107 Telephone Call & Customer Service', null, 1);
+
+-- IC
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 190, 110, 'education.is_review', 'IC 070713 Prevention of Needle Stick Injury', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER) 
+  VALUES ('twah', 191, 110, 'education.is_review', 'IC 080210 PRESEPT Disinfectant Tablets Mr Peter Tang Johnson&Johnson', null, 1);
+
+-- OSH
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 192, 111, 'education.is_review', 'OSH 070518 On Mood Disorders Mr John SO', null, 10);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 193, 111, 'education.is_review', 'OSH 070518 Stress Management Mr John SO', null, 9);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 194, 111, 'education.is_review', 'OSH 071210 辦公室安全健康需知', null, 8);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 195, 111, 'education.is_review', 'OSH 080415 醫療氣體之安全使用', null, 7);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 196, 111, 'education.is_review', 'OSH 090525&27 090706 091028&30 HKO2 5 Identical-Sessions (Speech)', null, 6);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 197, 111, 'education.is_review', 'OSH 090525&27 090706 091028&30 HKO2 5-Identical Sessions (Video)', null, 5);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 198, 111, 'education.is_review', 'OSH 091019&27 Emergency Preparedness Program Ms Ruby WONG 2-Identical Sessions ACHS', null, 4);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 199, 111, 'education.is_review', 'OSH 090727 Workplace Violence Mr John CHAN', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 200, 111, 'education.is_review', 'OSH 090727 Workplace Violence Ms Ruby WONG', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 201, 111, 'education.is_review', 'OSH 100303 Magnetic Resonance Imaging - Work Safety Mr IP & Mr LEE (Speech)', null, 1);
+
+-- CE-SC
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 202, 122, 'education.is_review', 'CE-SC 060713 Common Breast Conditions', null, 3);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 203, 122, 'education.is_review', 'CE-SC 081024 Advances in Minimally Invasive Prostatectomy Dr Chan Lung Wai CNE', null, 2);
+INSERT INTO EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_PARENT_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DESCRIPTION_EN, EE_DESCRIPTION_ZH, EE_SORT_ORDER)
+  VALUES ('twah', 204, 122, 'education.is_review', 'CE-SC 091113 Update in the Management of Urinary Stones Dr CHAN Lung Wai CNE', null, 1);

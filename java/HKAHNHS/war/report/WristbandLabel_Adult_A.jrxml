@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="WristbandLabel_Adult_A" printOrder="Horizontal" pageWidth="779" pageHeight="99" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="779" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.7715610000000184"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="patbdate" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patsname" class="java.lang.String"/>
+	<parameter name="patfname" class="java.lang.String"/>
+	<parameter name="patsex" class="java.lang.String"/>
+	<parameter name="patcname" class="java.lang.String"/>
+	<columnHeader>
+		<band height="99" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="89" y="21" width="60" height="61"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>WB</BT><PID>"+$P{patno}+"</PID>",com.google.zxing.BarcodeFormat.QR_CODE,200,150))]]></imageExpression>
+			</image>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="556" y="11" width="40" height="40"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>WB</BT><PID>"+$P{patno}+"</PID>",com.google.zxing.BarcodeFormat.QR_CODE,300,200))]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="599" y="31" width="140" height="1"/>
+			</line>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="429" y="21" width="60" height="61"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>WB</BT><PID>"+$P{patno}+"</PID>",com.google.zxing.BarcodeFormat.QR_CODE,200,150))]]></imageExpression>
+			</image>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="714" y="11" width="40" height="40"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>WB</BT><PID>"+$P{patno}+"</PID>",com.google.zxing.BarcodeFormat.QR_CODE,300,200))]]></imageExpression>
+			</image>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="174" y="21" width="60" height="61"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>WB</BT><PID>"+$P{patno}+"</PID>",com.google.zxing.BarcodeFormat.QR_CODE,200,150))]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="641" y="17" width="15" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patsex}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="566" y="44" width="207" height="15"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{patsname}.length() > 25?$P{patsname}.substring(0, 24):$P{patsname})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="600" y="17" width="52" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patno}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="259" y="21" width="60" height="61"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>WB</BT><PID>"+$P{patno}+"</PID>",com.google.zxing.BarcodeFormat.QR_CODE,200,150))]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="653" y="17" width="101" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patbdate}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="344" y="21" width="60" height="61"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>WB</BT><PID>"+$P{patno}+"</PID>",com.google.zxing.BarcodeFormat.QR_CODE,200,150))]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="604" y="31" width="110" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[!$P{patcname}.equals("null") || !$P{patcname}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="3"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="true" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patcname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="566" y="54" width="207" height="15"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{patsname}.length() > 25?$P{patsname}.substring(24):
+    ($P{patfname}.length() > 25?$P{patfname}.substring(0, 24):$P{patfname})
+)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="566" y="65" width="207" height="15"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patsname}.length() > 25?
+    ($P{patfname}.length() > 25?$P{patfname}.substring(0,24):
+        $P{patfname}.substring(25)):
+    ($P{patfname}.length() > 25? $P{patfname}.substring(25):"")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="566" y="74" width="207" height="15"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patsname}.length() > 25?
+    ($P{patfname}.length() > 25?$P{patfname}.substring(25):
+        ""):""]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+</jasperReport>

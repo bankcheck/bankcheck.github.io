@@ -1,0 +1,55 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_ITEMBUDGETING"
+(
+  V_CATEGORY VARCHAR2, -- D for debit, C for credit
+  V_ITMCODE BUDGET.ITMCODE%TYPE,
+  V_ITCTYPE BUDGET.ITCTYPE%TYPE,
+  V_ACMCODE BUDGET.ACMCODE%TYPE
+)
+  RETURN Types.cursor_type
+AS
+ outcur types.cursor_type;
+BEGIN
+    IF V_CATEGORY = 'D' THEN
+      OPEN outcur FOR
+      SELECT
+      '',
+        B.ITMCODE,
+        B.ITCTYPE,
+        B.PKGCODE,
+        B.ACMCODE,
+        B.GLCCODE,
+        B.ITCAMT1,
+        B.ITCAMT2,
+        B.ITCAMT3,
+        B.ITCAMT4
+      FROM BUDGET B
+      WHERE B.PKGCODE IS NULL
+      AND (B.ITMCODE LIKE '%' || v_ITMCODE || '%')
+      AND (B.ITCTYPE LIKE '%' || v_ITCTYPE || '%')
+      AND (B.ACMCODE LIKE '%' || v_ACMCODE || '%')
+     -- AND ROWNUM < 100
+      ORDER BY B.ITMCODE, B.ITCTYPE, B.ACMCODE;
+    ELSE
+      OPEN outcur FOR
+      SELECT
+      '',
+        B.ITMCODE,
+        B.ITCTYPE,
+        B.PKGCODE,
+        B.ACMCODE,
+        B.GLCCODE,
+        B.ITCAMT1,
+        B.ITCAMT2,
+        B.ITCAMT3,
+        B.ITCAMT4
+      FROM CREDITBGT B
+      WHERE B.PKGCODE IS NULL
+      AND (B.ITMCODE LIKE '%' || v_ITMCODE || '%')
+      AND (B.ITCTYPE LIKE '%' || v_ITCTYPE || '%')
+      AND (B.ACMCODE LIKE '%' || v_ACMCODE || '%')
+      AND ROWNUM < 100
+      ORDER BY B.ITMCODE, B.ITCTYPE, B.ACMCODE;
+    END IF;
+    RETURN OUTCUR;
+END NHS_LIS_ITEMBUDGETING;
+/

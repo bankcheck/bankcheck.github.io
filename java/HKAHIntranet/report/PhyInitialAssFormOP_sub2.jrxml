@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PhyInitialAssFormOP" pageWidth="510" pageHeight="623" whenNoDataType="AllSectionsNoDetail" columnWidth="510" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.6500000000000024"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.pdf.compressed" value="true"/>
+	<parameter name="regid" class="java.lang.String"/>
+	<parameter name="path" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patName" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="patDOB" class="java.lang.String"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="vasPain" class="java.lang.String"/>
+	<parameter name="vasPn" class="java.lang.String"/>
+	<parameter name="vasNumb" class="java.lang.String"/>
+	<parameter name="painDesc" class="java.lang.String"/>
+	<parameter name="assessDate" class="java.lang.String"/>
+	<parameter name="patientGoal" class="java.lang.String"/>
+	<parameter name="funcAssmt" class="java.lang.String"/>
+	<parameter name="diagnosis" class="java.lang.String"/>
+	<parameter name="emotional" class="java.lang.String"/>
+	<parameter name="fallAssmt" class="java.lang.String"/>
+	<parameter name="pastMedHist" class="java.lang.String"/>
+	<parameter name="socialHistory" class="java.lang.String"/>
+	<parameter name="hpi" class="java.lang.String"/>
+	<parameter name="subjective" class="java.lang.String"/>
+	<parameter name="objective" class="java.lang.String"/>
+	<parameter name="tcp1" class="java.lang.String"/>
+	<parameter name="tcp2" class="java.lang.String"/>
+	<parameter name="tcp3" class="java.lang.String"/>
+	<parameter name="tcp4" class="java.lang.String"/>
+	<parameter name="tcp5" class="java.lang.String"/>
+	<parameter name="tcp6" class="java.lang.String"/>
+	<parameter name="tcp7" class="java.lang.String"/>
+	<parameter name="tcp8" class="java.lang.String"/>
+	<parameter name="tcp9" class="java.lang.String"/>
+	<parameter name="tcpOther1" class="java.lang.String"/>
+	<parameter name="treatmentGoal" class="java.lang.String"/>
+	<parameter name="carePlan" class="java.lang.String"/>
+	<parameter name="treatment" class="java.lang.String"/>
+	<parameter name="education" class="java.lang.String"/>
+	<parameter name="exercises" class="java.lang.String"/>
+	<parameter name="defection" class="java.lang.String"/>
+	<parameter name="postTreatment" class="java.lang.String"/>
+	<parameter name="frequency" class="java.lang.String"/>
+	<parameter name="options" class="java.lang.String"/>
+	<parameter name="peca1" class="java.lang.String"/>
+	<parameter name="peca2" class="java.lang.String"/>
+	<parameter name="pecaOther1" class="java.lang.String"/>
+	<parameter name="ad1" class="java.lang.String"/>
+	<parameter name="ad2" class="java.lang.String"/>
+	<parameter name="ad3" class="java.lang.String"/>
+	<parameter name="ad4" class="java.lang.String"/>
+	<parameter name="ad5" class="java.lang.String"/>
+	<parameter name="ad6" class="java.lang.String"/>
+	<parameter name="ad7" class="java.lang.String"/>
+	<parameter name="ad8" class="java.lang.String"/>
+	<parameter name="adOther1" class="java.lang.String"/>
+	<parameter name="adOther2" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[Select 1 From Dual Connect By Level <= 1]]>
+	</queryString>
+	<field name="1" class="java.math.BigDecimal"/>
+	<title>
+		<band height="30">
+			<staticText>
+				<reportElement x="0" y="0" width="511" height="15"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Treatment Goal:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="15" width="511" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{treatmentGoal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="106" y="29" width="66" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Manual Therapy]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="191" y="32" width="8" height="8" isPrintWhenDetailOverflows="true"/>
+			</rectangle>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="95" y="32" width="8" height="8" isPrintWhenDetailOverflows="true"/>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="22" y="29" width="54" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Acupuncture]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="193" y="34" width="4" height="4" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA["Y".equals($P{tcp3})]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="202" y="29" width="79" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Chest Physiotherapy]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="97" y="34" width="4" height="4" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA["Y".equals($P{tcp2})]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="11" y="32" width="8" height="8" isPrintWhenDetailOverflows="true"/>
+			</rectangle>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="13" y="34" width="4" height="4" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA["Y".equals($P{tcp1})]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="300" y="32" width="8" height="8" isPrintWhenDetailOverflows="true"/>
+			</rectangle>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="302" y="34" width="4" height="4" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA["Y".equals($P{tcp4})]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="311" y="29" width="53" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Electrotherapy]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="396" y="32" width="8" height="8" isPrintWhenDetailOverflows="true"/>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="407" y="29" width="46" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Hydrotherapy]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="398" y="34" width="4" height="4" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA["Y".equals($P{tcp5})]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="202" y="52" width="79" height="25" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Therapeutic
+Exercises]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="22" y="56" width="70" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Care and Advice]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="300" y="55" width="8" height="8" isPrintWhenDetailOverflows="true"/>
+			</rectangle>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="11" y="86" width="8" height="8" isPrintWhenDetailOverflows="true"/>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="311" y="52" width="53" height="25" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Thermal
+Therapy]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="95" y="55" width="8" height="8" isPrintWhenDetailOverflows="true"/>
+			</rectangle>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="191" y="55" width="8" height="8" isPrintWhenDetailOverflows="true"/>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="22" y="84" width="46" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Others:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="302" y="57" width="4" height="4" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA["Y".equals($P{tcp9})]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="11" y="59" width="8" height="8" isPrintWhenDetailOverflows="true"/>
+			</rectangle>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="97" y="57" width="4" height="4" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA["Y".equals($P{tcp7})]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="106" y="52" width="66" height="25" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Neuro
+Rhabilitation]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="13" y="88" width="4" height="4" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{tcpOther1}!=null && $P{tcpOther1}.length()>0]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="13" y="61" width="4" height="4" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA["Y".equals($P{tcp6})]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="193" y="57" width="4" height="4" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA["Y".equals($P{tcp8})]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField>
+				<reportElement x="68" y="84" width="443" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{tcpOther1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="5" width="511" height="15"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Treatment Care Plan:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<summary>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="511" height="15"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Treatment:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="15" width="511" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{treatment}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

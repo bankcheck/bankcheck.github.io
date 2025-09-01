@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptPkgPerformance" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="772" leftMargin="35" rightMargin="35" topMargin="71" bottomMargin="71">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="stename" class="java.lang.String"/>
+	<parameter name="daterange" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+             ax.slpno, ax.pkgcode,ax.slptype,ax.Doccode,ax.patno, 'tc' as fieldtype, sum(st.stnnamt) as amount
+             from (
+             select distinct s.SlpNo , pp.PkgCode, s.SlpType, r.Doccode, s.PatNo
+             From slip s, pkgtx pp,reg r
+             Where
+             s.SlpNo = pp.SlpNo
+             AND NOT ( s.slptype IN ('I') )
+             AND s.stecode= 'HKAH'
+             and s.regid= r.regid (+)
+             AND (r.regdate>= to_date('01-01-2001', 'dd-mm-yyyy')
+             and r.regdate< to_date('01-01-2009', 'dd-mm-yyyy') + 1  )
+            and (r.doccode='967'  or r.doccode is null) and (pp.pkgcode='GEN' or pp.pkgcode is null)
+             order by s.SlpNo  ) ax, sliptx st
+             Where
+             ax.SlpNo = st.SlpNo
+             AND st.stnsts IN ('N', 'A')
+             And st.stntype IN ('C', 'D')
+             Group By 'tc', ax.slptype, ax.pkgcode, ax.Doccode, ax.slpno, ax.patno
+            union
+
+select
+             ax.slpno, ax.pkgcode,ax.slptype,ax.Doccode,ax.patno,'tc' as fieldtype, sum(st.stnnamt) as amount
+             from (
+             select distinct
+              s.SlpNo , pp.PkgCode, s.SlpType, r.Doccode, s.PatNo
+             From slip s, pkgtx pp,reg r, inpat i
+             Where
+             s.SlpNo = pp.SlpNo
+             AND s.slptype IN ('I')
+             AND s.stecode= 'HKAH'
+             and s.regid= r.regid
+             AND r.inpid= i.inpid
+             AND (i.inpddate > = to_date('01-01-2001', 'dd-mm-yyyy')
+             and i.inpddate< to_date('01-01-2009', 'dd-mm-yyyy') + 1  )
+            and (r.doccode='967'  or r.doccode is null) and (pp.pkgcode='GEN' or pp.pkgcode is null)
+             order by s.SlpNo ) ax, sliptx st
+             Where
+             ax.SlpNo = st.SlpNo
+             AND st.stnsts IN ('N', 'A')
+             And st.stntype IN ('C', 'D')
+             Group By 'tc', ax.slptype, ax.pkgcode, ax.Doccode, ax.slpno, ax.patno
+            union
+select ax.slpno, ax.pkgcode,ax.slptype,ax.Doccode,ax.patno, 'dc' as fieldtype, sum(st.stnnamt) as amount
+             from (
+             select distinct
+             s.SlpNo , pp.PkgCode, s.SlpType, r.Doccode, s.PatNo
+             From
+             slip s, pkgtx pp,reg r, inpat i
+             Where
+             s.SlpNo = pp.SlpNo
+             AND s.slptype IN ('I')
+             AND s.stecode= 'HKAH'
+             and s.regid= r.regid
+             AND r.inpid= i.inpid
+             AND (i.inpddate > = to_date('01-01-2001', 'dd-mm-yyyy')
+             and i.inpddate< to_date('01-01-2009', 'dd-mm-yyyy') + 1  )
+            and (r.doccode='967'  or r.doccode is null) and (pp.pkgcode='GEN' or pp.pkgcode is null)
+             order by s.SlpNo ) ax, sliptx st
+             Where
+             ax.SlpNo = ST.SlpNo
+             AND st.stnsts IN ('N', 'A')
+             And st.stntype IN ('C', 'D')
+             AND ST.ITMTYPE ='D'
+             Group By 'dc',ax.slptype, ax.pkgcode, ax.Doccode, ax.slpno, ax.patno
+            union
+select ax.slpno, ax.pkgcode,ax.slptype,ax.Doccode,ax.patno, 'dc' as fieldtype ,sum(st.stnnamt) as amount
+             from ( select distinct s.SlpNo , pp.PkgCode, s.SlpType, r.Doccode, s.PatNo
+             From
+             slip s, pkgtx pp,reg r
+             Where
+             s.SlpNo = pp.SlpNo
+             AND NOT ( s.slptype IN ('I') )
+             AND s.stecode= 'HKAH'
+             AND s.regid= r.regid (+)
+             AND (r.regdate>= to_date('01-01-2001', 'dd-mm-yyyy')
+             and r.regdate< to_date('01-01-2009', 'dd-mm-yyyy') + 1  )
+            and (r.doccode='967'  or r.doccode is null) and (pp.pkgcode='GEN' or pp.pkgcode is null)
+             order by s.SlpNo) ax, sliptx st
+             Where
+             ax.SlpNo = st.SlpNo
+             AND st.stnsts IN ('N', 'A')
+             And st.stntype IN ('C', 'D')
+             And st.itmtype= 'D'
+             Group By 'dc', ax.slptype, ax.pkgcode, ax.Doccode, ax.slpno, ax.patno
+            union
+select ax.slpno, ax.pkgcode,ax.slptype,ax.Doccode,ax.patno, 'pc' as fieldtype ,sum(st.stnnamt) as amount
+             from (
+             select distinct
+             s.SlpNo , pp.PkgCode, s.SlpType, r.Doccode, s.PatNo
+             From
+             slip s, pkgtx pp,reg r,inpat i
+             Where
+             pp.SlpNo = s.SlpNo
+             AND  s.slptype IN ('I')
+             AND s.stecode= 'HKAH'
+             AND s.regid= r.regid
+             AND r.inpid= i.inpid
+             AND (i.inpddate>= to_date('01-01-2001', 'dd-mm-yyyy')
+             and i.inpddate< to_date('01-01-2009', 'dd-mm-yyyy') + 1  )
+            and (r.doccode='967'  or r.doccode is null) and (pp.pkgcode='GEN' or pp.pkgcode is null)
+             order by s.SlpNo  ) ax, sliptx st, package p
+             Where
+             ax.SlpNo = st.SlpNo
+             AND st.stnsts IN ('N', 'A')
+             And st.pkgcode is NOT NULL
+             and st.itmtype <> 'D'
+             and ax.pkgcode = p.pkgcode
+             and ax.pkgcode = st.pkgcode
+             Group By 'pc', ax.slptype, ax.pkgcode, ax.Doccode, ax.slpno, ax.patno
+            union
+select ax.slpno, ax.pkgcode,ax.slptype,ax.Doccode,ax.patno, 'pc' as fieldtype ,sum(st.stnnamt) as amount
+             from (
+             select distinct
+             s.SlpNo , pp.PkgCode, s.SlpType, r.Doccode, s.PatNo
+             From
+             slip s, pkgtx pp,reg r
+             Where
+             pp.SlpNo = s.SlpNo
+             AND NOT ( s.slptype IN ('I') )
+             AND s.stecode= 'HKAH'
+             AND s.regid= r.regid (+)
+             AND (r.regdate>= to_date('01-01-2001', 'dd-mm-yyyy')
+             and r.regdate< to_date('01-01-2009', 'dd-mm-yyyy') + 1  )
+            and (r.doccode='967'  or r.doccode is null) and (pp.pkgcode='GEN' or pp.pkgcode is null)
+             order by s.SlpNo) ax, sliptx st, package p
+             Where
+             ax.SlpNo = st.SlpNo
+             AND st.stnsts IN ('N', 'A')
+             And st.pkgcode is NOT NULL
+             and st.itmtype <> 'D'
+             and ax.pkgcode = p.pkgcode
+             and ax.pkgcode = st.pkgcode
+             Group By 'pc', ax.slptype, ax.pkgcode, ax.Doccode, ax.slpno, ax.patno
+            union
+select ax.slpno, ax.pkgcode,ax.slptype,ax.Doccode,ax.patno, 'pd' as fieldtype ,sum(st.stnnamt) as amount
+             from (
+             select distinct
+             s.SlpNo , pp.PkgCode, s.SlpType, r.Doccode, s.PatNo
+             From
+             slip s, pkgtx pp,reg r
+             Where
+             pp.SlpNo = s.SlpNo
+             AND NOT ( s.slptype IN ('I') )
+             AND s.stecode= 'HKAH'
+             AND s.regid= r.regid (+)
+             AND (r.regdate>= to_date('01-01-2001', 'dd-mm-yyyy')
+             and r.regdate< to_date('01-01-2009', 'dd-mm-yyyy') + 1  )
+            and (r.doccode='967'  or r.doccode is null) and (pp.pkgcode='GEN' or pp.pkgcode is null)
+              order by s.SlpNo) ax, sliptx st
+             Where
+             ax.SlpNo = st.SlpNo
+             AND st.stnsts IN ('N', 'A')
+             And st.stntype= 'C'
+             And st.pkgcode is NOT NULL
+             Group By
+             'pd', ax.slptype, ax.pkgcode, ax.Doccode, ax.slpno, ax.patno
+            union
+select ax.slpno, ax.pkgcode,ax.slptype,ax.Doccode,ax.patno, 'pd' as fieldtype ,sum(st.stnnamt) as amount
+             from ( select distinct s.SlpNo , pp.PkgCode, s.SlpType, r.Doccode, s.PatNo
+             From
+             slip s, pkgtx pp,reg r, inpat i
+             Where
+             pp.SlpNo = s.SlpNo
+             AND  s.slptype IN ('I')
+             AND s.stecode= 'HKAH'
+             AND s.regid= r.regid
+             AND r.inpid= i.inpid
+             AND (i.inpddate>= to_date('01-01-2001', 'dd-mm-yyyy')
+             and i.inpddate< to_date('01-01-2009', 'dd-mm-yyyy') + 1  )
+            and (r.doccode='967'  or r.doccode is null) and (pp.pkgcode='GEN' or pp.pkgcode is null)
+              order by s.SlpNo) ax, sliptx st
+             Where
+             ax.SlpNo = st.SlpNo
+             AND st.stnsts IN ('N', 'A')
+             And st.stntype= 'C'
+             And st.pkgcode is NOT NULL
+             Group By 'pd', ax.slptype, ax.pkgcode, ax.Doccode, ax.slpno, ax.patno
+            union
+select ax.slpno, ax.pkgcode,ax.slptype,ax.Doccode,ax.patno, 'ai' as fieldtype ,sum(pp.PTNBAMT) as amount
+             from (
+             select distinct
+             s.SlpNo , pp.PkgCode, s.SlpType, r.Doccode, s.PatNo
+             From
+             slip s, pkgtx pp,reg r
+             Where
+             pp.SlpNo = s.SlpNo
+             AND NOT ( s.slptype IN ('I') )
+             AND s.stecode= 'HKAH'
+             AND s.regid= r.regid (+)
+             AND (r.regdate>= to_date('01-01-2001', 'dd-mm-yyyy')
+             and r.regdate< to_date('01-01-2009', 'dd-mm-yyyy') + 1  )
+            and (r.doccode='967'  or r.doccode is null) and (pp.pkgcode='GEN' or pp.pkgcode is null)
+              order by s.SlpNo) ax, pkgtx pp
+             Where
+             ax.SlpNo = pp.SlpNo
+             and ax.pkgcode = pp.pkgcode
+             and pp.ptnsts not in ('M','C','U')
+             Group By 'ai', ax.slptype, ax.pkgcode, ax.Doccode, ax.slpno, ax.patno
+            union
+select ax.slpno, ax.pkgcode,ax.slptype,ax.Doccode,ax.patno, 'ai' as fieldtype ,sum(pp.PTNBAMT) as amount
+             from (
+             select distinct
+             s.SlpNo , pp.PkgCode, s.SlpType, r.Doccode, s.PatNo
+             From
+             slip s, pkgtx pp,reg r, inpat i
+             Where
+             pp.SlpNo = s.SlpNo
+             AND  s.slptype IN ('I')
+             AND s.stecode= 'HKAH'
+             AND s.regid= r.regid
+             AND r.inpid= i.inpid
+             AND (i.inpddate>= to_date('01-01-2006', 'dd-mm-yyyy')
+             and i.inpddate< to_date('01-03-2006', 'dd-mm-yyyy') + 1  )
+            and (r.doccode='967'  or r.doccode is null)
+            and (pp.pkgcode='GEN' or pp.pkgcode is null)
+              order by s.SlpNo) ax, pkgtx pp
+             Where
+             ax.SlpNo = pp.SlpNo
+             and ax.pkgcode = pp.pkgcode
+             and pp.ptnsts not in ('M','C','U')
+             Group By 'ai', ax.slptype, ax.pkgcode, ax.Doccode, ax.slpno, ax.patno]]>
+	</queryString>
+	<field name="SLPNO" class="java.lang.String"/>
+	<field name="PKGCODE" class="java.lang.String"/>
+	<field name="SLPTYPE" class="java.lang.String"/>
+	<field name="DOCCODE" class="java.lang.String"/>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="FIELDTYPE" class="java.lang.String"/>
+	<field name="AMOUNT" class="java.math.BigDecimal"/>
+	<variable name="TatolChrg" class="java.lang.Number" incrementType="Group" incrementGroup="Group3_doc" calculation="Sum">
+		<variableExpression><![CDATA[($F{FIELDTYPE}=="tc") ? $F{AMOUNT}: 0]]></variableExpression>
+	</variable>
+	<variable name="TatolChrg1" class="java.lang.Number" resetType="Group" resetGroup="Group2_pkg" incrementType="Group" incrementGroup="Group2_pkg" calculation="Sum"/>
+	<variable name="DrChrg1" class="java.lang.Number" resetType="Group" resetGroup="Group2_pkg" incrementType="Group" incrementGroup="Group2_pkg" calculation="Sum"/>
+	<variable name="PgmCredit1" class="java.lang.Number" resetType="Group" resetGroup="Group2_pkg" incrementType="Group" incrementGroup="Group2_pkg" calculation="Sum"/>
+	<variable name="ActualIncurred1" class="java.lang.String" resetType="Group" resetGroup="Group2_pkg" incrementType="Group" incrementGroup="Group2_pkg" calculation="Sum"/>
+	<variable name="ExtraByPat1" class="java.lang.Number" resetType="Group" resetGroup="Group2_pkg" incrementType="Group" incrementGroup="Group2_pkg" calculation="Sum"/>
+	<variable name="PgmChrg1" class="java.lang.Number" resetType="Group" resetGroup="Group2_pkg" incrementType="Group" incrementGroup="Group2_pkg" calculation="Sum"/>
+	<variable name="Different1" class="java.lang.Number" resetType="Group" resetGroup="Group2_pkg" incrementType="Group" incrementGroup="Group2_pkg" calculation="Sum"/>
+	<variable name="DrChrg" class="java.lang.Number" incrementType="Group" incrementGroup="Group3_doc" calculation="Sum">
+		<variableExpression><![CDATA[($F{FIELDTYPE}=="dc") ? $F{AMOUNT}:0]]></variableExpression>
+	</variable>
+	<variable name="PgmCredit" class="java.lang.Number" incrementType="Group" incrementGroup="Group3_doc" calculation="Sum">
+		<variableExpression><![CDATA[($F{FIELDTYPE}=="pd") ? $F{AMOUNT} : 0]]></variableExpression>
+	</variable>
+	<variable name="PgmChrg" class="java.lang.Number" incrementType="Group" incrementGroup="Group3_doc" calculation="Sum">
+		<variableExpression><![CDATA[($F{FIELDTYPE}=="pc") ? $F{AMOUNT} : 0]]></variableExpression>
+	</variable>
+	<variable name="ActualIncurred" class="java.lang.Number" incrementType="Group" incrementGroup="Group3_doc" calculation="Sum">
+		<variableExpression><![CDATA[($F{FIELDTYPE}=="ai") ? $F{AMOUNT} : 0]]></variableExpression>
+	</variable>
+	<variable name="GroupingHeader" class="java.lang.String">
+		<variableExpression><![CDATA[$F{PKGCODE}+$F{DOCCODE} +$F{SLPNO}+ $F{PATNO}]]></variableExpression>
+	</variable>
+	<variable name="GroupSlpType" class="java.lang.String">
+		<variableExpression><![CDATA[($F{SLPTYPE}== "D") ? "Day Case" :
+(($F{SLPTYPE}== "I") ? "In-Patient" :
+(($F{SLPTYPE}== "O") ? "Out-Patient" :$F{SLPTYPE}))]]></variableExpression>
+	</variable>
+	<variable name="ExtraByPat" class="java.lang.Number" resetType="Group" resetGroup="Group3_doc" incrementType="Group" incrementGroup="Group3_doc" calculation="Sum">
+		<variableExpression><![CDATA[$V{TatolChrg}-$V{DrChrg}-$V{PgmChrg}-$V{PgmCredit}]]></variableExpression>
+	</variable>
+	<variable name="Different" class="java.lang.Number" incrementType="Group" incrementGroup="Group3_doc" calculation="Sum">
+		<variableExpression><![CDATA[$V{PgmChrg}+$V{PgmCredit}-$V{ActualIncurred}]]></variableExpression>
+	</variable>
+	<variable name="GroupSlpTypeFoot" class="java.lang.String">
+		<variableExpression><![CDATA[($F{SLPTYPE}== "D") ? "Day Case Total"
+: (($F{SLPTYPE}=="I") ? "In-Patient Total" :
+(($F{SLPTYPE}== "O") ? "Out-Patient Total" : $F{SLPTYPE}))]]></variableExpression>
+	</variable>
+	<variable name="TatolChrg2" class="java.lang.Number" resetType="Group" resetGroup="group1_slp" incrementType="Group" incrementGroup="group1_slp" calculation="Sum"/>
+	<variable name="PgmCredit2" class="java.lang.Number" resetType="Group" resetGroup="group1_slp" incrementType="Group" incrementGroup="group1_slp" calculation="Sum"/>
+	<variable name="DrChrg2" class="java.lang.Number" resetType="Group" resetGroup="group1_slp" incrementType="Group" incrementGroup="group1_slp" calculation="Sum"/>
+	<variable name="ActualIncurred2" class="java.lang.Number" resetType="Group" resetGroup="group1_slp" incrementType="Group" incrementGroup="group1_slp" calculation="Sum"/>
+	<variable name="ExtraByPat2" class="java.lang.Number" resetType="Group" resetGroup="group1_slp" incrementType="Group" incrementGroup="group1_slp" calculation="Sum"/>
+	<variable name="PgmChrg2" class="java.lang.Number" resetType="Group" resetGroup="group1_slp" incrementType="Group" incrementGroup="group1_slp" calculation="Sum"/>
+	<variable name="Different2" class="java.lang.Number" resetType="Group" resetGroup="group1_slp" incrementType="Group" incrementGroup="group1_slp" calculation="Sum"/>
+	<variable name="TatolChrg3" class="java.lang.Number" calculation="Sum"/>
+	<variable name="DrChrg3" class="java.lang.Number" calculation="Sum"/>
+	<variable name="PgmCredit3" class="java.lang.Number" calculation="Sum"/>
+	<variable name="ActualIncurred3" class="java.lang.Number" calculation="Sum"/>
+	<variable name="ExtraByPat3" class="java.lang.Number" calculation="Sum"/>
+	<variable name="PgmChrg3" class="java.lang.Number" calculation="Sum"/>
+	<variable name="Different3" class="java.lang.Number" calculation="Sum"/>
+	<group name="group1_slp">
+		<groupExpression><![CDATA[$F{SLPNO}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="6" y="0" width="100" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$V{GroupSlpType}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<textField>
+					<reportElement x="7" y="0" width="48" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$V{GroupSlpTypeFoot}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="704" y="0" width="69" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{Different3}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="514" y="0" width="55" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{PgmChrg3}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="453" y="0" width="52" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{ExtraByPat3}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="641" y="0" width="57" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{ActualIncurred3}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="577" y="0" width="57" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{PgmCredit3}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="383" y="0" width="60" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{DrChrg3}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="310" y="0" width="65" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{TatolChrg3}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group2_pkg">
+		<groupExpression><![CDATA[$F{PKGCODE}]]></groupExpression>
+		<groupFooter>
+			<band height="20">
+				<staticText>
+					<reportElement x="62" y="0" width="60" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Pgm Total]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="310" y="0" width="65" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{TatolChrg2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="705" y="0" width="67" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{Different2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="641" y="0" width="58" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{ActualIncurred2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="383" y="0" width="60" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{DrChrg2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="452" y="0" width="53" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{ExtraByPat2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="512" y="0" width="57" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{PgmChrg2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="577" y="0" width="57" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{PgmCredit2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group3_doc">
+		<groupExpression><![CDATA[$F{DOCCODE}]]></groupExpression>
+		<groupFooter>
+			<band height="21">
+				<staticText>
+					<reportElement x="130" y="1" width="83" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Dr Total]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="310" y="1" width="65" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{TatolChrg1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="512" y="1" width="58" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{PgmChrg1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="577" y="0" width="57" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{PgmCredit1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="641" y="0" width="57" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$V{ActualIncurred1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="704" y="1" width="68" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{Different1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="452" y="0" width="53" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{ExtraByPat1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="383" y="1" width="60" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{DrChrg1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group4">
+		<groupExpression><![CDATA[$V{GroupingHeader}]]></groupExpression>
+		<groupFooter>
+			<band height="21">
+				<textField>
+					<reportElement x="222" y="1" width="80" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="130" y="1" width="83" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{SLPNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="62" y="1" width="60" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCCODE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="7" y="1" width="48" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PKGCODE}]]></textFieldExpression>
+				</textField>
+				<elementGroup>
+					<textField pattern="">
+						<reportElement x="310" y="1" width="65" height="20"/>
+						<textElement>
+							<font fontName="Arial Unicode MS"/>
+						</textElement>
+						<textFieldExpression class="java.lang.Number"><![CDATA[$V{TatolChrg}]]></textFieldExpression>
+					</textField>
+				</elementGroup>
+				<textField>
+					<reportElement x="705" y="1" width="68" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{Different}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="641" y="1" width="57" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{ActualIncurred}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="577" y="0" width="57" height="21"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{PgmCredit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="452" y="1" width="53" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{ExtraByPat}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="383" y="0" width="60" height="21"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{DrChrg}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="512" y="0" width="58" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{PgmChrg}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="149" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="59" width="773" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{daterange}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="20" width="772" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{stename}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="773" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Package Performance Report]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="687" y="0" width="47" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="734" y="0" width="38" height="20"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[rptPkgPerformance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="131" width="48" height="18"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="62" y="131" width="60" height="18"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="111" width="83" height="38"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Slip No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="111" width="80" height="38"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PatNo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="131" width="65" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Charges]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="383" y="131" width="60" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Charges]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="452" y="131" width="53" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[By Pat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="111" width="48" height="20"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Pgm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="62" y="111" width="60" height="20"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Dr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="111" width="65" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="383" y="111" width="60" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Dr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="452" y="111" width="53" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Extra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="512" y="111" width="58" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Pgm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="512" y="131" width="58" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Charges]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="577" y="111" width="57" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Pgm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="577" y="129" width="57" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Credit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="641" y="111" width="57" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Actual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="641" y="129" width="57" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Incurred]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="705" y="111" width="67" height="38"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Different]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+</jasperReport>

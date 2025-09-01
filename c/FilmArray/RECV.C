@@ -17,7 +17,8 @@ void RecvProc(void)
 			break;
 
 
-		sprintf(path, "%sFilmArray_*.xml\0", g_szTempPath);
+		//sprintf(path, "%sFilmArray_*.xml\0", g_szTempPath);
+		sprintf(path, "%s*.xml\0", g_szTempPath);
 		hFind = FindFirstFile(path, &data);
 		
 		WriteLog("Search %s", path);

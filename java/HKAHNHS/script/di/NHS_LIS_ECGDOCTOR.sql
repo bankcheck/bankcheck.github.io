@@ -1,0 +1,21 @@
+create or replace FUNCTION NHS_LIS_ECGDOCTOR
+(
+	condition IN VARCHAR2
+)
+  RETURN Types.cursor_type
+AS 
+  OUTCUR types.cursor_type;
+  
+BEGIN
+         
+
+  OPEN OUTCUR FOR 
+    SELECT DISTINCT E.DOCCODE AS DOCCODE, D.DOCFNAME || ' ' || D.DOCGNAME || '(' || E.DOCCODE || ')' AS DOCNAME 
+    FROM EXDOCTOR E, DOCTOR D
+    WHERE E.DOCCODE = D.DOCCODE 
+    AND E.EDREXAM = '-1'
+    ORDER BY DOCNAME;
+
+  RETURN OUTCUR;
+  
+END NHS_LIS_ECGDOCTOR;

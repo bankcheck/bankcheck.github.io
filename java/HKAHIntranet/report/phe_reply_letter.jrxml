@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="phe_reply_letter" language="groovy" pageWidth="595" pageHeight="842" columnWidth="581" leftMargin="7" rightMargin="7" topMargin="7" bottomMargin="7">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="patname" class="java.lang.String"/>
+	<parameter name="patcname" class="java.lang.String"/>
+	<parameter name="staffid" class="java.lang.String"/>
+	<parameter name="dept" class="java.lang.String"/>
+	<parameter name="printdate" class="java.lang.String"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="828">
+			<textField>
+				<reportElement x="80" y="189" width="105" height="26"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{staffid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="163" width="167" height="26"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="163" width="49" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646)" size="9" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[致 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="176" width="49" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[To]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="163" width="17" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="139" width="304" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="9" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Memorandum]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="247" y="163" width="202" height="26"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646)" size="10" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patcname}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="12" y="10" width="306" height="83"/>
+				<imageExpression class="java.lang.String"><![CDATA[new File($P{BaseDir}, "../images/hkah_portal_logo.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="14" y="189" width="49" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646)" size="9" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[員工號碼]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="202" width="49" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Emp# ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="126" width="304" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Ming(for ISO10646)" size="9" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[便箋]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="189" width="17" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="215" width="105" height="26"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{dept}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="215" width="49" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646)" size="9" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[部門]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="228" width="49" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Dept]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="215" width="17" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="241" width="17" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="254" width="49" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Subject]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="241" width="49" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646)" size="9" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[主旨]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="254" width="238" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Periodic Employee Health Examination]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="241" width="238" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646)" size="9" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[定期身體檢查]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="281" width="49" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[From]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="268" width="238" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646)" size="9" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[員工健康部]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="268" width="17" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="281" width="238" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Employee Health Department]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="268" width="49" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646)" size="9" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[由]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="294" width="17" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="294" width="49" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646)" size="9" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[日期]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="307" width="49" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="294" width="167" height="26"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{printdate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="340" width="540" height="239"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646)" size="9" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[
+有關  閣下要求定期身體檢查一事，本部門已發出有關表格。請 閣下依照以下指示完成:
+Per your request, we have issued you a periodic employee health examination form.
+
+Please follow the procedure below to do your physical check-up:
+
+1. 請往門診登記處領取有關表格和檢測器皿。
+   Visit the Outpatient Registration Desk to collect your authorization form
+   and laboratory test containers.  "
+
+2. 完成所需檢查項目。
+   Complete all required physical examination.
+
+3. 再與門診登記處預約會見醫生時間，聽取身體檢查及化驗結果。
+   Make an appointment with the Outpatient Registration Desk to see the doctor
+   for physical examination and laboratory test results.
+
+4. 於預約日子會見醫生，之後將單據交到收銀處並通知職員你已完成定期身體檢查。
+   Go to see the doctor on the scheduled day.  After seeing the doctor, take the bill
+   to the Cashier and notify the Cashier that you have had an employee periodic physical check up.
+
+如有任何問題，請與員工健康部聯絡，內線8979。
+If you have any questions regarding the above procedure, please contact Employee Health Department,
+Ext. 8979
+]]></text>
+			</staticText>
+		</band>
+	</title>
+</jasperReport>

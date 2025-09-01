@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PatientCard_TWAH" pageWidth="245" pageHeight="155" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="245" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.5937424601000023"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PATFNAME" class="java.lang.String"/>
+	<parameter name="PATGNAME" class="java.lang.String"/>
+	<parameter name="PATNO" class="java.lang.String"/>
+	<parameter name="PATCNAME" class="java.lang.String"/>
+	<parameter name="BARCODE" class="java.lang.String"/>
+	<columnHeader>
+		<band height="155" splitType="Stretch">
+			<image hAlign="Left" vAlign="Middle" isLazy="true">
+				<reportElement x="8" y="15" width="120" height="15"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode($P{BARCODE}.substring(0, $P{BARCODE}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,150,15))]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="156" y="12" width="73" height="17"/>
+				<textElement rotation="UpsideDown">
+					<font fontName="Arial Unicode MS" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PATNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="66" width="213" height="12"/>
+				<textElement verticalAlignment="Top" rotation="UpsideDown">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{PATFNAME}.length() > 24?$P{PATFNAME}.substring(0, 24):$P{PATFNAME})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="44" width="213" height="12"/>
+				<textElement rotation="UpsideDown">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{PATFNAME}.length() > 24?
+    ($P{PATGNAME}.length() > 24?$P{PATGNAME}.substring(0,24):
+        $P{PATGNAME}.substring(24)):
+    ($P{PATGNAME}.length() > 24? $P{PATGNAME}.substring(24):"")
+)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="12" width="70" height="15">
+					<printWhenExpression><![CDATA[($P{PATFNAME}.length() > 28) && ($P{PATGNAME}.length() > 28)]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle" rotation="UpsideDown" markup="styled"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style fontName='Ming(for ISO10646_V3)'>" + $P{PATCNAME} + "</style>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="33" width="213" height="12"/>
+				<textElement rotation="UpsideDown">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{PATFNAME}.length() > 24?
+    ($P{PATGNAME}.length() > 24?$P{PATGNAME}.substring(24):
+        ""):
+   ""
+)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="55" width="213" height="12"/>
+				<textElement rotation="UpsideDown">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{PATFNAME}.length() > 24?$P{PATFNAME}.substring(24):
+    ($P{PATGNAME}.length() > 24?$P{PATGNAME}.substring(0, 24):$P{PATGNAME})
+)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="29" width="120" height="15">
+					<printWhenExpression><![CDATA[($P{PATFNAME}.length() < 28) && ($P{PATGNAME}.length() < 28)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="UpsideDown" markup="styled"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style fontName='Ming(for ISO10646_V3)'>" + $P{PATCNAME} + "</style>"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+</jasperReport>

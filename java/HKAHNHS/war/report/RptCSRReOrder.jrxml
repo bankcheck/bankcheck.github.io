@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptCSRReorder" language="groovy" pageWidth="515" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="475" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="StartDate" class="java.lang.String"/>
+	<parameter name="EndDate" class="java.lang.String"/>
+	<parameter name="SteCode" class="java.lang.String"/>
+	<parameter name="SteName" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select
+       wrdcode,
+       itmcode,
+       count(*),
+       stndesc
+from (select
+     sTx.StnID,
+     w.wrdcode,
+     sTx.ItmCode,
+     sTx.StnDesc
+from SlipTx sTx,
+     Slip s,
+     bedHist bH,
+     bed b,
+     Room r,
+     Ward w
+where s.stecode = $P{SteCode}
+           and sTx.STNCDATE >= to_date($P{StartDate}, 'DD/MM/YYYY HH24:MI')
+           and sTx.STNCDATE < to_date($P{EndDate}, 'DD/MM/YYYY HH24:MI')
+           and ((sTx.STNCDATE >= bH.BHSDATE And sTx.STNCDATE <= bH.BHSEDATE) or
+               (sTx.STNCDATE >= bH.BHSDATE and bH.BHSEDATE is NULL))
+           and sTx.STNSTS = 'N'
+           and sTx.DSCCODE = 'CSRDSCCODE'
+           and sTx.SLPNO = s.SLPNO
+           and s.SLPTYPE = 'I'
+           and s.REGID = bH.REGID
+           and s.PATNO = bH.PATNO
+           and bH.BEDCODE = b.BEDCODE
+           and b.ROMCODE = r.ROMCODE
+           and r.WRDCODE = w.WRDCODE
+
+        Union
+ select sTx.StnID,
+        w.wrdcode,
+        sTx.ItmCode,
+        sTx.StnDesc
+from SlipTx sTx,
+     reg,
+     inpat i,
+     bed b,
+     Room r,
+     Ward w
+Where r.stecode = $P{SteCode}
+           and sTx.STNCDATE >= to_date($P{StartDate}, 'DD/MM/YYYY HH24:MI')
+           and sTx.STNCDATE < to_date($P{EndDate}, 'DD/MM/YYYY HH24:MI')
+           and sTx.STNSTS = 'N'
+           and sTx.DSCCODE = 'CSRDSCCODE'
+           and sTx.SLPNO = reg.SLPNO
+           and reg.inpid = i.inpid
+           and i.BEDCODE = b.BEDCODE
+           and b.ROMCODE = r.ROMCODE
+           and r.WRDCODE = w.WRDCODE)
+ group by wrdcode, itmcode, stndesc
+ order by wrdcode, itmcode, stndesc]]>
+	</queryString>
+	<field name="WRDCODE" class="java.lang.String"/>
+	<field name="ITMCODE" class="java.lang.String"/>
+	<field name="COUNT(*)" class="java.math.BigDecimal"/>
+	<field name="STNDESC" class="java.lang.String"/>
+	<variable name="Sub" class="java.lang.Number" resetType="Group" resetGroup="WRDCODE" calculation="Count"/>
+	<variable name="Grand" class="java.lang.Number" calculation="Count">
+		<variableExpression><![CDATA[$F{ITMCODE}]]></variableExpression>
+	</variable>
+	<group name="ITMCODE">
+		<groupExpression><![CDATA[$F{ITMCODE}]]></groupExpression>
+	</group>
+	<group name="WRDCODE">
+		<groupExpression><![CDATA[$F{WRDCODE}]]></groupExpression>
+		<groupHeader>
+			<band height="41">
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="192" y="0" width="65" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{EndDate}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="71" y="0" width="100" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{WRDCODE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="149" y="21" width="57" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Description]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="409" y="21" width="37" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Count]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="268" y="0" width="70" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{StartDate}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="257" y="0" width="10" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[to]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="5" y="21" width="53" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Item Code]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="174" y="0" width="19" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[from]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="5" y="0" width="66" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Item used on]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="18">
+				<staticText>
+					<reportElement x="323" y="2" width="45" height="16"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Sub Total :]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="WRDCODE" isBlankWhenNull="true">
+					<reportElement x="369" y="2" width="100" height="16"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{Sub}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="16">
+			<textField>
+				<reportElement x="360" y="0" width="80" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="440" y="0" width="35" height="16"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="69">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="5" y="11" width="100" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="0" width="78" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[rptCSRReOrder]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="174" y="33" width="150" height="28"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[$P{SteName}+
+"\nCSR Reorder Report"]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="5" y="0" width="140" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ITMCODE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="409" y="0" width="65" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{COUNT(*)}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="149" y="0" width="255" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{STNDESC}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement x="285" y="2" width="54" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grand Total :]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="340" y="2" width="100" height="16"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{Grand}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,12 @@
+create or replace
+FUNCTION "NHS_GET_EGCGETMERGEPATNO"(
+	v_PATNO IN VARCHAR2
+)
+	RETURN TYPES.cursor_type
+AS
+	OUTCUR TYPES.cursor_type;
+BEGIN
+	OPEN OUTCUR FOR
+    select To_PATNo from patmercht where FM_Patno= v_PATNO;
+	RETURN OUTCUR;
+END NHS_GET_EGCGETMERGEPATNO;

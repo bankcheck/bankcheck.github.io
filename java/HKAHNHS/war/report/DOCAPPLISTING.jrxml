@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AppListing" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="814" leftMargin="14" rightMargin="14" topMargin="28" bottomMargin="28">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="BOOKINGDATEFROM" class="java.lang.String"/>
+	<parameter name="BOOKINGDATETO" class="java.lang.String"/>
+	<parameter name="SiteName" class="java.lang.String"/>
+	<parameter name="SPEC" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="BKGDATE" class="java.lang.String"/>
+	<field name="DOCNAME" class="java.lang.String"/>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="DENTALNO" class="java.lang.String"/>
+	<field name="BKGPNAME" class="java.lang.String"/>
+	<field name="PATBDATE" class="java.lang.String"/>
+	<field name="BKGMTEL" class="java.lang.String"/>
+	<field name="BKGRMK" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="152">
+			<textField isBlankWhenNull="true">
+				<reportElement x="93" y="75" width="148" height="14" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCNAME}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="0" y="14" width="100" height="14"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="93" y="62" width="284" height="14"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{BOOKINGDATEFROM}+($P{BOOKINGDATETO}.isEmpty()?"":" - "+$P{BOOKINGDATETO})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="62" width="90" height="14"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Appointment Date:	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="75" width="90" height="14"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Ｄoctor:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="124" y="129" width="68" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Patient No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="196" y="129" width="210" height="16"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Patient Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="406" y="129" width="80" height="16"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Date Of Birth]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="129" width="125" height="16"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[App Date/Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[spcAppListing]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="258" y="20" width="305" height="42"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SiteName}+
+"\nAppointment Listing"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="486" y="129" width="76" height="16"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Mobile]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="561" y="129" width="253" height="16"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Remark]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="196" y="0" width="210" height="21"/>
+				<box bottomPadding="3"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{BKGPNAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="-2" y="0" width="125" height="21"/>
+				<box bottomPadding="3"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="11"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{BKGDATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="124" y="0" width="68" height="21"/>
+				<box bottomPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="406" y="0" width="80" height="21"/>
+				<box bottomPadding="3"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="11"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATBDATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="485" y="0" width="77" height="21"/>
+				<box bottomPadding="3"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="11"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{BKGMTEL}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="561" y="0" width="253" height="21"/>
+				<box bottomPadding="3"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="11"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{BKGRMK}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

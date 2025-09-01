@@ -1,0 +1,1 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"%><%@ page import="com.hkah.util.*"%><%=ServerUtil.connectServer("http://205.0.1.41/intranet/registration/doctor_list.jsp", "", true) %>

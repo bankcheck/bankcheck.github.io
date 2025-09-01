@@ -1,0 +1,38 @@
+CREATE OR REPLACE FUNCTION "NHS_ACT_EBIRTHCLOSE"(V_ACTION  IN VARCHAR2,
+                                                 V_BATCHNO IN VARCHAR2,
+                                                 V_STATUS IN VARCHAR2,
+                                                 V_USER    IN VARCHAR2,
+                                                 O_ERRMSG  OUT VARCHAR2)
+
+ RETURN NUMBER AS
+  O_ERRCODE NUMBER;
+  V_BBPATNO VARCHAR2(10);
+  OUTCUR  TYPES.CURSOR_TYPE;
+
+BEGIN
+  O_ERRCODE := 0;
+  O_ERRMSG  := 'OK';
+
+  UPDATE EBIRTHDTL SET RECSTATUS = V_STATUS WHERE BATCHNO = V_BATCHNO;
+
+  OPEN OUTCUR FOR
+    SELECT BB_PATNO FROM EBIRTHDTL WHERE BATCHNO = V_BATCHNO;
+
+  LOOP
+    FETCH OUTCUR
+      INTO V_BBPATNO;
+    EXIT WHEN OUTCUR%NOTFOUND;
+  
+    INSERT INTO EBIRTHHISTORY
+    VALUES
+      (SEQ_EBIRTHHISTORY.NEXTVAL,
+       V_BBPATNO,
+       DECODE(V_STATUS,'A','Closed','M','Edit','E','Exported',NULL),
+       V_USER,
+       SYSDATE,
+       NULL,
+       'Y');
+  END LOOP;
+  RETURN O_ERRCODE;
+END NHS_ACT_EBIRTHCLOSE;
+/

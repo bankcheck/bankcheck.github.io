@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT_OSB_UTIL" pageWidth="539" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="539" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true">
+	<property name="ireport.zoom" value="1.7715610000000093"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="T_DATE" class="java.lang.String"/>
+	<parameter name="DATE_FROM" class="java.lang.String"/>
+	<parameter name="DATE_TO" class="java.lang.String"/>
+	<parameter name="WRDCODE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Image" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHIntranet\\WebContent\\images\\rpt_logo_osb.jpg"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+  Ward
+  , class
+  , Bed_No
+  , TO_CHAR(Total_Hours) Total_Hours
+  , TO_CHAR(Available_Hours) Available_Hours
+  , case when Occupied_Hours is null then TO_CHAR(Occupied_Hours) else (case when Occupied_Hours = -1 then 'Occupied %' else TO_CHAR(Occupied_Hours, 'FM999990.0') end) end　Occupied_Hours
+  , case when Occupied_Rate is null then to_char(Occupied_Rate) else to_char(Occupied_Rate,'FM999990.0') || '%' end　Occupied_Rate
+  , case when NA_Hours = -1 then 'N/A %' else TO_CHAR(NA_Hours, 'FM999990.0') end　NA_Hours
+  , case when NA_Rate is null then to_char(NA_Rate) else to_char(NA_Rate,'FM999990.0') || '%' end　NA_Rate
+from
+(
+  select
+    r.wrdcode as Ward
+    , decode(r.acmcode,'S','SP',r.acmcode) as class
+    , b.bedcode as Bed_No
+	, 24*( to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') - to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') + 1 ) as Total_Hours
+    , ROUND(24*( to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') - to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') + 1 ) - nvl(l.NA_Hours_tot, 0), 1) as Available_Hours
+    , ROUND(NVL(OSB_BED_OCCUPIED@cis( b.bedcode, to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi'), to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') + 1 ), 0), 1) as Occupied_Hours
+    , ROUND(100* NVL(OSB_BED_OCCUPIED@cis( b.bedcode, to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi'), to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') + 1 ), 0)/ 24 / (to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') - to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') + 1), 1) as Occupied_Rate
+    , l.NA_Hours_tot as NA_Hours
+    , ROUND(100* (nvl(l.NA_Hours_tot, 0) / (24*( to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') - to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') + 1))), 1) as NA_Rate
+  from bed@iweb b, room@iweb r,
+    (
+    select
+    bedcode
+    , sum(NA_Hours) NA_Hours_tot
+    from
+    (
+      select
+        bedcode
+        , 24*(
+          case when downtime > to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') then
+            (case when ontime < to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') then ontime - downtime else to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') - downtime end)
+          else (
+            (case when ontime < to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') then ontime - to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') else to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') - to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') end)
+          ) end
+        ) as NA_Hours
+      from bab_bedservicelog@bab
+      where
+        downtime between to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') and to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi')
+        or (downtime < to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') and (ontime >= to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') or ontime is null))
+    )
+    group by bedcode
+    ) l
+  where b.romcode=r.romcode
+    and b.bedcode=l.bedcode(+)
+    And b.Bedoff=-1
+	and (r.wrdcode = $P{WRDCODE} or $P{WRDCODE} is null)
+
+  UNION
+
+  -- total
+  select
+    null as Ward
+    , null as class
+    , null as Bed_No
+    , null as Total_Hours
+    , null as Available_Hours
+    , -1 as Occupied_Hours
+    , round(100*(NVL(Sum(Occupied_Hours), 0) / NVL(Sum(Available_Hours), 0)), 1)  as Occupied_Rate_tot
+    , -1 as NA_Hours
+    , round(100*(NVL(Sum(NA_Hours), 0) / NVL(Sum(Total_Hours), 0)), 1) as NA_Rate_tot
+  from
+  (
+    select
+      r.wrdcode as Ward
+      , decode(r.acmcode,'S','SP',r.acmcode) as class
+      , b.bedcode as Bed_No
+	, 24*( to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') - to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') + 1 ) as Total_Hours
+    , ROUND(24*( to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') - to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') + 1 ) - nvl(l.NA_Hours_tot, 0), 1) as Available_Hours
+    , ROUND(NVL(OSB_BED_OCCUPIED@cis( b.bedcode, to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi'), to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') + 1 ), 0), 1) as Occupied_Hours
+    , ROUND(100* NVL(OSB_BED_OCCUPIED@cis( b.bedcode, to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi'), to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') + 1 ), 0)/ 24 / (to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') - to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') + 1), 1) as Occupied_Rate
+    , l.NA_Hours_tot as NA_Hours
+    , ROUND(100* (nvl(l.NA_Hours_tot, 0) / (24*( to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') - to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') + 1))), 1) as NA_Rate
+    from bed@iweb b, room@iweb r,
+      (
+      select
+      bedcode
+      , sum(NA_Hours) NA_Hours_tot
+      from
+      (
+        select
+          bedcode
+          , 24*(
+            case when downtime > to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') then
+              (case when ontime < to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') then ontime - downtime else to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') - downtime end)
+            else (
+              (case when ontime < to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') then ontime - to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') else to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') - to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') end)
+            ) end
+          ) as NA_Hours
+        from bab_bedservicelog@bab
+        where
+          downtime between to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') and to_date($P{DATE_TO}, 'dd/mm/yyyy hh24:mi')
+          or (downtime < to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') and (ontime >= to_date($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') or ontime is null))
+      )
+      group by bedcode
+      ) l
+    where b.romcode=r.romcode
+      and b.bedcode=l.bedcode(+)
+      And b.Bedoff=-1
+	  and (r.wrdcode = $P{WRDCODE} or $P{WRDCODE} is null)
+  )
+
+  order by Ward, Bed_No
+)]]>
+	</queryString>
+	<field name="WARD" class="java.lang.String"/>
+	<field name="CLASS" class="java.lang.String"/>
+	<field name="BED_NO" class="java.lang.String"/>
+	<field name="TOTAL_HOURS" class="java.lang.String"/>
+	<field name="AVAILABLE_HOURS" class="java.lang.String"/>
+	<field name="OCCUPIED_HOURS" class="java.lang.String"/>
+	<field name="OCCUPIED_RATE" class="java.lang.String"/>
+	<field name="NA_HOURS" class="java.lang.String"/>
+	<field name="NA_RATE" class="java.lang.String"/>
+	<title>
+		<band height="107" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="171" y="37" width="188" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{T_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="171" y="17" width="188" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Utilization Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="77" width="40" height="30"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Class]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="77" width="60" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Total Hours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="77" width="83" height="30"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Ward / Unit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="77" width="48" height="30"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Bed No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="231" y="77" width="60" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Available Hours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="77" width="68" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Occupied Hours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="359" y="77" width="68" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Occupied %]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="77" width="60" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[N/A Hours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="487" y="77" width="52" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[N/A %]]></text>
+			</staticText>
+			<textField pattern="dd-MM-yy">
+				<reportElement x="487" y="17" width="52" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="hh:mm a">
+				<reportElement x="487" y="37" width="52" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="427" y="37" width="60" height="20"/>
+				<textElement/>
+				<text><![CDATA[Print Time:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="17" width="60" height="20"/>
+				<textElement/>
+				<text><![CDATA[Print Date:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="171" height="77"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{Image}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="83" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{WARD}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="83" y="0" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CLASS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="171" y="0" width="60" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TOTAL_HOURS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="291" y="0" width="68" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OCCUPIED_HOURS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="231" y="0" width="60" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{AVAILABLE_HOURS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="359" y="0" width="68" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OCCUPIED_RATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="427" y="0" width="60" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{NA_HOURS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="487" y="0" width="52" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{NA_RATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="123" y="0" width="48" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{BED_NO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="140">
+			<staticText>
+				<reportElement x="0" y="20" width="123" height="20"/>
+				<textElement/>
+				<text><![CDATA[Total Hours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="123" height="20"/>
+				<textElement/>
+				<text><![CDATA[Available Hours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="123" height="20"/>
+				<textElement/>
+				<text><![CDATA[Unavailable Hours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="123" height="20"/>
+				<textElement/>
+				<text><![CDATA[N/A %]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="123" height="20"/>
+				<textElement/>
+				<text><![CDATA[Occupied Hours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="120" width="123" height="20"/>
+				<textElement/>
+				<text><![CDATA[Occupied %]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="20" width="304" height="20"/>
+				<textElement/>
+				<text><![CDATA[(# of days in range) * 24hrs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="40" width="304" height="20"/>
+				<textElement/>
+				<text><![CDATA[Total Hours - Not Applicable (N/A) Hours in range]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="80" width="304" height="20"/>
+				<textElement/>
+				<text><![CDATA[(N/A Hours / Total Hours) %]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="60" width="304" height="20"/>
+				<textElement/>
+				<text><![CDATA[# of hours that the bed was out of service or suspended]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="100" width="304" height="20"/>
+				<textElement/>
+				<text><![CDATA[# of hours that the bed was occupied in range]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="120" width="304" height="20"/>
+				<textElement/>
+				<text><![CDATA[(Occupied Hours / Available Hours) %]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

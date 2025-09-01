@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IP_PNAME" pageWidth="539" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="539" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Monospaced_font" fontName="Monospaced" fontSize="9"/>
+	<style name="Ming(for ISO10646_V3)_font" fontName="Ming(for ISO10646_V3)" fontSize="9"/>
+	<parameter name="MB" class="java.lang.String"/>
+	<parameter name="patM" class="java.lang.String"/>
+	<parameter name="patB" class="java.lang.String"/>
+	<parameter name="AdmDtTime" class="java.lang.String"/>
+	<parameter name="BirthDt" class="java.lang.String"/>
+	<parameter name="PatName" class="java.lang.String"/>
+	<parameter name="PATNAME" class="java.lang.String"/>
+	<parameter name="PATCNAME" class="java.lang.String"/>
+	<parameter name="PatNo" class="java.lang.String"/>
+	<parameter name="PATNO" class="java.lang.String"/>
+	<parameter name="REGDATE" class="java.lang.String"/>
+	<parameter name="REGTIME" class="java.lang.String"/>
+	<parameter name="BedNo" class="java.lang.String"/>
+	<parameter name="INPDDATE" class="java.lang.String"/>
+	<parameter name="INPDTIME" class="java.lang.String"/>
+	<parameter name="DOCNAME" class="java.lang.String"/>
+	<parameter name="DOCCNAME" class="java.lang.String"/>
+	<parameter name="BEDACM" class="java.lang.String"/>
+	<parameter name="DisDtTime" class="java.lang.String"/>
+	<parameter name="TreDr" class="java.lang.String"/>
+	<parameter name="DelDr" class="java.lang.String"/>
+	<variable name="MBLabel" class="java.lang.String" incrementType="Report">
+		<variableExpression><![CDATA[($P{MB}.equals("Mother Information")?$P{patM}:$P{patB})]]></variableExpression>
+		<initialValueExpression><![CDATA[($P{MB}.equals("Mother Information")?$P{patM}:$P{patB})]]></initialValueExpression>
+	</variable>
+	<variable name="AdmDtCLabel" class="java.lang.String" incrementType="Report">
+		<variableExpression><![CDATA[$P{MB}.toString().equals("Mother Information")?$P{AdmDtTime}:$P{BirthDt}]]></variableExpression>
+		<initialValueExpression><![CDATA[$P{MB}.toString().equals("Mother Information")?$P{AdmDtTime}:$P{BirthDt}]]></initialValueExpression>
+	</variable>
+	<variable name="AdmOrDeliLabel" class="java.lang.String" incrementType="Report">
+		<variableExpression><![CDATA[$P{MB}.toString().equals("Mother Information")?"Admission Doctor":"Delivery By"]]></variableExpression>
+		<initialValueExpression><![CDATA[$P{MB}.toString().equals("Mother Information")?"Admission Doctor":"Delivery By"]]></initialValueExpression>
+	</variable>
+	<variable name="AdmDtLabel" class="java.lang.String" incrementType="Report">
+		<variableExpression><![CDATA[$P{MB}.toString().equals("Mother Information")?"Admission Date/Time":"Birth Date"]]></variableExpression>
+		<initialValueExpression><![CDATA[$P{MB}.toString().equals("Mother Information")?"Admission Date/Time":"Birth Date"]]></initialValueExpression>
+	</variable>
+	<variable name="AdmOrDeliCLabel" class="java.lang.String" incrementType="Report">
+		<variableExpression><![CDATA[($P{MB}.toString().equals("Mother Information")?$P{TreDr}:$P{DelDr})]]></variableExpression>
+		<initialValueExpression><![CDATA[($P{MB}.toString().equals("Mother Information")?$P{TreDr}:$P{DelDr})]]></initialValueExpression>
+	</variable>
+	<title>
+		<band height="19">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1" y="0" width="91" height="15" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{MB}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="91" y="0" width="77" height="15" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{MBLabel}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="16">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="471" y="0" width="69" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PATNO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="408" y="0" width="64" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PatNo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="90" y="0" width="78" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PatName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="1" y="0" width="90" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Patient Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="346" y="0" width="63" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Patient No.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Ming(for ISO10646_V3)_font" stretchType="RelativeToTallestObject" x="167" y="0" width="175" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PATNAME}+" "+$P{PATCNAME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<summary>
+		<band height="52">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="471" y="19" width="68" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{BEDACM}.substring($P{BEDACM}.indexOf(",")+1, $P{BEDACM}.length())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="346" y="2" width="63" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Bed]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="1" y="36" width="90" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{AdmOrDeliLabel}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="1" y="19" width="90" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Discharge Date/Time]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="471" y="2" width="68" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{BEDACM}.split(",")[0]]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="224" y="2" width="100" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REGTIME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="408" y="19" width="64" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{BedNo}.split( "/" )[1]]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="408" y="2" width="64" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{BedNo}.split( "/")[0]]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="90" y="19" width="78" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DisDtTime}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="90" y="36" width="78" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{AdmOrDeliCLabel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="HH:mm" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="224" y="19" width="100" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{INPDTIME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="167" y="19" width="59" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{INPDDATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="1" y="2" width="90" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{AdmDtLabel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="167" y="2" width="59" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REGDATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="346" y="19" width="63" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Acm]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="90" y="2" width="78" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{AdmDtCLabel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Ming(for ISO10646_V3)_font" stretchType="RelativeToTallestObject" x="167" y="36" width="257" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DOCNAME}+" "+$P{DOCCNAME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

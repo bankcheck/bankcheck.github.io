@@ -1,0 +1,37 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_ROLEALERTASSIGNMENT"
+(
+  v_list VARCHAR2,
+  v_ROLID ROLE.ROLID%TYPE
+)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  IF v_list = 'AVAILABLE' THEN
+    OPEN outcur FOR
+      SELECT
+        ALTID,
+        ALTCODE,
+        ALTDESC
+      FROM ALERT
+      WHERE ALTID NOT IN
+       (SELECT ALTID
+        FROM ROLALTLINK
+        WHERE ROLID = v_ROLID)
+      ORDER BY ALTCODE;
+  ELSE
+    OPEN outcur FOR
+      SELECT
+        A.ALTID,
+        A.ALTCODE,
+        A.ALTDESC
+      FROM ROLALTLINK R, ALERT A
+      WHERE R.ALTID = A.ALTID
+      AND R.ROLID = v_ROLID
+      ORDER BY ALTCODE;
+  END IF;
+  RETURN OUTCUR;
+END NHS_LIS_ROLEALERTASSIGNMENT;
+/
+
+

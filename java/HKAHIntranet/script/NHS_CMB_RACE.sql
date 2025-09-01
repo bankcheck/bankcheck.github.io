@@ -1,0 +1,13 @@
+create or replace
+FUNCTION "NHS_CMB_RACE"
+  RETURN Types.CURSOR_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN OUTCUR FOR
+      SELECT RACDESC
+      FROM RACE@IWEB
+      WHERE ROWNUM < 100
+      ORDER BY RACDESC;
+   RETURN OUTCUR;
+END NHS_CMB_RACE;

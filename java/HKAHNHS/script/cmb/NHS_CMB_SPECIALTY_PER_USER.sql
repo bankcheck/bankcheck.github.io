@@ -1,0 +1,31 @@
+CREATE OR REPLACE FUNCTION "NHS_CMB_SPECIALTY_PER_USER" (
+	v_SPCCODE IN VARCHAR2,
+	v_USRID   IN VARCHAR2
+)
+	RETURN Types.cursor_type
+AS
+	outcur types.cursor_type;
+	sqlbuff varchar(200);
+	v_COUNT NUMBER;
+BEGIN
+	SELECT COUNT(1) INTO v_COUNT FROM USRACCESSDOC WHERE USRID = v_USRID AND DOCCODE = 'ALL' AND SPCCODE != 'ALL';
+
+	sqlbuff := 'SELECT SPCCNAME, SPCCODE, SPCNAME FROM SPEC';
+
+	IF v_COUNT > 0 THEN
+		sqlbuff := sqlbuff || ' WHERE SPCCODE IN (SELECT SPCCODE FROM USRACCESSDOC WHERE USRID = ''' || v_USRID || '''  AND DOCCODE = ''ALL'')';
+		IF v_SPCCODE IS NOT NULL THEN
+			sqlbuff := sqlbuff || ' AND SPCCODE = ''' || v_SPCCODE || '''';
+		END IF;
+	ELSE
+		IF v_SPCCODE IS NOT NULL THEN
+			sqlbuff := sqlbuff || ' WHERE SPCCODE = ''' || v_SPCCODE || '''';
+		END IF;
+	END IF;
+
+	sqlbuff := sqlbuff || ' ORDER BY SPCCODE';
+
+	OPEN outcur FOR sqlbuff;
+	RETURN OUTCUR;
+END NHS_CMB_SPECIALTY_PER_USER;
+/

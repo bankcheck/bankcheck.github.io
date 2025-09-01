@@ -1,0 +1,18 @@
+create or replace
+FUNCTION "NHS_LIS_DOCTOR_SPECIALTY"
+(V_DOCCODE DOCSPCLINK.DOCCODE%TYPE)
+    RETURN tYPES.CURSOR_TYPE
+AS
+    OUTCUR types.CURSOR_TYPE;
+BEGIN
+   OPEN OUTCUR FOR
+      SELECT
+       --   D.dslid,D.DOCCODE,
+          D.SPCCODE, s.spcname, DECODE(D.ISOFFICIAL, -1, 'true', 'false') AS ISOFFICIAL, D.DSLID,D.ISOFFICIAL
+      FROM docspclink D, SPEC S
+      WHERE d.spccode= s.spccode(+)
+      AND D.DOCCODE= v_doccode
+      ORDER BY D.SPCCODE;
+    RETURN OUTCUR;
+END NHS_LIS_DOCTOR_SPECIALTY;
+/

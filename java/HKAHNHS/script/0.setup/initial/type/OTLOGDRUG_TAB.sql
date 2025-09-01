@@ -1,0 +1,4 @@
+create or replace
+TYPE OTLOGDRUG_TAB
+AS TABLE OF OTLOGDRUG;
+/

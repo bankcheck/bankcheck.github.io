@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2010?~5??21?? ?U??02:30:50 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.CoSite" table="CO_SITE">
+        <id name="coSiteCode" type="string">
+            <column name="CO_SITE_CODE" length="10" />
+            <generator class="assigned" />
+        </id>
+        <property name="coSiteDesc" type="string">
+            <column name="CO_SITE_DESC" length="100" not-null="true" />
+        </property>
+        <property name="coCreatedDate" type="date">
+            <column name="CO_CREATED_DATE" length="7" />
+        </property>
+        <property name="coCreatedUser" type="string">
+            <column name="CO_CREATED_USER" length="30" />
+        </property>
+        <property name="coModifiedDate" type="date">
+            <column name="CO_MODIFIED_DATE" length="7" />
+        </property>
+        <property name="coModifiedUser" type="string">
+            <column name="CO_MODIFIED_USER" length="30" />
+        </property>
+        <property name="coEnabled" type="big_decimal">
+            <column name="CO_ENABLED" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

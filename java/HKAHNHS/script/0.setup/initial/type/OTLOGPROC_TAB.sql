@@ -1,0 +1,4 @@
+create or replace
+TYPE OTLOGPROC_TAB
+AS TABLE OF OTLOGPROC;
+/

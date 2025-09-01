@@ -1,0 +1,864 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="2a" pageWidth="524" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="524" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="0.9313819845887443"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="441"/>
+	<property name="net.sf.jasperreports.export.pdf.compressed" value="true"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="Site" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patname" class="java.lang.String"/>
+	<parameter name="patcname" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="patDOB" class="java.lang.String"/>
+	<parameter name="procedure" class="java.lang.String"/>
+	<parameter name="procedureChi" class="java.lang.String"/>
+	<parameter name="anaethesiaType" class="java.lang.String"/>
+	<parameter name="regionAnaeSelect" class="java.lang.String"/>
+	<parameter name="anaethesiaOtherText" class="java.lang.String"/>
+	<parameter name="docname" class="java.lang.String"/>
+	<parameter name="doccname" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHIntranet\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="lang" class="java.lang.String"/>
+	<parameter name="ImgTick" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHNHS\\war\\images\\tick1.gif"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="factSheetNo" class="java.lang.String"/>
+	<parameter name="patientYN" class="java.lang.String"/>
+	<parameter name="complication" class="java.lang.String"/>
+	<parameter name="consentDate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<columnHeader>
+		<band height="589">
+			<staticText>
+				<reportElement mode="Transparent" x="90" y="1" width="20" height="16"/>
+				<box topPadding="0" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(g)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="1" y="342" width="89" height="63"/>
+				<box topPadding="0" rightPadding="2">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="8" isBold="false" isItalic="true" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="1" width="376" height="16"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[麻酔のリスクと合併症]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="46" width="365" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[*呼吸困難]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="121" y="46" width="7" height="16"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[•]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="16" width="13" height="16"/>
+				<box topPadding="0" leftPadding="0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(i)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="121" y="16" width="403" height="30"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[麻酔による重篤な合併症の発生はまれです。以下の症状があげられますが、この限りではありません。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="121" y="61" width="7" height="16"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[•]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="61" width="365" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[*永久障害にいたる脳卒中あるいは脳障害]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="121" y="76" width="7" height="16"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[•]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="76" width="365" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[*心臓発作をまねく心臓への負担]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="91" width="365" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[*アナフィラキシー反応]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="121" y="91" width="7" height="16"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[•]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="121" y="106" width="371" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[* これらの重篤な合併症は致命的となる場合があります。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="185" width="365" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[頭痛]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="122" y="185" width="7" height="16"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[•]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="122" y="155" width="7" height="16"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[•]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="122" y="140" width="7" height="16"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[•]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="170" width="365" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[悪寒]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="122" y="170" width="7" height="16"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[•]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="140" width="365" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[吐き気や嘔吐]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="155" width="365" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[全身痛]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="122" y="125" width="403" height="16"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[よく起こる症状として以下の症状があげられますが、この限りではありません。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="125" width="14" height="16"/>
+				<box topPadding="0" leftPadding="0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(ii)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="122" y="215" width="7" height="16"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[•]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="122" y="200" width="7" height="16"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[•]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="215" width="365" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[めまい]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="200" width="365" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[術後の痛みと注射部位の痛み]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="123" y="324" width="7" height="16"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[•]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="123" y="309" width="7" height="16"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[•]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="123" y="294" width="7" height="16"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[•]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="123" y="354" width="7" height="16"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[•]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="235" width="398" height="30"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[局所麻酔に伴う特異的リスク/合併症の発生はまれです。以下の症状があげられます。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="294" width="395" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ブロックが効きすぎる場合は循環、呼吸の補助が必要となります。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="354" width="392" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[局所麻酔薬中毒 による痙攣や心肺停止]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="324" width="365" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[隣接する神経、血管、臓器の損傷]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="123" y="264" width="7" height="16"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[•]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="123" y="339" width="7" height="16"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[•]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="309" width="365" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[注射部位の痛み、出血または感染症]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="108" y="235" width="16" height="16"/>
+				<box topPadding="0" leftPadding="0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(iii)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="264" width="395" height="30"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ブロックが効かない場合、または部分的にしか効かない場合は追加麻酔が必要になります。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="339" width="365" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[下半身麻痺 / 麻痺]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="106" y="373" width="16" height="16"/>
+				<box topPadding="0" leftPadding="0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(iv)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="121" y="373" width="398" height="49"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[* 必要に応じて深鎮静（監視下麻酔管理または全身麻酔）に変更する可能性があります。その際には「麻酔に関する同意書」をご参照ください。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="422" width="507" height="15"/>
+				<box topPadding="0" leftPadding="0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[私はさらに以下の内容を承諾します。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="422" width="18" height="133"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(3)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="41" y="436" width="483" height="50"/>
+				<box topPadding="1" leftPadding="0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[私が診察時に医師、医療スタッフ、看護師に提供した全ての情報は私の知る限り正確かつ真実です。情報の省略および不正確さが重篤な医療合併症をもたらしたり、処置に伴う予想されるリスクの正確性に影響する可能性があることを十分理解しています。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="17" y="436" width="25" height="50"/>
+				<box topPadding="1" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="41" y="485" width="483" height="15"/>
+				<box topPadding="0" leftPadding="0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[私は以下の内容を了承しました。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="61" y="499" width="462" height="35"/>
+				<box topPadding="1" leftPadding="0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[項目(2)(c)(d)にある合併症のリスクと副作用は必ずしもこの限りではなく、その他の合併症が起こる可能性があります。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="41" y="499" width="21" height="35"/>
+				<box topPadding="5" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(i)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="61" y="533" width="462" height="20"/>
+				<box topPadding="1" leftPadding="0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[医師以外の医療従事者が処置を支援する可能性があります。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="41" y="533" width="21" height="20"/>
+				<box topPadding="5" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(ii)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="61" y="552" width="462" height="34"/>
+				<box topPadding="1" leftPadding="0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[処置中に組織や臓器が摘出された場合、それが病理検査の後に適切に廃棄されることもあれば、病理検査等をせずに廃棄されることもあります。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="41" y="552" width="21" height="34"/>
+				<box topPadding="5" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(iii)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<summary>
+		<band height="541">
+			<staticText>
+				<reportElement mode="Transparent" x="40" y="1" width="21" height="31"/>
+				<box topPadding="1" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(iv)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="1" width="462" height="31"/>
+				<box topPadding="0" leftPadding="0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[医療記録作成や教育の目的で、術中に写真、録画等の記録をとることがあります。教育のために使用する際は、患者のプライバシーは保護されます。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="40" y="31" width="21" height="18"/>
+				<box topPadding="1" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(v)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="31" width="462" height="18"/>
+				<box topPadding="1" leftPadding="0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[術後に患者の状態や予後が必ず改善するという保証はありません。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="171" width="18" height="31"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(4)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="171" width="508" height="31"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[私は処置に関する説明書（コピー添付）の内容を読み充分に理解しました。<i>(該当しない場合はこの段落を削除する))</i>]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="208" width="18" height="30"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(5)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="208" width="483" height="30"/>
+				<textElement textAlignment="Justified" verticalAlignment="Bottom" markup="html">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" isItalic="true" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(患者/親/法定後見人もしくはそれ以外の方からの質問に対して何らかの説明がなされた場合、その質問内容とそれに対する回答、説明内容をここに記載する。)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="261" width="184" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="281" width="184" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[署名者の氏名 (ローマ字)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="202" y="281" width="142" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[署名]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="202" y="261" width="142" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="377" y="261" width="118" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="377" y="281" width="118" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[日付:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="377" y="337" width="118" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[日付:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="202" y="317" width="142" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="202" y="337" width="142" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[署名]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="337" width="184" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[医師の氏名 (ローマ字)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="377" y="317" width="118" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="317" width="184" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="377" y="368" width="118" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="202" y="388" width="142" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[署名 <i>(任意)</i>]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="202" y="368" width="142" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="368" width="184" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="377" y="388" width="118" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[日付:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="388" width="184" height="31"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[立会人の氏名 (ローマ字) <i>(任意)</i>]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="434" width="29" height="21"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" lineSpacing="1_1_2" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[私、]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="29" y="434" width="490" height="21"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="456" width="521" height="31"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Bottom" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[は、この書類の内容を患者/親/法定後見人に対し、忠実 に、かつ明確に聞き取れるように日本語に通訳いたしました。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="502" width="184" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="522" width="184" height="17"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[通訳者]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="269" y="502" width="118" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="269" y="522" width="118" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[日付:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="40" y="48" width="21" height="20"/>
+				<box topPadding="1" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(vi)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="48" width="462" height="20"/>
+				<box topPadding="1" leftPadding="0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[私/患者は、提案された麻酔の効果やリスクを医師から説明を受け理解しました。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="67" width="462" height="18"/>
+				<box topPadding="1" leftPadding="0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[私/患者は、その他の麻酔のオプションと、その効果やリスクを医師から説明を受けました。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="40" y="67" width="21" height="18"/>
+				<box topPadding="1" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(vii)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="59" y="84" width="462" height="31"/>
+				<box topPadding="1" leftPadding="0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[私は質問する機会を与えられ、麻酔に関する私/患者の懸念を表明し医師と話し合いをしたうえで満足のいく回答を得られました。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="39" y="84" width="21" height="18"/>
+				<box topPadding="1" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(viii)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="39" y="114" width="21" height="32"/>
+				<box topPadding="1" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(x)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="59" y="114" width="462" height="32"/>
+				<box topPadding="1" leftPadding="0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[合併症や麻酔処置のリスクは記載されていますが、この限りではありません。記載されていないまれな合併症がおこる可能性もあります。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="39" y="145" width="21" height="16"/>
+				<box topPadding="1" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(xi)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="59" y="145" width="462" height="16"/>
+				<box topPadding="1" leftPadding="0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[麻酔は外科医でなく麻酔科医が担当することがあります。]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

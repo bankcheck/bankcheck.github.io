@@ -1,0 +1,4 @@
+create or replace
+TYPE MEDBKG_FAMILY_HISTORY_TAB
+as table of MEDBKG_FAMILY_HISTORY;
+/

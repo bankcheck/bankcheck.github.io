@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RegPatientLabel" language="groovy" pageWidth="215" pageHeight="102" whenNoDataType="AllSectionsNoDetail" columnWidth="215" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="4.0000000000000036"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="chgfontSize" fill="Solid" isBlankWhenNull="true" fontName="Arial Unicode MS" isBold="true">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{name}.length() <= 27 ? true : false]]></conditionExpression>
+			<style fontSize="10"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{name}.length() > 27 ? true : false]]></conditionExpression>
+			<style fontSize="8"/>
+		</conditionalStyle>
+	</style>
+	<scriptlet name="TextScriptlet" class="com.text.TextScriptlet"/>
+	<parameter name="stecode" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patcname" class="java.lang.String"/>
+	<parameter name="patsex" class="java.lang.String"/>
+	<parameter name="name" class="java.lang.String"/>
+	<parameter name="patno1" class="java.lang.String"/>
+	<parameter name="patdob" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="37">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="71" y="11" width="132" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="11" width="60" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[Patient No.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="24" width="31" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement style="chgfontSize" positionType="Float" stretchType="RelativeToBandHeight" x="42" y="24" width="173" height="13" isPrintWhenDetailOverflows="true">
+					<property name="net.sf.jasperreports.text.truncate.at.char" value="true"/>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="12" y="0" width="191" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{stecode}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<summary>
+		<band height="42">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" isPrintRepeatedValues="false" x="33" y="24" width="23" height="12" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patsex}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="12" y="24" width="22" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Sex:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="42" y="0" width="161" height="14" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patcname}.equals(null) ? "" : $P{TextScriptlet_SCRIPTLET}.returnChinese($P{patcname})]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement positionType="FixRelativeToBottom" x="53" y="23" width="116" height="18"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode($P{patno1}.substring(0, $P{patno1}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="12" y="11" width="67" height="12"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="8" pdfFontName="Ming20190116" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Date of Birth:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement positionType="FixRelativeToBottom" isPrintRepeatedValues="false" x="78" y="11" width="125" height="12" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patdob}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

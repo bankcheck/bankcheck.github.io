@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptDocFeeSummary2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.948717100000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="in_SPHID_MAX" class="java.lang.String">
+		<defaultValueExpression><![CDATA["1494"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_dateend" class="java.lang.String">
+		<defaultValueExpression><![CDATA["01/01/1970"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_sitecode" class="java.lang.String">
+		<defaultValueExpression><![CDATA["HKAH"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_sitename" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select a.GRP, a.SUBGRP,a.DOCCODE,a.DOCFNAME,a.DOCGNAME,
+			a.SLPNO,a.SLPTYPE,a.STNID,a.STNSTS,to_char(a.STNCDATE, 'mm/dd/yyyy') STNCDATE,a.ITMCODE,a.STNDESC,a.STNBAMT,
+			a.STNDISC ,a.STNNAMT,a.PATNO,a.SLPFNAME,a.SLPGNAME ,a.PATFNAME,a.PATGNAME,a.PCYID,
+			a.DSCCODE ,a.DFX_PCT,a.DFX_FAMT,a.DFX_SAMT,a.DFX_PAMT,a.DFX_CAMT,a.COMMISSION,a.DFX_CODE ,
+			b.stnid, sum(b.spdaamt) as net,
+			nvl(Sum(Round(b.spdaamt * b.crarate / 100)), 0) As comm,
+			to_char(a.STNTDATE, 'mm/dd/yyyy') STNTDATE
+		from df_sliptx a, slppaydtl b
+		where a.dfx_camt<>0 and a.stnid=b.stnid and b.spdsts in ('A','N','U') and
+			b.sphid = $P{in_SPHID_MAX}
+		group by b.stnid,a.GRP, a.SUBGRP,a.DOCCODE,a.DOCFNAME,a.DOCGNAME,
+			a.SLPNO,a.SLPTYPE,a.STNID,a.STNSTS,a.STNCDATE,a.ITMCODE,a.STNDESC,a.STNBAMT,
+			a.STNDISC ,a.STNNAMT,a.PATNO,a.SLPFNAME,a.SLPGNAME ,a.PATFNAME,a.PATGNAME,a.PCYID,a.DSCCODE ,a.DFX_PCT,
+			A.DFX_FAMT , A.DFX_SAMT, A.DFX_PAMT, A.dfx_camt, A.COMMISSION, A.DFX_CODE,a.STNTDATE
+order by a.DOCFNAME,a.DOCGNAME,a.DOCCODE, a.SLPTYPE,a.ITMCODE,a.STNDESC,a.STNTDATE,a.SLPNO]]>
+	</queryString>
+	<field name="GRP" class="java.lang.String"/>
+	<field name="SUBGRP" class="java.lang.String"/>
+	<field name="DOCCODE" class="java.lang.String"/>
+	<field name="DOCFNAME" class="java.lang.String"/>
+	<field name="DOCGNAME" class="java.lang.String"/>
+	<field name="SLPNO" class="java.lang.String"/>
+	<field name="SLPTYPE" class="java.lang.String"/>
+	<field name="STNID" class="java.lang.String"/>
+	<field name="STNSTS" class="java.lang.String"/>
+	<field name="STNCDATE" class="java.lang.String"/>
+	<field name="ITMCODE" class="java.lang.String"/>
+	<field name="STNDESC" class="java.lang.String"/>
+	<field name="STNBAMT" class="java.lang.String"/>
+	<field name="STNDISC" class="java.lang.String"/>
+	<field name="STNNAMT" class="java.lang.String"/>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="SLPFNAME" class="java.lang.String"/>
+	<field name="SLPGNAME" class="java.lang.String"/>
+	<field name="PATFNAME" class="java.lang.String"/>
+	<field name="PATGNAME" class="java.lang.String"/>
+	<field name="PCYID" class="java.lang.String"/>
+	<field name="DSCCODE" class="java.lang.String"/>
+	<field name="DFX_PCT" class="java.lang.String"/>
+	<field name="DFX_FAMT" class="java.lang.String"/>
+	<field name="DFX_SAMT" class="java.lang.String"/>
+	<field name="DFX_PAMT" class="java.lang.String"/>
+	<field name="DFX_CAMT" class="java.lang.String"/>
+	<field name="COMMISSION" class="java.lang.String"/>
+	<field name="DFX_CODE" class="java.lang.String"/>
+	<field name="NET" class="java.lang.String"/>
+	<field name="COMM" class="java.lang.String"/>
+	<field name="STNTDATE" class="java.lang.String"/>
+	<variable name="docNameCode" class="java.lang.String">
+		<variableExpression><![CDATA[$F{DOCFNAME} + " " + $F{DOCGNAME} + " " + $F{DOCCODE}]]></variableExpression>
+	</variable>
+	<variable name="NET_N" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{NET} == null || $F{NET}.isEmpty() ? new BigDecimal(0) : new BigDecimal($F{NET})]]></variableExpression>
+	</variable>
+	<variable name="COMM_N" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{COMM} == null || $F{COMM}.isEmpty() ? new BigDecimal(0) : new BigDecimal($F{COMM})]]></variableExpression>
+	</variable>
+	<variable name="NET_1" class="java.math.BigDecimal" resetType="Group" resetGroup="StnDesc" calculation="Sum">
+		<variableExpression><![CDATA[$V{NET_N}]]></variableExpression>
+	</variable>
+	<variable name="COMM_1" class="java.math.BigDecimal" resetType="Group" resetGroup="StnDesc" calculation="Sum">
+		<variableExpression><![CDATA[$V{COMM_N}]]></variableExpression>
+	</variable>
+	<variable name="NET_2" class="java.math.BigDecimal" resetType="Group" resetGroup="SlpType" calculation="Sum">
+		<variableExpression><![CDATA[$V{NET_N}]]></variableExpression>
+	</variable>
+	<variable name="COMM_2" class="java.math.BigDecimal" resetType="Group" resetGroup="SlpType" calculation="Sum">
+		<variableExpression><![CDATA[$V{COMM_N}]]></variableExpression>
+	</variable>
+	<variable name="NET_3" class="java.math.BigDecimal" resetType="Group" resetGroup="Doctor" calculation="Sum">
+		<variableExpression><![CDATA[$V{NET_N}]]></variableExpression>
+	</variable>
+	<variable name="COMM_3" class="java.math.BigDecimal" resetType="Group" resetGroup="Doctor" calculation="Sum">
+		<variableExpression><![CDATA[$V{COMM_N}]]></variableExpression>
+	</variable>
+	<variable name="ITMCODE_1" class="java.lang.Integer" resetType="Group" resetGroup="StnDesc" calculation="Count">
+		<variableExpression><![CDATA[$F{ITMCODE}]]></variableExpression>
+	</variable>
+	<variable name="ITMCODE_2" class="java.lang.Integer" resetType="Group" resetGroup="SlpType" calculation="Count">
+		<variableExpression><![CDATA[$F{ITMCODE}]]></variableExpression>
+	</variable>
+	<variable name="ITMCODE_3" class="java.lang.Integer" resetType="Group" resetGroup="Doctor" calculation="Count">
+		<variableExpression><![CDATA[$F{ITMCODE}]]></variableExpression>
+	</variable>
+	<variable name="ITMCODE_4" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{ITMCODE}]]></variableExpression>
+	</variable>
+	<variable name="NET_4" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{NET_N}]]></variableExpression>
+	</variable>
+	<variable name="COMM_4" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{COMM_N}]]></variableExpression>
+	</variable>
+	<group name="Doctor">
+		<groupExpression><![CDATA[$V{docNameCode}]]></groupExpression>
+		<groupHeader>
+			<band height="15">
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" bookmarkLevel="1">
+					<reportElement x="0" y="0" width="39" height="15"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCCODE}]]></textFieldExpression>
+					<anchorNameExpression><![CDATA[$F{DOCFNAME} + " " + $F{DOCGNAME} + " " + $F{DOCCODE}]]></anchorNameExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="53" y="0" width="221" height="15"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCFNAME} + " " + $F{DOCGNAME}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="12">
+				<staticText>
+					<reportElement x="114" y="0" width="46" height="12"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement>
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Sub Total]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="456" y="0" width="49" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{NET_3}.subtract($V{COMM_3})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="385" y="0" width="65" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{COMM_3}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="314" y="0" width="65" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{NET_3}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="510" y="0" width="45" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{ITMCODE_3}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="SlpType">
+		<groupExpression><![CDATA[$F{SLPTYPE}]]></groupExpression>
+		<groupFooter>
+			<band height="16">
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" bookmarkLevel="2">
+					<reportElement x="120" y="0" width="55" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["I".equals($F{SLPTYPE}) ? "In-patient" :
+(
+    "O".equals($F{SLPTYPE}) ? "Out-patient" : "Daycase"
+)]]></textFieldExpression>
+					<anchorNameExpression><![CDATA[$F{SLPTYPE}]]></anchorNameExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="314" y="0" width="65" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{NET_2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="385" y="0" width="65" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{COMM_2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="456" y="0" width="49" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{NET_2}.subtract($V{COMM_2})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="510" y="0" width="45" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{ITMCODE_2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="StnDesc">
+		<groupExpression><![CDATA[$F{STNDESC}]]></groupExpression>
+		<groupFooter>
+			<band height="12">
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="314" y="0" width="65" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{NET_1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="385" y="0" width="65" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{COMM_1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="456" y="0" width="49" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{NET_1}.subtract($V{COMM_1})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="510" y="0" width="45" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{ITMCODE_1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="181" y="0" width="123" height="12"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{STNDESC}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="111" splitType="Stretch">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement x="0" y="0" width="555" height="18"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{in_sitename}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement x="0" y="18" width="555" height="18"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Doctor Fee Report 2 Summary"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement x="0" y="36" width="555" height="18"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["As of " + $P{in_dateend}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="467" y="63" width="62" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement x="529" y="63" width="26" height="13"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="53" y="94" width="61" height="12"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Doctor Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="181" y="84" width="93" height="22"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Item
+Description]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="39" y="93" width="14" height="13"/>
+			</frame>
+			<frame>
+				<reportElement x="114" y="93" width="6" height="13"/>
+			</frame>
+			<staticText>
+				<reportElement x="120" y="94" width="55" height="12"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[I/O/D Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="94" width="39" height="12"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="314" y="85" width="65" height="22"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dr Fee
+(After Disc.)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="456" y="95" width="49" height="12"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="385" y="85" width="65" height="22"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Card
+Commission]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="510" y="95" width="45" height="12"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Count]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="175" y="93" width="6" height="13"/>
+			</frame>
+			<frame>
+				<reportElement x="505" y="94" width="6" height="13"/>
+			</frame>
+			<frame>
+				<reportElement x="450" y="94" width="6" height="13"/>
+			</frame>
+			<frame>
+				<reportElement x="379" y="93" width="6" height="13"/>
+			</frame>
+		</band>
+	</pageHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<summary>
+		<band height="12" splitType="Stretch">
+			<staticText>
+				<reportElement x="114" y="0" width="46" height="12"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="314" y="0" width="65" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{NET_4}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="385" y="0" width="65" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{COMM_4}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="456" y="0" width="49" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{NET_4}.subtract($V{COMM_4})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="510" y="0" width="45" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{ITMCODE_4}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

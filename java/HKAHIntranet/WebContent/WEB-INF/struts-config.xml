@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC
+	  "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+	  "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+	<!-- ========== Form Bean Definitions ================================== -->
+	<form-beans>
+		<form-bean name="LogonForm" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="loginID" type="java.lang.String" />
+			<form-property name="loginPwd" type="java.lang.String" />
+			<form-property name="savePwd" type="java.lang.String" />
+		</form-bean>
+		<form-bean name="UserForm" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="command" type="java.lang.String" />
+			<form-property name="step" type="java.lang.String" />
+			<form-property name="userName" type="java.lang.String" />
+			<form-property name="password" type="java.lang.String" />
+			<form-property name="lastName" type="java.lang.String" />
+			<form-property name="firstName" type="java.lang.String" />
+			<form-property name="emailPrefix" type="java.lang.String" />
+			<form-property name="emailSuffix" type="java.lang.String" />
+			<form-property name="siteCode" type="java.lang.String" />
+			<form-property name="staffID" type="java.lang.String" />
+			<form-property name="groupName" type="java.lang.String" />
+			<form-property name="functionID" type="java.lang.String[]" />
+			<form-property name="noLevelGroupID" type="java.lang.String[]" />
+			<form-property name="cID" type="java.lang.String" />
+			<form-property name="level" type="java.lang.String" />
+			<form-property name="enabled" type="java.lang.String" />
+		</form-bean>
+		<form-bean name="ChangePasswordForm" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="oldPassword" type="java.lang.String" />
+			<form-property name="password" type="java.lang.String" />
+			<form-property name="confirmPassword" type="java.lang.String" />
+			<form-property name="module" type="java.lang.String" />
+		</form-bean>
+		<form-bean name="ResetPasswordForm" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="email" type="java.lang.String" />
+			<form-property name="staffID" type="java.lang.String" />
+		</form-bean>
+		<form-bean name="CRMResetPasswordForm" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="userName" type="java.lang.String" />
+		</form-bean>
+		<form-bean name="CRMChangeLoginIDForm" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="newLoginID" type="java.lang.String" />
+			<form-property name="password" type="java.lang.String" />
+			<form-property name="confirmPassword" type="java.lang.String" />
+		</form-bean>
+	</form-beans>
+
+	<!-- ========== Global Exception Definitions =========================== -->
+
+	<global-exceptions>
+		<exception type="com.hkah.web.exception.BaseException" key="error.loginPwd.invalid" />
+	</global-exceptions>
+
+	<!-- ========== Global Forward Definitions ============================= -->
+
+	<global-forwards>
+		<forward name="home" path="/Home.do"/>
+		<forward name="login" redirect="false" path="/Login.do" />
+	</global-forwards>
+
+	<!-- ========== Action Mapping Definitions ============================= -->
+	<action-mappings>
+		<action
+			path="/Home"
+			type="org.apache.struts.actions.ForwardAction"
+			parameter="/index.jsp"/>
+		<action path="LogonForm" forward="/index.jsp" />
+		<action
+			path="/Logon"
+			type="com.hkah.web.action.LogonAction"
+			name="LogonForm"
+			validate="true"
+			scope="session"
+			input="/common/banner.jsp">
+			<forward name="success" path="/index.jsp"/>
+			<forward name="fail" path="/common/banner.jsp"/>
+		</action>
+		<action
+			path="/Logoff"
+			type="com.hkah.web.action.LogoffAction"
+			scope="session"
+			input="/common/banner.jsp">
+			<forward name="success" path="/index.jsp"/>
+			<forward name="successSingleSignOut" path="/index.jsp?singleSignOut=true"/>
+		</action>
+		<action
+			path="/User"
+			type="com.hkah.web.action.UserAction"
+			name="UserForm"
+			validate="true"
+			scope="session"
+			input="/admin/user.jsp">
+			<forward name="logon" path="/index.jsp"/>
+			<forward name="main" path="/common/main.jsp"/>
+			<forward name="user" path="/admin/user.jsp"/>
+		</action>
+		<action
+			path="/CRMUser"
+			type="com.hkah.web.action.UserAction"
+			name="UserForm"
+			validate="true"
+			scope="session"
+			input="/crm/portal/user.jsp">
+			<forward name="logon" path="/index.jsp"/>
+			<forward name="main" path="/common/main.jsp"/>
+			<forward name="user" path="/crm/portal/user.jsp"/>
+		</action>
+		<action
+			path="/CRMChangeLoginID"
+			type="com.hkah.web.action.ChangeLoginIDAction"
+			name="CRMChangeLoginIDForm"
+			validate="true"
+			scope="session"
+			input="/crm/portal/clientFirstLogin.jsp">
+			<forward name="success" path="/crm/portal/clientFirstLogin.jsp"/>
+			<forward name="fail" path="/crm/portal/clientFirstLogin.jsp"/>
+		</action>
+
+
+		<action
+			path="/ChangePassword"
+			type="com.hkah.web.action.ChangePasswordAction"
+			name="ChangePasswordForm"
+			validate="true"
+			scope="session"
+			input="/admin/change_password.jsp">
+			<forward name="success" path="/admin/change_password_success.jsp"/>
+			<forward name="fail" path="/admin/change_password.jsp"/>
+			<forward name="crm_success" path="/crm/portal/changePwd.jsp"/>
+		</action>
+		<action
+			path="/ResetPassword"
+			type="com.hkah.web.action.ResetPasswordAction"
+			name="ResetPasswordForm"
+			validate="true"
+			scope="session"
+			input="/admin/reset_password.jsp">
+			<forward name="success" path="/admin/reset_password.jsp"/>
+		</action>
+		<action
+			path="/CRMResetPassword"
+			type="com.hkah.web.action.CRMResetPasswordAction"
+			name="CRMResetPasswordForm"
+			validate="true"
+			scope="session"
+			input="/admin/reset_password.jsp">
+			<forward name="success" path="/crm/portal/reset_password.jsp"/>
+		</action>
+	</action-mappings>
+
+	<!-- ========== Message Resources Definitions =========================== -->
+	<message-resources parameter="MessageResources" />
+
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames" value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml" />
+	</plug-in>
+</struts-config>

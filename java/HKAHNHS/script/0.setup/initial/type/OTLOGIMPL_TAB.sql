@@ -1,0 +1,4 @@
+create or replace
+TYPE OTLOGIMPL_TAB
+AS TABLE OF OTLOGIMPL;
+/

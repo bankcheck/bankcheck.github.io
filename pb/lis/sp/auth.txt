@@ -1,0 +1,155 @@
+create or replace procedure auth( p_mode in varchar2, p_mode_value in varchar2, p_lab_num in varchar2, p_user_id in varchar2 ) as
+--  cursor c_h is select h.lab_num, h.test_type, h.status
+--                  from labo_header h join labm_testtype tt on ( tt.test_type = h.test_type and tt.dept_grp = p_test_cat )
+--                 where lab_num = p_lab_num for update of h.status ;
+  cursor c_h is select tt.dept_grp, h.lab_num, h.test_type, h.status
+-- 20100428
+                  from labo_header h join labm_testtype tt on ( tt.test_type = h.test_type )
+--                  from labo_header h join labm_rpt_testtype tt on ( tt.test_type = h.test_type )
+                 where decode( upper(p_mode), 'TEST_TYPE', tt.test_type, tt.dept_grp ) = p_mode_value
+                   and lab_num = p_lab_num for update of h.status ;
+  cursor c_d ( p_test_type varchar2 ) is select d.lab_num, d.test_num, d.status, d.print_type
+              from labo_detail d
+             where lab_num = p_lab_num and d.test_type = p_test_type for update of d.status, d.print_type ;
+  l_cnt_com_y number(3) ;  -- complete
+  l_cnt_com_n number(3) ;
+  l_cnt_rel_y number(3) ; -- release
+  l_cnt_rel_n number(3) ;
+  l_cnt_rbdt number(1) ;
+  l_module labo_mastrbdt.module%type ;
+  l_loc_code labo_masthead.loc_code%type ;
+  l_rpt_status labo_mastrpt.rpt_status%type ;
+  l_header_status labo_header.status%type ;
+  l_masthead_status labo_masthead.status%type ;
+  l_test_cat labm_testtype.dept_grp%type ;
+  l_rpt_count number(3) ;
+  l_found number(1) ;
+begin
+  l_cnt_com_y := 0 ;
+  l_cnt_com_n := 0 ;
+  begin
+    select loc_code into l_loc_code from labo_masthead where lab_num = p_lab_num ;
+  exception when others then
+    null ;
+  end ;
+  
+  for r_h in c_h loop
+      l_test_cat := r_h.dept_grp ;
+      l_header_status := null ;
+      l_masthead_status := null ;
+      l_cnt_rel_y := 0 ;
+      l_cnt_rel_n := 0 ;
+      for r_d in c_d ( r_h.test_type ) loop
+          if r_d.status = '2' then
+             update labo_detail set print_type = 'N' where current of c_d ;
+             l_cnt_rel_y := l_cnt_rel_y + 1 ;
+             l_cnt_com_y := l_cnt_com_y + 1 ;
+          elsif r_d.status = '4' then
+             update labo_detail set status = '2', print_type = 'P' where current of c_d ;
+             l_cnt_rel_y := l_cnt_rel_y + 1 ;
+             l_cnt_com_y := l_cnt_com_y + 1 ;
+          else
+             update labo_detail set print_type = 'F' where current of c_d ;
+             l_cnt_rel_n := l_cnt_rel_n + 1 ;
+             l_cnt_com_n := l_cnt_com_n + 1 ;
+          end if ;
+          update labo_detail set report_dt = sysdate, report_by = p_user_id where current of c_d ;
+      end loop ;
+      -- may be replaced by '2' when status of other's test_type also ok
+      if r_h.status = '4' or r_h.status = '7' then
+         l_header_status := '5' ;
+         l_masthead_status := '5' ;
+      end if ;
+      --if l_cnt_rel_y > 0 then
+      --   if l_cnt_rel_n > 0 then -- partial release by test_type
+      --      l_header_status := '5' ;
+      --      l_masthead_status := '5' ;
+      --   else -- l_cnt_rel_n = 0, full release by test_type
+      --      l_header_status := '2' ;
+      --      l_masthead_status := '2' ;
+      --   end if ;
+      --else -- l_cnt_rel_y = 0, not partial release by test_type
+      --   null ;
+      --end if ;
+      if l_header_status is not null then
+         update labo_header set status = l_header_status where current of c_h ;
+         upd_masthead_status( p_lab_num, r_h.test_type, l_masthead_status ) ;
+      end if ;
+  end loop ;
+
+  l_module :=
+    case l_test_cat
+      when '1' then 'CHEM'
+      when '2' then 'HEM'
+      when '3' then 'URIN'
+      when '4' then 'REF'
+      when '5' then 'MICRO'
+      when 'B' then 'BLOODBAND'
+    end ;
+  
+  --l_cnt_rbdt := 0 ;
+  -- select count(1) into l_cnt_rbdt from labo_mastrbdt where lab_num = p_lab_num and test_cat = l_test_cat ;
+  --if l_cnt_rbdt = 0 then
+  --   insert into labo_mastrbdt ( lab_num, test_cat, module ) values ( p_lab_num, l_test_cat, l_module ) ;
+  --end if ;
+  
+  -- 20091030 : request by arran, when test_cat = '3', insert records according to test_type(s)
+  if l_test_cat = '3' then
+     for r in c_h loop
+        begin
+          insert into labo_mastrbdt ( lab_num, test_cat, module ) values ( p_lab_num, l_test_cat, decode( r.test_type, '4', 'URIN', 'S', 'STOOL', 'U', 'URINOFF' ) ) ;
+        exception when others then
+          null ;
+        end ;
+     end loop ;
+  else
+     begin
+       insert into labo_mastrbdt ( lab_num, test_cat, module ) values ( p_lab_num, l_test_cat, l_module ) ;
+     exception when others then
+       null ;
+     end ;
+  end if ;
+  -- 20091030 : end
+  
+  update labo_mastrbdt set report_by = p_user_id, rpt_date = sysdate, rpt_time = to_char(sysdate, 'HH24:MI:SS')
+   where lab_num = p_lab_num and test_cat = l_test_cat ;
+
+  if l_cnt_com_y > 0 then
+     if l_cnt_com_n > 0 then -- partial release by test_cat
+        l_rpt_status := 'INTERIM' ;
+     else -- l_cnt_com_n = 0, full release by test_cat
+        l_rpt_status := 'COMPLETE' ;
+        -- when all detail'status of the dept_grp is '2', then all header's status will set to '2' with masthead too 
+        for r in ( select h.test_type from labo_header h join labm_testtype t on h.test_type = t.test_type where h.lab_num = p_lab_num and t.dept_grp = l_test_cat ) loop
+           update labo_header set status = '2' where lab_num = p_lab_num and test_type = r.test_type ;
+           upd_masthead_status( p_lab_num, r.test_type, '2' ) ;
+           -- added on 20 July 2009, reset print_type flag for reprint all test when this is full release
+           update labo_detail set print_type = 'P' where lab_num = p_lab_num and test_type = r.test_type ;
+        end loop ;
+     end if ;
+  else -- l_cnt_com_y = 0, not partial release by test_cat
+     null ;
+  end if ;
+
+-- 20100329 : begin   
+  select count(1) + 1 into l_rpt_count from labo_mastrpt where lab_num = p_lab_num and test_cat = l_test_cat ;
+-- 20100329 : end
+  insert into labo_mastrpt ( lab_num, loc_code, rpt_date, rpt_time, rpt_by, rpt_status, rpt_count, test_cat, rpt_no )
+  values ( p_lab_num, l_loc_code, sysdate, to_char(sysdate, 'HH24:MI:SS'), p_user_id, l_rpt_status, l_rpt_count, l_test_cat, 1 ) ;
+-- 20100329
+--  values ( p_lab_num, l_loc_code, sysdate, to_char(sysdate, 'HH24:MI:SS'), p_user_id, l_rpt_status, 1, l_test_cat ) ;
+
+-- 20150709 : begin 20200720 add pat_notify_status 
+if l_rpt_status = 'COMPLETE' then
+  l_found := 0 ;
+  select count(1) into l_found from labo_report_log where lab_num = p_lab_num and test_cat = l_test_cat ;
+  if l_found >= 1 then
+     update labo_report_log set ehr_status = 'R', drmail_status = 'R', pat_notify_status = 'R', rpt_version = rpt_version + 1 where lab_num = p_lab_num and test_cat = l_test_cat ;
+  else
+	insert into labo_report_log ( lab_num, test_cat, rpt_date, rpt_by, rpt_version, fname, folder, ehr_status, ehr_record_key, drmail_status, pat_notify_status, rpt_no, file_id )
+     values ( p_lab_num, l_test_cat, sysdate, p_user_id, 1, null, null, 'R', null, 'R', 'R', 1, null ) ;
+  end if ;
+end if ;
+-- 20150709 : end
+  update labo_masthead set report_by = p_user_id, date_rpt = sysdate, time_rpt = to_char(sysdate, 'HH24:MI:SS') where lab_num = p_lab_num ;
+end ;

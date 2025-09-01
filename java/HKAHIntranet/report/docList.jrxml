@@ -1,0 +1,733 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="docList" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.1000000000000054"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dept" class="java.lang.String"/>
+	<parameter name="docChinName0" class="java.lang.String"/>
+	<parameter name="docChinName1" class="java.lang.String"/>
+	<parameter name="docChinName2" class="java.lang.String"/>
+	<parameter name="docChinName3" class="java.lang.String"/>
+	<parameter name="docChinName4" class="java.lang.String"/>
+	<parameter name="docChinName5" class="java.lang.String"/>
+	<parameter name="docChinName6" class="java.lang.String"/>
+	<parameter name="docChinName7" class="java.lang.String"/>
+	<parameter name="docChinName8" class="java.lang.String"/>
+	<parameter name="docChinName9" class="java.lang.String"/>
+	<parameter name="docChinName10" class="java.lang.String"/>
+	<parameter name="docChinName11" class="java.lang.String"/>
+	<parameter name="docChinName12" class="java.lang.String"/>
+	<parameter name="docChinName13" class="java.lang.String"/>
+	<parameter name="docChinName14" class="java.lang.String"/>
+	<parameter name="docChinName15" class="java.lang.String"/>
+	<parameter name="docChinName16" class="java.lang.String"/>
+	<parameter name="docChinName17" class="java.lang.String"/>
+	<parameter name="docChinName18" class="java.lang.String"/>
+	<parameter name="docChinName19" class="java.lang.String"/>
+	<parameter name="docChinName20" class="java.lang.String"/>
+	<parameter name="docChinName21" class="java.lang.String"/>
+	<parameter name="docChinName22" class="java.lang.String"/>
+	<parameter name="docChinName23" class="java.lang.String"/>
+	<parameter name="docChinName24" class="java.lang.String"/>
+	<parameter name="docChinName25" class="java.lang.String"/>
+	<parameter name="docChinName26" class="java.lang.String"/>
+	<parameter name="docChinName27" class="java.lang.String"/>
+	<parameter name="docChinName28" class="java.lang.String"/>
+	<parameter name="docChinName29" class="java.lang.String"/>
+	<parameter name="docChinName30" class="java.lang.String"/>
+	<parameter name="docChinName31" class="java.lang.String"/>
+	<parameter name="docChinName32" class="java.lang.String"/>
+	<parameter name="url" class="java.lang.String"/>
+	<parameter name="drCode0" class="java.lang.String"/>
+	<parameter name="drCode1" class="java.lang.String"/>
+	<parameter name="drCode2" class="java.lang.String"/>
+	<parameter name="drCode3" class="java.lang.String"/>
+	<parameter name="drCode4" class="java.lang.String"/>
+	<parameter name="drCode5" class="java.lang.String"/>
+	<parameter name="drCode6" class="java.lang.String"/>
+	<parameter name="drCode7" class="java.lang.String"/>
+	<parameter name="drCode8" class="java.lang.String"/>
+	<parameter name="drCode9" class="java.lang.String"/>
+	<parameter name="drCode10" class="java.lang.String"/>
+	<parameter name="drCode11" class="java.lang.String"/>
+	<parameter name="drCode12" class="java.lang.String"/>
+	<parameter name="drCode13" class="java.lang.String"/>
+	<parameter name="drCode14" class="java.lang.String"/>
+	<parameter name="drCode15" class="java.lang.String"/>
+	<parameter name="drCode16" class="java.lang.String"/>
+	<parameter name="drCode17" class="java.lang.String"/>
+	<parameter name="drCode18" class="java.lang.String"/>
+	<parameter name="drCode19" class="java.lang.String"/>
+	<parameter name="drCode20" class="java.lang.String"/>
+	<parameter name="drCode21" class="java.lang.String"/>
+	<parameter name="drCode22" class="java.lang.String"/>
+	<parameter name="drCode23" class="java.lang.String"/>
+	<parameter name="drCode24" class="java.lang.String"/>
+	<parameter name="drCode25" class="java.lang.String"/>
+	<parameter name="drCode26" class="java.lang.String"/>
+	<parameter name="drCode27" class="java.lang.String"/>
+	<parameter name="drCode28" class="java.lang.String"/>
+	<parameter name="drCode29" class="java.lang.String"/>
+	<parameter name="drCode30" class="java.lang.String"/>
+	<parameter name="drCode31" class="java.lang.String"/>
+	<parameter name="drCode32" class="java.lang.String"/>
+	<parameter name="numDoc" class="java.lang.Integer"/>
+	<parameter name="BaseDir" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="50">
+			<textField>
+				<reportElement x="177" y="16" width="240" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="18" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Department: " + $P{dept}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="792" splitType="Prevent">
+			<textField isBlankWhenNull="true">
+				<reportElement x="57" y="29" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" isItalic="true" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName0}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="237" y="29" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" isItalic="true" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="417" y="29" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" isItalic="true" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="57" y="219" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="237" y="219" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName4}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="237" y="599" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName10}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="417" y="599" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName11}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="417" y="409" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName8}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="57" y="599" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName9}]]></textFieldExpression>
+			</textField>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="57" y="49" width="120" height="141" isPrintWhenDetailOverflows="true"/>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode0} +".jpg")).exists() && !(new File($P{url} + $P{drCode0} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode0} +".jpg":
+	(((new File($P{url} + $P{drCode0} +".bmp")).exists() && !(new File($P{url} + $P{drCode0} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode0} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="237" y="49" width="120" height="141" isPrintWhenDetailOverflows="true"/>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode1} +".jpg")).exists() && !(new File($P{url} + $P{drCode1} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode1} +".jpg":
+	(((new File($P{url} + $P{drCode1} +".bmp")).exists() && !(new File($P{url} + $P{drCode1} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode1} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="417" y="49" width="120" height="141" isPrintWhenDetailOverflows="true"/>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode2} +".jpg")).exists() && !(new File($P{url} + $P{drCode2} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode2} +".jpg":
+	(((new File($P{url} + $P{drCode2} +".bmp")).exists() && !(new File($P{url} + $P{drCode2} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode2} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="57" y="239" width="120" height="141" isPrintWhenDetailOverflows="true"/>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode3} +".jpg")).exists() && !(new File($P{url} + $P{drCode3} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode3} +".jpg":
+	(((new File($P{url} + $P{drCode3} +".bmp")).exists() && !(new File($P{url} + $P{drCode3} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode3} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="237" y="239" width="120" height="141" isPrintWhenDetailOverflows="true"/>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode4} +".jpg")).exists() && !(new File($P{url} + $P{drCode4} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode4} +".jpg":
+	(((new File($P{url} + $P{drCode4} +".bmp")).exists() && !(new File($P{url} + $P{drCode4} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode4} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="417" y="239" width="120" height="141" isPrintWhenDetailOverflows="true"/>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode5} +".jpg")).exists() && !(new File($P{url} + $P{drCode5} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode5} +".jpg":
+	(((new File($P{url} + $P{drCode5} +".bmp")).exists() && !(new File($P{url} + $P{drCode5} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode5} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="57" y="429" width="120" height="141" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>6)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode6} +".jpg")).exists() && !(new File($P{url} + $P{drCode6} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode6} +".jpg":
+	(((new File($P{url} + $P{drCode6} +".bmp")).exists() && !(new File($P{url} + $P{drCode6} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode6} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="237" y="429" width="120" height="141" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>7)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode7} +".jpg")).exists() && !(new File($P{url} + $P{drCode7} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode7} +".jpg":
+	(((new File($P{url} + $P{drCode7} +".bmp")).exists() && !(new File($P{url} + $P{drCode7} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode7} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="417" y="429" width="120" height="141" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>8)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode8} +".jpg")).exists() && !(new File($P{url} + $P{drCode8} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode8} +".jpg":
+	(((new File($P{url} + $P{drCode8} +".bmp")).exists() && !(new File($P{url} + $P{drCode8} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode8} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="57" y="619" width="120" height="141" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>9)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode9} +".jpg")).exists() && !(new File($P{url} + $P{drCode9} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode9} +".jpg":
+	(((new File($P{url} + $P{drCode9} +".bmp")).exists() && !(new File($P{url} + $P{drCode9} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode9} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="237" y="619" width="120" height="141" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>10)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode10} +".jpg")).exists() && !(new File($P{url} + $P{drCode10} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode10} +".jpg":
+	(((new File($P{url} + $P{drCode10} +".bmp")).exists() && !(new File($P{url} + $P{drCode10} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode10} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="417" y="619" width="120" height="141" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>11)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode11} +".jpg")).exists() && !(new File($P{url} + $P{drCode11} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode11} +".jpg":
+	(((new File($P{url} + $P{drCode11} +".bmp")).exists() && !(new File($P{url} + $P{drCode11} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode11} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="417" y="219" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName5}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="57" y="409" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName6}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="237" y="409" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName7}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="792" splitType="Prevent">
+			<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>12)]]></printWhenExpression>
+			<textField isBlankWhenNull="true">
+				<reportElement x="57" y="29" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" isItalic="true" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName12}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="237" y="29" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" isItalic="true" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName13}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="417" y="29" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" isItalic="true" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName14}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="57" y="219" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName15}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="237" y="219" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName16}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="417" y="219" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName17}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="57" y="409" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName18}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="237" y="409" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName19}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="417" y="409" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName20}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="57" y="599" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName21}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="237" y="599" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName22}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="417" y="599" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName23}]]></textFieldExpression>
+			</textField>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="57" y="49" width="120" height="141" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>12)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode12} +".jpg")).exists() && !(new File($P{url} + $P{drCode12} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode12} +".jpg":
+	(((new File($P{url} + $P{drCode12} +".bmp")).exists() && !(new File($P{url} + $P{drCode12} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode12} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="237" y="49" width="120" height="141" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>13)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode13} +".jpg")).exists() && !(new File($P{url} + $P{drCode13} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode13} +".jpg":
+	(((new File($P{url} + $P{drCode13} +".bmp")).exists() && !(new File($P{url} + $P{drCode13} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode13} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="417" y="49" width="120" height="141" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>14)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode14} +".jpg")).exists() && !(new File($P{url} + $P{drCode14} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode14} +".jpg":
+	(((new File($P{url} + $P{drCode14} +".bmp")).exists() && !(new File($P{url} + $P{drCode14} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode14} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="57" y="239" width="120" height="141" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>15)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode15} +".jpg")).exists() && !(new File($P{url} + $P{drCode15} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode15} +".jpg":
+	(((new File($P{url} + $P{drCode15} +".bmp")).exists() && !(new File($P{url} + $P{drCode15} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode15} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="237" y="239" width="120" height="141" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>16)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode16} +".jpg")).exists() && !(new File($P{url} + $P{drCode16} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode16} +".jpg":
+	(((new File($P{url} + $P{drCode16} +".bmp")).exists() && !(new File($P{url} + $P{drCode16} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode16} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="417" y="239" width="120" height="141" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>17)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode17} +".jpg")).exists() && !(new File($P{url} + $P{drCode17} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode17} +".jpg":
+	(((new File($P{url} + $P{drCode17} +".bmp")).exists() && !(new File($P{url} + $P{drCode17} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode17} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="57" y="429" width="120" height="141" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>18)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode18} +".jpg")).exists() && !(new File($P{url} + $P{drCode18} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode18} +".jpg":
+	(((new File($P{url} + $P{drCode18} +".bmp")).exists() && !(new File($P{url} + $P{drCode18} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode18} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="237" y="429" width="120" height="141" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>19)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode19} +".jpg")).exists() && !(new File($P{url} + $P{drCode19} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode19} +".jpg":
+	(((new File($P{url} + $P{drCode19} +".bmp")).exists() && !(new File($P{url} + $P{drCode19} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode19} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="417" y="429" width="120" height="141" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>20)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode20} +".jpg")).exists() && !(new File($P{url} + $P{drCode20} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode20} +".jpg":
+	(((new File($P{url} + $P{drCode20} +".bmp")).exists() && !(new File($P{url} + $P{drCode20} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode20} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="57" y="619" width="120" height="141" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>21)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode21} +".jpg")).exists() && !(new File($P{url} + $P{drCode21} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode21} +".jpg":
+	(((new File($P{url} + $P{drCode21} +".bmp")).exists() && !(new File($P{url} + $P{drCode21} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode21} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="237" y="619" width="120" height="141" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>22)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode22} +".jpg")).exists() && !(new File($P{url} + $P{drCode22} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode22} +".jpg":
+	(((new File($P{url} + $P{drCode22} +".bmp")).exists() && !(new File($P{url} + $P{drCode22} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode22} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="417" y="619" width="120" height="141" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>23)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode23} +".jpg")).exists() && !(new File($P{url} + $P{drCode23} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode23} +".jpg":
+	(((new File($P{url} + $P{drCode23} +".bmp")).exists() && !(new File($P{url} + $P{drCode23} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode23} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+		</band>
+		<band height="582" splitType="Prevent">
+			<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>24)]]></printWhenExpression>
+			<textField isBlankWhenNull="true">
+				<reportElement x="57" y="29" width="120" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>24)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" isItalic="true" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName24}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="237" y="29" width="120" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>25)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" isItalic="true" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName25}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="417" y="29" width="120" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>26)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" isItalic="true" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName26}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="57" y="219" width="120" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>27)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName27}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="237" y="219" width="120" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>28)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName28}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="417" y="219" width="120" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>29)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName29}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="57" y="409" width="120" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>30)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName30}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="237" y="409" width="120" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>31)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName31}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="417" y="409" width="120" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>32)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646)" pdfFontName="Ming(for ISO10646)" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docChinName32}]]></textFieldExpression>
+			</textField>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="57" y="49" width="120" height="141" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>24)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode24} +".jpg")).exists() && !(new File($P{url} + $P{drCode24} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode24} +".jpg":
+	(((new File($P{url} + $P{drCode24} +".bmp")).exists() && !(new File($P{url} + $P{drCode24} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode24} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="237" y="49" width="120" height="141" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>25)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode25} +".jpg")).exists() && !(new File($P{url} + $P{drCode25} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode25} +".jpg":
+	(((new File($P{url} + $P{drCode25} +".bmp")).exists() && !(new File($P{url} + $P{drCode25} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode25} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="417" y="49" width="120" height="141" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>26)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode26} +".jpg")).exists() && !(new File($P{url} + $P{drCode26} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode26} +".jpg":
+	(((new File($P{url} + $P{drCode26} +".bmp")).exists() && !(new File($P{url} + $P{drCode26} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode26} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="57" y="239" width="120" height="141" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>27)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode27} +".jpg")).exists() && !(new File($P{url} + $P{drCode27} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode27} +".jpg":
+	(((new File($P{url} + $P{drCode27} +".bmp")).exists() && !(new File($P{url} + $P{drCode27} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode27} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="237" y="239" width="120" height="141" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>28)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode28} +".jpg")).exists() && !(new File($P{url} + $P{drCode28} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode28} +".jpg":
+	(((new File($P{url} + $P{drCode28} +".bmp")).exists() && !(new File($P{url} + $P{drCode28} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode28} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="417" y="239" width="120" height="141" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>29)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode29} +".jpg")).exists() && !(new File($P{url} + $P{drCode29} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode29} +".jpg":
+	(((new File($P{url} + $P{drCode29} +".bmp")).exists() && !(new File($P{url} + $P{drCode29} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode29} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="57" y="429" width="120" height="141" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>30)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode30} +".jpg")).exists() && !(new File($P{url} + $P{drCode30} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode30} +".jpg":
+	(((new File($P{url} + $P{drCode30} +".bmp")).exists() && !(new File($P{url} + $P{drCode30} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode30} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="237" y="429" width="120" height="141" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>31)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode31} +".jpg")).exists() && !(new File($P{url} + $P{drCode31} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode31} +".jpg":
+	(((new File($P{url} + $P{drCode31} +".bmp")).exists() && !(new File($P{url} + $P{drCode31} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode31} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="417" y="429" width="120" height="141" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[new Boolean ($P{numDoc}>32)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File(
+	((new File($P{url} + $P{drCode32} +".jpg")).exists() && !(new File($P{url} + $P{drCode32} +".jpg")).isDirectory())?
+	$P{url} + $P{drCode32} +".jpg":
+	(((new File($P{url} + $P{drCode32} +".bmp")).exists() && !(new File($P{url} + $P{drCode32} +".bmp")).isDirectory())?
+		$P{url} + $P{drCode32} +".bmp":
+		$P{BaseDir} + "/../images/Photo_not_available.jpg")
+)]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>

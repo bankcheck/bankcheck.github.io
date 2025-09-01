@@ -1,0 +1,311 @@
+create or replace
+FUNCTION      "NHS_ACT_ACCOUNT_RECEIVABLE" (
+	v_action      IN VARCHAR2,
+	v_ARCCODE     IN ARCODE.ARCCODE%TYPE,
+	v_ARCNAME     IN ARCODE.ARCNAME%TYPE,
+	v_ARCCNAME    IN ARCODE.ARCCNAME%TYPE,
+	v_GLCCODE     IN ARCODE.GLCCODE%TYPE,
+	v_RETGLCCODE  IN ARCODE.RETGLCCODE%TYPE,
+	v_ARCADD1     IN ARCODE.ARCADD1%TYPE,
+	v_ARCADD2     IN ARCODE.ARCADD2%TYPE,
+	v_ARCADD3     IN ARCODE.ARCADD3%TYPE,
+	v_ARCTEL      IN ARCODE.ARCTEL%TYPE,
+	v_FAX         IN ARCODE.FAX%TYPE,
+	v_EMAIL       IN ARCODE.EMAIL%TYPE,
+	v_ARCCT       IN ARCODE.ARCCT%TYPE,
+	v_ARCTITLE    IN ARCODE.ARCTITLE%TYPE,
+--	v_ARCUAMT     IN VARCHAR2,--
+--	v_ARCAMT      IN VARCHAR2,--
+	v_CPSID       IN VARCHAR2,--
+	v_ARCADMCNAME IN ARCODE.ARCADMCNAME%TYPE,
+	v_ADMTTL      IN ARCODE.ADMTTL%TYPE,
+	v_ADMEMAIL    IN ARCODE.ADMEMAIL%TYPE,
+	v_ARCADMCP    IN ARCODE.ARCADMCP%TYPE,
+	v_ARCADMCF    IN ARCODE.ARCADMCF%TYPE,
+	v_ARCSND      IN VARCHAR2,--
+	v_FURCCT      IN ARCODE.FURCCT%TYPE,
+	v_FURTTL      IN ARCODE.FURTTL%TYPE,
+	v_FUREMAIL    IN ARCODE.FUREMAIL%TYPE,
+	v_FURTEL      IN ARCODE.FURTEL%TYPE,
+	v_FURFAX      IN ARCODE.FURFAX%TYPE,
+	v_COPAYTYP    IN VARCHAR2,
+	v_ARLMTAMT    IN VARCHAR2,--
+	v_CVREDATE    IN VARCHAR2,
+	v_COPAYAMT    IN VARCHAR2,--
+	v_ITMTYPED    IN VARCHAR2,--
+	v_ITMTYPEH    IN VARCHAR2,---
+	v_ITMTYPES    IN VARCHAR2,---
+	v_ITMTYPEO    IN VARCHAR2,---
+	v_AR_S_DATE   IN VARCHAR2,
+	v_AR_E_DATE   IN VARCHAR2,
+	v_ARCUPDUSR   IN VARCHAR2,
+	v_AR_ACTIVE   IN VARCHAR2,
+	v_ARCPRIMCOMP IN VARCHAR2,
+	v_NCTRSDATE   IN VARCHAR2,
+	v_NCTREDATE   IN VARCHAR2,
+	v_ARCADD4     IN VARCHAR2,
+	v_OLDCODE     IN VARCHAR2,
+	V_PRINT_MRRPT IN VARCHAR2,
+	v_MSTR_AR 	  In Varchar2,
+  	V_PAYCHECK    IN VARCHAR2,
+  	V_ISDI        IN VARCHAR2,
+  	V_INP_CHGRPTLVL	in VARCHAR2,
+  	V_OP_CHGRPTLVL	in VARCHAR2,
+	o_errmsg      OUT VARCHAR2
+)
+--	RETURN BOOLEAN
+	return number
+as
+	o_errcode NUMBER;
+	v_NOOFREC number;
+	v_noOfOLDRec NUMBER;
+
+	PAYCODE_PAYTYPE_OTHER VARCHAR2(1) := 'O';
+BEGIN
+	o_errcode := 0;
+	o_errmsg := 'OK';
+	SELECT COUNT(1) INTO v_NOOFREC FROM ARCODE WHERE ARCCODE = v_ARCCODE;
+	SELECT COUNT(1) INTO v_NOOFOLDREC FROM ARCODE WHERE ARCCODE = v_OLDCODE;
+
+	IF v_action = 'ADD' THEN
+		IF v_noOfRec = 0 THEN
+			INSERT INTO ARCODE (
+				ARCCODE,
+				ARCNAME,
+				ARCCNAME,
+				ARCADD1,
+				ARCADD2,
+				ARCADD3,
+				ARCTEL,
+				ARCCT,
+				ARCTITLE,
+				ARCUAMT,
+				ARCAMT,
+				STECODE,
+				GLCCODE,
+				CPSID,
+				RETGLCCODE,
+				AR_S_DATE,
+				AR_E_DATE,
+				FAX,
+				EMAIL,
+				ARLMTAMT,
+				CVREDATE,
+				COPAYAMT,
+				ITMTYPED,
+				ITMTYPEH,
+				ITMTYPES,
+				ITMTYPEO,
+				FURGRTAMT,
+				FURGRTDATE,
+				COPAYTYP,
+				FURCCT,
+				FURTTL,
+				FURTEL,
+				FURFAX,
+				ADMTTL,
+				ADMEMAIL,
+				FUREMAIL,
+				ARCADMCNAME,
+				ARCADMCP,
+				ARCADMCF,
+				ARCSND,
+				ARCUPDUSR,
+				ARCUPDDATE,
+				AR_ACTIVE,
+				ARCPRIMCOMP,
+				NCTRSDATE,
+				NCTREDATE,
+				ARCADD4,
+				Print_Mrrpt,
+        MSTR_AR,
+        PAY_CHECK,
+        ISDI,
+        INP_CHG_RPTLVL,
+        OP_CHG_RPTLVL
+			) VALUES (
+				v_ARCCODE,
+				v_ARCNAME,
+				v_ARCCNAME,
+				v_ARCADD1,
+				v_ARCADD2,
+				v_ARCADD3,
+				v_ARCTEL,
+				v_ARCCT,
+				v_ARCTITLE,
+				0,
+				0,
+				GET_CURRENT_STECODE,
+				v_GLCCODE,
+				TO_NUMBER(v_CPSID),
+				v_RETGLCCODE,
+				TO_DATE(v_AR_S_DATE, 'dd/MM/YYYY'),
+				TO_DATE(v_AR_E_DATE, 'dd/MM/YYYY'),
+				v_FAX,
+				v_EMAIL,
+				TO_NUMBER(v_ARLMTAMT),
+				TO_DATE(v_CVREDATE, 'dd/MM/YYYY'),
+				TO_NUMBER(v_COPAYAMT),
+				TO_NUMBER(v_ITMTYPED),
+				TO_NUMBER(v_ITMTYPEH),
+				TO_NUMBER(v_ITMTYPES),
+				TO_NUMBER(v_ITMTYPEO),
+				0,
+				NULL,
+				v_COPAYTYP,
+				v_FURCCT,
+				v_FURTTL,
+				v_FURTEL,
+				v_FURFAX,
+				v_ADMTTL,
+				v_ADMEMAIL,
+				v_FUREMAIL,
+				v_ARCADMCNAME,
+				v_ARCADMCP,
+				v_ARCADMCF,
+				TO_NUMBER(v_ARCSND),
+				v_ARCUPDUSR,
+				SYSDATE,
+				TO_NUMBER(v_AR_ACTIVE),
+				v_ARCPRIMCOMP,
+				TO_DATE(v_NCTRSDATE, 'dd/MM/YYYY'),
+				TO_DATE(v_NCTREDATE, 'dd/MM/YYYY'),
+				v_ARCADD4,
+				V_PRINT_MRRPT,
+        v_MSTR_AR,
+        V_PAYCHECK,
+        V_ISDI,
+        v_INP_CHGRPTLVL,
+        v_OP_CHGRPTLVL
+			);
+
+		SELECT COUNT(1) INTO V_NOOFREC FROM PAYCODE WHERE PAYCODE = v_ARCCODE;
+		IF V_NOOFREC = 0 THEN
+			INSERT INTO PAYCODE (
+			    PAYCODE,
+			    PAYTYPE,
+			    PAYDESC,
+			    PAYCDESC,
+			    GLCCODE,
+			    STECODE,
+			    RETGLCCODE,
+			    PAYNOTEAR
+			) VALUES (
+			    v_ARCCODE,
+			    PAYCODE_PAYTYPE_OTHER,
+			    v_ARCNAME,
+			    v_ARCCNAME,
+			    v_GLCCODE,
+			    GET_CURRENT_STECODE,
+			    v_RETGLCCODE,
+			    NULL
+			);
+		END IF;
+
+--		ELSE
+--			o_errcode := -1;
+--			o_errmsg := 'Record already exists.';
+		END IF;
+	ELSIF v_action = 'MOD' THEN
+		IF v_noOfOLDRec > 0 THEN
+			UPDATE ARCODE
+			SET
+				ARCCODE     = v_ARCCODE,
+				ARCCNAME    = v_ARCCNAME,
+				ARCNAME     = v_ARCNAME,
+				GLCCODE     = v_GLCCODE,
+				RETGLCCODE  = v_RETGLCCODE,
+				ARCADD1     = v_ARCADD1,
+				ARCADD2     = v_ARCADD2,
+				ARCADD3     = v_ARCADD3,
+				ARCTEL      = v_ARCTEL,
+				FAX         = v_FAX,
+				EMAIL       = v_EMAIL,
+				ARCCT       = v_ARCCT,
+				ARCTITLE    = v_ARCTITLE,
+--				ARCUAMT     = TO_NUMBER(v_ARCUAMT),
+--				ARCAMT      = TO_NUMBER(v_ARCAMT),
+				CPSID       = TO_NUMBER(v_CPSID),
+				ARCADMCNAME = v_ARCADMCNAME,
+				ADMTTL      = v_ADMTTL,
+				ADMEMAIL    = v_ADMEMAIL,
+				ARCADMCP    = v_ARCADMCP,
+				ARCADMCF    = v_ARCADMCF,
+				ARCSND      = TO_NUMBER(v_ARCSND),
+				FURCCT      = v_FURCCT,
+				FURTTL      = v_FURTTL,
+				FUREMAIL    = v_FUREMAIL,
+				FURTEL      = v_FURTEL,
+				FURFAX      = v_FURFAX,
+				COPAYTYP    = v_COPAYTYP,
+				ARLMTAMT    = TO_NUMBER(v_ARLMTAMT),
+				CVREDATE    = TO_DATE(v_CVREDATE, 'dd/MM/YYYY'),
+				COPAYAMT    = TO_NUMBER(v_COPAYAMT),
+				ITMTYPED    = TO_NUMBER(v_ITMTYPED),
+				ITMTYPEH    = TO_NUMBER(v_ITMTYPEH),
+				ITMTYPES    = TO_NUMBER(v_ITMTYPES),
+				ITMTYPEO    = TO_NUMBER(v_ITMTYPEO),
+				AR_S_DATE   = TO_DATE(v_AR_S_DATE, 'dd/MM/YYYY'),
+				AR_E_DATE   = TO_DATE(v_AR_E_DATE, 'dd/MM/YYYY'),
+				ARCUPDUSR   = v_ARCUPDUSR,
+				ARCUPDDATE  = SYSDATE,
+				AR_ACTIVE   = TO_NUMBER(v_AR_ACTIVE),
+				ARCPRIMCOMP = v_ARCPRIMCOMP,
+				NCTRSDATE   = TO_DATE(v_NCTRSDATE, 'dd/MM/YYYY'),
+				NCTREDATE   = TO_DATE(v_NCTREDATE, 'dd/MM/YYYY'),
+				ARCADD4     = v_ARCADD4,
+				PRINT_MRRPT = V_PRINT_MRRPT,
+        		Mstr_Ar = v_MSTR_AR,
+        		PAY_CHECK = V_PAYCHECK,
+        		ISDI = V_ISDI,
+				INP_CHG_RPTLVL = V_INP_CHGRPTLVL,
+				OP_CHG_RPTLVL = V_OP_CHGRPTLVL
+			WHERE ARCCODE = v_OLDCODE;
+			
+	        SELECT COUNT(1) INTO V_NOOFREC FROM PAYCODE WHERE PAYCODE = v_ARCCODE;
+	        IF V_NOOFREC = 0 THEN
+	        	INSERT INTO PAYCODE (
+	        	PAYCODE,
+	            PAYTYPE,
+	            PAYDESC,
+	            PAYCDESC,
+	            GLCCODE,
+	            STECODE,
+	            RETGLCCODE,
+	            PAYNOTEAR
+	        	) VALUES (
+	            v_ARCCODE,
+	            PAYCODE_PAYTYPE_OTHER,
+	            v_ARCNAME,
+	            v_ARCCNAME,
+	            v_GLCCODE,
+	            GET_CURRENT_STECODE,
+	            v_RETGLCCODE,
+	            NULL
+	        	);
+	      	ELSE
+	        	UPDATE PAYCODE
+	        	SET PAYTYPE = PAYCODE_PAYTYPE_OTHER,
+	            PAYDESC = V_ARCNAME,
+	            PAYCDESC = V_ARCCNAME,
+	            GLCCODE = V_GLCCODE,
+	            STECODE = GET_CURRENT_STECODE,
+	            RETGLCCODE = V_RETGLCCODE,
+	            PAYNOTEAR = NULL
+	        	WHERE PAYCODE = v_ARCCODE;
+	      	END IF;			
+		ELSE
+			o_errcode := -1;
+			o_errmsg := 'Fail to update due to record not exist.';
+		END IF;
+	ELSIF v_action = 'DEL' THEN
+		IF v_noOfRec > 0 THEN
+			DELETE ARCODE WHERE ARCCODE = v_ARCCODE;
+		ELSE
+			o_errcode := -1;
+			o_errmsg := 'Fail to delete due to record not exist.';
+		END IF;
+	END IF;
+	return o_errcode;
+END NHS_ACT_ACCOUNT_RECEIVABLE;
+/

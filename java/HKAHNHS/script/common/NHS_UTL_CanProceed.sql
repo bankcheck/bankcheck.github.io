@@ -1,0 +1,36 @@
+CREATE OR REPLACE FUNCTION "NHS_UTL_CANPROCEED" (
+	i_SITE_CODE VARCHAR2,
+	i_DAYEND_YN VARCHAR2
+)
+	RETURN DATE
+AS
+	OUTCUR types.cursor_type;
+	o_errcode NUMBER;
+	v_UTIME   DATE;
+	v_RLKKEY  RLOCK.RLKKEY%TYPE;
+	v_DATEDFF NUMBER;
+	v_second number := 24 * 60 * 60;
+BEGIN
+	SELECT RLKDATE, RLKKEY INTO v_UTIME, v_RLKKEY FROM RLOCK WHERE USRID = 'D_A_Y_E_ND' and RLKMAC = 'S_E_R_V_E_R' and STECODE = i_SITE_CODE;
+
+	IF i_DAYEND_YN = 'N' THEN
+		IF (SYSDATE - v_UTIME) * 24 * 60 * 60 >= v_second OR TRIM(v_RLKKEY) = 'FAILED KEY' THEN
+			o_errcode := -1;
+		ELSE
+			o_errcode := 0;
+		END IF;
+	ELSE
+		IF (TRUNC(SYSDATE,'DD') - TRUNC(v_UTIME,'DD')) > 1 OR TRIM(v_RLKKEY) = 'FAILED KEY' THEN
+			o_errcode := -1;
+		ELSE
+			o_errcode := 0;
+		END IF;
+	END IF;
+
+	IF o_errcode = 0 THEN
+		RETURN v_UTIME;
+	ELSE
+		RETURN NULL;
+	END IF;
+END NHS_UTL_CANPROCEED;
+/

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ALERTLABEL" pageWidth="215" pageHeight="113" columnWidth="215" leftMargin="0" rightMargin="0" topMargin="8" bottomMargin="8">
+	<property name="ireport.zoom" value="2.357947691000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="patno" class="java.lang.String"/>
+	<field name="sex" class="java.lang.String"/>
+	<field name="patname" class="java.lang.String"/>
+	<field name="dob" class="java.lang.String"/>
+	<field name="alert" class="java.lang.String"/>
+	<detail>
+		<band height="97" splitType="Stretch">
+			<printWhenExpression><![CDATA[!$F{alert}.isEmpty()]]></printWhenExpression>
+			<textField>
+				<reportElement x="52" y="10" width="73" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{patno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="151" y="10" width="39" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sex}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="21" y="26" width="169" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{patname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="85" y="42" width="105" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dob}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="21" y="58" width="169" height="39" isPrintWhenDetailOverflows="true"/>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{alert}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="10" width="31" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[Pat #:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="10" width="26" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[Sex:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="42" width="64" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[Date of Birth:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="93" y="0" width="28" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Alert]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

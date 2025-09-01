@@ -1,0 +1,107 @@
+body {
+	background: url("../../images/registration/inner_bg.png") no-repeat top rgb(244, 244, 244);
+}
+.header_top_row {
+	background: url("../../images/registration/header_bg.jpg") center; padding: 0px;
+}
+
+#logo_hkah {
+	background: url("../images/sr_logo_en.png") no-repeat; width: 314px; height: 107px; float: left;
+}
+#logo_hkah {
+	display: block;
+}
+#logo_twah {
+	background: url("../images/tw_logo_en.png") no-repeat; width: 314px; height: 107px; float: left;
+}
+#logo_twah {
+	display: block;
+}
+.header_title_only {
+font-size: 30px;
+color: white;
+text-align: right;
+}
+
+html.no-ie #logo_hkah {
+	background: url("../images/sr_logo_en.png") no-repeat 0% 0% / 314px 107px;
+}
+
+html.no-ie #logo_twah {
+	background: url("../images/tw_logo_en.png") no-repeat 0% 0% / 314px 107px;
+}
+
+
+#footer {
+	padding: 0px 0px;
+}
+#footer {
+	z-index: 0;
+}
+#footer {
+	background: url("../../images/registration/footer_bg.jpg") no-repeat top rgb(161, 0, 94); color: rgb(255, 255, 255); font-size: 12px; min-height: 208px;
+}
+
+* {
+	margin: 0;
+}
+html, body {
+	height: 100%;
+}
+.wrapper {
+	min-height: 100%;
+	height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
+	height: 100%;
+	margin: 0 auto -155px; /* the bottom margin is the negative value of the footer's height */
+}
+.footer, .push {
+	height: 155px; /* .push must be the same height as .footer */
+}
+
+
+.link1:hover {
+color: #fff;
+}
+.link1 {
+color: #fff;
+}
+html {
+	font-family: "Arial","�L�n������","ff-tisa-web-pro-1","ff-tisa-web-pro-2","Helvetica Neue","Helvetica,sans-serif","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3" !important;
+}
+body {
+	font-family: "Arial","�L�n������","ff-tisa-web-pro-1","ff-tisa-web-pro-2","Helvetica Neue","Helvetica,sans-serif","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3" !important;
+}
+.portalStyleLabel { color: #5f5f5f; background-color: #FFFFFF; text-align: right; }
+
+.career_form {
+margin-top: 12px;
+background: white;
+padding: 28px 28px;
+border: 1px #EEEEEE solid;
+margin-right: 15px;
+margin-left: 15px;
+}
+
+.normal_area {
+max-width: 1220px;
+margin: 0 auto;
+width: 100%;
+}
+
+.headingLabel {color:#aa0066; font-weight:bold; background-color: #FFFFFF;}
+
+.portalStyleAnchor {color: #aa0066;font-weight: bold; text-decoration: none;}
+.portalStyleAnchor:hover {
+    text-decoration: underline;
+}
+
+.editor_area ul li {
+background: url(../../images/registration/bullet.png) no-repeat 0 3px;
+line-height: 20px;
+padding: 0 0 0 20px;
+margin: 5px 0 5px 0;
+}
+
+.infoText {
+	color: #aa0066;
+}

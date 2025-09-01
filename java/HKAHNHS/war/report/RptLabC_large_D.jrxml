@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="D" printOrder="Horizontal" pageWidth="566" pageHeight="85" whenNoDataType="AllSectionsNoDetail" columnWidth="566" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Error" isIgnorePagination="true">
+	<property name="ireport.zoom" value="1.6500000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="chgfontSize" fill="Solid" fontName="Arial Unicode MS">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[($P{patname}.length() <= 40 && !$P{patcname}.isEmpty()) ? true : false]]></conditionExpression>
+			<style markup="styled" isBlankWhenNull="true" fontSize="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false">
+				<box topPadding="3" leftPadding="5" bottomPadding="0"/>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{patname}.length() <= 40 ? true : false]]></conditionExpression>
+			<style markup="styled" isBlankWhenNull="true" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false">
+				<box topPadding="6" leftPadding="7" bottomPadding="3"/>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{patname}.length() > 40 ? true : false]]></conditionExpression>
+			<style fontName="Arial Unicode MS" fontSize="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false">
+				<box topPadding="1" leftPadding="5" bottomPadding="0"/>
+			</style>
+		</conditionalStyle>
+	</style>
+	<style name="chiSize">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{patname}.length() <= 40?true:false]]></conditionExpression>
+			<style fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{patname}.length() > 40?true:false]]></conditionExpression>
+			<style fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+		</conditionalStyle>
+	</style>
+	<scriptlet name="TextScriptlet" class="com.text.TextScriptlet"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patsex" class="java.lang.String"/>
+	<parameter name="patbdate" class="java.lang.String"/>
+	<parameter name="patname" class="java.lang.String"/>
+	<parameter name="patcname" class="java.lang.String"/>
+	<parameter name="isCheckDight" class="java.lang.String"/>
+	<parameter name="isasterisk" class="java.lang.String"/>
+	<parameter name="CheckDigit" class="java.lang.String"/>
+	<parameter name="newbarcode" class="java.lang.String"/>
+	<parameter name="regid" class="java.lang.String"/>
+	<parameter name="regType" class="java.lang.String"/>
+	<parameter name="regDate" class="java.lang.String"/>
+	<parameter name="showRegID" class="java.lang.String"/>
+	<parameter name="isTwoD_1" class="java.lang.String"/>
+	<parameter name="isTwoD_2" class="java.lang.String"/>
+	<parameter name="isTwoD_3" class="java.lang.String"/>
+	<parameter name="isTwoD_4" class="java.lang.String"/>
+	<parameter name="mrLblContent" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="mrLblContent" class="java.lang.String"/>
+	<variable name="newMrLbl" class="java.lang.String">
+		<variableExpression><![CDATA[!$P{mrLblContent}.isEmpty()?
+($P{mrLblContent}.substring( 3,12)):""]]></variableExpression>
+	</variable>
+	<variable name="v_newbarcode" class="java.lang.String">
+		<variableExpression><![CDATA[$P{newbarcode}.substring(0, $P{newbarcode}.length()-1)]]></variableExpression>
+	</variable>
+	<variable name="v_regid" class="java.lang.String" resetType="None">
+		<variableExpression><![CDATA[($P{showRegID}.equals("Y") && $P{regType} != null && !$P{regType}.equals("O") && $P{regid}.length() > 0)?("<REGID>"+$P{regid}+"</REGID>"):""]]></variableExpression>
+	</variable>
+	<title>
+		<band height="25">
+			<elementGroup>
+				<textField>
+					<reportElement key="patno1" x="2" y="3" width="51" height="13">
+						<printWhenExpression><![CDATA[$P{isTwoD_1}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="2" leftPadding="7"/>
+					<textElement verticalAlignment="Bottom" markup="styled">
+						<font fontName="Arial" size="8" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["<style size='8'>" + ($P{isasterisk}.equalsIgnoreCase( "true" )?"*"+$P{patno}:$P{patno}) + "</style>"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="52" y="3" width="21" height="13">
+						<printWhenExpression><![CDATA[$P{isTwoD_1}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="2"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{patsex}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement style="chgfontSize" positionType="Float" stretchType="RelativeToBandHeight" x="1" y="15" width="130" height="10" isPrintWhenDetailOverflows="true">
+						<printWhenExpression><![CDATA[$P{isTwoD_1}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{patname})]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="73" y="3" width="55" height="13">
+						<printWhenExpression><![CDATA[$P{isTwoD_1}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="1" rightPadding="3"/>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{patbdate}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<elementGroup>
+				<textField>
+					<reportElement x="214" y="3" width="55" height="13">
+						<printWhenExpression><![CDATA[$P{isTwoD_2}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="1" rightPadding="3"/>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{patbdate}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement key="sex" x="193" y="3" width="21" height="13">
+						<printWhenExpression><![CDATA[$P{isTwoD_2}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="2"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{patsex}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement key="patno2" x="143" y="3" width="51" height="13">
+						<printWhenExpression><![CDATA[$P{isTwoD_2}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="2" leftPadding="7"/>
+					<textElement verticalAlignment="Bottom" markup="styled">
+						<font fontName="Arial" size="8" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["<style size='8'>" + ($P{isasterisk}.equalsIgnoreCase( "true" )?"*"+$P{patno}:$P{patno}) + "</style>"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement style="chgfontSize" positionType="Float" stretchType="RelativeToBandHeight" x="141" y="15" width="130" height="10" isPrintWhenDetailOverflows="true">
+						<printWhenExpression><![CDATA[$P{isTwoD_2}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{patname})]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<elementGroup>
+				<textField>
+					<reportElement key="patno3" x="282" y="3" width="51" height="13">
+						<printWhenExpression><![CDATA[$P{isTwoD_3}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="2" leftPadding="7"/>
+					<textElement verticalAlignment="Bottom" markup="styled">
+						<font fontName="Arial" size="8" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["<style size='8'>" + ($P{isasterisk}.equalsIgnoreCase( "true" )?"*"+$P{patno}:$P{patno}) + "</style>"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="332" y="3" width="21" height="13">
+						<printWhenExpression><![CDATA[$P{isTwoD_3}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="2"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{patsex}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement style="chgfontSize" positionType="Float" stretchType="RelativeToBandHeight" x="282" y="15" width="130" height="10" isPrintWhenDetailOverflows="true">
+						<printWhenExpression><![CDATA[$P{isTwoD_3}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{patname})]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="353" y="3" width="55" height="13">
+						<printWhenExpression><![CDATA[$P{isTwoD_3}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="1" rightPadding="3"/>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{patbdate}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<elementGroup>
+				<textField>
+					<reportElement x="494" y="3" width="72" height="13">
+						<printWhenExpression><![CDATA[$P{isTwoD_4}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="1" rightPadding="3"/>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{patbdate}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement key="patno4" x="423" y="3" width="51" height="13">
+						<printWhenExpression><![CDATA[$P{isTwoD_4}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="2" leftPadding="7"/>
+					<textElement verticalAlignment="Bottom" markup="styled">
+						<font fontName="Arial" size="8" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["<style size='8'>" + ($P{isasterisk}.equalsIgnoreCase( "true" )?"*"+$P{patno}:$P{patno}) + "</style>"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement style="chgfontSize" positionType="Float" stretchType="RelativeToBandHeight" x="422" y="15" width="130" height="10" isPrintWhenDetailOverflows="true">
+						<printWhenExpression><![CDATA[$P{isTwoD_4}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{patname})]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="473" y="3" width="21" height="13">
+						<printWhenExpression><![CDATA[$P{isTwoD_4}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="2"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{patsex}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+		</band>
+	</title>
+	<summary>
+		<band height="39">
+			<elementGroup>
+				<textField isBlankWhenNull="true">
+					<reportElement x="6" y="26" width="80" height="12">
+						<printWhenExpression><![CDATA[$P{showRegID}.equals("Y")&& $P{isTwoD_1}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{regDate}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="6" y="16" width="60" height="10">
+						<printWhenExpression><![CDATA[$P{showRegID}.equals("Y") && $P{isTwoD_1}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="3"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Adm./Reg. Date:]]></text>
+				</staticText>
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement key="longName2D" positionType="FixRelativeToBottom" x="53" y="7" width="27" height="27">
+						<printWhenExpression><![CDATA[$P{showRegID}.equals("N") && $P{isTwoD_1}.equals( "D" ) && $P{patname}.length() > 40]]></printWhenExpression>
+					</reportElement>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>MAR</BT><PID>"+$P{patno}+"</PID>"+$V{v_regid},com.google.zxing.BarcodeFormat.QR_CODE,280,280))]]></imageExpression>
+				</image>
+				<image scaleImage="RealSize" hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement key="shortName2D" positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="50" y="7" width="30" height="30">
+						<printWhenExpression><![CDATA[$P{isTwoD_1}.equals( "D" ) && $P{showRegID}.equals("N") && $P{patname}.length() <= 40]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="2"/>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>MAR</BT><PID>"+$P{patno}+"</PID>"+$V{v_regid},com.google.zxing.BarcodeFormat.QR_CODE,350,350))]]></imageExpression>
+				</image>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement key="tw2D" positionType="FixRelativeToBottom" x="81" y="10" width="29" height="26">
+						<printWhenExpression><![CDATA[$P{showRegID}.equals("Y") && $P{isTwoD_1}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>MAR</BT><PID>"+$P{patno}+"</PID>"+$V{v_regid},com.google.zxing.BarcodeFormat.QR_CODE,300,300))]]></imageExpression>
+				</image>
+			</elementGroup>
+			<elementGroup>
+				<textField isBlankWhenNull="true">
+					<reportElement x="147" y="26" width="80" height="12">
+						<printWhenExpression><![CDATA[$P{showRegID}.equals("Y")&& $P{isTwoD_2}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{regDate}]]></textFieldExpression>
+				</textField>
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement key="longName2D" positionType="FixRelativeToBottom" x="194" y="7" width="27" height="27">
+						<printWhenExpression><![CDATA[$P{showRegID}.equals("N") && $P{isTwoD_2}.equals( "D" ) && $P{patname}.length() > 40]]></printWhenExpression>
+					</reportElement>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>MAR</BT><PID>"+$P{patno}+"</PID>"+$V{v_regid},com.google.zxing.BarcodeFormat.QR_CODE,280,280))]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="147" y="16" width="60" height="10">
+						<printWhenExpression><![CDATA[$P{showRegID}.equals("Y") && $P{isTwoD_2}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="3"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Adm./Reg. Date:]]></text>
+				</staticText>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement key="tw2D" positionType="FixRelativeToBottom" x="222" y="7" width="29" height="26">
+						<printWhenExpression><![CDATA[$P{showRegID}.equals("Y") && $P{isTwoD_2}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>MAR</BT><PID>"+$P{patno}+"</PID>"+$V{v_regid},com.google.zxing.BarcodeFormat.QR_CODE,300,300))]]></imageExpression>
+				</image>
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement key="shortName2D" positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="191" y="7" width="30" height="30">
+						<printWhenExpression><![CDATA[$P{isTwoD_2}.equals( "D" ) && $P{showRegID}.equals("N") && $P{patname}.length() <= 40]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="0"/>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>MAR</BT><PID>"+$P{patno}+"</PID>"+$V{v_regid},com.google.zxing.BarcodeFormat.QR_CODE,350,350))]]></imageExpression>
+				</image>
+			</elementGroup>
+			<elementGroup>
+				<textField isBlankWhenNull="true">
+					<reportElement x="287" y="26" width="80" height="12">
+						<printWhenExpression><![CDATA[$P{showRegID}.equals("Y")&& $P{isTwoD_3}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{regDate}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="287" y="16" width="60" height="10">
+						<printWhenExpression><![CDATA[$P{showRegID}.equals("Y") && $P{isTwoD_3}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="3"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Adm./Reg. Date:]]></text>
+				</staticText>
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement key="shortName2D" positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="331" y="7" width="30" height="30">
+						<printWhenExpression><![CDATA[$P{isTwoD_3}.equals( "D" ) && $P{showRegID}.equals("N") && $P{patname}.length() <= 40]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="0"/>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>MAR</BT><PID>"+$P{patno}+"</PID>"+$V{v_regid},com.google.zxing.BarcodeFormat.QR_CODE,350,350))]]></imageExpression>
+				</image>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement key="tw2D" positionType="FixRelativeToBottom" x="362" y="7" width="29" height="26">
+						<printWhenExpression><![CDATA[$P{showRegID}.equals("Y") && $P{isTwoD_3}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>MAR</BT><PID>"+$P{patno}+"</PID>"+$V{v_regid},com.google.zxing.BarcodeFormat.QR_CODE,300,300))]]></imageExpression>
+				</image>
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement key="longName2D" positionType="FixRelativeToBottom" x="334" y="7" width="27" height="27">
+						<printWhenExpression><![CDATA[$P{showRegID}.equals("N") && $P{isTwoD_3}.equals( "D" ) && $P{patname}.length() > 40]]></printWhenExpression>
+					</reportElement>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>MAR</BT><PID>"+$P{patno}+"</PID>"+$V{v_regid},com.google.zxing.BarcodeFormat.QR_CODE,280,280))]]></imageExpression>
+				</image>
+			</elementGroup>
+			<elementGroup>
+				<textField isBlankWhenNull="true">
+					<reportElement x="427" y="26" width="80" height="12">
+						<printWhenExpression><![CDATA[$P{showRegID}.equals("Y")&& $P{isTwoD_4}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{regDate}]]></textFieldExpression>
+				</textField>
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement key="shortName2D" positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="471" y="7" width="30" height="30">
+						<printWhenExpression><![CDATA[$P{isTwoD_4}.equals( "D" ) && $P{showRegID}.equals("N") && $P{patname}.length() <= 40]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="0"/>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>MAR</BT><PID>"+$P{patno}+"</PID>"+$V{v_regid},com.google.zxing.BarcodeFormat.QR_CODE,350,350))]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="427" y="16" width="60" height="10">
+						<printWhenExpression><![CDATA[$P{showRegID}.equals("Y") && $P{isTwoD_4}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="3"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Adm./Reg. Date:]]></text>
+				</staticText>
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement key="longName2D" positionType="FixRelativeToBottom" x="474" y="7" width="27" height="27">
+						<printWhenExpression><![CDATA[$P{showRegID}.equals("N") && $P{isTwoD_4}.equals( "D" ) && $P{patname}.length() > 40]]></printWhenExpression>
+					</reportElement>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>MAR</BT><PID>"+$P{patno}+"</PID>"+$V{v_regid},com.google.zxing.BarcodeFormat.QR_CODE,280,280))]]></imageExpression>
+				</image>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement key="tw2D" positionType="FixRelativeToBottom" x="502" y="7" width="29" height="26">
+						<printWhenExpression><![CDATA[$P{showRegID}.equals("Y") && $P{isTwoD_4}.equals( "D" )]]></printWhenExpression>
+					</reportElement>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("<BT>MAR</BT><PID>"+$P{patno}+"</PID>"+$V{v_regid},com.google.zxing.BarcodeFormat.QR_CODE,300,300))]]></imageExpression>
+				</image>
+			</elementGroup>
+			<textField isBlankWhenNull="true">
+				<reportElement key="chi1" style="chiSize" positionType="FixRelativeToBottom" x="2" y="0" width="121" height="13">
+					<printWhenExpression><![CDATA[$P{isTwoD_1}.equals( "D" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Ming(for ISO10646_V3)"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TextScriptlet_SCRIPTLET}.returnChinese($P{patcname})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="chi1" style="chiSize" positionType="FixRelativeToBottom" x="143" y="0" width="121" height="13">
+					<printWhenExpression><![CDATA[$P{isTwoD_2}.equals( "D" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Ming(for ISO10646_V3)"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TextScriptlet_SCRIPTLET}.returnChinese($P{patcname})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="chi1" style="chiSize" positionType="FixRelativeToBottom" x="282" y="0" width="121" height="13">
+					<printWhenExpression><![CDATA[$P{isTwoD_3}.equals( "D" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Ming(for ISO10646_V3)"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TextScriptlet_SCRIPTLET}.returnChinese($P{patcname})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="chi1" style="chiSize" positionType="FixRelativeToBottom" x="422" y="0" width="121" height="13">
+					<printWhenExpression><![CDATA[$P{isTwoD_4}.equals( "D" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Ming(for ISO10646_V3)"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TextScriptlet_SCRIPTLET}.returnChinese($P{patcname})]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

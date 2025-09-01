@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PrintOBCert" pageWidth="595" pageHeight="900" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0000000000000018"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="377"/>
+	<parameter name="SlpNo" class="java.lang.String"/>
+	<field name="HospitalNo" class="java.lang.String"/>
+	<field name="PatName" class="java.lang.String"/>
+	<field name="PatCName" class="java.lang.String"/>
+	<field name="DOB" class="java.lang.String"/>
+	<field name="PatIdNo" class="java.lang.String"/>
+	<field name="ExDate" class="java.lang.String"/>
+	<field name="IssueDt" class="java.lang.String"/>
+	<field name="EXDate60" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="860" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="448" width="539" height="82"/>
+				<textElement markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[入境时，产妇须向香港入境事务处职员出示此证明书正本及所需的旅行证件；如有需要，香港入境处可致电 3651 8734 或传直至 3651 8801, 跟本院核对此证明书有 关资料。Patient must present the original of this Confirmation Certificate for Maternity Booking together with all necessary travel documents to the Hong Kong Immigration Department at the point of entry into Hong Kong.  The Hong Kong Immigration Department may verify such contents with the Hospital at <b><u>3651 8734</u></b> and facsimile at <b><u>3651 8801</u></b>.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="405" y="0" width="150" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[热线 Hotline: 3651 8734]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="405" y="20" width="150" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[传真 Fax: 3651 8801]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="52" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="true" isUnderline="true" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[分娩预约证明书]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="72" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="true" isUnderline="true" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Confirmation Certificate on Maternity Booking]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="105" width="555" height="36"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[1. 此证明书确认以下产科病人已预约于本院分娩。
+    This is to confirm that the following obstetric patient has a maternity booking with this hospital.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="153" width="555" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[2. 病人个人资料 Patient Personal Information]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="204" width="271" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[英文姓名 English Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="184" width="271" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[医院编号 Hospital Number:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="224" width="271" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[中文姓名 Chinese Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="244" width="271" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[出生日期 Date of Birth (dd/mm/yyyy):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="264" width="271" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[旅行证件类别及号码 Travel Document Type and Number:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="284" width="271" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[预产期 Expected Date of Confinement (dd/mm/yyyy): ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="315" width="271" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[3. 此证明书发出日期 Date of Certificate Issued (dd/mm/yyyy):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="346" width="415" height="66"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[4. 证明书有效期至 Period of Validity of this Certificate:
+    (i) 预产期30日後或 30 days after Expected Date of Confinement (dd/mm/yyyy), or
+    (ii) 妊娠期終止 Until cessation of this pregnancy.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="412" width="553" height="21"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="true" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[病人須知 Important Notice to Patient:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="448" width="16" height="82"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[1.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="840" width="100" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Hospital Chop]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="827" width="82" height="33"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ Serial Number:
+ Handled By:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="271" y="184" width="284" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" isStrikeThrough="false" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{HospitalNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="271" y="224" width="284" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" isStrikeThrough="false" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PatCName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="271" y="204" width="284" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" isStrikeThrough="false" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PatName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="271" y="244" width="284" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" isStrikeThrough="false" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOB}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="271" y="264" width="284" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" isStrikeThrough="false" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PatIdNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="271" y="284" width="284" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" isStrikeThrough="false" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ExDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="271" y="315" width="284" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" isStrikeThrough="false" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{IssueDt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="415" y="363" width="140" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" isStrikeThrough="false" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{EXDate60}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="459" y="827" width="96" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" isStrikeThrough="false" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SlpNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="16" y="540" width="539" height="52"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[病人入院登记分娩时，必须出示此证明书正本，及有效旅行证件正本。 Patient must present the original of this Confirmation Certificate together with the original and valid travel document to Admission Office prior to delivery.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="602" width="539" height="34"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[病人须于入院前通过其医生确认预约。The patient is advised to request her doctor to re-confirm the booking prior to admission.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="646" width="539" height="52"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[已缴预约按金可用作支付使用本院服务的费用，唯如病人预约后没有采用本院服务，已缴款项一律恕不退还。The deposit is non-refundable for patients who have previously made a booking but have chosen not to utilize the services of our hospital.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="708" width="539" height="64"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[香港港安医院有权更改、修正、附加或取替任何条款及细则，而无须预先通知。 Hong Kong Adventist Hospital reserves the right to amend any information without prior notification.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="540" width="16" height="52"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[2.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="602" width="16" height="34"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[3.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="646" width="16" height="52"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[4.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="708" width="16" height="64"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[5.]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

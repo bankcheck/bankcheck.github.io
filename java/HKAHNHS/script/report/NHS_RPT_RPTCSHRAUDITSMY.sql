@@ -1,0 +1,91 @@
+CREATE OR REPLACE FUNCTION "NHS_RPT_RPTCSHRAUDITSMY" (
+	v_StartDate  VARCHAR2,
+	v_EndDate    VARCHAR2,
+	v_SteCode    VARCHAR2,
+	v_ReportType VARCHAR2
+)
+	RETURN Types.cursor_type
+AS
+	outcur types.cursor_type;
+BEGIN
+	IF v_ReportType = 'N' THEN
+		Open Outcur For
+			SELECT
+--				TO_DATE(v_STARTDATE, 'dd-mm-yyyy') AS DATERANGESTART,
+--		        	TO_DATE(v_ENDDATE, 'dd-mm-yyyy') AS DATERANGEEND,
+				TO_CHAR(CT.CTXCDATE, 'DD/MM/YYYY') AS CTXCDATE,
+				CS.USRID AS USERID,
+				DECODE(CT.CTXMETH,
+					'C', 'Cash',
+					'D', 'Credit Card',
+					'Q', 'Cheque',
+					'E', 'EPS',
+					'A', 'Autopay',
+					'U', 'Cup Card',
+					'R', 'Wechat/Ali Pay',
+					'T', 'Octopus',
+					'Others') AS CTXMETH,
+				DECODE(CT.CTXTYPE, 'P', 'Payout', 'R', 'Receipt', 'A', 'Advance', CT.CTXTYPE) AS CTXTYPE,
+				CD.CTNCTYPE AS CTNCTYPE, SUM(CT.CTXAMT), SIT.STENAME
+			FROM CASHTX CT, CASHIER CS, SITE SIT, CARDTX CD
+			WHERE CT.CTNID     = CD.CTNID(+)
+			AND   CT.CSHCODE   = CS.CSHCODE
+			AND   CS.STECODE   = v_STECODE
+			AND   CS.STECODE   = SIT.STECODE
+			AND   CT.CTXTDATE >= TO_DATE(v_STARTDATE, 'DD/MM/YYYY')
+			AND   CT.CTXTDATE  < TO_DATE(v_ENDDATE, 'DD/MM/YYYY') + 1
+			AND ((CT.CTXSTS = 'N' AND TO_CHAR(CT.CTXTDATE, 'DD/MM/YYYY') != TO_CHAR(CT.CTXCDATE, 'DD/MM/YYYY'))
+			OR   (CT.CTXSTS = 'V' AND TO_CHAR(CT.CTXVDATE, 'DD/MM/YYYY') != TO_CHAR(CT.CTXCDATE, 'DD/MM/YYYY')))
+			GROUP BY
+				CT.CTXCDATE,
+				CS.USRID,
+				CT.CTXMETH,
+				CT.CTXTYPE,
+				CD.CTNCTYPE, SIT.STENAME
+			ORDER BY USERID, CTXMETH, CTNCTYPE;
+	ELSE
+		Open Outcur For
+			SELECT CTXCDATE, USERID, CTXMETH, CTXTYPE, CTNCTYPE, SUM(CTXAMT), STENAME
+			FROM (
+				SELECT
+--					TO_DATE(v_STARTDATE, 'dd-mm-yyyy') AS DATERANGESTART,
+--			        	TO_DATE(v_ENDDATE, 'dd-mm-yyyy') AS DATERANGEEND,
+					TO_CHAR(CT.CTXCDATE, 'DD/MM/YYYY') AS CTXCDATE,
+					CS.USRID AS USERID,
+					DECODE(CT.CTXMETH, 'C', 'Cash',
+							'D', 'Credit Card',
+							'Q', 'Cheque',
+							'E', 'EPS',
+							'A', 'Autopay',
+							'U', 'Cup Card',
+							'R', 'Wechat/Ali Pay',
+							'T', 'Octopus',
+							'Others') AS CTXMETH,
+					DECODE(CT.CTXTYPE, 'P', 'Payout', 'R', 'Receipt', 'A', 'Advance', CT.CTXTYPE) AS CTXTYPE,
+					CD.CTNCTYPE AS CTNCTYPE, CT.CTXAMT, SIT.STENAME
+				FROM CASHTX CT, CASHIER CS, SITE SIT, CARDTX CD
+				WHERE CT.CTNID     = CD.CTNID(+)
+				AND   CT.CSHCODE   = CS.CSHCODE
+				AND   CS.STECODE   = v_STECODE
+				AND   CS.STECODE   = SIT.STECODE
+				AND   CT.CTXCDATE >= TO_DATE(v_STARTDATE, 'DD/MM/YYYY')
+				AND   CT.CTXCDATE  < TO_DATE(v_ENDDATE, 'DD/MM/YYYY') + 1
+
+				UNION ALL
+
+				SELECT --TO_DATE(V_STARTDATE, 'dd-mm-yyyy'), TO_DATE(V_ENDDATE, 'dd-mm-yyyy'),
+					'' AS CTXCDATE,
+					CS.USRID AS USERID, '' AS CTXMETH, '' AS CTXTYPE, '' AS CTNCTYPE,
+					0 AS CTXAMT, SIT.STENAME
+				FROM CASHIER CS, SITE SIT
+				WHERE CS.STECODE = v_STECODE
+				AND   CS.STECODE = SIT.STECODE
+				AND  (CS.CSHSTS  = 'N' OR CS.CSHSTS = 'O')
+			)
+			GROUP BY CTXCDATE, USERID, CTXMETH, CTXTYPE, CTNCTYPE, STENAME
+			ORDER BY USERID, CTXMETH, CTNCTYPE;
+	END IF;
+
+	RETURN OUTCUR;
+END NHS_RPT_RPTCSHRAUDITSMY;
+/

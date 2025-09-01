@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head><script src="{{url_for('static', filename='js/color-modes.js')}}"></script>
+  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trade Fun</title>
+
+    <link rel="stylesheet" href="{{url_for('static', filename='css/@docsearch/css@3')}}">
+
+    <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <link href="{{url_for('static', filename='css/index.css')}}" rel="stylesheet">
+
+    <link href="{{url_for('static', filename='css/sign-in.css')}}" rel="stylesheet">
+  </head>
+  <body class="d-flex align-items-center py-4 bg-body-tertiary">
+<main class="form-signin w-100 m-auto">
+  {% for message in get_flashed_messages() %}
+  <div class="alert alert-danger">{{ message }}</div>
+  {% endfor %}
+  <form method="POST">
+    <img class="mb-4" src="{{url_for('static', filename='img/trade_fun_logo.png')}}" alt="" width="300" height="300"/>
+    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+    <div class="form-floating">
+      <input type="text" class="form-control" id="floatingInput" placeholder="Username" name="userid"/>
+      <label for="floatingInput">Username</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="passwd"/>
+      <label for="floatingPassword">Password</label>
+    </div>
+    <p>
+    <button class="btn btn-primary w-100 py-2" type="submit">Login</button>
+    </p>
+    <a class="btn btn-primary w-100 py-2" href="signup">Sign up</a>
+      
+  </form>
+</main>
+<script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"/>
+    </body>
+</html>

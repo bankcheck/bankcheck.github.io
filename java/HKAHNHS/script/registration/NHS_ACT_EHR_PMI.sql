@@ -1,0 +1,188 @@
+CREATE OR REPLACE FUNCTION "NHS_ACT_EHR_PMI" (
+	v_Action      	IN VARCHAR2,
+	v_PATNO       	IN VARCHAR2,
+  	v_EHRNO      	IN VARCHAR2,	
+	v_EHRFNAME   	IN VARCHAR2,
+	v_EHRGNAME   	IN VARCHAR2,
+	v_EHRDOB		IN VARCHAR2,
+	v_EHREDOBIND	IN VARCHAR2,
+	v_EHRSEX		IN VARCHAR2,
+	v_EHRHKID	    IN VARCHAR2,
+	v_EHRDOCNO	    IN VARCHAR2,
+	v_EHRDOCTYPE	IN VARCHAR2,
+	v_ACTIVE		IN VARCHAR2,
+	v_EHRDEATHDATE  IN VARCHAR2,
+	v_EHRHKID_ISADDSPC  IN VARCHAR2,
+	v_USERID    	IN VARCHAR2,
+	o_errmsg      	OUT VARCHAR2
+)
+	RETURN VARCHAR2
+AS
+	v_NOOFREC NUMBER;
+	O_ERRCODE VARCHAR2(10);
+	v_ACTIVE2 EHR_PMI.ACTIVE%TYPE;
+	v_EHRENROLDATE EHR_PMIHIST.EHRENROLDATE%TYPE;
+	v_EHRHKID2 EHR_PMI.EHRHKID%TYPE;
+BEGIN
+	o_errCode := '0';
+	o_errmsg := 'OK';
+	
+	IF v_EHRHKID_ISADDSPC = 'Y' AND INSTR(v_EHRHKID, ' ') <> 1 THEN
+		v_EHRHKID2 := ' ' || v_EHRHKID;
+	ELSE
+		v_EHRHKID2 := v_EHRHKID;
+	END IF;
+
+	SELECT COUNT(1) INTO v_noOfRec FROM EHR_PMI WHERE PATNO = v_PatNo;
+	IF v_Action = 'ADD' OR v_Action = 'MOD' THEN
+		IF v_noOfRec = 0 THEN
+			-- new enrollment
+			v_ACTIVE2 := '0';
+			
+			INSERT INTO EHR_PMI(
+				PATNO,
+				EHRNO,
+				EHRFNAME,
+				EHRGNAME,
+				EHRDOB,
+				EHREDOBIND,
+				EHRSEX,
+				EHRHKID,
+				EHRDOCNO,
+				EHRDOCTYPE,
+				ACTIVE
+			) VALUES (
+				v_PATNO,
+				NULL,
+				v_EHRFNAME,
+				v_EHRGNAME,
+				TO_DATE(v_EHRDOB, 'DD/MM/YYYY'),
+				v_EHREDOBIND,
+				v_EHRSEX,
+				v_EHRHKID2,
+				v_EHRDOCNO,
+				v_EHRDOCTYPE,
+				v_ACTIVE2
+			);
+			
+			v_EHRENROLDATE := SYSDATE;
+		ELSE
+			-- update
+			UPDATE EHR_PMI
+			SET
+				EHRFNAME = v_EHRFNAME,
+				EHRGNAME = v_EHRGNAME,
+				EHRDOB = TO_DATE(v_EHRDOB, 'DD/MM/YYYY'),
+				EHREDOBIND = v_EHREDOBIND,
+				EHRSEX = v_EHRSEX,
+				EHRHKID = v_EHRHKID2,
+				EHRDOCNO = v_EHRDOCNO,
+				EHRDOCTYPE = v_EHRDOCTYPE
+			WHERE	PATNO = v_PATNO;
+		
+			v_EHRENROLDATE := NULL;
+		END IF;
+		
+		-- insert pmihist
+		INSERT INTO EHR_PMIHIST(
+			PATNO,
+			EHRID,
+			EHRNO,
+			EHRENROLDATE,
+			EHRSDATE,
+			EHREDATE,
+			EHRFNAME,
+			EHRGNAME,
+			EHRDOB,
+			EHREDOBIND,
+			EHRSEX,
+			EHRHKID,
+			EHRDOCNO,
+			EHRDOCTYPE,
+			CREATEDATE,
+			CREATEBY,
+			EHRMSGNO,
+			EHRDEATHDATE
+		) VALUES (
+			v_PATNO,
+			SEQ_EHR_PMIHIST.NEXTVAL,
+			v_EHRNO,
+			v_EHRENROLDATE,
+			NULL,
+			NULL,
+			v_EHRFNAME,
+			v_EHRGNAME,
+			TO_DATE(v_EHRDOB, 'DD/MM/YYYY'),
+			v_EHREDOBIND,
+			v_EHRSEX,
+			v_EHRHKID2,
+			v_EHRDOCNO,
+			v_EHRDOCTYPE,
+			SYSDATE,
+			v_USERID,
+			NULL,
+			NULL
+		);
+		
+		o_errCode := 1;
+	ELSIF v_Action = 'DEL' THEN
+		IF v_noOfRec > 0 THEN
+			DELETE EHR_PMI WHERE PATNO = v_PATNO;
+			
+			-- insert pmihist
+			INSERT INTO EHR_PMIHIST(
+				PATNO,
+				EHRID,
+				EHRNO,
+				EHRENROLDATE,
+				EHRSDATE,
+				EHREDATE,
+				EHRFNAME,
+				EHRGNAME,
+				EHRDOB,
+				EHREDOBIND,
+				EHRSEX,
+				EHRHKID,
+				EHRDOCNO,
+				EHRDOCTYPE,
+				CREATEDATE,
+				CREATEBY,
+				EHRMSGNO,
+				EHRDEATHDATE
+			) VALUES (
+				v_PATNO,
+				SEQ_EHR_PMIHIST.NEXTVAL,
+				v_EHRNO,
+				NULL,
+				NULL,
+				SYSDATE,
+				NULL,
+				NULL,
+				NULL,
+				NULL,
+				NULL,
+				NULL,
+				NULL,
+				NULL,
+				SYSDATE,
+				v_USERID,
+				NULL,
+				NULL
+			);
+			
+			o_errCode := '1';
+		ELSE
+			o_errCode := -1;
+			o_errmsg := 'Fail to delete due to record not exist.';
+		END IF;
+	END IF;
+
+	RETURN o_errCode;
+EXCEPTION
+WHEN OTHERS THEN
+	o_errcode := -1;
+	o_errmsg:= o_errmsg || SQLERRM;
+	ROLLBACK;
+	RETURN o_errCode;
+END NHS_ACT_EHR_PMI;
+/

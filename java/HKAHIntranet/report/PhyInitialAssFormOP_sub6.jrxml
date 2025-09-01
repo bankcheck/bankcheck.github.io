@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PhyInitialAssFormOP" pageWidth="510" pageHeight="623" whenNoDataType="AllSectionsNoDetail" columnWidth="510" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.6500000000000024"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.pdf.compressed" value="true"/>
+	<parameter name="regid" class="java.lang.String"/>
+	<parameter name="path" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patName" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="patDOB" class="java.lang.String"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="vasPain" class="java.lang.String"/>
+	<parameter name="vasPn" class="java.lang.String"/>
+	<parameter name="vasNumb" class="java.lang.String"/>
+	<parameter name="painDesc" class="java.lang.String"/>
+	<parameter name="assessDate" class="java.lang.String"/>
+	<parameter name="patientGoal" class="java.lang.String"/>
+	<parameter name="funcAssmt" class="java.lang.String"/>
+	<parameter name="diagnosis" class="java.lang.String"/>
+	<parameter name="emotional" class="java.lang.String"/>
+	<parameter name="fallAssmt" class="java.lang.String"/>
+	<parameter name="pastMedHist" class="java.lang.String"/>
+	<parameter name="socialHistory" class="java.lang.String"/>
+	<parameter name="hpi" class="java.lang.String"/>
+	<parameter name="subjective" class="java.lang.String"/>
+	<parameter name="objective" class="java.lang.String"/>
+	<parameter name="tcp1" class="java.lang.String"/>
+	<parameter name="tcp2" class="java.lang.String"/>
+	<parameter name="tcp3" class="java.lang.String"/>
+	<parameter name="tcp4" class="java.lang.String"/>
+	<parameter name="tcp5" class="java.lang.String"/>
+	<parameter name="tcp6" class="java.lang.String"/>
+	<parameter name="tcp7" class="java.lang.String"/>
+	<parameter name="tcp8" class="java.lang.String"/>
+	<parameter name="tcp9" class="java.lang.String"/>
+	<parameter name="tcpOther1" class="java.lang.String"/>
+	<parameter name="treatmentGoal" class="java.lang.String"/>
+	<parameter name="carePlan" class="java.lang.String"/>
+	<parameter name="treatment" class="java.lang.String"/>
+	<parameter name="education" class="java.lang.String"/>
+	<parameter name="exercises" class="java.lang.String"/>
+	<parameter name="defection" class="java.lang.String"/>
+	<parameter name="postTreatment" class="java.lang.String"/>
+	<parameter name="frequency" class="java.lang.String"/>
+	<parameter name="options" class="java.lang.String"/>
+	<parameter name="peca1" class="java.lang.String"/>
+	<parameter name="peca2" class="java.lang.String"/>
+	<parameter name="pecaOther1" class="java.lang.String"/>
+	<parameter name="ad1" class="java.lang.String"/>
+	<parameter name="ad2" class="java.lang.String"/>
+	<parameter name="ad3" class="java.lang.String"/>
+	<parameter name="ad4" class="java.lang.String"/>
+	<parameter name="ad5" class="java.lang.String"/>
+	<parameter name="ad6" class="java.lang.String"/>
+	<parameter name="ad7" class="java.lang.String"/>
+	<parameter name="ad8" class="java.lang.String"/>
+	<parameter name="adOther1" class="java.lang.String"/>
+	<parameter name="adOther2" class="java.lang.String"/>
+	<parameter name="pt" class="java.lang.String"/>
+	<parameter name="progNotes" class="java.lang.String"/>
+	<parameter name="histProgNotes" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[Select 1 From Dual Connect By Level <= 1]]>
+	</queryString>
+	<field name="1" class="java.math.BigDecimal"/>
+	<summary>
+		<band height="30">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="0" y="15" width="510" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{progNotes}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="510" height="15"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Progress Notes]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,2 @@
+select	utl_raw.cast_to_varchar2(utl_encode.base64_decode(utl_raw.cast_to_raw(:ls_patcname)))
+					from dual;				

@@ -1,0 +1,20 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_SOURCE"
+(V_SRCCODE SOURCE.SRCCODE%TYPE,
+v_SRCDESC SOURCE.SRCDESC%TYPE)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN outcur FOR
+      SELECT
+        SRCCODE, SRCDESC
+      FROM SOURCE
+      WHERE ( SRCCODE LIKE '%' || v_SRCCODE || '%')
+      AND ( SRCDESC like '%' || v_SRCDESC || '%')
+      AND ROWNUM < 100
+      ORDER BY SRCCODE;
+   RETURN OUTCUR;
+END NHS_LIS_SOURCE;
+/
+
+

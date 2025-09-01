@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2010?~3??18?? ?U??03:36:13 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.DbCommentTypes" table="DB_COMMENT_TYPES">
+        <composite-id name="id" class="com.hkah.web.db.hibernate.DbCommentTypesId">
+            <key-property name="dbCommentTypeCode" type="string">
+                <column name="DB_COMMENT_TYPE_CODE" />
+            </key-property>
+            <key-property name="dbModuleCode" type="string">
+                <column name="DB_MODULE_CODE" />
+            </key-property>
+        </composite-id>
+        <property name="dbCommentTypeDesc" type="string">
+            <column name="DB_COMMENT_TYPE_DESC" not-null="true" />
+        </property>
+        <property name="dbOrderSequence" type="big_decimal">
+            <column name="DB_ORDER_SEQUENCE" />
+        </property>
+        <property name="dbCreatedDate" >
+            <column name="DB_CREATED_DATE" />
+        </property>
+        <property name="dbCreatedUser" type="string">
+            <column name="DB_CREATED_USER" />
+        </property>
+        <property name="dbModifiedDate" >
+            <column name="DB_MODIFIED_DATE" />
+        </property>
+        <property name="dbModifiedUser" type="string">
+            <column name="DB_MODIFIED_USER" />
+        </property>
+        <property name="dbEnabled" type="int">
+            <column name="DB_ENABLED" />
+        </property>
+        <set name="dbComments" inverse="true">
+            <key>
+                <column name="DB_COMMENT_TYPE_CODE" />
+                <column name="DB_MODULE_CODE" not-null="true" />
+            </key>
+            <one-to-many class="com.hkah.web.db.hibernate.DbComment" />
+        </set>
+        <set name="dbCommentHistories" inverse="true">
+            <key>
+                <column name="DB_COMMENT_TYPE_CODE" not-null="true" />
+                <column name="DB_MODULE_CODE" not-null="true" />
+            </key>
+            <one-to-many class="com.hkah.web.db.hibernate.DbCommentHistory" />
+        </set>
+    </class>
+</hibernate-mapping>

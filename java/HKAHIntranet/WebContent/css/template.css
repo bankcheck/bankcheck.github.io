@@ -1,0 +1,104 @@
+@CHARSET "UTF-8";
+
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+.template {
+	width: 100%;
+	height: 100%;
+}
+
+div#template-menu {
+}
+
+div#template-menu, div#template-content {
+	border: 2px solid;
+	border-color: black;
+	background-color: #D7D7D7!important;
+}
+
+.template-menu-item {
+	cursor: pointer!important;
+	width:100%;
+}
+
+div#template-content table {
+	width:100%;
+}
+
+.template-content-pane {
+	width:98%;
+	height:100%;
+	padding-bottom: 10px;
+}
+
+div .menuMode {
+	background-image:url("../images/cell-grey.jpg");
+	height:30px;
+	width:100%;
+}
+
+div.viewType {
+/*
+	background-color:white;
+	border: 1px solid;
+	border-color: black;
+*/
+	height:20px;
+	text-align:center;
+	font-weight:bold;
+	color:blue;
+	width:70%;
+	min-width:50px;
+	padding-top:5px;
+}
+
+div .menuMode table {
+	width:100%;
+}
+
+div .left_choice {
+	cursor: pointer!important;
+	float:right;
+	padding-right:5px;
+}
+
+div .right_choice {
+	cursor: pointer!important;
+	float:left;
+	padding-left:5px;
+}
+
+.selected {
+	background: url("../images/ui-bg_highlight-soft_75_ffe45c_1x100.png") repeat-x scroll 50% 50% #F6F6F6 !important;
+}
+
+.alert {
+	color: Red!important;
+}
+
+.scroll-pane
+{
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+}
+
+.template-button-set {
+	background-color: #4d4d4d;
+	border-top-style: ridge;
+	border-top-width: 1px;
+	padding: 0px;
+}
+
+.template-button-set table {
+	width:30%!important;
+	height:100%;
+	padding-left:10px;
+	float:right;
+}

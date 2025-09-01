@@ -1,0 +1,38 @@
+create or replace TRIGGER "LIS_ONLINE_2".after_update_labo_detail after update on labo_detail
+for each row
+declare
+  L_DEC NUMBER;
+  L_new_RESULT LABO_DETAIL.RESULT%TYPE;
+  L_old_RESULT LABO_DETAIL.RESULT%TYPE;
+  L_new_STATUS LABO_DETAIL.STATUS%TYPE;
+  L_old_STATUS LABO_DETAIL.STATUS%TYPE;
+  L_edit_by labo_detail.edit_by%TYPE;
+
+begin
+  if :old.test_type <> '3' then
+    select decimals into L_DEC from labm_prices where code = :new.test_num;
+
+    select nvl(to_char(round(to_num(:old.result), l_dec)), :old.result),
+      nvl(to_char(round(to_num(:new.result), l_dec)), :new.result),
+      :old.status, :new.status
+      into l_old_result, l_new_result, l_old_status, l_new_status from dual;
+
+    if :new.edit_by is not null then
+      L_edit_by := :new.edit_by;
+    end if;
+
+    if l_new_result <> l_old_result then
+
+      insert into labo_audit_trail2(lab_num, test_num, action, old_value, new_value, audit_user)
+        values (:new.lab_num, :new.test_num, 'modify result', :old.result, :new.result, L_edit_by);
+
+    elsif l_new_status <> l_old_status then    
+
+      insert into labo_audit_trail2(lab_num, test_num, action, old_value, new_value, audit_user)
+        values (:new.lab_num, :new.test_num, 'status change', :old.status, :new.status, L_edit_by);
+
+    end if;
+  end if;
+EXCEPTION WHEN OTHERS THEN
+  null;
+end ;

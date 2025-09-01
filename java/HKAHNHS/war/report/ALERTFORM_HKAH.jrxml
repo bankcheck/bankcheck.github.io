@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ALERTFROM_HKAH" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="511" leftMargin="48" rightMargin="36" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.210000000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="188"/>
+	<parameter name="patNo" class="java.lang.String"/>
+	<parameter name="patSname" class="java.lang.String"/>
+	<parameter name="patFname" class="java.lang.String"/>
+	<parameter name="patDOB" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="alertCode" class="java.lang.String"/>
+	<parameter name="LogoImg" class="java.lang.String"/>
+	<pageHeader>
+		<band height="68">
+			<image scaleImage="RetainShape">
+				<reportElement x="-42" y="8" width="534" height="56"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{LogoImg}]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="439" splitType="Prevent">
+			<rectangle>
+				<reportElement x="0" y="0" width="511" height="439"/>
+			</rectangle>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="8" y="26" width="469" height="20"/>
+				<textElement markup="html"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{alertCode}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="120">
+			<frame>
+				<reportElement x="233" y="80" width="277" height="37"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="4" y="57" width="72" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of Birth: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="76" width="72" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gender: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="19" width="72" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient No.: ]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="233" y="20" width="278" height="100"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="0" y="20" width="233" height="100"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="233" y="18" width="277" height="42"/>
+				<box>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Multi-Drug Resistant Organism]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="75" y="76" width="158" height="20"/>
+				<box topPadding="2" leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patSex}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="75" y="19" width="158" height="20"/>
+				<box topPadding="2" leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="75" y="57" width="158" height="20"/>
+				<box topPadding="2" leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patDOB}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="75" y="38" width="158" height="20"/>
+				<box topPadding="2" leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patSname} + " " +$P{patFname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="233" y="60" width="161" height="20"/>
+				<box>
+					<bottomPen lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rev: May 2010	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="394" y="60" width="116" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NUAD-MCA00]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="263" y="89" width="230" height="23"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode("NUADMCA00",com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="4" y="38" width="72" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name: ]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

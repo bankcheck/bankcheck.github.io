@@ -1,0 +1,55 @@
+CREATE OR REPLACE FUNCTION "NHS_UTL_SCMGETCHG" (
+    v_SLPNO     IN VARCHAR2,
+    v_GETTOTAL  IN BOOLEAN
+)
+    RETURN TYPES.CURSOR_TYPE
+AS
+    OUTCUR TYPES.CURSOR_TYPE;
+    SQLSTR VARCHAR2(5000);
+    TYPE_DOCTOR VARCHAR2(1) := 'D';
+    SLIPTX_STATUS_NORMAL VARCHAR2(1) := 'N';
+    SLIPTX_STATUS_ADJUST VARCHAR2(1) := 'A';
+BEGIN
+    SQLSTR := '';
+
+    IF v_GETTOTAL THEN
+        SQLSTR := SQLSTR ||
+                  'SELECT NVL(SUM(STNNAMT), 0)
+                   FROM ( ';
+    END IF;
+
+    SQLSTR := SQLSTR || 'SELECT TX.STNID, TX.PKGCODE, TX.ITMCODE, TX.STNDESC, TX.DOCCODE, TX.STNCDATE,
+                        TX.STNNAMT - NVL(SUM(SYD.SYDAAMT), 0) AS STNNAMT, TX.PCYID
+               FROM SLIP S, SLIPTX TX, SPECOMDTL SYD ';
+
+    IF v_SLPNO IS NULL THEN
+        SQLSTR := SQLSTR || 'WHERE 1 = 2 ';
+    ELSE
+        SQLSTR := SQLSTR ||
+                  'WHERE S.SLPNO = ''' || v_SLPNO || '''
+                   AND S.SLPNO = TX.SLPNO
+                   AND S.PCYID = TX.PCYID
+                   AND TX.STNTYPE = ''' || TYPE_DOCTOR || '''
+                   AND TX.STNID = SYD.STNID(+)
+                   AND TX.STNSTS IN (''' || SLIPTX_STATUS_NORMAL || ''', ''' || SLIPTX_STATUS_ADJUST || ''')
+                   AND TX.STNASCM IS NULL ';
+    END IF;
+
+    SQLSTR := SQLSTR ||
+              'GROUP BY TX.STNID, TX.PKGCODE, TX.ITMCODE, TX.STNDESC, TX.DOCCODE, TX.STNCDATE,
+                              TX.STNNAMT, TX.PCYID
+               HAVING TX.STNNAMT - NVL(SUM(SYD.SYDAAMT), 0) <> 0 ';
+
+    IF v_GETTOTAL THEN
+        SQLSTR := SQLSTR || ') ';
+    END IF;
+
+    OPEN OUTCUR FOR SQLSTR;
+    RETURN OUTCUR;
+EXCEPTION
+WHEN OTHERS THEN
+    dbms_output.put_line('An ERROR was encountered - '||SQLCODE||' -ERROR- '||SQLERRM);
+
+    RETURN NULL;
+END NHS_UTL_SCMGETCHG;
+/

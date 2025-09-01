@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spring boot with Thymeleaf</title>
+  </head>
+  <body>
+  	<th:block th:each="eachNumber : ${#numbers.sequence(0,5)}">
+  		<div th:text="${eachNumber}"></div>
+  	</th:block>  		    
+  </body>
+</html>

@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptDocSwapHistSmy" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="daterange" class="java.lang.String"/>
+	<parameter name="stename" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select   i.doccode_a as doccode, d.docfname, d.docgname,
+               count(regid) as adm, 0 as tot, 0 as day, 0 as dshg, 0 as Rec, 0 as
+Tran
+             From
+               reg r, inpat i, doctor d
+             Where
+               r.regid in (
+                           select
+                               r.RegID
+                           From
+                               dochist dh, reg r
+                           Where
+                               dh.dhsdate > = to_date(' 01/01/2006','DD/MM/YYYY')
+                               and dh.dhsdate < to_date(' 01/06/2006','DD/MM/YYYY')
++ 1
+                               and dh.dhssts = 'N'
+                               and dh.regid = r.regid
+                               and r.regtype = 'I'
+                               and r.regsts = 'N'
+                           )
+               and r.stecode = 'HKAH'
+               and r.inpid = i.inpid
+               and i.doccode_a = d.doccode
+             Group By
+               i.DocCode_a , d.DocFName, d.DocGname
+   union
+             select
+              dh.doccode,d.docfname,d.docgname,
+               0 as adm, count(dh.dhsid) as tot, sum(trunc(dh.dhsedate) - trunc
+(dh.dhsdate) ) as day, 0 as dshg, 0 as Rec, 0 as Tran
+             From
+               dochist dh, reg r, doctor d
+             Where
+               dh.dhsdate > = to_date (' 01/01/2006','DD/MM/YYYY')
+               and dh.dhsedate < to_date (' 01/06/2006','DD/MM/YYYY') + 1
+               and dh.dhsedate is not null
+               and dh.regid = r.regid
+               and r.regtype = 'I'
+               and r.regsts = 'N'
+               and r.stecode = 'HKAH'
+               and dh.doccode = d.doccode
+             Group By
+               dh.DocCode , d.DocFName, d.DocGname
+ Union
+             select
+              dh.doccode, d.docfname, d.docgname,
+               0 as adm, count(dh.dhsid) as tot, sum(to_date ('
+01/06/2006','DD/MM/YYYY') - trunc(dh.dhsdate)) as day, 0 as dshg, 0 as Rec, 0 as
+Tran
+             From
+               dochist dh, reg r, doctor d
+             Where
+               dh.dhsdate > = to_date (' 01/01/2006','DD/MM/YYYY')
+               and dh.dhsdate <  to_date (' 01/06/2006','DD/MM/YYYY') + 1
+               and dh.dhsedate is null
+               and dh.regid = r.regid
+               and r.regtype = 'I'
+               and r.regsts = 'N'
+               and r.stecode = 'HKAH'
+               and dh.doccode = d.doccode
+             Group By
+                dh.DocCode , d.DocFName, d.DocGname
+Union
+             select
+               dh.doccode, d.docfname, d.docgname,
+               0 as adm, count(dh.dhsid) as tot, sum(to_date('
+01/06/2006','DD/MM/YYYY') - trunc(dh.dhsdate)) as day, 0 as dshg, 0 as Rec, 0 as
+Tran
+             From
+               dochist dh, reg r, doctor d
+             Where
+               dh.dhsdate > = to_date (' 01/01/2006','DD/MM/YYYY')
+               and dh.dhsdate < to_date (' 01/06/2006','DD/MM/YYYY') + 1
+               and dh.dhsedate >= to_date (' 01/06/2006','DD/MM/YYYY') + 1
+               and dh.dhsedate is not null
+               and dh.regid = r.regid
+               and r.regtype = 'I'
+               and r.regsts = 'N'
+               and  r.stecode = 'HKAH'
+               and dh.doccode = d.doccode
+             Group By
+            dh.DocCode , d.DocFName, d.DocGname
+  Union
+             select
+                dh.doccode, d.docfname, d.docgname,
+               0 as adm, count(dh.dhsid) as tot, sum( trunc(dh.dhsedate) - to_date('
+01/01/2006','DD/MM/YYYY')) as day, 0 as dshg, 0 as Rec, 0 as Tran
+             From
+               dochist dh, reg r,doctor d
+             Where
+               dh.dhsdate < to_date (' 01/01/2006','DD/MM/YYYY')
+               and dh.dhsedate >= to_date (' 01/01/2006','DD/MM/YYYY')
+               and dh.dhsedate < to_date (' 01/06/2006','DD/MM/YYYY') + 1
+               and dh.dhsedate is not null
+               and dh.regid = r.regid
+               and r.regtype = 'I'
+               and r.regsts = 'N'
+             and r.stecode = 'HKAH'
+               and dh.doccode = d.doccode
+             Group By
+               dh.DocCode , d.DocFName, d.DocGname
+ Union
+             select
+              dh.doccode, d.docfname, d.docgname,
+               0 as adm, count(dh.dhsid) as tot , sum(to_date('
+01/06/2006','DD/MM/YYYY') - to_date(' 01/01/2006','DD/MM/YYYY')) as day, 0 as dshg,
+0 as Rec, 0 as Tran
+             From
+               dochist dh, reg r, doctor d
+             Where
+               dh.dhsdate < to_date (' 01/01/2006','DD/MM/YYYY')
+               and dh.dhsedate is null
+               and dh.regid = r.regid
+               and r.regtype = 'I'
+               and r.regsts = 'N'
+               and r.stecode = 'HKAH'
+               and dh.doccode = d.doccode
+             Group By
+                dh.DocCode , d.DocFName, d.DocGname
+Union
+             select
+               dh.doccode, d.docfname, d.docgname,
+               0 as adm, count(dh.dhsid) as tot, sum(to_date('
+01/06/2006','DD/MM/YYYY') - to_date(' 01/01/2006','DD/MM/YYYY') ) as day, 0 as dshg,
+0 as Rec, 0 as Tran
+             From
+               dochist dh, reg r, doctor d
+             Where
+               dh.dhsdate < to_date (' 01/01/2006','DD/MM/YYYY')
+               and dh.dhsedate >  to_date (' 01/06/2006','DD/MM/YYYY')
+               and dh.dhsedate is not null
+               and dh.regid = r.regid
+               and r.regtype = 'I'
+               and r.regsts = 'N'
+               and r.stecode = 'HKAH'
+               and dh.doccode = d.doccode
+             Group By
+              dh.DocCode , d.DocFName, d.DocGname
+ Union
+             select
+              dh.doccode, d.docfname, d.docgname,
+               0 as adm, 0 as total, 0 as Day  ,count(dh.dhsid) as dshg, 0 as Rec, 0
+as Tran
+             From
+               dochist dh, reg r, inpat i, doctor d
+             Where
+               dh.dhsedate > to_date(' 01/01/2006','DD/MM/YYYY')
+               and dh.dhsedate < to_date(' 01/06/2006','DD/MM/YYYY') + 1
+               and dh.dhsedate is not null
+               and dh.regid = r.regid
+               and r.regtype = 'I'
+               and r.regsts = 'N'
+              and r.stecode = 'HKAH'
+               and r.inpid = i.inpid
+               and i.inpddate is not null
+               and i.inpddate > to_date(' 01/01/2006','DD/MM/YYYY')
+               and i.inpddate < to_date(' 01/06/2006','DD/MM/YYYY') + 1
+               and dh.doccode = i.doccode_d
+               and dh.doccode = d.doccode
+             Group By
+               dh.DocCode , d.DocFName, d.DocGname
+union
+             select
+                  dh.doccode, d.docfname, d.docgname,
+               0 as adm, 0 as tot, 0 as day, 0 as dshg ,count(*) as Rec, 0 as Tran
+             From
+               (select
+                   dh2.dhsid
+               From
+                   dochist dh1, dochist dh2
+               Where
+                   dh1.dhsdate > = to_date(' 01/01/2006','DD/MM/YYYY')
+                   and dh1.dhsdate < to_date(' 01/06/2006','DD/MM/YYYY') + 1
+                   and dh1.regid = dh2.regid
+                   and dh1.dhsid < dh2.dhsid
+                   and dh2.dhsdate > = to_date(' 01/01/2006','DD/MM/YYYY')
+                   and dh2.dhsdate < to_date(' 01/06/2006','DD/MM/YYYY') + 1
+               Group By
+                   dh2.dhsid
+               )a, dochist dh, reg r, inpat i, doctor d
+             Where
+               dh.dhsid = a.dhsid
+               and r.regtype = 'I'
+               and r.regsts = 'N'
+               and dh.regid = r.regid
+               and r.inpid = i.inpid
+               and r.stecode = 'HKAH'
+               and r.doccode = d.doccode
+             Group By
+               dh.DocCode , d.DocFName, d.DocGname
+union
+             select
+               dh.doccode, d.docfname, d.docgname,
+               0 as adm, 0 as tot, 0 as day, 0 as dshg ,0 as Rec, count(*) as tran
+             From
+               (select
+                   dh1.dhsid
+               From
+                   dochist dh1, dochist dh2
+               Where
+                   dh1.dhsdate > = to_date(' 01/01/2006','DD/MM/YYYY')
+                   and dh1.dhsdate < to_date(' 01/06/2006','DD/MM/YYYY') + 1
+                   and dh1.regid = dh2.regid
+                   and dh1.dhsid < dh2.dhsid
+               Group By
+                   dh1.dhsid
+               )a, dochist dh, reg r, inpat i, doctor d
+             Where
+               dh.dhsid = a.dhsid
+               and r.regtype = 'I'
+               and r.regsts = 'N'
+               and dh.regid = r.regid
+               and r.inpid = i.inpid
+               and r.stecode = 'HKAH'
+               and r.doccode = d.doccode
+             Group By
+                dh.DocCode , d.DocFName, d.DocGname]]>
+	</queryString>
+	<field name="DOCCODE" class="java.lang.String"/>
+	<field name="DOCFNAME" class="java.lang.String"/>
+	<field name="DOCGNAME" class="java.lang.String"/>
+	<field name="ADM" class="java.math.BigDecimal"/>
+	<field name="TOT" class="java.math.BigDecimal"/>
+	<field name="DAY" class="java.math.BigDecimal"/>
+	<field name="DSHG" class="java.math.BigDecimal"/>
+	<field name="REC" class="java.math.BigDecimal"/>
+	<field name="TRAN" class="java.math.BigDecimal"/>
+	<variable name="DocName" class="java.lang.String">
+		<variableExpression><![CDATA[$F{DOCFNAME}+" "+$F{DOCGNAME}]]></variableExpression>
+	</variable>
+	<variable name="DAY_1" class="java.math.BigDecimal" resetType="Group" resetGroup="group_doccode" calculation="Sum">
+		<variableExpression><![CDATA[$F{DAY}]]></variableExpression>
+	</variable>
+	<variable name="ADM_1" class="java.math.BigDecimal" resetType="Group" resetGroup="group_doccode" calculation="Sum">
+		<variableExpression><![CDATA[$F{ADM}]]></variableExpression>
+	</variable>
+	<variable name="TRAN_1" class="java.math.BigDecimal" resetType="Group" resetGroup="group_doccode" calculation="Sum">
+		<variableExpression><![CDATA[$F{TRAN}]]></variableExpression>
+	</variable>
+	<variable name="REC_1" class="java.math.BigDecimal" resetType="Group" resetGroup="group_doccode" calculation="Sum">
+		<variableExpression><![CDATA[$F{REC}]]></variableExpression>
+	</variable>
+	<variable name="DSHG_1" class="java.math.BigDecimal" resetType="Group" resetGroup="group_doccode" calculation="Sum">
+		<variableExpression><![CDATA[$F{DSHG}]]></variableExpression>
+	</variable>
+	<variable name="DAY_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{DAY}]]></variableExpression>
+	</variable>
+	<variable name="ADM_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ADM}]]></variableExpression>
+	</variable>
+	<variable name="TRAN_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TRAN}]]></variableExpression>
+	</variable>
+	<variable name="REC_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{REC}]]></variableExpression>
+	</variable>
+	<variable name="DSHG_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{DSHG}]]></variableExpression>
+	</variable>
+	<group name="group_doccode">
+		<groupExpression><![CDATA[$F{DOCCODE}]]></groupExpression>
+		<groupFooter>
+			<band height="20">
+				<textField>
+					<reportElement x="2" y="0" width="53" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCCODE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="55" y="0" width="123" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$V{DocName}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.0;-#,##0.0">
+					<reportElement x="192" y="0" width="70" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DAY_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0;-#,##0">
+					<reportElement x="269" y="0" width="61" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{ADM_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0;-#,##0">
+					<reportElement x="338" y="0" width="70" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TRAN_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0;-#,##0">
+					<reportElement x="419" y="0" width="66" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{REC_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0;-#,##0">
+					<reportElement x="493" y="0" width="62" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DSHG_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="121" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="1" width="100" height="14"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[RptDocSwapHistSmy]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="68" width="554" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{daterange}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="436" y="1" width="80" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="49" width="555" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Doctor Swap History-Summary Count]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="29" width="554" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{stename}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="516" y="1" width="40" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="2" y="15" width="194" height="14"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="101" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Doctor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="192" y="101" width="70" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[#Day]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="493" y="101" width="62" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[#Discharge]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="101" width="61" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[#Admit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="338" y="101" width="70" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[#Transfer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="419" y="101" width="66" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[#Received]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="7" width="100" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="192" y="8" width="70" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DAY_2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="269" y="9" width="61" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{ADM_2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="338" y="9" width="70" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TRAN_2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="419" y="8" width="66" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{REC_2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="493" y="9" width="63" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DSHG_2}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="420" y="22" width="62" height="1"/>
+			</line>
+			<line>
+				<reportElement x="494" y="23" width="62" height="1"/>
+			</line>
+			<line>
+				<reportElement x="494" y="7" width="62" height="1"/>
+			</line>
+			<line>
+				<reportElement x="419" y="7" width="66" height="1"/>
+			</line>
+			<line>
+				<reportElement x="340" y="7" width="66" height="1"/>
+			</line>
+			<line>
+				<reportElement x="269" y="7" width="62" height="1"/>
+			</line>
+			<line>
+				<reportElement x="192" y="7" width="70" height="1"/>
+			</line>
+			<line>
+				<reportElement x="339" y="23" width="68" height="1"/>
+			</line>
+			<line>
+				<reportElement x="267" y="23" width="62" height="1"/>
+			</line>
+			<line>
+				<reportElement x="192" y="22" width="69" height="1"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

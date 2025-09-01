@@ -1,0 +1,549 @@
+create or replace FUNCTION      "NHS_ACT_ACCOUNTRECEIVABLEDTL" (
+	v_action      IN VARCHAR2,
+	v_ARCCODE     IN ARCODE.ARCCODE%TYPE,
+	v_ARCNAME     IN ARCODE.ARCNAME%TYPE,
+	v_ARCCNAME    IN ARCODE.ARCCNAME%TYPE,
+	v_GLCCODE     IN ARCODE.GLCCODE%TYPE,
+	v_RETGLCCODE  IN ARCODE.RETGLCCODE%TYPE,
+	v_ARCADD1     IN ARCODE.ARCADD1%TYPE,
+	v_ARCADD2     IN ARCODE.ARCADD2%TYPE,
+	v_ARCADD3     IN ARCODE.ARCADD3%TYPE,
+	v_ARCTEL      IN ARCODE.ARCTEL%TYPE,
+	v_FAX         IN ARCODE.FAX%TYPE,
+	v_EMAIL       IN ARCODE.EMAIL%TYPE,
+	v_ARCCT       IN ARCODE.ARCCT%TYPE,
+	v_ARCTITLE    IN ARCODE.ARCTITLE%TYPE,
+--	v_ARCUAMT     IN VARCHAR2,--
+--	v_ARCAMT      IN VARCHAR2,--
+	v_CPSID       IN VARCHAR2,--
+	v_ARCADMCNAME IN ARCODE.ARCADMCNAME%TYPE,
+	v_ADMTTL      IN ARCODE.ADMTTL%TYPE,
+	v_ADMEMAIL    IN ARCODE.ADMEMAIL%TYPE,
+	v_ARCADMCP    IN ARCODE.ARCADMCP%TYPE,
+	v_ARCADMCF    IN ARCODE.ARCADMCF%TYPE,
+	v_ARCSND      IN VARCHAR2,--
+	v_FURCCT      IN ARCODE.FURCCT%TYPE,
+	v_FURTTL      IN ARCODE.FURTTL%TYPE,
+	v_FUREMAIL    IN ARCODE.FUREMAIL%TYPE,
+	v_FURTEL      IN ARCODE.FURTEL%TYPE,
+	v_FURFAX      IN ARCODE.FURFAX%TYPE,
+	v_COPAYTYP    IN VARCHAR2,
+	v_ARLMTAMT    IN VARCHAR2,--
+	v_CVREDATE    IN VARCHAR2,
+	v_COPAYAMT    IN VARCHAR2,--
+	v_ITMTYPED    IN VARCHAR2,--
+	v_ITMTYPEH    IN VARCHAR2,---
+	v_ITMTYPES    IN VARCHAR2,---
+	v_ITMTYPEO    IN VARCHAR2,---
+	v_AR_S_DATE   IN VARCHAR2,
+	v_AR_E_DATE   IN VARCHAR2,
+	v_ARCUPDUSR   IN VARCHAR2,
+	v_AR_ACTIVE   IN VARCHAR2,
+	v_ARCPRIMCOMP IN VARCHAR2,
+	v_NCTRSDATE   IN VARCHAR2,
+	v_NCTREDATE   IN VARCHAR2,
+	v_ARCADD4     IN VARCHAR2,
+	v_OLDCODE     IN VARCHAR2,
+	V_PRINT_MRRPT IN VARCHAR2,
+	v_MSTR_AR 	  In Varchar2,
+	V_AR_INPATIENT In Varchar2,
+	V_AR_OUTPATIENT In Varchar2,
+  V_PAYCHECK    IN VARCHAR2,
+  V_ISDI        IN VARCHAR2,
+  V_ARAGREEMENT IN VARCHAR2,
+  V_AR_HTHASSMENT  IN VARCHAR2,
+  V_AR_OTHERS  IN VARCHAR2,
+  V_AR_OTHERS_TEXT  IN VARCHAR2,
+  V_INP_CHGRPTLVL	IN VARCHAR2,
+  V_OP_CHGRPTLVL	IN VARCHAR2,
+  V_PATSIGN	IN VARCHAR2,
+  V_ARNATURE	IN VARCHAR2,
+	v_ADMADD1 IN ARCODE_EXTRA.ADMADD1%TYPE,
+	v_ADMADD2 IN ARCODE_EXTRA.ADMADD2%TYPE,
+	v_ADMADD3 IN ARCODE_EXTRA.ADMADD3%TYPE,
+  v_ADMADD4 IN ARCODE_EXTRA.ADMADD4%TYPE,
+  v_AGCCCT IN ARCODE_EXTRA.AGCCCT%TYPE,   
+  v_AGCTITLE IN ARCODE_EXTRA.AGCTITLE%TYPE,
+  v_AGCTEL IN ARCODE_EXTRA.AGCTEL%TYPE,
+  v_AGCFAX IN ARCODE_EXTRA.AGCFAX%TYPE,
+  v_AGCEMAIL IN ARCODE_EXTRA.AGCEMAIL%TYPE,  
+  v_AGCADD1 IN ARCODE_EXTRA.AGCADD1%TYPE,
+  v_AGCADD2 IN ARCODE_EXTRA.AGCADD2%TYPE,
+  v_AGCADD3 IN ARCODE_EXTRA.AGCADD3%TYPE,
+  v_AGCADD4 IN ARCODE_EXTRA.AGCADD4%TYPE,
+  v_AUPCCT IN ARCODE_EXTRA.AUPCCT%TYPE,
+  v_AUPTITLE IN ARCODE_EXTRA.AUPTITLE%TYPE,
+  v_AUPEMAIL IN ARCODE_EXTRA.AUPEMAIL%TYPE,
+  v_AUPTEL IN ARCODE_EXTRA.AUPTEL%TYPE,
+  v_AUPFAX IN ARCODE_EXTRA.AUPFAX%TYPE,
+  v_AUPADD1 IN ARCODE_EXTRA.AUPADD1%TYPE,
+  v_AUPADD2 IN ARCODE_EXTRA.AUPADD2%TYPE,
+  v_AUPADD3 IN ARCODE_EXTRA.AUPADD3%TYPE,
+  v_AUPADD4 IN ARCODE_EXTRA.AUPADD4%TYPE,
+  v_PRECCT IN ARCODE_EXTRA.PRECCT%TYPE,
+  v_PRETITLE IN ARCODE_EXTRA.PRETITLE%TYPE,
+  v_PREEMAIL IN ARCODE_EXTRA.PREEMAIL%TYPE,
+  v_PRETEL IN ARCODE_EXTRA.PRETEL%TYPE,
+  v_PREFAX IN ARCODE_EXTRA.PREFAX%TYPE,
+  v_PREADD1 IN ARCODE_EXTRA.PREADD1%TYPE,
+  v_PREADD2 IN ARCODE_EXTRA.PREADD2%TYPE,
+  v_PREADD3 IN ARCODE_EXTRA.PREADD3%TYPE,
+  v_PREADD4 IN ARCODE_EXTRA.PREADD3%TYPE,
+  v_AR_PCT IN ARCODE_EXTRA.AR_PCT%TYPE,
+	o_errmsg OUT VARCHAR2
+)
+
+--	RETURN BOOLEAN
+	return number
+as
+	o_errcode NUMBER;
+	v_NOOFREC number;
+	v_noOfOLDRec NUMBER;
+  V_NOOFPATSIGN NUMBER;
+
+	PAYCODE_PAYTYPE_OTHER VARCHAR2(1) := 'O';
+BEGIN
+	o_errcode := 0;
+	o_errmsg := 'OK';
+	SELECT COUNT(1) INTO v_NOOFREC FROM ARCODE WHERE ARCCODE = v_ARCCODE;
+	SELECT COUNT(1) INTO v_NOOFOLDREC FROM ARCODE WHERE ARCCODE = v_OLDCODE;
+  SELECT COUNT(1) INTO V_NOOFPATSIGN FROM HPSTATUS HPS WHERE HPS.HPTYPE = 'ARSIGN' AND HPS.HPSTATUS = 'SIGNATURE' AND HPS.HPKEY = v_ARCCODE;
+
+	IF v_action = 'ADD' THEN
+		IF v_noOfRec = 0 THEN
+			INSERT INTO ARCODE (
+				ARCCODE,
+				ARCNAME,
+				ARCCNAME,
+				ARCADD1,
+				ARCADD2,
+				ARCADD3,
+				ARCTEL,
+				ARCCT,
+				ARCTITLE,
+				ARCUAMT,
+				ARCAMT,
+				STECODE,
+				GLCCODE,
+				CPSID,
+				RETGLCCODE,
+				AR_S_DATE,
+				AR_E_DATE,
+				FAX,
+				EMAIL,
+				ARLMTAMT,
+				CVREDATE,
+				COPAYAMT,
+				ITMTYPED,
+				ITMTYPEH,
+				ITMTYPES,
+				ITMTYPEO,
+				FURGRTAMT,
+				FURGRTDATE,
+				COPAYTYP,
+				FURCCT,
+				FURTTL,
+				FURTEL,
+				FURFAX,
+				ADMTTL,
+				ADMEMAIL,
+				FUREMAIL,
+				ARCADMCNAME,
+				ARCADMCP,
+				ARCADMCF,
+				ARCSND,
+				ARCUPDUSR,
+				ARCUPDDATE,
+				AR_ACTIVE,
+				ARCPRIMCOMP,
+				NCTRSDATE,
+				NCTREDATE,
+				ARCADD4,
+				Print_Mrrpt,
+        MSTR_AR,
+        AR_INPATIENT,
+        AR_OUTPATIENT,
+        PAY_CHECK,
+        ISDI,
+        AR_AGREEMENT,
+        AR_HTHASSMENT,
+        AR_OTHERS,
+        AR_OTHERS_TEXT,
+        INP_CHG_RPTLVL,
+        OP_CHG_RPTLVL,
+        AR_NATURE
+			) VALUES (
+				v_ARCCODE,
+				v_ARCNAME,
+				v_ARCCNAME,
+				v_ARCADD1,
+				v_ARCADD2,
+				v_ARCADD3,
+				v_ARCTEL,
+				v_ARCCT,
+				v_ARCTITLE,
+				0,
+				0,
+				GET_CURRENT_STECODE,
+				v_GLCCODE,
+				TO_NUMBER(v_CPSID),
+				v_RETGLCCODE,
+				TO_DATE(v_AR_S_DATE, 'dd/MM/YYYY'),
+				TO_DATE(v_AR_E_DATE, 'dd/MM/YYYY'),
+				v_FAX,
+				v_EMAIL,
+				TO_NUMBER(v_ARLMTAMT),
+				TO_DATE(v_CVREDATE, 'dd/MM/YYYY'),
+				TO_NUMBER(v_COPAYAMT),
+				TO_NUMBER(v_ITMTYPED),
+				TO_NUMBER(v_ITMTYPEH),
+				TO_NUMBER(v_ITMTYPES),
+				TO_NUMBER(v_ITMTYPEO),
+				0,
+				NULL,
+				v_COPAYTYP,
+				v_FURCCT,
+				v_FURTTL,
+				v_FURTEL,
+				v_FURFAX,
+				v_ADMTTL,
+				v_ADMEMAIL,
+				v_FUREMAIL,
+				v_ARCADMCNAME,
+				v_ARCADMCP,
+				v_ARCADMCF,
+				TO_NUMBER(v_ARCSND),
+				v_ARCUPDUSR,
+				SYSDATE,
+				TO_NUMBER(v_AR_ACTIVE),
+				v_ARCPRIMCOMP,
+				TO_DATE(v_NCTRSDATE, 'dd/MM/YYYY'),
+				TO_DATE(v_NCTREDATE, 'dd/MM/YYYY'),
+				v_ARCADD4,
+				V_PRINT_MRRPT,
+				v_MSTR_AR,
+				V_AR_INPATIENT,
+				V_AR_OUTPATIENT,
+				V_PAYCHECK,
+				V_ISDI,
+				V_ARAGREEMENT,
+				V_AR_HTHASSMENT,
+				V_AR_OTHERS,
+				V_AR_OTHERS_TEXT,
+				v_INP_CHGRPTLVL,
+				v_OP_CHGRPTLVL,
+				V_ARNATURE       
+			);
+      
+        IF SQL%ROWCOUNT >0 THEN
+          INSERT INTO ARCODE_EXTRA (
+            ARCCODE,
+            STECODE,
+            ADMADD1,            
+            ADMADD2,
+            ADMADD3,
+            ADMADD4,
+            AGCCCT,
+            AGCTITLE,
+            AGCEMAIL,
+            AGCTEL,
+            AGCFAX,
+            AGCADD1,
+            AGCADD2,
+            AGCADD3,
+            AGCADD4,
+            AUPCCT,
+            AUPTITLE,
+            AUPEMAIL,
+            AUPTEL,
+            AUPFAX,
+            AUPADD1,
+            AUPADD2,
+            AUPADD3,
+            AUPADD4,
+            PRECCT,
+            PRETITLE,
+            PREEMAIL,
+            PRETEL,
+            PREFAX,
+            PREADD1,
+            PREADD2,
+            PREADD3,
+            PREADD4,
+            AR_PCT
+          ) VALUES (
+            v_ARCCODE,
+            GET_CURRENT_STECODE,
+            v_ADMADD1,
+            v_ADMADD2,
+            v_ADMADD3,
+            v_ADMADD4,
+            v_AGCCCT,
+            v_AGCTITLE,
+            v_AGCEMAIL,
+            v_AGCTEL,
+            v_AGCFAX,
+            v_AGCADD1,
+            v_AGCADD2,
+            v_AGCADD3,
+            v_AGCADD4,
+            v_AUPCCT,
+            v_AUPTITLE,
+            v_AUPEMAIL,
+            v_AUPTEL,
+            v_AUPFAX,
+            v_AUPADD1,
+            v_AUPADD2,
+            v_AUPADD3,
+            v_AUPADD4,
+            v_PRECCT,
+            v_PRETITLE,
+            v_PREEMAIL,
+            v_PRETEL,
+            v_PREFAX,
+            v_PREADD1,
+            v_PREADD2,
+            v_PREADD3,
+            v_PREADD4,
+            v_AR_PCT
+          );
+        END IF;
+            
+		    IF V_NOOFPATSIGN = 0 THEN
+		      INSERT INTO HPSTATUS (
+		        HPTYPE,
+		        HPKEY,
+		        HPSTATUS,
+		        HPSDATE,
+		        HPEDATE,
+		        HPRMK,
+		        HPCDATE,
+		        HPMDATE,
+		        HPCUSR,
+		        HPMUSR,
+		        HPACTIVE
+					) VALUES (
+		        'ARSIGN',
+		        v_ARCCODE,
+		        'SIGNATURE',
+		        NULL,
+		        NULL,
+		        NULL,
+		        SYSDATE,
+		        NULL,
+		        v_ARCUPDUSR,
+		        v_ARCUPDUSR,
+		        V_PATSIGN
+		      );
+		    END IF;
+    
+			SELECT COUNT(1) INTO V_NOOFREC FROM PAYCODE WHERE PAYCODE = v_ARCCODE;
+			IF V_NOOFREC = 0 THEN
+				INSERT INTO PAYCODE (
+				    PAYCODE,
+				    PAYTYPE,
+				    PAYDESC,
+				    PAYCDESC,
+				    GLCCODE,
+				    STECODE,
+				    RETGLCCODE,
+				    PAYNOTEAR
+				) VALUES (
+				    v_ARCCODE,
+				    PAYCODE_PAYTYPE_OTHER,
+				    v_ARCNAME,
+				    v_ARCCNAME,
+				    v_GLCCODE,
+				    GET_CURRENT_STECODE,
+				    v_RETGLCCODE,
+				    NULL
+				);
+			END IF;
+
+--		ELSE
+--			o_errcode := -1;
+--			o_errmsg := 'Record already exists.';
+		END IF;
+	ELSIF v_action = 'MOD' THEN
+	    IF V_NOOFPATSIGN = 0 THEN
+	    	INSERT INTO HPSTATUS (
+		        HPTYPE,
+		        HPKEY,
+		        HPSTATUS,
+		        HPSDATE,
+		        HPEDATE,
+		        HPRMK,
+		        HPCDATE,
+		        HPMDATE,
+		        HPCUSR,
+		        HPMUSR,
+		        HPACTIVE
+			) VALUES (
+		        'ARSIGN',
+		        v_ARCCODE,
+		        'SIGNATURE',
+		        NULL,
+		        NULL,
+		        NULL,
+		        SYSDATE,
+		        NULL,
+		        v_ARCUPDUSR,
+		        v_ARCUPDUSR,
+		        V_PATSIGN
+	      );
+	    ELSE
+	      UPDATE HPSTATUS
+	      SET HPMDATE = SYSDATE,
+	          HPMUSR = v_ARCUPDUSR,
+	          HPACTIVE = V_PATSIGN
+	      WHERE HPTYPE = 'ARSIGN' 
+	      AND HPSTATUS = 'SIGNATURE'
+	      AND HPKEY = v_ARCCODE;
+	    END IF;  
+  
+		IF v_noOfOLDRec > 0 THEN
+			UPDATE ARCODE
+			SET
+				ARCCODE     = v_ARCCODE,
+				ARCCNAME    = v_ARCCNAME,
+				ARCNAME     = v_ARCNAME,
+				GLCCODE     = v_GLCCODE,
+				RETGLCCODE  = v_RETGLCCODE,
+				ARCADD1     = v_ARCADD1,
+				ARCADD2     = v_ARCADD2,
+				ARCADD3     = v_ARCADD3,
+				ARCTEL      = v_ARCTEL,
+				FAX         = v_FAX,
+				EMAIL       = v_EMAIL,
+				ARCCT       = v_ARCCT,
+				ARCTITLE    = v_ARCTITLE,
+--				ARCUAMT     = TO_NUMBER(v_ARCUAMT),
+--				ARCAMT      = TO_NUMBER(v_ARCAMT),
+				CPSID       = TO_NUMBER(v_CPSID),
+				ARCADMCNAME = v_ARCADMCNAME,
+				ADMTTL      = v_ADMTTL,
+				ADMEMAIL    = v_ADMEMAIL,
+				ARCADMCP    = v_ARCADMCP,
+				ARCADMCF    = v_ARCADMCF,
+				ARCSND      = TO_NUMBER(v_ARCSND),
+				FURCCT      = v_FURCCT,
+				FURTTL      = v_FURTTL,
+				FUREMAIL    = v_FUREMAIL,
+				FURTEL      = v_FURTEL,
+				FURFAX      = v_FURFAX,
+				COPAYTYP    = v_COPAYTYP,
+				ARLMTAMT    = TO_NUMBER(v_ARLMTAMT),
+				CVREDATE    = TO_DATE(v_CVREDATE, 'dd/MM/YYYY'),
+				COPAYAMT    = TO_NUMBER(v_COPAYAMT),
+				ITMTYPED    = TO_NUMBER(v_ITMTYPED),
+				ITMTYPEH    = TO_NUMBER(v_ITMTYPEH),
+				ITMTYPES    = TO_NUMBER(v_ITMTYPES),
+				ITMTYPEO    = TO_NUMBER(v_ITMTYPEO),
+				AR_S_DATE   = TO_DATE(v_AR_S_DATE, 'dd/MM/YYYY'),
+				AR_E_DATE   = TO_DATE(v_AR_E_DATE, 'dd/MM/YYYY'),
+				ARCUPDUSR   = v_ARCUPDUSR,
+				ARCUPDDATE  = SYSDATE,
+				AR_ACTIVE   = TO_NUMBER(v_AR_ACTIVE),
+				ARCPRIMCOMP = v_ARCPRIMCOMP,
+				NCTRSDATE   = TO_DATE(v_NCTRSDATE, 'dd/MM/YYYY'),
+				NCTREDATE   = TO_DATE(v_NCTREDATE, 'dd/MM/YYYY'),
+				ARCADD4     = v_ARCADD4,
+				PRINT_MRRPT = V_PRINT_MRRPT,
+        Mstr_Ar = v_MSTR_AR,
+        AR_INPATIENT = V_AR_INPATIENT,
+        AR_OUTPATIENT = V_AR_OUTPATIENT,
+        PAY_CHECK = V_PAYCHECK,
+        ISDI = V_ISDI,
+        AR_AGREEMENT = V_ARAGREEMENT,
+        AR_HTHASSMENT = V_AR_HTHASSMENT,
+        AR_OTHERS = V_AR_OTHERS,
+        AR_OTHERS_TEXT = V_AR_OTHERS_TEXT,
+				INP_CHG_RPTLVL = V_INP_CHGRPTLVL,
+				OP_CHG_RPTLVL = V_OP_CHGRPTLVL,
+				AR_NATURE = V_ARNATURE
+			WHERE ARCCODE = v_OLDCODE;
+      
+			UPDATE ARCODE_EXTRA
+			SET
+        ADMADD1 = v_ADMADD1,
+        ADMADD2 = v_ADMADD2,
+        ADMADD3 = v_ADMADD3,
+        ADMADD4 = v_ADMADD4,
+        AGCCCT = v_AGCCCT,    
+        AGCTITLE = v_AGCTITLE,
+        AGCEMAIL = v_AGCEMAIL,
+        AGCTEL = v_AGCTEL,
+        AGCFAX = v_AGCFAX,
+        AGCADD1 = v_AGCADD1,
+        AGCADD2 = v_AGCADD2,
+        AGCADD3 = v_AGCADD3,
+        AGCADD4 = v_AGCADD4,        
+        AUPCCT = v_AUPCCT,        
+        AUPTITLE = v_AUPTITLE,        
+        AUPEMAIL = v_AUPEMAIL,        
+        AUPTEL = v_AUPTEL,        
+        AUPFAX = v_AUPFAX,        
+        AUPADD1 = v_AUPADD1,        
+        AUPADD2 = v_AUPADD2,        
+        AUPADD3 = v_AUPADD3,        
+        AUPADD4 = v_AUPADD4,
+        PRECCT = v_PRECCT,
+        PRETITLE = v_PRETITLE,
+        PREEMAIL = v_PREEMAIL,
+        PRETEL = v_PRETEL,
+        PREFAX = v_PREFAX,
+        PREADD1 = v_PREADD1,
+        PREADD2 = v_PREADD2,
+        PREADD3 = v_PREADD3,
+        PREADD4 = v_PREADD4,
+        AR_PCT = v_AR_PCT
+			WHERE ARCCODE = v_OLDCODE;      
+
+      SELECT COUNT(1) INTO V_NOOFREC FROM PAYCODE WHERE PAYCODE = v_ARCCODE;
+      IF V_NOOFREC = 0 THEN
+        INSERT INTO PAYCODE (
+        PAYCODE,
+          PAYTYPE,
+          PAYDESC,
+          PAYCDESC,
+          GLCCODE,
+          STECODE,
+          RETGLCCODE,
+          PAYNOTEAR
+        ) VALUES (
+          v_ARCCODE,
+          PAYCODE_PAYTYPE_OTHER,
+          v_ARCNAME,
+          v_ARCCNAME,
+          v_GLCCODE,
+          GET_CURRENT_STECODE,
+          v_RETGLCCODE,
+          NULL
+        );
+      ELSE
+        UPDATE PAYCODE
+        SET PAYTYPE = PAYCODE_PAYTYPE_OTHER,
+          PAYDESC = V_ARCNAME,
+          PAYCDESC = V_ARCCNAME,
+          GLCCODE = V_GLCCODE,
+          STECODE = GET_CURRENT_STECODE,
+          RETGLCCODE = V_RETGLCCODE,
+          PAYNOTEAR = NULL
+        WHERE PAYCODE = v_ARCCODE;
+      END IF;
+		ELSE
+			o_errcode := -1;
+			o_errmsg := 'Fail to update due to record not exist.';
+		END IF;
+	ELSIF v_action = 'DEL' THEN
+		IF v_noOfRec > 0 THEN
+			DELETE ARCODE WHERE ARCCODE = v_ARCCODE;
+		ELSE
+			o_errcode := -1;
+			o_errmsg := 'Fail to delete due to record not exist.';
+		END IF;
+	END IF;
+  o_errmsg := '[ARAGREEMENT]:'||V_ARAGREEMENT;
+	return o_errcode;
+END NHS_ACT_ACCOUNTRECEIVABLEDTL;
+/

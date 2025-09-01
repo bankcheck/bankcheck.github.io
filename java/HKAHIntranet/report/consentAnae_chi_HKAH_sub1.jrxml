@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="1" pageWidth="510" pageHeight="623" whenNoDataType="AllSectionsNoDetail" columnWidth="510" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.815000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.pdf.compressed" value="true"/>
+	<style name="chgfontSize_doc" fill="Solid" isBlankWhenNull="true" fontName="Ming(for ISO10646_V3)" isBold="true">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{docname}.length() <= 20 ? true : false]]></conditionExpression>
+			<style markup="styled" fontSize="11"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[($P{docname}.length() >20 && $P{docname}.length() <= 30) ? true : false]]></conditionExpression>
+			<style markup="styled" fontSize="10"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{docname}.length() > 30 ? true : false]]></conditionExpression>
+			<style markup="styled" fontSize="9"/>
+		</conditionalStyle>
+	</style>
+	<scriptlet name="TextScriptlet" class="com.text.TextScriptlet"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="Site" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patname" class="java.lang.String"/>
+	<parameter name="patcname" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="patDOB" class="java.lang.String"/>
+	<parameter name="procedure" class="java.lang.String"/>
+	<parameter name="procedureChi" class="java.lang.String"/>
+	<parameter name="anaethesiaType" class="java.lang.String"/>
+	<parameter name="regionAnaeSelect" class="java.lang.String"/>
+	<parameter name="anaethesiaOtherText" class="java.lang.String"/>
+	<parameter name="docname" class="java.lang.String"/>
+	<parameter name="doccname" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHIntranet\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="lang" class="java.lang.String"/>
+	<parameter name="ImgTick" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHNHS\\war\\images\\tick1.gif"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="factSheetNo" class="java.lang.String"/>
+	<parameter name="patientYN" class="java.lang.String"/>
+	<parameter name="complication" class="java.lang.String"/>
+	<parameter name="consentDate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[Select 1 From Dual Connect By Level <= 1]]>
+	</queryString>
+	<field name="1" class="java.math.BigDecimal"/>
+	<title>
+		<band height="46">
+			<staticText>
+				<reportElement x="0" y="-1" width="510" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="18" isBold="true" isUnderline="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[病人接受麻醉同意書]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="25" width="509" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ ****應與手術同意書同閱 ****]]></text>
+			</staticText>
+		</band>
+	</title>
+	<summary>
+		<band height="609">
+			<staticText>
+				<reportElement x="0" y="3" width="510" height="46"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" isItalic="false" isUnderline="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本單張 / 同意書載有本手術的重要資料，故應於接受手術前細閱。不過，細閱本單張全部內容並不表示你毋須與醫生就你的健康狀況有關療程進行商討。本單張並未盡列此手術所有資料，如你對此手術有任何疑問，應聯絡醫生。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="90" width="196" height="17"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="styled">
+					<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[由 (「"該麻醉專科醫生 / 醫師"」)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="209" y="90" width="300" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="styled">
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="157" width="509" height="39"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="styled">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="true" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[第一部份 – 麻醉及有關風險 –由麻醉專科醫生 / 主診醫生 (如無須由麻醉專科醫生進行)解釋及填寫]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="58" width="417" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="styled">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isItalic="true" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[*此同意書之有效期為簽署後之180天 ( 6個月)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="17" y="195" width="257" height="22">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="6"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[麻醉類別:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="23" y="220" width="10" height="10"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="23" y="220" width="10" height="10">
+					<printWhenExpression><![CDATA[$P{anaethesiaType}.contains( "gen" ) == true]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Transparent" x="33" y="216" width="119" height="17">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="8"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[全身麻醉]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="210" y="220" width="10" height="10"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="210" y="220" width="10" height="10">
+					<printWhenExpression><![CDATA[$P{anaethesiaType}.contains( "mon" ) == true]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Transparent" x="220" y="216" width="246" height="17">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="8"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[監測麻醉]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="23" y="236" width="10" height="10"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="23" y="236" width="10" height="10">
+					<printWhenExpression><![CDATA[$P{anaethesiaType}.contains( "ins" ) == true]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Transparent" x="33" y="232" width="119" height="18">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="8"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[靜脈鎮靜鎮痛]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="210" y="237" width="10" height="10"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="210" y="237" width="10" height="10">
+					<printWhenExpression><![CDATA[$P{anaethesiaType}.contains( "local" ) == true]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Transparent" x="220" y="233" width="246" height="17">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="8"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[局部麻醉 / 表面麻醉]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="33" y="249" width="211" height="17">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="8"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[區域 / 脊髓麻醉 (*脊髓 / 硬膜外 / ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="23" y="253" width="10" height="10"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="23" y="253" width="10" height="10">
+					<printWhenExpression><![CDATA[$P{anaethesiaType}.contains( "region" ) == true]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Transparent" x="244" y="249" width="163" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="407" y="249" width="97" height="17"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[麻醉)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="23" y="271" width="10" height="10"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="23" y="271" width="10" height="10">
+					<printWhenExpression><![CDATA[$P{anaethesiaType}.contains( "others" ) == true]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Transparent" x="33" y="268" width="51" height="17"/>
+				<box leftPadding="8"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[其他:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="83" y="268" width="411" height="17"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{anaethesiaType}.contains( "others" ) == true?$P{anaethesiaOtherText}:""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="195" width="18" height="103"/>
+				<box topPadding="2"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="301" width="18" height="103"/>
+				<box topPadding="2"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="17" y="301" width="390" height="22">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[有關麻醉之風險及併發症]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="322" width="30" height="20"/>
+				<box topPadding="2"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="true" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[2.1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="46" y="322" width="379" height="20">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="true" isItalic="true" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[一般風險及併發症]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="360" width="48" height="17"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[2.1.1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="64" y="360" width="379" height="17">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[*呼吸困難]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="17" y="341" width="477" height="20">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[因麻醉而導致之嚴重併發症並不常見。有關併發症包括：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="64" y="376" width="379" height="17">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[*因中風或腦部受損而引起的永久性傷殘]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="376" width="48" height="17"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[2.1.2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="392" width="48" height="17"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[2.1.3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="64" y="392" width="379" height="17">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[*心臟受壓，而引起的心臟病]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="64" y="408" width="379" height="17">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[*藥物性過敏反應]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="408" width="48" height="17"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[2.1.4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="424" width="48" height="17"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[2.1.5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="64" y="424" width="379" height="17">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[全身麻醉情況下仍保持清醒]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="440" width="48" height="17"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[2.1.6]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="64" y="440" width="379" height="17">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[牙齒及口唇受損]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="24" y="456" width="379" height="17">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" isItalic="true" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[*個別嚴重併發症可導致死亡]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="64" y="525" width="379" height="17">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[顫抖]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="541" width="48" height="17"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[2.1.10]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="64" y="557" width="379" height="17">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[手術後及注射部位之疼痛]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="64" y="493" width="379" height="17">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[頭暈及嘔心]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="64" y="541" width="379" height="17">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[頭疼]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="64" y="509" width="379" height="17">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[一般疼痛]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="509" width="48" height="17"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[2.1.8]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="573" width="48" height="17"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[2.1.12]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="525" width="48" height="17"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[2.1.9]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="557" width="48" height="17"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[2.1.11]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="17" y="474" width="477" height="20">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[其他常見之輕微併發症包括]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="493" width="48" height="17"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[2.1.7]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="64" y="573" width="379" height="17">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[喉嚨的疼痛]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="64" y="589" width="379" height="17">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[頭暈]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="589" width="48" height="17"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[2.1.13]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="109" width="19" height="17"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="styled">
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[在 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="109" width="300" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="styled">
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="331" y="110" width="163" height="17"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="styled">
+					<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ (預定手術日期) 進行麻醉。]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,5 @@
+drop TYPE "TEMPLATE_RETURN_TAB";
+create or replace
+TYPE "TEMPLATE_RETURN_TAB"
+as table of TEMPLATE_RETURN;
+/

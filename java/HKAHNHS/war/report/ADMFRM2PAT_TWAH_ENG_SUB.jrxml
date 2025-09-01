@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ADMFRM2PAT_TWAH" pageWidth="572" pageHeight="829" whenNoDataType="AllSectionsNoDetail" columnWidth="572" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.5000000000000078"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="492"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="chgfontSize" fill="Solid" fontName="Arial Unicode MS">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[($P{patSname}+$P{patFname}).length() <= 40 ? true : false]]></conditionExpression>
+			<style markup="styled" isBlankWhenNull="true" fontName="Ming(for ISO10646_V3)" fontSize="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Ming(for ISO10646_V3)">
+				<box topPadding="0" bottomPadding="0"/>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[($P{patSname}+$P{patFname}).length() > 40 ? true : false]]></conditionExpression>
+			<style markup="styled" fontName="Ming(for ISO10646_V3)" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Ming(for ISO10646_V3)">
+				<box topPadding="0" leftPadding="2" bottomPadding="0"/>
+			</style>
+		</conditionalStyle>
+	</style>
+	<scriptlet name="TextScriptlet" class="com.text.TextScriptlet"/>
+	<parameter name="patNo" class="java.lang.String"/>
+	<parameter name="patDOB" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="patHPhone" class="java.lang.String"/>
+	<parameter name="patMPhone" class="java.lang.String"/>
+	<parameter name="patOPhone" class="java.lang.String"/>
+	<parameter name="patNation" class="java.lang.String"/>
+	<parameter name="patReli" class="java.lang.String"/>
+	<parameter name="patAdd" class="java.lang.String"/>
+	<parameter name="patSname" class="java.lang.String"/>
+	<parameter name="patFname" class="java.lang.String"/>
+	<parameter name="patIDNo" class="java.lang.String"/>
+	<parameter name="patMStatus" class="java.lang.String"/>
+	<parameter name="patEduLvl" class="java.lang.String"/>
+	<parameter name="patOccptn" class="java.lang.String"/>
+	<parameter name="patCorrLang" class="java.lang.String"/>
+	<parameter name="patEmail" class="java.lang.String"/>
+	<parameter name="patRomNo" class="java.lang.String"/>
+	<parameter name="patBedNo" class="java.lang.String"/>
+	<parameter name="NKName" class="java.lang.String"/>
+	<parameter name="NKOPhone" class="java.lang.String"/>
+	<parameter name="NKEmail" class="java.lang.String"/>
+	<parameter name="NKAdd" class="java.lang.String"/>
+	<parameter name="NKRetnshp" class="java.lang.String"/>
+	<parameter name="NKMPhone" class="java.lang.String"/>
+	<parameter name="NKPager" class="java.lang.String"/>
+	<parameter name="NKHPhone" class="java.lang.String"/>
+	<parameter name="patFax" class="java.lang.String"/>
+	<parameter name="docID" class="java.lang.String"/>
+	<parameter name="docName" class="java.lang.String"/>
+	<parameter name="patAdmDate" class="java.lang.String"/>
+	<parameter name="patRomClass" class="java.lang.String"/>
+	<parameter name="patSlpNo" class="java.lang.String"/>
+	<parameter name="patInsurNo" class="java.lang.String"/>
+	<parameter name="arCompName" class="java.lang.String"/>
+	<parameter name="patVouNo" class="java.lang.String"/>
+	<parameter name="admClerk" class="java.lang.String"/>
+	<parameter name="patcname" class="java.lang.String"/>
+	<parameter name="LogoImg" class="java.lang.String"/>
+	<parameter name="ImgTick" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHNHS\\war\\images\\tick1.gif"]]></defaultValueExpression>
+	</parameter>
+	<columnHeader>
+		<band height="713" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="5" y="2" width="551" height="637"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="19" y="300" width="10" height="10"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="32" y="295" width="523" height="30"/>
+				<box rightPadding="2"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[I fully understand that the estimated doctor’s fees and hospital charges for the surgery, procedure, treatment and/or investigations have been provided to me before admission.]]></text>
+			</staticText>
+			<image>
+				<reportElement mode="Transparent" x="300" y="280" width="10" height="10"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{ImgTick}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="376" y="536" width="174" height="28"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Name of responsible person (printed)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="168" width="546" height="14"/>
+				<box rightPadding="2"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(C)Medications]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="130" width="531" height="32"/>
+				<box rightPadding="2"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[iii. Regular hospital office hours are from Sunday to Friday. Higher charges may apply if hospital services are required outside of these hours and on hospital holidays.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="49" width="546" height="14"/>
+				<box rightPadding="2"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" isItalic="false" isUnderline="false" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(B)Hospital Charges]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="226" width="532" height="42"/>
+				<box rightPadding="2"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ii. Medication Charge: Price quotation is not applicable to medication charges as the daily charge is subject to change depending on doctor’s prescription and dosage. Patient may contact Pharmacy for detailed medication charge breakdown.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="181" width="531" height="45"/>
+				<box rightPadding="2"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[i. The Department of Health has such advice to patients and their carers: It may result in serious harm by self taking medicine which is not prescribed and processed by Hong Kong Adventist Hospital. I agree to use solely the medicines provided by Hong Kong Adventist Hospital during the hospitalization.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="278" width="330" height="14"/>
+				<box rightPadding="0"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" isUnderline="false" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(D)Estimated Doctor’s Fees and Hospital Charges (Please put a "]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="393" width="546" height="14"/>
+				<box rightPadding="2"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" isUnderline="false" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(E)Others]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="19" y="329" width="10" height="10"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="24" y="114" width="531" height="14"/>
+				<box rightPadding="2"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ii. Operation room fees are calculated based on duration of operation, type of operation, and materials used.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="67" width="531" height="44"/>
+				<box rightPadding="2"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[i. The following fees are not included in the room charge and vary according to room category: physician, operation, anesthesia, operating room, nursing procedures, laboratory tests, diagnostic procedures, physical therapy, prescriptions, meals, medical supplies, use of equipment, accommodations for a guardian, and materials supplies. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="434" width="531" height="14"/>
+				<box rightPadding="2"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ii. For information on obstetrics, please refer to the Obstetric Package leaflet.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="325" width="523" height="54"/>
+				<box rightPadding="2"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[The estimated doctor’s fees and hospital charges for the surgery, procedure, treatment, and/or investigations have not yet been made known to me at the time of admission. However, I will seek the advice of my attending doctor and nursing staff to have the above information available before carrying out any surgery, procedure, treatment, and/or investigations.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="536" width="165" height="17"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Signature of responsible person]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="9" width="535" height="31"/>
+				<box rightPadding="2"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="Helvetica" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ii. If patient requests to transfer to an upgraded room, the higher charges will be adjusted back to the admission day. The hospital reserves the right to make changes of room or bed for patient as needed.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="536" width="175" height="27"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Signature of patient]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="449" width="531" height="29"/>
+				<box rightPadding="2"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[iii. For more details on the hospital charges, please feel free to contact our Patient Business Office staff or nursing staff. I fully understand the contents of the above listed items after explanations given by the Hospital Staff.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="406" width="531" height="28"/>
+				<box rightPadding="2"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[i. I am willing / am not willing* to divulge my bed number to the third party for my hospitalization.(*Delete where inapplicable)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="315" y="278" width="228" height="14"/>
+				<box rightPadding="2"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" isUnderline="false" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[" on the appropriate box)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="445" y="594" width="105" height="17"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="595" width="163" height="27"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="595" width="117" height="17"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Relation with patient]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="552" width="22" height="18"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="326" y="594" width="117" height="17"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[HKID / Passport No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="625" width="316" height="14"/>
+				<box rightPadding="2"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Arial Unicode MS" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[# Responsible party has liability to settle any outstanding amount for patient]]></text>
+			</staticText>
+			<textField evaluationTime="Page">
+				<reportElement x="473" y="677" width="80" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["P."+ $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="454" y="654" width="118" height="23"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode("PABDMCDB02",com.google.zxing.BarcodeFormat.CODE_39,80,20))]]></imageExpression>
+			</image>
+			<textField evaluationTime="Page">
+				<reportElement x="469" y="646" width="80" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["PABD-MCDB02"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="11" y="575" width="163" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="445" y="575" width="105" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="101">
+			<rectangle>
+				<reportElement x="252" y="63" width="305" height="34"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="1" y="6" width="252" height="91"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="65" y="23" width="164" height="43"/>
+				<box leftPadding="1"/>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patSname} + " " + $P{patFname} + " " + ($P{patcname}.isEmpty()?"":("  "+"<style fontName='Ming(for ISO10646_V3)'>"+$P{patcname}+"</style>"))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="65" y="66" width="78" height="16"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patDOB}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="171" y="66" width="59" height="16"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patSex}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="7" width="63" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Patient No.: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="22" width="63" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Name: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="66" width="63" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Date of Birth: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="142" y="66" width="30" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Sex: ]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement positionType="Float" x="114" y="77" width="116" height="18"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode($P{patNo}.substring(0, $P{patNo}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="252" y="45" width="160" height="18"/>
+				<box>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Version: Feb 2020]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="289" y="67" width="230" height="23"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode("PABDMCDB02",com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="65" y="8" width="165" height="16"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="412" y="45" width="145" height="18"/>
+				<box>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PABD-MCDB02]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="252" y="6" width="305" height="39"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[General Consent
+病人須知及同意書]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="81" width="63" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Room No.:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

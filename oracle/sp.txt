@@ -1,0 +1,24 @@
+create or replace PROCEDURE P_add_file
+( 
+  P_SERVER IN VARCHAR2,
+  P_FOLDER IN VARCHAR2,
+  P_FNAME IN VARCHAR2,
+  P_KEYWORD IN VARCHAR2,
+  P_FILE_ID OUT NUMBER,
+  P_ENCRYPE IN VARCHAR2,
+  P_PASSKEY IN VARCHAR2,
+  p_errormessage  OUT varchar2
+) AS PRAGMA AUTONOMOUS_TRANSACTION ;
+BEGIN
+
+Select file_seq.nextval into P_FILE_ID from dual;
+--Status P for pending
+INSERT INTO FILE_STORE (FILE_ID, SUBMIT_SERVER, SUBMIT_FOLDER, SUBMIT_FILE, STATUS, create_date, keyword, encrype, passkey)
+VALUES (P_FILE_ID, P_SERVER, P_FOLDER, P_FNAME, 'P', sysdate, P_KEYWORD, P_ENCRYPE, P_PASSKEY);
+commit; 
+
+EXCEPTION WHEN OTHERS THEN
+  P_FILE_ID := -1;
+  p_errormessage := SQLCODE || ':' || SQLERRM;
+  rollback;
+END P_add_file;

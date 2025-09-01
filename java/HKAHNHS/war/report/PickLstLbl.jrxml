@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PickLstLbl" pageWidth="215" pageHeight="119" whenNoDataType="AllSectionsNoDetail" columnWidth="215" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="chgfontSize" fill="Solid" fontName="Arial Unicode MS">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[($P{PATNAME}).length() <= 40 ? true : false]]></conditionExpression>
+			<style markup="styled" isBlankWhenNull="true" fontName="MingLiU_HKSCS" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false">
+				<box topPadding="0" bottomPadding="0"/>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[($P{PATNAME}).length() > 40 ? true : false]]></conditionExpression>
+			<style markup="styled" fontName="MingLiU_HKSCS" fontSize="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false">
+				<box topPadding="0" leftPadding="2" bottomPadding="0"/>
+			</style>
+		</conditionalStyle>
+	</style>
+	<parameter name="DOCNAME" class="java.lang.String"/>
+	<parameter name="BKGSDATE" class="java.lang.String"/>
+	<parameter name="PATNO" class="java.lang.String"/>
+	<parameter name="VOLNUM" class="java.lang.String"/>
+	<parameter name="PATNAME" class="java.lang.String"/>
+	<parameter name="LOCATION" class="java.lang.String"/>
+	<parameter name="SENDTO" class="java.lang.String"/>
+	<columnHeader>
+		<band height="119">
+			<staticText>
+				<reportElement x="10" y="70" width="38" height="12"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Patient:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="101" width="70" height="12"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Label Printed Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="57" width="61" height="14"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[Patient No.:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="19" y="81" width="182" height="10"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{LOCATION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="57" width="130" height="14"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PATNO}+"     (V. "+$P{VOLNUM}+")"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="81" width="10" height="10"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="7"/>
+				</textElement>
+				<text><![CDATA[L:]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="54" y="18" width="160" height="26"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="11"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{DOCNAME})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="41" y="90" width="160" height="12"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SENDTO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="47" y="70" width="168" height="12"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{PATNAME})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="43" width="61" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="11"/>
+				</textElement>
+				<text><![CDATA[Time/Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="24" width="44" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="12"/>
+				</textElement>
+				<text><![CDATA[Req by:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="43" width="131" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="11"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{BKGSDATE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm">
+				<reportElement x="79" y="101" width="122" height="12"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="90" width="32" height="12"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Send to: ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+</jasperReport>

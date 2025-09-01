@@ -1,0 +1,46 @@
+CREATE OR REPLACE FUNCTION "NHS_ACT_MOVEPACKAGETOSLIP" (
+	v_ACTION  IN VARCHAR2,
+	v_SLPNO   IN VARCHAR2,
+	v_PTNID   IN VARCHAR2,
+	v_PKGCODE IN VARCHAR2,
+	v_UsrID   IN VARCHAR2,
+	O_ERRMSG  OUT VARCHAR2
+)
+	RETURN NUMBER
+AS
+	o_ErrCode NUMBER;
+BEGIN
+	o_ErrCode := 0;
+	O_ERRMSG := 'OK';
+
+	IF v_PKGCODE IS NOT NULL THEN
+		FOR R IN (SELECT PTNID FROM PKGTX WHERE SLPNO = v_SLPNO AND PKGCODE = v_PKGCODE AND PTNSTS IN ('N', 'A') ORDER BY PTNSEQ)
+		LOOP
+			o_ErrCode := NHS_UTL_MOVEPACKAGETOSLIP(v_SLPNO, R.PTNID, v_UsrID);
+			IF o_ErrCode < 0 THEN
+				ROLLBACK;
+				o_ErrMsg := 'Fail to move item.';
+				RETURN o_ErrCode;
+			END IF;
+		END LOOP;
+	ELSE
+		o_ErrCode := NHS_UTL_MOVEPACKAGETOSLIP(v_SLPNO, v_PTNID, v_UsrID);
+		IF o_ErrCode < 0 THEN
+			ROLLBACK;
+			o_ErrMsg := 'Fail to move item.';
+			RETURN o_ErrCode;
+		END IF;
+	END IF;
+
+	NHS_UTL_UPDATESLIP(v_SLPNO);
+
+	RETURN o_ErrCode;
+EXCEPTION
+WHEN OTHERS THEN
+	ROLLBACK;
+	o_ErrCode := -1;
+	o_errMsg := 'Fail to move item. ' || SQLERRM;
+	DBMS_OUTPUT.PUT_LINE('An ERROR was encountered - '||SQLCODE||' -ERROR- '||SQLERRM);
+	RETURN o_ErrCode;
+end NHS_ACT_MovePackageToSlip;
+/

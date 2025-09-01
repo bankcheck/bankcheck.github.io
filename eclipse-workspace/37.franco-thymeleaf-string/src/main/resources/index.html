@@ -1,0 +1,22 @@
+<div th:text="${#strings.toString(jane)}"></div>
+<hr>
+<div th:text="${#strings.length(jane)}"></div>
+<div th:text="${#strings.indexOf(jane.studentName, 'n')}"></div>
+<div th:text="${#strings.indexOf(jane.studentName, 'o')}"></div>
+<div th:text="${#strings.substring(jane.studentName, 1, 3)}"></div>
+<div th:text="${#strings.substringAfter(jane.studentName, 'a')}"></div>
+<div th:text="${#strings.substringBefore(jane.studentName, 'n')}"></div>
+<div th:text="${#strings.replace(jane.studentName, 'J', 'L')}"></div>
+<hr>
+<div th:text="${#strings.prepend(jane.studentName, '- ')}"></div>
+<div th:text="${#strings.append(jane.studentName, '(F)')}"></div>
+<div th:text="${#strings.concat(jane.studentName, '(F)', '(18)')}"></div>
+<div th:text="${#strings.toUpperCase(jane.studentName)}"></div>
+<div th:text="${#strings.toLowerCase(jane.studentName)}"></div>
+<div th:text="${#strings.capitalize(jane.studentName)}"></div>
+<div th:text="${#strings.unCapitalize(jane.studentName)}"></div>
+<div th:text="${#strings.capitalizeWords('jane is franco student')}"></div>
+<hr>
+<tr th:each="str : ${#strings.arraySplit('abc-def-ghi', '-')}">
+	<td th:text="${str}"></td>
+</tr>

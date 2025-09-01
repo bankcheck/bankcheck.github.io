@@ -1,0 +1,1953 @@
+<%@ page import="java.io.*"%>
+<%@ page language="java" import="org.json.JSONObject" %>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.hkah.constant.*"%>
+<%@ page import="com.hkah.util.*"%>
+<%@ page import="com.hkah.util.db.*" %>
+<%@ page import="com.hkah.util.upload.*"%>
+<%@ page import="com.hkah.web.common.*"%>
+<%@ page import="com.hkah.web.db.*"%>
+<%@ page import="com.hkah.jasper.*"%>
+<%@ page import="net.sf.jasperreports.engine.*" %>
+<%@ page import="net.sf.jasperreports.engine.util.*" %>
+<%@ page import="net.sf.jasperreports.engine.export.*" %>
+<%@ page import="net.sf.jasperreports.j2ee.servlets.*" %>
+<%@ page import="net.sf.jasperreports.engine.JasperPrint" %>
+
+<%
+	//get information for CIS
+String mode = ParserUtil.getParameter(request, "mode"); //new, edit, view, viewFromID
+String action = ParserUtil.getParameter(request, "action"); //update, check
+String patNo = ParserUtil.getParameter(request, "patno");
+String formuid = ParserUtil.getParameter(request, "formuid");
+String regid = ParserUtil.getParameter(request, "regid");//if no reg, default = 0
+String mstrRegid = ParserUtil.getParameter(request, "mstrRegid");
+String vasPain = ParserUtil.getParameter(request, "vasPain");
+String vasPn = ParserUtil.getParameter(request, "vasPn");
+String vasNumb = ParserUtil.getParameter(request, "vasNumb");
+String painDesc = ParserUtil.getParameter(request, "painDesc");
+String patientGoal = ParserUtil.getParameter(request, "patientGoal");
+String clearChest = ParserUtil.getParameter(request, "clearChestY");
+String funcAssmt = ParserUtil.getParameter(request, "funcAssmt");
+String assessDate = ParserUtil.getParameter(request, "assessDate");
+String currAssessDate = ParserUtil.getParameter(request, "currAssessDate");
+String diagnosis = ParserUtil.getParameter(request, "diagnosis");
+String hpi = ParserUtil.getParameter(request, "hpi");
+String emotional = ParserUtil.getParameter(request, "emotional");
+String fallAssmt = ParserUtil.getParameter(request, "fallAssmt");
+String pastMedHist = ParserUtil.getParameter(request, "pastMedHist");
+String socialHistory = ParserUtil.getParameter(request, "socialHistory");
+String subjective = ParserUtil.getParameter(request, "subjective");
+String objective = ParserUtil.getParameter(request, "objective");
+String treatmentGoal = ParserUtil.getParameter(request, "treatmentGoal");
+String carePlan = ParserUtil.getParameter(request, "carePlan");
+String treatment = ParserUtil.getParameter(request, "treatment");
+String education = ParserUtil.getParameter(request, "education");
+String exercises = ParserUtil.getParameter(request, "exercises");
+String Information = ParserUtil.getParameter(request, "Information");
+String postTreatment = ParserUtil.getParameter(request, "postTreatment");
+String frequency = ParserUtil.getParameter(request, "frequency");
+String options = ParserUtil.getParameter(request, "options");
+String userid = ParserUtil.getParameter(request, "userid");
+String username = ParserUtil.getParameter(request, "username");
+String progNotes = ParserUtil.getParameter(request, "progNotes");
+
+//20220421 Arran change logic to print progress note
+//String progNotes4print = null;
+String progNotes4print = ParserUtil.getParameter(request, "progNotes");
+
+String histProgNotes = ParserUtil.getParameter(request, "histProgNotes");
+
+String tcp1 = ParserUtil.getParameter(request, "tcp1");
+String tcp2 = ParserUtil.getParameter(request, "tcp2");
+String tcp3 = ParserUtil.getParameter(request, "tcp3");
+String tcp4 = ParserUtil.getParameter(request, "tcp4");
+String tcp5 = ParserUtil.getParameter(request, "tcp5");
+String tcp6 = ParserUtil.getParameter(request, "tcp6");
+String tcp7 = ParserUtil.getParameter(request, "tcp7");
+String tcp8 = ParserUtil.getParameter(request, "tcp8");
+String tcp9 = ParserUtil.getParameter(request, "tcp9");
+String tcpOther1 = ParserUtil.getParameter(request, "tcpOtherText1");
+String peca1 = ParserUtil.getParameter(request, "peca1");
+String peca2 = ParserUtil.getParameter(request, "peca2");
+String pecaOther1 = ParserUtil.getParameter(request, "pecaOtherText1");
+String ad1 = ParserUtil.getParameter(request, "ad1");
+String ad2 = ParserUtil.getParameter(request, "ad2");
+String ad3 = ParserUtil.getParameter(request, "ad3");
+String ad4 = ParserUtil.getParameter(request, "ad4");
+String ad5 = ParserUtil.getParameter(request, "ad5");
+String ad6 = ParserUtil.getParameter(request, "ad6");
+String ad7 = ParserUtil.getParameter(request, "ad7");
+String ad8 = ParserUtil.getParameter(request, "ad8");
+String ad9 = ParserUtil.getParameter(request, "ad9");
+String adOther1 = ParserUtil.getParameter(request, "adText1");
+String adOther2 = ParserUtil.getParameter(request, "adText2");
+String pt = ParserUtil.getParameter(request, "pt");
+
+String patName = null;
+String patAge = null;
+String patSex = null;
+String patDob = null;
+String docName = null;
+
+String formType = "";
+ArrayList result = null;
+
+//get information after enter
+if ((action == null || action.isEmpty()) && "view".equals(mode)){
+	action = "check";
+}
+
+String formContent = ParserUtil.getParameter(request, "formContent");
+String imgPath = ParserUtil.getParameter(request, "imgPath");
+String imgPath2 = ParserUtil.getParameter(request, "imgPath2");
+String updateDate = ParserUtil.getParameter(request, "updateDate");
+
+String url = null;
+String logo = null;
+String markPathL1 = "../images/piaform/P1.png";
+String markPathL2 = "../images/piaform/P2.png";
+String markPathL3 = "../images/piaform/P3.png";
+String markPathL4 = "../images/piaform/P4.png";
+String markPathPN1 = "../images/piaform/PN1.png";
+String markPathPN2 = "../images/piaform/PN2.png";
+String markPathR1 = "../images/piaform/airEntry.png";
+String markPathR2 = "../images/piaform/cross.png";
+String markPathR3 = "../images/piaform/wheeze.png";
+
+int noOfFormInfo = 0;
+int noOfCurrentProgressNote = 0;
+long diffDate = 0;
+boolean newrecordClick = false;
+
+Calendar cal = Calendar.getInstance();
+SimpleDateFormat dateFmt = new SimpleDateFormat("dd/MM/yyyy");
+String sysDate = dateFmt.format(cal.getTime());
+String message = null;
+String errorMessage = null;
+
+if (ConstantsServerSide.isTWAH()) {
+	url = "http://www.twah.org.hk";
+	logo = "Horizontal_billingual_HKAH_TW.jpg";
+} else {
+	url = "http://www.hkah.org.hk";
+	logo = "Horizontal_billingual_HKAH_HK.jpg";
+}
+
+if (regid == null || regid.isEmpty() || "0".equals(regid)){
+	regid = "0";
+	formType = "P";
+}else {
+	formType = "O";
+}
+System.err.println("[1][mode]:"+mode+";[regid]:"+regid+";[mstrRegid]:"+mstrRegid+";[noOfFormInfo]:"+noOfFormInfo+";[assessDate]:"+assessDate+";[currAssessDate]:"+currAssessDate);
+result = null; // reset value
+if("newrecord".equals(mode)){
+	System.err.println("[regid]:"+regid);
+	mstrRegid = regid;
+	progNotes = null;
+	histProgNotes = null;
+	action = "view";
+	newrecordClick = true;
+}else{
+	if(!regid.equals(mstrRegid)){
+		result = OpdRehabDB.getLastPhyInitAssRegID(patNo, regid);
+		if (result.size() > 0) {
+	ReportableListObject reportableListObject = (ReportableListObject) result.get(0);
+	mstrRegid = reportableListObject.getValue(0);
+
+	System.err.println("[mstrRegid]:"+mstrRegid);
+	if(mstrRegid!=null&&mstrRegid.length()>0){
+		histProgNotes = OpdRehabDB.getHistProgNote(regid, mstrRegid);
+	}else{
+		mstrRegid = regid;
+		histProgNotes = null;
+	}
+		}else{
+	mstrRegid = regid;
+	histProgNotes = null;
+		}
+	}else{
+		System.err.println("[3][mode]:"+mode+";[regid]:"+regid+";[mstrRegid]:"+mstrRegid);
+	}
+}
+
+//get form info
+if ("view".equals(action) && regid!=null){
+	// get imgPath from jasper
+	String img = "";
+	String img2 = "";
+
+	result = OpdRehabDB.getFormInfo(mstrRegid);
+	noOfFormInfo = result.size();
+
+	System.err.println("[2][mode]:"+mode+";[regid]:"+regid+";[mstrRegid]:"+mstrRegid+";[noOfFormInfo]:"+noOfFormInfo+";[]");
+	if (noOfFormInfo > 0) {
+		ReportableListObject reportableListObject = (ReportableListObject) result.get(0);
+
+//	    regid = reportableListObject.getValue(0);
+	    patNo = reportableListObject.getValue(1);
+	    assessDate = reportableListObject.getValue(2);
+	    patientGoal = reportableListObject.getValue(3);
+	    funcAssmt = reportableListObject.getValue(4);
+	    vasPain = reportableListObject.getValue(5);
+	    vasPn = reportableListObject.getValue(6);
+	    vasNumb = reportableListObject.getValue(7);
+	    painDesc = reportableListObject.getValue(8);
+	    clearChest = reportableListObject.getValue(9);
+	    diagnosis = reportableListObject.getValue(10);
+	    hpi = reportableListObject.getValue(11);
+	    emotional = reportableListObject.getValue(12);
+	    fallAssmt = reportableListObject.getValue(13);
+	    pastMedHist = reportableListObject.getValue(14);
+	    socialHistory = reportableListObject.getValue(15);
+	    subjective = reportableListObject.getValue(16);
+	    objective = reportableListObject.getValue(17);
+	    treatmentGoal = reportableListObject.getValue(18);
+	    carePlan = reportableListObject.getValue(19);
+	    treatment = reportableListObject.getValue(20);
+	    education = reportableListObject.getValue(21);
+	    exercises = reportableListObject.getValue(22);
+	    Information = reportableListObject.getValue(23);
+	    postTreatment = reportableListObject.getValue(24);
+	    frequency = reportableListObject.getValue(25);
+	    options = reportableListObject.getValue(26);
+	    username = reportableListObject.getValue(29);
+	    // Care Plan
+	    tcp1 = reportableListObject.getValue(31);
+	    tcp2 = reportableListObject.getValue(32);
+	    tcp3 = reportableListObject.getValue(33);
+	    tcp4 = reportableListObject.getValue(34);
+	    tcp5 = reportableListObject.getValue(35);
+	    tcp6 = reportableListObject.getValue(36);
+	    tcp7 = reportableListObject.getValue(37);
+	    tcp8 = reportableListObject.getValue(38);
+	    tcp9 = reportableListObject.getValue(39);
+	    tcpOther1 = reportableListObject.getValue(40);
+
+	    // Patient Education / Care and Advice checkbox
+	    peca1 = reportableListObject.getValue(41);
+	    peca2 = reportableListObject.getValue(42);
+	    pecaOther1 = reportableListObject.getValue(43);
+
+	    // Addition Information checkbox
+	    ad1 = reportableListObject.getValue(44);
+	    ad2 = reportableListObject.getValue(45);
+	    ad3 = reportableListObject.getValue(46);
+	    ad4 = reportableListObject.getValue(47);
+	    ad5 = reportableListObject.getValue(48);
+	    ad6 = reportableListObject.getValue(49);
+	    ad7 = reportableListObject.getValue(50);
+	    ad8 = reportableListObject.getValue(51);
+	    ad9 = reportableListObject.getValue(52);
+	    adOther1 = reportableListObject.getValue(53);
+	    adOther2 = reportableListObject.getValue(54);
+	    pt = reportableListObject.getValue(55);
+		System.err.println("[pt]:"+pt);
+
+		if ("viewFromID".equals(mode) ||
+			("edit".equals(mode) && !("update".equals(action))) ||
+			"check".equals(action)){
+			formContent = reportableListObject.getValue(6);
+		}
+
+	    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+	    Date date1 = null;
+
+		// reset value
+		reportableListObject = null;
+		result = null;
+		result = OpdRehabDB.getCurrentProgressNote(regid);
+
+		noOfCurrentProgressNote = result.size();
+		if (noOfCurrentProgressNote > 0) {
+			reportableListObject = (ReportableListObject) result.get(0);
+			progNotes = reportableListObject.getValue(0);
+		    currAssessDate = reportableListObject.getValue(1);
+		    String progNoteDateAndName = reportableListObject.getValue(2);
+		    progNotes4print = (progNoteDateAndName == null || progNoteDateAndName.isEmpty() ? "" : progNoteDateAndName + "\n") + progNotes;
+		    date1 = format.parse(currAssessDate);
+		}else{
+			if(regid.equals(mstrRegid)){
+				assessDate = sysDate;
+			}
+		    date1 = format.parse(assessDate);
+		    currAssessDate = sysDate;
+		}
+
+	    Date date2 = format.parse(sysDate);
+
+	    Date diff = new Date(date2.getTime()-date1.getTime());
+	    diffDate = diff.getTime() / (60 * 60 * 1000 * 24);
+		System.err.println("[currAssessDate]"+currAssessDate+";[assessDate]:"+assessDate+";[diff]:"+diff);
+
+		img = OpdRehabDB.getImage(mstrRegid+"_1");
+		img2 = OpdRehabDB.getImage(mstrRegid+"_2");
+	}else{
+		mode = "edit";
+	    assessDate = sysDate;
+	    patientGoal = null;
+	    funcAssmt = null;
+	    vasPain = null;
+	    vasPn = null;
+	    vasNumb = null;
+	    painDesc = null;
+	    clearChest = null;
+	    diagnosis = null;
+	    hpi = null;
+	    emotional = null;
+	    fallAssmt = null;
+	    pastMedHist = null;
+	    socialHistory = null;
+	    subjective = null;
+	    objective = null;
+	    treatmentGoal = null;
+	    carePlan = null;
+	    treatment = null;
+	    education = null;
+	    exercises = null;
+	    Information = null;
+	    postTreatment = null;
+	    frequency = null;
+	    options = null;
+	    tcp1 = null;
+	    tcp2 = null;
+	    tcp3 = null;
+	    tcp4 = null;
+	    tcp5 = null;
+	    tcp6 = null;
+	    tcp7 = null;
+	    tcp8 = null;
+	    tcp9 = null;
+	    tcpOther1 = null;
+	    peca1 = null;
+	    peca2 = null;
+	    pecaOther1 = null;
+	    ad1 = null;
+	    ad2 = null;
+	    ad3 = null;
+	    ad4 = null;
+	    ad5 = null;
+	    ad6 = null;
+	    ad7 = null;
+	    ad8 = null;
+	    ad9 = null;
+	    adOther1 = null;
+	    adOther2 = null;
+	    pt = null;
+		formContent = null;
+	}
+
+	if("".equals(img)){
+		imgPath = null;
+	}else{
+		imgPath = "data:image/png;base64,"+ img;
+	}
+	if("".equals(img2)){
+		imgPath2 = null;
+	}else{
+		imgPath2 = "data:image/png;base64,"+ img2;
+	}
+	if(clearChest==null){
+		clearChest = "N";
+	}
+}else if ("new".equals(action) || "printSave".equals(action)){
+	if(assessDate==null || "".equals(assessDate)){
+		assessDate = sysDate;
+	}
+/*
+	if(vasPain==null||vasPain.length()==0){
+		vasPain = "0";
+	}
+	if(vasPn==null||vasPn.length()==0){
+		vasPn = "0";
+	}
+	if(vasNumb==null||vasNumb.length()==0){
+		vasNumb = "0";
+	}
+*/
+	if(clearChest==null){
+		clearChest = "N";
+	}
+    if(tcp1==null){
+    	tcp1 = "N";
+    }
+    if(tcp2==null){
+    	tcp2 = "N";
+    }
+    if(tcp3==null){
+    	tcp3 = "N";
+    }
+    if(tcp4==null){
+    	tcp4 = "N";
+    }
+    if(tcp5==null){
+    	tcp5 = "N";
+    }
+    if(tcp6==null){
+    	tcp6 = "N";
+    }
+    if(tcp7==null){
+    	tcp7 = "N";
+    }
+    if(tcp8==null){
+    	tcp8 = "N";
+    }
+    if(tcp9==null){
+    	tcp9 = "N";
+    }
+    if(peca1==null){
+    	peca1 = "N";
+    }
+    if(peca2==null){
+    	peca2 = "N";
+    }
+    if(ad1==null){
+    	ad1 = "N";
+    }
+    if(ad2==null){
+    	ad2 = "N";
+    }
+    if(ad3==null){
+    	ad3 = "N";
+    }
+    if(ad4==null){
+    	ad4 = "N";
+    }
+    if(ad5==null){
+    	ad5 = "N";
+    }
+    if(ad6==null){
+    	ad6 = "N";
+    }
+    if(ad7==null){
+    	ad7 = "N";
+    }
+    if(ad8==null){
+    	ad8 = "N";
+    }
+    if(ad9==null){
+    	ad9 = "N";
+
+    	System.err.println("[3][mode]:"+mode+";[regid]:"+regid+";[mstrRegid]:"+mstrRegid+";[noOfFormInfo]:"+noOfFormInfo+";[assessDate]:"+assessDate+";[currAssessDate]:"+currAssessDate);
+    }
+
+	carePlan = "[tcp1="+tcp1+"][tcp2="+tcp2+"][tcp3="+tcp3+"][tcp4="+tcp4+"][tcp5="+tcp5+"][tcp6="+tcp6+"][tcp7="+tcp7+"][tcp8="+tcp8+"][tcp9="+tcp9+"][tcpOther1="+tcpOther1+"]";
+	education = "[peca1="+peca1+"][peca2="+peca2+"][pecaOther1="+pecaOther1+"]";
+	Information = "[ad1="+ad1+"][ad2="+ad2+"][ad3="+ad3+"][ad4="+ad4+"][ad5="+ad5+"][ad6="+ad6+"][ad7="+ad7+"][ad8="+ad8+"][ad9="+ad9+"][adOther1="+adOther1+"][adOther2="+adOther2+"]";
+
+	System.err.println("2[pt]:"+pt);
+	System.err.println("[4][mode]:"+mode+";[regid]:"+regid+";[mstrRegid]:"+mstrRegid+";[noOfFormInfo]:"+noOfFormInfo+";[assessDate]:"+assessDate+";[currAssessDate]:"+currAssessDate);
+	//insert form to db
+	regid = OpdRehabDB.insertForm(
+	regid, patNo, mstrRegid.equals(regid)?assessDate:currAssessDate , patientGoal, funcAssmt,
+	vasPain, vasPn, vasNumb, painDesc, clearChest,
+	diagnosis, hpi, emotional, fallAssmt, pastMedHist,
+	socialHistory, subjective, objective, treatmentGoal, carePlan,
+	treatment, education, exercises, Information, postTreatment,
+	frequency, options, userid, userid, pt, mstrRegid, progNotes);
+
+	if(regid!=null){
+		OpdRehabDB.createImage(imgPath, regid+"_1");
+		OpdRehabDB.createImage(imgPath2, regid+"_2");
+		errorMessage = "Save Success";
+	}else{
+		errorMessage = "Save Fail";
+	}
+
+	System.err.println(errorMessage);
+}
+
+if (ConstantsServerSide.isTWAH()) {
+	url = "http://www.twah.org.hk";
+	logo = "twah_portal_logo.gif";
+} else {
+	url = "http://www.hkah.org.hk";
+	logo = "hkah_portal_logo.gif";
+}
+
+ArrayList result1 = null;
+String path = "";
+result1 = OpdRehabDB.getFormPath();
+if (result1.size() > 0) {
+	ReportableListObject reportableListObject = (ReportableListObject) result1.get(0);
+	path = reportableListObject.getValue(0);
+}
+
+//get patNo using regid
+if (patNo == null || patNo.isEmpty()){
+	result = OpdRehabDB.getPatID(regid);
+	if (result.size() > 0) {
+		ReportableListObject reportableListObject = (ReportableListObject) result.get(0);
+		patNo = reportableListObject.getValue(1);
+		patName = reportableListObject.getValue(2);
+		patDob = reportableListObject.getValue(3);
+		patSex = reportableListObject.getValue(4);
+	}
+}else{
+	//get pat info
+	result = PatientDB.getPatInfo(patNo);
+	if (result.size() > 0) {
+		ReportableListObject reportableListObject = (ReportableListObject) result.get(0);
+		patName = reportableListObject.getValue(3);
+		patDob = reportableListObject.getValue(10);
+		patSex = reportableListObject.getValue(1);
+	}
+}
+
+//Check edu record
+String key = mstrRegid==null?regid:mstrRegid;
+
+if ("print".equals(action)||"printSave".equals(action)||("readonly".equals(mode)&&"view".equals(action))){
+	
+	File reportFile = new File(application.getRealPath("/report/PhyInitialAssFormOP2.jasper"));
+	File reportDir = new File(application.getRealPath("/report/"));
+
+	if (reportFile.exists()) {
+		JasperReport jasperReport = (JasperReport)JRLoader.loadObject(reportFile.getPath());
+
+		Map parameters = new HashMap();
+		parameters.put("BaseDir", reportFile.getParentFile());
+		parameters.put("Site", ConstantsServerSide.SITE_CODE);
+		parameters.put("path", path);
+		parameters.put("SUBREPORT_DIR",reportDir.getPath()+"\\");
+
+		parameters.put("regid", regid);
+		parameters.put("patno", patNo);
+		parameters.put("patName", patName);
+		parameters.put("patDOB", patDob);
+		parameters.put("patSex", patSex);
+
+		parameters.put("vasPain", vasPain);
+		parameters.put("vasPn", vasPn);
+		parameters.put("vasNumb", vasNumb);
+		parameters.put("painDesc", painDesc);
+
+		parameters.put("assessDate", assessDate);
+		parameters.put("patientGoal", patientGoal);
+		parameters.put("funcAssmt", funcAssmt);
+		parameters.put("diagnosis", diagnosis);
+		parameters.put("emotional", emotional);
+		parameters.put("fallAssmt", fallAssmt);
+		parameters.put("pastMedHist", pastMedHist);
+		parameters.put("socialHistory", socialHistory);
+		parameters.put("hpi", hpi);
+		parameters.put("subjective", subjective);
+		parameters.put("objective", objective);
+
+	    // Care Plan
+		parameters.put("tcp1", tcp1);
+		parameters.put("tcp2", tcp2);
+		parameters.put("tcp3", tcp3);
+		parameters.put("tcp4", tcp4);
+		parameters.put("tcp5", tcp5);
+		parameters.put("tcp6", tcp6);
+		parameters.put("tcp7", tcp7);
+		parameters.put("tcp8", tcp8);
+		parameters.put("tcp9", tcp9);
+		parameters.put("tcpOther1", tcpOther1);
+
+		parameters.put("treatmentGoal", treatmentGoal);
+		parameters.put("carePlan", carePlan);
+		parameters.put("treatment", treatment);
+		parameters.put("education", education);
+		parameters.put("exercises", exercises);
+		parameters.put("Information", Information);
+		parameters.put("postTreatment", postTreatment);
+		parameters.put("options", options);
+
+	    // Patient Education / Care and Advice checkbox
+		parameters.put("peca1", peca1);
+		parameters.put("peca2", peca2);
+		parameters.put("pecaOther1", pecaOther1);
+	    // Addition Information checkbox
+		parameters.put("ad1", ad1);
+		parameters.put("ad2", ad2);
+		parameters.put("ad3", ad3);
+		parameters.put("ad4", ad4);
+		parameters.put("ad5", ad5);
+		parameters.put("ad6", ad6);
+		parameters.put("ad7", ad7);
+		parameters.put("ad8", ad8);
+		parameters.put("ad9", ad9);
+		parameters.put("adOther1", adOther1);
+		parameters.put("adOther2", adOther2);
+		parameters.put("postTreatment", postTreatment);
+		parameters.put("frequency", frequency);
+		parameters.put("options", options);
+		parameters.put("pt", pt);
+		parameters.put("username", username);		
+		parameters.put("progNotes", progNotes4print);
+		parameters.put("histProgNotes", histProgNotes);
+		parameters.put("mstrRegid", mstrRegid);
+		System.err.println("[progNotes](progNotes4print):"+progNotes4print+";[histProgNotes]:"+histProgNotes);
+		parameters.put("SubDataSource", new ReportListDataSource(UtilDBWeb.getReportableList("Select 1 From Dual Connect By Level <= 1")));
+
+		JasperPrint jasperPrint =
+	JasperFillManager.fillReport(
+		jasperReport, parameters, new ReportListDataSource(UtilDBWeb.getReportableList("Select 1 From Dual Connect By Level <= 1")));
+
+	request.getSession().setAttribute(ImageServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE, jasperPrint);
+	OutputStream ouputStream = response.getOutputStream();
+	response.setContentType("application/pdf");
+	JRPdfExporter exporter = new JRPdfExporter();
+	exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+	exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, ouputStream);
+	exporter.exportReport();
+		return;
+	}
+}
+%>
+<!DOCTYPE html>
+<html>
+<%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
+<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
+<head>
+	<title>Physiotherapy(Out-Patient) Initial Assessment Form</title>
+	<meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<style>
+	body{
+
+	}
+	<%if ("view".equals(mode) || "viewFromID".equals(mode)){ %>
+	body{
+		background: gainsboro;
+	}
+	#page{
+		background: white;
+	    width:200mm;
+	}
+	#inputForm{
+	    overflow: auto;
+	    border: 1px solid;
+	    border-color: #0000ff;
+	    margin-bottom:10mm;
+		margin-top: 5mm;
+		margin-left: 0px;
+		margin-right: 0px;
+	    padding:5mm;
+	}
+	<%}%>
+	input:hover[type=text]{ background: #ffc; }
+	.noBorderText { border: none; border-bottom: 0.5px solid; width: 250px; }
+
+	#canvas {
+		<%if(imgPath!=null){ %>
+			background-image: url("<%=imgPath%>");
+		<%}else{%>
+			background-image: url("../images/piaform/wholeBody.png");
+		<%}%>
+		width: 500px;
+		height: 480px;
+	}
+
+	#canvas2 {
+		<%if(imgPath2!=null){ %>
+			background-image: url("<%=imgPath2%>");
+		<%}else{%>
+			background-image: url("../images/piaform/lung.png");
+		<%}%>
+		width: 500px;
+		height: 480px;
+	}
+
+	table{
+		vertical-align: top;
+	}
+
+	td[rowspan] {
+		vertical-align: top;
+		text-align: left;
+	}
+
+	.title {
+		vertical-align: top;
+		font-weight: bold;
+	}
+
+	textarea{
+		width:90%;
+	}
+
+	.formLabel{
+		overflow: hidden;
+	    width: 100%;
+		border: 1px solid black;
+		margin-bottom: 30px;
+	}
+
+	#nameLabel{
+		float: left;
+		width: 50%;
+		margin-right: -1px;
+		padding-bottom: 500em;
+		margin-bottom: -500em;
+	}
+
+	#barcodeLabel{
+		float: left;
+		width: 50%;
+		margin-right: -1px;
+		border-left: 1px solid black;
+		padding-bottom: 500em;
+		margin-bottom: -500em;
+	}
+
+	#barcodeLabel table{
+		width:100%;
+		text-align:center;
+		border-collapse: collapse;
+	}
+
+	span{
+		margin-top: 5px;
+	}
+
+	input[type=button]{
+		margin-left: 20px;
+	    margin-right: 20px;
+	}
+
+	footer {
+		z-index: 1;
+	    position: fixed;
+	    bottom: 0;
+	    left: 0;
+	    right: 0;
+	    height: 30px;
+	    background-color: gainsboro;
+	}
+
+	tr.noBorder td {
+	  border: 0;
+	}
+	</style>
+	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../js/hkah.js" /></script>
+	<script type="text/javascript">
+	fullscreen();
+	
+	 jQuery.browser = {};
+	  (function () {
+	   jQuery.browser.msie = false;
+	   jQuery.browser.version = 0;
+	   if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+	    jQuery.browser.msie = true;
+	    jQuery.browser.version = RegExp.$1;
+	   }
+	})();
+
+	// Adding canvas setting for new entry only
+	<%if ("new".equals(mode) || "edit".equals(mode)){%>
+		var value = "";
+		var x = "red", y = 2;
+		var canvas, ctx, flag = false, prevX = 0;
+		var currX = 0, prevY = 0, currY = 0, dot_flag = false;
+		var canvas2, ctx2, flag2 = false, prevX2 = 0;
+		var currX2 = 0, prevY2 = 0, currY2 = 0, dot_flag2 = false;
+		var arrayX = [], arrayY = [];
+		var arrayX2 = [], arrayY2 = [];
+		var noOfClick = 0, noOfClick2 = 0;
+		var background1, background2;
+		var image, image2;
+		var icon, side;
+
+		function init() {
+			canvas = document.getElementById('can');
+			canvas2 = document.getElementById('can2');
+			ctx = canvas.getContext("2d");
+			ctx2 = canvas2.getContext("2d");
+			w = canvas.width;
+			h = canvas.height;
+			w2 = canvas2.width;
+			h2 = canvas2.height;
+
+			background1 = new Image();
+			<%if(imgPath!=null){ %>
+				background1.src = "<%=imgPath%>";
+			<%}else{%>
+				background1.src = "../images/piaform/wholeBody.png";
+			<%};%>
+
+			background2 = new Image();
+			<%if(imgPath2!=null){ %>
+				background2.src = "<%=imgPath2%>";
+			<%}else{%>
+				background2.src = "../images/piaform/lung.png";
+			<%};%>
+
+			$("#canvasimg").hide();
+			$("#canvasimg2").hide();
+
+			canvas.addEventListener("mousedown", function(e) {
+				findxy('down', e);
+			}, false);
+			canvas2.addEventListener("mousedown", function(e) {
+				findxy2('down', e);
+			}, false);
+		}
+
+		function erase() {
+			ctx.clearRect(arrayX[noOfClick], arrayY[noOfClick], 75, 50);
+			noOfClick -= 1;
+		}
+
+		function erase2() {
+			ctx2.clearRect(arrayX2[noOfClick2], arrayY2[noOfClick2], 75, 50);
+			noOfClick2 -= 1;
+		}
+
+		function eraseAll() {
+			var m = confirm("Want to clear1?");
+			if (m) {
+				ctx.clearRect(0, 0, w, h);
+			}
+			$('#canvas').css('background-image','url(' +  '../images/piaform/wholeBody.png' + ')');
+			arrayX=null;
+			noOfClick=0;
+			background1.src = "../images/piaform/wholeBody.png";
+		}
+
+		function eraseAll2() {
+			var m = confirm("Want to clear2?");
+			if (m) {
+				ctx2.clearRect(0, 0, w2, h2);
+			}
+			$('#canvas2').css('background-image','url(' +  '../images/piaform/lung.png' + ')');
+			arrayX2=null;
+			noOfClick2=0;
+			background2.src = "../images/piaform/lung.png";
+		}
+
+		function findxy(res, e) {
+			var rect = canvas.getBoundingClientRect();
+			if (res == 'down') {
+				currX = e.clientX - rect.left;
+				currY = e.clientY - rect.top;
+
+				if(side==null){
+					side = 'L';
+				}
+				if(icon!=null){
+					if(side == 'L'){
+						mark();
+					}else{
+						side = 'L';
+						icon = null;
+						alert('Please select a icon for marking!');
+					}
+				}else{
+					icon = null;
+					alert('[Please select a icon for marking!]');
+				}
+			}
+		}
+
+		function setIcon(obj) {
+			if(obj.id=='sourceL1'||obj.id=='sourceL2'){
+				side = 'L';
+			}else if((obj.id=='sourceR1'||obj.id=='sourceR2'||obj.id=='sourceR3')){
+				side = 'R';
+			}
+			icon = obj.id;
+		}
+
+		function setIconByID(id) {
+			if(id=='sourceL1'||id=='sourceL2'){
+				side = 'L';
+			}else if((id=='sourceR1'||id=='sourceR2'||id=='sourceR3')){
+				side = 'R';
+			}
+			icon = id;
+		}
+
+		function mark() {
+			if(noOfClick<50){
+				image = document.getElementById(icon);
+				ctx.drawImage(image, currX-20/2, currY-20/2, 20, 20);
+				noOfClick += 1;
+				arrayX[noOfClick] = currX-20/2;
+				arrayY[noOfClick] = currY-20/2;
+				ctx.globalCompositeOperation = "source-over";
+			}else{
+				alert('Can not mark more than 4 times!');
+				return;
+			}
+		}
+
+		function findxy2(res, e) {
+			var rect2 = canvas2.getBoundingClientRect();
+			if (res == 'down') {
+				currX2 = e.clientX - rect2.left;
+				currY2 = e.clientY - rect2.top;
+				if(side==null){
+					side = 'R';
+				}
+				if(icon!=null){
+					if(side == 'R'){
+						mark2();
+					}else{
+						side = 'R';
+						icon = null;
+						alert('Please select a icon for marking!');
+					}
+				}else{
+					icon = null;
+					alert('[Please select a icon for marking!]');
+				}
+			}
+		}
+
+		function mark2() {
+			if(noOfClick2<50){
+				image2 = document.getElementById(icon);
+				ctx2.drawImage(image2, currX2-20, currY2-20, 30, 30);
+				noOfClick2 += 1;
+				arrayX2[noOfClick2] = currX2-20;
+				arrayY2[noOfClick2] = currY2-20;
+				ctx2.globalCompositeOperation = "source-over";
+			}else{
+				alert('Can not mark more than 50 times!');
+				return;
+			}
+		}
+	<%}%>
+	//end of canvas
+
+	function lockPatInfo() {
+		document.getElementById("patno").readOnly = true;
+		document.getElementById("patName").readOnly = true;
+		document.getElementById("patDob").readOnly = true;
+		document.getElementById("gender").readOnly = true;
+	}
+
+	function mFollowUp() {
+		if ($('#mammogramFollowUp').is(":checked")) {
+			$(".mFollowUp").prop('disabled', false);
+		} else {
+			$(".mFollowUp").prop('checked', false);
+			$(".mFollowUp").prop('disabled', true);
+		}
+	}
+	function uFollowUp() {
+		if ($('#usgFollowUp').is(":checked")) {
+			$(".uFollowUp").prop('disabled', false);
+		} else {
+			$(".uFollowUp").prop('checked', false);
+			$(".uFollowUp").prop('disabled', true);
+		}
+	}
+
+	function displayView(){
+		// lock the field when view mode
+		<% if ("view".equals(mode) || "viewFromID".equals(mode)){%>
+			$('input').prop('readonly', true);
+			$('textarea').prop('readonly', true);
+			$('#inputForm input[type=radio]').prop('disabled', true);
+			$('input[type=checkbox]').prop('disabled', true);
+			$('input[type=text]').css('border-bottom','none');
+		<%} %>
+		<% if ("check".equals(action)){ %>
+			$('#update').remove();
+			$('#printUpdate').remove();
+		<%} %>
+			//for canvas1
+			var img="<%=imgPath%>";
+//			$(canvas).remove();
+			$("#imgView").attr("src", img);
+			$("#imgPath").val(img);
+
+			//for canvas2
+			var img2="<%=imgPath2%>";
+//			$(canvas2).remove();
+			$("#imgView2").attr("src", img2);
+			$("#imgPath2").val(img2);
+		};
+
+	function getCurrentDate(){
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+		if(dd<10) {
+		    dd = '0'+dd;
+		}
+		if(mm<10) {
+		    mm = '0'+mm;
+		}
+		today = yyyy + '-' + mm + '-' + dd;
+	};
+
+	$(document).ready(function() {
+		<% if (patName != null){%>
+			lockPatInfo();
+		<%}%>
+		getCurrentDate();
+		$(".textField1").prop('disabled', false);
+		<% if ("view".equals(mode)||"edit".equals(mode) || "viewFromID".equals(mode)){ %>
+			displayView();
+		<%}%>
+	});
+
+	function validDate(obj) {
+		date=obj.value
+		if (/[^\d/]|(\/\/)/g.test(date)) {
+			obj.value=obj.value.replace(/[^\d/]/g,'');
+			obj.value=obj.value.replace(/\/{2}/g,'/');
+			return;
+		}
+		if (/^\d{2}$/.test(date)) {
+			obj.value=obj.value+'/';
+			return;
+		}
+		if (/^\d{2}\/\d{2}$/.test(date)) {
+			obj.value=obj.value+'/';
+			return;
+		}
+		if (!/^\d{2}\/\d{2}\/\d{4}$/.test(date)) {
+			return;
+		}
+		test1=(/^\d{2}\/?\d{2}\/\d{4}$/.test(date))
+		date=date.split('/')
+		d=new Date(date[2],date[1]-1,date[0])
+		test2=(1*date[0]==d.getDate() && 1*date[1]==(d.getMonth()+1) && 1*date[2]==d.getFullYear())
+		if (test1 && test2) return true;
+		obj.select();
+		obj.focus();
+		return false;
+	}
+</script>
+
+</head>
+<script src="../js/ui.datepicker.js" type="text/javascript"></script>
+<script src="../js/jquery.searchabledropdown-1.0.8.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="<html:rewrite page="/css/flora.datepicker.css" />" />
+
+<body <%if ("new".equals(mode)||"edit".equals(mode)){ %> onload="init()"<%}%> >
+	<form name="form1" id="form1" action="PhyInitialAssFormOP2.jsp" method="post">
+	<div id="page">
+		<div id="inputForm">
+			<div class="title" style="text-align:right; float: right;">
+				<h4><%=regid.equals(mstrRegid)?"Physiotherapy(Out-Patient) Initial Assessment Form":"" %></h4><br>
+				<%
+				  if (message == null) { message = ConstantsVariable.EMPTY_VALUE; }
+				  if (errorMessage == null) { errorMessage = ConstantsVariable.EMPTY_VALUE; }
+				%>
+			</div>
+			<div>
+				<img width="390px" src="../images/<%=logo%>">
+			</div>
+<font color="blue" size="10"><%=message %></font>
+<font color="red" size="10"><%=errorMessage %></font>
+			<table style="width: 90%">
+			  <tr>
+			    <td width="10%" class="title">Initial Date:</td>
+			    <td width="30%">
+				<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+			    	<input type="textfield" name="assessDate" id="assessDate" class="datepickerfield" value="<%=assessDate==null?sysDate:assessDate %>" maxlength="10" size="10" onkeyup="validDate(this)" onblur="validDate(this)"/>
+				<%}else{ %>
+			    	<input type="textfield" name="assessDate" id="assessDate" value="<%=assessDate==null?sysDate:assessDate %>" maxlength="10" size="10" readonly/>
+				<%} %>(DD/MM/YYYY)
+			    </td>
+			    <td width="10%"></td>
+				<td width="10%">
+				<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+					<input type="checkbox" name="ad1" id="ad1" value="Y" <%if ("Y".equals(ad1)){ %>checked<%} %>/>Patient consent treatment
+				<%}else{ %>
+					<input type="checkbox" name="ad1" id="ad1" value="Y" <%if ("Y".equals(ad1)){ %>checked<%} %> onclick="return false;"/>Patient consent treatment
+				<%} %>
+				</td>
+				<td width="10%">
+				<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+					<input type="checkbox" name="ad5" id="ad5" value="Y" <%if ("Y".equals(ad5)){ %>checked<%} %>/>Parent/Guardian's consent to treatment
+				<%}else{ %>
+					<input type="checkbox" name="ad5" id="ad5" value="Y" <%if ("Y".equals(ad5)){ %>checked<%} %> onclick="return false;"/>Parent/Guardian's consent to treatment
+				</td>
+				<%} %>
+				<td width="30%"></td>
+			  </tr>
+			  <tr>
+			    <td width="10%" class="title">Diagnosis:</td>
+			    <td width="90%" colspan="5">
+				<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+			    	<input type="text" class="textField1" name="diagnosis" id="diagnosis" value="<%=diagnosis==null?"":diagnosis %>" maxlength="200" size="180"/>
+				<%}else{ %>
+			    	<input type="text" class="textField1" name="diagnosis" id="diagnosis" value="<%=diagnosis==null?"":diagnosis %>" maxlength="200" size="180" readonly/>
+				<%} %>
+			    </td>
+			  </tr>
+			</table>
+			<table style="width: 90%"  border="1">
+				<tr class="noBorder">
+					<td class="title" style="text-decoration: underline;">Body Chart</td>
+				</tr>
+				<tr>
+					<td width="40%">
+						<div id="canvas">
+							<%if ("new".equals(mode)||"edit".equals(mode)){ %>
+								<canvas id="can" width="500px" height="480px"></canvas>
+								<canvas id="exportCan" width="500px" height="480px" style="display: none;"></canvas>
+							<%}%>
+						</div>
+						<input type="hidden" name="imgPath" id="imgPath"/>
+					</td>
+					<td width="20%">
+						<table>
+							<tr>
+								<td>Pain VAS:</td>
+								<td>
+									<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+										<input type="text" name="vasPain" id="vasPain" value="<%=vasPain==null?"":vasPain %>" maxlength="6" size="6" onblur="numCheck2(this)"/>
+									<%}else{ %>
+										<input type="text" name="vasPain" id="vasPain" value="<%=vasPain==null?"":vasPain %>" maxlength="6" size="6" onblur="numCheck2(this)" readonly/>
+									<%} %>/10
+								</td>
+							</tr>
+							<tr>
+								<td>P/N VAS:</td>
+								<td>
+									<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+										<input type="text" name="vasPn" id="vasPn" value="<%=vasPn==null?"":vasPn %>" maxlength="6" size="6" onblur="numCheck2(this)"/>
+									<%}else{ %>
+										<input type="text" name="vasPn" id="vasPn" value="<%=vasPn==null?"":vasPn %>" maxlength="6" size="6" onblur="numCheck2(this)" readonly/>
+									<%} %>/10
+								</td>
+							</tr>
+							<tr>
+								<td>Numbness VAS:</td>
+								<td>
+									<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+										<input type="text" name="vasNumb" id="vasNumb" value="<%=vasNumb==null?"":vasNumb %>" maxlength="6" size="6" onblur="numCheck2(this)"/>
+									<%}else{ %>
+										<input type="text" name="vasNumb" id="vasNumb" value="<%=vasNumb==null?"":vasNumb %>" maxlength="6" size="6" onblur="numCheck2(this)" readonly/>
+									<%} %>/10
+								</td>
+							</tr>
+							<tr>
+								<td>Pain Descripton:</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+										<textarea name="painDesc" id="painDesc" rows="5" cols="40"><%=painDesc==null?"":painDesc %></textarea>
+									<%}else{ %>
+										<textarea name="painDesc" id="painDesc" rows="5" cols="40" onkeypress="return false;"><%=painDesc==null?"":painDesc %></textarea>
+									<%} %>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td width="40%">
+						<div id="canvas2">
+							<%if ("new".equals(mode) || "edit".equals(mode)){ %>
+								<canvas id="can2" width="500px" height="480px"></canvas2>
+								<canvas id="exportCan2" width="500px" height="480px" style="display: none;"></canvas>
+							<%}%>
+						</div>
+						<input type="hidden" name="imgPath2" id="imgPath2"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table>
+							<tr>
+								<td><input type="button" value="clear" id="clr" size="23" onclick="erase()" style=""></td>
+								<td>
+									<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+										<img id="sourceL1" src="<%=markPathL1%>" width="30" height="30" onclick="setIcon(this)" />
+										<img id="sourceL2" src="<%=markPathL2%>" width="30" height="30" onclick="setIcon(this)" />
+										<img id="sourceL3" src="<%=markPathL3%>" width="30" height="30" onclick="setIcon(this)" />
+										<img id="sourceL4" src="<%=markPathL4%>" width="30" height="30" onclick="setIcon(this)" />
+									<%}else{ %>
+										<img id="sourceL1" src="<%=markPathL1%>" width="30" height="30" onclick="return false;" />
+										<img id="sourceL2" src="<%=markPathL2%>" width="30" height="30" onclick="return false;" />
+										<img id="sourceL3" src="<%=markPathL3%>" width="30" height="30" onclick="return false;" />
+										<img id="sourceL4" src="<%=markPathL4%>" width="30" height="30" onclick="return false;" />
+									<%} %>
+									&ensp;&ensp;<label for="Pain" id="pain">Pain</label>
+    							</td>
+							</tr>
+							<tr>
+								<td>
+									<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+										<input type="button" value="clearAll" id="clrAll" size="23" onclick="eraseAll()" style=""/>
+									<%}else{ %>
+										<input type="button" value="clearAll" id="clrAll" size="23" onclick="return false;" style=""/>
+									<%} %>
+								</td>
+								<td>
+									<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+										<img id="sourcePN1" src="<%=markPathPN1%>" width="30" height="30" onclick="setIcon(this)" />
+										<img id="sourcePN2" src="<%=markPathPN2%>" width="30" height="30" onclick="setIcon(this)" />
+									<%}else{ %>
+										<img id="sourcePN1" src="<%=markPathPN1%>" width="30" height="30" onclick="return false;" />
+										<img id="sourcePN2" src="<%=markPathPN2%>" width="30" height="30" onclick="return false;" />
+									<%} %>
+									&ensp;&ensp;<label for="Paraesthesia" id="paraesthesia">Paraesthesia</label>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td>
+								<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+									<input type="button" value="clear" id="clr2" size="23" onclick="erase2()" style=""/>
+								<%}else{ %>
+									<input type="button" value="clear" id="clr2" size="23" onclick="return false;" style=""/>
+								<%} %>
+								</td>
+								<td>
+									<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+										<img id="sourceR1" src="<%=markPathR1%>" width="30" height="30" onclick="setIcon(this)"/>
+									<%}else{ %>
+										<img id="sourceR1" src="<%=markPathR1%>" width="30" height="30" onclick="return false;"/>
+									<%} %>
+									<label for="AirEntry" id="airEntry" onclick="setIconByID('sourceR1')">Air Entry</label>&ensp;&ensp;
+									<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+										<img id="sourceR2" src="<%=markPathR2%>" width="30" height="30" onclick="setIcon(this)"/>
+									<%}else{ %>
+										<img id="sourceR2" src="<%=markPathR2%>" width="30" height="30" onclick="return false;"/>
+									<%} %>
+									<label for="Crackles" id="crackles" onclick="setIconByID('sourceR2')">Crackles</label>&ensp;&ensp;
+									<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+										<img id="sourceR3" src="<%=markPathR3%>" width="30" height="30" onclick="setIcon(this)"/>
+									<%}else{ %>
+										<img id="sourceR3" src="<%=markPathR3%>" width="30" height="30" onclick="return false;"/>
+									<%} %>
+									<label for="Wheeze" id="wheeze" onclick="setIconByID('sourceR3')">Wheeze</label>
+    							</td>
+							</tr>
+							<tr>
+								<td>
+									<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+										<input type="button" value="clearAll" id="clrAll2" size="23" onclick="eraseAll2()" style="">
+									<%}else{ %>
+										<input type="button" value="clearAll" id="clrAll2" size="23" onclick="return false;" style="">
+									<%} %>
+								</td>
+    							<td>
+									<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+										<input type="checkbox" name="clearChestY" id="clearChestY" value="Y" <%if ("Y".equals(clearChest)){ %>checked="checked"<%} %> onclick="clearChestCheckBox(this)">
+									<%}else{ %>
+										<input type="checkbox" name="clearChestY" id="clearChestY" value="Y" <%if ("Y".equals(clearChest)){ %>checked="checked"<%} %> onclick="return false;">
+									<%} %>If clear chest&ensp;&ensp;
+									<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+										<input type="checkbox" name="clearChestN" id="clearChestN" value="N" <%if ("N".equals(clearChest)){ %>checked="checked"<%} %> onclick="clearChestCheckBox(this)">
+									<%}else{ %>
+										<input type="checkbox" name="clearChestN" id="clearChestN" value="N" <%if ("N".equals(clearChest)){ %>checked="checked"<%} %> onclick="return false;">
+									<%} %>Not Application
+    							</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<table style="width: 90%">
+			  <tr>
+			    <td width="10%" class="title">Past Medical History:</td>
+			    <td width="90%">
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+			    		<input type="text" class="textField1" name="pastMedHist" id="pastMedHist" value="<%=pastMedHist==null?"":pastMedHist %>" maxlength="200" size="150"/>
+					<%}else{ %>
+			    		<input type="text" class="textField1" name="pastMedHist" id="pastMedHist" value="<%=pastMedHist==null?"":pastMedHist %>" maxlength="200" size="150" readonly/>
+					<%} %>
+			    </td>
+			  </tr>
+			  <tr>
+			    <td width="10%" class="title">Social History:</td>
+			    <td width="90%">
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+			    		<input type="text" class="textField1" name="socialHistory" id="socialHistory" value="<%=socialHistory==null?"":socialHistory %>" maxlength="200" size="150"/>
+					<%}else{ %>
+			    		<input type="text" class="textField1" name="socialHistory" id="socialHistory" value="<%=socialHistory==null?"":socialHistory %>" maxlength="200" size="150" readonly/>
+					<%} %>
+			    </td>
+			  </tr>
+			  <tr>
+			    <td width="10%" class="title">Psychological/Emotional:</td>
+			    <td width="90%">
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+			    		<input type="text" class="textField1" name="emotional" id="emotional" value="<%=emotional==null?"":emotional %>" maxlength="200" size="150"/>
+					<%}else{ %>
+						<input type="text" class="textField1" name="emotional" id="emotional" value="<%=emotional==null?"":emotional %>" maxlength="200" size="150" readonly/>
+					<%} %>
+			    </td>
+			  </tr>
+			  <tr>
+			    <td width="10%" class="title">Functional Assessment:</td>
+			    <td width="90%">
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+			    		<input type="text" class="textField1" name="funcAssmt" id="funcAssmt" value="<%=funcAssmt==null?"":funcAssmt %>" maxlength="200" size="150"/>
+					<%}else{ %>
+			    		<input type="text" class="textField1" name="funcAssmt" id="funcAssmt" value="<%=funcAssmt==null?"":funcAssmt %>" maxlength="200" size="150" readonly/>
+					<%} %>
+			    </td>
+			  </tr>
+			  <tr>
+			    <td width="10%" class="title">Fall Assessment:</td>
+			    <td width="90%">
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+			    		<input type="text" class="textField1" name="fallAssmt" id="fallAssmt" value="<%=fallAssmt==null?"":fallAssmt %>" maxlength="200" size="150"/>
+					<%}else{ %>
+			    		<input type="text" class="textField1" name="fallAssmt" id="fallAssmt" value="<%=fallAssmt==null?"":fallAssmt %>" maxlength="200" size="150" readonly/>
+					<%} %>
+			    </td>
+			  </tr>
+			  <tr>
+			    <td width="10%" class="title">Patient Goal:</td>
+			    <td width="90%">
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+			    		<input type="text" class="textField1" name="patientGoal" id="patientGoal" value="<%=patientGoal==null?"":patientGoal %>" maxlength="200" size="150"/>
+					<%}else{ %>
+						<input type="text" class="textField1" name="patientGoal" id="patientGoal" value="<%=patientGoal==null?"":patientGoal %>" maxlength="200" size="150" readonly/>
+					<%} %>
+			    </td>
+			  </tr>
+			</table><br>
+			<table style="width: 100%">
+				<tr><td class="title" colspan="2">History of Present Condition:</td></tr>
+				<tr>
+					<td colspan="2">
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+						<textarea name="hpi" id="hpi" rows="5" cols="20"><%=hpi==null?"":hpi %></textarea>
+					<%}else{ %>
+						<textarea name="hpi" id="hpi" rows="5" cols="20" onkeypress="return false;"><%=hpi==null?"":hpi %></textarea>
+					<%} %>
+					</td>
+				</tr>
+				<tr><td height="20" colspan="2"></td></tr>
+				<tr><td class="title" colspan="2">Assessment:</td></tr>
+		  		<tr>
+		    		<td class="title">Subjective Examination</td>
+				</tr>
+		  		<tr>
+		    		<td width="97%">
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+		    			<textarea name="subjective" id="subjective" rows="5" cols="20"><%=subjective==null?"":subjective %></textarea>
+					<%}else{ %>
+						<textarea name="subjective" id="subjective" rows="5" cols="20" onkeypress="return false;"><%=subjective==null?"":subjective %></textarea>
+					<%} %>
+		    		</td>
+				</tr>
+		  		<tr>
+		    		<td class="title">Objective Examination</td>
+				</tr>
+		  		<tr>
+		    		<td>
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+		    			<textarea name="objective" id="objective" rows="5" cols="20"><%=objective==null?"":objective %></textarea>
+					<%}else{ %>
+		    			<textarea name="objective" id="objective" rows="5" cols="20" onkeypress="return false;"><%=objective==null?"":objective %></textarea>
+					<%} %>
+		    		</td>
+				</tr>
+				<tr><td height="20" colspan="2"></td></tr>
+				<tr><td class="title" colspan="2">Treatment Goals:(Functional and Measureable)</td></tr>
+		  		<tr>
+		    		<td colspan="2">
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+		    			<textarea name="treatmentGoal" id="treatmentGoal" rows="5" cols="20"><%=treatmentGoal==null?"":treatmentGoal %></textarea>
+					<%}else{ %>
+		    			<textarea name="treatmentGoal" id="treatmentGoal" rows="5" cols="20" onkeypress="return false;"><%=treatmentGoal==null?"":treatmentGoal %></textarea>
+					<%} %>
+		    		</td>
+				</tr>
+			</table>
+			<br>
+			<table style="width: 100%">
+				<tr><td class="title" colspan="5">Treatment Care Plan:</td></tr>
+				<tr>
+				<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+					<td width="20%"><input type="checkbox" name="tcp1" id="tcp1" value="Y" <%if ("Y".equals(tcp1)){ %>checked<%} %>/>Acupuncture
+					<td width="20%"><input type="checkbox" name="tcp2" id="tcp2" value="Y" <%if ("Y".equals(tcp2)){ %>checked<%} %>/>Manual Therapy
+					<td width="20%"><input type="checkbox" name="tcp3" id="tcp3" value="Y" <%if ("Y".equals(tcp3)){ %>checked<%} %>/>Chest Physiotherapy
+					<td width="20%"><input type="checkbox" name="tcp4" id="tcp4" value="Y" <%if ("Y".equals(tcp4)){ %>checked<%} %>/>Electrotherapy
+					<td width="20%"><input type="checkbox" name="tcp5" id="tcp5" value="Y" <%if ("Y".equals(tcp5)){ %>checked<%} %>/>Hydrotherapy
+				<%}else{ %>
+					<td width="20%"><input type="checkbox" name="tcp1" id="tcp1" value="Y" <%if ("Y".equals(tcp1)){ %>checked<%} %> onclick="return false;"/>Acupuncture
+					<td width="20%"><input type="checkbox" name="tcp2" id="tcp2" value="Y" <%if ("Y".equals(tcp2)){ %>checked<%} %> onclick="return false;"/>Manual Therapy
+					<td width="20%"><input type="checkbox" name="tcp3" id="tcp3" value="Y" <%if ("Y".equals(tcp3)){ %>checked<%} %> onclick="return false;"/>Chest Physiotherapy
+					<td width="20%"><input type="checkbox" name="tcp4" id="tcp4" value="Y" <%if ("Y".equals(tcp4)){ %>checked<%} %> onclick="return false;"/>Electrotherapy
+					<td width="20%"><input type="checkbox" name="tcp5" id="tcp5" value="Y" <%if ("Y".equals(tcp5)){ %>checked<%} %> onclick="return false;"/>Hydrotherapy
+				<%} %>
+				</tr>
+				<tr>
+				<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+					<td width="20%"><input type="checkbox" name="tcp6" id="tcp6" value="Y" <%if ("Y".equals(tcp6)){ %>checked<%} %>/>Care and Advice</td>
+					<td width="20%"><input type="checkbox" name="tcp7" id="tcp7" value="Y" <%if ("Y".equals(tcp7)){ %>checked<%} %>/>Neuro Rehabilitaion</td>
+					<td width="20%"><input type="checkbox" name="tcp8" id="tcp8" value="Y" <%if ("Y".equals(tcp8)){ %>checked<%} %>/>Therapeutic Exercises</td>
+					<td colspan="2"><input type="checkbox" name="tcp9" id="tcp9" value="Y" <%if ("Y".equals(tcp9)){ %>checked<%} %>/>Thermal Therapy</td>
+				<%}else{ %>
+					<td width="20%"><input type="checkbox" name="tcp6" id="tcp6" value="Y" <%if ("Y".equals(tcp6)){ %>checked<%} %> onclick="return false;"/>Care and Advice</td>
+					<td width="20%"><input type="checkbox" name="tcp7" id="tcp7" value="Y" <%if ("Y".equals(tcp7)){ %>checked<%} %> onclick="return false;"/>Neuro Rehabilitaion</td>
+					<td width="20%"><input type="checkbox" name="tcp8" id="tcp8" value="Y" <%if ("Y".equals(tcp8)){ %>checked<%} %> onclick="return false;"/>Therapeutic Exercises</td>
+					<td colspan="2"><input type="checkbox" name="tcp9" id="tcp9" value="Y" <%if ("Y".equals(tcp9)){ %>checked<%} %> onclick="return false;"/>Thermal Therapy</td>
+				<%} %>
+				</tr>
+				<tr>
+			    	<td>
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+			    		<input type="checkbox" name="tcpOther1" id="tcpOther1" value="" <%if (tcpOther1!=null && tcpOther1.length()>0){ %>checked<%} %>/>
+					<%}else{ %>
+			    		<input type="checkbox" name="tcpOther1" id="tcpOther1" value="" <%if (tcpOther1!=null && tcpOther1.length()>0){ %>checked<%} %> onclick="return false;"/>
+					<%} %>Others:
+					</td>
+					<td colspan="4">
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+						<input type="text" name="tcpOtherText1" id="tcpOtherText1" value="<%=tcpOther1==null?"":tcpOther1 %>" maxlength="200" size="110"/>
+					<%}else{ %>
+						<input type="text" name="tcpOtherText1" id="tcpOtherText1" value="<%=tcpOther1==null?"":tcpOther1 %>" maxlength="200" size="110" readonly/>
+					<%} %>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<table style="width: 100%">
+				<tr><td class="title" colspan="2">Treatment:</td></tr>
+				<tr>
+					<td colspan="2">
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+						<textarea name="treatment" id="treatment" rows="5" cols="20"><%=treatment==null?"":treatment %></textarea>
+					<%}else{ %>
+						<textarea name="treatment" id="treatment" rows="5" cols="20" onkeypress="return false;"><%=treatment==null?"":treatment %></textarea>
+					<%} %>
+					</td>
+				</tr>
+			</table>
+			<br>
+<!-- Patient Education / Care and Advice -->			
+			<table style="width: 100%">
+				<tr><td class="title" colspan="2">Exercise:</td></tr>
+				<tr>
+					<td colspan="2">
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+						<textarea name="exercises" id="exercises" rows="5" cols="20"><%=exercises==null?"":exercises %></textarea>
+					<%}else{ %>
+						<textarea name="exercises" id="exercises" rows="5" cols="20" onkeypress="return false;"><%=exercises==null?"":exercises %></textarea>
+					<%} %>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<table style="width: 100%">
+				<tr><td class="title" colspan="7">Addition Information:</td></tr>
+				<tr>
+				<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+					<td width="25%"><input type="checkbox" name="ad2" id="ad2" value="Y" <%if ("Y".equals(ad2)){ %>checked<%} %>/>Contraindications Screened</td>
+					<td width="25%"><input type="checkbox" name="ad3" id="ad3" value="Y" <%if ("Y".equals(ad3)){ %>checked<%} %>/>Warning Given</td>
+					<td width="25%"><input type="checkbox" name="ad4" id="ad4" value="Y" <%if ("Y".equals(ad4)){ %>checked<%} %>/>Important Information Sheet/explained</td>
+					<td width="25%"><input type="checkbox" name="ad6" id="ad6" value="Y" <%if ("Y".equals(ad6)){ %>checked<%} %>/>Skin Sensation Test Hot/Cold</td>
+				<%}else{ %>
+					<td width="25%"><input type="checkbox" name="ad2" id="ad2" value="Y" <%if ("Y".equals(ad2)){ %>checked<%} %> onclick="return false;"/>Contraindications Screened</td>
+					<td width="25%"><input type="checkbox" name="ad3" id="ad3" value="Y" <%if ("Y".equals(ad3)){ %>checked<%} %> onclick="return false;"/>Warning Given</td>
+					<td width="25%"><input type="checkbox" name="ad4" id="ad4" value="Y" <%if ("Y".equals(ad4)){ %>checked<%} %> onclick="return false;"/>Important Information Sheet/explained</td>
+					<td width="25%"><input type="checkbox" name="ad6" id="ad6" value="Y" <%if ("Y".equals(ad6)){ %>checked<%} %> onclick="return false;"/>Skin Sensation Test Hot/Cold</td>
+				<%} %>
+				</tr>
+				<tr>
+				<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+					<td width="25%"><input type="checkbox" name="ad7" id="ad7" value="Y" <%if ("Y".equals(ad7)){ %>checked<%} %>/>Sharp/Blunt</td>
+					<td width="25%"><input type="checkbox" name="ad8" id="ad8" value="Y" <%if ("Y".equals(ad8)){ %>checked<%} %>/>Patient Reported Outcomes</td>
+					<td width="25%"><input type="checkbox" name="ad9" id="ad9" value="Y" <%if ("Y".equals(ad9)){ %>checked<%} %>/>Fall Screening</td>
+					<td width="25%"></td>
+				<%}else{ %>
+					<td width="25%"><input type="checkbox" name="ad7" id="ad7" value="Y" <%if ("Y".equals(ad7)){ %>checked<%} %> onclick="return false;"/>Sharp/blunt</td>
+					<td width="25%"><input type="checkbox" name="ad8" id="ad8" value="Y" <%if ("Y".equals(ad8)){ %>checked<%} %> onclick="return false;"/>Patient Reported Outcomes</td>
+					<td width="25%"><input type="checkbox" name="ad9" id="ad9" value="Y" <%if ("Y".equals(ad9)){ %>checked<%} %> onclick="return false;"/>Fall Screening</td>
+					<td width="25%"></td>
+				<%} %>
+				</tr>
+				<tr>
+			    	<td width="25%">
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+			    		<input type="checkbox" name="adOther1" id="adOther1" value="<%=adOther1==null?"":adOther1 %>" <%if (adOther1!=null && adOther1.length()>0){ %>checked<%} %>/>
+					<%}else{ %>
+			    		<input type="checkbox" name="adOther1" id="adOther1" value="<%=adOther1==null?"":adOther1 %>" <%if (adOther1!=null && adOther1.length()>0){ %>checked<%} %> onclick="return false;"/>
+					<%} %>Functional Test:
+					</td>
+					<td colspan="3">
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+						<input type="text" name="adText1" id="adText1" value="<%=adOther1==null?"":adOther1 %>" maxlength="200" size="130"/>
+					<%}else{ %>
+						<input type="text" name="adText1" id="adText1" value="<%=adOther1==null?"":adOther1 %>" maxlength="200" size="130" readonly/>
+					<%} %>
+					</td>
+				</tr>
+				<tr>
+			    	<td width="25%">
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+			    		<input type="checkbox" name="adOther2" id="adOther2" value="<%=adOther2==null?"":adOther2 %>" <%if (adOther2!=null && adOther2.length()>0){ %>checked<%} %>/>
+					<%}else{ %>
+						<input type="checkbox" name="adOther2" id="adOther2" value="<%=adOther2==null?"":adOther2 %>" <%if (adOther2!=null && adOther2.length()>0){ %>checked<%} %> onclick="return false;"/>
+					<%} %>Others:
+					</td>
+					<td colspan="3">
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+						<input type="text" name="adText2" id="adText2" value="<%=adOther2==null?"":adOther2 %>" maxlength="200" size="130"/>
+					<%}else{ %>
+						<input type="text" name="adText2" id="adText2" value="<%=adOther2==null?"":adOther2 %>" maxlength="200" size="130" readonly/>
+					<%} %>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<table style="width: 100%">
+			  <tr>
+			    <td width="20%" class="title">Post Treatment Response:</td>
+			    <td width="80%">
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+			    		<input type="text" name="postTreatment" id="postTreatment" value="<%=postTreatment==null?"":postTreatment %>" maxlength="200" size="130"/>
+					<%}else{ %>
+			    		<input type="text" name="postTreatment" id="postTreatment" value="<%=postTreatment==null?"":postTreatment %>" maxlength="200" size="130" readonly/>
+					<%} %>
+			    </td>
+			  </tr>
+			  <tr>
+			    <td width="20%" class="title">Suggested Treatment Frequency:</td>
+			    <td width="80%">
+					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+			    		<input type="text" name="frequency" id="frequency" value="<%=frequency==null?"":frequency %>" maxlength="200" size="130"/>
+					<%}else{ %>
+			    		<input type="text" name="frequency" id="frequency" value="<%=frequency==null?"":frequency %>" maxlength="200" size="130" readonly/>
+					<%} %>
+			    </td>
+			  </tr>
+			</table>
+			<table style="width: 80%">
+				<tr><td class="title" colspan="5">Duration of treatment:</td></tr>
+				<tr>
+				<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %>
+					<td width="20%"><input type="checkbox" name="pt1" id="pt1" value="10" <%if ("10".equals(pt)){ %>checked<%} %> onclick="clearPtCheckBox(this)"/>PT10</td>
+					<td width="20%"><input type="checkbox" name="pt2" id="pt2" value="40" <%if ("40".equals(pt)){ %>checked<%} %> onclick="clearPtCheckBox(this)"/>PT40</td>
+					<td width="20%"><input type="checkbox" name="pt3" id="pt3" value="60" <%if ("60".equals(pt)){ %>checked<%} %> onclick="clearPtCheckBox(this)"/>PT60</td>
+					<td width="20%"><input type="checkbox" name="pt4" id="pt4" value="99" <%if ("99".equals(pt)){ %>checked<%} %> onclick="clearPtCheckBox(this)"/>PT99</td>
+				<%}else{ %>
+					<td width="20%"><input type="checkbox" name="pt1" id="pt1" value="10" <%if ("10".equals(pt)){ %>checked<%} %> onclick="return false;"/>PT10</td>
+					<td width="20%"><input type="checkbox" name="pt2" id="pt2" value="40" <%if ("40".equals(pt)){ %>checked<%} %> onclick="return false;"/>PT40</td>
+					<td width="20%"><input type="checkbox" name="pt3" id="pt3" value="60" <%if ("60".equals(pt)){ %>checked<%} %> onclick="return false;"/>PT60</td>
+					<td width="20%"><input type="checkbox" name="pt4" id="pt4" value="99" <%if ("99".equals(pt)){ %>checked<%} %> onclick="return false;"/>PT99</td>
+				<%} %>
+				</tr>
+			</table>
+			<br>
+			<table style="width: 80%">
+				<tr>
+					<td class="title"><%=histProgNotes==null?"":"Historical Progress Notes" %></td>
+				</tr>
+				<tr><td><%=histProgNotes==null?"":histProgNotes %></td></tr>
+			</table>
+			<br>
+			<%if(!regid.equals(mstrRegid)){ %>
+			<table style="width: 80%">
+				<tr>
+					<td class="title">Progress Notes</td>
+				</tr>
+				<tr>
+					<td>
+<%-- 					<%if(regid.equals(mstrRegid)&&(diffDate<=7)){ %> --%>
+						<textarea rows="4" name="progNotes" id="progNotes"><%=progNotes==null?"":progNotes %></textarea>
+<%-- 					<%}else{ %>
+						<textarea rows="4" name="progNotes" id="progNotes" onkeypress="return false;"><%=progNotes==null?"":progNotes %></textarea>
+					<%} %> --%>
+					</td>
+				</tr>
+			</table>
+			<%} %>
+			<br/>
+			<table style="width: 80%">
+				<tr><td class="title">Therapist Name:   <%=username==null?"":username %></td></tr>
+			</table>
+			<br/>
+			<div class="formLabel">
+				<div id="nameLabel">
+					<table>
+						<tr class="title">
+							<td width="20%">Patient No.:</td>
+							<td width="80%"><input class="noBorderText" type="text" id="patno" name="patno" value="<%=patNo==null?"":patNo %>" maxlength="80" size="80"/>
+						</tr>
+						<tr class="title">
+							<td width="20%">Name: </td>
+							<td width="80%"><input class="noBorderText" type="text" id="patName" name="patName" value="<%=patName==null?"":patName %>" maxlength="80" size="80"/></td>
+						</tr>
+						<tr class="title">
+							<td width="20%">Date of Birth: </td>
+							<td width="80%"><input class="noBorderText" type="text" id="patDob" name="patDob" value="<%=patDob==null?"":patDob %>" maxlength="80" size="80"/></td>
+						</tr>
+						<tr class="title">
+							<td width="20%">Gender: </td>
+							<td width="80%"><input class="noBorderText" type="text" id="gender" name="gender" value="<%=patSex==null?"":patSex %>" maxlength="80" size="80"/></td>
+						</tr>
+					</table>
+				</div>
+				<div id="barcodeLabel">
+					<table>
+						<tr>
+							<td colspan="2" height="30" style="font-size:110%; vertical-align: middle;" class="title"><b>Physiotherapy (Out-Patient) Initial Assessment Form</b></td>
+						</tr>
+						<tr>
+							<td style="border: 1px solid black;">Rev: Aug 2019</td>
+							<td style="border: 1px solid black;" class="title">RHAB-MOF13a</td>
+						</tr>
+						<tr>
+							<td colspan="2"><img src="../images/barcode.png"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<input type="hidden" id="regid" name="regid" value="<%=regid %>" />
+			<input type="hidden" id="mstrRegid" name="mstrRegid" value="<%=mstrRegid %>" />
+			<input type="hidden" id="userid" name="userid" value="<%=userid %>" />
+			<input type="hidden" id="formuid" name="formuid" value="<%=formuid %>" />
+			<input type="hidden" name="mode" id="mode" />
+			<input type="hidden" name="action" id="action" />
+			<input type="hidden" name="formContent" id="formContent" />
+			<input type="hidden" name="formType" id="formType" value="<%=formType %>" />
+			<input type="hidden" name="updateDate" id="updateDate" value="" />
+			<input type="hidden" name="username" id="username" value="<%=username %>" />
+			<input type="hidden" name="pt" id="pt" value="<%=pt %>" />
+			<input type="hidden" name="histProgNotes" id="histProgNotes" value="<%=histProgNotes %>" />
+			<input type="hidden" name="currAssessDate" id="currAssessDate" value="<%=currAssessDate %>" />
+
+		</div>
+	</div>
+	</form>
+
+	<footer>
+		<span style="float: right;">
+			<input type="button" value="Education Record" id="education" onclick="return openEdu('<%=key%>','<%=userid %>','<%=patNo %>');" />
+		<%System.err.println("[button][mode]:"+mode+";[regid]:"+regid+";[mstrRegid]:"+mstrRegid+";[noOfFormInfo]:"+noOfFormInfo+";[noOfCurrentProgressNote]:"+noOfCurrentProgressNote+";[newrecordClick]:"+newrecordClick); %>
+			<input type="button" value="New Record" id="newrecord" onclick="return submitAction('newrecord');" <%=(noOfFormInfo>0&&noOfCurrentProgressNote==0&&!newrecordClick)?" ":" disabled=disabled" %>/>
+			<input type="button" value="Save" id="save" onclick="return submitAction('new');" <%=((diffDate>7)&&(noOfCurrentProgressNote>0))?" disabled=disabled":" " %>/>
+			<%if((diffDate>7)&&(noOfCurrentProgressNote>0)){ %>
+				<input type="button" value="Print" id="print" onclick="return submitAction('print');" />
+			<%}else{ %>
+				<input type="button" value="Save & Print" id="printSave" onclick="return submitAction('printSave');" />
+			<%} %>
+			<input type="button" value="Close" id="close" onclick="document.title='[close]';close()" />
+		</span>
+	</footer>
+
+</body>
+
+<script>
+
+	$('input').filter('.datepickerfield').datepicker({
+		beforeShow: function (textbox, instance) {
+	        var txtBoxOffset = $(this).offset();
+	        var top = txtBoxOffset.top;
+	        var left = txtBoxOffset.left;
+	        var textBoxHeight = $(this).outerHeight();
+	        setTimeout(function () {
+	            instance.dpDiv.css({
+	               top: top-$("#ui-datepicker-div").outerHeight()-50,
+	               left: left+$("#date_from").width()+25
+	            });
+	        }, 0);
+	    },
+		showOn: 'button',
+		buttonImageOnly: true,
+		buttonImage: "../images/calendar.jpg"
+	});
+
+	function save() {
+		var exportCanvas = document.getElementById('exportCan');
+		var exportCanvas2 = document.getElementById('exportCan2');
+		var exportCtx = exportCanvas.getContext("2d");
+		var exportCtx2 = exportCanvas2.getContext("2d");
+
+		exportCtx.drawImage(background1, 0, 0);
+		exportCtx.drawImage(canvas, 0, 0);
+		exportCtx2.drawImage(background2, 0, 0);
+		exportCtx2.drawImage(canvas2, 0, 0);
+
+		$("#canvasimg").show();
+		$("#canvasimg2").show();
+
+		var canvasimg = document.getElementById("canvasimg");
+		var canvasimg2 = document.getElementById("canvasimg2");
+		var dataURL = exportCanvas.toDataURL();
+		var dataURL2 = exportCanvas2.toDataURL();
+		$("#imgPath").val(dataURL);
+		$("#imgPath2").val(dataURL2);
+	}
+
+	// get Recommendation choosen
+	function getRecommendation(){
+		if ($('#referToBio').is(":checked")){
+			$('#referToBioBoolean').val(true);}
+		if ($('#mammogramFollowUp').is(":checked")){
+			$('#mammogramFollowUpBoolean').val(true);}
+		if ($('#usgFollowUp').is(":checked")){
+			$('#usgFollowUpBoolean').val(true);}
+	}
+
+	function clearChestCheckBox(obj){
+		if ($('#clearChestY').is(':checked') && obj.id=='clearChestY'){
+			document.getElementById('clearChestN').checked = false;
+		}else if($('#clearChestN').is(':checked') && obj.id=='clearChestN'){
+			document.getElementById('clearChestY').checked = false;
+		}
+	}
+
+	function clearPtCheckBox(obj){
+		if ($('#pt1').is(':checked') && obj.id=='pt1'){
+			document.getElementById('pt2').checked = false;
+			document.getElementById('pt3').checked = false;
+			document.getElementById('pt4').checked = false;
+		}else if($('#pt2').is(':checked') && obj.id=='pt2'){
+			document.getElementById('pt1').checked = false;
+			document.getElementById('pt3').checked = false;
+			document.getElementById('pt4').checked = false;
+		}else if($('#pt3').is(':checked') && obj.id=='pt3'){
+			document.getElementById('pt1').checked = false;
+			document.getElementById('pt2').checked = false;
+			document.getElementById('pt4').checked = false;
+		}else if($('#pt4').is(':checked') && obj.id=='pt4'){
+			document.getElementById('pt1').checked = false;
+			document.getElementById('pt2').checked = false;
+			document.getElementById('pt3').checked = false;
+		}
+		document.form1.pt.value = obj.value;
+	}
+
+	function submitAction(cmd) {
+		var painDescMaxSize = 200;
+		var hpiMaxSize = 2000;
+		var subjectiveMaxSize = 1000;
+		var objectiveMaxSize = 2000;
+		var treatmentGoalMaxSize = 500;
+		var treatmentMaxSize = 2000;
+		var exerciseMaxSize = 500;
+		var isInitial = false;
+		var textValue = null;
+
+		isInitial = isInitialRecord();
+		//alert('[isInitial]:'+isInitial);
+		if(cmd == 'newrecord'){
+//			clearPtCheckBox();
+		}else{
+			if(isInitial){
+				textValue = document.getElementById('vasPain').value;
+
+				if (textValue.length == 0) {
+					document.form1.vasPain.focus();
+					alert('Please enter Pain VAS!');
+					textValue = 0;
+					return false;
+				}
+
+				textValue = document.getElementById('painDesc').value;
+
+				if (textValue.length == 0) {
+					document.form1.painDesc.focus();
+					alert('Please input Pain Descripton!');
+					textValue = null;
+					return false;
+				}
+
+				if (textValue.length > painDescMaxSize) {
+					document.form1.painDesc.focus();
+					alert('Length of Pain Desc should be < '+painDescMaxSize+', now '+textValue.length+'!');
+					textValue = 0;
+					return false;
+				}
+
+				textValue = document.getElementById('hpi').value;
+
+				if (textValue.length > hpiMaxSize) {
+					document.form1.hpi.focus();
+					alert('Length of HPI should be < '+hpiMaxSize+', now '+textValue.length+'!');
+					textValue = 0;
+					return false;
+				}
+
+				textValue = document.getElementById('subjective').value;
+
+				if (textValue.length > subjectiveMaxSize) {
+					document.form1.painDesc.focus();
+					alert('Length of Subjective should be < '+subjectiveMaxSize+', now '+textValue.length+'!');
+					textValue = 0;
+					return false;
+				}
+
+				textValue = document.getElementById('objective').value;
+
+				if (textValue.length > objectiveMaxSize) {
+					document.form1.objective.focus();
+					alert('Length of Objective should be < '+objectiveMaxSize+', now '+textValue.length+'!');
+					textValue = 0;
+					return false;
+				}
+
+				textValue = document.getElementById('treatmentGoal').value;
+
+				if (textValue.length > treatmentGoalMaxSize) {
+					document.form1.treatmentGoal.focus();
+					alert('Length of Treatment Goal should be < '+treatmentGoalMaxSize+', now '+textValue.length+'!');
+					textValue = 0;
+					return false;
+				}
+
+				textValue = document.getElementById('treatment').value;
+
+				if (textValue.length > treatmentMaxSize) {
+					document.form1.treatment.focus();
+					alert('Length of Treatment should be < '+treatmentMaxSize+', now '+textValue.length+'!');
+					textValue = 0;
+					return false;
+				}
+
+				textValue = document.getElementById('exercises').value;
+
+				if (textValue.length > exerciseMaxSize) {
+					document.form1.exercises.focus();
+					alert('Length of Exercise should be < '+exerciseMaxSize+', now '+textValue.length+'!');
+					textValue = 0;
+					return false;
+				}
+
+			}else{
+				textValue = document.getElementById('progNotes').value;
+
+				if (textValue.length == 0) {
+					document.form1.progNotes.focus();
+					alert('Please enter Progress Note!');
+					textValue = 0;
+					return false;
+				}
+			}
+
+			if(document.getElementById('pt1').checked == false &&
+				document.getElementById('pt2').checked == false &&
+				document.getElementById('pt3').checked == false &&
+				document.getElementById('pt4').checked == false){
+				document.form1.pt1.focus();
+				alert('Please Select one of Duration of treatment!');
+				return false;
+			}
+		}
+
+		if(cmd=='new' || cmd== 'printSave'){
+			checkEdu(cmd);
+/*			
+			save();
+			document.form1.mode.value = 'new';
+			document.form1.action.value = cmd;
+			document.form1.submit();
+*/
+		}else{
+			document.form1.mode.value = cmd;
+			document.form1.action.value = cmd;
+			document.form1.submit();
+		}
+
+		//document.form1.action.value = cmd;
+		//document.form1.submit();
+
+		return false;
+	}
+
+	function clearTextField(){
+		var frm_elements = document.form1.elements;
+
+		for (i = 0; i < frm_elements.length; i++)
+		{
+		    field_type = frm_elements[i].type.toLowerCase();
+		    switch (field_type)
+		    {
+		    case "text":
+		        frm_elements[i].value = "";
+		        break;
+/*
+		    case "password":
+		    case "textarea":
+		    case "hidden":
+		        frm_elements[i].value = "";
+		        break;
+		    case "radio":
+		    case "checkbox":
+		        if (frm_elements[i].checked)
+		        {
+		            frm_elements[i].checked = false;
+		        }
+		        break;
+		    case "select-one":
+		    case "select-multi":
+		        frm_elements[i].selectedIndex = -1;
+		        break;
+*/
+		    default:
+		        break;
+		    }
+		}
+
+	}
+
+	function isInitialRecord(){
+		var mstrRegid = '<%=mstrRegid%>';
+		var regid = '<%=regid%>';
+		if(regid==mstrRegid){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	function numCheck2(self) {
+		if (isNaN(self.value)) {
+			alert("It is not a number!");
+			self.value = "";
+			self.focus();
+		}
+	}
+	
+	function openEdu(regid, usr, patno) {
+		
+		var URL  = "RehabEdu.jsp?regid=" + regid + "&user=" + usr + "&patno=" + patno;			
+	
+ 		var params = 'screenX=0,screenY=0,top=0,left=0';
+ 		params += ',scrollbars=yes,resizable=yes,status=no,toolbar=no,menubar=no,location=no';
+ 		
+		window.open(URL, "", params);
+		
+		return false;
+	}
+	
+	function checkEdu(cmd){	
+		
+		$.ajax({
+			type: "POST",
+	        url: "genFormExist.jsp",
+	        data: {	"formId" : "RehabEdu", 
+	        		"key1" : "<%=key%>",
+	        		"timestamp" : <%=(new java.util.Date()).getTime()%> },
+	        type: 'POST',
+	        dataType: 'html',
+			cache: false,
+	        success: function(data){
+    			save();
+    			document.form1.mode.value = "new";
+    			document.form1.action.value = cmd;
+    			document.form1.submit();
+
+	        	if (data.trim() == "N") {	
+	        		$("#education").click();
+	        	}
+	        },
+	       	error: function(data){
+	       		return false;
+	       	}
+	    });
+	}
+</script>
+</html>

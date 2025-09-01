@@ -1,0 +1,35 @@
+_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+_/
+_/              (C) Copyright 2008
+_/              HKAH System Config Properties file
+_/
+_/              $Author: johnny $
+_/              $Date: 2016/05/16 01:40:50 $
+_/
+_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+
+system.version.number=HKAH-VERSION_NUMBER
+system.default.protocol=http
+
+# TWAH
+system.default.host=127.0.0.1
+system.default.port=9080
+
+system.contextRoot=portal
+
+system.client.log=true
+system.client.log.dir=log
+system.login.skip=true
+system.module.code=NHS
+system.jndiName=hats_tw
+
+client.print.applet.name=HKAHNHSApplet
+server.tx.servlet=HKAHTxServlet
+server.master.servlet=HKAHMasterServlet
+
+login.site.code=TWAH
+login.site.name=Tsuen Wan Adventist Hospital
+login.user.id=
+login.user.name=
+login.user.deptCode=
+=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*

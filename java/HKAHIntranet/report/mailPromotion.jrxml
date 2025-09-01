@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mailPromotion" language="groovy" pageWidth="1130" pageHeight="595" orientation="Landscape" columnWidth="1130" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.3310000000000182"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="batchID" class="java.lang.String"/>
+	<parameter name="noOfRev" class="java.lang.String"/>
+	<parameter name="gender" class="java.lang.String"/>
+	<parameter name="type" class="java.lang.String"/>
+	<parameter name="ageGp" class="java.lang.String"/>
+	<parameter name="regYr" class="java.lang.String"/>
+	<parameter name="hyperlipidemia" class="java.lang.String"/>
+	<parameter name="hyperglycaemia" class="java.lang.String"/>
+	<parameter name="mailRev" class="java.lang.String"/>
+	<parameter name="smsMsg" class="java.lang.String"/>
+	<parameter name="physicalExam" class="java.lang.String"/>
+	<field name="1" class="java.lang.String"/>
+	<field name="2" class="java.lang.String"/>
+	<field name="3" class="java.lang.String"/>
+	<field name="4" class="java.lang.String"/>
+	<field name="5" class="java.lang.String"/>
+	<field name="6" class="java.lang.String"/>
+	<field name="7" class="java.lang.String"/>
+	<field name="8" class="java.lang.String"/>
+	<variable name="tempCat" class="java.lang.String">
+		<variableExpression><![CDATA[$F{1}]]></variableExpression>
+	</variable>
+	<title>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="641" height="40"/>
+				<textElement>
+					<font size="24" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Promotion - Mailing List]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="224" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="20" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{batchID}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Batch ID: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="40" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{noOfRev}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="111" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{gender}.equals("M")?"Male":
+$P{gender}.equals("F")?"Female":"ALL"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="111" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{type}.equals("I")?"In-patient":
+$P{type}.equals("O")?"Out-patient":
+$P{type}.equals("D")?"Daycase":"ALL"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="131" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ageGp}.equals("0")? "0-10" :
+$P{ageGp}.equals("1")?"11-20" :
+$P{ageGp}.equals("2")?"21-30" :
+$P{ageGp}.equals("3")?"31-40":
+$P{ageGp}.equals("4")?"41-50":
+$P{ageGp}.equals("5")?"51+": ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="131" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{regYr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="151" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{hyperlipidemia}.equals("Y")?"High":
+$P{hyperlipidemia}.equals("N")?"Low / Not Test":"ALL"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="151" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{hyperglycaemia}.equals("Y")?"High":
+$P{hyperglycaemia}.equals("N")?"Low / Not Test":"ALL"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="60" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mailRev}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Total Receiver: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Mail Receiver:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="91" width="440" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Criteria:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="111" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Gender:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="131" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Age Group:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="111" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Registration Type:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="131" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Registration Year:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="151" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Hyperlipidemia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="151" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Hyperglycaemia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="400" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Batch Information:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="634" y="20" width="413" height="184">
+					<printWhenExpression><![CDATA[new Boolean ($P{smsMsg} != "")]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineStyle="Dashed"/>
+					<topPen lineWidth="0.75" lineStyle="Dashed"/>
+					<leftPen lineWidth="0.75" lineStyle="Dashed"/>
+					<bottomPen lineWidth="0.75" lineStyle="Dashed"/>
+					<rightPen lineWidth="0.75" lineStyle="Dashed"/>
+				</box>
+				<textElement markup="html"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{smsMsg}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="500" y="20" width="134" height="20">
+					<printWhenExpression><![CDATA[new Boolean ($P{smsMsg} != "")]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<text><![CDATA[Message sent in SMS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="171" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{physicalExam}.equals("Y")?"Include":
+$P{physicalExam}.equals("N")?"Not Include":"ALL"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="171" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Physical Exam:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement style="table_TH" mode="Transparent" x="0" y="20" width="80" height="20" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" mode="Transparent" x="120" y="20" width="200" height="20" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" mode="Transparent" x="320" y="20" width="550" height="20" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" mode="Transparent" x="870" y="20" width="120" height="20" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mobile]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" mode="Transparent" x="990" y="20" width="140" height="20" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" mode="Transparent" x="80" y="20" width="40" height="20" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="400" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Receiver Information:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToBandHeight" x="0" y="0" width="80" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToBandHeight" x="80" y="0" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToBandHeight" x="320" y="0" width="550" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{4}+$F{5}+$F{6}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToBandHeight" x="870" y="0" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{7}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToBandHeight" x="990" y="0" width="140" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{8}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToBandHeight" x="120" y="0" width="200" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{3}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

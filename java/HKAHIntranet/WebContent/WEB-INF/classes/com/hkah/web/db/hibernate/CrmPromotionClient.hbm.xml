@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 3, 2010 4:07:02 PM by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.CrmPromotionClient" table="CRM_PROMOTION_CLIENT">
+        <composite-id name="id" class="com.hkah.web.db.hibernate.CrmPromotionClientId">
+            <key-property name="crmSiteCode" type="string">
+                <column name="CRM_SITE_CODE"/>
+            </key-property>
+            <key-property name="crmModuleCode" type="string">
+                <column name="CRM_MODULE_CODE"  />
+            </key-property>
+            <key-property name="crmEventId" type="big_decimal">
+                <column name="CRM_EVENT_ID" />
+            </key-property>
+            <key-property name="crmClientId" type="big_decimal">
+                <column name="CRM_CLIENT_ID"/>
+            </key-property>
+        </composite-id>
+        <many-to-one name="crmPromotion" class="com.hkah.web.db.hibernate.CrmPromotion" update="false" insert="false" fetch="select">
+            <column name="CRM_SITE_CODE"  not-null="true" />
+            <column name="CRM_MODULE_CODE"  not-null="true" />
+            <column name="CRM_EVENT_ID"   not-null="true" />
+        </many-to-one>        
+        <property name="crmCreateDate">
+            <column name="CRM_CREATE_DATE"/>
+        </property>
+        <property name="crmCreateUser" type="string">
+            <column name="CRM_CREATE_USER"/>
+        </property>
+        <property name="crmModifiedDate">
+            <column name="CRM_MODIFIED_DATE" />
+        </property>
+        <property name="crmModifiedUser" type="string">
+            <column name="CRM_MODIFIED_USER"/>
+        </property>
+        <property name="crmEnabled" type="java.lang.Integer">
+            <column name="CRM_ENABLED"/>
+        </property>
+		<property name="crmClient_FirstName"
+			formula="( SELECT CC.CRM_FIRSTNAME FROM CRM_CLIENTS CC WHERE CC.CRM_CLIENT_ID = CRM_CLIENT_ID )"
+			type="string">
+		</property>
+		<property name="crmClient_LastName"
+			formula="( SELECT CC.CRM_LASTNAME FROM CRM_CLIENTS CC WHERE CC.CRM_CLIENT_ID = CRM_CLIENT_ID )"
+			type="string">
+		</property> 
+		<property name="crmClient_ChineseName"
+			formula="( SELECT CC.CRM_CHINESENAME FROM CRM_CLIENTS CC WHERE CC.CRM_CLIENT_ID = CRM_CLIENT_ID )"
+			type="string">
+		</property>
+	        
+    </class>
+</hibernate-mapping>

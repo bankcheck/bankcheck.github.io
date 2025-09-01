@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptArStmt" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="782" leftMargin="30" rightMargin="30" topMargin="54" bottomMargin="54">
+	<property name="ireport.zoom" value="3.215383215000003"/>
+	<property name="ireport.x" value="221"/>
+	<property name="ireport.y" value="439"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.auto.fit.row" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.auto.fit.column" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.ignore.page.margins" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.collapse.row.span" value="true"/>
+	<property name="net.sf.jasperreports.export.pdf.create.batch.mode.bookmarks" value="true"/>
+	<parameter name="SteCode" class="java.lang.String"/>
+	<parameter name="Title" class="java.lang.String"/>
+	<parameter name="DateRange" class="java.lang.String"/>
+	<parameter name="StartDate" class="java.lang.String"/>
+	<parameter name="EndDate" class="java.lang.String"/>
+	<parameter name="fileType" class="java.lang.String"/>
+	<parameter name="SteName" class="java.lang.String"/>
+	<parameter name="Rmk0" class="java.lang.String"/>
+	<parameter name="Rmk1" class="java.lang.String"/>
+	<parameter name="Rmk2" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT  AM.ARCCODE, AM.ARCNAME, AM.ARCADD1, AM.ARCADD2, AM.ARCADD3, AM.ARCADD4,
+            AM.ARCCT, AM.ARCTITLE, DECODE(SP.SLPTYPE, 'I', 'I', 'O', 'O', 'D', 'D', 'A') AS PTYPE,
+            AT.PATNO AS PNUM, NVL(PT.PATFNAME, SP.SLPFNAME) AS FNAME, NVL(PT.PATGNAME, SP.SLPGNAME) AS GNAME,
+            NVL(AT.SLPNO, AT.ATXDESC) AS REF, TO_CHAR(AT.ATXCDATE, 'DDMONYYYY', 'nls_date_language=ENGLISH') AS BDATE,
+            AT.ATXTTYPE AS ARTYPE,  AT.ATXAMT AS ORG, -AT.ATXSAMT AS SETTLE, AT.ATXID AS STENAME,
+            SP.SLPPLYNO, SP.SLPVCHNO, SP.SLPREMARK, (AT.ATXAMT - AT.ATXSAMT) AS BAL,
+            TO_CHAR(AT.ATXCDATE, 'YYYYMM') AS MONTHGROUP, AT.ATXCDATE SORTDATE
+            ,(SELECT TO_CHAR(SE.SENDBILLDATE, 'DDMONYYYY', 'nls_date_language=ENGLISH') FROM SLIP_EXTRA SE WHERE SP.SLPNO = SE.SLPNO) AS SENDBILLDATE
+, SP.PATREFNO
+    FROM    ARCODE AM, ARTX AT, SLIP SP, SITE SC, PATIENT PT
+    WHERE   AM.STECODE = 'HKAH'
+    AND     AM.STECODE = SC.STECODE
+    AND     AT.PATNO = PT.PATNO(+)
+    AND     AT.SLPNO = SP.SLPNO(+)
+    AND     AT.ARCCODE = AM.ARCCODE
+
+    AND     ('07/12/2015' IS NULL OR AT.ATXCDATE < TO_DATE('07/12/2015', 'DD/MM/YYYY') + 1)
+    AND     AT.ATXSTS = 'N'
+    AND     AT.ATXAMT - AT.ATXSAMT <> 0
+    UNION ALL
+    SELECT  AM.ARCCODE, AM.ARCNAME, AM.ARCADD1, AM.ARCADD2, AM.ARCADD3, AM.ARCADD4,
+            AM.ARCCT, AM.ARCTITLE, 'A' AS PTYPE, '' AS PNUM, '' AS FNAME, '' AS GNAME,
+            AP.ARPDESC AS REF, TO_CHAR(AP.ARPCDATE, 'DDMONYYYY', 'nls_date_language=ENGLISH') AS BDATE,
+            AP.ARPTYPE AS ARTYPE, AP.ARPOAMT AS ORG, AP.ARPAAMT AS SETTLE, AP.ARPID AS STENAME,
+            '' AS SLPPLYNO, '' AS SLPVCHNO, '' AS SLPREMARK, (AP.ARPOAMT + AP.ARPAAMT) AS BAL,
+            TO_CHAR(AP.ARPCDATE, 'YYYYMM') AS MONTHGROUP, AP.ARPCDATE SORTDATE, '' AS SENDBILLDATE, '' AS PATREFNO
+    FROM    ARCODE AM, ARPTX AP, SITE SC
+    WHERE     AM.STECODE = 'HKAH'
+    AND     ('07/12/2015' IS NULL OR AP.ARPCDATE < TO_DATE('07/12/2015', 'DD/MM/YYYY') + 1)
+    AND     AP.ARCCODE = AM.ARCCODE
+    AND     AP.ARPSTS = 'N'
+    AND     AP.ARPOAMT + AP.ARPAAMT <> 0
+    AND     AM.STECODE = SC.STECODE
+    ORDER BY ARCCODE, PTYPE, SORTDATE]]>
+	</queryString>
+	<field name="ARCCODE" class="java.lang.String"/>
+	<field name="ARCNAME" class="java.lang.String"/>
+	<field name="ARCADD1" class="java.lang.String"/>
+	<field name="ARCADD2" class="java.lang.String"/>
+	<field name="ARCADD3" class="java.lang.String"/>
+	<field name="ARCADD4" class="java.lang.String"/>
+	<field name="ARCCT" class="java.lang.String"/>
+	<field name="ARCTITLE" class="java.lang.String"/>
+	<field name="PTYPE" class="java.lang.String"/>
+	<field name="PNUM" class="java.lang.String"/>
+	<field name="FNAME" class="java.lang.String"/>
+	<field name="GNAME" class="java.lang.String"/>
+	<field name="REF" class="java.lang.String"/>
+	<field name="BDATE" class="java.lang.String"/>
+	<field name="ARTYPE" class="java.lang.String"/>
+	<field name="ORG" class="java.lang.String"/>
+	<field name="SETTLE" class="java.lang.String"/>
+	<field name="STENAME" class="java.lang.String"/>
+	<field name="SLPPLYNO" class="java.lang.String"/>
+	<field name="SLPVCHNO" class="java.lang.String"/>
+	<field name="SLPREMARK" class="java.lang.String"/>
+	<field name="BAL" class="java.lang.String"/>
+	<field name="MONTHGROUP" class="java.lang.String"/>
+	<field name="SORTDATE" class="java.lang.String"/>
+	<field name="SENDBILLDATE" class="java.lang.String"/>
+	<field name="PATREFNO" class="java.lang.String"/>
+	<field name="REGDATE" class="java.lang.String"/>
+	<field name="INPDDAT" class="java.lang.String"/>
+	<variable name="SUM_MONTH_ORG" class="java.lang.Double" resetType="Group" resetGroup="Month" calculation="Sum">
+		<variableExpression><![CDATA[Double.parseDouble($F{ORG})]]></variableExpression>
+	</variable>
+	<variable name="SUM_MONTH_SETTLE" class="java.lang.Double" resetType="Group" resetGroup="Month" calculation="Sum">
+		<variableExpression><![CDATA[Double.parseDouble($F{SETTLE})]]></variableExpression>
+	</variable>
+	<variable name="SUM_MONTH_BAL" class="java.lang.Double" resetType="Group" resetGroup="Month" calculation="Sum">
+		<variableExpression><![CDATA[Double.parseDouble($F{BAL})]]></variableExpression>
+	</variable>
+	<variable name="SUM_PTYPE_BAL" class="java.lang.Double" resetType="Group" resetGroup="PTYPE" calculation="Sum">
+		<variableExpression><![CDATA[Double.parseDouble($F{BAL})]]></variableExpression>
+	</variable>
+	<variable name="SUM_TOTAL_BAL" class="java.lang.Double" resetType="Group" resetGroup="ARCCODE" calculation="Sum">
+		<variableExpression><![CDATA[Double.parseDouble($F{BAL})]]></variableExpression>
+	</variable>
+	<variable name="SUM_GRAND_BAL" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[Double.parseDouble($F{BAL})]]></variableExpression>
+	</variable>
+	<variable name="NOOFPAGE" class="java.lang.String"/>
+	<variable name="v_steName" class="java.lang.String">
+		<variableExpression><![CDATA["HKAH".equals($P{SteCode})?$P{SteName} + " - Stubbs Road":$P{SteName}]]></variableExpression>
+		<initialValueExpression><![CDATA["HKAH".equals($P{SteCode})?$P{SteName} + " - Stubbs Road":$P{SteName}]]></initialValueExpression>
+	</variable>
+	<group name="ARCCODE" isStartNewPage="true" isResetPageNumber="true">
+		<groupExpression><![CDATA[$F{ARCCODE}]]></groupExpression>
+		<groupHeader>
+			<band height="66" splitType="Prevent">
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="0" width="347" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{ARCADD1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="10" width="347" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{ARCADD2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="20" width="347" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{ARCADD3}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="30" width="347" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{ARCADD4}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="40" width="347" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{ARCCT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="50" width="347" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{ARCTITLE}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="13" splitType="Prevent">
+				<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="547" y="0" width="50" height="11" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{SUM_TOTAL_BAL}]]></textFieldExpression>
+				</textField>
+				<textField bookmarkLevel="1">
+					<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="1" height="1">
+						<propertyExpression name="net.sf.jasperreports.export.xls.sheet.name"><![CDATA[$F{ARCCODE}]]></propertyExpression>
+						<propertyExpression name="net.sf.jasperreports.export.xls.break.after.row"><![CDATA["true"]]></propertyExpression>
+					</reportElement>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{ARCCODE}]]></textFieldExpression>
+					<anchorNameExpression><![CDATA[$F{ARCCODE}]]></anchorNameExpression>
+				</textField>
+				<staticText>
+					<reportElement x="396" y="0" width="45" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<text><![CDATA[Total Amount Due]]></text>
+				</staticText>
+				<line>
+					<reportElement x="547" y="12" width="50" height="1"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="PTYPE" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{PTYPE}]]></groupExpression>
+		<groupHeader>
+			<band height="30" splitType="Prevent">
+				<staticText>
+					<reportElement x="0" y="19" width="28" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Pt No.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="146" y="19" width="68" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Reference]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="215" y="19" width="51" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="7" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Policy No.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="396" y="19" width="45" height="11">
+						<printWhenExpression><![CDATA["1".equals($P{Rmk1})]]></printWhenExpression>
+					</reportElement>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Bill On]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="443" y="19" width="50" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Original $]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="495" y="19" width="50" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Acum Cr $]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="547" y="19" width="50" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Balance $]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="600" y="19" width="95" height="11">
+						<printWhenExpression><![CDATA["1".equals($P{Rmk1})?true:false]]></printWhenExpression>
+					</reportElement>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Slip Remark]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="347" height="20" isPrintWhenDetailOverflows="true"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="9" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PTYPE}.equals("I")?"In Patient":$F{PTYPE}.equals("O")?"Out Patient":$F{PTYPE}.equals("D")?"Day Case":""]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="266" y="19" width="45" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="7" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Voucher No.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="30" y="19" width="114" height="11"/>
+					<box>
+						<bottomPen lineWidth="0.0"/>
+					</box>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Patient Name]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="741" y="19" width="41" height="11">
+						<printWhenExpression><![CDATA["1".equals($P{Rmk2})?true:false]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Ref No.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="696" y="19" width="45" height="11">
+						<printWhenExpression><![CDATA["1".equals($P{Rmk1})?true:false]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[SendBillDt]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="600" y="19" width="182" height="11">
+						<printWhenExpression><![CDATA[!"1".equals($P{Rmk0})?true:false]]></printWhenExpression>
+					</reportElement>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Slip Remark]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="311" y="19" width="40" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Reg. Date]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="354" y="19" width="40" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="7" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Disch Date]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="11" splitType="Prevent">
+				<staticText>
+					<reportElement x="396" y="0" width="45" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<text><![CDATA[Sub Total]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="547" y="0" width="50" height="11" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{SUM_PTYPE_BAL}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Month">
+		<groupExpression><![CDATA[$F{MONTHGROUP}]]></groupExpression>
+		<groupFooter>
+			<band height="11" splitType="Prevent">
+				<printWhenExpression><![CDATA[!"XLS".equals($P{fileType})?true:false]]></printWhenExpression>
+				<staticText>
+					<reportElement x="396" y="0" width="45" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<text><![CDATA[Month Total]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="443" y="0" width="50" height="11" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{SUM_MONTH_ORG}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="495" y="0" width="50" height="11" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{SUM_MONTH_SETTLE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="547" y="0" width="50" height="11" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{SUM_MONTH_BAL}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="90" splitType="Prevent">
+			<textField isStretchWithOverflow="true" pattern="HH:mm:ss">
+				<reportElement x="46" y="0" width="116" height="11">
+					<printWhenExpression><![CDATA[!"XLS".equals($P{fileType})?true:false]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="0" y="0" width="47" height="11">
+					<printWhenExpression><![CDATA[!"XLS".equals($P{fileType})?true:false]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(new java.text.SimpleDateFormat(     "dd/MMM/yyyy",Locale.ENGLISH)).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="22" width="770" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="34" width="770" height="11" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{StartDate}.length() > 0?"From "+$P{StartDate}:"")+($P{EndDate}.length() > 0?" To "+$P{EndDate}:"")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="ARCCODE">
+				<reportElement x="0" y="79" width="347" height="11" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ARCNAME}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="ARCCODE" bookmarkLevel="1">
+				<reportElement x="0" y="63" width="347" height="17" forecolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ARCCODE}]]></textFieldExpression>
+				<anchorNameExpression><![CDATA[$F{ARCCODE}]]></anchorNameExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="10" width="770" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SteName}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="ARCCODE">
+				<reportElement x="759" y="69" width="10" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="616" y="69" width="143" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="45" y="44" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ARCCODE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="44" width="46" height="20"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AR code:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="11" splitType="Prevent">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="30" y="0" width="114" height="11" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FNAME} + " " +$F{GNAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="28" height="11" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PNUM}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="215" y="0" width="51" height="11" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SLPPLYNO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="146" y="0" width="68" height="11" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{REF}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="266" y="0" width="45" height="11" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SLPVCHNO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="396" y="0" width="45" height="11" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{BDATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="443" y="0" width="50" height="11" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[Double.parseDouble($F{ORG})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="495" y="0" width="50" height="11" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[Double.parseDouble($F{SETTLE})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="547" y="0" width="50" height="11" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[Double.parseDouble($F{BAL})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="600" y="0" width="95" height="11" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA["1".equals($P{Rmk0})?true:false]]></printWhenExpression>
+				</reportElement>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SLPREMARK}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="696" y="0" width="45" height="11">
+					<printWhenExpression><![CDATA["1".equals($P{Rmk1})?true:false]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SENDBILLDATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="741" y="0" width="41" height="11">
+					<printWhenExpression><![CDATA["1".equals($P{Rmk2})?true:false]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATREFNO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="311" y="0" width="40" height="11"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{REGDATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="354" y="0" width="40" height="11"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{INPDDAT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="70" splitType="Prevent">
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="465" y="55" width="124" height="15" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<bottomPen lineWidth="4.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{SUM_GRAND_BAL}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="365" y="55" width="100" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[Grand Total:]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+</jasperReport>

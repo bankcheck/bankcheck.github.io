@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptOTAppListing" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="812" leftMargin="15" rightMargin="15" topMargin="15" bottomMargin="15">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="7"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="OT_AppSDate" class="java.lang.String"/>
+	<parameter name="OT_AppEDate" class="java.lang.String"/>
+	<parameter name="PatNo" class="java.lang.String"/>
+	<parameter name="PatName" class="java.lang.String"/>
+	<parameter name="Status" class="java.lang.String"/>
+	<parameter name="ProCode" class="java.lang.String"/>
+	<parameter name="Surgeon" class="java.lang.String"/>
+	<parameter name="Anesth" class="java.lang.String"/>
+	<parameter name="Endoscop" class="java.lang.String"/>
+	<parameter name="Room" class="java.lang.String"/>
+	<parameter name="DialyReport" class="java.lang.String"/>
+	<parameter name="SiteName" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\iReport\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="RMDESC" class="java.lang.String"/>
+	<field name="DOCCODE_S" class="java.lang.String"/>
+	<field name="DOCNAME" class="java.lang.String"/>
+	<field name="STARTTIME" class="java.lang.String"/>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="PATNAME" class="java.lang.String"/>
+	<field name="OTATEL" class="java.lang.String"/>
+	<field name="DURATION" class="java.lang.String"/>
+	<field name="NUM_SESSION" class="java.lang.String"/>
+	<field name="OTACDATE" class="java.lang.String"/>
+	<field name="USRNAME" class="java.lang.String"/>
+	<field name="AMDESC" class="java.lang.String"/>
+	<field name="DOCNAME_A" class="java.lang.String"/>
+	<field name="DOCNAME_E" class="java.lang.String"/>
+	<field name="SEX" class="java.lang.String"/>
+	<field name="AGE" class="java.lang.String"/>
+	<field name="DOB" class="java.lang.String"/>
+	<field name="OTPCODE" class="java.lang.String"/>
+	<field name="OT_PAA" class="java.lang.String"/>
+	<field name="OTARMK" class="java.lang.String"/>
+	<field name="OTADIAG" class="java.lang.String"/>
+	<field name="PATTYPE" class="java.lang.String"/>
+	<field name="SECSDRNAME" class="java.lang.String"/>
+	<field name="OTAID" class="java.lang.String"/>
+	<field name="SECPROC" class="java.lang.String"/>
+	<group name="RMDESC">
+		<groupExpression><![CDATA[$F{RMDESC}]]></groupExpression>
+		<groupHeader>
+			<band height="19" splitType="Stretch">
+				<staticText>
+					<reportElement x="5" y="1" width="30" height="18"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Room :]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="40" y="1" width="369" height="18"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{RMDESC}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="16">
+			<textField isBlankWhenNull="true">
+				<reportElement x="690" y="0" width="82" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement x="775" y="0" width="35" height="16"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="157">
+			<textField isBlankWhenNull="true">
+				<reportElement x="747" y="61" width="63" height="20">
+					<printWhenExpression><![CDATA[!$P{Status}.equals( "undefined" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Status}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="44" y="81" width="284" height="20">
+					<printWhenExpression><![CDATA[!$P{Room}.equals( "undefined" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Room}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="425" y="82" width="170" height="20">
+					<printWhenExpression><![CDATA[!$P{ProCode}.equals( "undefined" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ProCode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="56" y="101" width="272" height="20">
+					<printWhenExpression><![CDATA[!$P{Surgeon}.equals( "undefined" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Surgeon}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="400" y="101" width="208" height="20">
+					<printWhenExpression><![CDATA[!$P{Anesth}.equals( "undefined" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Anesth}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="70" y="121" width="258" height="20">
+					<printWhenExpression><![CDATA[!$P{Endoscop}.equals( "undefined" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Endoscop}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MMM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="5" y="12" width="165" height="12"/>
+				<textElement>
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(new java.text.SimpleDateFormat(
+    "dd/MMM/yyyy HH:mm:ss",Locale.ENGLISH)).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="70" y="61" width="258" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PatNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="61" width="64" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient No. :	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="81" width="38" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Room :	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="101" width="50" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Surgeon :	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="121" width="64" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Endoscopist :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="141" width="80" height="12"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="141" width="38" height="12"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Patient #	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="141" width="81" height="12"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="338" y="81" width="86" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Procedure Code :	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="338" y="101" width="61" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Anesthetist :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="338" y="61" width="86" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient Name :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="141" width="35" height="12"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Sex/Age]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="141" width="22" height="12"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="313" y="141" width="162" height="12"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Procedure/Allergy/Diagnostic/Remark]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="700" y="61" width="46" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="676" y="141" width="62" height="12"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Anesthesia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="477" y="141" width="109" height="12"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Surgeon/Endoscopist]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="741" y="141" width="71" height="12"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Anesthetist]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="425" y="61" width="170" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PatName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="1" width="90" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[rptOTAppListing]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="36" width="755" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DialyReport}.equals("1")?(
+($P{OT_AppSDate} != null && !$P{OT_AppSDate}.isEmpty() ? "From " + $P{OT_AppSDate} : "") +
+($P{OT_AppEDate} != null && !$P{OT_AppEDate}.isEmpty() ? " " : "") +
+($P{OT_AppEDate} != null && !$P{OT_AppEDate}.isEmpty() ? "To " + $P{OT_AppEDate} : "")
+):
+($P{OT_AppSDate} != null && !$P{OT_AppSDate}.isEmpty() ? $P{OT_AppSDate} : "")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="294" y="2" width="168" height="35"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SiteName}+
+"\nOT Appointment Listing"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="589" y="141" width="85" height="12"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[OT Remark]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="248" y="141" width="38" height="12"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DOB]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="88" y="0" width="38" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="128" y="0" width="81" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="289" y="0" width="22" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATTYPE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="313" y="0" width="162" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OT_PAA}+
+($F{SECPROC}.equals("") ? "" :
+    ($F{SECPROC}.startsWith( ";" )?$F{SECPROC}.replaceAll( ";","\n" ):"\n"+$F{SECPROC}.replaceAll( ";","\n" )))]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="676" y="0" width="62" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{AMDESC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="211" y="0" width="35" height="20"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SEX} + "/" + $F{AGE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="5" y="0" width="80" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{STARTTIME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="741" y="0" width="71" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCNAME_A}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="477" y="0" width="109" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCCODE_S} + ($F{SECSDRNAME}.equals("") ? "" : "\n" + $F{SECSDRNAME})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="589" y="0" width="85" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OTARMK}.replaceAll( ";","\n" )]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="248" y="0" width="38" height="20"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOB}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

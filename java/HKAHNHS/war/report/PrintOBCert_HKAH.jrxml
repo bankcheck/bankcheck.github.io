@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PrintOBCert_HKAH" pageWidth="553" pageHeight="821" whenNoDataType="AllSectionsNoDetail" columnWidth="494" leftMargin="28" rightMargin="31" topMargin="19" bottomMargin="0">
+	<property name="ireport.zoom" value="1.1000000000000079"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="104"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHNHS\\war\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ImgTick" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHNHS\\war\\images\\tick.gif"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="HospitalNo" class="java.lang.String"/>
+	<parameter name="PatName" class="java.lang.String"/>
+	<parameter name="PatCName" class="java.lang.String"/>
+	<parameter name="DOB" class="java.lang.String"/>
+	<parameter name="PatIdNo" class="java.lang.String"/>
+	<parameter name="ExDate" class="java.lang.String"/>
+	<parameter name="IssueDt" class="java.lang.String"/>
+	<parameter name="EXDate60" class="java.lang.String"/>
+	<parameter name="patdoctype" class="java.lang.String"/>
+	<parameter name="docname" class="java.lang.String"/>
+	<parameter name="docptel" class="java.lang.String"/>
+	<parameter name="docotel" class="java.lang.String"/>
+	<parameter name="hkmclicno" class="java.lang.String"/>
+	<parameter name="antchkdt1" class="java.lang.String"/>
+	<parameter name="antchkdt2" class="java.lang.String"/>
+	<parameter name="antchkdt3" class="java.lang.String"/>
+	<parameter name="antchkdt4" class="java.lang.String"/>
+	<parameter name="antchkdt5" class="java.lang.String"/>
+	<parameter name="antchkdt6" class="java.lang.String"/>
+	<parameter name="antchkdt7" class="java.lang.String"/>
+	<parameter name="antchkdt8" class="java.lang.String"/>
+	<parameter name="antchkdt9" class="java.lang.String"/>
+	<parameter name="antchkdt10" class="java.lang.String"/>
+	<parameter name="faCname" class="java.lang.String"/>
+	<parameter name="husname" class="java.lang.String"/>
+	<parameter name="faHkic" class="java.lang.String"/>
+	<parameter name="IssueBy" class="java.lang.String"/>
+	<columnHeader>
+		<band height="802" splitType="Stretch">
+			<textField>
+				<reportElement x="304" y="214" width="100" height="13"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{HospitalNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="315" y="398" width="180" height="13"/>
+				<box leftPadding="13"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="315" y="417" width="180" height="13"/>
+				<box leftPadding="13"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{hkmclicno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="315" y="435" width="180" height="13"/>
+				<box leftPadding="13"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docptel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="331" y="489" width="140" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{antchkdt2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="331" y="512" width="140" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{antchkdt4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="331" y="534" width="139" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{antchkdt6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="576" width="108" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ExDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="356" y="644" width="81" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{EXDate60}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="419" y="778" width="65" height="13" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{IssueDt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="121" y="486" width="116" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{antchkdt1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="121" y="509" width="116" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{antchkdt3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="121" y="531" width="116" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{antchkdt5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="202" y="283" width="208" height="13">
+					<printWhenExpression><![CDATA[$P{patdoctype}.equals( "E" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PatIdNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="97" width="173" height="18"/>
+				<box rightPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PatName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="164" y="97" width="100" height="16"/>
+				<textElement textAlignment="Center">
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="true" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PatCName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="304" y="229" width="100" height="13"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DOB}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="196" y="339" width="116" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{husname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="321" y="339" width="121" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{faHkic}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="44" y="338" width="115" height="13"/>
+				<box bottomPadding="0">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Ming(for ISO10646_V3)" size="9" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{faCname}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="84" y="269" width="12" height="10">
+					<printWhenExpression><![CDATA[$P{patdoctype}.equals( "E" )]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.lang.String"><![CDATA[$P{ImgTick}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="196" y="731" width="116" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{IssueBy}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="84" y="304" width="12" height="10">
+					<printWhenExpression><![CDATA[!$P{patdoctype}.equals( "E" )]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.lang.String"><![CDATA[$P{ImgTick}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="273" y="296" width="208" height="13">
+					<printWhenExpression><![CDATA[!$P{patdoctype}.equals( "E" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PatIdNo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+</jasperReport>

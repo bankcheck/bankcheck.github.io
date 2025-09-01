@@ -1,0 +1,35 @@
+_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+_/
+_/              (C) Copyright 2008
+_/              HKAH System Config Properties file
+_/
+_/              $Author: johnny $
+_/              $Date: 2015/01/20 13:25:36 $
+_/
+_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+
+system.version.number=HKAH-VERSION_NUMBER
+system.default.protocol=http
+
+# AMC
+system.default.host=127.0.0.1
+system.default.port=8080
+
+system.contextRoot=portal
+
+system.client.log=true
+system.client.log.dir=log
+system.login.skip=true
+system.module.code=NHS
+system.jndiName=hats
+
+client.print.applet.name=HKAHNHSApplet
+server.tx.servlet=HKAHTxServlet
+server.master.servlet=HKAHMasterServlet
+
+login.site.code=AMC
+login.site.name=Adventist Medical Center
+login.user.id=
+login.user.name=
+login.user.deptCode=
+=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*

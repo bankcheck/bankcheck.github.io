@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IPStatement" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="P_SLPNO" class="java.lang.String"/>
+	<parameter name="ISCOPY" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\projects\\Reports\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SubDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="ALLSLPNO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     S."SLPNO" AS SLPNO,
+     P."PATNO",
+     DECODE(S.SLPFNAME,NULL,P.PATFNAME||' '||P.PATGNAME,S.SLPFNAME||' '||S.SLPGNAME)||'   '||P."PATCNAME" AS PATNAME,
+     R."REGDATE",
+     TO_CHAR(R.REGDATE,'HH24:MI')AS REGTIME,
+     I.BEDCODE||'-'||I.ACMCODE AS BEDACM,
+     I."INPDDATE",
+     TO_CHAR(I.INPDDATE,'HH24:MI')AS INPDTIME,
+     D.DOCFNAME||' '||D.DOCGNAME||'   '||D."DOCCNAME" AS DOCNAME
+FROM
+     "SLIP" S,
+     "PATIENT" P,
+     "REG" R,
+     "INPAT" I,
+     "DOCTOR" D
+WHERE
+     S.REGID = R.REGID
+ AND S.PATNO = P.PATNO(+)
+ AND R.INPID = I.INPID(+)
+ AND S.DOCCODE = D.DOCCODE
+ AND S.SLPNO = $P{P_SLPNO}]]>
+	</queryString>
+	<field name="SLPNO" class="java.lang.String"/>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="PATNAME" class="java.lang.String"/>
+	<field name="REGDATE" class="java.lang.String"/>
+	<field name="REGTIME" class="java.lang.String"/>
+	<field name="BEDACM" class="java.lang.String"/>
+	<field name="INPDDATE" class="java.lang.String"/>
+	<field name="INPDTIME" class="java.lang.String"/>
+	<field name="DOCNAME" class="java.lang.String"/>
+	<field name="PATCNAME" class="java.lang.String"/>
+	<field name="DOCCNAME" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="189" y="33" width="197" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[STATEMENT OF ACCOUNT]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="463" y="17" width="60" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ISCOPY}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="108" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Patient Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="112" height="20"/>
+				<textElement/>
+				<text><![CDATA[Admission Date/Time:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="112" height="20"/>
+				<textElement/>
+				<text><![CDATA[Discharge Date/time:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Treatment Doctor:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="87" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Bill No.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="364" y="0" width="72" height="20"/>
+				<textElement/>
+				<text><![CDATA[Patient No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="364" y="20" width="72" height="20"/>
+				<textElement/>
+				<text><![CDATA[Bed/Acm:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="436" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="128" y="0" width="236" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}+"  "+$F{PATCNAME}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="128" y="20" width="75" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{REGDATE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="202" y="20" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{REGTIME}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="128" y="40" width="75" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{INPDDATE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm" isBlankWhenNull="true">
+				<reportElement x="202" y="40" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{INPDTIME}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="128" y="60" width="236" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCNAME}+"  "+$F{DOCCNAME}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="436" y="20" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{BEDACM}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="128" y="87" width="395" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ALLSLPNO}.replaceAll( "'", "" )]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="10" y="2" width="542" height="25"/>
+				<dataSourceExpression><![CDATA[$P{SubDataSource}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "IPStatement_Sub1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="456" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="67" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm:ss">
+				<reportElement x="67" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

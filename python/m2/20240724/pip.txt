@@ -1,5 +1,0 @@
-pip install --user requests
-pip show requests
-pip install --user urllib3==1.26.6
-pip install --user selenium
-pip install --user webdriver_manager

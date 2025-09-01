@@ -1,0 +1,1366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PHYINITIALASSFORMOP" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="5" bottomMargin="14" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1"/>
+	<parameter name="regid" class="java.lang.String"/>
+	<parameter name="path" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patName" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="patDOB" class="java.lang.String"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="vasPain" class="java.lang.String"/>
+	<parameter name="vasPn" class="java.lang.String"/>
+	<parameter name="vasNumb" class="java.lang.String"/>
+	<parameter name="painDesc" class="java.lang.String"/>
+	<parameter name="assessDate" class="java.lang.String"/>
+	<parameter name="patientGoal" class="java.lang.String"/>
+	<parameter name="funcAssmt" class="java.lang.String"/>
+	<parameter name="diagnosis" class="java.lang.String"/>
+	<parameter name="emotional" class="java.lang.String"/>
+	<parameter name="fallAssmt" class="java.lang.String"/>
+	<parameter name="pastMedHist" class="java.lang.String"/>
+	<parameter name="socialHistory" class="java.lang.String"/>
+	<parameter name="hpi" class="java.lang.String"/>
+	<parameter name="subjective" class="java.lang.String"/>
+	<parameter name="objective" class="java.lang.String"/>
+	<parameter name="tcp1" class="java.lang.String"/>
+	<parameter name="tcp2" class="java.lang.String"/>
+	<parameter name="tcp3" class="java.lang.String"/>
+	<parameter name="tcp4" class="java.lang.String"/>
+	<parameter name="tcp5" class="java.lang.String"/>
+	<parameter name="tcp6" class="java.lang.String"/>
+	<parameter name="tcp7" class="java.lang.String"/>
+	<parameter name="tcp8" class="java.lang.String"/>
+	<parameter name="tcp9" class="java.lang.String"/>
+	<parameter name="tcpOther1" class="java.lang.String"/>
+	<parameter name="treatmentGoal" class="java.lang.String"/>
+	<parameter name="carePlan" class="java.lang.String"/>
+	<parameter name="treatment" class="java.lang.String"/>
+	<parameter name="education" class="java.lang.String"/>
+	<parameter name="exercises" class="java.lang.String"/>
+	<parameter name="defection" class="java.lang.String"/>
+	<parameter name="postTreatment" class="java.lang.String"/>
+	<parameter name="frequency" class="java.lang.String"/>
+	<parameter name="options" class="java.lang.String"/>
+	<parameter name="peca1" class="java.lang.String"/>
+	<parameter name="peca2" class="java.lang.String"/>
+	<parameter name="pecaOther1" class="java.lang.String"/>
+	<parameter name="ad1" class="java.lang.String"/>
+	<parameter name="ad2" class="java.lang.String"/>
+	<parameter name="ad3" class="java.lang.String"/>
+	<parameter name="ad4" class="java.lang.String"/>
+	<parameter name="ad5" class="java.lang.String"/>
+	<parameter name="ad6" class="java.lang.String"/>
+	<parameter name="ad7" class="java.lang.String"/>
+	<parameter name="ad8" class="java.lang.String"/>
+	<parameter name="ad9" class="java.lang.String"/>
+	<parameter name="adOther1" class="java.lang.String"/>
+	<parameter name="adOther2" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHIntranet\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SubDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="Page" class="java.lang.String"/>
+	<parameter name="username" class="java.lang.String"/>
+	<parameter name="pt" class="java.lang.String"/>
+	<parameter name="progNotes" class="java.lang.String"/>
+	<parameter name="histProgNotes" class="java.lang.String"/>
+	<parameter name="mstrRegid" class="java.lang.String"/>
+	<pageHeader>
+		<band height="53">
+			<image scaleImage="RetainShape" isUsingCache="true" isLazy="true">
+				<reportElement x="-6" y="8" width="517" height="45"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/HKAH_rpt_logo.jpg")]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="1">
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="511" height="1"/>
+				<subreportParameter name="patientGoal">
+					<subreportParameterExpression><![CDATA[$P{patientGoal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="treatment">
+					<subreportParameterExpression><![CDATA[$P{treatment}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="diagnosis">
+					<subreportParameterExpression><![CDATA[$P{diagnosis}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad1">
+					<subreportParameterExpression><![CDATA[$P{ad1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patno">
+					<subreportParameterExpression><![CDATA[$P{patno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad2">
+					<subreportParameterExpression><![CDATA[$P{ad2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="defection">
+					<subreportParameterExpression><![CDATA[$P{defection}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad4">
+					<subreportParameterExpression><![CDATA[$P{ad4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad3">
+					<subreportParameterExpression><![CDATA[$P{ad3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad6">
+					<subreportParameterExpression><![CDATA[$P{ad6}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad5">
+					<subreportParameterExpression><![CDATA[$P{ad5}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad8">
+					<subreportParameterExpression><![CDATA[$P{ad8}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad7">
+					<subreportParameterExpression><![CDATA[$P{ad7}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="hpi">
+					<subreportParameterExpression><![CDATA[$P{hpi}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp9">
+					<subreportParameterExpression><![CDATA[$P{tcp9}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp8">
+					<subreportParameterExpression><![CDATA[$P{tcp8}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp7">
+					<subreportParameterExpression><![CDATA[$P{tcp7}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp6">
+					<subreportParameterExpression><![CDATA[$P{tcp6}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp5">
+					<subreportParameterExpression><![CDATA[$P{tcp5}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp4">
+					<subreportParameterExpression><![CDATA[$P{tcp4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp3">
+					<subreportParameterExpression><![CDATA[$P{tcp3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp2">
+					<subreportParameterExpression><![CDATA[$P{tcp2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp1">
+					<subreportParameterExpression><![CDATA[$P{tcp1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="objective">
+					<subreportParameterExpression><![CDATA[$P{objective}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="vasPn">
+					<subreportParameterExpression><![CDATA[$P{vasPn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="treatmentGoal">
+					<subreportParameterExpression><![CDATA[$P{treatmentGoal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fallAssmt">
+					<subreportParameterExpression><![CDATA[$P{fallAssmt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="vasNumb">
+					<subreportParameterExpression><![CDATA[$P{vasNumb}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="subjective">
+					<subreportParameterExpression><![CDATA[$P{subjective}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regid">
+					<subreportParameterExpression><![CDATA[$P{regid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patSex">
+					<subreportParameterExpression><![CDATA[$P{patSex}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="adOther2">
+					<subreportParameterExpression><![CDATA[$P{adOther2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="adOther1">
+					<subreportParameterExpression><![CDATA[$P{adOther1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="exercises">
+					<subreportParameterExpression><![CDATA[$P{exercises}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="frequency">
+					<subreportParameterExpression><![CDATA[$P{frequency}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pecaOther1">
+					<subreportParameterExpression><![CDATA[$P{pecaOther1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="education">
+					<subreportParameterExpression><![CDATA[$P{education}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="painDesc">
+					<subreportParameterExpression><![CDATA[$P{painDesc}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="postTreatment">
+					<subreportParameterExpression><![CDATA[$P{postTreatment}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="path">
+					<subreportParameterExpression><![CDATA[$P{path}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patName">
+					<subreportParameterExpression><![CDATA[$P{patName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="carePlan">
+					<subreportParameterExpression><![CDATA[$P{carePlan}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="options">
+					<subreportParameterExpression><![CDATA[$P{options}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="peca2">
+					<subreportParameterExpression><![CDATA[$P{peca2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="peca1">
+					<subreportParameterExpression><![CDATA[$P{peca1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="socialHistory">
+					<subreportParameterExpression><![CDATA[$P{socialHistory}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="vasPain">
+					<subreportParameterExpression><![CDATA[$P{vasPain}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcpOther1">
+					<subreportParameterExpression><![CDATA[$P{tcpOther1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BaseDir">
+					<subreportParameterExpression><![CDATA[$P{BaseDir}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patDOB">
+					<subreportParameterExpression><![CDATA[$P{patDOB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="emotional">
+					<subreportParameterExpression><![CDATA[$P{emotional}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pastMedHist">
+					<subreportParameterExpression><![CDATA[$P{pastMedHist}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="funcAssmt">
+					<subreportParameterExpression><![CDATA[$P{funcAssmt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="assessDate">
+					<subreportParameterExpression><![CDATA[$P{assessDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "PhyInitialAssFormOP_sub1.jasper"]]></subreportExpression>
+			</subreport>
+			<break>
+				<reportElement x="0" y="0" width="100" height="1"/>
+			</break>
+		</band>
+		<band height="1">
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="1" y="0" width="510" height="1"/>
+				<subreportParameter name="patientGoal">
+					<subreportParameterExpression><![CDATA[$P{patientGoal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="treatment">
+					<subreportParameterExpression><![CDATA[$P{treatment}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="diagnosis">
+					<subreportParameterExpression><![CDATA[$P{diagnosis}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad1">
+					<subreportParameterExpression><![CDATA[$P{ad1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patno">
+					<subreportParameterExpression><![CDATA[$P{patno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad2">
+					<subreportParameterExpression><![CDATA[$P{ad2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="defection">
+					<subreportParameterExpression><![CDATA[$P{defection}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad4">
+					<subreportParameterExpression><![CDATA[$P{ad4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad3">
+					<subreportParameterExpression><![CDATA[$P{ad3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad6">
+					<subreportParameterExpression><![CDATA[$P{ad6}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad5">
+					<subreportParameterExpression><![CDATA[$P{ad5}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad8">
+					<subreportParameterExpression><![CDATA[$P{ad8}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad7">
+					<subreportParameterExpression><![CDATA[$P{ad7}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="hpi">
+					<subreportParameterExpression><![CDATA[$P{hpi}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp9">
+					<subreportParameterExpression><![CDATA[$P{tcp9}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp8">
+					<subreportParameterExpression><![CDATA[$P{tcp8}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp7">
+					<subreportParameterExpression><![CDATA[$P{tcp7}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp6">
+					<subreportParameterExpression><![CDATA[$P{tcp6}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp5">
+					<subreportParameterExpression><![CDATA[$P{tcp5}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp4">
+					<subreportParameterExpression><![CDATA[$P{tcp4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp3">
+					<subreportParameterExpression><![CDATA[$P{tcp3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp2">
+					<subreportParameterExpression><![CDATA[$P{tcp2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp1">
+					<subreportParameterExpression><![CDATA[$P{tcp1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="objective">
+					<subreportParameterExpression><![CDATA[$P{objective}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="vasPn">
+					<subreportParameterExpression><![CDATA[$P{vasPn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="treatmentGoal">
+					<subreportParameterExpression><![CDATA[$P{treatmentGoal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fallAssmt">
+					<subreportParameterExpression><![CDATA[$P{fallAssmt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="vasNumb">
+					<subreportParameterExpression><![CDATA[$P{vasNumb}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="subjective">
+					<subreportParameterExpression><![CDATA[$P{subjective}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regid">
+					<subreportParameterExpression><![CDATA[$P{regid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patSex">
+					<subreportParameterExpression><![CDATA[$P{patSex}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="adOther2">
+					<subreportParameterExpression><![CDATA[$P{adOther2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="adOther1">
+					<subreportParameterExpression><![CDATA[$P{adOther1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="exercises">
+					<subreportParameterExpression><![CDATA[$P{exercises}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="frequency">
+					<subreportParameterExpression><![CDATA[$P{frequency}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pecaOther1">
+					<subreportParameterExpression><![CDATA[$P{pecaOther1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="education">
+					<subreportParameterExpression><![CDATA[$P{education}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="painDesc">
+					<subreportParameterExpression><![CDATA[$P{painDesc}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="postTreatment">
+					<subreportParameterExpression><![CDATA[$P{postTreatment}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="path">
+					<subreportParameterExpression><![CDATA[$P{path}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patName">
+					<subreportParameterExpression><![CDATA[$P{patName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="carePlan">
+					<subreportParameterExpression><![CDATA[$P{carePlan}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="options">
+					<subreportParameterExpression><![CDATA[$P{options}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="peca2">
+					<subreportParameterExpression><![CDATA[$P{peca2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="peca1">
+					<subreportParameterExpression><![CDATA[$P{peca1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="socialHistory">
+					<subreportParameterExpression><![CDATA[$P{socialHistory}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="vasPain">
+					<subreportParameterExpression><![CDATA[$P{vasPain}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcpOther1">
+					<subreportParameterExpression><![CDATA[$P{tcpOther1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BaseDir">
+					<subreportParameterExpression><![CDATA[$P{BaseDir}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patDOB">
+					<subreportParameterExpression><![CDATA[$P{patDOB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="emotional">
+					<subreportParameterExpression><![CDATA[$P{emotional}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pastMedHist">
+					<subreportParameterExpression><![CDATA[$P{pastMedHist}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="funcAssmt">
+					<subreportParameterExpression><![CDATA[$P{funcAssmt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="assessDate">
+					<subreportParameterExpression><![CDATA[$P{assessDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "PhyInitialAssFormOP_sub2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="1">
+			<subreport>
+				<reportElement x="0" y="0" width="511" height="1"/>
+				<subreportParameter name="patientGoal">
+					<subreportParameterExpression><![CDATA[$P{patientGoal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="treatment">
+					<subreportParameterExpression><![CDATA[$P{treatment}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="diagnosis">
+					<subreportParameterExpression><![CDATA[$P{diagnosis}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad1">
+					<subreportParameterExpression><![CDATA[$P{ad1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patno">
+					<subreportParameterExpression><![CDATA[$P{patno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad2">
+					<subreportParameterExpression><![CDATA[$P{ad2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="defection">
+					<subreportParameterExpression><![CDATA[$P{defection}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad4">
+					<subreportParameterExpression><![CDATA[$P{ad4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad3">
+					<subreportParameterExpression><![CDATA[$P{ad3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad6">
+					<subreportParameterExpression><![CDATA[$P{ad6}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad5">
+					<subreportParameterExpression><![CDATA[$P{ad5}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad8">
+					<subreportParameterExpression><![CDATA[$P{ad8}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad7">
+					<subreportParameterExpression><![CDATA[$P{ad7}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad9">
+					<subreportParameterExpression><![CDATA[$P{ad9}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp9">
+					<subreportParameterExpression><![CDATA[$P{tcp9}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="hpi">
+					<subreportParameterExpression><![CDATA[$P{hpi}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp8">
+					<subreportParameterExpression><![CDATA[$P{tcp8}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp7">
+					<subreportParameterExpression><![CDATA[$P{tcp7}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp6">
+					<subreportParameterExpression><![CDATA[$P{tcp6}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp5">
+					<subreportParameterExpression><![CDATA[$P{tcp5}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp4">
+					<subreportParameterExpression><![CDATA[$P{tcp4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp3">
+					<subreportParameterExpression><![CDATA[$P{tcp3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp2">
+					<subreportParameterExpression><![CDATA[$P{tcp2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp1">
+					<subreportParameterExpression><![CDATA[$P{tcp1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="objective">
+					<subreportParameterExpression><![CDATA[$P{objective}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="vasPn">
+					<subreportParameterExpression><![CDATA[$P{vasPn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="treatmentGoal">
+					<subreportParameterExpression><![CDATA[$P{treatmentGoal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fallAssmt">
+					<subreportParameterExpression><![CDATA[$P{fallAssmt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="vasNumb">
+					<subreportParameterExpression><![CDATA[$P{vasNumb}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="subjective">
+					<subreportParameterExpression><![CDATA[$P{subjective}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regid">
+					<subreportParameterExpression><![CDATA[$P{regid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patSex">
+					<subreportParameterExpression><![CDATA[$P{patSex}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="adOther2">
+					<subreportParameterExpression><![CDATA[$P{adOther2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="adOther1">
+					<subreportParameterExpression><![CDATA[$P{adOther1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="exercises">
+					<subreportParameterExpression><![CDATA[$P{exercises}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="frequency">
+					<subreportParameterExpression><![CDATA[$P{frequency}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pecaOther1">
+					<subreportParameterExpression><![CDATA[$P{pecaOther1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="education">
+					<subreportParameterExpression><![CDATA[$P{education}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="painDesc">
+					<subreportParameterExpression><![CDATA[$P{painDesc}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="postTreatment">
+					<subreportParameterExpression><![CDATA[$P{postTreatment}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="path">
+					<subreportParameterExpression><![CDATA[$P{path}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patName">
+					<subreportParameterExpression><![CDATA[$P{patName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="carePlan">
+					<subreportParameterExpression><![CDATA[$P{carePlan}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="options">
+					<subreportParameterExpression><![CDATA[$P{options}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="peca2">
+					<subreportParameterExpression><![CDATA[$P{peca2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="peca1">
+					<subreportParameterExpression><![CDATA[$P{peca1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="socialHistory">
+					<subreportParameterExpression><![CDATA[$P{socialHistory}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="vasPain">
+					<subreportParameterExpression><![CDATA[$P{vasPain}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcpOther1">
+					<subreportParameterExpression><![CDATA[$P{tcpOther1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BaseDir">
+					<subreportParameterExpression><![CDATA[$P{BaseDir}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patDOB">
+					<subreportParameterExpression><![CDATA[$P{patDOB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="emotional">
+					<subreportParameterExpression><![CDATA[$P{emotional}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pastMedHist">
+					<subreportParameterExpression><![CDATA[$P{pastMedHist}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="funcAssmt">
+					<subreportParameterExpression><![CDATA[$P{funcAssmt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="assessDate">
+					<subreportParameterExpression><![CDATA[$P{assessDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "PhyInitialAssFormOP_sub3.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="1">
+			<subreport>
+				<reportElement x="0" y="0" width="511" height="1"/>
+				<subreportParameter name="patientGoal">
+					<subreportParameterExpression><![CDATA[$P{patientGoal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="treatment">
+					<subreportParameterExpression><![CDATA[$P{treatment}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="diagnosis">
+					<subreportParameterExpression><![CDATA[$P{diagnosis}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad1">
+					<subreportParameterExpression><![CDATA[$P{ad1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patno">
+					<subreportParameterExpression><![CDATA[$P{patno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad2">
+					<subreportParameterExpression><![CDATA[$P{ad2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="defection">
+					<subreportParameterExpression><![CDATA[$P{defection}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad4">
+					<subreportParameterExpression><![CDATA[$P{ad4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad3">
+					<subreportParameterExpression><![CDATA[$P{ad3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad6">
+					<subreportParameterExpression><![CDATA[$P{ad6}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad5">
+					<subreportParameterExpression><![CDATA[$P{ad5}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad8">
+					<subreportParameterExpression><![CDATA[$P{ad8}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad7">
+					<subreportParameterExpression><![CDATA[$P{ad7}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp9">
+					<subreportParameterExpression><![CDATA[$P{tcp9}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="hpi">
+					<subreportParameterExpression><![CDATA[$P{hpi}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp8">
+					<subreportParameterExpression><![CDATA[$P{tcp8}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp7">
+					<subreportParameterExpression><![CDATA[$P{tcp7}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp6">
+					<subreportParameterExpression><![CDATA[$P{tcp6}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp5">
+					<subreportParameterExpression><![CDATA[$P{tcp5}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp4">
+					<subreportParameterExpression><![CDATA[$P{tcp4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp3">
+					<subreportParameterExpression><![CDATA[$P{tcp3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp2">
+					<subreportParameterExpression><![CDATA[$P{tcp2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp1">
+					<subreportParameterExpression><![CDATA[$P{tcp1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="objective">
+					<subreportParameterExpression><![CDATA[$P{objective}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="vasPn">
+					<subreportParameterExpression><![CDATA[$P{vasPn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="treatmentGoal">
+					<subreportParameterExpression><![CDATA[$P{treatmentGoal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="progNotes">
+					<subreportParameterExpression><![CDATA[$P{progNotes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="histProgNotes">
+					<subreportParameterExpression><![CDATA[$P{histProgNotes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fallAssmt">
+					<subreportParameterExpression><![CDATA[$P{fallAssmt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="vasNumb">
+					<subreportParameterExpression><![CDATA[$P{vasNumb}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="subjective">
+					<subreportParameterExpression><![CDATA[$P{subjective}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regid">
+					<subreportParameterExpression><![CDATA[$P{regid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patSex">
+					<subreportParameterExpression><![CDATA[$P{patSex}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="adOther2">
+					<subreportParameterExpression><![CDATA[$P{adOther2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="adOther1">
+					<subreportParameterExpression><![CDATA[$P{adOther1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="exercises">
+					<subreportParameterExpression><![CDATA[$P{exercises}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="frequency">
+					<subreportParameterExpression><![CDATA[$P{frequency}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pecaOther1">
+					<subreportParameterExpression><![CDATA[$P{pecaOther1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="education">
+					<subreportParameterExpression><![CDATA[$P{education}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="painDesc">
+					<subreportParameterExpression><![CDATA[$P{painDesc}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="postTreatment">
+					<subreportParameterExpression><![CDATA[$P{postTreatment}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="path">
+					<subreportParameterExpression><![CDATA[$P{path}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patName">
+					<subreportParameterExpression><![CDATA[$P{patName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="carePlan">
+					<subreportParameterExpression><![CDATA[$P{carePlan}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="options">
+					<subreportParameterExpression><![CDATA[$P{options}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="peca2">
+					<subreportParameterExpression><![CDATA[$P{peca2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="peca1">
+					<subreportParameterExpression><![CDATA[$P{peca1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="socialHistory">
+					<subreportParameterExpression><![CDATA[$P{socialHistory}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="vasPain">
+					<subreportParameterExpression><![CDATA[$P{vasPain}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcpOther1">
+					<subreportParameterExpression><![CDATA[$P{tcpOther1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BaseDir">
+					<subreportParameterExpression><![CDATA[$P{BaseDir}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patDOB">
+					<subreportParameterExpression><![CDATA[$P{patDOB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="emotional">
+					<subreportParameterExpression><![CDATA[$P{emotional}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pt">
+					<subreportParameterExpression><![CDATA[$P{pt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pastMedHist">
+					<subreportParameterExpression><![CDATA[$P{pastMedHist}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="funcAssmt">
+					<subreportParameterExpression><![CDATA[$P{funcAssmt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="assessDate">
+					<subreportParameterExpression><![CDATA[$P{assessDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "PhyInitialAssFormOP_sub4.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="1">
+			<printWhenExpression><![CDATA[!$P{regid}.equals($P{mstrRegid})]]></printWhenExpression>
+			<subreport>
+				<reportElement x="0" y="0" width="511" height="1"/>
+				<subreportParameter name="patientGoal">
+					<subreportParameterExpression><![CDATA[$P{patientGoal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="treatment">
+					<subreportParameterExpression><![CDATA[$P{treatment}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="diagnosis">
+					<subreportParameterExpression><![CDATA[$P{diagnosis}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad1">
+					<subreportParameterExpression><![CDATA[$P{ad1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patno">
+					<subreportParameterExpression><![CDATA[$P{patno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad2">
+					<subreportParameterExpression><![CDATA[$P{ad2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="defection">
+					<subreportParameterExpression><![CDATA[$P{defection}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad4">
+					<subreportParameterExpression><![CDATA[$P{ad4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad3">
+					<subreportParameterExpression><![CDATA[$P{ad3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad6">
+					<subreportParameterExpression><![CDATA[$P{ad6}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad5">
+					<subreportParameterExpression><![CDATA[$P{ad5}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad8">
+					<subreportParameterExpression><![CDATA[$P{ad8}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad7">
+					<subreportParameterExpression><![CDATA[$P{ad7}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp9">
+					<subreportParameterExpression><![CDATA[$P{tcp9}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="hpi">
+					<subreportParameterExpression><![CDATA[$P{hpi}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp8">
+					<subreportParameterExpression><![CDATA[$P{tcp8}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp7">
+					<subreportParameterExpression><![CDATA[$P{tcp7}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp6">
+					<subreportParameterExpression><![CDATA[$P{tcp6}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp5">
+					<subreportParameterExpression><![CDATA[$P{tcp5}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp4">
+					<subreportParameterExpression><![CDATA[$P{tcp4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp3">
+					<subreportParameterExpression><![CDATA[$P{tcp3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp2">
+					<subreportParameterExpression><![CDATA[$P{tcp2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp1">
+					<subreportParameterExpression><![CDATA[$P{tcp1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="objective">
+					<subreportParameterExpression><![CDATA[$P{objective}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="vasPn">
+					<subreportParameterExpression><![CDATA[$P{vasPn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="treatmentGoal">
+					<subreportParameterExpression><![CDATA[$P{treatmentGoal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="progNotes">
+					<subreportParameterExpression><![CDATA[$P{progNotes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="histProgNotes">
+					<subreportParameterExpression><![CDATA[$P{histProgNotes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fallAssmt">
+					<subreportParameterExpression><![CDATA[$P{fallAssmt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="vasNumb">
+					<subreportParameterExpression><![CDATA[$P{vasNumb}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="subjective">
+					<subreportParameterExpression><![CDATA[$P{subjective}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regid">
+					<subreportParameterExpression><![CDATA[$P{regid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patSex">
+					<subreportParameterExpression><![CDATA[$P{patSex}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="adOther2">
+					<subreportParameterExpression><![CDATA[$P{adOther2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="adOther1">
+					<subreportParameterExpression><![CDATA[$P{adOther1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="exercises">
+					<subreportParameterExpression><![CDATA[$P{exercises}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="frequency">
+					<subreportParameterExpression><![CDATA[$P{frequency}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pecaOther1">
+					<subreportParameterExpression><![CDATA[$P{pecaOther1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="education">
+					<subreportParameterExpression><![CDATA[$P{education}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="painDesc">
+					<subreportParameterExpression><![CDATA[$P{painDesc}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="postTreatment">
+					<subreportParameterExpression><![CDATA[$P{postTreatment}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="path">
+					<subreportParameterExpression><![CDATA[$P{path}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patName">
+					<subreportParameterExpression><![CDATA[$P{patName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="carePlan">
+					<subreportParameterExpression><![CDATA[$P{carePlan}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="options">
+					<subreportParameterExpression><![CDATA[$P{options}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="peca2">
+					<subreportParameterExpression><![CDATA[$P{peca2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="peca1">
+					<subreportParameterExpression><![CDATA[$P{peca1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="socialHistory">
+					<subreportParameterExpression><![CDATA[$P{socialHistory}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="vasPain">
+					<subreportParameterExpression><![CDATA[$P{vasPain}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcpOther1">
+					<subreportParameterExpression><![CDATA[$P{tcpOther1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BaseDir">
+					<subreportParameterExpression><![CDATA[$P{BaseDir}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patDOB">
+					<subreportParameterExpression><![CDATA[$P{patDOB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="emotional">
+					<subreportParameterExpression><![CDATA[$P{emotional}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pt">
+					<subreportParameterExpression><![CDATA[$P{pt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pastMedHist">
+					<subreportParameterExpression><![CDATA[$P{pastMedHist}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="funcAssmt">
+					<subreportParameterExpression><![CDATA[$P{funcAssmt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="assessDate">
+					<subreportParameterExpression><![CDATA[$P{assessDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "PhyInitialAssFormOP_sub5.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="1">
+			<subreport>
+				<reportElement x="0" y="0" width="511" height="1"/>
+				<subreportParameter name="patientGoal">
+					<subreportParameterExpression><![CDATA[$P{patientGoal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="treatment">
+					<subreportParameterExpression><![CDATA[$P{treatment}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="diagnosis">
+					<subreportParameterExpression><![CDATA[$P{diagnosis}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad1">
+					<subreportParameterExpression><![CDATA[$P{ad1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patno">
+					<subreportParameterExpression><![CDATA[$P{patno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad2">
+					<subreportParameterExpression><![CDATA[$P{ad2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="defection">
+					<subreportParameterExpression><![CDATA[$P{defection}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad4">
+					<subreportParameterExpression><![CDATA[$P{ad4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad3">
+					<subreportParameterExpression><![CDATA[$P{ad3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad6">
+					<subreportParameterExpression><![CDATA[$P{ad6}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad5">
+					<subreportParameterExpression><![CDATA[$P{ad5}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad8">
+					<subreportParameterExpression><![CDATA[$P{ad8}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ad7">
+					<subreportParameterExpression><![CDATA[$P{ad7}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp9">
+					<subreportParameterExpression><![CDATA[$P{tcp9}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="hpi">
+					<subreportParameterExpression><![CDATA[$P{hpi}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp8">
+					<subreportParameterExpression><![CDATA[$P{tcp8}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp7">
+					<subreportParameterExpression><![CDATA[$P{tcp7}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp6">
+					<subreportParameterExpression><![CDATA[$P{tcp6}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp5">
+					<subreportParameterExpression><![CDATA[$P{tcp5}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp4">
+					<subreportParameterExpression><![CDATA[$P{tcp4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp3">
+					<subreportParameterExpression><![CDATA[$P{tcp3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp2">
+					<subreportParameterExpression><![CDATA[$P{tcp2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcp1">
+					<subreportParameterExpression><![CDATA[$P{tcp1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="objective">
+					<subreportParameterExpression><![CDATA[$P{objective}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="vasPn">
+					<subreportParameterExpression><![CDATA[$P{vasPn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="treatmentGoal">
+					<subreportParameterExpression><![CDATA[$P{treatmentGoal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="progNotes">
+					<subreportParameterExpression><![CDATA[$P{progNotes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="histProgNotes">
+					<subreportParameterExpression><![CDATA[$P{histProgNotes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fallAssmt">
+					<subreportParameterExpression><![CDATA[$P{fallAssmt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="vasNumb">
+					<subreportParameterExpression><![CDATA[$P{vasNumb}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="subjective">
+					<subreportParameterExpression><![CDATA[$P{subjective}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regid">
+					<subreportParameterExpression><![CDATA[$P{regid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patSex">
+					<subreportParameterExpression><![CDATA[$P{patSex}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="adOther2">
+					<subreportParameterExpression><![CDATA[$P{adOther2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="adOther1">
+					<subreportParameterExpression><![CDATA[$P{adOther1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="exercises">
+					<subreportParameterExpression><![CDATA[$P{exercises}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="frequency">
+					<subreportParameterExpression><![CDATA[$P{frequency}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pecaOther1">
+					<subreportParameterExpression><![CDATA[$P{pecaOther1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="education">
+					<subreportParameterExpression><![CDATA[$P{education}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="painDesc">
+					<subreportParameterExpression><![CDATA[$P{painDesc}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="postTreatment">
+					<subreportParameterExpression><![CDATA[$P{postTreatment}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="path">
+					<subreportParameterExpression><![CDATA[$P{path}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patName">
+					<subreportParameterExpression><![CDATA[$P{patName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="carePlan">
+					<subreportParameterExpression><![CDATA[$P{carePlan}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="options">
+					<subreportParameterExpression><![CDATA[$P{options}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="peca2">
+					<subreportParameterExpression><![CDATA[$P{peca2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="peca1">
+					<subreportParameterExpression><![CDATA[$P{peca1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="socialHistory">
+					<subreportParameterExpression><![CDATA[$P{socialHistory}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="vasPain">
+					<subreportParameterExpression><![CDATA[$P{vasPain}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tcpOther1">
+					<subreportParameterExpression><![CDATA[$P{tcpOther1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BaseDir">
+					<subreportParameterExpression><![CDATA[$P{BaseDir}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patDOB">
+					<subreportParameterExpression><![CDATA[$P{patDOB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="emotional">
+					<subreportParameterExpression><![CDATA[$P{emotional}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pt">
+					<subreportParameterExpression><![CDATA[$P{pt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pastMedHist">
+					<subreportParameterExpression><![CDATA[$P{pastMedHist}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="funcAssmt">
+					<subreportParameterExpression><![CDATA[$P{funcAssmt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="assessDate">
+					<subreportParameterExpression><![CDATA[$P{assessDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "PhyInitialAssFormOP_sub6.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="123">
+			<frame>
+				<reportElement x="234" y="96" width="277" height="27"/>
+				<box>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="5" y="71" width="61" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Date of Birth: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="88" width="61" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Sex: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="35" width="61" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Patient No.: ]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="0" y="33" width="234" height="90"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<textField>
+				<reportElement x="66" y="35" width="168" height="16"/>
+				<box topPadding="2" leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patno}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="66" y="51" width="168" height="16"/>
+				<box topPadding="2" leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="71" width="168" height="16"/>
+				<box topPadding="2" leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patDOB}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="88" width="168" height="16"/>
+				<box topPadding="2" leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patSex}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement positionType="FixRelativeToBottom" x="109" y="102" width="116" height="18"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode($P{patno}.substring(0, $P{patno}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="235" y="78" width="161" height="19"/>
+				<box>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rev: Feb 2022]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="395" y="77" width="116" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RHAB-MOF13a]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="264" y="99" width="230" height="23"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode("PABDMAA01",com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="5" y="51" width="61" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Name: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="235" y="33" width="276" height="44"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Physiotherapy(Out-Patient)
+Initial Assessment Form
+]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="469" y="0" width="40" height="15"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="389" y="0" width="80" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="0" width="84" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Therapist Name:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="85" y="0" width="100" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{username}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="18" width="504" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Electronically generated no signature required]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

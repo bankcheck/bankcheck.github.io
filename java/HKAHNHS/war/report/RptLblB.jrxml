@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptLblB" language="groovy" pageWidth="215" pageHeight="119" columnWidth="215" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="3.138428376721004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PrnTktLbl" class="java.lang.String"/>
+	<parameter name="key" class="java.lang.String"/>
+	<field name="title" class="java.lang.String"/>
+	<field name="docname" class="java.lang.String"/>
+	<field name="patname" class="java.lang.String"/>
+	<field name="patno" class="java.lang.String"/>
+	<field name="patcname" class="java.lang.String"/>
+	<field name="dob" class="java.lang.String"/>
+	<field name="sex" class="java.lang.String"/>
+	<field name="arrival" class="java.lang.String"/>
+	<field name="apttime" class="java.lang.String"/>
+	<field name="siteCode" class="java.lang.String"/>
+	<field name="ticketNo" class="java.lang.String"/>
+	<detail>
+		<band height="119" splitType="Stretch">
+			<textField>
+				<reportElement x="52" y="0" width="59" height="14"/>
+				<textElement textAlignment="Justified">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{title}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="19" width="35" height="15"/>
+				<textElement/>
+				<text><![CDATA[Doctor:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="33" width="35" height="15"/>
+				<textElement/>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="47" width="35" height="18"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[No.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="64" width="56" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Date of Birth:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="121" y="64" width="20" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Sex:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="78" width="35" height="15"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Arrival:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="121" y="78" width="20" height="15"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apt:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="43" y="19" width="162" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{docname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="43" y="33" width="162" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{patname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="43" y="47" width="65" height="18"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{patno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="107" y="47" width="98" height="18"/>
+				<textElement>
+					<font fontName="chiMing" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{patcname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="63" y="64" width="59" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dob}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="64" width="15" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sex}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="42" y="78" width="80" height="15"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{arrival}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="78" width="65" height="15"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{apttime}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="67" y="98" width="80" height="16"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="3of9" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$P{key}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement x="112" y="0" width="55" height="14"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{siteCode}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="155" y="64" width="22" height="15">
+					<printWhenExpression><![CDATA[$P{PrnTktLbl}.equals( "Y" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Tkt# ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="176" y="64" width="29" height="15">
+					<printWhenExpression><![CDATA[$P{PrnTktLbl}.equals( "Y" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ticketNo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,2130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ADMFRM2PAT" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="5" bottomMargin="14" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="patNo" class="java.lang.String"/>
+	<parameter name="patDOB" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="patHPhone" class="java.lang.String"/>
+	<parameter name="patMPhone" class="java.lang.String"/>
+	<parameter name="patOPhone" class="java.lang.String"/>
+	<parameter name="patNation" class="java.lang.String"/>
+	<parameter name="patReli" class="java.lang.String"/>
+	<parameter name="patAdd" class="java.lang.String"/>
+	<parameter name="patSname" class="java.lang.String"/>
+	<parameter name="patFname" class="java.lang.String"/>
+	<parameter name="patIDNo" class="java.lang.String"/>
+	<parameter name="patMStatus" class="java.lang.String"/>
+	<parameter name="patEduLvl" class="java.lang.String"/>
+	<parameter name="patOccptn" class="java.lang.String"/>
+	<parameter name="patCorrLang" class="java.lang.String"/>
+	<parameter name="patEmail" class="java.lang.String"/>
+	<parameter name="NKName" class="java.lang.String"/>
+	<parameter name="NKOPhone" class="java.lang.String"/>
+	<parameter name="NKEmail" class="java.lang.String"/>
+	<parameter name="NKAdd" class="java.lang.String"/>
+	<parameter name="NKRetnshp" class="java.lang.String"/>
+	<parameter name="NKMPhone" class="java.lang.String"/>
+	<parameter name="NKHPhone" class="java.lang.String"/>
+	<parameter name="LogoImg" class="java.lang.String"/>
+	<parameter name="patRomNo" class="java.lang.String"/>
+	<parameter name="patFax" class="java.lang.String"/>
+	<parameter name="docID" class="java.lang.String"/>
+	<parameter name="docName" class="java.lang.String"/>
+	<parameter name="patAdmDate" class="java.lang.String"/>
+	<parameter name="patRomClass" class="java.lang.String"/>
+	<parameter name="patBedNo" class="java.lang.String"/>
+	<parameter name="patSlpNo" class="java.lang.String"/>
+	<parameter name="patInsurNo" class="java.lang.String"/>
+	<parameter name="arCompName" class="java.lang.String"/>
+	<parameter name="patVouNo" class="java.lang.String"/>
+	<parameter name="admClerk" class="java.lang.String"/>
+	<parameter name="patcname" class="java.lang.String"/>
+	<parameter name="patno1" class="java.lang.String"/>
+	<parameter name="remark" class="java.lang.String"/>
+	<parameter name="mktSts" class="java.lang.String"/>
+	<parameter name="ImgTick" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHNHS\\war\\images\\tick1.gif"]]></defaultValueExpression>
+	</parameter>
+	<pageHeader>
+		<band height="53">
+			<image scaleImage="RetainShape">
+				<reportElement x="-31" y="0" width="555" height="53"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{LogoImg}]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="667" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="1" y="1" width="510" height="15" backcolor="#999999"/>
+				<box leftPadding="4">
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial Unicode MS" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Personal Information<style fontName='Ming(for ISO10646_V3)'>  個人資料</style>"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="128" y="260" width="5" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<frame>
+				<reportElement positionType="FixRelativeToBottom" x="1" y="1" width="510" height="665"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="5" y="16" width="92" height="12"/>
+				<box rightPadding="3">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hospital No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="16" width="33" height="12"/>
+				<box bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[病歷號碼]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="16" width="6" height="12"/>
+				<box topPadding="1">
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="16" width="200" height="12"/>
+				<box bottomPadding="1">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="313" y="16" width="36" height="11"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Surname ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="16" width="9" height="11"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[姓]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="16" width="6" height="11"/>
+				<box topPadding="1">
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="361" y="16" width="150" height="11"/>
+				<box leftPadding="1">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patSname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="42" y="27" width="55" height="12"/>
+				<box rightPadding="0"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of Birth ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="27" width="33" height="12"/>
+				<box bottomPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[出生日期]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="27" width="6" height="12"/>
+				<box topPadding="1">
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="27" width="100" height="12"/>
+				<box leftPadding="1" bottomPadding="1"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patDOB}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="298" y="26" width="51" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Given Name ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="26" width="9" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[名]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="26" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="361" y="26" width="149" height="12"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Bottom" markup="styled">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style fontName='Arial Unicode MS'>"+org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{patFname}) +" </style><style fontName='Ming(for ISO10646_V3)'>" + $P{patcname}.isEmpty()?"":" "+$P{patcname} + "</style>"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="94" y="38" width="21" height="11"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sex ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="112" y="38" width="17" height="11"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[性別]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="38" width="6" height="11"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="38" width="100" height="11"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patSex}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="328" y="37" width="33" height="12"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[證件號碼 	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="37" width="87" height="12"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Identity No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="37" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="361" y="37" width="143" height="12"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patIDNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="259" y="169" width="63" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Home Phone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="321" y="169" width="35" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[住宅電話	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="48" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="48" width="100" height="12"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patHPhone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="262" y="48" width="63" height="12"/>
+				<box rightPadding="1"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mobile Phone ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="48" width="33" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[流動電話]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="48" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="361" y="48" width="100" height="12"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patMPhone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="341" y="59" width="16" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[傳真]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="59" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="361" y="59" width="99" height="12"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patFax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="1" y="193" width="510" height="12" backcolor="#999999"/>
+				<box leftPadding="4">
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial Unicode MS" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Hospital, Doctors and Insurance Company Information<style fontName='Ming(for ISO10646_V3)'>  住院、醫生及保險公司資料</style>"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="412" y="216" width="5" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="216" width="16" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[床號]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="48" width="33" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[住宅電話]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="89" y="59" width="40" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[辦公室電話	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="81" width="16" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[國籍]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="112" y="70" width="16" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[宗教]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="114" width="20" height="12"/>
+				<box bottomPadding="0"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[地址]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="81" width="33" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[婚姻狀況]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="92" width="33" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[教育程度]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="337" y="92" width="20" height="12"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ 職業 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="328" y="70" width="33" height="12"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[通訊語言 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="103" width="33" height="12"/>
+				<box topPadding="0" leftPadding="0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[電郵地址]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="321" y="158" width="35" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[流動電話	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="147" width="16" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[關係]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="169" width="33" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[電郵地址]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="105" y="147" width="24" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[聯絡人]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="89" y="158" width="40" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[辦公室電話]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="113" y="180" width="16" height="13"/>
+				<box bottomPadding="1">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[地址]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="205" width="58" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[入院日期及時間]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="238" width="33" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[保險公司]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="113" y="249" width="16" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[單號]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="365" y="249" width="48" height="13"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[登記職員姓名]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="205" width="33" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[主診醫生]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="216" width="33" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[病房等級]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="227" width="33" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[賬單號碼]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="227" width="33" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[保險號碼]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="260" width="18" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[備註]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="132" y="205" width="31" height="12"/>
+				<box topPadding="1">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docID}+", "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="359" y="169" width="150" height="12"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NKHPhone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="416" y="216" width="57" height="12"/>
+				<box bottomPadding="1">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patBedNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="359" y="158" width="150" height="12"/>
+				<box leftPadding="1" bottomPadding="0"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NKMPhone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="133" y="113" width="378" height="20"/>
+				<box topPadding="0" leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="9" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patAdd}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="133" y="59" width="100" height="12"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patOPhone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="361" y="81" width="100" height="12"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patNation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="133" y="70" width="100" height="12"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patReli}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="133" y="81" width="144" height="12"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patMStatus}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="133" y="92" width="143" height="12"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patEduLvl}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="361" y="92" width="144" height="12"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patOccptn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="361" y="70" width="144" height="12"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patCorrLang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="133" y="103" width="372" height="12"/>
+				<box leftPadding="1" bottomPadding="1"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patEmail}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="132" y="147" width="152" height="12"/>
+				<box leftPadding="1" bottomPadding="1">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NKName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="132" y="158" width="100" height="12"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NKOPhone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="132" y="169" width="181" height="12"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NKEmail}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="132" y="180" width="379" height="13"/>
+				<box topPadding="0" bottomPadding="1">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="9" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NKAdd}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="359" y="147" width="148" height="12"/>
+				<box leftPadding="1" bottomPadding="0">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NKRetnshp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="416" y="205" width="94" height="12"/>
+				<box bottomPadding="0">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patAdmDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="205" width="133" height="12"/>
+				<box topPadding="1">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="132" y="216" width="128" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patRomClass}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="132" y="227" width="128" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patSlpNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="416" y="227" width="94" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patInsurNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="132" y="238" width="380" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{arCompName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="132" y="249" width="128" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patVouNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="416" y="249" width="96" height="13"/>
+				<box topPadding="0" leftPadding="1">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{admClerk}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="132" y="260" width="128" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{remark}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="1" y="135" width="510" height="12" backcolor="#999999"/>
+				<box leftPadding="4">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial Unicode MS" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Emergency Contact Person Information<style fontName='Ming(for ISO10646_V3)'>  緊急聯絡人資料</style>"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="147" width="101" height="12"/>
+				<box rightPadding="3">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contact Person]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="180" width="111" height="13"/>
+				<box bottomPadding="1" rightPadding="3">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="284" y="59" width="57" height="12"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fax]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="347" y="216" width="51" height="12"/>
+				<box rightPadding="3">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bed No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="158" width="72" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Office Phone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="48" width="60" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Home Phone ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="59" width="52" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Office Phone ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="81" width="64" height="12"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nationality]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="70" width="34" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Religion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="114" width="34" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="81" width="79" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Marital Status ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="92" width="65" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Occupation ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="70" width="87" height="12"/>
+				<box rightPadding="1"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Corr. Languages ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="103" width="70" height="12"/>
+				<box topPadding="1" rightPadding="0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="169" width="60" height="12"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="284" y="147" width="57" height="12"/>
+				<box rightPadding="3">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relationship]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="262" y="158" width="60" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mobile Phone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="205" width="91" height="12"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Attending Doctor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="273" y="205" width="83" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Adm. Date & Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="216" width="91" height="12"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Room Class]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="227" width="91" height="12"/>
+				<box rightPadding="3">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Slip No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="238" width="91" height="12"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Insurance Company]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="227" width="91" height="12"/>
+				<box rightPadding="3">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Insurance Policy No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="249" width="76" height="13"/>
+				<box rightPadding="3">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Adm. Clerk]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="249" width="108" height="12"/>
+				<box rightPadding="3">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Voucher No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="260" width="106" height="12"/>
+				<box rightPadding="1">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Remark]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="92" width="80" height="12"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Education Level]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="196" y="510" width="0" height="12"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="126" y="510" width="0" height="12"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="169" width="5" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="158" width="5" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="147" width="5" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="169" width="5" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="158" width="5" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="147" width="5" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="114" width="6" height="11"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="70" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="81" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="59" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="81" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="92" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="92" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="103" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="180" width="5" height="13"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="205" width="5" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="216" width="5" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="227" width="5" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="205" width="5" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="249" width="5" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="227" width="5" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="238" width="5" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="249" width="5" height="13"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="70" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="281" width="510" height="14"/>
+				<box topPadding="3" leftPadding="2">
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Patient's Agreement]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="294" width="16" height="10"/>
+				<box topPadding="1" leftPadding="2"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[1.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="294" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<text><![CDATA[All information given by me to the Hong Kong Adventist Hospital – Stubbs Road('the Hospital') is true and correct to the best of my knowledge;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="303" width="16" height="19"/>
+				<box topPadding="1" leftPadding="2"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[2.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="303" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<text><![CDATA[I acknowledge receipt of "Healthcare Advisory", "Daily Room Rate", "Advance Payment", "Patient Admission", and "Patients' Charter" from the Hospital,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="312" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<text><![CDATA[which I have read, understand and hereby agree to all terms and conditions therein;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="321" width="16" height="19"/>
+				<box topPadding="1" leftPadding="2"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[3.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="321" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<text><![CDATA[I agree to pay the Hospital the rates and charges (including but not limited to Out-patient and incidental charges ) stipulated by the Hospital for all goods and
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="330" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<text><![CDATA[services rendered to me by the Hospital during my hospitalization;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="339" width="16" height="19"/>
+				<box topPadding="1" leftPadding="2"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[4.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="339" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<text><![CDATA[I hereby authorize the Hospital to contact and release/disclose/share all my personal data (including but not limited to medical record) to/with my insurer, its ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="348" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<text><![CDATA[agent or broker for activities pertaining to my insurance claim, or any accreditation institutions/organizations/company involved in accreditation of the Hospital;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="357" width="16" height="10"/>
+				<box topPadding="1" leftPadding="2"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[5.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="357" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<text><![CDATA[I agree to pay any outstanding charges that have not been paid or covered by my insurer;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="366" width="16" height="10"/>
+				<box topPadding="1" leftPadding="2"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[6.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="366" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<text><![CDATA[I understand that the Hospital serves vegetarian meals only; Cafeteria opening hours from 7:00 am to 7:30 pm;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="375" width="16" height="10"/>
+				<box topPadding="1" leftPadding="2"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[7.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="375" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<text><![CDATA[I agree to comply with the Hospital policy during my hospitalization, e.g. solely using medications and tube feeding formula provided by the Hospital;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="384" width="16" height="64"/>
+				<box topPadding="1" leftPadding="2"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[8.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="19" y="414" width="5" height="5"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="19" y="413" width="7" height="10">
+					<printWhenExpression><![CDATA[$P{mktSts}.equals( "0" )]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.lang.String"><![CDATA[$P{ImgTick}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="17" y="384" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<text><![CDATA[I give my consent herein to the Hospital to send its direct marketing and health promotion materials in relation to its services to me by post, SMS, fax, ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="393" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<text><![CDATA[electronic mail or other means of communication or making telephone calls via my address, telephone numbers, fax number and email address provided by ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="402" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<text><![CDATA[me to the Hospital.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="411" width="543" height="10"/>
+				<box topPadding="1" leftPadding="2"/>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<text><![CDATA[I do not give my consent to the Hospital to use my data for direct marketing of health services and promotion purpose.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="420" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<text><![CDATA[I understand that I may at any time require and notify the Hospital to cease to use my data in direct marketing of health services and promotion and the ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="429" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<text><![CDATA[Hospital must, without charge to me, comply with the requirement. The notification of such requirement may be sent to the Hospital by post, electronic mail, ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="438" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<text><![CDATA[telephone call or other means of communication. (Telephone No : 3651 8997; Email Address : patientservice@hkah.org.hk) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="452" width="566" height="13"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="9" isBold="true" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[病人協議]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="463" width="16" height="10"/>
+				<box topPadding="1" leftPadding="2"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="7"/>
+				</textElement>
+				<text><![CDATA[1.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="463" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="7" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人提供予香港港安醫院–司徒拔道（「醫院」）的所有資料，在本人的個人認知範圍內，皆屬實和正確；]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="472" width="16" height="10"/>
+				<box topPadding="1" leftPadding="2"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="7"/>
+				</textElement>
+				<text><![CDATA[2.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="472" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="7" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人確認已收到及仔細閱讀〈住院須知〉、〈每日房租〉、〈預繳按金〉、〈入院須知〉和〈病人權益與責任〉等文件，並且明白及同意上述文件的一切條款；]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="481" width="16" height="12"/>
+				<box topPadding="1" leftPadding="2"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="7"/>
+				</textElement>
+				<text><![CDATA[3.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="481" width="552" height="12" isPrintWhenDetailOverflows="true"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="7" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人同意支付所有在住院期間由醫院提供予本人的物品和服務的規定費用（包括但不限於門診或偶發事故所需費用）;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="492" width="16" height="19"/>
+				<box topPadding="0" leftPadding="2"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="7"/>
+				</textElement>
+				<text><![CDATA[4.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="492" width="481" height="19"/>
+				<box topPadding="0"/>
+				<textElement markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="7" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人在此授權醫院就本人的保險索償事宜與本人的承保人或其附屬之仲介人或經紀人聯繫， 及向其提交/披露/分享或索取所有與本人有關的個人資料（包括但不限於醫療紀錄）， 及授權醫院提交/披露/分享所有與本人有關的個人資料（包括但不限於醫療紀錄）予參與評審醫院的任何認可機構/組織/公司；]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="510" width="16" height="12"/>
+				<box topPadding="1" leftPadding="2"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="7"/>
+				</textElement>
+				<text><![CDATA[5.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="510" width="552" height="12"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="7" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人同意支付所有尚未繳付或保險公司未能承保的額外費用；]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="521" width="16" height="12"/>
+				<box topPadding="1" leftPadding="2"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="7"/>
+				</textElement>
+				<text><![CDATA[6.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="521" width="552" height="12"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="7" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人明白醫院膳食部只供應素食餐膳；餐廳開放時間為早上七時至晚上七時三十分;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="532" width="16" height="12"/>
+				<box topPadding="1" leftPadding="2"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="7"/>
+				</textElement>
+				<text><![CDATA[7.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="532" width="552" height="12"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="7" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人同意於住院期間遵守醫院政策，例如只會服用由醫院供應的藥物及管飼飲食配方；]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="543" width="16" height="40"/>
+				<box topPadding="1" leftPadding="2"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="7"/>
+				</textElement>
+				<text><![CDATA[8.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="19" y="556" width="5" height="5"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="19" y="555" width="7" height="10">
+					<printWhenExpression><![CDATA[$P{mktSts}.equals( "0" )]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.lang.String"><![CDATA[$P{ImgTick}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="17" y="543" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="7" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人同意醫院可以藉郵件、短訊、圖文傳真、電子郵件或其他形式的傳訊，或通過電話通話，向本人提供與醫院服務或健康訊息有關的資料。
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="553" width="542" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="7" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人不同意醫院使用本人的個人資料來提供與醫院服務或健康訊息有關的資料。
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="562" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="7" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人明白，本人可以隨時藉郵件、電子郵件、電話通話或其他形式的傳訊，通知醫院停止使用本人的個人資料來提供與醫院服務或健康訊息有關的資料。同時，]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="571" width="552" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="7" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[醫院不會因此向本人收取費用。(電話號碼：3651 8997; 電郵地址：patientservice@hkah.org.hk) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="586" width="90" height="13"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Patient Signature:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="596" width="81" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[病人簽署]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="584" width="143" height="25"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[_________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="609" width="89" height="10"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="6"/>
+				</textElement>
+				<text><![CDATA[(Age 18 or above 十八歲或以上)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="226" y="586" width="34" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="226" y="596" width="34" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[姓名]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="259" y="583" width="143" height="25"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[_________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="586" width="34" height="13"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="596" width="34" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[日期]]></text>
+			</staticText>
+			<line>
+				<reportElement x="411" y="609" width="86" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="4" y="614" width="82" height="28"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Responsible Party
+Signature:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="637" width="82" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[負責人簽署]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="86" y="610" width="142" height="40"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[_________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="227" y="626" width="32" height="13"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="227" y="638" width="32" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[姓名]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="258" y="625" width="143" height="25"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[_________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="391" y="635" width="34" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[關係]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="391" y="623" width="50" height="13"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Relationship:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="411" y="649" width="86" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="4" y="655" width="410" height="10"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="6"/>
+				</textElement>
+				<text><![CDATA[<font color='red'>If there is any inconsistency or ambiguity between the English version and the Chinese version, the English version shall prevail.</font>]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="649" width="87" height="10"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="6"/>
+				</textElement>
+				<text><![CDATA[(Age 18 or above 十八歲或以上)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="365" y="655" width="193" height="10"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="6"/>
+				</textElement>
+				<text><![CDATA[<font color='red'>中英文版本如有歧異，概以英文版本為準。</font>]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="103">
+			<frame>
+				<reportElement x="234" y="62" width="277" height="27"/>
+				<box>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="5" y="35" width="61" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Date of Birth: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="52" width="61" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Sex: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="-1" width="61" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Patient No.: ]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="1" y="-1" width="234" height="90"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<textField>
+				<reportElement x="66" y="-1" width="168" height="16"/>
+				<box topPadding="2" leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patNo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="66" y="15" width="168" height="16"/>
+				<box topPadding="2" leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patSname} + " " +$P{patFname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="35" width="168" height="16"/>
+				<box topPadding="2" leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patDOB}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="52" width="168" height="16"/>
+				<box topPadding="2" leftPadding="1"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patSex}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement positionType="FixRelativeToBottom" x="54" y="65" width="116" height="18"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode($P{patno1}.substring(0, $P{patno1}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="235" y="43" width="161" height="19"/>
+				<box>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rev: Oct 2015	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="395" y="42" width="116" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PABD-MAA01]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="264" y="65" width="230" height="23"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode("PABDMAA01",com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="5" y="15" width="61" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Name: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="235" y="-1" width="276" height="44"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[In-Patient
+Admission Form
+]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

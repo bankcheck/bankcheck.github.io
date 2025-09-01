@@ -1,0 +1,1 @@
+<% response.sendRedirect((String) session.getAttribute(request.getParameter("swfname"))); %>

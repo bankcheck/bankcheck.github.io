@@ -1,0 +1,32 @@
+create or replace FUNCTION           "NHS_RPT_AR_BILL"(V_SLPNO IN VARCHAR2)
+	RETURN TYPES.CURSOR_TYPE AS
+  	OUTCUR TYPES.CURSOR_TYPE;
+
+  	SQLSTR VARCHAR2(1000);
+    V_ShowARBill VARCHAR2(50);
+ BEGIN
+  SELECT PARAM1 INTO V_ShowARBill
+  FROM SYSPARAM
+  WHERE PARCDE = 'ARBillStmt';
+
+  IF V_ShowARBill = 'Y' THEN
+    SQLSTR := 'SELECT A.ARCCODE,
+            decode(A.ARCCODE,''QHCL'',upper(A.ARCNAME),''MABS'',upper(A.ARCNAME),
+            ''ALC'',upper(A.ARCNAME),''ALCNO'',upper(A.ARCNAME),A.ARCNAME)as ARDESC,
+            SUM(X.ATXAMT), S.SLPPLYNO, listagg(S.SLPVCHNO, '','') within group (order by S.SLPVCHNO)
+          FROM ARTX X, ARCODE A, SLIP S
+          WHERE X.SLPNO IN (' || V_SLPNO ||')
+          AND X.ATXSTS = ''N''
+          AND X.ARCCODE = A.ARCCODE
+          AND X.SLPNO = S.SLPNO
+          AND X.ATXAMT > 0
+          AND X.ARPID IS NULL
+          GROUP BY A.ARCCODE,A.ARCNAME, S.SLPPLYNO
+          ORDER BY A.ARCCODE,A.ARCNAME';
+    OPEN OUTCUR FOR SQLSTR;
+      RETURN OUTCUR;
+  END IF;
+
+  RETURN NULL;
+END NHS_RPT_AR_BILL;
+/

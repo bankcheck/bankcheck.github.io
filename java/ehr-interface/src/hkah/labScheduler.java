@@ -1,0 +1,1834 @@
+package hkah;
+
+import hk.gov.ehr.hepr.ws.*;
+
+import org.hl7.v3.Participant;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.log4j.Logger;
+import org.hl7.v3.LabResultGenDetail;
+import org.hl7.v3.LabResultGenDetail.*;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import test.client.HeprWebServiceClient;
+
+import java.sql.*;
+
+import jcifs.smb.NtlmPasswordAuthentication;
+import jcifs.smb.SmbFile;
+import jcifs.smb.SmbFileInputStream;
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.model.FileHeader;
+
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+import com.hkah.constant.ConstantsEhr;
+import com.hkah.constant.ConstantsServerSide;
+import com.hkah.ehr.common.FactoryBase;
+import com.hkah.util.db.ConnUtil;
+
+import com.hkah.util.mail.UtilMail2;
+
+@Service()
+public class labScheduler {
+	protected static Logger logger = Logger.getLogger(labScheduler.class);
+	
+	private String uploadMode ;
+	private String updRecordKey ; 
+	private String transactionType ;
+	private String recordKey;
+	// use for set last update dtm
+	private String rptDate ;
+	private String rptFilename ;
+	private String fileInd ;
+			
+	private String getUploadMode() {
+		return uploadMode;
+	}
+	private String getUpdRecordKey() {
+		return updRecordKey;
+	}
+	private String getTransactionType() {
+		return transactionType;
+	}
+	private String getRecordKey() {
+		return recordKey;
+	}
+	private String getRptDate() {
+		return rptDate;  
+	}
+	private String getRptFilename() {
+		return rptFilename;
+	}
+	
+	private static String getParam(String key, String defaultVal){
+        PreparedStatement ps = null;
+		Connection conn = null;
+        ResultSet rs = null;
+        String sql;
+        String val = defaultVal;
+        
+		try {
+			
+        	sql = "select PARAM1 from sysparam where parcde=?";
+        
+        	conn = ConnUtil.getDataSourceHATS().getConnection();
+    		ps = conn.prepareStatement(sql);
+            ps.setString(1, key);
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+            	val = rs.getString("PARAM1");
+            } 
+                                    
+        } catch (Exception e) {
+            logger.info("[LABGEN] getParam error");
+            e.printStackTrace();
+            
+        } finally {
+        	try {
+        		if (rs != null)
+        			rs.close();
+        		
+        		if (ps != null)
+        			ps.close();
+        		
+        		ConnUtil.closeConnection(conn);
+        	} catch(Exception e) {
+                logger.info("[LABGEN] Cannot close getParam connection");
+                e.printStackTrace();
+        	}
+        }
+        
+        return val;
+	}	
+
+	private void generateKey() {
+        this.recordKey = null;
+        
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        String sql;
+                
+		try {
+			
+            sql = "select to_char(ehr_seq.nextval) from dual";
+            conn = ConnUtil.getDataSourceLIS().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            			
+            if (rs.next()) {
+            	this.recordKey = rs.getString(1);
+                logger.info("[LABGEN] gen key:" + this.recordKey);         	
+            }
+                        
+        } catch (Exception e) {
+            logger.info("[LABGEN] Cannot generate record key");
+            e.printStackTrace();
+            
+        } finally {
+        	try {
+        		if (rs != null)
+        			rs.close();
+        		
+        		if (ps != null)
+        			ps.close();
+        		
+        		ConnUtil.closeConnection(conn);
+        	} catch(Exception e) {
+                logger.info("[LABGEN] Cannot close connection");
+                e.printStackTrace();
+        	}
+        }
+        
+	}
+	
+	private String getDict(String termId, String type){
+		String dict = null;        
+		
+        PreparedStatement ps = null;
+		Connection conn = null;
+        ResultSet rs = null;
+        String sql;
+        
+		try {
+			
+        	sql = "select dict from labm_terms " +
+        			" where TERMID = ? " +
+        			" and type = ? ";
+        	
+        	conn = ConnUtil.getDataSourceLIS().getConnection();
+    		ps = conn.prepareStatement(sql);
+
+            ps.setString(1, termId);
+            ps.setString(2, type);
+            
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+            	dict = rs.getString("dict");
+            }
+                                    
+        } catch (Exception e) {
+            logger.info("[LABGEN] getDict error: " + termId);
+            e.printStackTrace();
+            
+        } finally {
+        	try {
+        		if (rs != null)
+        			rs.close();
+        		
+        		if (ps != null)
+        			ps.close();
+        		
+        		ConnUtil.closeConnection(conn);
+        	} catch(Exception e) {
+                logger.info("[LABGEN] Cannot close connection");
+                e.printStackTrace();
+        	}
+        }
+        
+        return dict;
+	}	
+	
+	private String getTerms(String termId, String type){
+		String desc = null;        
+		
+        PreparedStatement ps = null;
+		Connection conn = null;
+        ResultSet rs = null;
+        String sql;
+        
+		try {
+			
+        	sql = "select ehr_desc from labm_terms " +
+        			" where TERMID = ? " +
+        			" and type = ? ";
+        	
+        	conn = ConnUtil.getDataSourceLIS().getConnection();
+    		ps = conn.prepareStatement(sql);
+
+            ps.setString(1, termId);
+            ps.setString(2, type);
+            
+            rs = ps.executeQuery();
+            
+            if (!rs.next()) {
+            	logger.info("[LABGEN] Terms not found: " + termId);
+            } else {
+            	desc = rs.getString("ehr_desc");
+            }
+                                    
+        } catch (Exception e) {
+            logger.info("[LABGEN] getTerms error: " + termId);
+            e.printStackTrace();
+            
+        } finally {
+        	try {
+        		if (rs != null)
+        			rs.close();
+        		
+        		if (ps != null)
+        			ps.close();
+        		
+        		ConnUtil.closeConnection(conn);
+        	} catch(Exception e) {
+                logger.info("[LABGEN] Cannot close connection");
+                e.printStackTrace();
+        	}
+        }
+        
+        return desc;
+	}	
+	
+	//Obsoleted code
+	/*
+	private String getLOINCDesc(String TermID){
+        PreparedStatement ps = null;
+		Connection conn = null;
+        ResultSet rs = null;
+        String sql;
+        String desc = null;
+        
+		try {
+			
+        	sql = "select description from labm_loinc " +
+        			" where loinc_code = ? ";
+        	conn = ConnUtil.getDataSourceLIS().getConnection();
+    		ps = conn.prepareStatement(sql);
+            ps.setString(1, TermID);
+            rs = ps.executeQuery();
+            
+            if (!rs.next()) {
+            	logger.info("[LABGEN] LOINC not found: " + TermID);
+            } else {
+            	desc = rs.getString("description");
+            }
+                                    
+        } catch (Exception e) {
+            logger.info("[LABGEN] LOINC error: " + TermID);
+            e.printStackTrace();
+            
+        } finally {
+        	try {
+        		if (rs != null)
+        			rs.close();
+        		
+        		if (ps != null)
+        			ps.close();
+        		
+        		ConnUtil.closeConnection(conn);
+        	} catch(Exception e) {
+                logger.info("[LABGEN] Cannot close connection");
+                e.printStackTrace();
+        	}
+        }
+        
+        return desc;
+	}*/
+		
+	private LabResultGenDetail.LabReqData req(String labnum, String testcat){
+		
+		LabResultGenDetail.LabReqData r = new LabResultGenDetail.LabReqData();
+		
+	   	PreparedStatement psReqData = null;
+	   	Connection conn = null;
+	    ResultSet rsReqData = null;
+        String sql;
+        String orderNo = null;
+
+        r.setRecordKey(getRecordKey());
+        
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+    	r.setTransactionDtm(sdf.format(cal.getTime()));
+
+		try {
+			
+			r.setTransactionType(getTransactionType());
+			// use to replace labo_masthead update_dtm
+        	r.setLastUpdateDtm(getRptDate());
+        	
+        	if ( ! getTransactionType().equals("D") ) {
+
+            
+        		sql = "select to_char(date_rpt, 'yyyy-mm-dd hh24:mi:ss') || '.000' update_dtm, regid, doc_nameo, " +
+        			" to_char(date_in, 'yyyy-mm-dd hh24:mi:ss') || '.000' date_in, " +
+        			" comments, m.spec_type, to_char(recv_date, 'yyyy-mm-dd hh24:mi:ss') || '.000' arrival_dtm, " +
+        			" decode(date_col, null, null, to_char(date_col, 'yyyy-mm-dd hh24:mi:ss') || '.000') collect_dtm, " +
+        			" s.spec_desc, ref_hcpid, req_no " +
+        			" from labo_masthead m left outer join labm_spec_type s on m.spec_type = s.spec_type " +
+        			" where lab_num = ? ";
+        	
+        		conn = ConnUtil.getDataSourceLIS().getConnection();
+        		psReqData = conn.prepareStatement(sql);
+
+        		psReqData.setString(1, labnum) ;
+        		rsReqData = psReqData.executeQuery();
+
+        		if (!rsReqData.next()) {
+        			logger.info("[LABGEN] LabReqData data not found: labnum:" + labnum);
+        		} else {
+				// set LabReqData
+            	            	
+                	r.setEpisodeNo(rsReqData.getString("regid"));
+
+//20190712 Arran add for CRC
+                	//r.setAttendanceInstId("5987754786");
+					if  (rsReqData.getString("ref_hcpid") == null || rsReqData.getString("ref_hcpid").isEmpty()) {						
+						r.setAttendanceInstId(FactoryBase.getInstance().getSysparamValue("hcp_id"));
+					} else {
+						r.setAttendanceInstId(rsReqData.getString("ref_hcpid"));
+						orderNo = rsReqData.getString("ref_hcpid") + ":" + rsReqData.getString("req_no");
+						r.setOrderNo(orderNo);
+					}
+						
+                	r.setRequestNo(labnum);
+                	r.setRequestDoctor(rsReqData.getString("doc_nameo"));
+
+                	//r.setRequestParticipantInstId("5987754786");
+                	r.setRequestParticipantInstId(FactoryBase.getInstance().getSysparamValue("hcp_id"));
+                	
+                	//r.setRequestParticipantInstName("ADV TEST");
+                	r.setRequestParticipantInstName(FactoryBase.getInstance().getSysparamValue("hcp_name"));
+
+                	//r.setRequestParticipantInstLtDesc("HKAH");
+                	r.setRequestParticipantInstLtDesc(FactoryBase.getInstance().getSysparamValue("hcp_name"));
+                	
+                	if (testcat.equals("1")) {
+                		r.setLabCategoryCd("CHEM");
+                		r.setLabCategoryDesc("Chemical Pathology");
+                		r.setLabCategoryLtDesc("Chemistry");
+                	} else if (testcat.equals("M")) {
+                		r.setLabCategoryCd("CHEM");
+                		r.setLabCategoryDesc("Chemical Pathology");
+                		r.setLabCategoryLtDesc("Molecular Genetics");
+                	} else if (testcat.equals("2")){
+                		r.setLabCategoryCd("HAEM");
+                		r.setLabCategoryDesc("Haematology");
+                		r.setLabCategoryLtDesc("Hematology");
+                	} else if (testcat.equals("3")){
+                		r.setLabCategoryCd("GEOT");
+                		r.setLabCategoryDesc("General & Other");
+                		r.setLabCategoryLtDesc("Stool/Urinalysis");
+                	} else if (testcat.equals("4")){
+                		//r.setLabCategoryCd("PATH");
+                		//r.setLabCategoryDesc("Anatomical Pathology");
+                		r.setLabCategoryCd("GEOT");
+                		r.setLabCategoryDesc("General & Other");
+                		r.setLabCategoryLtDesc("Referral");
+                	}
+            		r.setFileInd(fileInd);
+                	
+                	// r.setPerformLabName("HKAH");
+                	r.setPerformLabName(FactoryBase.getInstance().getSysparamValue("hcp_name"));
+                	
+            		r.setReportReferenceDtm(rsReqData.getString("date_in"));
+            		r.setLabReportComment(rsReqData.getString("comments"));
+            		r.setSpecimenTypeLtId(rsReqData.getString("spec_type"));
+            		r.setSpecimenArrivalDtm(rsReqData.getString("arrival_dtm"));
+            		r.setSpecimenCollectDtm(rsReqData.getString("collect_dtm"));
+            		
+            		//r.setRecordCreationInstId("5987754786");
+            		r.setRecordCreationInstId(FactoryBase.getInstance().getSysparamValue("hcp_id"));
+            		
+            		//r.setRecordCreationInstName("ADV TEST");
+            		r.setRecordCreationInstName(FactoryBase.getInstance().getSysparamValue("hcp_name"));
+            		
+            		r.setRecordUpdateDtm(rsReqData.getString("date_in"));
+
+            		//r.setRecordUpdateInstId("5987754786");
+            		r.setRecordUpdateInstId(FactoryBase.getInstance().getSysparamValue("hcp_id"));
+            		
+            		//r.setRecordUpdateInstName("ADV TEST");
+            		r.setRecordUpdateInstName(FactoryBase.getInstance().getSysparamValue("hcp_name"));
+            		
+            		r.setSpecimenTypeLtDesc(rsReqData.getString("spec_desc"));
+            	}
+        		
+            } else {
+//req data for delete
+            	sql = "select order_no " +
+            			" from ehr_log_header " +
+            			" where record_key = ? ";
+            	
+            		conn = ConnUtil.getDataSourceLIS().getConnection();
+            		psReqData = conn.prepareStatement(sql);
+
+            		psReqData.setString(1, getRecordKey()) ;
+            		rsReqData = psReqData.executeQuery();
+
+            		if (!rsReqData.next()) {
+            			logger.info("[LABGEN] LabReqData data not found for delete: RecordKey:" + getRecordKey());
+            		} else {
+            			orderNo = rsReqData.getString("order_no");
+						r.setOrderNo(orderNo);
+            		}
+            }
+			                       
+        } catch (Exception e) {
+            logger.info("[LABGEN] LabReqData Error, labnum: " + labnum + " testcat: " + testcat);
+            e.printStackTrace();
+            
+        } finally {
+        	try {        		
+        		if (rsReqData != null)
+        			rsReqData.close();
+        		
+        		if (psReqData != null)
+        			psReqData.close();        	
+        		
+        		ConnUtil.closeConnection(conn);
+        	} catch(Exception e) {
+                logger.info("[LABGEN] Cannot close connection");
+                e.printStackTrace();
+        	}
+        }        
+        return r; 
+	}
+	
+	private List<LabgenResultData> genResult(String labnum, String testcat){
+	
+		List<LabgenResultData> result = new ArrayList<LabgenResultData>();
+		LabgenResultData item;
+		
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        String sql;
+
+		try {
+        	sql = "select r.test_type test_type, r.test_num test_id, r.short_desc test_desc, r.result_txt rpt_result, decode(isNumber(r.result_txt),0,'N',1,'T') rpt_result_type, r.units rpt_result_unit, " +
+					" r.print_ref_txt reference_range, nvl(r.profile, r.test_num) panel, decode(d.flag, 'H', 'H', 'L', 'L', '') abnormal_ind, decode(d.flag, 'H', 'High', 'L', 'Low', '') abnormal_ind_desc,  decode(d.flag, 'H', 'High', 'L', 'Low', d.flag) abnormal_ind_lt_desc, nvl(p.short_desc, r.short_desc) panel_desc, l.loinc test_rt_id, " +
+					" to_char(h.release_dt ,'yyyy-mm-dd hh24:mi:ss') || '.000' auth_dtm, r.result result, " +
+					" DECODE(INSTR(result_txt, chr(13)), 0, result_txt, null, result_txt, SUBSTR(result_txt, 0, INSTR(result_txt, chr(13))-1)) enum_result, r.test_comment, " +
+					" DECODE(INSTR(r.print_ref_txt, chr(13)), 0, r.print_ref_txt, null, r.print_ref_txt, SUBSTR(r.print_ref_txt, 0, INSTR(r.print_ref_txt, chr(13))-1)) enum_ref " +
+					" from labo_disp_result r " +
+					" inner join labm_testtype t on (r.test_type = t.test_type ) " +
+					" inner join labo_detail d on (r.lab_num = d.lab_num and r.test_num = d.test_num ) " +
+					" left outer join labm_prices p on (r.profile = p.code ) " +
+					" left outer join labm_prices l on (r.test_num = l.code ) " +
+					" inner join labo_header h on (r.lab_num = h.lab_num and r.test_type = h.test_type) " +
+					" where r.lab_num = ? " +
+					" and t.dept_grp = ? " +
+					" and r.result_txt is not null " +
+					" and r.status = '2' " +
+					" and r.report = '1' ";        	
+
+        	conn = ConnUtil.getDataSourceLIS().getConnection();       	
+        	ps = conn.prepareStatement(sql);
+ 
+        	ps.setString(1, labnum);
+        	ps.setString(2, testcat);
+        	rs = ps.executeQuery();
+        	        	
+        	while (rs.next()){        	
+            	
+    			//logger.info("[LABGEN] DEBUG: 1.1");        		
+                 	
+        		item = new LabgenResultData();
+        		item.setRecordKey(getRecordKey());
+        		item.setTestRtName(getDict(rs.getString("test_rt_id"), "T"));
+        		item.setTestRtId(rs.getString("test_rt_id"));
+        		item.setTestRtDesc(getTerms(rs.getString("test_rt_id"), "T"));
+        		item.setTestLtId(rs.getString("test_id"));
+        		item.setTestLtDesc(rs.getString("test_desc"));   		
+
+//20190712 including test type O for CRC           		
+        		if (rs.getString("test_type").equals("1") || rs.getString("test_type").equals("7")
+        				|| rs.getString("test_type").equals("I") || rs.getString("test_type").equals("O")
+        				|| rs.getString("test_type").equals("2") || rs.getString("test_type").equals("5")
+        				|| rs.getString("test_type").equals("C") || rs.getString("test_type").equals("L")) {
+        			
+        			if ( rs.getString("rpt_result_type").equals("N") ) {
+        				item.setResultType("1");
+            			item.setNumericResult(rs.getString("result"));
+            			item.setReportableResult(rs.getString("rpt_result"));
+//20190904 Only send unit for numeric result             			
+            			item.setResultUnit(rs.getString("rpt_result_unit"));
+            			item.setReferenceRange(rs.getString("reference_range"));
+        			}
+        			else {
+        				item.setResultType("2");
+        				item.setEnumeratedResult(rs.getString("enum_result"));
+        				item.setReportableResult(rs.getString("enum_result"));
+            			item.setReferenceRange(rs.getString("reference_range"));
+        			}
+        				
+        		} else {
+        			item.setResultType("3");
+        			item.setTextResult(rs.getString("result"));
+        			
+               		if (rs.getString("rpt_result").length() > 255)
+            			item.setReportableResult(rs.getString("rpt_result").substring(0, 251) + "...");
+            		else
+            			item.setReportableResult(rs.getString("rpt_result"));
+               		
+               		item.setReferenceRange(rs.getString("reference_range"));        			
+        		}
+               
+        		item.setAbnormalIndCd(rs.getString("abnormal_ind"));
+        		item.setAbnormalIndDesc(rs.getString("abnormal_ind_desc"));
+        		item.setAbnormalIndLtDesc(rs.getString("abnormal_ind_lt_desc"));
+        		        		
+        		item.setPanelLtCd(rs.getString("panel"));
+        		item.setPanelLtDesc(rs.getString("panel_desc"));
+        		
+        		item.setReportAuthDtm(rs.getString("auth_dtm"));
+        		
+        		item.setResultNote(rs.getString("test_comment"));
+        		        		
+        		result.add(item);
+        	}
+        	        	
+		} catch (Exception e) {
+            logger.info("[LABGEN] LabgenResultData Error, labnum:" + labnum + " testcat: " + testcat);
+            e.printStackTrace();
+            
+        } finally {
+        	try {
+        		if (rs != null)
+        			rs.close();
+        		
+        		if (ps != null)
+        			ps.close();
+        		       
+        		ConnUtil.closeConnection(conn);
+        	} catch(Exception e) {
+                logger.info("[LABGEN] Cannot close connection");
+                e.printStackTrace();
+        	}
+        }		
+		return result;
+	}
+
+	private LabResultGenDetail.LabReportData report(String labnum, String testcat) {
+		
+		LabResultGenDetail.LabReportData r = new LabResultGenDetail.LabReportData();
+		
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        String sql;
+		
+		r.setRecordKey(getRecordKey());
+		r.setReportStatusCd("F");
+		r.setReportStatusDesc("Final report");
+		r.setReportStatusLtDesc("Final Report");
+		// report filename
+		r.setFileName(getRptFilename());
+			
+		try {
+
+			sql = "	select to_char(release_dt,'yyyy-mm-dd hh24:mi:ss') || '.000' report_dtm" +
+        			" from labo_header h, labm_testtype t " +
+        			" where h.test_type = t.test_type and h.lab_num = ? and t.dept_grp = ? and h.status = '2' and release_dt is not null";
+			conn = ConnUtil.getDataSourceLIS().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, labnum) ;
+			ps.setString(2, testcat) ;
+			rs = ps.executeQuery();
+			
+			if (rs.next())
+				r.setReportDtm(rs.getString("report_dtm"));
+            
+		} catch (Exception e) {
+			
+            logger.info("[LABGEN] LabReportData Error, labnum:" + labnum + " testcat: " + testcat);
+            e.printStackTrace();
+            
+        } finally {
+        	try {
+        		if (rs != null)
+        			rs.close();
+        		
+        		if (ps != null)
+        			ps.close();
+        		
+        		ConnUtil.closeConnection(conn);
+        	} catch(Exception e) {
+                logger.info("[LABGEN] Cannot close connection");
+                e.printStackTrace();
+        	}
+        }		
+		return r;
+	}
+	
+    private static void copyFileUsingFileStreams(SmbFile source, File path, File dest) throws IOException {
+        SmbFileInputStream input = null;
+        OutputStream output = null;
+        //try {
+           path.mkdirs() ;
+           input = new SmbFileInputStream(source);
+           output = new FileOutputStream(dest);
+           
+           byte[] buf = new byte[1024];
+           int bytesRead;
+           while ((bytesRead = input.read(buf)) > 0) {
+             output.write(buf, 0, bytesRead);
+             }
+        //} finally {
+           input.close();
+           output.close();
+        //}
+    }
+	
+//	@Scheduled(cron="0/15 * * * * ?")	//every 15 seconds
+//	@Scheduled(cron="0 0 15 * * ?")		//3:00:00pm
+//	@Scheduled(cron="0 0/15 * * * ?") 	//every 15 minutes
+//  @Scheduled(cron="0 0/5 * * * ?") 	//every 5 minutes
+//  @Scheduled(cron="0 15/30 * * * ?") 	//every 30 minute at 15 and 45
+//  @Scheduled(cron="0 15/30 0-7,12-23 * * ?")	//15, 45 every hour (skips 7-12)
+//  @Scheduled(cron="0 5/10 * * * ?")	//every 10 minutes starting at 05
+//	@Scheduled(cron="0 5/10 12-23 * * ?")	//every 10 minutes starting at 05 on 12-23
+//  @Scheduled(cron="0 3/6 * * * ?") //At second :00, every 6 minutes starting at minute :03, of every hour
+    
+// ***
+//production:   
+//    @Scheduled(cron="0 10/20 * * * ?") //every 20 minutes at :10, :30, :50   
+	public void ehrSchedule(){
+    	logger.info("[LABGEN] Start 1.106");
+    	uploadBL();
+    	uploadBLM();
+    	logger.info("[LABGEN] Complete");
+    }
+    	   	
+    private void uploadBL() {
+    	int size = Integer.valueOf( getParam("EHRLISSIZE", "30"));
+		
+        PreparedStatement psReport = null;
+        PreparedStatement psLogHeader = null;
+        PreparedStatement psLogHeaderUpd = null;
+        PreparedStatement psLogDetail = null;
+        PreparedStatement psUpdate_sent = null;
+        PreparedStatement psUpdate_error = null;
+        PreparedStatement psUpdate_del = null;
+        PreparedStatement psLogNo = null;
+        
+        Connection conn = null;
+        ResultSet rs = null;
+        ResultSet rsLogNo = null;
+
+        String sql;
+        String labnum;
+        String testcat;
+        String tranType;
+        String recKey;
+        
+        Long ehrLogNo = null ;
+        
+        String fname;
+        String ehr_fname = null;
+        String tmp_fname;
+
+        String ori_path = null;
+        String tmp_path = null;
+        
+        //String reportSrcBasePath = "\\\\160.100.2.79\\d$\\mrpdf\\" ;
+        String reportSrcBasePath = FactoryBase.getInstance().getSysparamValue(ConstantsEhr.SYSPARAM_LIS_REPORT_SOURCE_PATH);
+        String reportTmpBasePath = FactoryBase.getInstance().getSysparamValue(ConstantsEhr.SYSPARAM_LIS_REPORT_TEMP_PATH);
+        SmbFile smbFile = null ;
+        
+		File attachment = null ;
+		File destDirFile = null ;
+		File target = null ;
+
+		String login_user = FactoryBase.getInstance().getSysparamValue(ConstantsEhr.SYSPARAM_SMB_USERNAME);
+	    String login_pass = FactoryBase.getInstance().getSysparamValue(ConstantsEhr.SYSPARAM_SMB_PASSWORD);
+        
+        Participant p;
+        LabResultGenDetail d;
+        
+		ApplicationContext context = new ClassPathXmlApplicationContext("ClientContext.xml");
+		HeprWebServiceClient heprWebServiceClient = (HeprWebServiceClient) context.getBean("HeprWebServiceClient");
+        
+        Response genResponse;
+                        
+		try {
+	    	logger.info("[LABGEN] Processing BL");
+									
+			sql = "select '1' dummy, upload_mode, ehr_record_key, patno, " +
+					" lab_num, test_cat, rpt_date, rpt_by, fname, " +
+					" folder, ehr_status, ehrno, fullname, ehrhkid, " +
+					" ehrdocno, ehrdoctype, ehrdob_dtm, ehrsex, encrype, " +
+					" passkey " +
+					" from ehr_lis_pending " +
+					" where upload_mode = 'BL' " +
+					" order by rpt_date ";
+
+			logger.info("[LABGEN] sql: " + sql );
+						
+			conn = ConnUtil.getDataSourceLIS().getConnection();
+			psReport = conn.prepareStatement(sql);
+            rs = psReport.executeQuery();
+            
+            sql = "select sq_ehr_log_no.nextval from dual";
+			psLogNo = conn.prepareStatement(sql);
+
+//20170111 Arran add upload mode to log						
+			sql = "insert into ehr_log_header (ehr_no, patientkey, hkid, doc_type, doc_no, person_eng_surname, " +
+					" person_eng_given_name, person_eng_full_name, sex, birth_date, record_key, transaction_dtm, " +
+					" transaction_type, last_update_dtm, episode_no, attendance_inst_id, request_no, request_doctor, " +
+					" request_part_inst_id, request_part_inst_name, request_part_inst_lt_desc, order_no, lab_category_cd, " +
+					" lab_category_lt_desc, perform_lab_name, report_reference_dtm, clinical_info, lab_report_comment, " +
+					" specimen_type_rt_name, specimen_type_rt_id, specimen_type_rt_desc, specimen_type_lt_id, " +
+					" specimen_type_lt_desc, specimen_arrival_dtm, specimen_collect_dtm, specimen_details, file_ind, " +
+					" record_creation_dtm, record_creation_inst_id, record_creation_inst_name, report_status_cd, " +
+					" report_status_desc, report_status_lt_desc, report_dtm, file_name, return_code, return_message, test_cat, ehr_log_no, upload_mode ) " +
+					" values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+			psLogHeader = conn.prepareStatement(sql);
+
+			sql = "insert into ehr_log_detail (record_key, test_lt_id, test_lt_desc, reportable_result, result_unit, " +
+			" reference_range, panel_lt_cd, auth_dtm, auth_staff_id, auth_staff_eng_name, " +
+			" abnormal_ind_cd, result_type, numeric_result, ehr_log_no, test_rt_name, test_rt_id, test_rt_desc, " +
+			" Enumerated_Result, text_result, panel_lt_desc, abnormal_ind_desc, abnormal_ind_lt_desc, result_note) values " +
+			" (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			psLogDetail = conn.prepareStatement(sql);
+
+			sql = "update labo_report_log set ehr_status = 'S', ehr_record_key = ? where lab_num = ? and test_cat = ? and ehr_status in ('R', 'I') ";
+			psUpdate_sent = conn.prepareStatement(sql);
+
+			sql = "update labo_report_log set ehr_status = 'E' where lab_num = ? and test_cat = ? and ehr_status in ('R', 'I') ";
+			psUpdate_error = conn.prepareStatement(sql);
+			
+//20190208 Arran add psUpdate_D
+			sql = "update labo_report_log set ehr_status = 'D', ehr_record_key = null where ehr_record_key = ? and ehr_status = 'C' ";
+			psUpdate_del = conn.prepareStatement(sql);
+			
+//update log header return code
+            sql = "update ehr_log_header set return_code = ?, return_message = ? where ehr_log_no = ? and upload_mode = ? " ;
+            psLogHeaderUpd = conn.prepareStatement(sql);			
+			            
+			Map<Participant,List> pGenMap_BL = new HashMap<Participant,List>();
+			Map<String,File> genFileMap_BL = new HashMap<String,File>() ;
+			List<String> genEhrLogNoList = new ArrayList<String>() ;
+			
+            while (rs.next()) {
+//Send batch
+                if ( pGenMap_BL.size() >= size ) {            	           		            	
+                	//send BL            	
+	            	logger.info("[LABGEN] Send BL: " + pGenMap_BL.size());
+	            	try {
+	            		Thread.sleep(60000);     
+	            		genResponse = heprWebServiceClient.uploadLabgenData(pGenMap_BL, genFileMap_BL, "BL");
+	//write log
+	            		for (int i = 0; i < genEhrLogNoList.size(); i++) {
+	            			psLogHeaderUpd.setString(1, genResponse.getResponseCode());
+	            			psLogHeaderUpd.setString(2, genResponse.getResponseMessage());
+	            			psLogHeaderUpd.setString(3, genEhrLogNoList.get(i));
+	               			psLogHeaderUpd.setString(4, "BL");
+	            			psLogHeaderUpd.executeUpdate();
+	            			psLogHeaderUpd.clearParameters();            			
+	            		}
+	         		
+	            		if ( !"00000".equals(genResponse.getResponseCode()) ) {
+	            			logger.info("[LABGEN] return code=" + genResponse.getResponseCode());         
+	            			String resMsg = genResponse.getResponseCode() + " - " + genResponse.getResponseMessage();
+	            			sendAlert(genEhrLogNoList, resMsg);
+	            		}
+
+	//update labo_report_log status            		
+	                    for(Map.Entry<Participant,List> entry : pGenMap_BL.entrySet()) {
+	                    	List<LabResultGenDetail> detailList = entry.getValue();
+	                    	for(int i = 0; i < detailList.size(); i++) {
+	                    		
+	                    		d  = detailList.get(i);
+	                    		tranType =  d.getLabReqData().get(0).getTransactionType();
+	                    		recKey = d.getLabReqData().get(0).getRecordKey();
+	                    		labnum = d.getLabReqData().get(0).getRequestNo();
+	                    		
+	                    		testcat = null;
+	                    		
+	                    		if ("Chemistry".equals(d.getLabReqData().get(0).getLabCategoryLtDesc())) {
+	                    			testcat = "1";
+	                    		} else if ("Hematology".equals(d.getLabReqData().get(0).getLabCategoryLtDesc())) {
+	                    			testcat = "2";
+	                    		} else if ("Stool/Urinalysis".equals(d.getLabReqData().get(0).getLabCategoryLtDesc())) {
+	                    			testcat = "3";
+	                    		} else if ("Referral".equals(d.getLabReqData().get(0).getLabCategoryLtDesc())) {
+	                    			testcat = "4";
+	                    		} else if ("Molecular Genetics".equals(d.getLabReqData().get(0).getLabCategoryLtDesc())) {
+	                    			testcat = "M";
+	                    		}
+	                    		                                        		
+	                    		logger.info("[LABGEN] Update BL status tranType=" + tranType + " Key=" + recKey + " TESTCAT=" + testcat+ " LABNUM=" + labnum );
+	                    		
+	    						if ( "D".equals(tranType) ) {
+	    							psUpdate_del.setString(1, recKey ) ;
+	    							psUpdate_del.executeUpdate();
+	        						psUpdate_del.clearParameters();
+	    						} else {					
+	    	                		psUpdate_sent.setString(1, recKey ) ;
+	    							psUpdate_sent.setString(2, labnum) ;
+	        						psUpdate_sent.setString(3, testcat) ;
+	        						
+	        						psUpdate_sent.executeUpdate();
+	        						psUpdate_sent.clearParameters();    							    						
+	    						}    						    						
+	                    	}
+	                    }             		
+	            		            		
+	            	} catch (Exception e) {
+	 //20190122 Arran add log for exception               		
+	               		for (int i = 0; i < genEhrLogNoList.size(); i++) {
+	               			psLogHeaderUpd.setString(1, "exception");
+	               			psLogHeaderUpd.setString(2, e.getMessage());
+	               			psLogHeaderUpd.setString(3, genEhrLogNoList.get(i));
+	               			psLogHeaderUpd.setString(4, "BL");
+	               			psLogHeaderUpd.executeUpdate();
+	               			psLogHeaderUpd.clearParameters();
+	               		}
+
+	               		String resMsg = "Exception - " + e.getMessage();
+	        			sendAlert(genEhrLogNoList, resMsg);
+	        			
+						logger.info("[LABGEN] send BL error : " + e.getMessage() );
+						e.printStackTrace();
+					} finally {
+						pGenMap_BL = new HashMap<Participant,List>();
+						genFileMap_BL = new HashMap<String,File>() ;
+						genEhrLogNoList = new ArrayList<String>() ;
+					}
+                	            	
+                }
+                
+//Finish sending batch
+                
+            	labnum = rs.getString("lab_num");
+            	testcat = rs.getString("test_cat");
+
+    	        rsLogNo = psLogNo.executeQuery();
+    	        if (rsLogNo.next()) {
+                	ehrLogNo = rsLogNo.getLong(1) ;    	        	
+    	        }     	  
+            	
+            	this.uploadMode = rs.getString("upload_mode") ;
+            	this.updRecordKey = rs.getString("ehr_record_key") ;
+            	
+//20191029 Arran add I for re-Init BL-M            	
+    			if ( getUpdRecordKey().equals("NULL") || "I".equals(rs.getString("ehr_status")) ) {
+    				this.transactionType = "I" ;
+    			} else {
+    				// 20160728
+    				if ( "C".equals(rs.getString("ehr_status")) ) {
+    					this.transactionType = "D" ;
+    				} else {
+    					this.transactionType = "U" ;
+    				}
+
+    			}
+            	this.rptDate = rs.getString("rpt_date");
+    			
+				logger.info("[LABGEN] labnum: " + labnum + " testcat: " + testcat);
+            
+				p = new Participant() ;
+				p.setSex( rs.getString("ehrsex") );
+	            p.setBirthDate( rs.getString("ehrdob_dtm") );
+				p.setEhrNo( rs.getString("ehrno") );
+				p.setPatientKey( rs.getString("patno") );
+				p.setHkid( rs.getString("ehrhkid") );
+				p.setDocNo( rs.getString("ehrdocno") );
+				p.setDocType( rs.getString("ehrdoctype") );
+				p.setPersonEngFullName( rs.getString("fullname") );
+				
+				if ( rs.getString("fname") == null || rs.getString("fname").isEmpty() || rs.getString("folder") == null || rs.getString("folder").isEmpty() ) {
+	
+					this.rptFilename = null ;
+					fileInd = "0" ;
+					
+					if ( !"C".equals(rs.getString("ehr_status")) ) {
+						logger.info("[LABGEN] No file attached labnum: " + labnum + " testcat: " + testcat );
+						continue ;
+					}
+
+				} else {
+					try {
+						ori_path = reportSrcBasePath.trim() + rs.getString("folder") + "\\" + rs.getString("fname") ;
+
+						fname = rs.getString("fname");
+						tmp_fname = fname.substring(0, fname.length()-4).replace(".", "-") + fname.substring(fname.length()-4, fname.length()) ;
+						tmp_path = reportTmpBasePath + tmp_fname ;
+
+						logger.info("[LABGEN] reportSrcBasePath = " + reportSrcBasePath + 
+								" folder = " + rs.getString("folder") +
+								" ori_path = " + ori_path +
+								" reportTmpBasePath = " + reportTmpBasePath +
+								" file copy to = " + tmp_path +
+								" smb login = " + login_user + " ; " + login_pass );
+
+						NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication("",login_user, login_pass);
+
+						// linux file path
+						smbFile = new SmbFile("smb:" + ori_path.replace("\\", "/"), auth);
+						destDirFile = new File( reportTmpBasePath ) ;
+						target = new File( tmp_path ) ;
+						copyFileUsingFileStreams( smbFile, destDirFile, target ) ;
+						
+						if ("Z".equals(rs.getString("encrype"))) {
+							
+							try {
+							    ZipFile zipFile = new ZipFile(tmp_path);
+							    
+							    if (zipFile.isEncrypted()) {
+							        zipFile.setPassword(rs.getString("passkey"));
+							    }
+							    														    
+							    List<FileHeader> fileHeaders = zipFile.getFileHeaders();
+
+					            for(FileHeader fileHeader : fileHeaders) {					            	
+					            	ehr_fname = fileHeader.getFileName();	
+					            	tmp_path =  reportTmpBasePath + ehr_fname ;
+					                attachment = new File( tmp_path ) ;
+					                
+					                zipFile.extractFile(fileHeader, reportTmpBasePath);
+					                logger.info("[LABGEN] extract file: " + tmp_path);
+					            }
+					            
+							} catch (ZipException e) {
+								logger.info("[LABGEN] Unzip file error : " + e.getMessage() );
+							    e.printStackTrace();
+							    continue;
+							}
+						} else {
+							attachment = target;
+							ehr_fname = tmp_fname;
+						}
+									            
+						this.rptFilename = ehr_fname ;
+						fileInd = "1" ;												
+						
+					} catch (Exception e) {
+						logger.info("[LABGEN] Add file error : " + e.getMessage() );
+						e.printStackTrace();
+						continue;
+					}
+		            // -- end
+				}
+								
+				if ( "1".equals(testcat) || "2".equals(testcat) || "3".equals(testcat) || "4".equals(testcat) || "M".equals(testcat)){
+					//generate record key		
+					if ( getUpdRecordKey().equals("NULL") ) {
+						generateKey();
+					} else {
+						this.recordKey = getUpdRecordKey() ;
+					}
+					
+					List<LabResultGenDetail> detailList = new ArrayList<LabResultGenDetail>();
+					d = new LabResultGenDetail();
+					d.getLabReqData().add(req(labnum, testcat));
+		        	if ( ! "D".equals(getTransactionType()) ) {
+		        		
+						d.getLabgenResultData().addAll(genResult(labnum, testcat));
+						d.getLabReportData().add(report(labnum, testcat));
+						
+						if (d.getLabgenResultData().isEmpty()) {
+							logger.info("[LABGEN] Fail: LabgenResultData is empty. record ignored");
+
+							psUpdate_error.setString(1, labnum) ;
+    						psUpdate_error.setString(2, testcat) ;    						
+    						psUpdate_error.executeUpdate();
+    						psUpdate_error.clearParameters();
+    						
+							continue;
+						}
+						
+						if (d.getLabReportData().isEmpty()) {
+							logger.info("[LABGEN] Fail: LabReportData is empty. record ignored");
+							
+							psUpdate_error.setString(1, labnum) ;
+    						psUpdate_error.setString(2, testcat) ;    						
+    						psUpdate_error.executeUpdate();
+    						psUpdate_error.clearParameters();							
+							
+							continue;
+						}
+		        	}
+			
+					if (d.getLabgenResultData() != null) {
+						detailList.add(d);
+					
+						pGenMap_BL.put(p, detailList);
+						// attach pdf file
+						if ( fileInd.equals("1") ) {
+							genFileMap_BL.put(attachment.getName(), attachment);
+						}
+
+						genEhrLogNoList.add(ehrLogNo.toString());
+					
+						psLogHeader.setString(1, p.getEhrNo());
+						psLogHeader.setString(2, p.getPatientKey());
+						psLogHeader.setString(3, p.getHkid());
+						psLogHeader.setString(4, p.getDocType());
+						psLogHeader.setString(5, p.getDocNo());
+						psLogHeader.setString(6, p.getPersonEngSurname());
+						psLogHeader.setString(7, p.getPersonEngGivenName());
+						psLogHeader.setString(8, p.getPersonEngFullName());
+						psLogHeader.setString(9, p.getSex());
+						psLogHeader.setString(10, p.getBirthDate());
+						psLogHeader.setString(11, getRecordKey());
+						psLogHeader.setString(12, d.getLabReqData().get(0).getTransactionDtm());
+						psLogHeader.setString(13, d.getLabReqData().get(0).getTransactionType());
+						psLogHeader.setString(14, d.getLabReqData().get(0).getLastUpdateDtm());
+						psLogHeader.setString(15, d.getLabReqData().get(0).getEpisodeNo());
+						psLogHeader.setString(16, d.getLabReqData().get(0).getAttendanceInstId());
+						psLogHeader.setString(17, d.getLabReqData().get(0).getRequestNo());
+						psLogHeader.setString(18, d.getLabReqData().get(0).getRequestDoctor());
+						psLogHeader.setString(19, d.getLabReqData().get(0).getRequestParticipantInstId());
+						psLogHeader.setString(20, d.getLabReqData().get(0).getRequestParticipantInstName());
+						psLogHeader.setString(21, d.getLabReqData().get(0).getRequestParticipantInstLtDesc());
+						psLogHeader.setString(22, d.getLabReqData().get(0).getOrderNo());
+						psLogHeader.setString(23, d.getLabReqData().get(0).getLabCategoryCd());
+						psLogHeader.setString(24, d.getLabReqData().get(0).getLabCategoryLtDesc());
+						psLogHeader.setString(25, d.getLabReqData().get(0).getPerformLabName());
+						psLogHeader.setString(26, d.getLabReqData().get(0).getReportReferenceDtm());
+						psLogHeader.setString(27, d.getLabReqData().get(0).getClinicalInfo());
+						psLogHeader.setString(28, d.getLabReqData().get(0).getLabReportComment());
+						psLogHeader.setString(29, d.getLabReqData().get(0).getSpecimenTypeRtName());
+						psLogHeader.setString(30, d.getLabReqData().get(0).getSpecimenTypeRtId());
+						psLogHeader.setString(31, d.getLabReqData().get(0).getSpecimenTypeRtDesc());
+						psLogHeader.setString(32, d.getLabReqData().get(0).getSpecimenTypeLtId());
+						psLogHeader.setString(33, d.getLabReqData().get(0).getSpecimenTypeLtDesc());
+						psLogHeader.setString(34, d.getLabReqData().get(0).getSpecimenArrivalDtm());
+						psLogHeader.setString(35, d.getLabReqData().get(0).getSpecimenCollectDtm());
+						psLogHeader.setString(36, d.getLabReqData().get(0).getSpecimenDetails());
+						psLogHeader.setString(37, d.getLabReqData().get(0).getFileInd());
+						psLogHeader.setString(38, d.getLabReqData().get(0).getRecordCreationDtm());
+						psLogHeader.setString(39, d.getLabReqData().get(0).getRecordCreationInstId());
+						psLogHeader.setString(40, d.getLabReqData().get(0).getRecordCreationInstName());
+			        	if ( ! getTransactionType().equals("D") ) {
+							psLogHeader.setString(41, d.getLabReportData().get(0).getReportStatusCd());
+							psLogHeader.setString(42, d.getLabReportData().get(0).getReportStatusDesc());
+							psLogHeader.setString(43, d.getLabReportData().get(0).getReportStatusLtDesc());
+							psLogHeader.setString(44, d.getLabReportData().get(0).getReportDtm());
+							psLogHeader.setString(45, d.getLabReportData().get(0).getFileName());
+			        	} else {
+							psLogHeader.setString(41, null);
+							psLogHeader.setString(42, null);
+							psLogHeader.setString(43, null);
+							psLogHeader.setString(44, null);
+							psLogHeader.setString(45, null);
+			        	}
+			        	
+						psLogHeader.setString(46, null);
+						psLogHeader.setString(47, null);
+						psLogHeader.setString(48, testcat);
+						psLogHeader.setLong(49, ehrLogNo);
+//20170111 Arran add upload mode to log												
+						psLogHeader.setString(50, getUploadMode());
+						
+						psLogHeader.executeUpdate();
+						psLogHeader.clearParameters();
+
+			        	if ( ! "D".equals(getTransactionType()) ) {
+							for (LabgenResultData result : d.getLabgenResultData()) {
+								psLogDetail.setString(1, result.getRecordKey());
+								psLogDetail.setString(2, result.getTestLtId());
+								psLogDetail.setString(3, result.getTestLtDesc());
+								psLogDetail.setString(4, result.getReportableResult());
+								psLogDetail.setString(5, result.getResultUnit());
+								psLogDetail.setString(6, result.getReferenceRange());
+								psLogDetail.setString(7, result.getPanelLtCd());
+								psLogDetail.setString(8, result.getReportAuthDtm());
+								psLogDetail.setString(9, result.getReportAuthStaffId());
+								psLogDetail.setString(10, result.getReportAuthStaffEngName());
+								psLogDetail.setString(11, result.getAbnormalIndCd());
+								psLogDetail.setString(12, result.getResultType());
+								psLogDetail.setString(13, result.getNumericResult());
+								psLogDetail.setLong(14, ehrLogNo);
+								psLogDetail.setString(15, result.getTestRtName());
+								psLogDetail.setString(16, result.getTestRtId());
+								psLogDetail.setString(17, result.getTestRtDesc());
+								psLogDetail.setString(18, result.getEnumeratedResult());
+								psLogDetail.setString(19, result.getTextResult());
+								psLogDetail.setString(20, result.getPanelLtDesc());
+								psLogDetail.setString(21, result.getAbnormalIndDesc());
+								psLogDetail.setString(22, result.getAbnormalIndLtDesc());
+								psLogDetail.setString(23, result.getResultNote());
+								psLogDetail.executeUpdate();
+								psLogDetail.clearParameters();
+							}
+			        	}	
+
+					}
+
+				} 
+//end of rs loop		
+            }
+                    
+            if ( pGenMap_BL.size() > 0 ) {            	           		            	
+//send BL            	
+            	logger.info("[LABGEN] Send BL: " + pGenMap_BL.size());
+            	try {
+            		Thread.sleep(60000);     
+            		genResponse = heprWebServiceClient.uploadLabgenData(pGenMap_BL, genFileMap_BL, "BL");
+//write log
+            		for (int i = 0; i < genEhrLogNoList.size(); i++) {
+            			psLogHeaderUpd.setString(1, genResponse.getResponseCode());
+            			psLogHeaderUpd.setString(2, genResponse.getResponseMessage());
+            			psLogHeaderUpd.setString(3, genEhrLogNoList.get(i));
+               			psLogHeaderUpd.setString(4, "BL");
+            			psLogHeaderUpd.executeUpdate();
+            			psLogHeaderUpd.clearParameters();            			
+            		}
+         		
+            		if ( !"00000".equals(genResponse.getResponseCode()) ) {
+            			logger.info("[LABGEN] return code=" + genResponse.getResponseCode());         
+            			String resMsg = genResponse.getResponseCode() + " - " + genResponse.getResponseMessage();
+            			sendAlert(genEhrLogNoList, resMsg);
+            		}
+
+//update labo_report_log status            		
+                    for(Map.Entry<Participant,List> entry : pGenMap_BL.entrySet()) {
+                    	List<LabResultGenDetail> detailList = entry.getValue();
+                    	for(int i = 0; i < detailList.size(); i++) {
+                    		
+                    		d  = detailList.get(i);
+                    		tranType =  d.getLabReqData().get(0).getTransactionType();
+                    		recKey = d.getLabReqData().get(0).getRecordKey();
+                    		labnum = d.getLabReqData().get(0).getRequestNo();
+                    		
+                    		testcat = null;
+                    		
+                    		if ("Chemistry".equals(d.getLabReqData().get(0).getLabCategoryLtDesc())) {
+                    			testcat = "1";
+                    		} else if ("Hematology".equals(d.getLabReqData().get(0).getLabCategoryLtDesc())) {
+                    			testcat = "2";
+                    		} else if ("Stool/Urinalysis".equals(d.getLabReqData().get(0).getLabCategoryLtDesc())) {
+                    			testcat = "3";
+                    		} else if ("Referral".equals(d.getLabReqData().get(0).getLabCategoryLtDesc())) {
+                    			testcat = "4";
+                    		} else if ("Molecular Genetics".equals(d.getLabReqData().get(0).getLabCategoryLtDesc())) {
+                    			testcat = "M";
+                    		}
+                    		                                        		
+                    		logger.info("[LABGEN] Update BL status tranType=" + tranType + " Key=" + recKey + " TESTCAT=" + testcat+ " LABNUM=" + labnum );
+                    		
+    						if ( "D".equals(tranType) ) {
+    							psUpdate_del.setString(1, recKey ) ;
+    							psUpdate_del.executeUpdate();
+        						psUpdate_del.clearParameters();
+    						} else {					
+    	                		psUpdate_sent.setString(1, recKey ) ;
+    							psUpdate_sent.setString(2, labnum) ;
+        						psUpdate_sent.setString(3, testcat) ;
+        						
+        						psUpdate_sent.executeUpdate();
+        						psUpdate_sent.clearParameters();    							    						
+    						}    						    						
+                    	}
+                    }             		
+            		            		
+            	} catch (Exception e) {
+ //20190122 Arran add log for exception               		
+               		for (int i = 0; i < genEhrLogNoList.size(); i++) {
+               			psLogHeaderUpd.setString(1, "exception");
+               			psLogHeaderUpd.setString(2, e.getMessage());
+               			psLogHeaderUpd.setString(3, genEhrLogNoList.get(i));
+               			psLogHeaderUpd.setString(4, "BL");
+               			psLogHeaderUpd.executeUpdate();
+               			psLogHeaderUpd.clearParameters();
+               		}
+
+               		String resMsg = "Exception - " + e.getMessage();
+        			sendAlert(genEhrLogNoList, resMsg);
+        			
+					logger.info("[LABGEN] send BL error : " + e.getMessage() );
+					e.printStackTrace();
+				}
+            	
+            }
+			
+        } catch (Exception e) {
+            logger.info("[LABGEN] Error : " + e.getMessage() );
+            e.printStackTrace();
+            
+        } finally {
+        	try {
+        		if (rs != null)
+        			rs.close();        	
+        		      		
+        		if (psReport != null)
+        			psReport.close();
+        		
+        		if (rsLogNo != null)
+        			rsLogNo.close();
+        		        		        		
+        		if (psLogNo != null)
+        			psLogNo.close();
+        		
+        		if (psLogHeader != null)
+        			psLogHeader.close();
+        		
+        		if (psLogHeaderUpd != null)
+        			psLogHeaderUpd.close();
+        		
+        		if (psLogDetail != null)
+        			psLogDetail.close();        		
+        		
+        		if (psUpdate_sent != null)
+        			psUpdate_sent.close();
+        		
+        		if (psUpdate_error != null)
+            		psUpdate_error.close();        		 
+        		
+        		if (psUpdate_del != null)
+        			psUpdate_del.close();
+        		        		
+        		ConnUtil.closeConnection(conn);
+        		
+        	} catch(Exception e) {
+                logger.info("[LABGEN] Cannot close connection");
+                e.printStackTrace();
+        	}
+        }
+	}
+    
+    private void uploadBLM() {
+		
+        PreparedStatement psReport = null;
+        PreparedStatement psLogHeader = null;
+        PreparedStatement psLogHeaderUpd = null;
+        PreparedStatement psLogDetail = null;
+        PreparedStatement psUpdate_1 = null;
+        PreparedStatement psUpdate_2 = null;
+//20191028 Re-init status for BL-M       
+        PreparedStatement psUpdate_3 = null;
+        PreparedStatement psUpdate_error = null;
+        PreparedStatement psLogNo = null;
+
+        PreparedStatement psInit = null;
+        
+        Connection conn = null;
+        Connection connHATS = null;
+        ResultSet rs = null;
+        ResultSet rsLogNo = null;
+
+        String sql;
+        String labnum;
+        String testcat;
+        String tranType;
+        String recKey;
+        
+        Long ehrLogNo = null ;
+        
+        String fname;
+        String ehr_fname = null;
+        String tmp_fname;
+
+        String ori_path = null;
+        String tmp_path = null;
+        
+        //String reportSrcBasePath = "\\\\160.100.2.79\\d$\\mrpdf\\" ;
+        String reportSrcBasePath = FactoryBase.getInstance().getSysparamValue(ConstantsEhr.SYSPARAM_LIS_REPORT_SOURCE_PATH);
+        String reportTmpBasePath = FactoryBase.getInstance().getSysparamValue(ConstantsEhr.SYSPARAM_LIS_REPORT_TEMP_PATH);
+        SmbFile smbFile = null ;
+        
+		File attachment = null ;
+		File destDirFile = null ;
+		File target = null ;
+
+		String login_user = FactoryBase.getInstance().getSysparamValue(ConstantsEhr.SYSPARAM_SMB_USERNAME);
+	    String login_pass = FactoryBase.getInstance().getSysparamValue(ConstantsEhr.SYSPARAM_SMB_PASSWORD);
+        
+        Participant p;
+        LabResultGenDetail d;
+        
+		ApplicationContext context = new ClassPathXmlApplicationContext("ClientContext.xml");
+		HeprWebServiceClient heprWebServiceClient = (HeprWebServiceClient) context.getBean("HeprWebServiceClient");
+        
+        //Response response;
+        Response genResponse;
+                        
+		try {
+	    	logger.info("[LABGEN] Processing BL-M");
+									
+			sql = "select '1' dummy, upload_mode, ehr_record_key, patno, " +
+					" lab_num, test_cat, rpt_date, rpt_by, fname, " +
+					" folder, ehr_status, ehrno, fullname, ehrhkid, " +
+					" ehrdocno, ehrdoctype, ehrdob_dtm, ehrsex, encrype, " +
+					" passkey " +
+					" from ehr_lis_pending " +
+					" where upload_mode = 'BL-M' " +
+					" and rownum <= " + getParam("EHRLISSIZE", "30");
+
+			logger.info("[LABGEN] sql: " + sql );
+						
+			conn = ConnUtil.getDataSourceLIS().getConnection();
+			psReport = conn.prepareStatement(sql);
+            rs = psReport.executeQuery();
+            
+            sql = "select sq_ehr_log_no.nextval from dual";
+			psLogNo = conn.prepareStatement(sql);
+
+//20170111 Arran add upload mode to log						
+			sql = "insert into ehr_log_header (ehr_no, patientkey, hkid, doc_type, doc_no, person_eng_surname, " +
+					" person_eng_given_name, person_eng_full_name, sex, birth_date, record_key, transaction_dtm, " +
+					" transaction_type, last_update_dtm, episode_no, attendance_inst_id, request_no, request_doctor, " +
+					" request_part_inst_id, request_part_inst_name, request_part_inst_lt_desc, order_no, lab_category_cd, " +
+					" lab_category_lt_desc, perform_lab_name, report_reference_dtm, clinical_info, lab_report_comment, " +
+					" specimen_type_rt_name, specimen_type_rt_id, specimen_type_rt_desc, specimen_type_lt_id, " +
+					" specimen_type_lt_desc, specimen_arrival_dtm, specimen_collect_dtm, specimen_details, file_ind, " +
+					" record_creation_dtm, record_creation_inst_id, record_creation_inst_name, report_status_cd, " +
+					" report_status_desc, report_status_lt_desc, report_dtm, file_name, return_code, return_message, test_cat, ehr_log_no, upload_mode ) " +
+					" values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+			psLogHeader = conn.prepareStatement(sql);
+
+			sql = "insert into ehr_log_detail (record_key, test_lt_id, test_lt_desc, reportable_result, result_unit, " +
+			" reference_range, panel_lt_cd, auth_dtm, auth_staff_id, auth_staff_eng_name, " +
+			" abnormal_ind_cd, result_type, numeric_result, ehr_log_no, test_rt_name, test_rt_id, test_rt_desc, " +
+			" Enumerated_Result, text_result, panel_lt_desc, abnormal_ind_desc, abnormal_ind_lt_desc, result_note) values " +
+			" (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			psLogDetail = conn.prepareStatement(sql);
+
+			sql = "update labo_report_log set ehr_status = 'S', ehr_record_key = ? where lab_num = ? and test_cat = ? and ehr_status in ('R', 'I') ";
+			psUpdate_1 = conn.prepareStatement(sql);	
+			
+			sql = "update labo_report_log set ehr_status = 'E' where lab_num = ? and test_cat = ? and ehr_status in ('R', 'I') ";
+			psUpdate_error = conn.prepareStatement(sql);	
+			
+			sql = "update ehr_pmi set initlab = sysdate where patno = ?" ;
+			connHATS = ConnUtil.getDataSourceHATS().getConnection();
+			psUpdate_2 = connHATS.prepareStatement(sql);
+			
+            //update return message
+            sql = "update ehr_log_header set return_code = ?, return_message = ? where ehr_log_no = ? and upload_mode = ? " ;
+            psLogHeaderUpd = conn.prepareStatement(sql);
+			
+//20191028 Arran Re-init status for BL-M		
+			sql = "update labo_report_log set ehr_status = 'I' " +
+					" where lab_num in (select lab_num from labo_masthead where hospnum = ? or accountnum = ?) " +
+					" and ehr_status in ('R', 'S') " +
+					" and test_cat in ('1', '2', '3', '4', 'M') ";
+			psUpdate_3 = conn.prepareStatement(sql);
+			
+			Map<Participant,List> pGenMap_BL_M = new HashMap<Participant,List>();
+			Map<Participant,List> pGenMap_init = new HashMap<Participant,List>();			
+	        Map<String,File> genFileMap_BL_M = new HashMap<String,File>() ;
+			
+			List<String> genEhrLogNoList = new ArrayList<String>() ;
+			
+            while (rs.next()) {
+            
+            	labnum = rs.getString("lab_num");
+            	testcat = rs.getString("test_cat");
+
+    	        rsLogNo = psLogNo.executeQuery();
+    	        if (rsLogNo.next()) {
+                	ehrLogNo = rsLogNo.getLong(1) ;    	        	
+    	        }     	  
+            	
+            	this.uploadMode = rs.getString("upload_mode") ;
+            	this.updRecordKey = rs.getString("ehr_record_key") ;
+   				this.transactionType = "I" ;
+
+            	this.rptDate = rs.getString("rpt_date");
+    			
+				logger.info("[LABGEN] labnum: " + labnum + " testcat: " + testcat);
+            
+				p = new Participant() ;
+				p.setSex( rs.getString("ehrsex") );
+	            p.setBirthDate( rs.getString("ehrdob_dtm") );
+				p.setEhrNo( rs.getString("ehrno") );
+				p.setPatientKey( rs.getString("patno") );
+				p.setHkid( rs.getString("ehrhkid") );
+				p.setDocNo( rs.getString("ehrdocno") );
+				p.setDocType( rs.getString("ehrdoctype") );
+				p.setPersonEngFullName( rs.getString("fullname") );
+				
+				if ( rs.getString("fname") == null || rs.getString("fname").isEmpty() || rs.getString("folder") == null || rs.getString("folder").isEmpty() ) {
+	
+					this.rptFilename = null ;
+					fileInd = "0" ;
+					
+					logger.info("[LABGEN] No file attached labnum: " + labnum + " testcat: " + testcat );
+					continue ;
+
+				} else {
+					try {
+						ori_path = reportSrcBasePath.trim() + rs.getString("folder") + "\\" + rs.getString("fname") ;
+
+						fname = rs.getString("fname");
+						tmp_fname = fname.substring(0, fname.length()-4).replace(".", "-") + fname.substring(fname.length()-4, fname.length()) ;
+						tmp_path = reportTmpBasePath + tmp_fname ;
+						
+						logger.info("[LABGEN] reportSrcBasePath = " + reportSrcBasePath + 
+								" folder = " + rs.getString("folder") +
+								" ori_path = " + ori_path +
+								" reportTmpBasePath = " + reportTmpBasePath +
+								" file copy to = " + tmp_path +
+								" smb login = " + login_user + " ; " + login_pass );
+
+						NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication("",login_user, login_pass);
+						
+					// linux file path
+						smbFile = new SmbFile("smb:" + ori_path.replace("\\", "/"), auth);
+						destDirFile = new File( reportTmpBasePath ) ;
+						target = new File( tmp_path ) ;
+						copyFileUsingFileStreams( smbFile, destDirFile, target ) ;
+						
+						if ("Z".equals(rs.getString("encrype"))) {
+							
+							try {
+							    ZipFile zipFile = new ZipFile(tmp_path);
+							    
+							    if (zipFile.isEncrypted()) {
+							        zipFile.setPassword(rs.getString("passkey"));
+							    }
+							    														    
+							    List<FileHeader> fileHeaders = zipFile.getFileHeaders();
+
+					            for(FileHeader fileHeader : fileHeaders) {					            	
+					            	ehr_fname = fileHeader.getFileName();	
+					            	tmp_path =  reportTmpBasePath + ehr_fname ;
+					                attachment = new File( tmp_path ) ;
+					                
+					                zipFile.extractFile(fileHeader, reportTmpBasePath);
+					                logger.info("[LABGEN] extract file: " + tmp_path);
+					            }
+					            
+							} catch (ZipException e) {
+								logger.info("[LABGEN] Unzip file error : " + e.getMessage() );
+							    e.printStackTrace();
+							    continue;
+							}
+						} else {
+							attachment = target;
+							ehr_fname = tmp_fname;
+						}
+									            
+						this.rptFilename = ehr_fname ;
+						fileInd = "1" ;												
+						
+					} catch (Exception e) {
+						logger.info("[LABGEN] Add file error : " + e.getMessage() );
+						e.printStackTrace();
+						continue;
+					}
+		            // -- end
+				}				
+				
+				if ( "1".equals(testcat) || "2".equals(testcat) || "3".equals(testcat) || "4".equals(testcat) || "M".equals(testcat)){
+					
+//20190807 Change record key logic  					
+					if ( getUpdRecordKey().equals("NULL") ) {
+						generateKey();
+					} else {
+						this.recordKey = getUpdRecordKey() ;
+					}
+					
+					List<LabResultGenDetail> detailList = new ArrayList<LabResultGenDetail>();
+					d = new LabResultGenDetail();
+					d.getLabReqData().add(req(labnum, testcat));
+		        		
+					d.getLabgenResultData().addAll(genResult(labnum, testcat));
+					d.getLabReportData().add(report(labnum, testcat));
+					
+					if (d.getLabgenResultData().isEmpty()) {
+						logger.info("[LABGEN] Fail: LabgenResultData is empty. record ignored");
+
+						psUpdate_error.setString(1, labnum) ;
+						psUpdate_error.setString(2, testcat) ;						
+						psUpdate_error.executeUpdate();
+						psUpdate_error.clearParameters();
+						
+						continue;
+					}
+					
+					if (d.getLabReportData().isEmpty()) {
+						logger.info("[LABGEN] Fail: LabReportData is empty. record ignored");
+						
+						psUpdate_error.setString(1, labnum) ;
+						psUpdate_error.setString(2, testcat) ;						
+						psUpdate_error.executeUpdate();
+						psUpdate_error.clearParameters();							
+						
+						continue;
+					}
+				
+					if (d.getLabgenResultData() != null) {
+						detailList.add(d);
+
+						pGenMap_BL_M.put(p, detailList);
+						pGenMap_init.put(p, new ArrayList<LabResultGenDetail>());
+						
+						// attach pdf file
+						if ( fileInd.equals("1") ) {
+							genFileMap_BL_M.put(attachment.getName(), attachment);
+						}
+
+						genEhrLogNoList.add(ehrLogNo.toString());
+
+						psLogHeader.setString(1, p.getEhrNo());
+						psLogHeader.setString(2, p.getPatientKey());
+						psLogHeader.setString(3, p.getHkid());
+						psLogHeader.setString(4, p.getDocType());
+						psLogHeader.setString(5, p.getDocNo());
+						psLogHeader.setString(6, p.getPersonEngSurname());
+						psLogHeader.setString(7, p.getPersonEngGivenName());
+						psLogHeader.setString(8, p.getPersonEngFullName());
+						psLogHeader.setString(9, p.getSex());
+						psLogHeader.setString(10, p.getBirthDate());
+						psLogHeader.setString(11, getRecordKey());
+						psLogHeader.setString(12, d.getLabReqData().get(0).getTransactionDtm());
+						psLogHeader.setString(13, d.getLabReqData().get(0).getTransactionType());
+						psLogHeader.setString(14, d.getLabReqData().get(0).getLastUpdateDtm());
+						psLogHeader.setString(15, d.getLabReqData().get(0).getEpisodeNo());
+						psLogHeader.setString(16, d.getLabReqData().get(0).getAttendanceInstId());
+						psLogHeader.setString(17, d.getLabReqData().get(0).getRequestNo());
+						psLogHeader.setString(18, d.getLabReqData().get(0).getRequestDoctor());
+						psLogHeader.setString(19, d.getLabReqData().get(0).getRequestParticipantInstId());
+						psLogHeader.setString(20, d.getLabReqData().get(0).getRequestParticipantInstName());
+						psLogHeader.setString(21, d.getLabReqData().get(0).getRequestParticipantInstLtDesc());
+						psLogHeader.setString(22, d.getLabReqData().get(0).getOrderNo());
+						psLogHeader.setString(23, d.getLabReqData().get(0).getLabCategoryCd());
+						psLogHeader.setString(24, d.getLabReqData().get(0).getLabCategoryLtDesc());
+						psLogHeader.setString(25, d.getLabReqData().get(0).getPerformLabName());
+						psLogHeader.setString(26, d.getLabReqData().get(0).getReportReferenceDtm());
+						psLogHeader.setString(27, d.getLabReqData().get(0).getClinicalInfo());
+						psLogHeader.setString(28, d.getLabReqData().get(0).getLabReportComment());
+						psLogHeader.setString(29, d.getLabReqData().get(0).getSpecimenTypeRtName());
+						psLogHeader.setString(30, d.getLabReqData().get(0).getSpecimenTypeRtId());
+						psLogHeader.setString(31, d.getLabReqData().get(0).getSpecimenTypeRtDesc());
+						psLogHeader.setString(32, d.getLabReqData().get(0).getSpecimenTypeLtId());
+						psLogHeader.setString(33, d.getLabReqData().get(0).getSpecimenTypeLtDesc());
+						psLogHeader.setString(34, d.getLabReqData().get(0).getSpecimenArrivalDtm());
+						psLogHeader.setString(35, d.getLabReqData().get(0).getSpecimenCollectDtm());
+						psLogHeader.setString(36, d.getLabReqData().get(0).getSpecimenDetails());
+						psLogHeader.setString(37, d.getLabReqData().get(0).getFileInd());
+						psLogHeader.setString(38, d.getLabReqData().get(0).getRecordCreationDtm());
+						psLogHeader.setString(39, d.getLabReqData().get(0).getRecordCreationInstId());
+						psLogHeader.setString(40, d.getLabReqData().get(0).getRecordCreationInstName());
+						
+						psLogHeader.setString(41, d.getLabReportData().get(0).getReportStatusCd());
+						psLogHeader.setString(42, d.getLabReportData().get(0).getReportStatusDesc());
+						psLogHeader.setString(43, d.getLabReportData().get(0).getReportStatusLtDesc());
+						psLogHeader.setString(44, d.getLabReportData().get(0).getReportDtm());
+						psLogHeader.setString(45, d.getLabReportData().get(0).getFileName());
+
+						psLogHeader.setString(46, null);
+						psLogHeader.setString(47, null);
+						psLogHeader.setString(48, testcat);
+						psLogHeader.setLong(49, ehrLogNo);
+//20170111 Arran add upload mode to log												
+						psLogHeader.setString(50, getUploadMode());
+						
+						psLogHeader.executeUpdate();
+						psLogHeader.clearParameters();
+
+						for (LabgenResultData result : d.getLabgenResultData()) {
+							psLogDetail.setString(1, result.getRecordKey());
+							psLogDetail.setString(2, result.getTestLtId());
+							psLogDetail.setString(3, result.getTestLtDesc());
+							psLogDetail.setString(4, result.getReportableResult());
+							psLogDetail.setString(5, result.getResultUnit());
+							psLogDetail.setString(6, result.getReferenceRange());
+							psLogDetail.setString(7, result.getPanelLtCd());
+							psLogDetail.setString(8, result.getReportAuthDtm());
+							psLogDetail.setString(9, result.getReportAuthStaffId());
+							psLogDetail.setString(10, result.getReportAuthStaffEngName());
+							psLogDetail.setString(11, result.getAbnormalIndCd());
+							psLogDetail.setString(12, result.getResultType());
+							psLogDetail.setString(13, result.getNumericResult());
+							psLogDetail.setLong(14, ehrLogNo);
+							psLogDetail.setString(15, result.getTestRtName());
+							psLogDetail.setString(16, result.getTestRtId());
+							psLogDetail.setString(17, result.getTestRtDesc());
+							psLogDetail.setString(18, result.getEnumeratedResult());
+							psLogDetail.setString(19, result.getTextResult());
+							psLogDetail.setString(20, result.getPanelLtDesc());
+							psLogDetail.setString(21, result.getAbnormalIndDesc());
+							psLogDetail.setString(22, result.getAbnormalIndLtDesc());
+							psLogDetail.setString(23, result.getResultNote());
+							psLogDetail.executeUpdate();
+							psLogDetail.clearParameters();
+						}
+
+					}
+
+				} 
+									
+            }
+            
+
+/*
+ * 20190905 Arran send init BL-M
+ * 20250312 Arran remove init BL-M
+ *                
+            if ( pGenMap_init.size() > 0 ) {
+               	logger.info("[LABGEN] Send init BL-M: " + pGenMap_init.size());
+               	try {
+               		Thread.sleep(60000);     
+               		genResponse = heprWebServiceClient.uploadLabgenData(pGenMap_init, new HashMap<String,File>(), "BL-M");
+                                       
+               	} catch (Exception e) {
+               		          
+					logger.info("[LABGEN] send init BL-M error : " + e.getMessage() );
+					e.printStackTrace();
+				}
+            }
+*/
+                        
+//20181213 Arran send BL-M first
+            if ( pGenMap_BL_M.size() > 0 ) {
+            	                          	
+               	logger.info("[LABGEN] Send BL-M: " + pGenMap_BL_M.size());
+               	try {
+               		Thread.sleep(60000);     
+               		genResponse = heprWebServiceClient.uploadLabgenData(pGenMap_BL_M, genFileMap_BL_M, "BL-M");
+//Write log
+               		for (int i = 0; i < genEhrLogNoList.size(); i++) {
+               			psLogHeaderUpd.setString(1, genResponse.getResponseCode());
+               			psLogHeaderUpd.setString(2, genResponse.getResponseMessage());
+               			psLogHeaderUpd.setString(3, genEhrLogNoList.get(i));
+               			psLogHeaderUpd.setString(4, "BL-M");
+               			psLogHeaderUpd.executeUpdate();
+               			psLogHeaderUpd.clearParameters();               			
+               		}
+               		 
+            		if ( !"00000".equals(genResponse.getResponseCode()) ) {
+            			logger.info("[LABGEN] return code=" + genResponse.getResponseCode());
+            			String resMsg = genResponse.getResponseCode() + " - " + genResponse.getResponseMessage();
+            			sendAlert(genEhrLogNoList, resMsg);
+            		}               		
+               		                                
+                    for(Map.Entry<Participant,List> entry : pGenMap_BL_M.entrySet()) {                    	
+//update initlab   
+                    	String patno = entry.getKey().getPatientKey();  
+        				String ehrno = entry.getKey().getEhrNo();
+        				
+                    	psUpdate_2.setString(1, patno);                
+        				psUpdate_2.executeUpdate();
+        				psUpdate_2.clearParameters();  
+        				
+                    	logger.info("[LABGEN] update initlab: patno=" + patno + " ehrno=" + ehrno);                    	
+        				
+//20191028 Arran re-init status for BL-M                    	
+                       	psUpdate_3.setString(1, patno);                       
+                    	psUpdate_3.setString(2, ehrno);     	
+        				psUpdate_3.executeUpdate();
+        				psUpdate_3.clearParameters();
+
+                    }
+
+                    for(Map.Entry<Participant,List> entry : pGenMap_BL_M.entrySet()) {                    	
+                    	
+//update labo_report_log status            		        				
+                    	List<LabResultGenDetail> detailList = entry.getValue();
+
+                    	for(int i = 0; i < detailList.size(); i++) {
+                    		
+                    		d  = detailList.get(i);
+                    		tranType =  d.getLabReqData().get(0).getTransactionType();
+                    		recKey = d.getLabReqData().get(0).getRecordKey();
+                    		labnum = d.getLabReqData().get(0).getRequestNo();
+                    		testcat = null;
+              		
+                    		if ("Chemistry".equals(d.getLabReqData().get(0).getLabCategoryLtDesc())) {
+                    			testcat = "1";
+                    		} else if ("Hematology".equals(d.getLabReqData().get(0).getLabCategoryLtDesc())) {
+                    			testcat = "2";
+                    		} else if ("Stool/Urinalysis".equals(d.getLabReqData().get(0).getLabCategoryLtDesc())) {
+                    			testcat = "3";
+                    		} else if ("Referral".equals(d.getLabReqData().get(0).getLabCategoryLtDesc())) {
+                    			testcat = "4";
+                    		} else if ("Molecular Genetics".equals(d.getLabReqData().get(0).getLabCategoryLtDesc())) {
+                    			testcat = "M";
+                    		} 
+                    		                                        		
+                    		logger.info("[LABGEN] Update BL-M status Type=" + tranType + " Key=" + recKey + " TESTCAT=" + testcat+ " LABNUM=" + labnum);                    		
+    						
+	                		psUpdate_1.setString(1, recKey ) ;
+							psUpdate_1.setString(2, labnum) ;
+    						psUpdate_1.setString(3, testcat) ;
+    						
+    						psUpdate_1.executeUpdate();
+    						psUpdate_1.clearParameters();				    						    						
+                    	}                    	
+                    	
+                    } 
+                    
+               	} catch (Exception e) {
+//20190122 Arran add log for exception               		
+               		for (int i = 0; i < genEhrLogNoList.size(); i++) {
+               			psLogHeaderUpd.setString(1, "exception");
+               			psLogHeaderUpd.setString(2, e.getMessage());
+               			psLogHeaderUpd.setString(3, genEhrLogNoList.get(i));
+               			psLogHeaderUpd.setString(4, "BL-M");
+               			psLogHeaderUpd.executeUpdate();
+               			psLogHeaderUpd.clearParameters();
+               		}
+
+               		String resMsg = "Exception - " + e.getMessage();
+        			sendAlert(genEhrLogNoList, resMsg);
+        			
+					logger.info("[LABGEN] send BL-M error : " + e.getMessage() );
+					e.printStackTrace();
+				}
+            }
+			
+        } catch (Exception e) {
+            logger.info("[LABGEN] Error : " + e.getMessage() );
+            e.printStackTrace();
+            
+        } finally {
+        	try {
+        		if (rs != null)
+        			rs.close();
+        		
+        		if (psReport != null)
+        			psReport.close();
+        		
+        		if (rsLogNo != null)
+        			rsLogNo.close();
+        		        		        		
+        		if (psLogNo != null)
+        			psLogNo.close();
+        		
+        		if (psInit != null)
+        			psInit.close();
+        		
+        		if (psLogHeader != null)
+        			psLogHeader.close();
+        		
+        		if (psLogHeaderUpd != null)
+        			psLogHeaderUpd.close();
+        		
+        		if (psLogDetail != null)
+        			psLogDetail.close();        		        		
+        		
+        		if (psUpdate_1 != null)
+        			psUpdate_1.close();
+
+        		if (psUpdate_2 != null)
+        			psUpdate_2.close();
+        		
+        		if (psUpdate_3 != null)
+        			psUpdate_3.close();   	
+        		
+        		if (psUpdate_error != null)
+        			psUpdate_error.close();  
+        		        		
+        		ConnUtil.closeConnection(conn);
+        		ConnUtil.closeConnection(connHATS);
+        		
+        	} catch(Exception e) {
+                logger.info("[LABGEN] Cannot close connection");
+                e.printStackTrace();
+        	}
+        }
+	}    
+    
+	public static boolean sendAlert(List<String> ehrLogNoList, String resMsg) {
+		
+		String site = ConstantsServerSide.SITE_CODE.toUpperCase();
+        
+        String emailFrom = "it-admin@hkah.org.hk";
+        
+        String emailToList = getParam("EHRLISERRM", "arran.siu@hkah.org.hk");
+        			
+    	String emailTo[] = emailToList.split(";");
+
+    	emailTo = (String[]) ArrayUtils.removeElement(emailTo, "");
+    		                       
+        if (ConstantsServerSide.DEBUG) {
+        	emailTo = new String[] {"arran.siu@hkah.org.hk"};
+		}
+        
+        String subject = "[" + site + "] eHR LAAM: Data upload error (LIS)";
+
+		String ehrLogNo = null;
+		
+        for (int i = 0; i < ehrLogNoList.size(); i++) {
+        	
+        	if (ehrLogNo == null) 
+        		ehrLogNo = "EHR_LOG_NO: " + ehrLogNoList.get(i);
+        	else
+        		ehrLogNo = ehrLogNo + ", " + ehrLogNoList.get(i);
+        	          			
+        }
+        
+        String message = site + " eHR Data upload error. "  + "\n<br />"
+        		+ "Result: " + resMsg + "\n<br />"
+        		+ ehrLogNo;
+        
+        return UtilMail2.sendMail(emailFrom, emailTo, subject, message);
+	}
+
+}

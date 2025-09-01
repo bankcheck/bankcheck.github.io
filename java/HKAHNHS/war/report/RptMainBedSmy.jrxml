@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptMainBedSmy" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="140" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SteName" class="java.lang.String"/>
+	<parameter name="StartDate" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="EndDate" class="java.lang.String"/>
+	<parameter name="days" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="sub_datasource" class="net.sf.jasperreports.engine.JRDataSource" isForPrompting="false"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Documents and Settings\\ibm\\桌面\\iReport\\新建文件夹\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT ward, room, acmcode, type,noofbed,noofday
+ FROM(
+select
+ward, room, acmcode, type, noofbed, Sum (noofday) noofday
+From
+(
+select a.wrdcode ward,a.romcode room,a.acmcode acmcode,a.bedoff type, a.days noofday, count (*) as noofbed
+             From (
+                  select
+                     a.wrdcode,a.romcode,a.acmcode,a.bedoff, sum(a.days) as days
+                  from (
+                           SELECT
+                              r.wrdcode, b.romcode, r.acmcode, b.bedoff, count(*) as temp  ,
+                             sum(to_date(to_char(bh.bhsedate,'DD/MM/YYYY')|| ' 00:00','DD/MM/YYYY HH24:MI:SS') - to_date(to_char(bh.bhsdate,'DD/MM/YYYY')|| ' 00:00','DD/MM/YYYY HH24:MI:SS')) as days
+                           From
+                               bedhist bh, bed b, room r, reg rg
+                           Where
+                               bh.bhsdate > = to_date ('10/02/2003','DD/MM/YYYY')
+                               and bh.bhsedate < to_date ('10/08/2004','DD/MM/YYYY') + 1
+                               and bh.bhsedate is not null
+                              AND b.bedcode= bh.bedcode
+                              AND b.stecode= 'HKAH'
+                               AND b.romcode= r.romcode
+                               and rg.regsts = 'N'
+                               and rg.regtype = 'I'
+                               and bh.regid = rg.regid
+                           Group By
+                               r.wrdcode , b.romcode, b.bedoff, r.AcmCode
+                           Union
+
+                        SELECT
+                               r.wrdcode, b.romcode, r.acmcode, b.bedoff, count(*) as temp  ,
+                              sum(to_date('10/08/2004','DD/MM/YYYY') - to_date(to_char(bh.bhsdate,'DD/MM/YYYY')|| ' 00:00','DD/MM/YYYY HH24:MI:SS')) as days
+                          From
+                               bedhist bh, bed b, room r, reg rg
+                           Where
+                               bh.bhsdate > = to_date ('10/02/2003','DD/MM/YYYY')
+                               and bh.bhsdate <  to_date ('10/08/2004','DD/MM/YYYY') + 1
+                               and bh.bhsedate is null
+                               AND b.bedcode= bh.bedcode
+                               AND b.stecode= 'HKAH'
+                              AND b.romcode= r.romcode
+                               and rg.regsts = 'N'
+                               and rg.regtype = 'I'
+                               and bh.regid = rg.regid
+                           Group By
+                               r.wrdcode , b.romcode, b.bedoff, r.AcmCode
+                           Union
+                  SELECT
+                               r.wrdcode, b.romcode, r.acmcode, b.bedoff, count(*) as temp  ,
+                              sum(to_date( '10/08/2004', 'DD-MM-YYYY') -  to_date(to_char(bh.bhsdate,'DD/MM/YYYY')|| ' 00:00','DD/MM/YYYY HH24:MI:SS')) as days
+                           From
+                               bedhist bh, bed b, room r, reg rg
+                           Where
+                               bh.bhsdate > = to_date ('10/02/2003','DD/MM/YYYY')
+                               and bh.bhsdate < to_date ('10/08/2004','DD/MM/YYYY') + 1
+                               and bh.bhsedate >= to_date ('10/08/2004','DD/MM/YYYY') + 1
+                               and bh.bhsedate is not null
+                               AND b.bedcode= bh.bedcode
+                               AND b.stecode= 'HKAH'
+                               AND b.romcode= r.romcode
+                               and rg.regsts = 'N'
+                               and rg.regtype = 'I'
+                               and bh.regid = rg.regid
+                           Group By
+                               r.wrdcode , b.romcode, b.bedoff, r.AcmCode
+                           Union
+
+               SELECT
+                             r.wrdcode, b.romcode, r.acmcode, b.bedoff, count(*) as temp  ,
+                              sum(to_date(to_char(bh.bhsedate,'DD/MM/YYYY')|| ' 00:00','DD/MM/YYYY HH24:MI:SS') - to_date('10/02/2003', 'DD-MM-YYYY')) as days
+                           From
+                               bedhist bh, bed b, room r, reg rg
+                           Where
+                               bh.bhsdate < to_date ('10/02/2003','DD/MM/YYYY')
+                               and bh.bhsedate >= to_date ('10/02/2003','DD/MM/YYYY')
+                               and bh.bhsedate < to_date ('10/08/2004','DD/MM/YYYY') + 1
+                               and bh.bhsedate is not null
+                               AND b.bedcode= bh.bedcode
+                               AND b.stecode= 'HKAH'
+                               AND b.romcode= r.romcode
+                               and rg.regsts = 'N'
+                               and rg.regtype = 'I'
+                               and bh.regid = rg.regid
+                           Group By
+                               r.wrdcode , b.romcode, b.bedoff, r.AcmCode
+                           Union
+
+                          SELECT
+                              r.wrdcode, b.romcode, r.acmcode, b.bedoff, count(*) as temp  ,
+                              sum(to_date( '10/08/2004', 'DD-MM-YYYY') - to_date('10/02/2003','DD/MM/YYYY')) as days
+                          From
+                               bedhist bh, bed b, room r, reg rg
+                           Where
+                               bh.bhsdate < to_date ('10/02/2003','DD/MM/YYYY')
+                               and bh.bhsedate is null
+                               AND b.bedcode= bh.bedcode
+                               AND b.stecode= 'HKAH'
+                               AND b.romcode= r.romcode
+                               and rg.regsts = 'N'
+                               and rg.regtype = 'I'
+                               and bh.regid = rg.regid
+                           Group By
+                               r.wrdcode , b.romcode, b.bedoff, r.AcmCode
+                           Union
+
+                           SELECT
+                              r.wrdcode, b.romcode, r.acmcode, b.bedoff, count(*) as temp  ,
+                               sum(to_date( '10/08/2004', 'DD-MM-YYYY') - to_date( '10/02/2003', 'DD-MM-YYYY')) as days
+                           From
+                              bedhist bh, bed b, room r, reg rg
+                           Where
+                               bh.bhsdate < to_date ('10/02/2003','DD/MM/YYYY')
+                               and bh.bhsedate >  to_date ('10/08/2004','DD/MM/YYYY')
+                               and bh.bhsedate is not null
+                               AND b.bedcode= bh.bedcode
+                               AND b.stecode= 'HKAH'
+                               AND b.romcode= r.romcode
+                               and rg.regsts = 'N'
+                               and rg.regtype = 'I'
+                               and bh.regid = rg.regid
+                           Group By
+                               r.wrdcode , b.romcode, b.bedoff, r.AcmCode
+
+                      ) a
+               Group By
+                   a.wrdcode , a.romcode, a.AcmCode, a.bedoff
+             ) a, room r , bed b
+             Where
+               a.romcode = b.romcode
+               And b.romcode = r.romcode
+             Group By
+               a.wrdcode , a.romcode, a.AcmCode, a.bedoff, a.Days
+)
+Where type<>0
+Group By ward, room, acmcode, type, noofbed
+Order by ward, room, acmcode, type
+)
+ ORDER BY ward]]>
+	</queryString>
+	<field name="WARD" class="java.lang.String"/>
+	<field name="ROOM" class="java.lang.String"/>
+	<field name="ACMCODE" class="java.lang.String"/>
+	<field name="TYPE" class="java.math.BigDecimal"/>
+	<field name="NOOFBED" class="java.lang.String"/>
+	<field name="NOOFDAY" class="java.lang.String"/>
+	<field name="DESCRIPTION" class="java.lang.String"/>
+	<variable name="rate" class="java.lang.Double">
+		<variableExpression><![CDATA[Integer.parseInt($F{NOOFDAY})/(Integer.parseInt($F{NOOFBED})*(new Integer($P{days})+$V{isOfficial}))]]></variableExpression>
+	</variable>
+	<variable name="daterange" class="java.lang.String">
+		<variableExpression><![CDATA[$P{StartDate} + "to" +$P{EndDate}]]></variableExpression>
+	</variable>
+	<variable name="sumofnoofbed" class="java.lang.Integer" resetType="Group" resetGroup="Ward" calculation="Sum">
+		<variableExpression><![CDATA[Integer.parseInt($F{NOOFBED})]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="sumofnoofday" class="java.lang.Integer" resetType="Group" resetGroup="Ward" calculation="Sum">
+		<variableExpression><![CDATA[Integer.parseInt($F{NOOFDAY})]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="wardrate" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{sumofnoofday}/($V{sumofnoofbed}*(new Integer($P{days})+$V{isOfficial}))]]></variableExpression>
+	</variable>
+	<variable name="bedtotal" class="java.lang.Integer" resetType="Group" resetGroup="IsOfficial" incrementType="Group" incrementGroup="Ward" calculation="Sum">
+		<variableExpression><![CDATA[$V{sumofnoofbed}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="daytotal" class="java.lang.Integer" resetType="Group" resetGroup="IsOfficial" incrementType="Group" incrementGroup="Ward" calculation="Sum">
+		<variableExpression><![CDATA[$V{sumofnoofday}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="totalrate" class="java.lang.Double" resetType="Group" resetGroup="IsOfficial" incrementType="Group" incrementGroup="Ward">
+		<variableExpression><![CDATA[$V{daytotal}/($V{bedtotal}*(new Integer($P{days})+$V{isOfficial}))]]></variableExpression>
+	</variable>
+	<variable name="isOfficial" class="java.lang.Double" resetType="Group" resetGroup="IsOfficial">
+		<variableExpression><![CDATA[$F{DESCRIPTION}.equals("Official")?1.0:0.0]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
+	</variable>
+	<group name="IsOfficial" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{DESCRIPTION}]]></groupExpression>
+		<groupHeader>
+			<band height="105">
+				<staticText>
+					<reportElement x="343" y="79" width="77" height="25"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font fontName="Arial Unicode MS" size="10" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[#Day]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="192" y="79" width="71" height="25"/>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Arial Unicode MS" size="10" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Type]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="420" y="79" width="74" height="25"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font fontName="Arial Unicode MS" size="10" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[rate]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="263" y="79" width="80" height="25"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font fontName="Arial Unicode MS" size="10" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[#Bed]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="122" y="79" width="70" height="25"/>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Arial Unicode MS" size="10" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Room]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="1" y="40" width="555" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{StartDate} + " to " +$P{EndDate}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="1" y="0" width="555" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{SteName}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="52" y="79" width="70" height="25"/>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Arial Unicode MS" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Ward]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="0" y="20" width="556" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{DESCRIPTION}+ " Bed Occupancy Summary"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="24">
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="263" y="0" width="80" height="22"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font fontName="Arial Unicode MS" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{bedtotal}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="343" y="0" width="77" height="22"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font fontName="Arial Unicode MS" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{daytotal}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00 %" isBlankWhenNull="true">
+					<reportElement x="420" y="0" width="74" height="22"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font fontName="Arial Unicode MS" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{totalrate}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="52" y="0" width="140" height="22"/>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Arial Unicode MS" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Hosptial Total]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Ward">
+		<groupExpression><![CDATA[$F{WARD}]]></groupExpression>
+		<groupFooter>
+			<band height="20">
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="343" y="0" width="77" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{sumofnoofday}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="263" y="0" width="80" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{sumofnoofbed}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00 %" isBlankWhenNull="true">
+					<reportElement x="420" y="0" width="74" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{wardrate}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="39" splitType="Stretch">
+			<textField>
+				<reportElement x="435" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="516" y="0" width="40" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="-1" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[rptBedSmy]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="0" y="19" width="79" height="20"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(new java.text.SimpleDateFormat(     "dd/MMM/yyyy",Locale.ENGLISH)).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="HH:mm:ss">
+				<reportElement x="79" y="19" width="100" height="20"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="343" y="0" width="77" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[Integer.parseInt($F{NOOFDAY})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="263" y="0" width="80" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[Integer.parseInt($F{NOOFBED})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="192" y="0" width="71" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ACMCODE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="122" y="0" width="70" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ROOM}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement isPrintRepeatedValues="false" x="52" y="0" width="70" height="13" isPrintInFirstWholeBand="true" printWhenGroupChanges="Ward"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{WARD}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %" isBlankWhenNull="true">
+				<reportElement x="420" y="0" width="74" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{rate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

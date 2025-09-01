@@ -1,0 +1,64 @@
+CREATE TABLE EHR_SPCCODE_MAPPING (
+         EHR_SPCCODE      VARCHAR2(20) NOT NULL,
+         EHR_SPCNAME       VARCHAR2(200) ,
+         HOSP_SPCCODE       VARCHAR2(20))
+         
+         
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('ANA','Anaesthesiology' , 'ANAES');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('CARDIO','Cardiology' , 'CARDIO');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('CTS','Cardio-thoracic Surgery' , 'CARDTHO');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('ONC','Clinical Oncology' , 'CLIONC');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('CLIN_PHAR','Clinical Pharmacology and Therapeutics' , 'CPHARM');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('COM_MED','Community Medicine' , 'COMMED');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('CRIT_MED','Critical Care Medicine' , 'CRITMED');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('DEN','Dental Medicine' , 'DENTIST');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('DERMAT','Dermatology and Venereology' , 'DERMVEN');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('EM','Emergency Medicine' , 'ER');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('ENDO_DM','Endocrinology, Diabetes and Metabolism' , 'ENDODIA');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('FM','Family Medicine' , 'FAMMED');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('GI_HEP','Gastroenterology and Hepatology' , 'GASTRO');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('SUR','General Surgery' , 'GENSUR');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('GER','Geriatric Medicine' , 'GERIMED');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('GYN_ONC','Gynaecological Oncology' , 'GYNONC');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('HAEMAT','Haematology and Haematological Oncology' , 'HEMAONC');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('IMMUNO','Immunology and Allergy' , 'IMUALG');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('INFECT_D','Infectious Disease' , 'INFECT');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('ICU','Intensive Care' , 'INTCARE');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('MED','Internal Medicine' , 'INTMED');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('OBS','Maternal and Fetal Medicine' , 'MATERFATAL');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('MED_ONCO','Medical Oncology' , 'MEDONC');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('NEPHRO','Nephrology' , 'NEPHRO');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('NEUROL','Neurology' , 'NEURO');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('NS','Neurosurgery' , 'NEURSUR');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('OG','Obstetrics and Gynaecology' , 'OBGYN');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('OCCMED','Occupational Medicine' , 'OCCMED');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('OPH','Ophthalmology' , 'OPTHAL');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('ORT','Orthopaedics and Traumatology' , 'ORTHOTR');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('ENT','Otorhinolaryngology' , 'OTORHIN');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('PAESUR','Paediatric Surgery' , 'PAEDSUR');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('PAE','Paediatrics' , 'PAED');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('PALMED','Palliative Medicine' , 'PALLMED');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('PATH','Pathology' , 'PATH');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('PLASTICS','Plastic Surgery' , 'PLASTS');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('PSY','Psychiatry' , 'PSYCH');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('RAD','Radiology' , 'RADIO');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('REH','Rehabilitation' , NULL);
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('REPMED','Reproductive Medicine' , 'REPMED');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('RESPMED','Respiratory Medicine' , 'RESPMED');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('RHEUMA','Rheumatology' , 'RHEUMA');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('UROGYN','Urogynaecology' , 'UROGYN');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('UROL','Urology' , 'UROLOGY');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('CM','Chinese Medicine' , NULL);
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('AUD','Audiology' , 'AUDIO');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('CHIRO','Chiropractic' , NULL);
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('CLPSY','Clinical Psychology' , 'PSY');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('DIET','Dietetics' , NULL);
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('MSW','Medical Social Work' , NULL);
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('OT','Occupational Therapy' , 'OCCUP');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('OPT','Optometry' , 'OPTO');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('ORTH','Orthoptics' , NULL);
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('PT','Physiotherapy' , 'PHYSIO');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('POD','Podiatry' , 'POD');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('PandO','Prosthetics and Orthotics' , 'PROSORTH');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('SPTH','Speech Therapy' , 'SPEECH');
+Insert into EHR_SPCCODE_MAPPING (EHR_SPCCODE, EHR_SPCNAME, HOSP_SPCCODE) values ('OTH','Other specialty' , NULL);

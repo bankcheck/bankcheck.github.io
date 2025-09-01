@@ -1,0 +1,589 @@
+create or replace FUNCTION "NHS_ACT_BEDPREBOK" (
+	v_ACTION            IN VARCHAR2,
+	v_PBPID             IN VARCHAR2,
+	v_PATNO             IN VARCHAR2,
+	v_SEX               IN VARCHAR2,
+	v_PATIDNO           IN VARCHAR2,
+	v_BPBGNAME          IN VARCHAR2,
+	v_BPBFNAME          IN VARCHAR2,
+	v_PATKHTEL          IN VARCHAR2,
+	v_BPBCNAME          IN VARCHAR2,
+	v_PATPAGER          IN VARCHAR2,
+	v_ACMCODE           IN VARCHAR2,
+	v_BPBHDATE          IN VARCHAR2,
+	v_DOCCODE           IN VARCHAR2,
+	v_FORDELIVERY       IN VARCHAR2,
+	v_ISMAINLAND        IN VARCHAR2,
+	v_WRDCODE           IN VARCHAR2,
+	v_BPBRMK            IN VARCHAR2,
+	v_CABLABRMK         IN VARCHAR2,
+	v_BEDCODE           IN VARCHAR2,
+	v_BEDTIME           IN VARCHAR2,
+	-- arcode
+	v_ARCCODE           IN VARCHAR2,
+	v_POLICY            IN VARCHAR2,
+	v_COPAYTYP          IN VARCHAR2,
+	v_COPAYAMT          IN VARCHAR2,
+	v_VOUCHER           IN VARCHAR2,
+	v_PREAUTHNO         IN VARCHAR2,
+	v_CVREDATE          IN VARCHAR2,
+	v_ARLMTAMT          IN VARCHAR2,
+	v_FURGRTAMT         IN VARCHAR2,
+	v_FURGRTDATE        IN VARCHAR2,
+	-- cover item
+	v_ISDOCTOR          IN VARCHAR2,
+	v_ISHOSPITAL        IN VARCHAR2,
+	v_ISSPECIAL         IN VARCHAR2,
+	v_ISOTHER           IN VARCHAR2,
+	v_ISREFUSED         IN VARCHAR2,
+	v_REFUSEREASON      IN VARCHAR2,
+	v_REFUSEDUSERID     IN VARCHAR2,
+	v_REFUSEDDATE       IN VARCHAR2,
+	v_ACTIVATEDUSERID   IN VARCHAR2,
+	v_ACTIVATEDDATE     IN VARCHAR2,
+	v_BPBTYPE           IN VARCHAR2,
+--	v_BPBNO             IN VARCHAR2,
+	v_USRID             IN VARCHAR2,
+	v_STECODE           IN VARCHAR2,
+	v_ESTSTAYLEN        IN VARCHAR2,
+	v_PATDOCTYPE        IN VARCHAR2,
+	v_HUSDOCNO          IN VARCHAR2,
+	v_HUSDOCTYPE        IN VARCHAR2,
+	v_HUSGNAME          IN VARCHAR2,
+	v_HUSFNAME          IN VARCHAR2,
+--	v_SMSSENTDT         IN VARCHAR2,
+--	v_EMAILSENTDT       IN VARCHAR2,
+	v_FA_PATNO          IN VARCHAR2,
+	v_FA_HKIC           IN VARCHAR2,
+	v_FA_CNAME          IN VARCHAR2,
+	v_FA_DOB            IN VARCHAR2,
+	v_FA_TEL            IN VARCHAR2,
+	v_FA_HKIDHOLDER     IN VARCHAR2,
+	v_FA_RESIDENCE      IN VARCHAR2,
+	v_FA_BIRTHEXACTFLAG IN VARCHAR2,
+	v_FA_INFOSOURCE     IN VARCHAR2,
+	v_ANTCHKDT1         IN VARCHAR2,
+	v_ANTCHKDT2         IN VARCHAR2,
+	v_ANTCHKDT3         IN VARCHAR2,
+	v_ANTCHKDT4         IN VARCHAR2,
+	v_ANTCHKDT5         IN VARCHAR2,
+	v_ANTCHKDT6         IN VARCHAR2,
+	v_ANTCHKDT7         IN VARCHAR2,
+	v_ANTCHKDT8         IN VARCHAR2,
+	v_ANTCHKDT9         IN VARCHAR2,
+	v_ANTCHKDT10        IN VARCHAR2,
+	v_FORCE_CONFIRM     IN VARCHAR2,
+	v_ALLOW_WAITING     IN VARCHAR2,
+	v_OTREMARK          IN VARCHAR2,
+	v_isOBBookingYN     IN VARCHAR2,
+	v_ACTID             IN VARCHAR2,
+	v_PBMID             IN VARCHAR2,
+	v_PBSID             IN VARCHAR2,
+	v_PBSNO             IN VARCHAR2,
+	v_ISRECLG           IN VARCHAR2,
+	v_ARACMCODE         IN VARCHAR2,
+	v_PBPKGCODE         IN VARCHAR2,
+	v_ESTGIVEN          IN VARCHAR2,
+	v_COPAYAMTACT       IN VARCHAR2,
+	v_EDC               IN VARCHAR2,
+	v_BE                IN VARCHAR2,
+  v_BPBREGTYPE        IN VARCHAR2,
+	o_ERRMSG            OUT VARCHAR2
+)
+	RETURN NUMBER
+AS
+	o_ERRCODE    NUMBER;
+	o_RtnCode    NUMBER;
+	p_TYPE       VARCHAR2(1);
+	p_CNT        NUMBER;
+	p_PBPID      NUMBER;
+	p_BPBNO      VARCHAR2(10);
+	p_MONTH      VARCHAR2(6);
+--	p_OBWARDCODE VARCHAR2(10);
+	p_BOOKING_ID VARCHAR2(10);
+--	p_EDC        VARCHAR2(10);
+--	p_YEAR       NUMBER;
+	OUTCUR TYPES.CURSOR_TYPE;
+	v_noOfRec Number;
+	V_FID FIN_EST_HOSP.FESTID%TYPE;
+	I_BE FIN_EST_HOSP.OSB_BE%TYPE;
+  V_BE_INT FIN_EST_HOSP.OSB_BE%TYPE;
+BEGIN
+	o_ERRCODE := 0;
+	o_ERRMSG  := 'OK';
+  V_BE_INT := TO_NUMBER(v_BE);
+  IF v_BPBREGTYPE = 'D' AND V_BE_INT = 0 THEN
+    V_BE_INT := -1;
+  END IF;
+
+	IF v_ACTION = 'ADD' THEN
+--		p_EDC := TO_CHAR(TO_DATE(v_BPBHDATE, 'DD/MM/YYYY HH24:MI:SS'), 'DD/MM/YYYY');
+--		p_YEAR := TO_NUMBER(TO_CHAR(TO_DATE(v_BPBHDATE, 'DD/MM/YYYY HH24:MI:SS'), 'YYYY'));
+--		o_ERRCODE := OB_CHECK_QUOTA@PORTAL(v_DOCCODE, p_EDC, v_PATDOCTYPE);
+
+--		IF p_YEAR <= 2012 AND v_PATDOCTYPE = 'X' THEN
+--			o_ERRCODE := -1;
+--			o_ERRMSG  := 'No allow to select Macau Patient before 2013 Booking.';
+--		ELSIF v_FORCE_CONFIRM = 'N' AND o_ERRCODE < 0 THEN
+--			IF v_ALLOW_WAITING = 'N' THEN
+--				IF o_ERRCODE = -1 THEN
+--					o_ERRMSG  := 'Hospital Daily Quota is Fulled';
+--				ELSIF o_ERRCODE = -2 THEN
+--					o_ERRMSG  := 'Hospital Monthly Quota is Fulled';
+--				ELSIF o_ERRCODE = -3 THEN
+--					o_ERRMSG  := 'Hospital Period Quota is Fulled';
+--				ELSE
+--					o_ERRMSG  := 'Doctor Quota is Fulled';
+--				END IF;
+--
+--				o_ERRMSG  := o_ERRMSG || '. Waiting List Booking for Mainland/Macau Patient.';
+--				o_ERRCODE := -100;
+--			ELSE
+--				SELECT MAX(OB_BOOKING_ID) + 1 INTO p_BOOKING_ID FROM OB_BOOKINGS@PORTAL;
+--
+--				-- initial value
+--				IF p_BOOKING_ID IS NULL THEN
+--					p_BOOKING_ID := 1;
+--				END IF;
+--
+--				-- create dummy record
+--				INSERT INTO OB_BOOKINGS@PORTAL(OB_BOOKING_ID, OB_EXPECTED_DELIVERYDATE, OB_BOOKING_STATUS, OB_CREATED_USER, OB_MODIFIED_USER)
+--				VALUES (p_BOOKING_ID, TO_DATE(v_BPBHDATE, 'DD/MM/YYYY HH24:MI:SS'), 'W', v_USRID, v_USRID);
+--
+--				-- update fields
+--				OUTCUR := OB_BOOKING_UPDATE@PORTAL(v_USRID,
+--					p_BOOKING_ID,
+--					v_DOCCODE,
+--					v_PATNO,
+--					v_BPBFNAME,
+--					v_BPBGNAME,
+--					v_BPBCNAME,
+--					v_PATPAGER,
+--					NULL,
+--					v_PATDOCTYPE,
+--					v_PATIDNO,
+--					v_HUSFNAME,
+--					v_HUSGNAME,
+--					v_FA_CNAME,
+--					v_FA_TEL,
+--					v_FA_DOB,
+--					v_HUSDOCTYPE,
+--					v_HUSDOCNO,
+--					v_ANTCHKDT1,
+--					v_ANTCHKDT2,
+--					v_ANTCHKDT3,
+--					v_ANTCHKDT4,
+--					v_ANTCHKDT5,
+--					'Y',
+--					v_BPBRMK);
+--
+--				o_ERRCODE := 999;
+--			END IF;
+--		ELSE
+			IF v_isOBBookingYN = 'Y' THEN
+				-- initBedPreBokCnt
+				p_MONTH := TO_CHAR(TO_DATE(v_BPBHDATE, 'DD/MM/YYYY HH24:MI:SS'), 'YYYYMM');
+
+--				SELECT PARAM1 INTO p_OBWARDCODE FROM SYSPARAM WHERE PARCDE = 'obwardcode';
+
+				IF v_BPBTYPE = 'S' THEN
+					p_TYPE := 'W';
+				ELSE
+					p_TYPE := v_BPBTYPE;
+				END IF;
+
+				SELECT COUNT(1) INTO p_CNT FROM BEDPREBOKCNT WHERE BPBMONTH = p_MONTH AND BPBTYPE = p_TYPE;
+
+				IF p_CNT = 0 THEN
+					SELECT DECODE(v_BPBTYPE, 'W', 'S', v_BPBTYPE) || p_MONTH || '001' INTO p_BPBNO FROM DUAL;
+
+					-- update BedPreBokCnt
+					INSERT INTO BEDPREBOKCNT(BPBMONTH, BPBTYPE, BPBCNT, SITECODE)
+					VALUES (p_MONTH, p_TYPE, 1, v_STECODE);
+				ELSE
+					SELECT '000' || TO_CHAR(BPBCNT + 1) INTO p_BPBNO FROM BEDPREBOKCNT WHERE BPBMONTH = p_MONTH AND BPBTYPE = p_TYPE;
+					SELECT DECODE(v_BPBTYPE, 'W', 'S', v_BPBTYPE) || p_MONTH || SUBSTR(p_BPBNO, LENGTH(p_BPBNO) - 2, 3) INTO p_BPBNO FROM DUAL;
+
+					-- update BedPreBokCnt
+					UPDATE BEDPREBOKCNT SET BPBCNT = BPBCNT + 1
+					WHERE BPBMONTH = p_MONTH
+					AND BPBTYPE = p_TYPE;
+				END IF;
+			END IF;
+
+			SELECT Seq_Bedprebok.Nextval INTO P_Pbpid FROM Dual;
+			o_RtnCode := Nhs_Act_Syslog(V_Action, 'NHS_ACT_BEDPREBOK', V_Action, '[P_Pbpid]:' || P_Pbpid, V_Usrid, Null, O_Errmsg);
+
+			INSERT INTO BEDPREBOK (
+				PBPID,
+				DOCCODE,
+				BPBODATE,
+				BPBHDATE,
+				BPBEDATE,
+				USRID,
+				BPBSTS,
+				STECODE,
+				PATNO,
+				BPBPNAME,
+				BPBCNAME,
+				ACMCODE,
+				WRDCODE,
+				BPBRMK,
+				OTAID,
+				ARCCODE,
+				COPAYTYP,
+				COPAYAMT,
+				POLICY,
+				CVREDATE,
+				ARLMTAMT,
+				FURGRTAMT,
+				FURGRTDATE,
+				ISDOCTOR,
+				ISSPECIAL,
+				ISHOSPITAL,
+				ISOTHER,
+				VOUCHER,
+				PATFNAME,
+				PATGNAME,
+				ISMAINLAND,
+				FORDELIVERY,
+				PATKHTEL,
+				PATPAGER,
+				PATIDNO,
+				BPBTYPE,
+				BPBNO,
+				CABLABRMK,
+				BEDCODE,
+				BEDTIME,
+				SEX,
+				SLPNO,
+				EDITUSER,
+				EDITDATE,
+				ISREFUSED,
+				REFUSEREASON,
+				REFUSEDUSERID,
+				REFUSEDDATE,
+				ACTIVATEDUSERID,
+				ACTIVATEDDATE,
+				ESTSTAYLEN,
+				PATDOCTYPE,
+				HUSDOCNO,
+				HUSDOCTYPE,
+				HUSGNAME,
+				HUSFNAME,
+				--SMSSENTDT,
+				--EMAILSENTDT,
+				FA_PATNO,
+				FA_HKIC,
+				FA_CNAME,
+				FA_DOB,
+				FA_TEL,
+				FA_HKIDHOLDER,
+				FA_RESIDENCE,
+				FA_BIRTHEXACTFLAG,
+				FA_INFOSOURCE,
+				ANTCHKDT1,
+				ANTCHKDT2,
+				ANTCHKDT3,
+				ANTCHKDT4,
+				ANTCHKDT5,
+				ANTCHKDT6,
+				ANTCHKDT7,
+				ANTCHKDT8,
+				ANTCHKDT9,
+				ANTCHKDT10,
+				OTREMARK
+			) VALUES (
+				p_PBPID,
+				v_DOCCODE,
+				SYSDATE,
+				TO_DATE(v_BPBHDATE, 'DD/MM/YYYY HH24:MI:SS'),
+				TO_DATE(v_EDC, 'DD/MM/YYYY HH24:MI:SS'),
+				v_USRID,
+				'N', --v_BPBSTS
+				v_STECODE,
+				v_PATNO,
+				v_BPBFNAME || ' ' || v_BPBGNAME,
+				v_BPBCNAME,
+				v_ACMCODE,
+				v_WRDCODE,
+				v_BPBRMK,
+				0, --v_OTAID,
+				v_ARCCODE,
+				v_COPAYTYP,
+				v_COPAYAMT,
+				v_POLICY,
+				TO_DATE(v_CVREDATE, 'DD/MM/YYYY'),
+				v_ARLMTAMT,
+				v_FURGRTAMT,
+				TO_DATE(v_FURGRTDATE, 'DD/MM/YYYY'),
+				v_ISDOCTOR,
+				v_ISSPECIAL,
+				v_ISHOSPITAL,
+				v_ISOTHER,
+				v_VOUCHER,
+				v_BPBFNAME,
+				v_BPBGNAME,
+				v_ISMAINLAND,
+				v_FORDELIVERY,
+				v_PATKHTEL,
+				v_PATPAGER,
+				v_PATIDNO,
+				DECODE(v_isOBBookingYN, 'Y', v_BPBTYPE, ''),
+				DECODE(v_isOBBookingYN, 'Y', p_BPBNO, ''),
+				v_CABLABRMK,
+				v_BEDCODE,
+				TO_DATE(v_BEDTIME, 'DD/MM/YYYY HH24:MI'),
+				v_SEX,
+				NULL, --SLPNO
+				NULL, --v_EDITUSER,(EIDT)
+				NULL, --v_EDITDATE,(EDIT)
+				v_ISREFUSED,
+				v_REFUSEREASON,
+				v_REFUSEDUSERID,
+				TO_DATE(v_REFUSEDDATE, 'DD/MM/YYYY HH24:MI:SS'),
+				v_ACTIVATEDUSERID,
+				TO_DATE(v_ACTIVATEDDATE, 'DD/MM/YYYY HH24:MI:SS'),
+				--Baby's father
+				v_ESTSTAYLEN,
+				v_PATDOCTYPE,
+				v_HUSDOCNO,
+				v_HUSDOCTYPE,
+				v_HUSGNAME,
+				v_HUSFNAME,
+				--v_SMSSENTDT,
+				--v_EMAILSENTDT,
+				v_FA_PATNO,
+				v_FA_HKIC,
+				v_FA_CNAME,
+				TO_DATE(v_FA_DOB, 'DD/MM/YYYY'),
+				v_FA_TEL,
+				v_FA_HKIDHOLDER,
+				v_FA_RESIDENCE,
+				v_FA_BIRTHEXACTFLAG,
+				v_FA_INFOSOURCE,
+				TO_DATE(v_ANTCHKDT1, 'DD/MM/YYYY'),
+				TO_DATE(v_ANTCHKDT2, 'DD/MM/YYYY'),
+				TO_DATE(v_ANTCHKDT3, 'DD/MM/YYYY'),
+				TO_DATE(v_ANTCHKDT4, 'DD/MM/YYYY'),
+				TO_DATE(v_ANTCHKDT5, 'DD/MM/YYYY'),
+				TO_DATE(v_ANTCHKDT6, 'DD/MM/YYYY'),
+				TO_DATE(v_ANTCHKDT7, 'DD/MM/YYYY'),
+				TO_DATE(v_ANTCHKDT8, 'DD/MM/YYYY'),
+				TO_DATE(v_ANTCHKDT9, 'DD/MM/YYYY'),
+				TO_DATE(v_ANTCHKDT10, 'DD/MM/YYYY'),
+				v_OTREMARK);
+
+			SELECT COUNT(1) INTO v_noOfRec FROM BEDPREBOK_EXTRA WHERE PBPID = p_PBPID;
+			IF v_noOfRec = 0 THEN
+				INSERT INTO BEDPREBOK_EXTRA (
+					PBPID, PBMID, PBSNO, ISRECLG, ARACMCODE, PBSID, PBPKGCODE, ACTID, ESTGIVN, COPAYAMTACT, INSPREAUTHNO, BPBREGTYPE
+				) VALUES (
+					p_PBPID, v_PBMID, v_PBSNO, v_ISRECLG, v_ARACMCODE, v_PBSID, v_PBPKGCODE, v_ACTID, v_ESTGIVEN, v_COPAYAMTACT, v_PREAUTHNO, v_BPBREGTYPE
+				);
+			ELSE
+				UPDATE BEDPREBOK_EXTRA
+				SET
+					PBMID        = v_PBMID,
+					PBSNO        = v_PBSNO,
+					ISRECLG      = v_ISRECLG,
+					ARACMCODE    = v_ARACMCODE,
+					PBSID        = v_PBSID,
+					PBPKGCODE    = v_PBPKGCODE,
+					ACTID        = v_ACTID,
+					ESTGIVN      = v_ESTGIVEN,
+					COPAYAMTACT  = v_COPAYAMTACT,
+					INSPREAUTHNO = v_PREAUTHNO
+--          ,BPBREGTYPE   = v_BPBREGTYPE
+				WHERE PBPID = p_PBPID;
+			END IF;
+
+			SELECT Count(1) INTO v_noOfRec FROM Fin_Est_Hosp WHERE Pbpid = P_Pbpid;
+			IF v_noOfRec = 0 THEN
+				IF (v_BE <> '0')THEN
+--					SELECT SEQ_FEST.NEXTVAL INTO V_FID FROM DUAL;
+					INSERT INTO Fin_Est_Hosp (
+						Festid, Pbpid, Patno, Osb_Be
+					) VALUES (
+						SEQ_FEST.NEXTVAL, p_PBPID, v_PATNO, v_BE
+					);
+	      			END IF;
+			ELSE
+				SELECT FESTID,OSB_BE INTO V_FID, I_BE FROM FIN_EST_HOSP WHERE PBPID = p_PBPID;
+	      			IF ( I_BE IS NOT NULL AND I_BE = '-1' AND v_BE = '0') THEN
+					-- delete existing BE when unclick the checkbox
+		  			DELETE FROM FIN_EST_HOSP
+		  			WHERE PBPID = p_PBPID
+		  			AND FESTID = V_FID ;
+	      			ELSE
+		  			UPDATE Fin_Est_Hosp
+		  			SET
+		    				Osb_Be = v_BE,
+		    				PATNO = v_PATNO
+		  			WHERE Festid = V_Fid;
+	      			END IF;
+			END IF;
+
+			o_ERRCODE := p_PBPID;
+--		END IF;
+	ELSIF v_ACTION = 'MOD' THEN
+		o_RtnCode := Nhs_Act_Syslog(V_Action, 'NHS_ACT_BEDPREBOK',V_Action,'[v_PBPID]:'||v_PBPID||'[v_BE]:'||v_BE, V_Usrid, Null, O_Errmsg);
+
+	IF v_PBPID is null OR LENGTH(v_PBPID) = 0 THEN
+	  	O_Errcode := -100;
+	  	o_errmsg := 'Fail to modify Pre-Booking. Empty PreBooking ID';
+	  	Return O_Errcode;
+	END IF;
+
+	UPDATE BEDPREBOK
+	SET DOCCODE           = v_DOCCODE,
+--		BPBODATE          = TO_DATE(v_BPBODATE, 'DD/MM/YYYY HH24:MI:SS'),
+		BPBHDATE          = TO_DATE(v_BPBHDATE, 'DD/MM/YYYY HH24:MI:SS'),
+		BPBSTS            = 'N',
+		STECODE           = v_STECODE,
+		PATNO             = v_PATNO,
+		BPBPNAME          = v_BPBFNAME || ' ' || v_BPBGNAME,
+		BPBCNAME          = v_BPBCNAME,
+		ACMCODE           = v_ACMCODE,
+		WRDCODE           = v_WRDCODE,
+		BPBRMK            = v_BPBRMK,
+--		OTAID             = v_OTAID,
+		ARCCODE           = v_ARCCODE,
+		COPAYTYP          = v_COPAYTYP,
+		COPAYAMT          = v_COPAYAMT,
+		POLICY            = v_POLICY,
+		CVREDATE          = TO_DATE(v_CVREDATE, 'DD/MM/YYYY'),
+		ARLMTAMT          = v_ARLMTAMT,
+		FURGRTAMT         = v_FURGRTAMT,
+		FURGRTDATE        = TO_DATE(v_FURGRTDATE, 'DD/MM/YYYY'),
+		ISDOCTOR          = v_ISDOCTOR,
+		ISSPECIAL         = v_ISSPECIAL,
+		ISHOSPITAL        = v_ISHOSPITAL,
+		ISOTHER           = v_ISOTHER,
+		VOUCHER           = v_VOUCHER,
+		PATFNAME          = v_BPBFNAME,
+		PATGNAME          = v_BPBGNAME,
+		ISMAINLAND        = v_ISMAINLAND,
+		FORDELIVERY       = v_FORDELIVERY,
+		PATKHTEL          = v_PATKHTEL,
+		PATPAGER          = v_PATPAGER,
+		PATIDNO           = v_PATIDNO,
+--		BPBTYPE           = v_BPBTYPE,
+--		BPBNO             = v_BPBNO,
+		CABLABRMK         = v_CABLABRMK,
+		BEDCODE           = v_BEDCODE,
+		BEDTIME           = TO_DATE(v_BEDTIME, 'DD/MM/YYYY HH24:MI'),
+		SEX               = v_SEX,
+		EDITUSER          = v_USRID,
+		EDITDATE          = SYSDATE,
+		ISREFUSED         = v_ISREFUSED,
+		REFUSEREASON      = v_REFUSEREASON,
+		REFUSEDUSERID     = v_REFUSEDUSERID,
+		REFUSEDDATE       = TO_DATE(v_REFUSEDDATE, 'DD/MM/YYYY HH24:MI:SS'),
+		ACTIVATEDUSERID   = v_ACTIVATEDUSERID,
+		ACTIVATEDDATE     = TO_DATE(v_ACTIVATEDDATE, 'DD/MM/YYYY HH24:MI:SS'),
+		ESTSTAYLEN        = v_ESTSTAYLEN,
+		PATDOCTYPE        = v_PATDOCTYPE,
+		HUSDOCNO          = v_HUSDOCNO,
+		HUSDOCTYPE        = v_HUSDOCTYPE,
+		HUSGNAME          = v_HUSGNAME,
+		HUSFNAME          = v_HUSFNAME,
+--		SMSSENTDT         = v_SMSSENTDT,
+--		EMAILSENTDT       = v_EMAILSENTDT,
+		OTREMARK          = v_OTREMARK,
+		BPBEDATE          = TO_DATE(v_EDC, 'DD/MM/YYYY HH24:MI:SS')
+	WHERE PBPID = v_PBPID;
+
+	SELECT COUNT(1) INTO v_noOfRec FROM BEDPREBOK_EXTRA WHERE PBPID = v_PBPID;
+	IF v_noOfRec = 0 THEN
+		INSERT INTO BEDPREBOK_EXTRA (
+			PBPID, PBMID, PBSNO, ISRECLG, ARACMCODE, PBSID, PBPKGCODE, ACTID, ESTGIVN, COPAYAMTACT, INSPREAUTHNO, BPBREGTYPE
+		) VALUES (
+			v_PBPID, v_PBMID, v_PBSNO, v_ISRECLG, v_ARACMCODE, v_PBSID, v_PBPKGCODE, v_ACTID, v_ESTGIVEN, v_COPAYAMTACT, v_PREAUTHNO, v_BPBREGTYPE
+		);
+	ELSE
+		UPDATE BEDPREBOK_EXTRA
+		SET
+			PBMID        = v_PBMID,
+			PBSNO        = v_PBSNO,
+			ISRECLG      = v_ISRECLG,
+			ARACMCODE    = v_ARACMCODE,
+			PBSID        = v_PBSID,
+			PBPKGCODE    = v_PBPKGCODE,
+			ACTID        = v_ACTID,
+			ESTGIVN      = v_ESTGIVEN,
+			COPAYAMTACT  = v_COPAYAMTACT,
+			INSPREAUTHNO = v_PREAUTHNO
+--      ,BPBREGTYPE   = v_BPBREGTYPE
+		WHERE PBPID = v_PBPID;
+	END IF;
+
+      	Select Count(1) Into v_noOfRec From Fin_Est_Hosp Where Pbpid = v_PBPID;
+	IF v_noOfRec = 0 THEN
+		IF (v_BE <> '0')THEN
+--			SELECT SEQ_FEST.NEXTVAL INTO V_FID FROM DUAL;
+			INSERT INTO Fin_Est_Hosp (
+				Festid, Pbpid, Patno, Osb_Be
+			) VALUES (
+				SEQ_FEST.NEXTVAL, v_PBPID, v_PATNO, v_BE
+			);
+	      END IF;
+	ELSE
+		SELECT FESTID, OSB_BE INTO V_FID, I_BE FROM FIN_EST_HOSP WHERE PBPID = v_PBPID;
+	      	IF ( I_BE IS NOT NULL AND I_BE = '-1' AND v_BE = '0') THEN
+			-- delete existing BE when unclick the checkbox
+		  	DELETE FROM FIN_EST_HOSP
+		  	WHERE PBPID = v_PBPID
+		  	AND FESTID = V_FID ;
+	      	ELSE
+		  	Update Fin_Est_Hosp Set
+		    		Osb_Be = v_BE,
+		    		PATNO = v_PATNO
+		  	Where Festid = V_Fid;
+	      	END IF;
+	END IF;
+
+		UPDATE OT_App
+		SET patno = v_PATNO,
+			otafname = v_BPBFNAME,
+			otagname = v_BPBGNAME,
+			otahkid = v_PATIDNO,
+			otatel = v_PATKHTEL
+		WHERE pbpid = v_PBPID;
+
+		IF v_isOBBookingYN = 'Y' THEN
+			UPDATE BEDPREBOK
+			SET
+				FA_PATNO          = v_FA_PATNO,
+				FA_HKIC           = v_FA_HKIC,
+				FA_CNAME          = v_FA_CNAME,
+				FA_DOB            = TO_DATE(v_FA_DOB, 'DD/MM/YYYY'),
+				FA_TEL            = v_FA_TEL,
+				FA_HKIDHOLDER     = v_FA_HKIDHOLDER,
+				FA_RESIDENCE      = v_FA_RESIDENCE,
+				FA_BIRTHEXACTFLAG = v_FA_BIRTHEXACTFLAG,
+				FA_INFOSOURCE     = v_FA_INFOSOURCE,
+				ANTCHKDT1         = TO_DATE(v_ANTCHKDT1, 'DD/MM/YYYY'),
+				ANTCHKDT2         = TO_DATE(v_ANTCHKDT2, 'DD/MM/YYYY'),
+				ANTCHKDT3         = TO_DATE(v_ANTCHKDT3, 'DD/MM/YYYY'),
+				ANTCHKDT4         = TO_DATE(v_ANTCHKDT4, 'DD/MM/YYYY'),
+				ANTCHKDT5         = TO_DATE(v_ANTCHKDT5, 'DD/MM/YYYY'),
+				ANTCHKDT6         = TO_DATE(v_ANTCHKDT6, 'DD/MM/YYYY'),
+				ANTCHKDT7         = TO_DATE(v_ANTCHKDT7, 'DD/MM/YYYY'),
+				ANTCHKDT8         = TO_DATE(v_ANTCHKDT8, 'DD/MM/YYYY'),
+				ANTCHKDT9         = TO_DATE(v_ANTCHKDT9, 'DD/MM/YYYY'),
+				ANTCHKDT10        = TO_DATE(v_ANTCHKDT10, 'DD/MM/YYYY')
+			WHERE PBPID = v_PBPID;
+		END IF;
+	END IF;
+
+	RETURN o_ERRCODE;
+EXCEPTION
+WHEN OTHERS THEN
+	ROLLBACK;
+	dbms_output.put_line('An ERROR was encountered - '||SQLCODE||' -ERROR- '||SQLERRM);
+	o_ERRMSG := SQLERRM;
+
+	RETURN -1;
+END NHS_ACT_BEDPREBOK;
+/

@@ -1,0 +1,39 @@
+create or replace
+FUNCTION      NHS_ACT_MEDREC_ADDFORWEB (
+  i_action   IN VARCHAR2,
+	V_PATNO  IN VARCHAR2,
+  o_errmsg OUT VARCHAR2
+)
+	RETURN NUMBER
+AS
+  O_ERRCODE NUMBER;
+  R_2 NUMBER;
+  v_MRLocation MEDRECLOC.MRLDESC%TYPE;
+  r_4 varchar2(500);
+  r_5 NUMBER(1);
+  R_6 NUMBER(1);
+  R_7 NUMBER(1);
+  R_8 VARCHAR2(500);
+  R_9 NUMBER(1);
+  R_10 VARCHAR2(500);
+  V_CURSORTYPE 	TYPES.CURSOR_TYPE;
+  
+begin
+  O_ERRCODE := 0;
+  O_ERRMSG  := 'OK';
+  V_CURSORTYPE := NHS_ACT_MEDREC_ADD('ADD','0', 'P','I',V_PATNO,GET_CURRENT_STECODE(),'','PRE-ADMISSION','','','IWEB','0','0','-1');
+  LOOP
+	    FETCH v_CursorType  into O_ERRCODE, r_2, v_MRLocation, r_4, r_5,r_6,r_7,r_8,r_9,r_10;
+	    EXIT WHEN V_CURSORTYPE%NOTFOUND;
+	  END LOOP;
+    
+  
+  	RETURN O_ERRCODE;
+EXCEPTION
+WHEN OTHERS THEN
+	ROLLBACK;
+	dbms_output.put_line('An ERROR was encountered - '||SQLCODE||' -ERROR- '||SQLERRM);
+	O_ERRMSG := SQLERRM || O_ERRMSG;
+	RETURN -1;  
+END NHS_ACT_MEDREC_ADDFORWEB;
+/

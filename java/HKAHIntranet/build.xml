@@ -1,0 +1,286 @@
+<project name="HKAHIntranet" default="compile" basedir=".">
+	<description>
+		HKAH Intranet build file
+	</description>
+	<!-- set global properties for this build -->
+	<property name="src" location="src"/>
+
+	<!--property name="HKAHBase" location="../HKAHBase"/-->
+	<property name="HKAHWebBase" location="../HKAHWebBase"/>
+	<!--property name="ELEAVEagent" location="../ELEAVEagent"/-->
+	<!--property name="HKAHBill" location="../HKAHBill"/-->
+	<property name="build" location="../build"/>
+
+	<property name="wardir" location="../HKAHIntranet"/>
+	<property name="eardir" location="../HKAHIntranetEAR"/>
+
+	<property name="distjar" value="${wardir}/WebContent"/>
+	<property name="dist" location="../dist"/>
+
+	<property name="lib" location="../lib"/>
+	<property name="log4j_lib" value="log4j-1.2.15.jar"/>
+	<property name="collections_lib" value="commons-collections-3.2.1.jar"/>
+	<property name="digester_lib" value="commons-digester-1.8.jar"/>
+	<property name="groovy_lib" value="groovy-all-1.5.5.jar"/>
+	<property name="jacob_lib" value="jacob.jar"/>
+	<property name="jasper_lib" value="jasperreports-3.7.3.jar"/>
+	<property name="jna_lib" value="jna.jar"/>
+
+	<property name="project_name" value="HKAH"/>
+	<property name="shrinklog" value="${project_name}_shrinklog.xml"/>
+
+	<path id="runClasspath">
+		<pathelement location="${build}" />
+		<!--pathelement location="${ELEAVEagent}/bin" /-->
+		<!--pathelement location="${HKAHBase}/bin" /-->
+		<!--pathelement location="${HKAHBill}/bin" /-->
+		<pathelement location="${HKAHWebBase}/bin" />
+		<fileset dir="${lib}">
+			<include name="**/*.jar"/>
+		</fileset>
+		<!--fileset dir="${HKAHBase}/lib">
+			<include name="**/*.jar"/>
+		</fileset-->
+		<!--fileset dir="${HKAHBill}/lib">
+			<include name="**/*.jar"/>
+		</fileset-->
+		<fileset dir="${HKAHWebBase}/lib">
+			<include name="**/*.jar"/>
+		</fileset>
+		<fileset dir="${distjar}/WEB-INF/lib">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+
+	<property name="version.num" value="2.0"/>
+	<buildnumber file="../HKAHIntranet_build.num"/>
+	<tstamp>
+		<format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
+	</tstamp>
+
+	<manifest file="MANIFEST.MF">
+		<attribute name="Built-By" value="${user.name}"/>
+		<attribute name="Built-Date" value="${TODAY}"/>
+		<attribute name="Implementation-Version" value="${version.num}-b${build.number}"/>
+	</manifest>
+
+	<taskdef name="jrc" classname="net.sf.jasperreports.ant.JRAntCompileTask">
+		<classpath refid="runClasspath"/>
+	</taskdef>
+
+	<target name="clean"
+			description="clean up" >
+		<!-- Delete the ${build} and ${dist} directory trees -->
+		<delete dir="${build}"/>
+		<delete dir="${dist}"/>
+
+		<!--delete dir="${ELEAVEagent}/bin"/-->
+		<!--delete dir="${HKAHBase}/bin"/-->
+		<!--delete dir="${HKAHBill}/bin"/-->
+		<!--delete dir="${HKAHBill}/bin/report"/-->
+		<delete dir="${HKAHWebBase}/bin"/>
+		<delete file="${distjar}/WEB-INF/classes"/>
+		<!--delete file="${distjar}/WEB-INF/lib/HKAHBase.jar" /-->
+		<!--delete file="${distjar}/WEB-INF/lib/HKAHWebBase.jar" /-->
+		<!--delete file="${distjar}/WEB-INF/lib/ELEAVEagent.jar" /-->
+		<!--delete file="${distjar}/HKAHBase.jar" /-->
+		<!--delete file="${distjar}/HKAHBill.jar" /-->
+	</target>
+
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp/>
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}"/>
+	</target>
+
+	<target name="compile" depends="init"
+			description="compile the source " >
+		<!-- Compile the java code from ${src} into ${build} -->
+
+		<!--mkdir dir="${ELEAVEagent}/bin"/-->
+		<!--mkdir dir="${HKAHBase}/bin"/-->
+		<mkdir dir="${HKAHWebBase}/bin"/>
+		<mkdir dir="${HKAHWebBase}/bin/CVS"/>	<!-- for cvs update in centralized build -->
+		<!--mkdir dir="${HKAHBill}/bin"/-->
+		<!--mkdir dir="${HKAHBill}/bin/report"/-->
+
+		<!--javac srcdir="${ELEAVEagent}/src" destdir="${ELEAVEagent}/bin" nowarn="on">
+			<classpath refid="runClasspath"/>
+		</javac-->
+
+		<!--copy todir="${ELEAVEagent}/bin">
+			<fileset dir="${ELEAVEagent}/src" includes="**/*.properties"/>
+			<fileset dir="${ELEAVEagent}/src" includes="**/*.wav"/>
+			<fileset dir="${ELEAVEagent}/src" includes="**/*.gif"/>
+			<fileset dir="${ELEAVEagent}/src" includes="**/*.jpg"/>
+		</copy-->
+
+		<!--javac srcdir="${HKAHBase}/src" destdir="${HKAHBase}/bin" nowarn="on">
+			<classpath refid="runClasspath"/>
+		</javac-->
+
+		<!--copy todir="${HKAHBase}/bin">
+			<fileset dir="${HKAHBase}/src" includes="**/*.properties"/>
+			<fileset dir="${HKAHBase}/src" includes="**/*.wav"/>
+			<fileset dir="${HKAHBase}/src" includes="**/*.gif"/>
+			<fileset dir="${HKAHBase}/src" includes="**/*.jpg"/>
+		</copy-->
+
+		<javac srcdir="${HKAHWebBase}/src" destdir="${HKAHWebBase}/bin" nowarn="on">
+			<classpath refid="runClasspath"/>
+		</javac>
+
+		<copy todir="${HKAHWebBase}/bin">
+			<fileset dir="${HKAHWebBase}/src" includes="**/*.properties"/>
+			<fileset dir="${HKAHWebBase}/src" includes="**/*.wav"/>
+			<fileset dir="${HKAHWebBase}/src" includes="**/*.gif"/>
+			<fileset dir="${HKAHWebBase}/src" includes="**/*.jpg"/>
+		</copy>
+
+		<!--javac srcdir="${HKAHBill}/src" destdir="${HKAHBill}/bin" nowarn="on">
+			<classpath refid="runClasspath"/>
+		</javac-->
+
+		<!--copy todir="${HKAHBill}/bin">
+			<fileset dir="${HKAHBill}/src" includes="**/*.properties"/>
+			<fileset dir="${HKAHBill}/src" includes="**/*.wav"/>
+			<fileset dir="${HKAHBill}/src" includes="**/*.gif"/>
+			<fileset dir="${HKAHBill}/src" includes="**/*.jpg"/>
+		</copy-->
+
+		<!--jrc
+				srcdir="${HKAHBill}/Report"
+				destdir="${HKAHBill}/bin/report"
+				tempdir="${build}"
+				keepjava="true"
+				xmlvalidation="true">
+			<classpath refid="runClasspath"/>
+			<include name="**/*.jrxml"/>
+		</jrc-->
+
+		<delete>
+			<fileset dir="${distjar}/report" includes="**/*.jasper" />
+		</delete>
+
+		<jrc
+				srcdir="./report"
+				destdir="${distjar}/report"
+				tempdir="${build}"
+				keepjava="true"
+				xmlvalidation="true">
+			<classpath refid="runClasspath"/>
+			<include name="**/*.jrxml"/>
+		</jrc>
+
+		<copy file="./report/RPT_CMS_PHOTO.jrxml" todir="${distjar}/report"/>
+	</target>
+
+	<target name="packjar" depends="compile"
+			description="generate the distribution" >
+		<!-- Create the distribution directory -->
+		<mkdir dir="${dist}"/>
+
+		<!-- Put class files Jar files -->
+		<!--jar jarfile="${dist}/HKAHBase.obf.jar" basedir="${HKAHBase}/bin"/-->
+		<!--jar jarfile="${dist}/HKAHBill.obf.jar" basedir="${HKAHBill}/bin"/-->
+		<jar jarfile="${dist}/HKAHWebBase.obf.jar" basedir="${HKAHWebBase}/bin"/>
+		<!--jar jarfile="${dist}/ELEAVEagent.obf.jar" basedir="${ELEAVEagent}/bin"/-->
+
+		<!-- copy required library files to ${dist} directory-->
+		<copy file="${distjar}/WEB-INF/lib/commons-logging-1.1.1.jar" todir="${distjar}"/>
+		<copy file="${lib}/jCalendar.jar" todir="${distjar}"/>
+		<copy file="${distjar}/WEB-INF/lib/${log4j_lib}" todir="${distjar}"/>
+		<copy file="${distjar}/WEB-INF/lib/${collections_lib}" todir="${distjar}"/>
+		<copy file="${distjar}/WEB-INF/lib/${digester_lib}" todir="${distjar}"/>
+		<copy file="${distjar}/WEB-INF/lib/${groovy_lib}" todir="${distjar}"/>
+		<copy file="${lib}/${jacob_lib}" todir="${distjar}"/>
+		<copy file="${distjar}/WEB-INF/lib/${jasper_lib}" todir="${distjar}"/>
+		<copy file="${lib}/${jna_lib}" todir="${distjar}"/>
+	</target>
+
+	<target name="yguard" depends="packjar">
+		<taskdef name="yguard" classname="com.yworks.yguard.YGuardTask" classpath="${lib}/yguard.jar"/>
+		<!-- the following can be adjusted to your needs -->
+		<yguard>
+			<!--inoutpair in="${dist}/HKAHBase.obf.jar" out="${dist}/HKAHBase.jar"/-->
+			<!--inoutpair in="${dist}/HKAHBill.obf.jar" out="${dist}/HKAHBill.jar"/-->
+			<inoutpair in="${dist}/HKAHWebBase.obf.jar" out="${dist}/HKAHWebBase.jar"/>
+			<!--inoutpair in="${dist}/ELEAVEagent.obf.jar" out="${dist}/ELEAVEagent.jar"/-->
+			<shrink logfile="${shrinklog}">
+				<keep>
+					<class classes="protected" methods="protected" fields="protected">
+					<patternset>
+						<include name="com.hkah.**.*"/>
+						<exclude name="com.hkah.common.*"/>
+					</patternset>
+					</class>
+				</keep>
+			</shrink>
+		</yguard>
+
+		<!-- copy HKAHBase to WEB directory-->
+		<!--copy file="${dist}/HKAHBase.jar" todir="${distjar}/WEB-INF/lib"/-->
+		<copy file="${dist}/HKAHWebBase.jar" todir="${distjar}/WEB-INF/lib"/>
+		<!--copy file="${dist}/ELEAVEagent.jar" todir="${distjar}/WEB-INF/lib"/-->
+		<!--copy file="${dist}/HKAHBase.jar" todir="${distjar}"/-->
+		<!--copy file="${dist}/HKAHBill.jar" todir="${distjar}"/-->
+	</target>
+
+	<!--create cert := keytool -genkey -alias HKAH-->
+	<!--comment := ant signjar -Dstorepass=password-->
+	<!--target name="signjar" depends="yguard" description="Sign jar files" -->
+		<!-- sign jar files -->
+		<!--signjar jar="${distjar}/HKAHBase.jar" alias="HKAH" storepass="${storepass}"/-->
+		<!--signjar jar="${distjar}/HKAHBill.jar" alias="HKAH" storepass="${storepass}"/-->
+
+		<!--signjar jar="${distjar}/commons-logging-1.1.1.jar" alias="HKAH" storepass="${storepass}"/-->
+		<!--signjar jar="${distjar}/jCalendar.jar" alias="HKAH" storepass="${storepass}"/-->
+		<!--signjar jar="${distjar}/${log4j_lib}" alias="HKAH" storepass="${storepass}"/-->
+		<!--signjar jar="${distjar}/${collections_lib}" alias="HKAH" storepass="${storepass}"/-->
+		<!--signjar jar="${distjar}/${digester_lib}" alias="HKAH" storepass="${storepass}"/-->
+		<!--signjar jar="${distjar}/${groovy_lib}" alias="HKAH" storepass="${storepass}"/-->
+		<!--signjar jar="${distjar}/${jacob_lib}" alias="HKAH" storepass="${storepass}"/-->
+		<!--signjar jar="${distjar}/${jasper_lib}" alias="HKAH" storepass="${storepass}"/-->
+		<!--signjar jar="${distjar}/${jna_lib}" alias="HKAH" storepass="${storepass}"/-->
+	<!--/target-->
+
+	<target name="convert" depends="yguard" description="convert properties" >
+		<delete file="${wardir}/src/MessageResources_zh_TW.properties" />
+		<delete file="${wardir}/src/MessageResources_zh_CN.properties" />
+		<delete file="${wardir}/src/MessageResources_ja_JP.properties" />
+
+		<native2ascii encoding="big5" src="${wardir}/src/resource_zh_TW" dest="${wardir}/src" />
+		<native2ascii encoding="gb2312" src="${wardir}/src/resource_zh_CN" dest="${wardir}/src" />
+		<native2ascii encoding="utf8" src="${wardir}/src/resource_ja_JP" dest="${wardir}/src" />
+	</target>
+
+	<target name="packwar" depends="convert" description="build war file" >
+		<mkdir dir="${distjar}/WEB-INF/classes"/>
+
+		<copy todir="${distjar}/WEB-INF/classes">
+			<fileset dir="${wardir}/src" includes="**/*.properties"/>
+			<fileset dir="${wardir}/src" includes="**/*.wav"/>
+			<fileset dir="${wardir}/src" includes="**/*.gif"/>
+			<fileset dir="${wardir}/src" includes="**/*.jpg"/>
+			<fileset dir="${wardir}/src" includes="**/*.xml"/>
+		</copy>
+
+		<!--replace file="${wardir}/src/com/hkah/servlet/HKAHInitServlet.java" token="isWebsphere = true" value="isWebsphere = false"/-->
+
+		<javac
+			srcdir="${wardir}/src"
+			includes="**/*.java"
+			destdir="${distjar}/WEB-INF/classes"
+			encoding="UTF-8">
+			<classpath refid="runClasspath"/>
+		</javac>
+		<jar jarfile="${eardir}/intranet.war" basedir="${distjar}" manifest="MANIFEST.MF" />
+
+		<!--replace file="${wardir}/src/com/hkah/servlet/HKAHInitServlet.java" token="isWebsphere = false" value="isWebsphere = true"/-->
+	</target>
+
+	<target name="packear" depends="packwar" description="build ear" >
+		<jar jarfile="${dist}/HKAHEAR.ear" basedir="${eardir}" manifest="MANIFEST.MF" />
+	</target>
+</project>

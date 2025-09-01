@@ -3,8 +3,13 @@ import numpy as np
 arr = np.array([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]])
 
 print(arr[1, 1:4])
+<<<<<<< HEAD
 print(arr[0:2, 3])
 print(arr[0:2, 1:4])
+=======
+#print(arr[0:2, 3])
+#print(arr[0:2, 1:4])
+>>>>>>> 9ed9ec85ef2d9633be713f86cf6fb59a1ed40854
 
 #li = [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]]
 #print(li)

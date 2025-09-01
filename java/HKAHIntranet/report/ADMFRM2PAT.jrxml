@@ -1,0 +1,1970 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ADMFRM2PAT" pageWidth="594" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="572" leftMargin="14" rightMargin="8" topMargin="8" bottomMargin="8" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="1.272292855117458"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="patNo" class="java.lang.String"/>
+	<parameter name="patDOB" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="patHPhone" class="java.lang.String"/>
+	<parameter name="patMPhone" class="java.lang.String"/>
+	<parameter name="patOPhone" class="java.lang.String"/>
+	<parameter name="patNation" class="java.lang.String"/>
+	<parameter name="patReli" class="java.lang.String"/>
+	<parameter name="patAdd" class="java.lang.String"/>
+	<parameter name="patSname" class="java.lang.String"/>
+	<parameter name="patFname" class="java.lang.String"/>
+	<parameter name="patIDNo" class="java.lang.String"/>
+	<parameter name="patMStatus" class="java.lang.String"/>
+	<parameter name="patEduLvl" class="java.lang.String"/>
+	<parameter name="patOccptn" class="java.lang.String"/>
+	<parameter name="patCorrLang" class="java.lang.String"/>
+	<parameter name="patEmail" class="java.lang.String"/>
+	<parameter name="NKName" class="java.lang.String"/>
+	<parameter name="NKOPhone" class="java.lang.String"/>
+	<parameter name="NKEmail" class="java.lang.String"/>
+	<parameter name="NKAdd" class="java.lang.String"/>
+	<parameter name="NKRetnshp" class="java.lang.String"/>
+	<parameter name="NKMPhone" class="java.lang.String"/>
+	<parameter name="NKHPhone" class="java.lang.String"/>
+	<parameter name="LogoImg" class="java.lang.String"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="patHowInfo" class="java.lang.String"/>
+	<parameter name="patHowInfoOther" class="java.lang.String"/>
+	<parameter name="promotionYN" class="java.lang.String"/>
+	<pageHeader>
+		<band height="39">
+			<image scaleImage="RetainShape">
+				<reportElement x="0" y="0" width="555" height="39"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/logo_hkah.bmp")]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="669" splitType="Stretch">
+			<frame>
+				<reportElement x="1" y="2" width="554" height="667"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<staticText>
+					<reportElement x="27" y="394" width="527" height="10"/>
+					<box topPadding="1"/>
+					<textElement markup="html">
+						<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[The notification of such requirement may be sent to the Hospital by post, electronic mail, telephone call or other means of communication. (Tel: 3651 8997; Email: patientservice@hkah.org.hk)]]></text>
+				</staticText>
+				<ellipse>
+					<reportElement x="6" y="650" width="7" height="7"/>
+				</ellipse>
+				<image>
+					<reportElement x="130" y="183" width="6" height="6"/>
+					<imageExpression class="java.io.File"><![CDATA[$P{patHowInfo}.equals("enews") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="213" y="183" width="6" height="6"/>
+					<imageExpression class="java.io.File"><![CDATA[$P{patHowInfo}.equals("friend") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="321" y="183" width="6" height="6"/>
+					<imageExpression class="java.io.File"><![CDATA[$P{patHowInfo}.equals("web") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="423" y="183" width="6" height="6"/>
+					<imageExpression class="java.io.File"><![CDATA[$P{patHowInfo}.equals("news") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="130" y="194" width="6" height="6"/>
+					<imageExpression class="java.io.File"><![CDATA[$P{patHowInfo}.equals("other") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="28" y="501" width="505" height="19"/>
+					<box topPadding="1">
+						<bottomPen lineWidth="0.0"/>
+					</box>
+					<textElement markup="html">
+						<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[本人明白，本人可以隨時藉郵件、電子郵件、電話通話或其他形式的傳訊，通知醫院停止使用本人的個人資料來提供與醫院服務或健康訊息有關的資料。同時，醫院不會因此向本人收取費用。(電話號碼：3651 8997 ; 電郵地址：patientservice@hkah.org.hk)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="27" y="386" width="527" height="9"/>
+					<box topPadding="1"/>
+					<textElement markup="html">
+						<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[comply with the requirement.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="27" y="362" width="527" height="9"/>
+					<box topPadding="1"/>
+					<textElement markup="html">
+						<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[electronic mail or other means of communication or making telephone calls via my address, telephone numbers, fax number and email address provided by me to the Hospital.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="27" y="307" width="527" height="9"/>
+					<box topPadding="1"/>
+					<textElement markup="html">
+						<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[and other Hospital ' s services rendered under the general/special instructions of the attending physician.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="27" y="291" width="527" height="9"/>
+					<box topPadding="1"/>
+					<textElement markup="html">
+						<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[I am informed and recognize that all physicians, specialists, surgeons and independent contractors providing services to patients are not employees or agents of the Hospital.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="27" y="421" width="66" height="12" isPrintWhenDetailOverflows="true"/>
+					<box topPadding="1"/>
+					<textElement markup="html">
+						<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[本人同意在主診醫生的一般或]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="27" y="412" width="57" height="10"/>
+					<box topPadding="1"/>
+					<textElement markup="html">
+						<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[本人知悉在香港港安醫院]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="92" y="412" width="13" height="10"/>
+					<box topPadding="1"/>
+					<textElement markup="html">
+						<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[醫院]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="84" y="412" width="8" height="10"/>
+					<box topPadding="1"/>
+					<textElement markup="html">
+						<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[(「]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="105" y="412" width="5" height="10"/>
+					<box topPadding="1"/>
+					<textElement markup="html">
+						<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[」]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="110" y="412" width="5" height="10"/>
+					<box topPadding="1"/>
+					<textElement markup="html">
+						<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="85" y="552" width="7" height="10"/>
+					<textElement markup="html">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="50" y="602" width="37" height="10"/>
+					<textElement markup="html">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[十八歲或以上]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="86" y="602" width="7" height="10"/>
+					<textElement markup="html">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[)]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="183" y="190" width="92" height="12"/>
+					<box leftPadding="1"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{patHowInfo}.equals("other") ? $P{patHowInfoOther} : ""]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="29" y="493" width="6" height="6"/>
+					<imageExpression class="java.io.File"><![CDATA[$P{promotionYN}.equals("N") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="29" y="372" width="6" height="6"/>
+					<imageExpression class="java.io.File"><![CDATA[$P{promotionYN}.equals("N") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+				</image>
+			</frame>
+			<staticText>
+				<reportElement x="4" y="12" width="16" height="12"/>
+				<textElement>
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[1.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="23" width="16" height="12"/>
+				<textElement>
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[2.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="23" width="536" height="12"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Personal data provided herein is intended for internal use only and will form part of your medical record. Please contact us should amendment is required.
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-72" y="-31" width="16" height="17"/>
+				<textElement>
+					<font size="11" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[1.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="45" width="536" height="12"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[All information and agreement provided shall remain valid and effective unless explicitly revoked or amended by you in writing.
+
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="45" width="16" height="12"/>
+				<textElement>
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[3.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="69" width="92" height="13"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Hospital No ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="69" width="207" height="13"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="394" y="69" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[姓]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="411" y="69" width="143" height="13"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patSname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="39" y="81" width="51" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Date of Birth ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="81" width="102" height="12"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patDOB}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="107" y="92" width="22" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[性別]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="92" width="100" height="12"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patSex}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="133" y="103" width="100" height="12"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patHPhone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="91" y="103" width="38" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[住宅電話]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="114" width="100" height="12"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patMPhone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="92" y="114" width="37" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[流動電話]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="82" y="125" width="47" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[辦公室電話	]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="125" width="100" height="12"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patOPhone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="133" y="136" width="100" height="12"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patNation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="109" y="136" width="20" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[國籍]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="147" width="92" height="12"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patReli}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="109" y="147" width="20" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[宗教]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="158" width="20" height="22"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[地址]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="158" width="420" height="22"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patAdd}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="392" y="81" width="15" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[名]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="411" y="81" width="143" height="12"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patFname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="369" y="92" width="38" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[證件號碼 	]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="411" y="92" width="143" height="12"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patIDNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="411" y="103" width="144" height="12"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patMStatus}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="369" y="103" width="38" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[婚姻狀況]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="114" width="37" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[教育程度]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="411" y="114" width="143" height="12"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patEduLvl}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="411" y="125" width="144" height="12"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patOccptn}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="382" y="125" width="25" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[ 職業 ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="411" y="136" width="144" height="12"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patCorrLang}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="368" y="136" width="39" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[通訊語言: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="147" width="23" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[ 地址]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="411" y="147" width="144" height="12"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patEmail}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="181" width="125" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[How did you hear about us?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="192" width="125" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[認識本院的途徑]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="181" width="47" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[E-newsletter]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="221" y="181" width="68" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Friends / Relatives]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="329" y="181" width="61" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Hospital website]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="431" y="181" width="84" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Newspaper / Magazine]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="192" width="21" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Other]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="301" width="16" height="17"/>
+				<box topPadding="1"/>
+				<textElement>
+					<font size="5" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[3.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="277" width="527" height="9"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[All information given by me is true and correct to the best of my personal knowledge.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="277" width="16" height="9"/>
+				<box topPadding="1"/>
+				<textElement>
+					<font size="5" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[1.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="285" width="16" height="17"/>
+				<box topPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="5" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[2.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="301" width="527" height="9"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[I consent to diagnostic imaging, laboratory and physiotherapy procedures which may include, but not limited to, blood drawing, medical or surgical treatment,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="285" width="527" height="9"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[I acknowledge the fact that patients treated or admitted to Hong Kong Adventist Hospital ("the Hospital") are under the direct care, supervision and responsibility of their attending physician.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="266" width="74" height="12"/>
+				<textElement markup="html">
+					<font size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Patient's Agreement]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="317" width="16" height="9"/>
+				<box topPadding="1"/>
+				<textElement>
+					<font size="5" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[4.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="317" width="527" height="9"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[I agree to pay the Hospital ' s current rates and charges at the time the services rendered in respect of the facilities used and treatment received by me and all other incidental charges incurred.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="206" width="116" height="12"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[  Emergency Contact Person]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="219" width="98" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Contact Person]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="405" y="241" width="150" height="12"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NKHPhone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="129" y="219" width="198" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NKName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="367" y="230" width="35" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[流動電話	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="367" y="241" width="35" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[住宅電話	]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="129" y="230" width="100" height="12"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NKOPhone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="129" y="241" width="181" height="12"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NKEmail}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="129" y="252" width="422" height="13"/>
+				<box bottomPadding="1">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NKAdd}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="252" width="94" height="13"/>
+				<box bottomPadding="1">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="230" width="72" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Office Phone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="378" y="219" width="24" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[關係:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="108" y="241" width="18" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[地址]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="405" y="230" width="150" height="12"/>
+				<box leftPadding="1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NKMPhone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="405" y="219" width="148" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NKRetnshp}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="28" y="325" width="527" height="16"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[I hereby authorize the Hospital to contact and release/disclose/share all my personal data (including but not limited to medical record) to/with my insurer, its agent or
+broker for activities pertaining to my insurance claim, or any accreditation institutions / organizations / company involved in accreditation of the Hospital.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="325" width="16" height="16"/>
+				<box topPadding="1"/>
+				<textElement>
+					<font size="5" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[5.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="340" width="16" height="9"/>
+				<box topPadding="1"/>
+				<textElement>
+					<font size="5" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[6.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="340" width="527" height="9"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[I agree to pay any outstanding charges that have not been paid or covered by my insurer.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="348" width="16" height="9"/>
+				<box topPadding="1"/>
+				<textElement>
+					<font size="5" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[7.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="348" width="527" height="9"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[I agree Clauses 1 to 6 shall remain valid and effective unless specifically revoked by me in writing.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="356" width="16" height="50"/>
+				<box topPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="5" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[8.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="356" width="526" height="9"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[I give my consent herein to the Hospital to send its direct marketing and health promotion materials in relation to its services to me by post, SMS, fax,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="372" width="518" height="9"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[I do not give my consent to the Hospital to use my data for direct marketing of health services and promotion purpose.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="380" width="527" height="9"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ I understand that I may at any time require and notify the Hospital to cease to use my data in direct marketing of health services and promotion and the Hospital must, without charge to me, ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="493" width="517" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人不同意醫院使用本人的個人資料來提供與醫院服務或健康訊息有關的資料。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="473" width="16" height="12"/>
+				<box topPadding="1"/>
+				<textElement>
+					<font size="5" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[7.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="462" width="16" height="12"/>
+				<box topPadding="1"/>
+				<textElement>
+					<font size="5" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[6.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="484" width="527" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人同意醫院可以藉郵件、短訊、圖文傳真、電子郵件或其他形式的傳訊，或通過電話通話，向本人提供與醫院服務或健康訊息有關的資料。 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="423" width="16" height="12"/>
+				<box topPadding="1"/>
+				<textElement>
+					<font size="5" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[3.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="434" width="527" height="12"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人同意支付所有由醫院提供予本人的治療、設施和服務的規定費用，及偶發事故所帶來的收費。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="484" width="16" height="10"/>
+				<box topPadding="1"/>
+				<textElement>
+					<font size="5" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[8.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="414" width="16" height="10"/>
+				<box topPadding="1"/>
+				<textElement>
+					<font size="5" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[2.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="473" width="527" height="12"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人同意此協議第一至六條將持續有效，直至本人以書面方式，明確要求取消此協議。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="462" width="527" height="12"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人同意支付所有額外費用或保險公司所未能承保的費用。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="405" width="527" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[所有由本人提供的資料在本人的個人認知範圍內皆屬實和正確。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="94" y="423" width="449" height="12" isPrintWhenDetailOverflows="true"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[特殊指令下，接受診斷成像、實驗室檢驗及物理治療等程序，當中可能包括但不限於抽血、藥物或手術治療及來自其他醫院提供之服務等。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="116" y="414" width="431" height="10"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[接受治療或留院之病人，均直接由主診醫生照顧、監護及負責。本人知悉及知道，所有為病人服務的醫生、專家、外科醫生及獨立承包商均不屬醫院僱員及代理。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="405" width="16" height="10"/>
+				<box topPadding="1"/>
+				<textElement>
+					<font size="5" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[1.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="445" width="16" height="18"/>
+				<box topPadding="1"/>
+				<textElement>
+					<font size="5" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[5.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="434" width="16" height="12"/>
+				<box topPadding="1"/>
+				<textElement>
+					<font size="5" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[4.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="445" width="527" height="18"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="5" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人在此授權醫院就本人的保險索償事宜與本人的承保人或其附屬之仲介人或經紀人聯繫，及向其提交 / 披露 / 分享或索取所有與本人有關的個人資料 ( 包括但不限於醫療紀錄 )，及授權醫院提交 / 披露 / 分享所有與本人有關的個人資料 ( 包括但不限於醫療紀錄 ) 予參與評審醫院的任何認可機構 / 組織 / 公司。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="529" width="81" height="13"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[  Patient Signature:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="541" width="78" height="13"/>
+				<textElement>
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[病人簽署]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="529" width="143" height="25"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[_________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="554" width="48" height="10"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="6" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(Age 18 or above ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="529" width="34" height="13"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="541" width="34" height="13"/>
+				<textElement>
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[姓名]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="256" y="529" width="143" height="25"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[_________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="529" width="34" height="13"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="542" width="34" height="13"/>
+				<textElement>
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[日期]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="431" y="529" width="123" height="25"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[______________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="82" y="563" width="142" height="40"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[_________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="563" width="31" height="13"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="563" width="79" height="28"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Responsible Party
+Signature:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="575" width="30" height="13"/>
+				<textElement>
+					<font size="9" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[姓名]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="428" y="563" width="127" height="25"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[______________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="395" y="575" width="34" height="13"/>
+				<textElement>
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[日期]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="395" y="563" width="34" height="13"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="590" width="79" height="13"/>
+				<textElement>
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[負責人簽署]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="253" y="563" width="143" height="25"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[_________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="614" width="104" height="10"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="6" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[*Please delete the inappropriate item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="623" width="410" height="10"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="6" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[<font color='red'>If there is any inconsistency or ambiguity between the English version and the Chinese version, the English version shall prevail.</font>]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="1" width="78" height="12"/>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Personal Particulars]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="1" width="35" height="12"/>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[個人資料]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="56" width="533" height="12"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[此表格上所有資料及協議將持續有效，直至　閣下以書面方式，明確要求取消或修改。
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="91" y="69" width="38" height="13"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[病歷號碼]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="89" y="81" width="40" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[出生日期]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="103" width="60" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Home Phone ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="114" width="62" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Mobile Phone ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="125" width="52" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Office Phone ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="67" y="136" width="43" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Nationality]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="147" width="34" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Religion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="77" y="158" width="33" height="22"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="334" y="69" width="61" height="13"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Surname ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="81" width="50" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Given Name ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="92" width="50" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Identity ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="91" y="92" width="17" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Sex ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="312" y="103" width="58" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Marital Status ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="125" width="51" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Occupation ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="304" y="136" width="65" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Corr. Languages ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="358" y="147" width="27" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="181" width="24" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[電子報]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="181" width="32" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[親友介紹]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="181" width="33" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[醫院網站]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="514" y="181" width="41" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[報章或雜誌]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="159" y="192" width="26" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[其他：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="116" y="206" width="437" height="12"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[緊急聯絡人資料]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="97" y="219" width="29" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[聯絡人]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="230" width="45" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[辦公室電話]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="241" width="24" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Email ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="34" width="536" height="12"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[閣下的個人資料只供本院內部使用，並會作為病歷一部份。資料如有更改，請儘早通知本院。
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="12" width="146" height="12"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[所提供的資料必須與身份證明文件相符。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="634" width="89" height="12"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true" isUnderline="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[For Office Use Only]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="196" y="510" width="0" height="12"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="554" width="37" height="10"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="6" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[十八歲或以上]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="604" width="51" height="10"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="6" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(Age 18 or above ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="104" y="614" width="451" height="10"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="6" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[請刪去不適用者]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="362" y="623" width="193" height="10"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="6" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[<font color='red'>中英文版本如有歧異，概以英文版本為準。</font>]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="634" width="73" height="12"/>
+				<textElement>
+					<font size="8" isBold="true" isUnderline="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[ 醫院專用]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="650" width="182" height="12"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ HK ID/ Birth Cert/ Passport / Travel Document Checked ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="650" width="58" height="12"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Registration Staff]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="431" y="650" width="31" height="12"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[註冊職員]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="461" y="641" width="6" height="12"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="466" y="650" width="82" height="12"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[___________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="126" y="510" width="0" height="12"/>
+				<box topPadding="1"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="105" y="252" width="21" height="13"/>
+				<box bottomPadding="1">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[地址]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="325" y="219" width="54" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Relationship]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="319" y="230" width="49" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Mobile Phone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="317" y="241" width="51" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Home Phone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="241" width="5" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="230" width="5" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="219" width="5" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="401" y="241" width="5" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="401" y="230" width="5" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="401" y="219" width="5" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="158" width="6" height="22"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="147" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="136" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="125" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="114" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="103" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="92" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="81" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="69" width="6" height="13"/>
+				<box topPadding="1">
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="406" y="69" width="6" height="13"/>
+				<box topPadding="1">
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="406" y="81" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="406" y="92" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="406" y="103" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="114" width="80" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Education Level]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="406" y="114" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="406" y="125" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="406" y="136" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="406" y="147" width="6" height="12"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="12" width="248" height="12"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Data provided herein should be consistent with your identification documents. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="252" width="5" height="13"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="266" width="35" height="12"/>
+				<textElement markup="html">
+					<font size="7" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[病人協議]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="118">
+			<frame>
+				<reportElement x="233" y="63" width="322" height="37"/>
+				<box>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="4" y="42" width="88" height="20"/>
+				<textElement/>
+				<text><![CDATA[Date of Birth: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="61" width="88" height="20"/>
+				<textElement/>
+				<text><![CDATA[Sex: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="4" width="88" height="20"/>
+				<textElement/>
+				<text><![CDATA[Patient No.: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="80" width="88" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="0" y="5" width="233" height="95"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textField>
+					<reportElement x="91" y="0" width="142" height="19"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{patNo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="163" y="18" width="70" height="20"/>
+					<box leftPadding="1"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{patFname}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="91" y="18" width="72" height="20"/>
+					<box leftPadding="1"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{patSname}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="91" y="37" width="142" height="20"/>
+					<box leftPadding="1"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{patDOB}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="91" y="56" width="142" height="20"/>
+					<box leftPadding="1"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{patSex}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement x="233" y="5" width="322" height="39"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Out-Patient
+Registration Form
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="43" width="161" height="20"/>
+				<box>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rev: Mar 2013]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="394" y="43" width="161" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PABD-MOD01]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="287" y="70" width="230" height="23"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode("PABDMOD01",com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="4" y="23" width="88" height="20"/>
+				<textElement/>
+				<text><![CDATA[Name: ]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

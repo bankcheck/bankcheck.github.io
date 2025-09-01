@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="epo_summary_xls" pageWidth="793" pageHeight="555" orientation="Landscape" columnWidth="793" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="P_SLPNO" class="java.lang.String"/>
+	<parameter name="ISCOPY" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\projects\\Reports\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SubDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="SubDataSource1" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="fromDate" class="java.lang.String"/>
+	<parameter name="toDate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="fromDate" class="java.lang.String"/>
+	<field name="toDate" class="java.lang.String"/>
+	<pageHeader>
+		<band height="75" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="793" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ePR report(order amount >= $10,000)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="793" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hong Kong Adventist Hospital]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="40" width="793" height="35"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA["From "+$P{fromDate}+" To : "+$P{toDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="57" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="20" width="793" height="37"/>
+				<dataSourceExpression><![CDATA[$P{SubDataSource}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "epo_summary_xls_Sub1.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="0" width="793" height="20"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Site : HKAH - SR]]></text>
+			</staticText>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="0" y="20" width="793" height="30" isRemoveLineWhenBlank="true"/>
+				<dataSourceExpression><![CDATA[$P{SubDataSource1}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "epo_summary_xls_Sub2.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="793" height="20"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Site : HKAH - TW]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

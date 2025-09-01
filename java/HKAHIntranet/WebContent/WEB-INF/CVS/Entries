@@ -1,0 +1,24 @@
+/.cvsignore/1.1/Tue Aug  4 02:02:27 2009//
+/c.tld/1.2/Thu Sep 16 04:22:47 2010//
+D/conf////
+/displaytag-el.tld/1.1/Tue Aug  4 02:02:26 2009//
+/displaytag.tld/1.1/Tue Aug  4 02:02:27 2009//
+/fmt.tld/1.1/Wed Apr 28 04:22:08 2010//
+/fn.tld/1.1/Wed Jan 26 04:30:38 2011//
+/hibernate.reveng.xml/1.1/Thu Jul  8 02:58:55 2010//
+/hibernate_gen.cfg.xml/1.1/Thu Jul  8 02:54:12 2010//
+/ibm-web-bnd.xml/1.1/Tue Sep 14 03:56:01 2010//
+/ibm-web-ext.xml/1.1/Tue Sep 14 03:56:01 2010//
+D/lib////
+D/modules////
+D/services////
+/spring-form.tld/1.1/Fri Dec  4 01:07:16 2009//
+/springapp-servlet.xml/1.15/Fri Mar  2 08:25:52 2018//
+/struts-bean.tld/1.1/Tue Aug  4 02:02:27 2009//
+/struts-config.xml/1.25/Tue Jul 30 04:32:44 2019//
+/struts-html.tld/1.1/Tue Aug  4 02:02:26 2009//
+/struts-logic.tld/1.1/Tue Aug  4 02:02:27 2009//
+/struts-nested.tld/1.1/Tue Aug  4 02:02:26 2009//
+/validation.xml/1.1/Tue Aug  4 02:02:26 2009//
+/validator-rules.xml/1.1/Tue Aug  4 02:02:27 2009//
+/web.xml/1.37/Mon Mar 25 09:20:10 2019//

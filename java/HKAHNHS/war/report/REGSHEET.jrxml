@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="REGSHEET" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="64" bottomMargin="20">
+	<property name="ireport.zoom" value="1.4641000000000104"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SITECODE" class="java.lang.String">
+		<defaultValueExpression><![CDATA["HKAH"]]></defaultValueExpression>
+	</parameter>
+	<field name="regid" class="java.lang.String"/>
+	<field name="patno" class="java.lang.String"/>
+	<field name="regtype" class="java.lang.String"/>
+	<field name="patname" class="java.lang.String"/>
+	<field name="patcname" class="java.lang.String"/>
+	<field name="inpddateasdate" class="java.lang.String"/>
+	<field name="inpddateastext" class="java.lang.String"/>
+	<field name="regdateasdate" class="java.lang.String"/>
+	<field name="regdateastext" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="662">
+			<staticText>
+				<reportElement x="2" y="3" width="144" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Patient Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="31" width="144" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Patient Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="104" width="144" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Registration ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="183" width="144" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Registration Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="258" width="144" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Admission/Registration Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="335" width="144" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Discharge Date]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="145" y="3" width="408" height="25"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" size="12" isBold="true" isStrikeThrough="false" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{patname}+($F{patcname}.isEmpty()?"":",")+($F{patcname}.isEmpty()?"":$F{patcname})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="31" width="141" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{patno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="104" width="100" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{regid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="183" width="141" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{regtype}.equals( "I" )?"Inpatient":"Outpatient"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="258" width="100" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{regdateasdate}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="145" y="335" width="156" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{inpddateasdate}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Left" vAlign="Middle" isLazy="true">
+				<reportElement x="142" y="51" width="179" height="25"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode($F{patno},com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<image hAlign="Left" vAlign="Middle" isLazy="true">
+				<reportElement x="142" y="124" width="195" height="25"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode($F{regid},com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<image hAlign="Left" vAlign="Middle" isLazy="true">
+				<reportElement x="142" y="278" width="180" height="25"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode("TWAH".equals($P{SITECODE}) ? $F{regdateasdate} : $F{regdateasdate}.replace("/",""),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<image hAlign="Left" vAlign="Middle" isLazy="true">
+				<reportElement x="142" y="355" width="180" height="25">
+					<printWhenExpression><![CDATA[!$F{inpddateasdate}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode("TWAH".equals($P{SITECODE}) ? $F{inpddateasdate} : $F{inpddateasdate}.replace("/",""),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<image hAlign="Left" vAlign="Middle" isLazy="true">
+				<reportElement x="114" y="203" width="195" height="30"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode($F{regtype}+"  ",com.google.zxing.BarcodeFormat.CODE_39,130,30))]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="96">
+			<frame>
+				<reportElement x="264" y="54" width="264" height="42"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement x="34" y="13" width="205" height="25"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode("REGSHEET",com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+			</frame>
+			<staticText>
+				<reportElement x="366" y="35" width="100" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REGSHEET]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

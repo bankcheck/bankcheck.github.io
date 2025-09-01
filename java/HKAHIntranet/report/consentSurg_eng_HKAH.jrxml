@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Consent For Surgical/Invasive Procedure" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="517" leftMargin="39" rightMargin="39" topMargin="14" bottomMargin="11">
+	<property name="ireport.zoom" value="1.5000000000000024"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.pdf.compressed" value="true"/>
+	<scriptlet name="TextScriptlet" class="com.text.TextScriptlet"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="Site" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patname" class="java.lang.String"/>
+	<parameter name="patcname" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="patDOB" class="java.lang.String"/>
+	<parameter name="procedure" class="java.lang.String"/>
+	<parameter name="procedureChi" class="java.lang.String"/>
+	<parameter name="anaethesiaType" class="java.lang.String"/>
+	<parameter name="regionAnaeSelect" class="java.lang.String"/>
+	<parameter name="anaethesiaOtherText" class="java.lang.String"/>
+	<parameter name="docname" class="java.lang.String"/>
+	<parameter name="doccname" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHIntranet\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="lang" class="java.lang.String"/>
+	<parameter name="ImgTick" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHNHS\\war\\images\\tick1.gif"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="factSheetNo" class="java.lang.String"/>
+	<parameter name="SubDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="patientYN" class="java.lang.String"/>
+	<parameter name="complication" class="java.lang.String"/>
+	<parameter name="consentDate" class="java.lang.String"/>
+	<parameter name="patIDno" class="java.lang.String"/>
+	<parameter name="afactSheetNo" class="java.lang.String"/>
+	<parameter name="isPrintTimeOut" class="java.lang.String"/>
+	<parameter name="SubDataSource1" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="hasFS" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[Select 1 From Dual Connect By Level <= 1]]>
+	</queryString>
+	<field name="1" class="java.math.BigDecimal"/>
+	<pageHeader>
+		<band height="45" splitType="Prevent">
+			<image scaleImage="RetainShape" isUsingCache="true" isLazy="true">
+				<reportElement x="-36" y="0" width="517" height="45"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/HKAH_logo_RGB.jpg")]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<detail>
+		<band>
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="517" height="0"/>
+				<subreportParameter name="ImgTick">
+					<subreportParameterExpression><![CDATA[$P{ImgTick}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Site">
+					<subreportParameterExpression><![CDATA[$P{Site}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regionAnaeSelect">
+					<subreportParameterExpression><![CDATA[$P{regionAnaeSelect}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patSex">
+					<subreportParameterExpression><![CDATA[$P{patSex}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="doccname">
+					<subreportParameterExpression><![CDATA[$P{doccname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="procedureChi">
+					<subreportParameterExpression><![CDATA[$P{procedureChi}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patientYN">
+					<subreportParameterExpression><![CDATA[$P{patientYN}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BaseDir">
+					<subreportParameterExpression><![CDATA[$P{BaseDir}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="docname">
+					<subreportParameterExpression><![CDATA[$P{docname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="factSheetNo">
+					<subreportParameterExpression><![CDATA[$P{factSheetNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="lang">
+					<subreportParameterExpression><![CDATA[$P{lang}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patno">
+					<subreportParameterExpression><![CDATA[$P{patno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="anaethesiaOtherText">
+					<subreportParameterExpression><![CDATA[$P{anaethesiaOtherText}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="complication">
+					<subreportParameterExpression><![CDATA[$P{complication}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patDOB">
+					<subreportParameterExpression><![CDATA[$P{patDOB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="consentDate">
+					<subreportParameterExpression><![CDATA[$P{consentDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patcname">
+					<subreportParameterExpression><![CDATA[$P{patcname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="anaethesiaType">
+					<subreportParameterExpression><![CDATA[$P{anaethesiaType}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patname">
+					<subreportParameterExpression><![CDATA[$P{patname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="procedure">
+					<subreportParameterExpression><![CDATA[$P{procedure}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} == null ?
+"C:\\projects\\HKAHIntranet\\report" :
+$P{SUBREPORT_DIR} + "consentSurg_eng_HKAH_sub1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="2">
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="517" height="1"/>
+				<subreportParameter name="ImgTick">
+					<subreportParameterExpression><![CDATA[$P{ImgTick}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Site">
+					<subreportParameterExpression><![CDATA[$P{Site}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regionAnaeSelect">
+					<subreportParameterExpression><![CDATA[$P{regionAnaeSelect}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patSex">
+					<subreportParameterExpression><![CDATA[$P{patSex}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="hasFS">
+					<subreportParameterExpression><![CDATA[$P{hasFS}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="doccname">
+					<subreportParameterExpression><![CDATA[$P{doccname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="procedureChi">
+					<subreportParameterExpression><![CDATA[$P{procedureChi}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patientYN">
+					<subreportParameterExpression><![CDATA[$P{patientYN}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BaseDir">
+					<subreportParameterExpression><![CDATA[$P{BaseDir}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="docname">
+					<subreportParameterExpression><![CDATA[$P{docname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="lang">
+					<subreportParameterExpression><![CDATA[$P{lang}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="factSheetNo">
+					<subreportParameterExpression><![CDATA[$P{factSheetNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patno">
+					<subreportParameterExpression><![CDATA[$P{patno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="anaethesiaOtherText">
+					<subreportParameterExpression><![CDATA[$P{anaethesiaOtherText}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patDOB">
+					<subreportParameterExpression><![CDATA[$P{patDOB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="complication">
+					<subreportParameterExpression><![CDATA[$P{complication}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="consentDate">
+					<subreportParameterExpression><![CDATA[$P{consentDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patcname">
+					<subreportParameterExpression><![CDATA[$P{patcname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="anaethesiaType">
+					<subreportParameterExpression><![CDATA[$P{anaethesiaType}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="procedure">
+					<subreportParameterExpression><![CDATA[$P{procedure}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patname">
+					<subreportParameterExpression><![CDATA[$P{patname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patIDno">
+					<subreportParameterExpression><![CDATA[$P{patIDno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} == null ?
+"C:\\projects\\HKAHIntranet\\report" :
+$P{SUBREPORT_DIR} + "consentSurg_eng_HKAH_sub2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="92">
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="1" width="278" height="88"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="7" y="4" width="55" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Patient No: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="7" y="16" width="55" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Name: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="7" y="60" width="55" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Date of Birth: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="147" y="59" width="55" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Gender:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="7" y="73" width="55" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Room No.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="278" y="1" width="239" height="44"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consent for Surgical / Invasive Procedure]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="278" y="45" width="129" height="19"/>
+				<box>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rev: July 2017]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="407" y="44" width="110" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VPMA-MBA22]]></text>
+			</staticText>
+			<frame>
+				<reportElement positionType="FixRelativeToBottom" x="277" y="64" width="240" height="25" isPrintInFirstWholeBand="true"/>
+				<box>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement x="10" y="1" width="210" height="22"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode("VPMAMBA22",com.google.zxing.BarcodeFormat.CODE_39,120,20))]]></imageExpression>
+				</image>
+			</frame>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="62" y="4" width="200" height="13"/>
+				<textElement textAlignment="Left" markup="none">
+					<font size="9" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patno}.substring(0, $P{patno}.length()-1)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="61" y="60" width="86" height="13"/>
+				<textElement textAlignment="Left" markup="none">
+					<font size="9" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patDOB}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="201" y="59" width="80" height="15"/>
+				<textElement textAlignment="Left" markup="none">
+					<font size="9" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patSex}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement positionType="FixRelativeToBottom" x="149" y="72" width="113" height="15"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode($P{patno},com.google.zxing.BarcodeFormat.CODE_39,113,14))]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="FixRelativeToBottom" x="61" y="16" width="201" height="44"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" lineSpacing="Single" markup="styled">
+					<font fontName="SansSerif" size="10" isBold="false" isUnderline="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TextScriptlet_SCRIPTLET}.returnChinese($P{patname}+($P{patcname}.length() > 0?" "+$P{patcname}:""))]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="2">
+			<printWhenExpression><![CDATA[!$P{anaethesiaType}.isEmpty()]]></printWhenExpression>
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="-37" y="0" width="594" height="1"/>
+				<subreportParameter name="ImgTick">
+					<subreportParameterExpression><![CDATA[$P{ImgTick}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regionAnaeSelect">
+					<subreportParameterExpression><![CDATA[$P{regionAnaeSelect}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patSex">
+					<subreportParameterExpression><![CDATA[$P{patSex}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="docname">
+					<subreportParameterExpression><![CDATA[$P{docname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="factSheetNo">
+					<subreportParameterExpression><![CDATA[$P{factSheetNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="lang">
+					<subreportParameterExpression><![CDATA[$P{lang}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patno">
+					<subreportParameterExpression><![CDATA[$P{patno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="afactSheetNo">
+					<subreportParameterExpression><![CDATA[$P{afactSheetNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patIDno">
+					<subreportParameterExpression><![CDATA[$P{patIDno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SubDataSource">
+					<subreportParameterExpression><![CDATA[$P{SubDataSource}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="procedure">
+					<subreportParameterExpression><![CDATA[$P{procedure}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patname">
+					<subreportParameterExpression><![CDATA[$P{patname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Site">
+					<subreportParameterExpression><![CDATA[$P{Site}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isPrintTimeOut">
+					<subreportParameterExpression><![CDATA[$P{isPrintTimeOut}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="procedureChi">
+					<subreportParameterExpression><![CDATA[$P{procedureChi}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="doccname">
+					<subreportParameterExpression><![CDATA[$P{doccname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patientYN">
+					<subreportParameterExpression><![CDATA[$P{patientYN}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BaseDir">
+					<subreportParameterExpression><![CDATA[$P{BaseDir}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="anaethesiaOtherText">
+					<subreportParameterExpression><![CDATA[$P{anaethesiaOtherText}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patDOB">
+					<subreportParameterExpression><![CDATA[$P{patDOB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="complication">
+					<subreportParameterExpression><![CDATA[$P{complication}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="consentDate">
+					<subreportParameterExpression><![CDATA[$P{consentDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patcname">
+					<subreportParameterExpression><![CDATA[$P{patcname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="anaethesiaType">
+					<subreportParameterExpression><![CDATA[$P{anaethesiaType}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SubDataSource1">
+					<subreportParameterExpression><![CDATA[$P{SubDataSource1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[$P{SubDataSource}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} == null ?
+"C:\\projects\\HKAHIntranet\\report" :
+$P{SUBREPORT_DIR} + "consentAnae_eng_HKAH.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

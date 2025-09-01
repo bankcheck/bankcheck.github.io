@@ -1,0 +1,1891 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Breast Health Center Personal Health Questionaire" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="517" leftMargin="39" rightMargin="39" topMargin="14" bottomMargin="11">
+	<property name="ireport.zoom" value="1.9453068450750028"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="146"/>
+	<property name="net.sf.jasperreports.export.pdf.compressed" value="true"/>
+	<scriptlet name="TextScriptlet" class="com.text.TextScriptlet"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="Site" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patname" class="java.lang.String"/>
+	<parameter name="patcname" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="patDOB" class="java.lang.String"/>
+	<parameter name="docname" class="java.lang.String"/>
+	<parameter name="doccname" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHIntranet\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="lang" class="java.lang.String"/>
+	<parameter name="ImgTick" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHNHS\\war\\images\\tick1.gif"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SubDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="patIDno" class="java.lang.String"/>
+	<parameter name="SubDataSource1" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="occupation" class="java.lang.String"/>
+	<parameter name="eduLevel" class="java.lang.String"/>
+	<parameter name="isDiabetes" class="java.lang.String"/>
+	<parameter name="isHyper" class="java.lang.String"/>
+	<parameter name="isHeartDis" class="java.lang.String"/>
+	<parameter name="isCancer" class="java.lang.String"/>
+	<parameter name="isPIllnessOther" class="java.lang.String"/>
+	<parameter name="pIllnessOther" class="java.lang.String"/>
+	<parameter name="presentMed" class="java.lang.String"/>
+	<parameter name="isPresentMed" class="java.lang.String"/>
+	<parameter name="isOnHormonal" class="java.lang.String"/>
+	<parameter name="onHormonal" class="java.lang.String"/>
+	<parameter name="isTakAntiCDrug" class="java.lang.String"/>
+	<parameter name="takAntiCDrug" class="java.lang.String"/>
+	<parameter name="isSmoking" class="java.lang.String"/>
+	<parameter name="isDrinking" class="java.lang.String"/>
+	<parameter name="breastLump_left" class="java.lang.String"/>
+	<parameter name="breastLump_left_mm" class="java.lang.String"/>
+	<parameter name="breastLump_right" class="java.lang.String"/>
+	<parameter name="breastLump_right_mm" class="java.lang.String"/>
+	<parameter name="breastDischarge_left" class="java.lang.String"/>
+	<parameter name="breastDischarge_left_mm" class="java.lang.String"/>
+	<parameter name="breastDischarge_right" class="java.lang.String"/>
+	<parameter name="breastDischarge_right_mm" class="java.lang.String"/>
+	<parameter name="breastNRetract_left" class="java.lang.String"/>
+	<parameter name="breastNRetract_left_mm" class="java.lang.String"/>
+	<parameter name="breastNRetract_right" class="java.lang.String"/>
+	<parameter name="breastNRetract_right_mm" class="java.lang.String"/>
+	<parameter name="breastSizeChange_left" class="java.lang.String"/>
+	<parameter name="breastSizeChange_left_mm" class="java.lang.String"/>
+	<parameter name="breastSizeChange_right" class="java.lang.String"/>
+	<parameter name="breastSizeChange_right_mm" class="java.lang.String"/>
+	<parameter name="breastPain_left" class="java.lang.String"/>
+	<parameter name="breastPain_left_mm" class="java.lang.String"/>
+	<parameter name="breastPain_right" class="java.lang.String"/>
+	<parameter name="breastPain_right_mm" class="java.lang.String"/>
+	<parameter name="breastSkinP_left" class="java.lang.String"/>
+	<parameter name="breastSkinP_left_mm" class="java.lang.String"/>
+	<parameter name="breastSkinP_right" class="java.lang.String"/>
+	<parameter name="breastSkinP_right_mm" class="java.lang.String"/>
+	<parameter name="menarcheAge" class="java.lang.String"/>
+	<parameter name="menopauseAge" class="java.lang.String"/>
+	<parameter name="lastMenPeriod" class="java.lang.String"/>
+	<parameter name="noOfPregnancy" class="java.lang.String"/>
+	<parameter name="noOfDelivery" class="java.lang.String"/>
+	<parameter name="1stNoOfDeliAge" class="java.lang.String"/>
+	<parameter name="breastFExp" class="java.lang.String"/>
+	<parameter name="breastSurDone" class="java.lang.String"/>
+	<parameter name="breastSurDone_Left" class="java.lang.String"/>
+	<parameter name="breastSurDone_Right" class="java.lang.String"/>
+	<parameter name="breastSTest_US" class="java.lang.String"/>
+	<parameter name="breastSTest_MMG" class="java.lang.String"/>
+	<parameter name="breastSTest_MMT" class="java.lang.String"/>
+	<parameter name="breastSTest_FNAC" class="java.lang.String"/>
+	<parameter name="breastSTest_BIO" class="java.lang.String"/>
+	<parameter name="breastFHis" class="java.lang.String"/>
+	<parameter name="breastFHis_BC" class="java.lang.String"/>
+	<parameter name="breastFHis_OC" class="java.lang.String"/>
+	<parameter name="breastFHis_Rel" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[Select 1 From Dual Connect By Level <= 1]]>
+	</queryString>
+	<field name="1" class="java.math.BigDecimal"/>
+	<pageHeader>
+		<band height="45" splitType="Prevent">
+			<image scaleImage="RetainShape" isUsingCache="true" isLazy="true">
+				<reportElement x="-36" y="0" width="517" height="45"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/Option5_TWAH_logo_CMYK.jpg")]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="665">
+			<rectangle>
+				<reportElement x="0" y="0" width="517" height="665"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="2" width="517" height="25"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="SansSerif" size="13" isBold="true" isUnderline="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[個人資料  Personal Background ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="26" width="120" height="15"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[教育程度 Education Level ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="128" y="28" width="10" height="10"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="128" y="28" width="10" height="10">
+					<printWhenExpression><![CDATA["P".equals($P{eduLevel})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="138" y="26" width="63" height="15"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[小學 Primary]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="206" y="28" width="10" height="10"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="206" y="28" width="10" height="10">
+					<printWhenExpression><![CDATA["S".equals($P{eduLevel})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="216" y="26" width="81" height="15"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[中學 Secondary]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="26" width="75" height="15"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[大學 Tertiary]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="310" y="29" width="10" height="10"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="310" y="29" width="10" height="10">
+					<printWhenExpression><![CDATA["T".equals($P{eduLevel})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="40" width="90" height="17"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[職業 Occupation ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="89" y="40" width="261" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{occupation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="59" width="167" height="17"/>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font fontName="Arial Unicode MS" size="11" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[個人病歷Personal Information:(在適當]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="169" y="59" width="47" height="17"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" markup="styled">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[(在適當]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="218" y="64" width="8" height="8"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="227" y="59" width="38" height="17"/>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[內加上]]></text>
+			</staticText>
+			<image>
+				<reportElement mode="Transparent" x="266" y="64" width="10" height="10"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="276" y="59" width="17" height="17"/>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[號)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="294" y="59" width="62" height="17"/>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[(Please put ]]></text>
+			</staticText>
+			<image>
+				<reportElement mode="Transparent" x="356" y="64" width="10" height="10"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="367" y="59" width="57" height="17"/>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[ in suitable]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="425" y="64" width="8" height="8"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="432" y="59" width="17" height="17"/>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[ )]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="78" width="214" height="50"/>
+				<box topPadding="2" leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[現有身體疾病 Present illness / disease]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="216" y="78" width="281" height="50"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="234" y="79" width="88" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[糖尿病 Diabetes]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="224" y="82" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="224" y="82" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{isDiabetes})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="353" y="79" width="129" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[高血壓 Hypertension]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="343" y="82" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="343" y="82" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{isHyper})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="234" y="94" width="103" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[心臟病 Heart Disease]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="224" y="97" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="224" y="97" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{isHeartDis})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="353" y="94" width="129" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[癌病 Cancer]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="343" y="97" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="343" y="97" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{isCancer})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="234" y="111" width="72" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[其他 Others]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="224" y="114" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="224" y="114" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{isPIllnessOther})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="305" y="110" width="179" height="14"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{pIllnessOther}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="127" width="214" height="21"/>
+				<box topPadding="2" leftPadding="2">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[正在使用的藥物 Present medication]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="216" y="128" width="281" height="47"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="225" y="134" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="225" y="134" width="8" height="8">
+					<printWhenExpression><![CDATA["0".equals($P{isPresentMed})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="234" y="131" width="40" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[無 No]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="283" y="134" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="283" y="134" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{isPresentMed})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="293" y="131" width="40" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[有 Yes]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="332" y="131" width="152" height="14"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{presentMed}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="147" width="214" height="28"/>
+				<box leftPadding="2">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[(使用荷爾蒙或避孕藥
+<b>On hormonal treatment or contraceptive</b>)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="152" width="40" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[無 No]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="224" y="155" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="224" y="155" width="8" height="8">
+					<printWhenExpression><![CDATA["0".equals($P{isOnHormonal})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="293" y="152" width="40" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[有 Yes]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="283" y="155" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="283" y="155" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{isOnHormonal})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="332" y="152" width="152" height="14"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{onHormonal}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="216" y="175" width="281" height="31"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="174" width="214" height="32"/>
+				<box topPadding="2" leftPadding="2">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[正服用抗凝血藥物 Taking anticoagulant drug
+ (如: 阿士匹靈 e.g. Aspirin, Warfarin)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="180" width="40" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[無 No]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="224" y="183" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="224" y="183" width="8" height="8">
+					<printWhenExpression><![CDATA["0".equals($P{isTakAntiCDrug})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="293" y="180" width="40" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[有 Yes]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="283" y="183" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="283" y="183" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{isTakAntiCDrug})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="332" y="180" width="152" height="14"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{takAntiCDrug}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement mode="Transparent" x="384" y="228" width="8" height="8">
+					<printWhenExpression><![CDATA["2".equals($P{isSmoking})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="2" y="205" width="214" height="35"/>
+				<box topPadding="2" leftPadding="2">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[生活習慣 Social Habits]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="216" y="206" width="281" height="34"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="223" y="208" width="61" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[吸煙 Smoking]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="299" y="208" width="30" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[無 No]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="289" y="211" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="289" y="211" width="8" height="8">
+					<printWhenExpression><![CDATA["0".equals($P{isSmoking})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="335" y="211" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="335" y="211" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{isSmoking})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="345" y="208" width="30" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[有 Yes]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="384" y="211" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="384" y="211" width="8" height="8">
+					<printWhenExpression><![CDATA["2".equals($P{isSmoking})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="394" y="208" width="44" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[曾有 Ex]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="225" width="61" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[飲酒 Drinking]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="299" y="225" width="30" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[無 No]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="289" y="228" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="289" y="228" width="8" height="8">
+					<printWhenExpression><![CDATA["0".equals($P{isDrinking})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="345" y="225" width="30" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[有 Yes]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="335" y="228" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="335" y="228" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{isDrinking})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="394" y="225" width="44" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[曾有 Ex]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="384" y="228" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="384" y="228" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{isDrinking})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="2" y="241" width="167" height="16"/>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font fontName="Arial Unicode MS" size="11" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[乳房病徵 Breast Symptoms: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="256" width="214" height="15"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[乳房問題 Breast Problems]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="216" y="256" width="39" height="15"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[左 Left]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="256" width="108" height="15"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[發現多久 How Long]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="363" y="256" width="39" height="15"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[右 Right]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="256" width="95" height="15"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[發現多久 How Long]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="271" width="214" height="15"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[乳房腫塊 Breast lump]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="216" y="271" width="39" height="15"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="232" y="274" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="232" y="274" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastLump_left})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="255" y="271" width="108" height="15"/>
+				<box leftPadding="2">
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{breastLump_left_mm}+" Month  月"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="363" y="271" width="39" height="15"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="379" y="274" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="379" y="274" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastLump_right})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="402" y="271" width="95" height="15"/>
+				<box leftPadding="2">
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{breastLump_right_mm}+" Month  月"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="286" width="214" height="15"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[乳頭有分泌物 Discharge from nipple]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="216" y="286" width="39" height="15"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="232" y="289" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="232" y="289" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastDischarge_left})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="255" y="286" width="108" height="15"/>
+				<box leftPadding="2">
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{breastDischarge_left_mm}+" Month  月"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="363" y="286" width="39" height="15"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="379" y="289" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="379" y="289" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastDischarge_right})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="402" y="286" width="95" height="15"/>
+				<box leftPadding="2">
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{breastDischarge_right_mm}+" Month  月"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="301" width="214" height="15"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[乳房凹凸 Nipple is retracted]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="216" y="301" width="39" height="15"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="232" y="304" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="232" y="304" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastNRetract_left})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="255" y="301" width="108" height="15"/>
+				<box leftPadding="2">
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{breastNRetract_left_mm}+" Month  月"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="363" y="301" width="39" height="15"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="379" y="304" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="379" y="304" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastNRetract_right})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="402" y="301" width="95" height="15"/>
+				<box leftPadding="2">
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{breastNRetract_right_mm}+" Month  月"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="316" width="214" height="15"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[乳房大小不同 Breast size change]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="216" y="316" width="39" height="15"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="232" y="319" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="232" y="319" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastSizeChange_left})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="255" y="316" width="108" height="15"/>
+				<box leftPadding="2">
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{breastSizeChange_left_mm}+" Month  月"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="363" y="316" width="39" height="15"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="379" y="319" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="379" y="319" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastSizeChange_right})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="402" y="316" width="95" height="15"/>
+				<box leftPadding="2">
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{breastSizeChange_right_mm}+" Month  月"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="331" width="214" height="15"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[乳房痛 Breast painful]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="216" y="331" width="39" height="15"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="232" y="334" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="232" y="334" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastPain_left})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="255" y="331" width="108" height="15"/>
+				<box leftPadding="2">
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{breastPain_left_mm}+" Month  月"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="363" y="331" width="39" height="15"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="379" y="334" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="379" y="334" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastPain_right})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="402" y="331" width="95" height="15"/>
+				<box leftPadding="2">
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{breastPain_right_mm}+" Month  月"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="346" width="214" height="40"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[乳房/乳頭皮膚問題 Skin problem of breast/nipple
+e.g. Eczematous, ulcerated
+ 如:濕疹, 皮膚脫落, 皮膚潰爛]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="216" y="346" width="39" height="40"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="232" y="360" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="232" y="360" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastSkinP_left})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="255" y="346" width="108" height="40"/>
+				<box leftPadding="2">
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+					<font size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{breastSkinP_left_mm}+" Month  月"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="363" y="346" width="39" height="40"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="379" y="360" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="379" y="360" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastSkinP_right})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="402" y="346" width="95" height="40"/>
+				<box leftPadding="2">
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+					<font size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{breastSkinP_right_mm}+" Month  月"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="388" width="200" height="16"/>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font fontName="Arial Unicode MS" size="11" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[過去身體狀況 Past Medical History: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="405" width="228" height="15"/>
+				<box topPadding="0" leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[第一次月經年齡 Menarche age]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="230" y="405" width="267" height="15"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{menarcheAge}+" 歲 Age"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="420" width="228" height="15"/>
+				<box topPadding="0" leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[停經年齡 Menopause age]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="230" y="420" width="267" height="15"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{menopauseAge}+" 歲 Age"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="435" width="228" height="15"/>
+				<box topPadding="0" leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[上次第一天的經期日子 Last menstruation period]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="230" y="435" width="267" height="15"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{lastMenPeriod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="230" y="450" width="267" height="15"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{noOfPregnancy}+" 次 Time"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="450" width="228" height="15"/>
+				<box topPadding="0" leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[總懷孕次數 Number of pregnancy]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="230" y="465" width="267" height="15"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{noOfDelivery}+" 次 Time"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="465" width="228" height="15"/>
+				<box topPadding="0" leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[總生產次數 Number of Delivery ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="480" width="228" height="15"/>
+				<box topPadding="0" leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[第一次生產年齡 First No. of Delivery at age of ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="230" y="480" width="267" height="15"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{1stNoOfDeliAge}+" 歲 Age"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="495" width="228" height="15"/>
+				<box topPadding="0" leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[曾否餵哺母乳 Breast-feed experience ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="230" y="495" width="267" height="15"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="247" y="496" width="30" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[無 No]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="237" y="499" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="237" y="499" width="8" height="8">
+					<printWhenExpression><![CDATA["0".equals($P{breastFExp})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="293" y="496" width="30" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[有 Yes]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="283" y="499" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="283" y="499" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastFExp})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="2" y="510" width="228" height="15"/>
+				<box topPadding="0" leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[曾否做過乳房手術 Breast surgery done ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="230" y="510" width="267" height="15"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="247" y="511" width="30" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[無 No]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="237" y="514" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="237" y="514" width="8" height="8">
+					<printWhenExpression><![CDATA["0".equals($P{breastSurDone})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="294" y="511" width="30" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[有 Yes]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="283" y="514" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="283" y="514" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastSurDone})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="365" y="511" width="30" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[左 Left]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="355" y="514" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="355" y="514" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastSurDone_Left})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="412" y="511" width="49" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[右 Right]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="401" y="514" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="401" y="514" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastSurDone_Right})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="2" y="525" width="228" height="67"/>
+				<box topPadding="0" leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[曾否接受乳房檢查 Breast screening test ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="230" y="525" width="267" height="67"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="239" y="530" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="239" y="530" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastSTest_US})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="251" y="527" width="124" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[乳房超聲波 Breast Ultrasound]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="239" y="541" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="239" y="541" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastSTest_MMG})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="251" y="540" width="124" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[乳房造影 Mammogram ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="239" y="556" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="239" y="556" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastSTest_MMT})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="251" y="553" width="124" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Mammotome]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="239" y="569" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="239" y="569" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastSTest_FNAC})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="251" y="566" width="124" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[幼針管抽吸術 FNAC ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="239" y="582" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="239" y="582" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastSTest_BIO})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="251" y="579" width="124" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[組織切片檢查 Biopsy ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="592" width="228" height="49"/>
+				<box topPadding="0" leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[家族人士患有乳癌/卵巢癌 Family history of breast cancer/ovarian cancer ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="230" y="592" width="267" height="49"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="249" y="597" width="30" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[無 No]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="239" y="600" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="239" y="600" width="8" height="8">
+					<printWhenExpression><![CDATA["0".equals($P{breastFHis})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="296" y="597" width="30" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[有 Yes]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="285" y="600" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="285" y="600" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastFHis})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="296" y="612" width="91" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[乳癌 Breast Cancer  ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="285" y="615" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="285" y="615" width="8" height="8">
+					<printWhenExpression><![CDATA["0".equals($P{breastFHis_BC})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="296" y="626" width="142" height="13"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="html">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[卵巢癌 Ovarian Cancer ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="285" y="629" width="8" height="8"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="285" y="629" width="8" height="8">
+					<printWhenExpression><![CDATA["1".equals($P{breastSurDone})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="2" y="641" width="228" height="15"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[關係 Relationship ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="230" y="641" width="267" height="15"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" markup="none">
+					<font size="9" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{breastFHis_Rel}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="90">
+			<rectangle>
+				<reportElement x="0" y="1" width="278" height="88"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="7" y="4" width="55" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Patient No: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="16" width="55" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Name: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="60" width="55" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Date of Birth: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="147" y="59" width="55" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Gender:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="73" width="55" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Room No.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="1" width="239" height="44"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Breast Health Center
+Personal Health Questionaire	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="45" width="129" height="19"/>
+				<box>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Version: 8 March 2017]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="44" width="110" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[BRHC-MBB010]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="277" y="64" width="240" height="25" isPrintInFirstWholeBand="true"/>
+				<box>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement x="5" y="0" width="230" height="23"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode("BRHCMBB010",com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+			</frame>
+			<textField>
+				<reportElement positionType="Float" x="62" y="4" width="201" height="13"/>
+				<textElement textAlignment="Left" markup="none">
+					<font size="9" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patno}.substring(0, $P{patno}.length()-1)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="61" y="60" width="86" height="13"/>
+				<textElement textAlignment="Left" markup="none">
+					<font size="9" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patDOB}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="201" y="59" width="80" height="15"/>
+				<textElement textAlignment="Left" markup="none">
+					<font size="9" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patSex}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="FixRelativeToBottom" x="62" y="16" width="201" height="44"/>
+				<box topPadding="1">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" lineSpacing="Single" markup="styled">
+					<font fontName="SansSerif" size="10" isBold="false" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TextScriptlet_SCRIPTLET}.returnChinese($P{patname}+($P{patcname}.length() > 0?" "+$P{patcname}:""))]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement positionType="FixRelativeToBottom" x="150" y="73" width="113" height="15"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode($P{patno},com.google.zxing.BarcodeFormat.CODE_39,113,14))]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>

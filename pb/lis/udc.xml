@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<profile version="1.0">
+<paper name="" width="2150" height="2970" unit="1" orientation="1" dpiX="204" dpiY="196"/>
+<image actual="3" >
+	<format id="0" bpp="8" dither="1" grayscale="0" composition="0" vectorMode="0" />
+	<format id="1" bpp="8" dither="1" grayscale="0" composition="2" vectorMode="0" frameDelay="10" />
+	<format id="2" bpp="24" dither="0" grayscale="0" composition="0" vectorMode="0" quality="85" progressive="0" />
+	<format id="3" bpp="1" dither="0" grayscale="0" composition="2" vectorMode="0" compression="2" quality="0" segmentation="0" fillOrder="255" />
+	<format id="4" bpp="8" dither="1" grayscale="0" composition="0" vectorMode="0" />
+	<format id="5" bpp="8" dither="1" grayscale="0" composition="2" vectorMode="0" />
+	<format id="6" bpp="8" dither="1" grayscale="0" composition="0" vectorMode="0" compression="9" />
+	<format id="7" bpp="24" dither="0" grayscale="0" composition="2" vectorMode="1" compression="255" standard="0" password="" />
+</image>
+<adjust>
+	<crop mode="0" color="16777215" tolerance="0" />
+	<zoom enable="0" mode="3" width="512" height="256" bkcolor="16777215" />
+</adjust>
+<watermark mode="0" >
+	<text layout="0" stretch="0" posX="1" posY="-1" angle="45" marginX="0" marginY="0" text="My Stamp" >
+		<font face="Arial" size="72" bold="0" italic="0" underlined="0" framed="0" >
+			<glyph color="255" transparency="0" />
+			<background color="16777215" transparency="100" />
+		</font>
+	</text>
+	<picture layout="0" stretch="0" posX="0" posY="0" angle="0" marginX="0" marginY="0" filename="" />
+</watermark>
+<output prompt="0" overwrite="1" filePath="c:\app\lis\" fileName="lis.&amp;[ImageType]" />
+<postprint mode="0" appPath="" appParams="" />
+<options showProgress="0" showMessages="0" log="0" tempFilePath="&amp;[TEMP]" />
+</profile>

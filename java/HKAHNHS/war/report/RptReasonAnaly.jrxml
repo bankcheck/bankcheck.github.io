@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptReasonAnaly" language="groovy" pageWidth="500" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="StartDate" class="java.lang.String"/>
+	<parameter name="EndDate" class="java.lang.String"/>
+	<parameter name="SteCode" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+      sc.stename,
+      rs.rsncode,
+      rs.rsndesc,
+      ds.destype, count(*) as cnt,
+      to_date($P{StartDate},'dd-mm-yyyy') as DateRangeStart,
+      to_date($P{EndDate}, 'dd-mm-yyyy') as DateRangeEnd
+FROM
+    inpat ip,
+    reg rg,
+    sreason sr,
+    reason rs,
+    dest ds,
+    site sc
+WHERE
+     ip.inpddate>= to_date($P{StartDate}, 'dd-mm-yyyy')
+     and inpddate< to_date($P{EndDate}, 'dd-mm-yyyy') + 1
+     and ip.inpddate is not null
+     and ip.inpid = rg.inpid
+     and rg.regsts= 'N'
+     and rg.stecode= $P{SteCode}
+     and ip.rsncode  = sr.srsncode
+     and sr.rsncode = rs.rsncode
+     and ip.descode = ds.descode
+     and rg.stecode = sc.stecode
+GROUP BY
+       sc.stename,
+       rs.rsncode,
+       rs.rsndesc,
+       ds.destype]]>
+	</queryString>
+	<field name="STENAME" class="java.lang.String"/>
+	<field name="RSNCODE" class="java.lang.String"/>
+	<field name="RSNDESC" class="java.lang.String"/>
+	<field name="DESTYPE" class="java.lang.String"/>
+	<field name="CNT" class="java.math.BigDecimal"/>
+	<field name="DATERANGESTART" class="java.sql.Timestamp"/>
+	<field name="DATERANGEEND" class="java.sql.Timestamp"/>
+	<variable name="HomeTotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[($F{DESTYPE}.equals("H")?$F{CNT}:0)]]></variableExpression>
+	</variable>
+	<variable name="HospTotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[($F{DESTYPE}.equals("P")?$F{CNT}:0)]]></variableExpression>
+	</variable>
+	<variable name="DeathTotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[($F{DESTYPE}.equals("D")?$F{CNT}:0)]]></variableExpression>
+	</variable>
+	<variable name="InPatTotal" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{HomeTotal} + $V{HospTotal} + $V{DeathTotal}]]></variableExpression>
+	</variable>
+	<variable name="FTotal" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{HomeTotal} + $V{HospTotal} + $V{DeathTotal}]]></variableExpression>
+	</variable>
+	<group name="RSNCODE">
+		<groupExpression><![CDATA[$F{RSNCODE}]]></groupExpression>
+		<groupFooter>
+			<band height="18">
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="7" y="0" width="35" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{RSNCODE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="44" y="0" width="155" height="18"/>
+					<textElement>
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{RSNDESC}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+					<reportElement x="203" y="0" width="50" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{HomeTotal}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+					<reportElement x="267" y="0" width="60" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{HospTotal}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+					<reportElement x="332" y="0" width="50" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{DeathTotal}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+					<reportElement x="388" y="0" width="65" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{InPatTotal}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="16" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="346" y="0" width="80" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement x="426" y="0" width="35" height="16"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="92" splitType="Stretch">
+			<staticText>
+				<reportElement x="53" y="9" width="330" height="15"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUPPLEMENTARY CLASSIFICATION OF EXTERNAL CAUSES OF INJURY AND POISONING (old)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="248" y="51" width="40" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="356" y="87" width="25" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="44" y="87" width="155" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="248" y="42" width="40" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[In-Patients]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="376" y="35" width="9" height="12"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[to]]></text>
+			</staticText>
+			<line>
+				<reportElement x="281" y="87" width="50" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="410" y="60" width="45" height="30"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[In-Patients
+Treated
+(A) + (B) + (C)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="69" width="25" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Deaths
+(C)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="410" y="87" width="45" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="315" y="23" width="120" height="12"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hong Kong Adventist Hospital]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="281" y="60" width="50" height="30"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transferred to
+Other Hospital
+(B)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="385" y="35" width="45" height="12"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{EndDate}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="7" y="87" width="35" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="44" y="77" width="55" height="15"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cause Groups]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="341" y="35" width="35" height="12"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{StartDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="61" width="35" height="30"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tabulation
+List
+Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="217" y="69" width="40" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Discharged
+Home (A)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="217" y="87" width="40" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<summary>
+		<band height="20" splitType="Stretch">
+			<line>
+				<reportElement x="203" y="15" width="50" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="388" y="15" width="65" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="267" y="15" width="60" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="332" y="15" width="50" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="388" y="17" width="65" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="332" y="17" width="50" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="267" y="17" width="60" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="203" y="17" width="50" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="15" y="4" width="40" height="16"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grand Total]]></text>
+			</staticText>
+			<line>
+				<reportElement x="203" y="1" width="50" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="267" y="1" width="60" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="332" y="1" width="50" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="388" y="1" width="65" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="332" y="5" width="50" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{DeathTotal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="267" y="5" width="60" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{HospTotal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="203" y="5" width="50" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{HomeTotal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="388" y="5" width="65" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{FTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

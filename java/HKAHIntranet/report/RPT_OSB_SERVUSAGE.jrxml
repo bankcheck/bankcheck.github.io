@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT_OSB_SERVUSAGE" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true">
+	<property name="ireport.zoom" value="1.3310000000000026"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="T_DATE" class="java.lang.String"/>
+	<parameter name="T_WARD" class="java.lang.String"/>
+	<parameter name="T_DOCTOR" class="java.lang.String"/>
+	<parameter name="DATE_FROM" class="java.lang.String"/>
+	<parameter name="DATE_TO" class="java.lang.String"/>
+	<parameter name="WRDCODE" class="java.lang.String"/>
+	<parameter name="DOCCODE" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+  Wrdname
+  , docname
+  , Cnt_Success
+  , case when pct_success is null then to_char(pct_success) else to_char(pct_success,'FM990.0') || '%' end pct_success
+  , Cnt_Notshow
+  , case when pct_notshow is null then to_char(pct_notshow) else to_char(pct_notshow,'FM990.0') || '%' end pct_notshow
+  , Cnt_Cancel
+  , case when pct_cancel is null then to_char(pct_cancel) else to_char(pct_cancel,'FM990.0') || '%' end pct_cancel
+  , cnt_failed
+  , case when pct_failed is null then to_char(pct_failed) else to_char(pct_failed,'FM990.0') || '%' end pct_failed
+  , cnt_total
+from
+(
+Select
+  (Select Wrdname From Ward@iweb X Where X.Wrdcode=A.Wrdcode) As Wrdname
+  , tittle || ' ' || docfname||' '||docgname as docname
+  , Sum(Case When Bpbsts='F' Then 1 End) As Cnt_Success
+  , round(100*sum(case when bpbsts='F' then 1 end)/count(*), 1) as pct_success
+  , Sum(Case When Bpbsts='N' Then 1 End) As Cnt_Notshow
+  , round(100*sum(case when bpbsts='N' then 1 end)/count(*), 1) as pct_notshow
+  , Sum(Case When Bpbsts='D' Then 1 End) As Cnt_Cancel
+  , round(100*sum(case when bpbsts='D' then 1 end)/count(*), 1) as pct_cancel
+  , null as cnt_failed
+  , null as pct_failed
+  , count(*) as cnt_total
+from bedprebok@iweb a, doctor@iweb d
+where a.doccode=d.doccode
+   AND bpbhdate<=sysdate
+   AND (BPBHDATE >= TO_DATE($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') or $P{DATE_FROM} is null)
+   AND (BPBHDATE < TO_DATE($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') + 1 or $P{DATE_TO} is null)
+   And (Wrdcode = $P{WRDCODE} or $P{WRDCODE} is null)
+   And (A.Doccode = $P{DOCCODE} or $P{DOCCODE} is null)
+group by wrdcode, tittle || ' ' || docfname||' '||docgname
+union
+Select
+  '' As Wrdname
+  ,'' as docname
+  , Sum(Cnt_Success) As Cnt_Success
+  , round(100*(Sum(Cnt_Success) / Sum(cnt_total)), 1) as pct_success
+  , Sum(Cnt_Notshow) As Cnt_Notshow
+  , round(100*(Sum(Cnt_Notshow) / Sum(cnt_total)), 1) as pct_notshow
+  , Sum(Cnt_Cancel) As Cnt_Cancel
+  , round(100*(Sum(Cnt_Cancel) / Sum(cnt_total)), 1) Pct_Notshow_Tot
+  , Sum(Cnt_Failed) Cnt_Failed_Tot
+  , round(100*(Sum(Cnt_Failed) / Sum(cnt_total)), 1) Pct_Failed_Tot
+  , sum(cnt_total) cnt_total_Tot
+From
+(
+  Select
+    Wrdcode
+    , (Select Wrdname From Ward@iweb X Where X.Wrdcode=A.Wrdcode) As Wrdname
+    , tittle || ' ' || docfname||' '||docgname as docname
+    , Sum(Case When Bpbsts='F' Then 1 End) As Cnt_Success
+    , round(100*sum(case when bpbsts='F' then 1 end)/count(*), 1) as pct_success
+    , Sum(Case When Bpbsts='N' Then 1 End) As Cnt_Notshow
+    , round(100*sum(case when bpbsts='N' then 1 end)/count(*), 1) as pct_notshow
+    , Sum(Case When Bpbsts='D' Then 1 End) As Cnt_Cancel
+    , round(100*sum(case when bpbsts='D' then 1 end)/count(*), 1) as pct_cancel
+    , null as cnt_failed
+    , null as pct_failed
+    , count(*) as cnt_total
+    , '' dummy
+  from bedprebok@iweb a, doctor@iweb d
+  where a.doccode=d.doccode
+    AND bpbhdate<=sysdate
+   AND (BPBHDATE >= TO_DATE($P{DATE_FROM}, 'dd/mm/yyyy hh24:mi') or $P{DATE_FROM} is null)
+   AND (BPBHDATE < TO_DATE($P{DATE_TO}, 'dd/mm/yyyy hh24:mi') + 1 or $P{DATE_TO} is null)
+   And (Wrdcode = $P{WRDCODE} or $P{WRDCODE} is null)
+   And (A.Doccode = $P{DOCCODE} or $P{DOCCODE} is null)
+  group by wrdcode, tittle || ' ' || docfname||' '||docgname
+)
+
+)
+Order By Wrdname, docname]]>
+	</queryString>
+	<field name="WRDNAME" class="java.lang.String"/>
+	<field name="DOCNAME" class="java.lang.String"/>
+	<field name="CNT_SUCCESS" class="java.math.BigDecimal"/>
+	<field name="PCT_SUCCESS" class="java.lang.String"/>
+	<field name="CNT_NOTSHOW" class="java.math.BigDecimal"/>
+	<field name="PCT_NOTSHOW" class="java.lang.String"/>
+	<field name="CNT_CANCEL" class="java.math.BigDecimal"/>
+	<field name="PCT_CANCEL" class="java.lang.String"/>
+	<field name="CNT_FAILED" class="java.math.BigDecimal"/>
+	<field name="PCT_FAILED" class="java.lang.String"/>
+	<field name="CNT_TOTAL" class="java.math.BigDecimal"/>
+	<title>
+		<band height="77" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="68" y="0" width="113" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{T_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="19" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[Ward:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="38" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[Doctor:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="68" y="19" width="113" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{T_WARD}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="68" y="38" width="113" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{T_DOCTOR}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="68" y="57" width="113" height="20"/>
+				<textElement/>
+				<text><![CDATA[Doctor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="57" width="80" height="20"/>
+				<textElement/>
+				<text><![CDATA[# of Success Booking]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="259" y="57" width="80" height="20"/>
+				<textElement/>
+				<text><![CDATA[# of No Show]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="338" y="57" width="80" height="20"/>
+				<textElement/>
+				<text><![CDATA[# of Cancellation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="57" width="80" height="20"/>
+				<textElement/>
+				<text><![CDATA[# of Fail to book	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="496" y="57" width="99" height="20"/>
+				<textElement/>
+				<text><![CDATA[Total # of booking]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="57" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[Ward / Unit]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="69" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{WRDNAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="68" y="0" width="113" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCNAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="180" y="0" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CNT_SUCCESS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="259" y="0" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CNT_NOTSHOW}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="219" y="0" width="41" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PCT_SUCCESS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="298" y="0" width="41" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PCT_NOTSHOW}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="338" y="0" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CNT_CANCEL}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="456" y="0" width="41" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PCT_FAILED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="417" y="0" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CNT_FAILED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="377" y="0" width="41" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PCT_CANCEL}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="496" y="0" width="99" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CNT_TOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

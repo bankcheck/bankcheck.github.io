@@ -1,0 +1,145 @@
+CREATE OR REPLACE FUNCTION "NHS_ACT_ARCREDITALLOC" (
+	i_ACTION    IN VARCHAR2,
+	i_USERID    IN VARCHAR2,
+	i_ARPID     IN VARCHAR2,
+	i_TABLENAME IN VARCHAR2,
+	i_TABLE     IN TEMPLATE_OBJ_TAB,
+	o_errmsg    OUT VARCHAR2
+)
+	RETURN NUMBER
+AS
+	o_errcode NUMBER;
+	v_SLPMANALL SLIP.SLPMANALL%TYPE;
+	v_SLPSTS SLIP.SLPSTS%TYPE;
+	v_ATXID ARTX.ATXID%TYPE;
+	v_SLPNO ARTX.SLPNO%TYPE;
+	v_ARCODE ARTX.ARCCODE%TYPE;
+	v_COUNT NUMBER;
+	v_NETAMOUNT NUMBER;
+	v_MSG_SPA_MANALLREQ_DTL	VARCHAR2(3000);
+	V_IS_MANALL BOOLEAN:=false;
+
+	SLIP_STATUS_CLOSE VARCHAR2(1) := 'C';--Closed
+	MSG_SPA_MANALLREQ_HEAD VARCHAR2(50) := 'Manual Allocation for doctor''s share is required.';
+BEGIN
+	o_errcode := 1;
+
+	FOR I IN 1..i_TABLE.COUNT LOOP
+		V_IS_MANALL := FALSE;
+		IF (i_TABLENAME = 'SLPLVL' AND REPLACE(i_TABLE(I).COLUMN08, ',') IS NOT NULL AND LENGTH(REPLACE(i_TABLE(I).COLUMN08, ',')) > 0) OR
+			(i_TABLENAME = 'COMPLVL' AND REPLACE(i_TABLE(I).COLUMN06, ',') IS NOT NULL AND LENGTH(REPLACE(i_TABLE(I).COLUMN06, ',')) > 0) THEN
+			BEGIN
+				IF i_TABLENAME = 'SLPLVL' THEN
+					o_errcode := TO_NUMBER( REPLACE(i_TABLE(I).COLUMN08, ',') );
+				ELSIF i_TABLENAME = 'COMPLVL' THEN
+					o_errcode := TO_NUMBER( REPLACE(i_TABLE(I).COLUMN06, ',') );
+				END IF;
+			EXCEPTION
+			WHEN OTHERS THEN
+				CONTINUE;
+			END;
+
+			-- get row data
+			IF i_TABLENAME = 'SLPLVL' THEN
+				SELECT ATXID, SLPNO, ARCCODE INTO v_ATXID, v_SLPNO, v_ARCODE
+				FROM ARTX WHERE ATXID = i_TABLE(I).COLUMN02;
+			ELSIF i_TABLENAME = 'COMPLVL' THEN
+				SELECT ATXID, SLPNO, ARCCODE INTO v_ATXID, v_SLPNO, v_ARCODE
+				FROM ARTX WHERE ATXID = i_TABLE(I).COLUMN11;
+			END IF;
+
+			-- check amount
+			IF i_TABLENAME = 'SLPLVL' THEN
+				SELECT ArpOAmt + ArpAAmt + TO_NUMBER(REPLACE(i_TABLE(I).COLUMN08, ',')) INTO v_NETAMOUNT
+				FROM  ARPTX
+				WHERE ARCCODE = v_ARCODE
+				AND   ARPSTS = 'N'
+				AND ARPID = i_ARPID;
+			ELSIF i_TABLENAME = 'COMPLVL' THEN
+				SELECT ArpOAmt + ArpAAmt + TO_NUMBER(REPLACE(i_TABLE(I).COLUMN06, ',')) INTO v_NETAMOUNT
+				FROM  ARPTX
+				WHERE ARCCODE = v_ARCODE
+				AND   ARPSTS = 'N'
+				AND ARPID = i_ARPID;
+			END IF;
+
+			IF v_NETAMOUNT > 0 THEN
+				o_errcode := -1;
+				O_ERRMSG := 'Fail to allocate. Exceed the allowable amount to allocate.';
+				ROLLBACK;
+				RETURN o_errcode;
+			END IF;
+
+			 -- save artx history
+			 IF i_TABLENAME = 'SLPLVL' THEN
+				o_errcode := NHS_UTL_ARCREDITALLOC(v_ATXID, i_ARPID, REPLACE(i_TABLE(I).COLUMN08, ','));
+			 ELSIF i_TABLENAME = 'COMPLVL' THEN
+				o_errcode := NHS_UTL_ARCREDITALLOC(v_ATXID, i_ARPID, REPLACE(i_TABLE(I).COLUMN06, ','));
+			 END IF;
+
+			 -- check manual alloc
+			 IF i_TABLENAME = 'SLPLVL' THEN
+				SELECT SLPMANALL, SLPSTS INTO v_SLPMANALL, v_SLPSTS FROM Slip WHERE slpno = v_SLPNO;
+
+				IF v_SLPSTS != SLIP_STATUS_CLOSE THEN
+					V_IS_MANALL := TRUE;
+				END IF;
+
+				IF TO_NUMBER(REPLACE(i_TABLE(I).COLUMN08, ',')) = TO_NUMBER(REPLACE(i_TABLE(I).COLUMN07, ',')) AND NOT V_IS_MANALL THEN
+					IF v_SLPMANALL IS NULL OR LENGTH(v_SLPMANALL) = 0 THEN
+						IF NOT NHS_UTL_SLPPAYALLAUTO(v_SLPNO, SYSDATE, O_ERRMSG) THEN
+							o_errcode := -1;
+							O_ERRMSG := 'Fail to call SlpPayAllAuto. ' || O_ERRMSG;
+							ROLLBACK;
+							RETURN o_errcode;
+						END IF;
+					ELSE
+						SELECT COUNT(1) INTO v_count FROM Sliptx WHERE slpno = v_SLPNO AND itmtype = 'D';
+						IF v_count > 0 THEN
+							IF v_MSG_SPA_MANALLREQ_DTL IS NULL OR LENGTH(v_MSG_SPA_MANALLREQ_DTL) = 0 THEN
+								v_MSG_SPA_MANALLREQ_DTL := v_SLPNO;
+							ELSE
+								v_MSG_SPA_MANALLREQ_DTL := v_MSG_SPA_MANALLREQ_DTL || ', ' || v_SLPNO;
+							END IF;
+						END IF;
+					END IF;
+
+					-- Special Commission for Patient Category
+					IF NOT NHS_UTL_SCMAUTO(v_SLPNO, O_ERRMSG) THEN
+						o_errcode := -1;
+						O_ERRMSG := 'Fail to call SCMAuto. ' || O_ERRMSG;
+						ROLLBACK;
+						RETURN o_errcode;
+					END IF;
+				ELSE
+					SELECT COUNT(1) INTO v_count FROM Sliptx WHERE slpno = v_SLPNO AND itmtype = 'D';
+
+					IF v_count > 0 THEN
+						UPDATE SLIP SET SLPMANALL = -1 WHERE SLPNO = v_SLPNO;
+						IF v_MSG_SPA_MANALLREQ_DTL IS NULL OR LENGTH(v_MSG_SPA_MANALLREQ_DTL) = 0 THEN
+							v_MSG_SPA_MANALLREQ_DTL := v_SLPNO;
+						ELSE
+							v_MSG_SPA_MANALLREQ_DTL := v_MSG_SPA_MANALLREQ_DTL || ', ' || v_SLPNO;
+						END IF;
+					END IF;
+				END IF;
+			END IF;
+		END IF;
+	END LOOP;
+
+	IF v_MSG_SPA_MANALLREQ_DTL IS NOT NULL THEN
+		o_errcode := 1;
+		o_errmsg := MSG_SPA_MANALLREQ_HEAD || ' For slip: ' || v_MSG_SPA_MANALLREQ_DTL;
+	ELSE
+		o_errmsg := '';
+	END IF;
+
+	RETURN o_errcode;
+EXCEPTION
+WHEN OTHERS THEN
+	ROLLBACK;
+	o_errcode := -1;
+	o_errmsg := 'Fail to allocate.<br><font color=red>Error Code:' || SQLCODE || '</font>';
+	RETURN o_errcode;
+END NHS_ACT_ARCREDITALLOC;
+/

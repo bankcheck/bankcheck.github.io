@@ -1,0 +1,9 @@
+SET SERVEROUTPUT ON
+DECLARE
+o_Lab_Num Varchar2(10);
+BEGIN
+Test_Reg_Lis (2045596, '512081', 'SRC01040', 
+sysdate, 'EGFR,INRP,CBCD', 'ROUTINE', 'BLOOD', 
+null, 'M30026', o_Lab_Num);
+DBMS_OUTPUT.PUT_LINE(o_Lab_Num);
+END;

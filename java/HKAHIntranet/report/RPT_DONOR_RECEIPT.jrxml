@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT_DONOR_RECEIPT" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.9230756500000017"/>
+	<property name="ireport.x" value="636"/>
+	<property name="ireport.y" value="1872"/>
+	<property name="ireport.background.image.properties" value="true,false,0.25,-8,-8,0,0,611,812"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="Name" class="java.lang.String"/>
+	<field name="1" class="java.lang.String"/>
+	<field name="2" class="java.lang.String"/>
+	<field name="3" class="java.lang.String"/>
+	<field name="4" class="java.lang.String"/>
+	<field name="5" class="java.lang.String"/>
+	<field name="6" class="java.lang.String"/>
+	<field name="7" class="java.lang.String"/>
+	<field name="8" class="java.lang.String"/>
+	<field name="9" class="java.lang.String"/>
+	<field name="10" class="java.lang.String"/>
+	<field name="11" class="java.lang.String"/>
+	<detail>
+		<band height="842" splitType="Stretch">
+			<staticText>
+				<reportElement x="73" y="289" width="417" height="280"/>
+				<textElement>
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[On behalf of Hong Kong Adventist Hospital — Tsuen Wan and the patients benefited, I would like to express our heartfelt gratitude to your generous support to our Hospital. This support allows the Hospital to continue its tradition of caring the people in need of our community.
+
+In Hong Kong, our Hospital is registered as a non-for-profit organization in the list of charitable institutions and trusts of a public character, which are exempt from tax under section 88 of the Inland Revenue Ordinance. Individual and business donors, who are chargeable to salaries tax, property tax or profits tax, can claim tax deduction for the aggregate of approved charitable donation.
+
+I hereby enclose with an official receipt for your records.
+
+Once again, thanks.
+
+Best regards,
+
+
+
+
+
+Alex Lan
+CEO & President
+Hong Kong Adventist Hospital – Tsuen Wan]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="470" y="29" width="66" height="20" forecolor="#FFFFFF"/>
+				<textElement>
+					<font size="11" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="401" y="29" width="65" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right">
+					<font size="11" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Receipt No. : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="426" y="120" width="64" height="15" forecolor="#000000"/>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="435" y="153" width="50" height="15" forecolor="#000000"/>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{3}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="425" y="153" width="7" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[$]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="173" width="467" height="11" forecolor="#000000"/>
+				<textElement>
+					<font size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="193" width="316" height="11" forecolor="#000000"/>
+				<textElement>
+					<font size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{5} + " " + $F{6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="429" y="697" width="64" height="15" forecolor="#000000"/>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="53" y="794" width="33" height="22">
+					<printWhenExpression><![CDATA[$F{11}.length() > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Item :
+(Optional)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="428" y="731" width="7" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[$]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="438" y="731" width="50" height="15" forecolor="#000000"/>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="744" width="467" height="11" forecolor="#000000"/>
+				<textElement>
+					<font size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="794" width="127" height="22" forecolor="#000000"/>
+				<textElement>
+					<font size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{11}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="406" y="489" width="65" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Receipt No. : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="475" y="489" width="66" height="20" forecolor="#FFFFFF"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="52" y="223" width="33" height="22">
+					<printWhenExpression><![CDATA[$F{11}.length() > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[ Item :
+(Optional)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="223" width="127" height="22" forecolor="#000000"/>
+				<textElement>
+					<font size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{11}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="204" width="311" height="11" forecolor="#000000"/>
+				<textElement>
+					<font size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{7} + " " + $F{8}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="775" width="316" height="11" forecolor="#000000"/>
+				<textElement>
+					<font size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{7} + " " + $F{8}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="764" width="316" height="11" forecolor="#000000"/>
+				<textElement>
+					<font size="7" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{5} + " " + $F{6}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

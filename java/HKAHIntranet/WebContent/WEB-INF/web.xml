@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<display-name>HKAH Prototype Application</display-name>
+
+
+	<filter>
+		<display-name>CommonFilter</display-name>
+		<filter-name>CommonFilter</filter-name>
+		<filter-class>com.hkah.servlet.CommonFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CommonFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+    <!--
+    	===========================
+    	CAS authentication filters
+    	===========================
+    	CAS Host (Development): demo3:8443
+    	CAS Host (Production): mail.hkah.org.hk
+
+    	Change <param-name>serverName</param-name> value to current host
+    -->
+	<filter>
+	   <filter-name>CAS Single Sign Out Filter</filter-name>
+	   <filter-class>org.jasig.cas.client.session.SingleSignOutFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	   <filter-name>CAS Single Sign Out Filter</filter-name>
+	   <url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<listener>
+	    <listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
+	</listener>
+
+	<filter>
+	  <filter-name>CAS Authentication Filter</filter-name>
+	  <filter-class>org.jasig.cas.client.authentication.AuthenticationFilter</filter-class>
+	  <init-param>
+	    <param-name>casServerLoginUrl</param-name>
+	    <param-value>https://mail.hkah.org.hk/cas/login</param-value>
+	  </init-param>
+	  <init-param>
+	    <param-name>serverName</param-name>
+	    <param-value>www-server</param-value>
+	  </init-param>
+	</filter>
+	<filter-mapping>
+	  <filter-name>CAS Authentication Filter</filter-name>
+	  <url-pattern>/casAuth.jsp</url-pattern>
+	</filter-mapping>
+
+	<filter>
+	  <filter-name>CAS Validation Filter</filter-name>
+	  <filter-class>org.jasig.cas.client.validation.Cas10TicketValidationFilter</filter-class>
+	  <init-param>
+	    <param-name>casServerUrlPrefix</param-name>
+	    <param-value>https://mail.hkah.org.hk/cas</param-value>
+	  </init-param>
+	  <init-param>
+	    <param-name>serverName</param-name>
+	    <param-value>www-server</param-value>
+	  </init-param>
+	  <init-param>
+	    <param-name>hostnameVerifier</param-name>
+	    <param-value>com.hkah.ssl.DummyHostnameVerifier</param-value>
+	  </init-param>
+	  <init-param>
+	    <param-name>hostnameVerifierConfig</param-name>
+	    <param-value>null</param-value>
+	  </init-param>
+	</filter>
+	<filter-mapping>
+	  <filter-name>CAS Validation Filter</filter-name>
+	  <url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+	  <filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
+	  <filter-class>org.jasig.cas.client.util.HttpServletRequestWrapperFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	  <filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
+	  <url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+	  <filter-name>CAS Assertion Thread Local Filter</filter-name>
+	  <filter-class>org.jasig.cas.client.util.AssertionThreadLocalFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	  <filter-name>CAS Assertion Thread Local Filter</filter-name>
+	  <url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+	<filter>
+		<display-name>ResponseOverrideFilter</display-name>
+		<filter-name>ResponseOverrideFilter</filter-name>
+		<filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ResponseOverrideFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+		<url-pattern>*.jsp</url-pattern>
+		<url-pattern>*.htm</url-pattern>
+	</filter-mapping>
+
+	<!-- CNY 2014 redirect -->
+	<filter>
+		<display-name>RedirectFilter</display-name>
+		<filter-name>RedirectFilter</filter-name>
+		<filter-class>com.hkah.servlet.RedirectFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>RedirectFilter</filter-name>
+		<url-pattern>*.gif</url-pattern>
+	</filter-mapping>
+
+
+	<!-- Standard Action Servlet Configuration (with debugging) -->
+	<servlet>
+		<servlet-name>action</servlet-name>
+		<servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>/WEB-INF/struts-config.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>HKAHInitServlet</servlet-name>
+		<servlet-class>com.hkah.servlet.HKAHInitServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>HKAHMailServlet</servlet-name>
+		<servlet-class>com.hkah.servlet.HKAHMailServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FopServlet</servlet-name>
+		<servlet-class>com.hkah.servlet.FopServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ReportServlet</servlet-name>
+		<servlet-class>com.hkah.servlet.ReportServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>springapp</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>ImageServlet</servlet-name>
+		<servlet-class>net.sf.jasperreports.j2ee.servlets.ImageServlet</servlet-class>
+	</servlet>
+	<servlet>
+   		 <servlet-name>CMSPhotoServlet</servlet-name>
+    	 <servlet-class>com.hkah.servlet.CMSPhotoServlet</servlet-class>
+  	</servlet>
+	<servlet>
+   		 <servlet-name>CMSPhotoServletWeb</servlet-name>
+    	 <servlet-class>com.hkah.servlet.CMSPhotoServletWeb</servlet-class>
+  	</servlet>
+	<!-- for upop payment -->
+	<servlet>
+   		 <servlet-name>UnionPayServlet</servlet-name>
+    	 <servlet-class>com.hkah.servlet.UnionPayServlet</servlet-class>
+  	</servlet>
+ 	<servlet>
+		<servlet-name>GetRisReport</servlet-name>
+		<servlet-class>com.hkah.servlet.GetRisReport</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GetLabReport</servlet-name>
+		<servlet-class>com.hkah.servlet.GetLabReport</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GetFile</servlet-name>
+		<servlet-class>com.hkah.servlet.GetFile</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GetFileTree</servlet-name>
+		<servlet-class>com.hkah.servlet.GetFileTree</servlet-class>
+	</servlet>
+
+	<!-- for HelpDeskWeb -->
+	<servlet>
+		<servlet-name>SrUpdate</servlet-name>
+		<servlet-class>com.hkah.servlet.SrUpdate</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SrUpdate</servlet-name>
+		<url-pattern>/SrUpdate</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>UserUpdate</servlet-name>
+		<servlet-class>com.hkah.servlet.UserUpdate</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserUpdate</servlet-name>
+		<url-pattern>/UserUpdate</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>NewUser</servlet-name>
+		<servlet-class>com.hkah.servlet.NewUser</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NewUser</servlet-name>
+		<url-pattern>/NewUser</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>NewSr</servlet-name>
+		<servlet-class>com.hkah.servlet.NewSr</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NewSr</servlet-name>
+		<url-pattern>/NewSr</url-pattern>
+	</servlet-mapping>
+
+	<!-- for allergy -->
+	<servlet>
+		<servlet-name>GetAllergy</servlet-name>
+		<servlet-class>com.hkah.servlet.GetAllergy</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetAllergy</servlet-name>
+		<url-pattern>/GetAllergy</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>GetAllergyCancelReason</servlet-name>
+		<servlet-class>com.hkah.servlet.GetAllergyCancelReason</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetAllergyCancelReason</servlet-name>
+		<url-pattern>/GetAllergyCancelReason</url-pattern>
+	</servlet-mapping>
+
+	<!-- for SMSpromotion -->
+	<servlet>
+		<servlet-name>GetSMSmsg</servlet-name>
+		<servlet-class>com.hkah.servlet.GetSMSmsg</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetSMSmsg</servlet-name>
+		<url-pattern>/GetSMSmsg</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>SaveSendMethod</servlet-name>
+		<servlet-class>com.hkah.servlet.SaveSendMethod</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaveSendMethod</servlet-name>
+		<url-pattern>/SaveSendMethod</url-pattern>
+	</servlet-mapping>
+
+	<!-- for PHE -->
+	<servlet>
+		<servlet-name>AddSystemRequest</servlet-name>
+		<servlet-class>com.hkah.servlet.AddSystemRequest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddSystemRequest</servlet-name>
+		<url-pattern>/AddSystemRequest</url-pattern>
+	</servlet-mapping>
+
+	<!-- Standard Action Servlet Mapping -->
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HKAHMailServlet</servlet-name>
+		<url-pattern>/HKAHMailServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FopServlet</servlet-name>
+		<url-pattern>/FopServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ReportServlet</servlet-name>
+		<url-pattern>/ReportServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>springapp</servlet-name>
+		<url-pattern>*.htm</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ImageServlet</servlet-name>
+		<url-pattern>/servlets/image</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+    	<servlet-name>CMSPhotoServlet</servlet-name>
+    	<url-pattern>/CMSPhotoServlet</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+    	<servlet-name>CMSPhotoServletWeb</servlet-name>
+    	<url-pattern>/CMSPhotoServletWeb</url-pattern>
+    </servlet-mapping>
+	<!-- for upop payment -->
+	<servlet-mapping>
+    	<servlet-name>UnionPayServlet</servlet-name>
+    	<url-pattern>/UnionPayServlet</url-pattern>
+    </servlet-mapping>
+	<!-- for upop payment -->
+    <servlet-mapping>
+        <servlet-name>GetRisReport</servlet-name>
+        <url-pattern>/GetRisReport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetLabReport</servlet-name>
+        <url-pattern>/GetLabReport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetFile</servlet-name>
+        <url-pattern>/GetFile</url-pattern>
+    </servlet-mapping>    
+	<servlet-mapping>
+		<servlet-name>GetFileTree</servlet-name>
+		<url-pattern>/GetFileTree</url-pattern>
+	</servlet-mapping>
+
+	<listener>
+	    <description>clearTempFileListener</description>
+	    <listener-class>
+	        com.hkah.servlet.ClearTempFileListener
+	    </listener-class>
+    </listener>
+
+	<jsp-config>
+		<taglib>
+			<taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
+			<taglib-location>/WEB-INF/c.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://displaytag.sf.net</taglib-uri>
+			<taglib-location>/WEB-INF/displaytag.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://displaytag.sf.net/el</taglib-uri>
+			<taglib-location>/WEB-INF/displaytag-el.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://java.sun.com/jsp/jstl/fmt</taglib-uri>
+			<taglib-location>/WEB-INF/fmt.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://www.springframework.org/tags/form</taglib-uri>
+			<taglib-location>/WEB-INF/spring-form.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://struts.apache.org/tags-bean</taglib-uri>
+			<taglib-location>/WEB-INF/struts-bean.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://struts.apache.org/tags-html</taglib-uri>
+			<taglib-location>/WEB-INF/struts-html.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://struts.apache.org/tags-logic</taglib-uri>
+			<taglib-location>/WEB-INF/struts-logic.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://struts.apache.org/tags-nested</taglib-uri>
+			<taglib-location>/WEB-INF/struts-nested.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<listener>
+		<listener-class>com.hkah.web.db.helper.SSOSessionListener</listener-class>
+	</listener>
+</web-app>

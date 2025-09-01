@@ -1,0 +1,9 @@
+DayEnd = 0
+Phar = 0
+Login = 1
+Enhancement_01 = 1
+OT = 1
+SCM = 1
+OTP2 = 1
+DIP1 = 1
+OTP3 = 1

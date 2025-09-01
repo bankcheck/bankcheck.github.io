@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OTHandover" language="groovy" pageWidth="595" pageHeight="842" columnWidth="523" leftMargin="36" rightMargin="36" topMargin="36" bottomMargin="36">
+	<property name="ireport.zoom" value="1.6105100000000019"/>
+	<property name="ireport.x" value="8"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PATNO" class="java.lang.String"/>
+	<parameter name="PATNAME" class="java.lang.String"/>
+	<parameter name="OTROOM_TYPE" class="java.lang.String">
+		<defaultValueExpression><![CDATA["RM"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="OTAID" class="java.lang.String"/>
+	<parameter name="STENAME" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+bed.romcode as Room, bed.bedcode as Bed, to_char(ota.otaosdate,'dd/mm/yyyy hh24:mi') as OTStart, to_char(otaoedate,'hh24:mi') as OTEnd,
+otp.otpdesc as Operation, decode(nvl(ota.doccode_s,' '),' ', dr_e.docfname || ' ' || dr_e.docgname, dr_s.docfname || ' ' || dr_s.docgname) as Surgeon,otc.otcdesc as OTRoom, to_char(OTAID) as otaid, '<BT>OTPICKUP</BT><RN>' || ota.otaid || '</RN>' barcode
+From OT_APP ota, doctor dr_s, doctor dr_e, ot_proc otp, ot_code otc, inpat ip, reg reg, bed bed
+Where Ota.Doccode_S = Dr_S.Doccode(+) And Ota.Doccode_E = Dr_E.Doccode(+)
+ And Ota.Otcid_Rm = Otc.Otcid
+ And Otc.Otctype = $P{OTROOM_TYPE}
+ and ota.otpid = otp.otpid(+)
+ And Ota.Pbpid = Reg.Pbpid(+) And Reg.Inpid = Ip.Inpid(+) And Ip.Bedcode = Bed.Bedcode
+ and ota.otaid = $P{OTAID}]]>
+	</queryString>
+	<field name="ROOM" class="java.lang.String"/>
+	<field name="BED" class="java.lang.String"/>
+	<field name="OTSTART" class="java.lang.String"/>
+	<field name="OTEND" class="java.lang.String"/>
+	<field name="OPERATION" class="java.lang.String"/>
+	<field name="SURGEON" class="java.lang.String"/>
+	<field name="OTROOM" class="java.lang.String"/>
+	<field name="OTAID" class="java.lang.String"/>
+	<field name="BARCODE" class="java.lang.String"/>
+	<title>
+		<band height="85" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="25" width="523" height="25"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient Handover Sheet]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="0" width="523" height="25"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{STENAME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="145" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="72" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date / Time:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="23" width="72" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient No.:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="0" width="314" height="16"/>
+				<box bottomPadding="0">
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($F{OTSTART} != null ? $F{OTSTART} + " - " : "") + $F{OTEND}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="23" width="95" height="16"/>
+				<box bottomPadding="0">
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PATNO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="173" y="23" width="72" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Room / Bed:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="46" width="72" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient Name:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="46" width="314" height="16"/>
+				<box bottomPadding="0">
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{PATNAME})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="245" y="23" width="141" height="16"/>
+				<box bottomPadding="0">
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ROOM} + " - " + $F{BED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="109" width="451" height="16"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OPERATION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="109" width="72" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Operation:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="129" width="210" height="16"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SURGEON}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="129" width="72" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Surgeon:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="286" y="129" width="72" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[OT Room:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="358" y="129" width="165" height="16"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OTROOM}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle" isUsingCache="false" isLazy="true">
+				<reportElement x="409" y="0" width="76" height="76"/>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode($F{BARCODE},com.google.zxing.BarcodeFormat.QR_CODE,100,100))]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+</jasperReport>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="C" printOrder="Horizontal" pageWidth="566" pageHeight="85" whenNoDataType="AllSectionsNoDetail" columnWidth="566" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Error" isIgnorePagination="true">
+	<property name="ireport.zoom" value="1.3310000000000022"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patsex" class="java.lang.String"/>
+	<parameter name="patbdate" class="java.lang.String"/>
+	<parameter name="patname" class="java.lang.String"/>
+	<parameter name="patcname" class="java.lang.String"/>
+	<parameter name="isCheckDight" class="java.lang.String"/>
+	<parameter name="isasterisk" class="java.lang.String"/>
+	<parameter name="CheckDigit" class="java.lang.String"/>
+	<parameter name="newbarcode" class="java.lang.String"/>
+	<parameter name="regid" class="java.lang.String"/>
+	<parameter name="regType" class="java.lang.String"/>
+	<parameter name="regDate" class="java.lang.String"/>
+	<parameter name="showRegID" class="java.lang.String"/>
+	<parameter name="isTwoD_1" class="java.lang.String"/>
+	<parameter name="isTwoD_2" class="java.lang.String"/>
+	<parameter name="isTwoD_3" class="java.lang.String"/>
+	<parameter name="isTwoD_4" class="java.lang.String"/>
+	<parameter name="mrLblContent" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<variable name="newMrLbl" class="java.lang.String" resetType="None">
+		<variableExpression><![CDATA[!$P{mrLblContent}.isEmpty()?
+($P{mrLblContent}.substring( 3,12)):""]]></variableExpression>
+	</variable>
+	<variable name="v_newbarcode" class="java.lang.String" resetType="None">
+		<variableExpression><![CDATA[$P{newbarcode}.substring(0, $P{newbarcode}.length()-1)]]></variableExpression>
+	</variable>
+	<variable name="v_regid" class="java.lang.String" resetType="None">
+		<variableExpression><![CDATA[($P{showRegID}.equals("Y") && $P{regType} != null && !$P{regType}.equals("O") && $P{regid}.length() > 0)?("<REGID>"+$P{regid}+"</REGID>"):""]]></variableExpression>
+	</variable>
+	<summary>
+		<band height="56">
+			<elementGroup>
+				<textField>
+					<reportElement x="5" y="2" width="51" height="12">
+						<printWhenExpression><![CDATA[$P{isTwoD_1}.equals( "C" )]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Top" markup="styled">
+						<font fontName="Arial" size="10" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["<style size='8'>"+($P{isasterisk}.equalsIgnoreCase( "true" )?"*":"")+" </style>"]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="11" y="35" width="116" height="20">
+						<printWhenExpression><![CDATA[$P{isTwoD_1}.equals( "C" )]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="3">
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode(
+$P{mrLblContent}.substring(0, $P{mrLblContent}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+				<textField isBlankWhenNull="true">
+					<reportElement x="4" y="17" width="119" height="16">
+						<printWhenExpression><![CDATA[$P{isTwoD_1}.equals( "C" )]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" markup="styled">
+						<font fontName="Ming(for ISO10646_V3)" size="12" isStrikeThrough="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[!$P{mrLblContent}.isEmpty()? ($P{mrLblContent}.substring( 3,12)):""]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<elementGroup>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="149" y="35" width="116" height="20">
+						<printWhenExpression><![CDATA[$P{isTwoD_2}.equals( "C" )]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="3">
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode( $P{mrLblContent}.substring(0, $P{mrLblContent}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+				<textField isBlankWhenNull="true">
+					<reportElement x="142" y="17" width="119" height="16">
+						<printWhenExpression><![CDATA[$P{isTwoD_2}.equals( "C" )]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" markup="styled">
+						<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[!$P{mrLblContent}.isEmpty()? ($P{mrLblContent}.substring( 3,12)):""]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="140" y="2" width="51" height="12">
+						<printWhenExpression><![CDATA[$P{isTwoD_2}.equals( "C" )]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Top" markup="styled">
+						<font fontName="Arial" size="10" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["<style size='8'>"+($P{isasterisk}.equalsIgnoreCase( "true" )?"*":"")+" </style>"]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<elementGroup>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="289" y="35" width="116" height="20">
+						<printWhenExpression><![CDATA[$P{isTwoD_3}.equals( "C" )]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="3">
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode($P{mrLblContent}.substring(0, $P{mrLblContent}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+				<textField isBlankWhenNull="true">
+					<reportElement x="282" y="17" width="119" height="16">
+						<printWhenExpression><![CDATA[$P{isTwoD_3}.equals( "C" )]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" markup="styled">
+						<font fontName="Ming(for ISO10646_V3)" size="12" isStrikeThrough="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[!$P{mrLblContent}.isEmpty()? ($P{mrLblContent}.substring( 3,12)):""]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="280" y="2" width="51" height="12">
+						<printWhenExpression><![CDATA[$P{isTwoD_3}.equals( "C" )]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Top" markup="styled">
+						<font fontName="Arial" size="10" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["<style size='8'>"+($P{isasterisk}.equalsIgnoreCase( "true" )?"*":"")+" </style>"]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<elementGroup>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="429" y="33" width="116" height="20">
+						<printWhenExpression><![CDATA[$P{isTwoD_4}.equals( "C" )]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="3">
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode( $P{mrLblContent}.substring(0, $P{mrLblContent}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+				<textField isBlankWhenNull="true">
+					<reportElement x="420" y="17" width="119" height="16">
+						<printWhenExpression><![CDATA[$P{isTwoD_4}.equals( "C" )]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" markup="styled">
+						<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[!$P{mrLblContent}.isEmpty()? ($P{mrLblContent}.substring( 3,12)):""]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="418" y="2" width="51" height="12">
+						<printWhenExpression><![CDATA[$P{isTwoD_4}.equals( "C" )]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Top" markup="styled">
+						<font fontName="Arial" size="10" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["<style size='8'>"+($P{isasterisk}.equalsIgnoreCase( "true" )?"*":"")+" </style>"]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+		</band>
+	</summary>
+</jasperReport>

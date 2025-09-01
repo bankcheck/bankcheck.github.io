@@ -1,0 +1,259 @@
+create or replace FUNCTION "NHS_LIS_PATIENT" (
+	v_Action   IN VARCHAR2,
+	v_PATNO	   IN VARCHAR2,
+	v_PATIDNO  IN VARCHAR2,
+	v_PATHTEL  IN VARCHAR2,
+	v_PATBDATE IN VARCHAR2,
+	v_PATSEX   IN VARCHAR2,
+	v_PATMTEL  IN VARCHAR2,
+	v_PATFNAME IN VARCHAR2,
+	v_PATGNAME IN VARCHAR2,
+	v_PATMNAME IN VARCHAR2,
+	v_PATCNAME IN VARCHAR2,
+	v_SCR	   IN VARCHAR2,
+	v_ORDBY	   IN VARCHAR2,
+	v_PATTEL   IN VARCHAR2,
+	v_UsrID    IN VARCHAR2
+)
+	RETURN Types.cursor_type
+AS
+	OUTCUR Types.cursor_type;
+	sqlStr VARCHAR2(5000);
+BEGIN
+	sqlStr := ' SELECT * FROM ( SELECT ';
+
+	IF v_UsrID IS NOT NULL THEN
+		sqlStr := sqlStr || ' GET_ALERT_CODE(P.PATNO, ''' || v_UsrID || '''), ';
+	ELSE
+		sqlStr := sqlStr || ' '''', ';
+	END IF;
+
+	sqlStr := sqlStr || ' P.PATNO,
+				P.PATFNAME,
+				P.PATGNAME,
+				P.PATMNAME,
+				P.PATCNAME,
+				E.EHRFNAME,
+				E.EHRGNAME,
+				P.PATSEX PATSEX,
+				TO_CHAR(P.PATBDATE, ''DD/MM/YYYY'') PATBDATE,
+				TRUNC(MONTHS_BETWEEN(SYSDATE, P.PATBDATE)/ 12) AS AGE,
+				P.PATPAGER,
+				P.PATHTEL,
+				P.PATIDNO,
+				P.PATIDCOUCODE,
+				P.PATVCNT,
+				TO_CHAR(R.REGDATE, ''DD/MM/YYYY'') LASTUPD,
+				P.TITDESC,
+				P.PATMSTS,
+				P.RACDESC,
+				P.MOTHCODE,
+				P.PATSEX PATSEX2,
+				P.EDULEVEL,
+				P.RELIGIOUS,
+				TO_CHAR(P.DEATH, ''DD/MM/YYYY'') DEATH,
+				P.OCCUPATION,
+				P.PATMOTHER,
+				P.PATNB,
+				P.PATSTS,
+				P.PATITP,
+				P.PATSTAFF,
+				P.PATSMS,
+				P.PATCHKID,
+				P.PATEMAIL,
+				P.PATOTEL,
+				P.PATFAXNO,
+				P.PATADD1,
+				P.PATADD2,
+				P.PATADD3,
+				P.LOCCODE,
+				D.DSTNAME,
+				P.COUCODE,
+				P.PATRMK,
+				TO_CHAR(P.LASTUPD, ''DD/MM/YYYY HH24:MI:SS'') || (CASE WHEN SYSDATE - P.LASTUPD > 365 THEN ''*'' END) LASTUPD2,
+				DECODE(U0.USRNAME, NULL, P.USRID, U0.USRNAME),
+				P.PATKNAME,
+				P.PATKHTEL,
+				P.PATKPTEL,
+				P.PATKRELA,
+				P.PATKOTEL,
+				P.PATKMTEL,
+				P.PATKEMAIL,
+				P.PATKADD,
+				P.PATLFNAME,
+				P.PATLGNAME,
+				P.PATADDRMK,
+				U1.USRNAME ADDRMKMODUSRNAME,
+				TO_CHAR(P.ADDRMKMODDT, ''DD/MM/YYYY HH24:MI:SS'') ADDRMKMODDT,
+				P.REGID_L,
+				P.REGID_C,
+				DECODE(T.PATNO, NULL, ''0'', ''-1'') TPATNO,
+				M.TO_PATNO,
+				U2.USRNAME PATPAGERUPUSRNAME,
+				TO_CHAR(P.PATPAGERUPDT, ''DD/MM/YYYY HH24:MI:SS'') PATPAGERUPDT,
+				U3.USRNAME PATHTELUPUSRNAME,
+				TO_CHAR(P.PATHTELUPDT, ''DD/MM/YYYY HH24:MI:SS'') PATHTELUPDT,
+				U4.USRNAME PATOTELUPUSRNAME,
+				TO_CHAR(P.PATOTELUPDT, ''DD/MM/YYYY HH24:MI:SS'') PATOTELUPDT,
+				U5.USRNAME PATFAXNOUPUSRNAME,
+				TO_CHAR(P.PATFAXNOUPDT, ''DD/MM/YYYY HH24:MI:SS'') PATFAXNOUPDT,
+				U6.USRNAME PATADDUPUSRNAME,
+				TO_CHAR(P.PATADDUPDT, ''DD/MM/YYYY HH24:MI:SS'') PATADDUPDT,
+				U7.USRNAME RMKUPUSRNAME,
+				TO_CHAR(P.RMKUPDT, ''DD/MM/YYYY HH24:MI:SS'') RMKUPDT,
+				U8.USRNAME PATCHKIDUPUSRNAME,
+				TO_CHAR(P.PATCHKIDUPDT, ''DD/MM/YYYY HH24:MI:SS'') PATCHKIDUPDT,
+				PE.DOCTYPE,
+				P.PATMKTSRC,
+				PE.PATMKTRMK,
+				PE.DENTALNO,
+				PE.PATMISCRMK
+        ';
+
+	IF V_ACTION = 'GET' THEN
+		sqlStr := sqlStr || ',PE.BIRHTORDSPG, DECODE(PE.STECODE, ''AMC1'', ''AMC-CWB'', ''AMC2'', ''AMC-TKP'', ''HKAH'', ''HKAH-SR'', null, case when GET_CURRENT_STECODE = ''TWAH'' THEN ''HKAH-TW'' ELSE ''HKAH-SR'' END, PE.STECODE),
+        PE.PATADDIDNO1,
+        PE.PATADDDOCTYPE1,
+        PE.PATADDIDCOUCODE1,
+        PE.PATADDIDNO2,
+        PE.PATADDDOCTYPE2,
+        PE.PATADDIDCOUCODE2,
+        PE.PATPGRCOUCODE,
+        DECODE(PE.APPPATNO,'''',''NO'',''YES'') ,
+        TO_CHAR(PE.APPLINKUPTIME,''DD/MM/YYYY'')';
+	END IF;
+--  
+--  sqlStr := sqlStr || ', PE.STECODE,
+--        PE.PATADDIDNO1,
+--        PE.PATADDDOCTYPE1,
+--        PE.PATADDIDCOUCODE1,
+--        PE.PATADDIDNO2,
+--        PE.PATADDDOCTYPE2,
+--        PE.PATADDIDCOUCODE2 ';
+
+	sqlStr := sqlStr || 'FROM PATIENT P
+		LEFT JOIN LOCATION L ON P.LOCCODE = L.LOCCODE
+		LEFT JOIN DISTRICT D ON L.DSTCODE = D.DSTCODE
+		LEFT JOIN USR U0 ON P.USRID = U0.USRID
+		LEFT JOIN USR U1 ON P.ADDRMKMODUSR = U1.USRID
+		LEFT JOIN USR U2 ON P.PATPAGERUPUSR = U2.USRID
+		LEFT JOIN USR U3 ON P.PATHTELUPUSR = U3.USRID
+		LEFT JOIN USR U4 ON P.PATOTELUPUSR = U4.USRID
+		LEFT JOIN USR U5 ON P.PATFAXNOUPUSR = U5.USRID
+		LEFT JOIN USR U6 ON P.PATADDUPUSR = U6.USRID
+		LEFT JOIN USR U7 ON P.RMKUPUSR = U7.USRID
+		LEFT JOIN USR U8 ON P.PATCHKIDUPUSR = U8.USRID
+		LEFT JOIN PATPHOTO T ON P.PATNO = T.PATNO
+		LEFT JOIN PATMERCHT M ON P.PATNO = FM_PATNO
+		LEFT JOIN EHR_PMI E ON P.PATNO = E.PATNO
+		LEFT JOIN REG R ON P.REGID_C = R.REGID
+		LEFT JOIN PATIENT_EXTRA PE ON P.PATNO = PE.PATNO
+--		WHERE ROWNUM < 100
+		WHERE 1 = 1 ';
+
+	IF V_ACTION = 'GET' THEN
+		sqlStr := sqlStr || ' AND P.PATNO = ''' || V_PATNO || '''';
+	ELSIF v_PATNO IS NOT NULL AND LENGTH(v_PATNO) > 0 THEN
+		sqlStr := sqlStr || ' AND P.PATNO = ''' || V_PATNO || '''';
+	END IF;
+
+	IF v_PATIDNO IS NOT NULL THEN
+		CASE v_SCR
+			WHEN 'Cross' THEN
+				sqlStr := sqlStr || ' AND P.PATIDNO LIKE ''%' || v_PATIDNO || '%''';
+			WHEN 'Wildcard' THEN
+				sqlStr := sqlStr || ' AND P.PATIDNO LIKE ''' || v_PATIDNO || '%''';
+			WHEN 'Soundex' THEN
+				sqlStr := sqlStr || ' AND P.PATIDNO = ''' || v_PATIDNO || '''';
+			ELSE
+				sqlStr := sqlStr || ' AND P.PATIDNO = ''' || v_PATIDNO || '''';
+		END CASE;
+	END IF;
+
+	IF v_PATHTEL IS NOT NULL THEN
+		sqlStr := sqlStr || ' AND P.PATHTEL = ''' || v_PATHTEL || '''';
+	END IF;
+
+	IF v_PATBDATE IS NOT NULL THEN
+		sqlStr := sqlStr || ' AND TO_CHAR(P.PATBDATE, ''DD/MM/YYYY'') = ''' || TO_CHAR(TO_DATE(v_PATBDATE, 'DD/MM/YYYY'), 'DD/MM/YYYY') || '''';
+	END IF;
+
+	IF v_PATSEX IS NOT NULL AND v_PATSEX<>'-' THEN
+		sqlStr := sqlStr || ' AND P.PATSEX = ''' || v_PATSEX || '''';
+	END IF;
+
+	IF v_PATMTEL IS NOT NULL THEN
+		sqlStr := sqlStr || ' AND P.PATPAGER = ''' || v_PATMTEL || '''';
+	END IF;
+
+	IF v_PATFNAME IS NOT NULL THEN
+		CASE v_SCR
+			WHEN 'Cross' THEN
+				sqlStr := sqlStr || ' AND (P.PATFNAME = ''' || v_PATFNAME || ''' OR P.PATGNAME = ''' || v_PATFNAME || ''' OR E.EHRFNAME = ''' || v_PATFNAME || ''')';
+			WHEN 'Wildcard' THEN
+				sqlStr := sqlStr || ' AND (P.PATFNAME LIKE ''' || v_PATFNAME || '%'' OR E.EHRFNAME LIKE ''' || v_PATFNAME || '%'')';
+			WHEN 'Soundex' THEN
+				sqlStr := sqlStr || ' AND (P.PATFNAME = ''' || v_PATFNAME || ''' OR E.EHRFNAME = ''' || v_PATFNAME || ''')';
+			ELSE
+				sqlStr := sqlStr || ' AND (P.PATFNAME LIKE ''%' || v_PATFNAME || '%'' OR E.EHRFNAME LIKE ''%' || v_PATFNAME || '%'')';
+		END CASE;
+	END IF;
+
+	IF v_PATGNAME IS NOT NULL THEN
+		CASE v_SCR
+			WHEN 'Cross' THEN
+				sqlStr := sqlStr || ' AND (P.PATGNAME = ''' || v_PATGNAME || ''' OR P.PATFNAME = ''' || v_PATGNAME || ''' OR E.EHRGNAME = ''' || v_PATGNAME || ''')';
+			WHEN 'Wildcard' THEN
+				sqlStr := sqlStr || ' AND (P.PATGNAME LIKE ''' || v_PATGNAME || '%'' OR E.EHRGNAME LIKE ''' || v_PATGNAME || '%'')';
+			WHEN 'Soundex' THEN
+				sqlStr := sqlStr || ' AND (P.PATGNAME = ''' || v_PATGNAME || ''' OR E.EHRGNAME = ''' || v_PATGNAME || ''')';
+			ELSE
+				sqlStr := sqlStr || ' AND (P.PATGNAME LIKE ''%' || v_PATGNAME || '%'' OR E.EHRGNAME LIKE ''%' || v_PATGNAME || '%'')';
+		END CASE;
+	END IF;
+
+	IF v_PATMNAME IS NOT NULL THEN
+		CASE v_SCR
+			WHEN 'Cross' THEN
+				sqlStr := sqlStr || ' AND P.PATMNAME = ''' || v_PATMNAME || '''';
+			WHEN 'Wildcard' THEN
+				sqlStr := sqlStr || ' AND P.PATMNAME LIKE ''' || v_PATMNAME || '%''';
+			WHEN 'Soundex' THEN
+				sqlStr := sqlStr || ' AND P.PATMNAME = ''' || v_PATMNAME || '''';
+			ELSE
+				sqlStr := sqlStr || ' AND P.PATMNAME LIKE ''%' || v_PATMNAME || '%''';
+		END CASE;
+	END IF;
+
+	IF v_PATCNAME IS NOT NULL THEN
+		CASE v_SCR
+			WHEN 'Cross' THEN
+				sqlStr := sqlStr || ' AND P.PATCNAME = ''' || v_PATCNAME || '''';
+			WHEN 'Wildcard' THEN
+				sqlStr := sqlStr || ' AND P.PATCNAME LIKE ''' || v_PATCNAME || '%''';
+			WHEN 'Soundex' THEN
+				sqlStr := sqlStr || ' AND P.PATCNAME = ''' || v_PATCNAME || '''';
+			ELSE
+				sqlStr := sqlStr || ' AND P.PATCNAME LIKE ''%' || v_PATCNAME || '%''';
+		END CASE;
+	END IF;
+
+	IF v_PATTEL IS NOT NULL THEN
+		sqlStr := sqlStr || ' AND (P.PATHTEL = ''' || v_PATTEL || '''';
+		sqlStr := sqlStr || ' OR P.PATOTEL = ''' || v_PATTEL || '''';
+		sqlStr := sqlStr || ' OR PATPAGER = ''' || v_PATTEL || '''';
+		sqlStr := sqlStr || ' OR PATFAXNO = ''' || v_PATTEL || ''')';
+	END IF;
+
+	IF V_ORDBY = 'Patient Name' THEN
+		sqlStr := sqlStr || ' order by P.PATFNAME || '' '' ||P.PATGNAME';
+	ELSE
+		sqlStr := sqlStr || ' order by P.PATNO';
+	END IF;
+
+	sqlStr := sqlStr || ' ) WHERE ROWNUM <= 800 ';
+
+	OPEN OUTCUR FOR sqlStr;
+	RETURN OUTCUR;
+END NHS_LIS_PATIENT;
+/

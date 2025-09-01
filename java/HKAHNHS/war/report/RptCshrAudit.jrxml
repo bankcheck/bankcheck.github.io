@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptCshrAudit" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SteName" class="java.lang.String"/>
+	<parameter name="cashiercode" class="java.lang.String"/>
+	<parameter name="StartDate" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="EndDate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select Type,ctxmeth,ctnctype,ctxtype,ctxsno,ctxname,ctxdesc,ctxamt,ctxcdate
+  from(
+          SELECT cd.ctnctype,
+                 to_char(ct.ctxcdate,'dd/mm/yyyy') ctxcdate,
+                 ct.ctxmeth,
+                 ct.ctxtype,
+                 ct.ctxsno,
+                 ct.ctxname,
+                 ct.ctxdesc,
+                 ct.ctxamt,
+                 'Normal' as Type
+
+        FROM cardtx cd, cashtx ct, cashier cs
+        WHERE ct.cshcode='LOS'
+                    and ct.ctxcdate >= to_date('01-01-2009', 'DD-MM-YYYY')
+                     and ct.ctxcdate< to_date('01-01-2010', 'DD-MM-YYYY')+1
+                    and  ct.ctxsts IN ('N','V')
+                     and ct.ctnid = cd.ctnid(+)
+                     and ct.cshcode= cs.cshcode
+                     and cs.stecode = 'HKAH'
+
+ UNION
+    SELECT
+ 		cd.ctnctype,
+                 to_char(ct.ctxcdate,'dd/mm/yyyy') ctxcdate,
+                 ct.ctxmeth,
+                 ct.ctxtype,
+                 ct.ctxsno,
+                 ct.ctxname,
+                 ct.ctxdesc,
+                 ct.ctxamt ,
+                 'Voided Items' as Type
+      FROM cardtx cd, cashtx ct, cashier cs
+        WHERE ct.cshcode='LOS' and
+                   ct.ctxcdate >= to_date('01-01-2009', 'DD-MM-YYYY')
+                     and ct.ctxcdate< to_date('01-01-2010', 'DD-MM-YYYY')+1
+                    and ct.ctxsts= 'R'
+                    and ct.ctnid = cd.ctnid(+)
+                    and ct.cshcode= cs.cshcode
+                    and cs.stecode = 'HKAH'
+                  )
+order by Type,ctxmeth,ctnctype,ctxtype,ctxsno,ctxname,ctxdesc,ctxamt,ctxcdate]]>
+	</queryString>
+	<field name="TYPE" class="java.lang.String"/>
+	<field name="CTXMETH" class="java.lang.String"/>
+	<field name="CTNCTYPE" class="java.lang.String"/>
+	<field name="CTXTYPE" class="java.lang.String"/>
+	<field name="CTXSNO" class="java.lang.String"/>
+	<field name="CTXNAME" class="java.lang.String"/>
+	<field name="CTXDESC" class="java.lang.String"/>
+	<field name="CTXAMT" class="java.lang.String"/>
+	<field name="CTXCDATE" class="java.lang.String"/>
+	<variable name="MethodLongName" class="java.lang.String">
+		<variableExpression><![CDATA[$F{CTXMETH}.equals("C") ? "Cash" :
+($F{CTXMETH}.equals("D") ? "Credit Card" :
+($F{CTXMETH}.equals("E") ? "EPS" :
+($F{CTXMETH}.equals("Q") ? "Cheque" :
+($F{CTXMETH}.equals("A") ? "Autopay" :
+($F{CTXMETH}.equals("U") ? "CUP" :
+($F{CTXMETH}.equals("R") ? "WECHAT/ALI PAY" :
+($F{CTXMETH}.equals("T") ? "OCTOPUS" :
+null)))))))]]></variableExpression>
+	</variable>
+	<variable name="CtxTypeLongForm" class="java.lang.String">
+		<variableExpression><![CDATA[$F{CTXTYPE}.equals("P") ? "Payout" :
+($F{CTXTYPE}.equals("R") ? "Receipt" :
+ ($F{CTXTYPE}.equals("A") ? "Advance" :
+$F{CTXTYPE}))]]></variableExpression>
+	</variable>
+	<variable name="CTXAMT_2" class="java.lang.Double" resetType="Group" resetGroup="Group1" calculation="Sum">
+		<variableExpression><![CDATA[Double.parseDouble($F{CTXAMT})]]></variableExpression>
+	</variable>
+	<variable name="CTXAMT_1" class="java.lang.Double" resetType="Group" resetGroup="Group4" calculation="Sum">
+		<variableExpression><![CDATA[Double.parseDouble($F{CTXAMT})]]></variableExpression>
+	</variable>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{TYPE}]]></groupExpression>
+		<groupHeader>
+			<band height="17">
+				<printWhenExpression><![CDATA[$F{TYPE}!=null]]></printWhenExpression>
+				<textField isBlankWhenNull="true">
+					<reportElement x="7" y="0" width="100" height="17">
+						<printWhenExpression><![CDATA[$F{TYPE}!="Normal"]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{TYPE}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="17">
+				<printWhenExpression><![CDATA[$F{TYPE}.length()>0]]></printWhenExpression>
+				<staticText>
+					<reportElement x="299" y="0" width="50" height="17"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total:]]></text>
+				</staticText>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="349" y="0" width="104" height="17"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{CTXAMT_2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group2">
+		<groupExpression><![CDATA[$F{CTXMETH}]]></groupExpression>
+	</group>
+	<group name="Group3">
+		<groupExpression><![CDATA[$F{CTNCTYPE}]]></groupExpression>
+	</group>
+	<group name="Group4">
+		<groupExpression><![CDATA[$F{CTXTYPE}]]></groupExpression>
+		<groupFooter>
+			<band height="27">
+				<printWhenExpression><![CDATA[$F{CTXTYPE}!= null]]></printWhenExpression>
+				<staticText>
+					<reportElement x="304" y="5" width="50" height="17"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SubTatol:]]></text>
+				</staticText>
+				<line>
+					<reportElement x="7" y="22" width="533" height="1"/>
+				</line>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="354" y="5" width="99" height="17"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{CTXAMT_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="127" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="14"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[rptCshrAudit]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="434" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="514" y="0" width="40" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="48" width="555" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cashier Audit Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="87" width="43" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cashier:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="107" width="59" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Method]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="107" y="107" width="44" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="151" y="107" width="94" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Serial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="245" y="107" width="69" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Name/Reference]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="392" y="107" width="61" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="465" y="107" width="70" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Cap Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="30" width="554" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SteName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="87" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{cashiercode}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="HH:mm:ss">
+				<reportElement x="78" y="14" width="100" height="16"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="0" y="14" width="79" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(new java.text.SimpleDateFormat(     "dd/MMM/yyyy",Locale.ENGLISH)).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="67" width="555" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{StartDate} + " to " +$P{EndDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<printWhenExpression><![CDATA[$F{TYPE}!=null]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement isPrintRepeatedValues="false" x="7" y="0" width="43" height="12" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" printWhenGroupChanges="Group4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{MethodLongName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement isPrintRepeatedValues="false" x="50" y="0" width="53" height="12" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" printWhenGroupChanges="Group4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CTNCTYPE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement isPrintRepeatedValues="false" x="107" y="0" width="44" height="12" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" printWhenGroupChanges="Group4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{CtxTypeLongForm}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="151" y="0" width="94" height="12" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CTXSNO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="245" y="0" width="128" height="12" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CTXNAME}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="380" y="0" width="73" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[Double.parseDouble($F{CTXAMT})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="465" y="0" width="70" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CTXCDATE}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="13">
+			<printWhenExpression><![CDATA[$F{TYPE}!=null]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="245" y="0" width="128" height="13" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CTXDESC}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

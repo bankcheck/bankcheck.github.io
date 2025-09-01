@@ -1,0 +1,4 @@
+create or replace
+TYPE "DOCTOR_ITEMSHAREHIST_TAB"
+as table of DOCTOR_ITEMSHAREHIST;
+/

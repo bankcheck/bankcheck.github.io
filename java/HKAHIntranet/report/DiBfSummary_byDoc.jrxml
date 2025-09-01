@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DIBroughtForwardSummary" pageWidth="802" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="10" bottomMargin="0">
+	<property name="ireport.zoom" value="1.9487171000000096"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="in_rpttype" class="java.lang.String">
+		<defaultValueExpression><![CDATA["BF"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_actualrun" class="java.lang.String">
+		<defaultValueExpression><![CDATA["N"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_enddt" class="java.util.Date">
+		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_dept" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+  --*
+  max(rptid) keep (dense_rank first order by stnid) rptid,
+  rptdoccode,
+  max(docfname) keep (dense_rank first order by stnid) docfname,
+  max(docgname) keep (dense_rank first order by stnid) docgname,
+  servcde,
+  max(servdesc) keep (dense_rank first order by stnid) servdesc,
+  excode,
+  max(exname) keep (dense_rank first order by stnid) exname,
+  max(rptdate) keep (dense_rank first order by stnid) rptdate,
+  max(patno) keep (dense_rank first order by stnid) patno,
+  max(patfname) keep (dense_rank first order by stnid) patfname,
+  max(patgname) keep (dense_rank first order by stnid) patgname,
+  max(slpfname) keep (dense_rank first order by stnid) slpfname,
+  max(slpgname) keep (dense_rank first order by stnid) slpgname,
+  slpno,
+  max(stnid) keep (dense_rank first order by stnid) stnid,
+  slptype,
+  sum(oamt) keep (dense_rank last order by rptid) oamt,
+  sum(billamt) keep (dense_rank last order by rptid) billamt,
+  sum(discount) keep (dense_rank last order by rptid) discount,
+  sum(netamt) keep (dense_rank last order by rptid) netamt,
+  sum(consum) keep (dense_rank last order by rptid) consum,
+  sum(colfee) keep (dense_rank last order by rptid) colfee,
+  sum(revs) keep (dense_rank last order by rptid) revs,
+  sum(netpay) keep (dense_rank last order by rptid) netpay,
+  max(docshare) keep (dense_rank first order by stnid) docshare,
+  max(docshareamt) keep (dense_rank first order by stnid) docshareamt,
+  sum(docusefull) keep (dense_rank last order by rptid) docusefull,
+  sum(docfee) keep (dense_rank last order by rptid) docfee,
+  dixref,
+  payto, contractstartdt, contractenddt, rpttype, actualrun,
+  max(enddt) keep (dense_rank first order by stnid) enddt,
+  max(stnsts) keep (dense_rank first order by stnid) stnsts,
+  max(pcyid) keep (dense_rank first order by stnid) pcyid,
+  max(patstaff) keep (dense_rank first order by stnid) patstaff,
+  examdt,
+  max(orderdt) keep (dense_rank first order by stnid) orderdt,
+  max(startdt) keep (dense_rank first order by stnid) startdt,
+  max(irefno) keep (dense_rank first order by stnid) irefno
+from docincome2
+where
+  rpttype = $P{in_rpttype}
+  and to_char(actualrun) = $P{in_actualrun}
+  and trunc(enddt) = trunc($P{in_enddt})
+  and rptdoccode is not null
+-- exclude doc fee = 0
+  and (docshare is not null or (docshareamt is not null and docshareamt > 0) or docfee <> 0)
+  and stnsts in ('N', 'A', 'P')
+  and ($P{in_dept} is null or ($P{in_dept} is not null and upper($P{in_dept}) = 'DI' and upper(rptdoccode) like 'X%') or ($P{in_dept} is not null and upper($P{in_dept}) = 'OPD' and upper(rptdoccode) not like 'X%'))
+group by rptdoccode, contractstartdt, slptype, servcde, excode, examdt, slpno, payto, contractenddt, rpttype, actualrun, dixref
+having nvl(sum(docfee), 0) - nvl(sum(colfee), 0) <> 0
+order by rptdoccode, contractstartdt, slptype, servcde, excode, examdt, slpno]]>
+	</queryString>
+	<field name="RPTID" class="java.math.BigDecimal"/>
+	<field name="RPTDOCCODE" class="java.lang.String"/>
+	<field name="DOCFNAME" class="java.lang.String"/>
+	<field name="DOCGNAME" class="java.lang.String"/>
+	<field name="SERVCDE" class="java.lang.String"/>
+	<field name="SERVDESC" class="java.lang.String"/>
+	<field name="EXCODE" class="java.lang.String"/>
+	<field name="EXNAME" class="java.lang.String"/>
+	<field name="RPTDATE" class="java.sql.Timestamp"/>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="PATFNAME" class="java.lang.String"/>
+	<field name="PATGNAME" class="java.lang.String"/>
+	<field name="SLPFNAME" class="java.lang.String"/>
+	<field name="SLPGNAME" class="java.lang.String"/>
+	<field name="SLPNO" class="java.lang.String"/>
+	<field name="STNID" class="java.math.BigDecimal"/>
+	<field name="SLPTYPE" class="java.lang.String"/>
+	<field name="OAMT" class="java.math.BigDecimal"/>
+	<field name="BILLAMT" class="java.math.BigDecimal"/>
+	<field name="DISCOUNT" class="java.math.BigDecimal"/>
+	<field name="NETAMT" class="java.math.BigDecimal"/>
+	<field name="CONSUM" class="java.math.BigDecimal"/>
+	<field name="COLFEE" class="java.math.BigDecimal"/>
+	<field name="REVS" class="java.math.BigDecimal"/>
+	<field name="NETPAY" class="java.math.BigDecimal"/>
+	<field name="DOCSHARE" class="java.math.BigDecimal"/>
+	<field name="DOCSHAREAMT" class="java.math.BigDecimal"/>
+	<field name="DOCUSEFULL" class="java.math.BigDecimal"/>
+	<field name="DOCFEE" class="java.math.BigDecimal"/>
+	<field name="DIXREF" class="java.math.BigDecimal"/>
+	<field name="PAYTO" class="java.lang.String"/>
+	<field name="CONTRACTSTARTDT" class="java.sql.Timestamp"/>
+	<field name="CONTRACTENDDT" class="java.sql.Timestamp"/>
+	<field name="RPTTYPE" class="java.lang.String"/>
+	<field name="ACTUALRUN" class="java.lang.String"/>
+	<field name="ENDDT" class="java.sql.Timestamp"/>
+	<field name="STNSTS" class="java.lang.String"/>
+	<field name="PCYID" class="java.math.BigDecimal"/>
+	<field name="PATSTAFF" class="java.math.BigDecimal"/>
+	<field name="EXAMDT" class="java.sql.Timestamp"/>
+	<field name="ORDERDT" class="java.sql.Timestamp"/>
+	<field name="STARTDT" class="java.sql.Timestamp"/>
+	<field name="IREFNO" class="java.lang.String"/>
+	<variable name="oamtSum" class="java.lang.Number" resetType="Group" resetGroup="contractStartDate" calculation="Sum">
+		<variableExpression><![CDATA[$F{OAMT}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="docGroupCount" class="java.lang.Integer" resetType="Group" resetGroup="contractStartDate" calculation="Count">
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="billamtSum" class="java.lang.Number" resetType="Group" resetGroup="contractStartDate" calculation="Sum">
+		<variableExpression><![CDATA[$F{BILLAMT}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="discountSum" class="java.lang.Number" resetType="Group" resetGroup="contractStartDate" calculation="Sum">
+		<variableExpression><![CDATA[$F{DISCOUNT}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="netAmtSum" class="java.lang.Number" resetType="Group" resetGroup="contractStartDate" calculation="Sum">
+		<variableExpression><![CDATA[$F{NETAMT}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="consumSum" class="java.lang.Number" resetType="Group" resetGroup="contractStartDate" calculation="Sum">
+		<variableExpression><![CDATA[$F{CONSUM}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="revsSum" class="java.lang.Number" resetType="Group" resetGroup="contractStartDate" calculation="Sum">
+		<variableExpression><![CDATA[$F{REVS}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="netpaySum" class="java.lang.Number" resetType="Group" resetGroup="contractStartDate" calculation="Sum">
+		<variableExpression><![CDATA[$F{NETPAY}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="docshareamtSum" class="java.math.BigDecimal" resetType="Group" resetGroup="contractStartDate" calculation="Sum">
+		<variableExpression><![CDATA[$F{DOCSHAREAMT} == null ?
+($F{DOCSHARE} == null ?
+    new BigDecimal("0") :
+    $F{DOCSHARE}.multiply($F{NETPAY}).multiply(new BigDecimal("0.01")).setScale(0, BigDecimal.ROUND_HALF_UP)
+)
+: $F{DOCSHAREAMT}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="colfeeSum" class="java.math.BigDecimal" resetType="Group" resetGroup="contractStartDate" calculation="Sum">
+		<variableExpression><![CDATA[$F{COLFEE}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="drpaySum" class="java.lang.Number" resetType="Group" resetGroup="contractStartDate" calculation="Sum">
+		<variableExpression><![CDATA[($F{DOCFEE} == null ? new BigDecimal("0") : $F{DOCFEE}).subtract(
+($F{COLFEE} == null ? new BigDecimal("0") : $F{COLFEE}))]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="oamtSumTotal" class="java.lang.Number" calculation="Sum">
+		<variableExpression><![CDATA[$F{OAMT}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="billamtSumTotal" class="java.lang.Number" calculation="Sum">
+		<variableExpression><![CDATA[$F{BILLAMT}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="discountSumTotal" class="java.lang.Number" calculation="Sum">
+		<variableExpression><![CDATA[$F{DISCOUNT}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="netAmtSumTotal" class="java.lang.Number" calculation="Sum">
+		<variableExpression><![CDATA[$F{NETAMT}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="consumSumTotal" class="java.lang.Number" calculation="Sum">
+		<variableExpression><![CDATA[$F{CONSUM}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="revsSumTotal" class="java.lang.Number" calculation="Sum">
+		<variableExpression><![CDATA[$F{REVS}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="netpaySumTotal" class="java.lang.Number" calculation="Sum">
+		<variableExpression><![CDATA[$F{NETPAY}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="docshareamtSumTotal" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{DOCSHAREAMT} == null ?
+($F{DOCSHARE} == null ?
+    new BigDecimal("0") :
+    $F{DOCSHARE}.multiply($F{NETPAY}).multiply(new BigDecimal("0.01")).setScale(0, BigDecimal.ROUND_HALF_UP)
+)
+: $F{DOCSHAREAMT}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="colfeeSumTotal" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{COLFEE}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="drpaySumTotal" class="java.lang.Number" calculation="Sum">
+		<variableExpression><![CDATA[($F{DOCFEE} == null ? new BigDecimal("0") : $F{DOCFEE}).subtract(
+($F{COLFEE} == null ? new BigDecimal("0") : $F{COLFEE}))]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="grandTotalCount" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[1]]></variableExpression>
+	</variable>
+	<variable name="contractStartDateString" class="java.lang.String" resetType="Group" resetGroup="contractStartDate">
+		<variableExpression><![CDATA[$F{CONTRACTSTARTDT} == null ? null : (new SimpleDateFormat("dd/MM/yyyy")).format($F{CONTRACTSTARTDT})]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{CONTRACTSTARTDT} == null ? null : (new SimpleDateFormat("dd/MM/yyyy")).format($F{CONTRACTSTARTDT})]]></initialValueExpression>
+	</variable>
+	<variable name="contractEndDateString" class="java.lang.String" resetType="Group" resetGroup="contractStartDate">
+		<variableExpression><![CDATA[$F{CONTRACTENDDT} == null ? null : (new SimpleDateFormat("dd/MM/yyyy")).format($F{CONTRACTENDDT})]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{CONTRACTENDDT} == null ? null : (new SimpleDateFormat("dd/MM/yyyy")).format($F{CONTRACTENDDT})]]></initialValueExpression>
+	</variable>
+	<variable name="docfeeSum" class="java.math.BigDecimal" resetType="Group" resetGroup="contractStartDate" calculation="Sum">
+		<variableExpression><![CDATA[$F{DOCFEE}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="docfeeSumTotal" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{DOCFEE}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<group name="Doctor">
+		<groupExpression><![CDATA[$F{RPTDOCCODE}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+	</group>
+	<group name="contractStartDate" keepTogether="true">
+		<groupExpression><![CDATA[$F{CONTRACTSTARTDT}.getYear() +
+$F{CONTRACTSTARTDT}.getMonth() +
+$F{CONTRACTSTARTDT}.getDate()]]></groupExpression>
+		<groupFooter>
+			<band height="30">
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="45" y="1" width="120" height="12"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCFNAME} + " " + $F{DOCGNAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="0" y="1" width="34" height="12"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{RPTDOCCODE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="169" y="1" width="43" height="12"/>
+					<textElement>
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Doctor Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="252" y="1" width="30" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Case(s)]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="225" y="1" width="27" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{contractStartDate_COUNT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="288" y="1" width="46" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{oamtSum} == null ? new Double("0") : $V{oamtSum}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="340" y="1" width="46" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{billamtSum} == null ? new Double("0") : $V{billamtSum}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="392" y="1" width="46" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{discountSum} == null ? new Double("0") : $V{discountSum}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="444" y="1" width="46" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{netAmtSum} == null ? new Double("0") : $V{netAmtSum}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="496" y="1" width="46" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{consumSum} == null ? new Double("0") : $V{consumSum}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="548" y="1" width="46" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{revsSum} == null ? new Double("0") : $V{revsSum}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="600" y="1" width="46" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{netpaySum} == null ? new Double("0") :$V{netpaySum}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="652" y="1" width="46" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{docfeeSum}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="704" y="1" width="46" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{colfeeSum} == null ? new Double("0") : $V{colfeeSum}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="756" y="1" width="46" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{drpaySum} == null ? new BigDecimal("0") : $V{drpaySum}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="45" y="13" width="243" height="12" isRemoveLineWhenBlank="true"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["(" + ($F{PAYTO} == null ? "" : $F{PAYTO} + ", ") +
+("Contract Effective Date : From " + $V{contractStartDateString} +
+($V{contractEndDateString} == null ? "" : " To " + $V{contractEndDateString})) +
+")"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="12" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="74" height="12"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="7" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Summary (By Doctor)]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="18">
+			<staticText>
+				<reportElement x="0" y="5" width="34" height="12"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="7" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Doc Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="5" width="167" height="12"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="7" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Doctor Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="225" y="5" width="57" height="12"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[# of Cases]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="5" width="46" height="12"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Original]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="5" width="46" height="12"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Billed]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="392" y="5" width="46" height="12"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Discount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="5" width="46" height="12"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Net Amt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="496" y="5" width="46" height="12"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Consum]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="548" y="5" width="46" height="12"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Rev Share]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="600" y="5" width="46" height="12"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Net pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="652" y="5" width="46" height="12"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[DR Share Amt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="704" y="5" width="46" height="12"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Collection Fee]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="756" y="5" width="46" height="12"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[DR Pay]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="334" y="5" width="6" height="13"/>
+			</frame>
+			<frame>
+				<reportElement x="386" y="5" width="6" height="13"/>
+			</frame>
+			<frame>
+				<reportElement x="438" y="5" width="6" height="13"/>
+			</frame>
+			<frame>
+				<reportElement x="490" y="5" width="6" height="13"/>
+			</frame>
+			<frame>
+				<reportElement x="542" y="5" width="6" height="13"/>
+			</frame>
+			<frame>
+				<reportElement x="594" y="5" width="6" height="13"/>
+			</frame>
+			<frame>
+				<reportElement x="646" y="5" width="6" height="13"/>
+			</frame>
+			<frame>
+				<reportElement x="698" y="5" width="6" height="13"/>
+			</frame>
+			<frame>
+				<reportElement x="750" y="5" width="6" height="13"/>
+			</frame>
+			<frame>
+				<reportElement x="282" y="5" width="6" height="13"/>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band/>
+	</detail>
+	<summary>
+		<band height="17">
+			<staticText>
+				<reportElement x="169" y="5" width="43" height="12"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grand Total]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="288" y="5" width="46" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{oamtSumTotal} == null ? new Double("0") : $V{oamtSumTotal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="225" y="5" width="27" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{grandTotalCount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="252" y="5" width="30" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Case(s)]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="340" y="5" width="46" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{billamtSumTotal} == null ? new Double("0") : $V{billamtSumTotal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="392" y="5" width="46" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{discountSumTotal} == null ? new Double("0") : $V{discountSumTotal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="444" y="5" width="46" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{netAmtSumTotal} == null ? new Double("0") : $V{netAmtSumTotal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="496" y="5" width="46" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{consumSumTotal} == null ? new Double("0") : $V{consumSumTotal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="548" y="5" width="46" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{revsSumTotal} == null ? new Double("0") : $V{revsSumTotal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="600" y="5" width="46" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{netpaySumTotal} == null ? new Double("0") : $V{netpaySumTotal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="652" y="5" width="46" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{docfeeSumTotal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="704" y="5" width="46" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{colfeeSumTotal} == null ? new Double("0") : $V{colfeeSumTotal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="756" y="5" width="46" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{drpaySumTotal} == null ? new BigDecimal("0") : $V{drpaySumTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

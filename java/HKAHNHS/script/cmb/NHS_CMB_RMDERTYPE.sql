@@ -1,0 +1,14 @@
+CREATE OR REPLACE FUNCTION "NHS_CMB_RMDERTYPE"
+	RETURN Types.CURSOR_type
+AS
+	outcur types.cursor_type;
+BEGIN
+	OPEN outcur FOR
+		SELECT '1', 'First Reminder' FROM DUAL
+		UNION
+		SELECT '2', 'Second Reminder' FROM DUAL
+		UNION
+		SELECT '3', 'Final Reminder' FROM DUAL;
+	RETURN OUTCUR;
+END NHS_CMB_RMDERTYPE;
+/

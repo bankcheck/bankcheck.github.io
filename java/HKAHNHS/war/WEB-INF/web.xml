@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee">
+	<servlet>
+		<servlet-name>queryUtilServiceImpl</servlet-name>
+		<servlet-class>com.hkah.server.services.QueryUtilServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>commonUtilServiceImpl</servlet-name>
+		<servlet-class>com.hkah.server.services.CommonUtilServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>reportServiceImpl</servlet-name>
+		<servlet-class>com.hkah.server.services.ReportServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>alertServiceImpl</servlet-name>
+		<servlet-class>com.hkah.server.services.AlertServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>getReport</servlet-name>
+		<servlet-class>com.hkah.server.servlet.GetReport</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>IDScanner</servlet-name>
+		<servlet-class>com.hkah.server.servlet.IDScannerServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>websocket</servlet-name>
+		<servlet-class>com.hkah.server.servlet.WebsocketServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>fileIOUtilServiceImpl</servlet-name>
+		<servlet-class>com.hkah.server.services.FileIOUtilServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>crystalReportServiceImpl</servlet-name>
+		<servlet-class>com.hkah.server.services.CrystalReportServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>dayendReportListServiceImpl</servlet-name>
+		<servlet-class>com.hkah.server.services.DayendReportListServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ehrServiceImpl</servlet-name>
+		<servlet-class>com.hkah.server.services.EhrServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>getCrystalReport</servlet-name>
+		<servlet-class>com.hkah.server.servlet.GetCrystalReport</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>signoff</servlet-name>
+		<servlet-class>com.hkah.server.servlet.UserSignOffServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>crystalreportviewer</servlet-name>
+		<servlet-class>com.hkah.server.servlet.CrystalReportViewerServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>DownloadServlet</servlet-name>
+		<servlet-class>com.hkah.server.servlet.DownloadServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>AuthServlet</servlet-name>
+		<servlet-class>com.hkah.server.servlet.AuthServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>JobSchedulerServlet</servlet-name>
+		<servlet-class>com.hkah.server.servlet.JobSchedulerServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>queryUtilServiceImpl</servlet-name>
+		<url-pattern>/hkahnhs/query-service</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>commonUtilServiceImpl</servlet-name>
+		<url-pattern>/hkahnhs/common-service</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>reportServiceImpl</servlet-name>
+		<url-pattern>/hkahnhs/reportservice</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>alertServiceImpl</servlet-name>
+		<url-pattern>/hkahnhs/alertservice</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>getReport</servlet-name>
+		<url-pattern>/hkahnhs/getreport</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>IDScanner</servlet-name>
+		<url-pattern>/hkahnhs/IDScanner</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>websocket</servlet-name>
+		<url-pattern>/hkahnhs/websocket</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>fileIOUtilServiceImpl</servlet-name>
+		<url-pattern>/hkahnhs/fileioutilservice</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>crystalReportServiceImpl</servlet-name>
+		<url-pattern>/hkahnhs/crystalreportservice</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>dayendReportListServiceImpl</servlet-name>
+		<url-pattern>/hkahnhs/dayendreportlistservice</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ehrServiceImpl</servlet-name>
+		<url-pattern>/hkahnhs/ehrService</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>getCrystalReport</servlet-name>
+		<url-pattern>/hkahnhs/getcrystalreport</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>crystalreportviewer</servlet-name>
+		<url-pattern>/hkahnhs/crystalreportviewer</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>signoff</servlet-name>
+		<url-pattern>/hkahnhs/signoff</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>DownloadServlet</servlet-name>
+		<url-pattern>/download</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AuthServlet</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+
+	<context-param>
+		<param-name>crystal_image_uri</param-name>
+		<param-value>/crystalreportviewers</param-value>
+	</context-param>
+
+	<context-param>
+	    <param-name>crystal_image_use_relative</param-name>
+	    <param-value>webapp</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>crystal_servlet_uri</param-name>
+		<param-value>/CrystalReportViewerHandler</param-value>
+	</context-param>
+
+	<servlet>
+		<servlet-name>CrystalReportViewerServlet</servlet-name>
+	<servlet-class>com.crystaldecisions.report.web.viewer.CrystalReportViewerServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+	<servlet-name>CrystalReportViewerServlet</servlet-name>
+	<url-pattern>/CrystalReportViewerHandler</url-pattern>
+    </servlet-mapping>
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>login.jsp</welcome-file>
+	</welcome-file-list>
+
+</web-app>

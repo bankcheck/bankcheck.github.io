@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404</title>
+</head>
+<body>
+    <h1>404</h1>
+    <!-- Display errorMessage if exists -->
+    <p th:if="${errorMessage}" th:text="${errorMessage}">Error message goes here.</p>
+
+    <!-- Display errorDetails if exists -->
+    <p class="error-details" th:if="${errorDetails}" th:text="${errorDetails}">Error details go here.</p>
+</body>
+</html>

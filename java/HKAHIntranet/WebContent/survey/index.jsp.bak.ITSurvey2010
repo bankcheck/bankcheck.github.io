@@ -1,0 +1,327 @@
+<%@ page import="java.util.*"%>
+<%@ page import="com.hkah.constant.*"%>
+<%@ page import="com.hkah.util.*"%>
+<%@ page import="com.hkah.web.common.*"%>
+<%@ page import="com.hkah.web.db.*"%>
+<%
+UserBean userBean = new UserBean(request);
+
+String command = request.getParameter("command");
+String step = request.getParameter("step");
+String elearningID = request.getParameter("elearningID");
+String eventID = request.getParameter("eventID");
+String enrollID = request.getParameter("enrollID");
+String evaluationSite = request.getParameter("evaluationSite");
+String numOfQuestion = request.getParameter("numOfQuestion");
+String siteCode = "hkah";
+
+String[] answers = null;
+try {
+	int numOfQuestionInt = Integer.valueOf(numOfQuestion);
+	answers = new String[numOfQuestionInt];
+	for (int i = 0; i < numOfQuestionInt; i++) {
+		answers[i] = request.getParameter("answer" + (i + 1));
+	}
+} catch (Exception e) {
+}
+
+boolean createAction = true;
+boolean completeAction = false;
+boolean closeAction = false;
+
+String message = "";
+String errorMessage = "";
+
+try {
+	if ("1".equals(step)) {
+		if (createAction) {
+			// store user answer into db
+			eventID = "-1";
+			elearningID = "-1";
+			// get enrollID 
+			ArrayList record = EvaluationDB.getNextEnrollID(eventID, "2");
+			if (record.size() > 0) {
+				ReportableListObject row = null;
+				row = (ReportableListObject) record.get(0);
+				enrollID = row.getValue(0);
+			}
+			if (enrollID == null || enrollID.length() == 0 || "null".equals(enrollID)) {
+				enrollID = "1";
+			}
+			
+			if (answers != null && answers.length > 0) {
+				for (int i = 0; i < answers.length; i++) {
+					if (answers[i] != null)
+						if (!EvaluationDB.addAnonymousResultAnswer(siteCode, eventID, elearningID, "2", enrollID, String.valueOf(i + 1), answers[i], evaluationSite)) {
+							throw new Exception();
+						}
+				}
+			}
+			
+			createAction = false;
+			completeAction = true;
+		}
+	}
+} catch (Exception e) {
+	e.printStackTrace();
+	errorMessage = "Sorry, survey submission not success. Please try again.";
+	completeAction = false;
+}
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+--%>
+<%@ page language="java" contentType="text/html; charset=utf-8" %>
+<%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
+<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
+<html:html xhtml="true" lang="true">
+<jsp:include page="../common/header.jsp"/>
+<%if (closeAction) { %>
+<script type="text/javascript">window.close();</script>
+<%} else { %>
+<style>
+h1.survey-title { font-size: 170%; text-align: center; }
+h2.survey-title { font-size: 130%; font-weight: bold; text-align: center; }
+.intro-header { font-size: 120%; font-weight: bold; text-decoration: underline; margin: 10px 0; }
+.thankyou { font-size: 120%; text-align: center; margin: 10px 0; }
+.survey-content { margin: 10px 0; }
+</style>
+<body>
+<DIV id=indexWrapper>
+<DIV id=mainFrame>
+<DIV id=Frame>
+<jsp:include page="../common/page_title.jsp" flush="false">
+	<jsp:param name="pageTitle" value="Information Technology Services Survey" />
+	<jsp:param name="mustLogin" value="N" />
+	<jsp:param name="translate" value="N" />
+</jsp:include>
+<font color="blue"><%=message %></font>
+<font color="red"><%=errorMessage %></font>
+<% if (completeAction) { %>
+<table width="100%" border="0">
+<tr><td>
+<P class="thankyou">The survey is submitted successfully. Thank you for your assistance!</P></td>
+</tr>
+<tr><td style="text-align: center;">
+<button onclick="javascript:backToHomePage();" class="btn-click">Back to Home Page</button>
+</td></tr>
+</table>
+<% } else { %>
+<h1 class="survey-title">Adventist Health</h1>
+<h2 class="survey-title">INFORMATION TECHNOLOGY SERVICES SURVEY <br />MASTER 2010</h2>
+<table width="100%" border="0">
+	<tr>
+		<td width="10%">&nbsp;</td>
+		<td width="80%">
+			<P class="intro-header">What it's about--</P>
+			<P class="survey-content">This survey is being conducted to assess and improve the services that IT offers. Your judgments about the quality of our services are important because they help us identify the areas in which we are succeeding, point to the services we need to improve, and highlight the areas in which we need to offer new services. Please be assured that your answers are confidential and no individual’s answers will ever be identified in any report.</P>
+			<P class="intro-header">On to the survey--</P>
+			<P class="survey-content">Please answer each question as completely as possible by selecting your answers in the circle or box for each question. Most of the questions ask for your level of satisfaction for a given service based on a five-point scale. The scale represents a spectrum: 1 signifies that you are not at all satisfied with a service, and 5 means you are very satisfied. If the survey item is not applicable to you, please select 'N/A'.</P>
+			<a name="campus-intro" /><P class="survey-content">For management who oversee both campuses, please fill two survey forms. One is on HKAH & other is on TWAH.</P>
+		</td>
+		<td width="10%">&nbsp;</td>
+	</tr>
+	<tr>
+		<td width="10%">&nbsp;</td>
+		<td>
+		<form name="form1" action="index.jsp" onsubmit="return submitAction();">
+<table width="100%" border="0">
+	<tr class="smallText">
+		<td class="infoLabel" style="font-size: 120%;">Survey on:</td>
+		<td class="infoData" colspan="7">
+<%
+			String checkedAttr = "checked=\"checked\"";
+			String hkahChecked = null;
+			String twahChecked = null;
+			hkahChecked = ("hkah".equals(evaluationSite)) ? checkedAttr : "";
+			twahChecked = ("twah".equals(evaluationSite)) ? checkedAttr : "";
+%>
+			<input type="radio" name="evaluationSite" value="hkah" <%=hkahChecked %> />HKAH / 
+			<input type="radio" name="evaluationSite" value="twah" <%=twahChecked %> />TWAH 
+			<span id="prompt-select-campus">(Please select one)</span>  
+		</td>
+	</tr>
+	<tr style="height: 20px;">
+	</tr>
+	<tr class="smallText">
+		<td class="infoCenterLabel"></td>
+		<td class="infoCenterLabel">Not at All <br /><u>Satisfied</u></td>
+		<td class="infoCenterLabel"></td>
+		<td class="infoCenterLabel"></td>
+		<td class="infoCenterLabel"></td>
+		<td class="infoCenterLabel">Very <br /><u>Satisfied</u></td>
+		<td class="infoCenterLabel">N/A</td>
+	</tr>
+<%
+	ArrayList record = EvaluationDB.getAllQuestions("2");
+	if (record.size() > 0) {
+		ReportableListObject row = null;
+		for (int i = 0; i < record.size(); i++) {
+			row = (ReportableListObject) record.get(i);
+
+	// title for questions about each system
+		if (i == 5) { %>
+	<tr class="smallText">
+		<td class="infoData" style="text-align: center;"><b>How satisfied are you with our systems</b></td>
+		<td class="infoData" width="10%">&nbsp;</td>
+		<td class="infoData" width="10%">&nbsp;</td>
+		<td class="infoData" width="10%">&nbsp;</td>
+		<td class="infoData" width="10%">&nbsp;</td>
+		<td class="infoData" width="10%">&nbsp;</td>
+		<td class="infoData" width="10%">&nbsp;</td>
+	</tr>
+<%		} %>
+	<tr class="smallText">
+		<td class="infoData"><span id="prompt-answer<%=row.getValue(0) %>"><%=row.getValue(1) %></span></td>
+<%			if (createAction) { %>
+<%
+			String value1Checked = null;
+			String value2Checked = null;
+			String value3Checked = null;
+			String value4Checked = null;
+			String value5Checked = null;
+			String value7Checked = null;
+			value1Checked = ("1".equals(request.getParameter("answer" + row.getValue(0)))) ? checkedAttr : "";
+			value2Checked = ("2".equals(request.getParameter("answer" + row.getValue(0)))) ? checkedAttr : "";
+			value3Checked = ("3".equals(request.getParameter("answer" + row.getValue(0)))) ? checkedAttr : "";
+			value4Checked = ("4".equals(request.getParameter("answer" + row.getValue(0)))) ? checkedAttr : "";
+			value5Checked = ("5".equals(request.getParameter("answer" + row.getValue(0)))) ? checkedAttr : "";
+			value7Checked = ("7".equals(request.getParameter("answer" + row.getValue(0)))) ? checkedAttr : "";
+%>
+		<td class="infoData" width="10%"><input type="radio" name="answer<%=row.getValue(0) %>" value="1" <%=value1Checked %> />1</td>
+		<td class="infoData" width="10%"><input type="radio" name="answer<%=row.getValue(0) %>" value="2" <%=value2Checked %> />2</td>
+		<td class="infoData" width="10%"><input type="radio" name="answer<%=row.getValue(0) %>" value="3" <%=value3Checked %> />3</td>
+		<td class="infoData" width="10%"><input type="radio" name="answer<%=row.getValue(0) %>" value="4" <%=value4Checked %> />4</td>
+		<td class="infoData" width="10%"><input type="radio" name="answer<%=row.getValue(0) %>" value="5" <%=value5Checked %> />5</td>
+		<td class="infoData" width="10%"><input type="radio" name="answer<%=row.getValue(0) %>" value="7" <%=value7Checked %> /></td>
+<%			} %>
+	</tr>
+<%		}
+		
+%>
+<input type="hidden" name="numOfQuestion" value="<%=record.size() %>" />
+<%
+	} %>
+</table>
+<%if (createAction) { %>
+<div class="pane">
+<table width="100%" border="0">
+	<tr class="smallText">
+		<td align="center">
+			<button onclick="return submitAction();" class="btn-click"><bean:message key="button.submit" /></button>
+		</td>
+	</tr>
+</table>
+</div>
+<%}  %>
+<table width="100%" border="0">
+	<tr class="smallText">
+		<td><p class="thankyou">Thank you for your assistance</p></td>
+	</tr>
+</table>
+<input type="hidden" name="command" />
+<input type="hidden" name="step" />
+<input type="hidden" name="elearningID" value="<%=elearningID %>"/>
+<input type="hidden" name="eventID" value="<%=eventID %>"/>
+<input type="hidden" name="enrollID" value="<%=enrollID %>"/>
+</form>
+		</td>
+		<td width="10%">&nbsp;</td>
+	</tr>
+</table>
+<%} %>
+<script language="javascript">
+<!--
+	
+	function submitAction() {
+		// ensure all questions are answered
+		var debug = '';
+		var radioName = '';
+		var radioChecked = false;
+		var allQuestionChecked = true;
+		for(i=0; i<document.forms['form1'].elements.length; i++)
+		{
+			if (document.forms['form1'].elements[i].type == 'radio') {
+				if (radioName == document.forms['form1'].elements[i].name) {
+					if (document.forms['form1'].elements[i].checked == true) {
+						radioChecked = true;
+					}
+					if (document.getElementById('prompt-' + radioName)) {
+						document.getElementById('prompt-' + radioName).style.color = "#000000";
+					}
+				} else {
+					if (radioName != '') {
+						if (!radioChecked) {
+							if (radioName == 'evaluationSite') {
+								alert('Please select the campus that the survey is applying on.');
+								document.getElementById('prompt-select-campus').style.color = "#ff0000";
+								window.location.href = "#campus-intro";
+								return false;
+							} else {
+								document.getElementById('prompt-select-campus').style.color = "#000000";
+								if (document.getElementById('prompt-' + radioName)) {
+									document.getElementById('prompt-' + radioName).style.color = "#ff0000";
+								}
+							}
+							allQuestionChecked = false;
+						}
+					}
+					
+					if (document.forms['form1'].elements[i].checked == true) {
+						radioChecked = true;
+					} else {
+						radioChecked = false;
+					}
+					radioName = document.forms['form1'].elements[i].name;
+				}
+			}
+			
+		}
+		if (!radioChecked) {
+			document.getElementById('prompt-select-campus').style.color = "#000000";
+			if (document.getElementById('prompt-' + radioName)) {
+				document.getElementById('prompt-' + radioName).style.color = "#ff0000";
+			}
+		}
+		
+		
+		if (!allQuestionChecked) {
+			alert('Please answer all questions.');
+			return false;
+		}
+		document.form1.command.value = "create";
+		document.form1.step.value = "1";
+		document.form1.submit();
+	}
+	
+	function backToHomePage() {
+		if (top.frames['bigcontent']) {
+			top.frames['bigcontent'].location.href = '../common/leftright_portal.jsp?category=home';
+		} else {
+			window.location.href = '../index.jsp?category=home';
+		}
+	}
+-->
+</script>
+</DIV>
+
+</DIV></DIV>
+
+<jsp:include page="../common/footer.jsp" flush="false" />
+</body>
+<%} %>
+</html:html>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT_DONOR_RECEIPT" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.7715610000000084"/>
+	<property name="ireport.x" value="443"/>
+	<property name="ireport.y" value="1013"/>
+	<property name="ireport.background.image.properties" value="true,false,0.25,-8,-8,0,0,611,812"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<field name="1" class="java.lang.String"/>
+	<field name="2" class="java.lang.String"/>
+	<field name="3" class="java.lang.String"/>
+	<field name="4" class="java.lang.String"/>
+	<field name="5" class="java.lang.String"/>
+	<field name="6" class="java.lang.String"/>
+	<field name="7" class="java.lang.String"/>
+	<field name="8" class="java.lang.String"/>
+	<field name="9" class="java.lang.String"/>
+	<field name="10" class="java.lang.String"/>
+	<field name="11" class="java.lang.String"/>
+	<field name="12" class="java.lang.String"/>
+	<detail>
+		<band height="842" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="285" width="410" height="274"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Serif" size="9" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Thank you very much for your support and donation to the Hong Kong Adventist Hospital Foundation.
+
+Each year, the Hospital, in cooperation with its different funds established at the Foundation, invites public participation in its charitable and medical service projects. Its success is the result of your largess. On behalf of the many beneficiaries of your donation, please accept our sincere and heart-felt appreciation.
+
+Again, thank you for your contribution and gift that will make the difference.
+
+Sincerely,
+
+
+
+
+
+Prof. Alice T.H.W. Chiu B.B.S. J.P.
+Chairman, Board of Governors
+Hong Kong Adventist Hospital Foundation – Tsuen Wan
+
+P.S. This is your official receipt for your records as well as tax-deduction.
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="425" y="98" width="79" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Serif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="454" y="115" width="50" height="15" forecolor="#000000"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Serif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{3}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="425" y="115" width="29" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Serif" size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[HK$]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="85" y="140" width="250" height="12" forecolor="#000000"/>
+				<textElement>
+					<font fontName="Serif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{6} != null ?
+   ( $F{11} != null ? $F{6} + " / " +  $F{11}:
+    $F{6}):
+($F{11} != null ? $F{11}:
+$F{12})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="85" y="152" width="250" height="12" forecolor="#000000"/>
+				<textElement>
+					<font fontName="Serif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{7}]]></textFieldExpression>
+			</textField>
+			<image vAlign="Bottom">
+				<reportElement x="420" y="752" width="164" height="57"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/June.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="418" y="202" width="164" height="57"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/June.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="85" y="429" width="131" height="48"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/Prof. Alice Chiu Signature.png")]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="85" y="176" width="250" height="12" forecolor="#000000"/>
+				<textElement>
+					<font fontName="Serif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{9}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="85" y="164" width="250" height="12" forecolor="#000000"/>
+				<textElement>
+					<font fontName="Serif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{8}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="85" y="188" width="250" height="12" forecolor="#000000"/>
+				<textElement>
+					<font fontName="Serif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{10}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="504" y="115" width="89" height="15" forecolor="#000000"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Serif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["(" + $F{4} +")"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="425" y="132" width="147" height="15" forecolor="#000000"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Serif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="85" y="697" width="250" height="12" forecolor="#000000"/>
+				<textElement>
+					<font fontName="Serif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{6} != null ?
+   ( $F{11} != null ? $F{6} + " / " +  $F{11}:
+    $F{6}):
+($F{11} != null ? $F{11}:
+$F{12})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="85" y="709" width="250" height="12" forecolor="#000000"/>
+				<textElement>
+					<font fontName="Serif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{7}+ " " +$F{8}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="85" y="721" width="250" height="12" forecolor="#000000"/>
+				<textElement>
+					<font fontName="Serif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{9}+ " " +$F{10}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="460" y="45" width="55" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="10" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Receipt ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="515" y="45" width="79" height="15" forecolor="#000000"/>
+				<textElement>
+					<font fontName="Serif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["#" + $F{1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="514" y="613" width="79" height="15" forecolor="#000000"/>
+				<textElement>
+					<font fontName="Serif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["#" + $F{1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="459" y="613" width="55" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="9" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Receipt ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="454" y="651" width="50" height="20" forecolor="#000000"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Serif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="425" y="633" width="79" height="20" forecolor="#000000"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Serif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="425" y="669" width="147" height="20" forecolor="#000000"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Serif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{5}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="425" y="651" width="29" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Serif" size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[HK$]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="504" y="651" width="89" height="20" forecolor="#000000"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Serif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["(" + $F{4} +")"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

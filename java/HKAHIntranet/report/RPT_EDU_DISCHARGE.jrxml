@@ -1,0 +1,918 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank A4 Landscape" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="60">
+	<property name="ireport.zoom" value="1.331000000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PATNO" class="java.lang.String"/>
+	<parameter name="NAME" class="java.lang.String"/>
+	<parameter name="DOB" class="java.lang.String"/>
+	<parameter name="SEX" class="java.lang.String"/>
+	<parameter name="ROOM" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="EDULEVEL" class="java.lang.String"/>
+	<parameter name="language" class="java.lang.String"/>
+	<parameter name="translator" class="java.lang.String"/>
+	<parameter name="define" class="java.lang.String"/>
+	<parameter name="barrier" class="java.lang.String"/>
+	<parameter name="barrierDesc" class="java.lang.String"/>
+	<parameter name="cognitive" class="java.lang.String"/>
+	<parameter name="cultural" class="java.lang.String"/>
+	<parameter name="religious" class="java.lang.String"/>
+	<parameter name="emotional" class="java.lang.String"/>
+	<parameter name="emotionalDesc" class="java.lang.String"/>
+	<parameter name="motive" class="java.lang.String"/>
+	<parameter name="motiveDesc" class="java.lang.String"/>
+	<parameter name="preference" class="java.lang.String"/>
+	<parameter name="family" class="java.lang.String"/>
+	<parameter name="E" class="java.lang.String"/>
+	<parameter name="G" class="java.lang.String"/>
+	<parameter name="A" class="java.lang.String"/>
+	<parameter name="I" class="java.lang.String"/>
+	<parameter name="R" class="java.lang.String"/>
+	<parameter name="T" class="java.lang.String"/>
+	<parameter name="leaflet" class="java.lang.String"/>
+	<parameter name="treatmentDate" class="java.lang.String"/>
+	<parameter name="NoAdmission" class="java.lang.String"/>
+	<parameter name="returnDate" class="java.lang.String"/>
+	<parameter name="transport" class="java.lang.String"/>
+	<parameter name="drugSheet" class="java.lang.String"/>
+	<parameter name="refLetter" class="java.lang.String"/>
+	<parameter name="sickLeave" class="java.lang.String"/>
+	<parameter name="dressingSheet" class="java.lang.String"/>
+	<parameter name="dischargeDate" class="java.lang.String"/>
+	<parameter name="dischargeTime" class="java.lang.String"/>
+	<parameter name="createUser" class="java.lang.String"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<field name="1" class="java.lang.String"/>
+	<field name="2" class="java.lang.String"/>
+	<field name="3" class="java.lang.String"/>
+	<field name="4" class="java.lang.String"/>
+	<field name="5" class="java.lang.String"/>
+	<field name="6" class="java.lang.String"/>
+	<field name="7" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="272">
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="117" width="555" height="123"/>
+			</rectangle>
+			<textField>
+				<reportElement x="262" y="260" width="100" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{family}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="92" width="180" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Education Assessment]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="106" width="555" height="11" forecolor="#F2DBDB" backcolor="#F2DBDB"/>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Opaque" x="355" y="106" width="200" height="11" forecolor="#000000" backcolor="#E5B8B7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Remarks]]></text>
+			</staticText>
+			<image isUsingCache="true" isLazy="true" onErrorType="Blank">
+				<reportElement x="0" y="0" width="451" height="58"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/Horizontal_billingual_HKAH_TW.jpg")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="106" width="70" height="11"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Education level: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="139" width="160" height="22"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Does patient has difficulty in defining his/her health problem?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="117" width="160" height="22"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Language spoken:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="161" width="160" height="22"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Communication barrier /
+Physical limitation
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="183" width="160" height="11"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cognitive limitation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="194" width="160" height="11"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Special health cultural practice ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="205" width="160" height="11"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Religious health practice]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="72" y="106" width="100" height="11"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{EDULEVEL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="117" width="175" height="22"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{language}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="139" width="175" height="22"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{define}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="161" width="175" height="22"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{barrier}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="161" width="195" height="22"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{barrierDesc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="183" width="175" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{cognitive}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="194" width="175" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{cultural}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="205" width="175" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{religious}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="170" y="117" width="1" height="123"/>
+			</line>
+			<line>
+				<reportElement x="355" y="117" width="1" height="123"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="138" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="160" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="183" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="1" y="193" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="205" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="216" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="228" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="10" y="216" width="160" height="11"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Emotional status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="229" width="160" height="11"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desire / motivation to learn]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="180" y="216" width="175" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{emotional}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="217" width="195" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{emotionalDesc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="229" width="175" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{motive}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="229" width="195" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{motiveDesc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="240" width="136" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Preference(s) of learning mode:    ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="137" y="240" width="419" height="20"/>
+				<textElement>
+					<font size="9" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{preference}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="260" width="261" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Will family / caregiver / other participant in education process? ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="67" width="555" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Out-patient Education Summary and Discharge Arrangement]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="360" y="117" width="186" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{translator}.equals("Yes")?"Translator needed":""]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band height="143">
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="1" width="555" height="106"/>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Opaque" x="8" y="2" width="160" height="10" backcolor="#F2DBDB"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Learner Code ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="8" y="32" width="160" height="10" backcolor="#F2DBDB"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Teaching Method Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="42" width="160" height="41"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[Q=Question-answer
+D=Demonstration
+E=Explanation
+W=Other written material
+V=Visual
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="182" y="2" width="170" height="10" isRemoveLineWhenBlank="true" backcolor="#F2DBDB"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Response Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="182" y="12" width="170" height="52"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[(Evaluation of understanding)
+1.	Asked questions
+2.	Indicates understanding/answered questions
+3.	Return demonstration correct
+4.	Disinterested/refuses information
+5.	Unable to understand
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="367" y="2" width="180" height="10" backcolor="#F2DBDB"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Learner Need Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="367" y="12" width="180" height="52"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[6.	Reinforce specific content
+7.	Have patient practiced demonstration
+8.	Re-attempt teaching
+9.	Referral
+10.	Teaching completed
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="12" width="160" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="7" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[C=Caregiver/other        FM=Family
+P=Patient
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="367" y="64" width="180" height="10" backcolor="#F2DBDB"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Discipline Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="367" y="74" width="180" height="33"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DR=Doctor     N=Nurse    CH=Chaplain
+RD=Registered Dietitian   LT=Lab Technician
+PT=Physiotherapist       PH=Pharmacist
+RG=Radiographer
+]]></text>
+			</staticText>
+			<line>
+				<reportElement x="174" y="2" width="1" height="105"/>
+			</line>
+			<line>
+				<reportElement x="359" y="2" width="1" height="105"/>
+			</line>
+			<staticText>
+				<reportElement x="8" y="114" width="54" height="11"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="114" width="143" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Content (Brief Explanation)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="114" width="47" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Learner Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="284" y="114" width="44" height="29"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Teaching Method Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="114" width="50" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Response Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="114" width="38" height="29"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Learner Need Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="114" width="49" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Discipline Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="507" y="114" width="48" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Discipline Initial]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="114" width="555" height="29"/>
+			</rectangle>
+			<line>
+				<reportElement x="63" y="114" width="1" height="29"/>
+			</line>
+			<line>
+				<reportElement x="214" y="114" width="1" height="29"/>
+			</line>
+			<line>
+				<reportElement x="271" y="114" width="1" height="29"/>
+			</line>
+			<line>
+				<reportElement x="328" y="114" width="1" height="29"/>
+			</line>
+			<line>
+				<reportElement x="389" y="114" width="1" height="29"/>
+			</line>
+			<line>
+				<reportElement x="439" y="114" width="1" height="29"/>
+			</line>
+			<line>
+				<reportElement x="498" y="114" width="1" height="29"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<line>
+				<reportElement x="498" y="0" width="1" height="20"/>
+			</line>
+			<textField>
+				<reportElement x="8" y="0" width="54" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="0" width="141" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="224" y="0" width="48" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="284" y="0" width="45" height="20"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="339" y="0" width="51" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="39" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="448" y="0" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{7}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="63" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="214" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="271" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="328" y="-1" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="389" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="439" y="0" width="1" height="20"/>
+			</line>
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="0" width="555" height="20"/>
+			</rectangle>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<lastPageFooter>
+		<band height="281">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="20" width="554" height="10" forecolor="#F2DBDB" backcolor="#F2DBDB"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="200" width="61" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="220" width="61" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Date of Birth:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="240" width="61" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Gender:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="260" width="61" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Room No.:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="66" y="180" width="216" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PATNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="200" width="284" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="220" width="215" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DOB}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="240" width="216" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SEX}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="355" y="180" width="199" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Out-Patient Education Summary and Discharge Arrangement]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="220" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Rev:  October 2019]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="220" width="99" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OPDU-MBDA20]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="180" width="61" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Patient No.:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="353" y="180" width="1" height="100"/>
+			</line>
+			<line>
+				<reportElement x="354" y="220" width="200" height="1"/>
+			</line>
+			<line>
+				<reportElement x="353" y="245" width="201" height="1"/>
+			</line>
+			<line>
+				<reportElement x="455" y="221" width="1" height="24"/>
+			</line>
+			<image>
+				<reportElement x="355" y="248" width="197" height="31"/>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode("OPDU-MBDA20E",com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="66" y="260" width="204" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ROOM}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="5" width="159" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reverse Triage Process  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="20" width="22" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[on all]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="30" width="555" height="112"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="20" width="50" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Please add a ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="421" y="164" width="100" height="16"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{createUser}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="42" width="100" height="15"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E ducation                                   ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="57" width="151" height="15"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[G uarantee treatment completed]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="72" width="122" height="15"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A dmission not required                      ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="87" width="153" height="15"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[I nformation given to patient                 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="102" width="159" height="15"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[R eturn appointment arranged                 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="117" width="100" height="15"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transfer/ Transport]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="42" width="100" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fact Sheet / Leaflet No: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="355" y="42" width="197" height="15"/>
+				<textElement>
+					<font size="9" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{leaflet}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="255" y="57" width="29" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="285" y="57" width="100" height="15"/>
+				<textElement>
+					<font size="9" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{treatmentDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="255" y="72" width="100" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NoAdmission}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="322" y="87" width="60" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Referral letter ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="463" y="87" width="70" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dressing Sheet ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="395" y="87" width="50" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sick leave ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="87" width="49" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Drug Sheet ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="180" width="555" height="100"/>
+			</rectangle>
+			<textField>
+				<reportElement x="285" y="102" width="100" height="15"/>
+				<textElement>
+					<font size="9" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{returnDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="255" y="102" width="29" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="255" y="117" width="100" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{transport}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="142" width="339" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  Please ensure to complete the form before discharge the client.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="164" width="90" height="16"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Discharge Date : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="164" width="82" height="16"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{dischargeDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="172" y="164" width="37" height="16"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Time:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="209" y="164" width="100" height="16"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{dischargeTime}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="337" y="164" width="84" height="16"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Completed by: ]]></text>
+			</staticText>
+			<image vAlign="Bottom">
+				<reportElement stretchType="RelativeToBandHeight" x="170" y="42" width="8" height="8"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{E}.equals("true")?new File($P{BaseDir}, "../images/check_box.png"):new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image vAlign="Bottom">
+				<reportElement stretchType="RelativeToBandHeight" x="50" y="20" width="8" height="8"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/check_box.png")]]></imageExpression>
+			</image>
+			<image vAlign="Bottom">
+				<reportElement stretchType="RelativeToBandHeight" x="170" y="57" width="8" height="8"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{G}.equals("true")?new File($P{BaseDir}, "../images/check_box.png"):new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image vAlign="Bottom">
+				<reportElement stretchType="RelativeToBandHeight" x="304" y="87" width="8" height="8"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{drugSheet}.equals("true")?new File($P{BaseDir}, "../images/check_box.png"):new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image vAlign="Bottom">
+				<reportElement stretchType="RelativeToBandHeight" x="170" y="117" width="8" height="8"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{T}.equals("true")?new File($P{BaseDir}, "../images/check_box.png"):new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image vAlign="Bottom">
+				<reportElement stretchType="RelativeToBandHeight" x="170" y="72" width="8" height="8"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{A}.equals("true")?new File($P{BaseDir}, "../images/check_box.png"):new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image vAlign="Bottom">
+				<reportElement stretchType="RelativeToBandHeight" x="448" y="87" width="8" height="8"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{sickLeave}.equals("true")?new File($P{BaseDir}, "../images/check_box.png"):new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image vAlign="Bottom">
+				<reportElement stretchType="RelativeToBandHeight" x="170" y="102" width="8" height="8"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{R}.equals("true")?new File($P{BaseDir}, "../images/check_box.png"):new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image vAlign="Bottom">
+				<reportElement stretchType="RelativeToBandHeight" x="386" y="87" width="8" height="8"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{refLetter}.equals("true")?new File($P{BaseDir}, "../images/check_box.png"):new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image vAlign="Bottom">
+				<reportElement stretchType="RelativeToBandHeight" x="538" y="87" width="8" height="8"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{dressingSheet}.equals("true")?new File($P{BaseDir}, "../images/check_box.png"):new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image vAlign="Bottom">
+				<reportElement stretchType="RelativeToBandHeight" x="170" y="87" width="8" height="8"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{I}.equals("true")?new File($P{BaseDir}, "../images/check_box.png"):new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="92" y="20" width="100" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[and fill in all information.]]></text>
+			</staticText>
+			<image vAlign="Bottom">
+				<reportElement stretchType="RelativeToBandHeight" x="82" y="20" width="8" height="8"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+		</band>
+	</lastPageFooter>
+</jasperReport>

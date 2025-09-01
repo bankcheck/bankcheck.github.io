@@ -1,0 +1,4 @@
+create or replace
+TYPE OTLOGTEAM_TAB
+AS TABLE OF OTLOGTEAM;
+/

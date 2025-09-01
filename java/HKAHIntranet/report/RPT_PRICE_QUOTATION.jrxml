@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT_DONOR_RECEIPT" pageWidth="595" pageHeight="842" columnWidth="515" leftMargin="40" rightMargin="40" topMargin="20" bottomMargin="20" isFloatColumnFooter="true">
+	<property name="ireport.zoom" value="1.771561000000011"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="432"/>
+	<property name="ireport.background.image.properties" value="true,false,0.25,-8,-8,0,0,611,812"/>
+	<subDataset name="dataset1"/>
+	<subDataset name="dataset2"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="pqid" class="java.lang.String"/>
+	<parameter name="version" class="java.lang.String"/>
+	<parameter name="createDate" class="java.lang.String"/>
+	<parameter name="totalPrice" class="java.lang.String"/>
+	<field name="1" class="java.lang.String"/>
+	<field name="2" class="java.lang.String"/>
+	<field name="3" class="java.lang.String"/>
+	<field name="4" class="java.lang.String"/>
+	<field name="5" class="java.lang.String"/>
+	<variable name="TotalPrice" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[Integer.parseInt($F{5})]]></variableExpression>
+	</variable>
+	<pageHeader>
+		<band height="118">
+			<image>
+				<reportElement x="0" y="0" width="339" height="60"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/Horizontal_billingual_HKAH_TW1.jpg")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="60" width="515" height="35"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="18" isBold="true" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Price Information]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement x="0" y="94" width="515" height="14"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Patient Type : " + $F{1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="16">
+			<staticText>
+				<reportElement x="0" y="0" width="69" height="16"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="69" y="0" width="270" height="16"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="465" y="0" width="50" height="16"/>
+				<textElement textAlignment="Right">
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="0" width="126" height="16"/>
+				<textElement textAlignment="Left">
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Options]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="69" height="14"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="69" y="0" width="270" height="14"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{3}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="479" y="0" width="36" height="14"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{5}))]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="339" y="0" width="126" height="14"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{4}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="465" y="0" width="14" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[$]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="33" splitType="Prevent">
+			<textField>
+				<reportElement x="294" y="11" width="221" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Total:      $" +
+new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{TotalPrice}))]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="415" y="32" width="100" height="1"/>
+			</line>
+			<line>
+				<reportElement x="415" y="30" width="100" height="1"/>
+			</line>
+			<line>
+				<reportElement x="415" y="11" width="100" height="1"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="67">
+			<line>
+				<reportElement x="0" y="20" width="515" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="43" width="262" height="12"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fax: (852) 2275 6767]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="32" width="262" height="12"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tel: (852) 2275 6688]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="307" y="44" width="208" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Created Date: " + $P{createDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="21" width="262" height="12"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[199 Tsuen King Circuit, Tsuen Wan, N.T., Hong Kong]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="383" y="22" width="132" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[INFT-MZA002]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="307" y="33" width="208" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Quotation Version: " + $P{pqid} + "-" + $P{version}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="425" y="6" width="80" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="505" y="6" width="40" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="332">
+			<staticText>
+				<reportElement x="383" y="298" width="132" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[INFT-MZA002]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="297" width="515" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="251" width="145" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Signature of Patient / Guardian]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="179" y="251" width="145" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Signature of staff]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="251" width="145" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="251" width="145" height="1"/>
+			</line>
+			<line>
+				<reportElement x="179" y="250" width="145" height="1"/>
+			</line>
+			<line>
+				<reportElement x="370" y="250" width="145" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="307" y="309" width="208" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Quotation Version: " + $P{pqid} + "-" + $P{version}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="307" y="320" width="208" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Created Date: " + $P{createDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="298" width="262" height="12"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[199 Tsuen King Circuit, Tsuen Wan, N.T., Hong Kong]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="309" width="262" height="12"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tel: (852) 2275 6688]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="320" width="262" height="12"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fax: (852) 2275 6767]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="425" y="283" width="80" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="505" y="283" width="40" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="66" height="12"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Points to note]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="66" y="0" width="79" height="12"/>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[注意事項：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="12" width="14" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[1. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="46" width="14" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[2.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="14" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[3.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="102" width="14" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[4.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="12" width="501" height="24"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[The above charges are for reference only. There may be further details that are not inclueded here. Please kindly check with our staff prior to your treatment or examination.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="35" width="501" height="12"/>
+				<textElement>
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[上述資料謹供參考，詳情未能盡錄，務請於按受檢查或治療前查詢有關詳情。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="46" width="501" height="24"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[The above quoted charges are calculated according to the type of room admitted. If the room type is changed upon request by client or deem medically necessary, all charges will be adjusted accordingly.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="69" width="501" height="12"/>
+				<textElement>
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[以上收費按照閣下入住類別釐訂，若閣下在住院期間轉換房間，所有收費將根據轉換後房間類別計算。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="80" width="501" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Charges for non-office hour / emergency service will be adjusted.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="91" width="501" height="12"/>
+				<textElement>
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[非辦公時間及急診服務的收費會有所調整。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="113" width="501" height="12"/>
+				<textElement>
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[收費如有任何更改，恕不另行通知。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="102" width="501" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Prices are subject to charge without prior notice.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="146" width="515" height="12"/>
+				<textElement>
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[如有任何疑問，請向當值護士查詢。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="135" width="515" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[For enquiries, please kindly contact our nursing staff.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="191" width="515" height="12"/>
+				<textElement>
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[本人特此確認明白並同意接受本報價單之內容。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="168" width="515" height="24"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[I hereby acknowledge and accept the receipt of the fees quotation and confirm the understanding of the information and agree to the contents of this estimated price quote.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="262" width="145" height="12"/>
+				<textElement>
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[病人簽署(監護人簽署)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="179" y="262" width="145" height="12"/>
+				<textElement>
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[職員簽名]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="262" width="145" height="12"/>
+				<textElement>
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[日期]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="370" y="236" width="145" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

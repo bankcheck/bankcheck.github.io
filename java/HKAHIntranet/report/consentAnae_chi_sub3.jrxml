@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Consent For Anaesthesia" pageWidth="524" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="524" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryNewPage="true">
+	<property name="ireport.zoom" value="1.8150000000000033"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.pdf.compressed" value="true"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="Site" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patname" class="java.lang.String"/>
+	<parameter name="patcname" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="patDOB" class="java.lang.String"/>
+	<parameter name="procedure" class="java.lang.String"/>
+	<parameter name="procedureChi" class="java.lang.String"/>
+	<parameter name="anaethesiaType" class="java.lang.String"/>
+	<parameter name="regionAnaeSelect" class="java.lang.String"/>
+	<parameter name="anaethesiaOtherText" class="java.lang.String"/>
+	<parameter name="docname" class="java.lang.String"/>
+	<parameter name="doccname" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHIntranet\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="lang" class="java.lang.String"/>
+	<parameter name="ImgTick" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHNHS\\war\\images\\tick1.gif"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="factSheetNo" class="java.lang.String"/>
+	<parameter name="patIDno" class="java.lang.String"/>
+	<parameter name="patientYN" class="java.lang.String"/>
+	<parameter name="afactSheetNo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<summary>
+		<band height="596" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="1" width="18" height="37"/>
+				<box topPadding="1"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="MingISO10646" size="11" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(6)]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="17" y="1" width="500" height="37"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["本人確認收到有關是項麻醉程序的資料單張(編號:&nbsp;"+
+($P{afactSheetNo}.isEmpty()?
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;":$P{afactSheetNo})
++"&nbsp;)，並已閱讀及完全明白其內容"
++"<b><i>(如不適用可刪除此項)</i></b>"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="17" y="47" width="283" height="23"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="17" y="70" width="282" height="23"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patientYN}.equals( "Y" )?"病人簽署":"父母 /  親屬 / 監護人簽署"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="17" y="93" width="282" height="23"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patientYN}.equals( "Y" )?($P{patname}+($P{patcname}.length() > 0?" "+$P{patcname}:"")):""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="17" y="116" width="282" height="15"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patientYN}.equals( "Y" )?"病人姓名":"父母 /  親屬 / 監護人姓名"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="17" y="130" width="97" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[身份証/護照號碼：]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="114" y="130" width="185" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patientYN}.equals( "Y" )?$P{patIDno}:""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="17" y="161" width="33" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[日期︰]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="48" y="161" width="194" height="15"/>
+				<box leftPadding="0">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="242" y="162" width="57" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(日/月/年)	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="50" y="147" width="249" height="15">
+					<printWhenExpression><![CDATA[$P{patientYN}.equals( "N" )]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="17" y="147" width="33" height="15">
+					<printWhenExpression><![CDATA[$P{patientYN}.equals( "N" )]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[關係：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="17" y="191" width="282" height="23"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="17" y="214" width="282" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[見證人簽署(証明病人/父母/親屬/監護人簽署之見證人) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="85" y="228" width="214" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="18" y="228" width="67" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[見證人姓名: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="48" y="242" width="194" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="242" y="242" width="57" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(日/月/年)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="17" y="242" width="33" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[日期︰]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="18" y="267" width="506" height="58"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" lineSpacing="Double" markup="styled">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["醫生聲明︰本人已向上述簽署者解釋是項麻醉程序的性質、風險及效益，並已解答其提出的有關問題。據本人所理解，上述簽署者已獲得充分的資料及已簽妥同意書，而這些資料亦已記錄在病人的病歷內。"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="17" y="337" width="243" height="23"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="17" y="360" width="244" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[負責麻醉之醫生(1)簽署]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="17" y="374" width="55" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[醫生姓名：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="72" y="374" width="188" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="17" y="397" width="33" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[日期︰]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="48" y="397" width="148" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="196" y="397" width="65" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ (日/月/年)		]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="270" y="337" width="243" height="23"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="270" y="360" width="244" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[負責麻醉之醫生(2)簽署]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="270" y="374" width="61" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[醫生姓名：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="331" y="374" width="176" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="270" y="397" width="41" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[日期︰]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="311" y="397" width="138" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="449" y="397" width="68" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ (日/月/年)		]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="17" y="419" width="500" height="47"/>
+				<textElement verticalAlignment="Bottom" lineSpacing="Double" markup="html">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["本人，&nbsp;"+
+"<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>"+
+"&nbsp;已向簽署人如實地及清楚地將此同意書的內容翻譯成"+
+" <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+"&nbsp;&nbsp;&nbsp;&nbsp;</u>"+
+"&nbsp;(語言或方言)。"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="17" y="496" width="281" height="23"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="17" y="519" width="281" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[翻譯員簽署]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="18" y="559" width="281" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[翻譯員姓名]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="18" y="535" width="281" height="23"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="61" y="573" width="168" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="18" y="573" width="43" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[日期︰]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="229" y="573" width="70" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="MingISO10646" size="11" isBold="false" pdfFontName="MingISO10646" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ (日/月/年)]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

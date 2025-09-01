@@ -1,0 +1,28 @@
+create or replace
+FUNCTION "NHS_RPT_RPTDOCFEESUMMARY2"(
+	V_DUMMY 	IN VARCHAR2)
+RETURN TYPES.CURSOR_TYPE AS
+  	OUTCUR 		TYPES.CURSOR_TYPE;
+	V_SPHID_MAX NUMBER(22) := NULL;
+Begin
+	SELECT Nvl(max(sphid),0) INTO V_SPHID_MAX FROM slppayhdr WHERE confirm=-1;
+
+	OPEN OUTCUR FOR 
+		select a.GRP, a.SUBGRP,a.DOCCODE,a.DOCFNAME,a.DOCGNAME,
+			a.SLPNO,a.SLPTYPE,a.STNID,a.STNSTS,to_char(a.STNCDATE, 'mm/dd/yyyy') STNCDATE,a.ITMCODE,a.STNDESC,a.STNBAMT,
+			a.STNDISC ,a.STNNAMT,a.PATNO,a.SLPFNAME,a.SLPGNAME ,a.PATFNAME,a.PATGNAME,a.PCYID,
+			a.DSCCODE ,a.DFX_PCT,a.DFX_FAMT,a.DFX_SAMT,a.DFX_PAMT,a.DFX_CAMT,a.COMMISSION,a.DFX_CODE ,
+			b.stnid, sum(b.spdaamt) as net,
+			nvl(Sum(Round(b.spdaamt * b.crarate / 100)), 0) As comm,
+			to_char(a.STNTDATE, 'mm/dd/yyyy') STNTDATE
+		from df_sliptx a, slppaydtl b 
+		where a.dfx_camt<>0 and a.stnid=b.stnid and b.spdsts in ('A','N','U') and 
+			b.sphid = V_SPHID_MAX
+		group by b.stnid,a.GRP, a.SUBGRP,a.DOCCODE,a.DOCFNAME,a.DOCGNAME,
+			a.SLPNO,a.SLPTYPE,a.STNID,a.STNSTS,a.STNCDATE,a.ITMCODE,a.STNDESC,a.STNBAMT,
+			a.STNDISC ,a.STNNAMT,a.PATNO,a.SLPFNAME,a.SLPGNAME ,a.PATFNAME,a.PATGNAME,a.PCYID,a.DSCCODE ,a.DFX_PCT,
+			A.DFX_FAMT , A.DFX_SAMT, A.DFX_PAMT, A.dfx_camt, A.COMMISSION, A.DFX_CODE, A.STNTDATE
+		order by a.DOCFNAME,a.DOCGNAME,a.DOCCODE, a.SLPTYPE,a.ITMCODE,a.STNDESC,a.STNTDATE,a.SLPNO;
+  RETURN OUTCUR;
+END NHS_RPT_RPTDOCFEESUMMARY2;
+/

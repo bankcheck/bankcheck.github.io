@@ -1,0 +1,4 @@
+create or replace
+TYPE "DOCTOR_QUALIFICATION_TAB"
+as table of DOCTOR_QUALIFICATION;
+/

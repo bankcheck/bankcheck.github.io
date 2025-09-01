@@ -1,0 +1,483 @@
+<%@ page import="com.hkah.constant.*"%>
+<%@ page import="com.hkah.web.common.*"%>
+<%@ page import="com.hkah.web.db.*"%>
+<%@ page import="com.hkah.util.*"%>
+<%@ page import="com.hkah.util.db.*"%>
+<%@ page import="java.util.*"%>
+<%!
+	private ArrayList<ReportableListObject> fetchStatus() {
+		return UtilDBWeb.getReportableList("SELECT BA_STATUS_CODE, BA_STATUS_DESC FROM BA_STATUS WHERE BA_STATUS_CODE > 0 ORDER BY BA_STATUS_DESC");
+	}
+%>
+<%
+UserBean userBean = new UserBean(request);
+
+String command = request.getParameter("command");
+String moduleCode = request.getParameter("moduleCode");
+if (moduleCode == null) {
+	moduleCode = "marketing";
+}
+String baID = request.getParameter("baID");
+String status = request.getParameter("status");
+
+String message = request.getParameter("message");
+String errorMessage = request.getParameter("errorMessage");
+
+String contractDateFrom = ParserUtil.getParameter(request, "contractDateFrom");
+String contractDateTo = ParserUtil.getParameter(request, "contractDateTo");
+String deptCodeRequest = ParserUtil.getParameter(request, "deptCodeRequest");
+String deptCodeResponse = ParserUtil.getParameter(request, "deptCodeResponse");
+String[] assoDeptCodeRequest = (deptCodeRequest != null && !"".equals(deptCodeRequest)) ? new String[]{deptCodeRequest} : null;
+String deptCode = null;
+String addDeptCode = "";
+String searchBy = request.getParameter("searchBy");
+String searchContent = ParserUtil.getParameter(request, "searchContent");
+String businessType = ParserUtil.getParameter(request, "businessType");
+String businessNature = ParserUtil.getParameter(request, "businessNature");
+
+if (status == null) {
+	status = ConstantsVariable.ONE_VALUE;
+}
+
+//check expired and revised contract
+BillingAgreementDB.updateExpiredContract();
+BillingAgreementDB.expireContract();
+BillingAgreementDB.markToBeExpiredIn2Months();
+
+// set action jsp
+String createLabel = null;
+String listLabel = null;
+boolean isExternal = false;
+if ("marketing".equals(moduleCode)) {
+	listLabel = "function.ba.list";
+	createLabel = "function.ba.create";
+	isExternal = false;
+} else {
+	listLabel = "function.ba.external.list";
+	createLabel = "function.ba.external.create";
+	isExternal = true;
+
+	if (!userBean.isAccessible("function.ba.external.approve")) {
+		deptCode = userBean.getDeptCode();
+	}
+}
+
+if (message == null) { message = ConstantsVariable.EMPTY_VALUE; }
+if (errorMessage == null) { errorMessage = ConstantsVariable.EMPTY_VALUE; }
+
+if (ConstantsServerSide.isTWAH()&& userBean.isAccessible("function.ba.external.isDeptBM")) {
+	addDeptCode = "BM";
+}
+
+String[] finalAssoDeptCodeRequests = null;
+if (isExternal) {
+	if (userBean.isAccessible("function.ba.external.list.all")) {
+		deptCode = null;
+		finalAssoDeptCodeRequests = new String[]{};
+	} else {
+		ArrayList<String> assoDeptCodeRequests = new ArrayList<String>( Arrays.asList( assoDeptCodeRequest == null ? new String[]{} : assoDeptCodeRequest ) );
+		ArrayList<ReportableListObject> assoDeptCodes = StaffDB.getDeptCode2List(userBean.getStaffID());
+		ReportableListObject rlo2 = null;
+		for (int i = 0; i < assoDeptCodes.size(); i++) {
+			rlo2 = (ReportableListObject) assoDeptCodes.get(i);
+			assoDeptCodeRequests.add(rlo2.getFields0());
+		}
+		finalAssoDeptCodeRequests = assoDeptCodeRequests.toArray(new String[assoDeptCodeRequests.size()]);
+	}
+}
+
+/*
+System.out.println("[check_list] deptCode="+deptCode+", deptCodeRequest="+deptCodeRequest+", deptCodeResponse="+deptCodeResponse+", finalAssoDeptCodeRequests len="+(finalAssoDeptCodeRequests==null?0:finalAssoDeptCodeRequests.length));
+
+System.out.println("[check_list] assoDeptCodeRequests size="+assoDeptCodeRequests.size());
+for (String e : assoDeptCodeRequests) {
+    System.out.println(" -> " + e);
+}
+
+System.out.println("[check_list] finalAssoDeptCodeRequests length="+finalAssoDeptCodeRequests.length);
+for (String e : finalAssoDeptCodeRequests) {
+    System.out.println(" -> " + e);
+}
+
+System.out.println("[check_list] addDeptCode=<"+addDeptCode+">");
+*/
+
+request.setAttribute("check_list", BillingAgreementDB.getList(
+		userBean, moduleCode, status, searchBy, searchContent,
+		contractDateFrom, contractDateTo, deptCodeRequest, deptCodeResponse, finalAssoDeptCodeRequests, deptCode,addDeptCode));
+
+ArrayList<ReportableListObject> record = null;
+ReportableListObject row2 = null;
+%>
+<!-- this comment puts all versions of Internet Explorer into "reliable mode." -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%--
+		Licensed to the Apache Software Foundation (ASF) under one or more
+		contributor license agreements.  See the NOTICE file distributed with
+		this work for additional information regarding copyright ownership.
+		The ASF licenses this file to You under the Apache License, Version 2.0
+		(the "License"); you may not use this file except in compliance with
+		the License.  You may obtain a copy of the License at
+
+				 http://www.apache.org/licenses/LICENSE-2.0
+
+		Unless required by applicable law or agreed to in writing, software
+		distributed under the License is distributed on an "AS IS" BASIS,
+		WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+		See the License for the specific language governing permissions and
+		limitations under the License.
+--%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean"%>
+<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
+<%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic"%>
+<%@ taglib uri="/WEB-INF/displaytag.tld" prefix="display"%>
+<%@ taglib uri="/WEB-INF/c.tld" prefix="c"%>
+<html:html xhtml="true" lang="true">
+<jsp:include page="../common/header.jsp" />
+<body>
+<DIV id=indexWrapper>
+<DIV id=mainFrame>
+
+<DIV id=contentFrame>
+<jsp:include page="../common/page_title.jsp" flush="false">
+	<jsp:param name="pageTitle" value="<%= listLabel %>" />
+</jsp:include>
+<%	if (isExternal) { %>
+<span class="bigText">1. Annual Maintenance Service Contract<br>2. Outsource Service Contract</span>
+<%	} %>
+<jsp:include page="../common/message.jsp" flush="false">
+	<jsp:param name="message" value="<%=message %>" />
+	<jsp:param name="errorMessage" value="<%=errorMessage %>" />
+</jsp:include>
+<form name="search_form" action="check_list.jsp" method="post">
+<table cellpadding="0" cellspacing="5" class="contentFrameSearch" border="0">
+	<tr class="smallText">
+		<td class="infoLabel" width="30%">Status</td>
+		<td class="infoData" width="70%"><select name="status">
+			<option value="">All</option>
+<%
+	record = fetchStatus();
+	if (record.size() > 0) {
+		for (int i = 0; i < record.size(); i++) {
+			row2 = (ReportableListObject) record.get(i);
+%>
+			<option value="<%=row2.getValue(0) %>" <%=row2.getValue(0).equals(status) ? " selected" : ""%>><%=row2.getValue(1) %></option>
+<%
+		}
+	}
+%>
+		</select></td>
+	</tr>
+	<tr class="smallText">
+		<td class="infoLabel" width="30%">Contract Date From</td>
+		<td class="infoData" width="70%"><input type="text" name="contractDateFrom" class="datepickerfield" value="<%=contractDateFrom == null ? "" : contractDateFrom%>" maxlength="10" size="10"></td>
+	</tr>
+	<tr class="smallText">
+		<td class="infoLabel" width="30%">Contract Date To</td>
+		<td class="infoData" width="70%"><input type="text" name="contractDateTo" class="datepickerfield" value="<%=contractDateTo == null ? "" : contractDateTo%>" maxlength="10" size="10"></td>
+	</tr>
+
+	<tr class="smallText">
+		<td class="infoLabel" width="30%">Search By</td>
+		<td class="infoData" width="70%">
+			<table>
+				<tr><td>
+					<select name="searchBy" id="searchBy" onchange="changeSearchByField();return false;">
+<%	if (!isExternal) { %>
+					<option value="1" <%="1".equals(searchBy) ? " selected" : ""%>>Corporation Name</option>
+					<option value="2" <%="2".equals(searchBy) ? " selected" : ""%>>Business Type</option>
+					<option value="3" <%="3".equals(searchBy) ? " selected" : ""%>>Business Nature</option>
+					<option value="4" <%="4".equals(searchBy) ? " selected" : ""%>>AR Code</option>
+<%	} else { %>
+					<option value="1" <%="1".equals(searchBy) ? " selected" : ""%>>Company Name</option>
+<%	} %>
+				</td><td>
+					<input type="text" name="searchContent" id="searchContent" value="<%=searchContent == null ? "" : searchContent%>" maxlength="200" size="20" >
+				</td>
+			</table>
+		</select>
+		<select name="businessType"  id="businessType" style="display:none;">
+			<option value=""<%="".equals(businessType)?" selected":"" %>></option>
+			<option value="IP"<%="IP".equals(businessType)?" selected":"" %>>In-Patient</option>
+			<option value="OP"<%="OP".equals(businessType)?" selected":"" %>>Out-Patient</option>
+			<option value="Both"<%="Both".equals(businessType)?" selected":"" %>>InPatient & OutPatient</option>
+		</select>
+		<select name="businessNature" id="businessNature" style="display:none;">
+			<option value=""<%="".equals(businessNature)?" selected":"" %>></option>
+			<option value="BR"<%="BR".equals(businessNature)?" selected":"" %>>Broker</option>
+			<option value="CE"<%="CE".equals(businessNature)?" selected":"" %>>Corporate</option>
+			<option value="IC"<%="IC".equals(businessNature)?" selected":"" %>>Insurance Company</option>
+			<option value="TPA"<%="TPA".equals(businessNature)?" selected":"" %>>TPA</option>
+		</select>
+		</td>
+	</tr>
+<%if (userBean.isAccessible("function.ba.external.approve")) { %>
+	<tr class="smallText">
+		<td class="infoLabel" width="30%">Department/ Cost Centre</td>
+		<td class="infoData" width="70%">
+			<select name="deptCodeRequest">
+				<option value=""></option>
+<jsp:include page="../ui/deptCodeCMB.jsp" flush="false">
+	<jsp:param name="deptCode" value="<%=deptCodeRequest %>" />
+	<jsp:param name="allowAll" value="Y" />
+</jsp:include>
+			</select>
+		</td>
+	</tr>
+	<tr class="smallText">
+		<td class="infoLabel" width="30%">Responsible Department</td>
+		<td class="infoData" width="70%">
+			<select name="deptCodeResponse">
+				<option value=""></option>
+<jsp:include page="../ui/deptCodeCMB.jsp" flush="false">
+	<jsp:param name="deptCode" value="<%=deptCodeResponse %>" />
+	<jsp:param name="allowAll" value="Y" />
+</jsp:include>
+			</select>
+		</td>
+	</tr>
+<%} %>
+	<tr class="smallText">
+		<td colspan="2" align="center">
+		<button onclick="return submitSearch();"><bean:message key="button.search" /></button>
+		<button onclick="return clearSearch();"><bean:message key="button.clear" /></button>
+		</td>
+	</tr>
+</table>
+<input type="hidden" name="moduleCode" value="<%=moduleCode %>">
+</form>
+<bean:define id="functionLabel"><bean:message key="<%=listLabel %>" /></bean:define>
+<bean:define id="notFoundMsg"><bean:message key="message.notFound" arg0="<%=functionLabel %>" /></bean:define>
+<form name="form1" action="check_list.jsp" method="post">
+<display:table id="row" name="requestScope.check_list" export="true" pagesize="<%=userBean.getNoOfRecPerPage() %>" class="tablesorter">
+	<display:column title="&nbsp;" media="html" style="width:5%"><%=pageContext.getAttribute("row_rowNum")%>)</display:column>
+<%
+	ReportableListObject rlo = (ReportableListObject) pageContext.getAttribute("row");
+	String checklistId = rlo == null ? null : rlo.getFields0();
+%>
+<%	if (!isExternal) { %>
+	<display:column title="AR Company Name" style="width:25%" media="html">
+<%
+		String expired = ((ReportableListObject) pageContext.getAttribute("row")).getFields7();
+		if ("YES".equals(expired) && "2".equals(((ReportableListObject) pageContext.getAttribute("row")).getFields6())) {
+%>
+		<img title="the contract will be expired in 2 months"
+			src="<html:rewrite page="/images/alert_general.gif" />" width="20"
+			length="20" alt="Approved" />
+		<c:out value="${row.fields1}" />
+<%
+		} else {
+%>
+		<c:out value="${row.fields1}" />
+<%
+		}
+%>
+	</display:column>
+	<display:column title="AR Company Name" style="width:25%" media="csv excel xml pdf">
+<%
+		String expired = ((ReportableListObject) pageContext.getAttribute("row")).getFields7();
+		if ("YES".equals(expired) && "2".equals(((ReportableListObject) pageContext .getAttribute("row")).getFields6())) {
+%>
+			(To Be Expired)
+		  	<c:out value="${row.fields1}" />
+<%
+		} else {
+%>
+		<c:out value="${row.fields1}" />
+<%
+		}
+%>
+	</display:column>
+	<display:column property="fields8" title="AR Code" style="width:10%" />
+	<display:column title="Service Type" style="width:10%">
+		<logic:equal name="row" property="fields2" value="IP">Inpatient</logic:equal>
+		<logic:equal name="row" property="fields2" value="OP">Outpatient</logic:equal>
+		<logic:equal name="row" property="fields2" value="Both">Inpatient & Outpatient </logic:equal>
+	</display:column>
+	<display:column title="Business Nature" style="width:10%">
+		<logic:equal name="row" property="fields3" value="BR">Broker</logic:equal>
+		<logic:equal name="row" property="fields3" value="CE">Corporate</logic:equal>
+		<logic:equal name="row" property="fields3" value="IC">Insurance Company</logic:equal>
+		<logic:equal name="row" property="fields3" value="TPA">TPA</logic:equal>
+	</display:column>
+<%	} else { %>
+<%
+		String deptDescRequest = rlo == null ? null : rlo.getFields10();
+		// get Asso request department
+		ArrayList assoDeptRequestList = BillingAgreementDB.getChildList(moduleCode, checklistId);
+		//ArrayList assoDeptRequestList = new ArrayList();
+%>
+	<display:column title="Department/ Cost Centre" style="width:20%" media="html">
+		<%=deptDescRequest %>
+<%
+		if (!assoDeptRequestList.isEmpty()) {
+%>
+		<div class="infoLabelInData">Involved Department(s):</div>
+<%
+		}
+		for (int i = 0; i < assoDeptRequestList.size(); i++) {
+			row2 = (ReportableListObject) assoDeptRequestList.get(i);
+%>
+		<div><%=row2.getValue(11) %></div>
+<%
+		}
+%>
+	</display:column>
+	<display:column title="Department/ Cost Centre" style="width:20%" media="csv excel xml pdf">
+		<%=deptDescRequest %>
+<%
+ 		for (int i = 0; i < assoDeptRequestList.size(); i++) {
+			row2 = (ReportableListObject) assoDeptRequestList.get(i);
+%>
+		<%=row2.getValue(11) %>
+<%
+		}
+%>
+	</display:column>
+	<display:column property="fields11" title="Responsible Department" style="width:10%" />
+	<display:column title="Company Name" style="width:15%" media="html">
+<%
+			String expired = ((ReportableListObject) pageContext.getAttribute("row")).getFields7();
+			if ("YES".equals(expired) && "2".equals(((ReportableListObject) pageContext.getAttribute("row")).getFields6())) {
+%>
+		<img title="the contract will be expired in 2 months" src="<html:rewrite page="/images/alert_general.gif" />" width="20" length="20" alt="Approved" />
+		<c:out value="${row.fields1}" />
+<%
+			} else {
+%>
+		<c:out value="${row.fields1}" />
+<%
+			}
+%>
+	</display:column>
+	<display:column title="Company Name" style="width:15%"
+		media="csv excel xml pdf">
+<%
+			String expired = ((ReportableListObject) pageContext.getAttribute("row")).getFields7();
+			if ("YES".equals(expired) && "2".equals(((ReportableListObject) pageContext.getAttribute("row")).getFields6())) {
+%>
+			(To Be Expired)
+		  	<c:out value="${row.fields1}" />
+<%
+			} else {
+%>
+		<c:out value="${row.fields1}" />
+<%
+			}
+%>
+	</display:column>
+	<display:column property="fields2" title="Contract Category" style="width:10%" />
+	<display:column property="fields12" title="Contract Content" style="width:10%"/>
+	<display:column title="Contingency" style="width:10%">
+		<c:out value="${row.fields16}" />
+		<logic:notEqual name="row" property="fields16" value="No">
+			<br/>
+			<logic:equal name="row" property="fields17" value="0">
+				But no document
+			</logic:equal>
+			<logic:notEqual name="row" property="fields17" value="0">
+				<c:out value="${row.fields17}" /> document(s)
+			</logic:notEqual>
+		</logic:notEqual>
+	</display:column>
+<%	} %>
+	<display:column title="Contract Date" style="width:10%">
+		<c:out value="${row.fields4}" /> - <c:out value="${row.fields5}" />
+	</display:column>
+	<display:column property="fields18" title="Status" style="width:5%" />
+	<display:column property="fields9" title="Remarks" style="width:20%" />
+	<display:column titleKey="prompt.action" media="html" style="width:10%; text-align:center">
+		<button onclick="return submitAction('view', '<c:out value="${row.fields0}" />');"><bean:message key='button.view' /></button>
+	</display:column>
+	<display:setProperty name="basic.msg.empty_list" value="<%=notFoundMsg %>" />
+</display:table>
+<%	if (userBean.isAccessible(createLabel)) { %>
+<table width="100%" border="0">
+	<tr class="smallText">
+		<td align="center">
+		<button onclick="return submitAction('create', '');"><bean:message key="<%=createLabel %>" /></button>
+		</td>
+	</tr>
+</table>
+<%	} %>
+<input type="hidden" name="command">
+<input type="hidden" name="moduleCode" value="<%=moduleCode %>">
+<input type="hidden" name="baID">
+</form>
+<script language="javascript">
+	$('img[title]').qtip( {
+		content : $(this).attr('title'),
+		show : 'mouseover',
+		hide : 'mouseout',
+		position : {
+			target : 'mouse'
+		},
+		style : {
+			border : {
+				width : 3,
+				radius : 8,
+				color : '#FF0000',
+				tip : 'leftMiddle'
+			},
+			width : 200
+		}
+	});
+
+	function submitSearch() {
+		if(document.getElementById('searchBy').value == '2'){
+			document.search_form.searchContent.value = document.getElementById('businessType').value;
+		}else if (document.getElementById('searchBy').value == '3'){
+			document.search_form.searchContent.value = document.getElementById('businessNature').value;
+		}
+		document.search_form.submit();
+	}
+
+	function clearSearch() {
+		document.search_form.searchContent.value = "";
+		return false;
+	}
+
+	function changeSearchByField(){
+		var searchBy = document.getElementById('searchBy').value;
+			if(searchBy == '2'){ //type
+				document.getElementById('businessType').style.display = 'block';
+				document.getElementById('searchContent').style.display = 'none';
+				document.getElementById('businessNature').style.display = 'none';
+				document.getElementById('searchContent').value = '';
+			}else if(searchBy == '3'){ //nature
+				document.getElementById('businessType').style.display = 'none';
+				document.getElementById('searchContent').style.display = 'none';
+				document.getElementById('businessNature').style.display = 'block';
+				document.getElementById('searchContent').value = '';
+			}else{
+				document.getElementById('businessNature').style.display = 'none';
+				document.getElementById('businessType').style.display = 'none';
+				document.getElementById('searchContent').style.display = 'block';
+			}
+
+			return true;
+	}
+
+	function submitAction(cmd, baID) {
+		if (cmd == 'archive') {
+			document.form1.command.value = cmd;
+			document.form1.baID.value = baid;
+			document.form1.submit();
+			return true;
+		} else {
+			callPopUpWindow("checkitem.jsp?command=" + cmd + "&moduleCode=<%=moduleCode %>&baID=" + baID);
+			return false;
+		}
+	}
+	<%if(searchBy != null){%>
+	changeSearchByField();
+	<%}%>
+</script></DIV>
+
+</DIV>
+</DIV>
+
+<jsp:include page="../common/footer.jsp" flush="false" />
+</body>
+</html:html>

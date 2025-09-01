@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2010?~3??23?? ?U??02:52:35 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.CoGroups" table="CO_GROUPS">
+        <id name="coGroupId" type="string">
+            <column name="CO_GROUP_ID"  />
+            <generator class="assigned" />
+        </id>
+        <property name="coGroupDesc" type="string">
+            <column name="CO_GROUP_DESC" />
+        </property>
+        <property name="coGroupLevel" type="string">
+            <column name="CO_GROUP_LEVEL" />
+        </property>
+        <property name="coCreatedDate">
+            <column name="CO_CREATED_DATE"  />
+        </property>
+        <property name="coCreatedUser" type="string">
+            <column name="CO_CREATED_USER"  />
+        </property>
+        <property name="coModifiedDate">
+            <column name="CO_MODIFIED_DATE"  />
+        </property>
+        <property name="coModifiedUser" type="string">
+            <column name="CO_MODIFIED_USER"  />
+        </property>
+        <property name="coEnabled" type="java.lang.Integer">
+            <column name="CO_ENABLED"   />
+        </property>
+    </class>
+</hibernate-mapping>

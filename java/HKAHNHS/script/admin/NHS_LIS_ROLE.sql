@@ -1,0 +1,21 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_ROLE"
+(V_ROLNAM ROLE.ROLNAM%TYPE,
+v_ROLDESC ROLE.ROLDESC%TYPE)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN outcur FOR
+
+    SELECT
+        ROLNAM, ROLDESC
+    FROM ROLE
+    WHERE ( ROLNAM LIKE '%' || v_rolnam || '%')
+    AND (ROLDESC like '%' || V_ROLDESC || '%')
+    AND ROWNUM < 100
+    ORDER BY ROLNAM;
+  RETURN OUTCUR;
+END NHS_LIS_ROLE;
+/
+
+

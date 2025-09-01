@@ -1,0 +1,1559 @@
+package com.hkah.web.db;
+
+import java.util.ArrayList;
+
+import com.hkah.constant.ConstantsServerSide;
+import com.hkah.util.DateTimeUtil;
+import com.hkah.util.db.UtilDBWeb;
+import com.hkah.web.common.ReportableListObject;
+import com.hkah.web.common.UserBean;
+
+public class HAFormDB {
+//	private static String sqlStr_insertDocMap = null;
+//	private static String sqlStr_insertCtsLog = null;
+//	private static String serverSiteCode = ConstantsServerSide.SITE_CODE;
+	private static String sqlStr_insertHAForm = null;
+	private static String sqlStr_updateHAForm = null;
+	private static String sqlStr_updateHAFormType = null;
+	private static String sqlStr_fetchAccessForm = null;
+	private static String sqlStr_fetchAccessForm1 = null;
+	private static String sqlStr_fetchAccessForm2 = null;
+	private static String sqlStr_fetchAccessForm2_rpt = null;
+	private static String sqlStr_fetchAccessForm3 = null;
+	private static String sqlStr_fetchAccessForm4 = null;
+	private static String sqlStr_fetchAccessForm5 = null;
+	private static String sqlStr_fetchAccessForm6 = null;
+
+	static {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("INSERT INTO HA_FORM( ");
+		// 1
+		sqlStr.append("HA_FORM_TYPE, HA_REGID, ");
+		sqlStr.append("HA_SITE_CODE, HA_ID, HA_PAT_NO, HA_Q1, HA_Q2_1, ");
+		sqlStr.append("HA_Q2_2, HA_Q2_3, HA_Q2_4, HA_Q2_5, HA_Q2_6, ");
+		sqlStr.append("HA_Q2_7, HA_Q2_8, ");
+		sqlStr.append("HA_Q3_A1, HA_Q3_A2, HA_Q3_A3, HA_Q3_A4, HA_Q3_B1, ");
+		// 2
+		sqlStr.append("HA_Q3_B2, HA_Q3_B3, HA_Q3_C1, HA_Q3_C2,");
+		sqlStr.append("HA_Q3_D1, HA_Q3_D2, HA_Q3_D3, HA_Q3_D4, HA_Q3_E1, ");
+		sqlStr.append("HA_Q3_F1, HA_Q3_F2, HA_Q3_F3, HA_Q3_F4, ");
+		sqlStr.append("HA_Q3_G1, HA_Q3_G2, HA_Q3_G3, HA_Q4_1, HA_Q4_2, ");
+		sqlStr.append("HA_Q5_A1, HA_Q5_A2, HA_Q5_A3, HA_Q5_A4, HA_Q5_A5, ");
+		sqlStr.append("HA_Q3_H1, ");
+		// 3
+		sqlStr.append("HA_Q5_A6, HA_Q5_B1,");
+		sqlStr.append("HA_Q6_A1, HA_Q6_A2, HA_Q6_B1, HA_Q6_B2, HA_Q6_C1, HA_Q6_C2, ");
+		sqlStr.append("SMOKE_1, SMOKE_2, SMOKE_3, SMOKE_4, SMOKE_5, SMOKE_6, ");
+		sqlStr.append("DRINK_1, DRINK_2, DRINK_3, DRINK_4, DRINK_5, ");
+		sqlStr.append("DRINK_6, DRINK_7, DRINK_8, DRINK_9, DRINK_10, ");
+		// 4
+		sqlStr.append("DRINK_11, DRINK_12, DRINK_13, DRINK_14, ");
+		sqlStr.append("EAT_1, EAT_2, EAT_3, EAT_4, ");
+		sqlStr.append("EAT_5, EAT_6, EAT_7, EAT_8, EAT_9, ");
+		sqlStr.append("EAT_10, EAT_11, EAT_12, EAT_13, EAT_14, ");
+		sqlStr.append("SLEEP_1, SLEEP_2, ");
+		// 5
+		sqlStr.append("SPORT_1, SPORT_2, SPORT_3, SPORT_4, ");
+		sqlStr.append("MOOD_1, MOOD_2, MOOD_3, MOOD_4, ");
+		sqlStr.append("FEMALE_1, FEMALE_2, FEMALE_3, FEMALE_4, FEMALE_5, ");
+		sqlStr.append("FEMALE_6, FEMALE_7, FEMALE_8, FEMALE_9, FEMALE_10, ");
+		sqlStr.append("PHY_1, PHY_2, PHY_3, PHY_4, PHY_5, ");
+		// 6
+		sqlStr.append("PHY_6, PHY_7, PHY_8, PHY_9, PHY_10, ");
+		sqlStr.append("PHY_11, PHY_12, PHY_13, PHY_14, PHY_15,");
+		sqlStr.append("PHY_16, PHY_17, PHY_18, PHY_19, PHY_20, ");
+		sqlStr.append("GC_1, GC_2, GC_3, GC_4, GC_5, GC_6, ");
+		sqlStr.append("GC_7, GC_8, GC_9, GC_10, GC_11, GC_12, ");
+		// 7
+		sqlStr.append("GC_13, GC_14, GC_15, ");
+		sqlStr.append("ENT_1, ENT_2, ENT_3, ENT_4, ENT_5, ");
+		sqlStr.append("ENT_6, ENT_7, ENT_8, ENT_9, ENT_10, ");
+		sqlStr.append("ENT_11, ENT_12, ENT_13, ENT_14, ENT_15, ");
+		sqlStr.append("ENT_16, ENT_17, ENT_18, ENT_19, ENT_20, ");
+		// 8
+		sqlStr.append("ENT_21, ");
+		sqlStr.append("ENT_22, ENT_23, ENT_24, ENT_25, ENT_26, ");
+		sqlStr.append("ENT_27, ENT_28, ENT_29, ENT_30, ENT_31, ");
+		sqlStr.append("ENT_32, ENT_33, ENT_34, ");
+		sqlStr.append("ENT_35, ENT_36, ENT_37, ENT_38, ENT_39, ");
+		// 9
+		sqlStr.append("ENT_40, ENT_41, ENT_42, ENT_43, ENT_44, ");
+		sqlStr.append("ENT_45, ");
+		sqlStr.append("ENT_46, ENT_47, ENT_48, ENT_49, ENT_50, ");
+		sqlStr.append("ENT_51, ENT_52, ENT_53, ENT_54, ENT_55, ");
+		sqlStr.append("ENT_56, ENT_57, ");
+		sqlStr.append("LS_1, LS_2, LS_3, LS_4, LS_5, ");
+		sqlStr.append("LS_6, ");
+		// 10
+		sqlStr.append("BN_1, BN_2, BN_3, BN_4, BN_5, ");
+		sqlStr.append("BN_6, BN_7, BN_8, BN_9, BN_10, ");
+		sqlStr.append("BN_11, BN_12, BN_13, BN_14, BN_15, ");
+		sqlStr.append("BN_16, ");
+		sqlStr.append("RS_1, RS_2, RS_3, RS_4, RS_5, ");
+		// 11
+		sqlStr.append("RS_6, RS_7, RS_8, RS_9, RS_10, ");
+		sqlStr.append("CS_1, CS_2, CS_3, CS_4, CS_5, ");
+		sqlStr.append("CS_6, CS_7, CS_8, ");
+		sqlStr.append("NE_1, NE_2, NE_3, NE_4, NE_5, ");
+		sqlStr.append("NE_6, NE_7, NE_8, NE_9, NE_10, ");
+		// 12
+		sqlStr.append("NE_11, NE_12, NE_13, NE_14, NE_15, ");
+		sqlStr.append("NE_16, NE_17, NE_18, NE_19, NE_20, ");
+		sqlStr.append("S_1, S_2, S_3, S_4, ");
+		sqlStr.append("A_0, A_1, A_2, A_3, A_4, A_5, ");
+		sqlStr.append("A_6, A_7, A_8, A_9, A_10, ");
+		// 13
+		sqlStr.append("A_11, A_12, A_13, A_14, A_15, ");
+		sqlStr.append("A_16, A_17, A_18, A_19, A_20, ");
+		sqlStr.append("A_21, A_22, A_23, A_24, A_25, ");
+		sqlStr.append("A_26, A_27, A_28, A_29, A_30, ");
+		sqlStr.append("A_31, ");
+		// 14
+		sqlStr.append("EX_1, EX_2, ");
+		sqlStr.append("MN_1, MN_2, MN_3, MN_4, MN_5, ");
+		sqlStr.append("MN_6, MN_7, MN_8, MN_9, MN_10, ");
+		sqlStr.append("MN_11, MN_12, MN_13, MN_14, ");
+		sqlStr.append("CREATE_USER, CREATE_DATE, MODIFY_USER, MODIFY_DATE, HA_ENABLED, ");
+		// 15
+		sqlStr.append("RS_11, RS_12, RS_13, RS_14, RS_15, RS_16, ");
+		sqlStr.append("A_32, A_33, A_34, A_35, A_36, ");
+		sqlStr.append("A_37, A_38, A_39, A_40, ");
+		sqlStr.append("REMARK, ");
+		// 16
+		sqlStr.append("COMPLETED, ");
+		sqlStr.append("HA_DOCCODE, MN_15, ");
+		// 17
+		sqlStr.append("HA_Q3_A5, HA_Q3_A6, HA_Q3_B4, HA_Q3_B5, ");
+		sqlStr.append("HA_Q3_D5, HA_Q3_D6, HA_Q3_E2, HA_Q3_E3, ");
+		sqlStr.append("HA_Q3_F5, HA_Q3_F6, HA_Q3_H2, HA_Q3_I1, ");
+		sqlStr.append("HA_Q5_A7, FEMALE_11, FEMALE_12, ");
+		sqlStr.append("HA_Q3_D7, HA_Q3_D8, HA_Q3_D9, HA_Q3_D10, ");
+		//18
+		sqlStr.append("EAT_15, EAT_16, EAT_17, EAT_18, EAT_19, EAT_20, ");
+		sqlStr.append("EAT_21, EAT_22, ");
+		sqlStr.append("NN_SEQ_NO, DRINK_15, MN_16, A_41, A_42, ");
+		sqlStr.append("MN_17, MN_18, EAT_23, EAT_24, SMOKE_7, ");
+		sqlStr.append("SLEEP_3, SLEEP_4, SLEEP_5, SLEEP_6, ");
+		//19
+		sqlStr.append("A_43, ");
+		sqlStr.append("PHY_21, PHY_22, PHY_23, PHY_24, PHY_25, ");
+		sqlStr.append("HA_Q3_A7, HA_Q3_B6, HA_Q3_D11, HA_Q3_F7, HA_Q3_E4, ");
+		sqlStr.append("HA_Q5_A8, GC_16, GC_17, ");
+		sqlStr.append("A_44, A_45, A_46, HA_Q3_G4, HA_Q3_G5, ");
+		// new ccr form
+		sqlStr.append("MN_19, MN_20, MN_21, MN_22, MN_23, ");
+		sqlStr.append("MN_24, MN_25, MN_26, MN_27, MN_28, ");
+		sqlStr.append("MN_29, MN_30, MN_31, MN_32, MN_33, ");
+		sqlStr.append("MN_34, MN_35, MN_36, MN_37, MN_38, ");
+		sqlStr.append("MN_39, MN_40, MN_41, ");
+		//
+		sqlStr.append("MN_42, MN_43, MN_44, MN_45, MN_46, ");
+		sqlStr.append("MN_47, MN_48, MN_49, MN_50, MN_51,");
+		sqlStr.append("MN_52, MN_53, MN_54, MN_55, MN_56, ");
+		sqlStr.append("MN_57, MN_58, MN_59, MN_60, MN_61, ");
+		// ph2 and ph3
+		sqlStr.append("MN_62, MN_63, MN_64, MN_65, MN_66, ");
+		sqlStr.append("MN_67, MN_68, MN_69, ");
+		sqlStr.append("MN_70, MN_71, MN_72, MN_73, MN_74, ");
+		sqlStr.append("MN_75, MN_76, ");
+		sqlStr.append("CCR_PHASE, ");
+		sqlStr.append("MN_77, MN_78, MN_79, MN_80, ");
+		//
+		sqlStr.append("MN_81, MN_82, MN_83, MN_84, MN_85, ");
+		//
+		sqlStr.append("MN_86, MN_87, MN_88, MN_89, MN_90, ");
+		sqlStr.append("MN_91, MN_92, MN_93, MN_94, MN_95, ");
+		sqlStr.append("MN_96, MN_97, ");
+		//
+		sqlStr.append("MN_98, MN_99, MN_100, MN_101, MN_102, ");
+		sqlStr.append("MN_103, MN_104, MN_105, MN_106, ");
+		sqlStr.append("HA_FORM_TYPE_OTHER, MN_107, MN_108, phy_26, MN_110, ");
+//20250219 Arran added patConNo	
+		sqlStr.append("patConNo ");
+		sqlStr.append(") ");
+		sqlStr.append("VALUES ( ");
+		// 1
+		sqlStr.append("?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		// 2
+		sqlStr.append("?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ");
+		// 3
+		sqlStr.append("?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		// 4
+		sqlStr.append("?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ");
+		// 5
+		sqlStr.append("?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		// 6
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?,");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ?, ");
+		// 7
+		sqlStr.append("?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		// 8
+		sqlStr.append("?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?,");
+		sqlStr.append(" ?, ?, ?, ?, ?, ");
+		// 9
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ");
+		// 10
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		// 11
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		// 12
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?,");
+		sqlStr.append("?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		// 13
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?,");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ");
+		// 14
+		sqlStr.append("?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ");
+		sqlStr.append("?, to_date(?, 'dd/mm/yyyy hh24miss'), ?, sysdate, ?, ");
+		// 15
+		sqlStr.append("?, ?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ");
+		sqlStr.append("?, ");
+		// 16
+		sqlStr.append("'0', ");
+		sqlStr.append("?, ?, ");
+		// 17
+		sqlStr.append("?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ");
+		// 18
+		sqlStr.append("?, ?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ");
+		//19
+		sqlStr.append("?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		// new ccr form
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, to_date(?, 'dd/mm/yyyy'), ?, ?,");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ");
+		//
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		// ph2 and ph3
+		sqlStr.append("?, ?, ?, ?, ? ,");
+		sqlStr.append("?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ");
+		sqlStr.append("?, ");
+		sqlStr.append("?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		//
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ");
+		//
+		sqlStr.append("?, ?, ?, ?, ?, ");
+		sqlStr.append("?, ?, ?, ?, ");	
+		sqlStr.append("?, ?, ?, ?, ?, ");
+//20250219 Arran added patConNo			
+		sqlStr.append("? ");
+		sqlStr.append(") ");
+		sqlStr_insertHAForm = sqlStr.toString();
+
+		sqlStr.setLength(0);
+		sqlStr.append("UPDATE HA_FORM ");
+		sqlStr.append("SET ");
+		sqlStr.append("HA_FORM_TYPE = ?, ");
+		sqlStr.append("HA_Q1 = ?, HA_Q2_1 = ?, HA_Q2_2 = ?, HA_Q2_3 = ?, HA_Q2_4 = ?, " );
+		sqlStr.append("HA_Q2_5 = ?, HA_Q2_6 = ?, HA_Q2_7 = ?, HA_Q2_8 = ?, HA_Q3_A1 = ?, HA_Q3_A2 = ?, HA_Q3_A3 = ?, HA_Q3_A4 = ?, ");
+		sqlStr.append("HA_Q3_B1 = ?, HA_Q3_B2 = ?, HA_Q3_B3 = ?, HA_Q3_C1 = ?, HA_Q3_C2 = ?, ");
+		sqlStr.append("HA_Q3_D1 = ?, HA_Q3_D2 = ?, HA_Q3_D3 = ?, HA_Q3_D4 = ?, HA_Q3_E1 = ?, ");
+		sqlStr.append("HA_Q3_F1 = ?, HA_Q3_F2 = ?, HA_Q3_F3 = ?, HA_Q3_F4 = ?, ") ;
+		sqlStr.append("HA_Q3_G1 = ?, HA_Q3_G2 = ?, HA_Q3_G3 = ?, HA_Q3_H1 = ?, HA_Q4_1 = ?, HA_Q4_2 = ?, ");
+		sqlStr.append("HA_Q5_A1 = ?, HA_Q5_A2 = ?, HA_Q5_A3 = ?, HA_Q5_A4 = ?, HA_Q5_A5 = ?, ");
+		sqlStr.append("HA_Q5_A6 = ?, HA_Q5_B1 = ?, ");
+		sqlStr.append("HA_Q6_A1 = ?, HA_Q6_A2 = ?, HA_Q6_B1 = ?, HA_Q6_B2 = ?, HA_Q6_C1 = ?, HA_Q6_C2 = ?, ");
+		sqlStr.append("SMOKE_1 = ?, SMOKE_2 = ?, SMOKE_3 = ?, SMOKE_4 = ?, SMOKE_5 = ?, SMOKE_6 = ?, ");
+		sqlStr.append("DRINK_1 = ?, DRINK_2 = ?, DRINK_3 = ?, DRINK_4 = ?, DRINK_5 = ?, ");
+		sqlStr.append("DRINK_6 = ?, DRINK_7 = ?, DRINK_8 = ?, DRINK_9 = ?, DRINK_10 = ?, ");
+		sqlStr.append("DRINK_11 = ?, DRINK_12 = ?, DRINK_13 = ?, DRINK_14 = ?, ");
+		sqlStr.append("EAT_1 = ?, EAT_2 = ?, EAT_3 = ?, EAT_4 = ?, ");
+		sqlStr.append("EAT_5 = ?, EAT_6 = ?, EAT_7 = ?, EAT_8 = ?, EAT_9 = ?, ");
+		sqlStr.append("EAT_10 = ?, EAT_11 = ?, EAT_12 = ?, EAT_13 = ?, EAT_14 = ?, ");
+		sqlStr.append("SLEEP_1 = ?, SLEEP_2 = ?, ");
+		sqlStr.append("SPORT_1 = ?, SPORT_2 = ?, SPORT_3 = ?, SPORT_4 = ?, ");
+		sqlStr.append("MOOD_1 = ?, MOOD_2 = ?, MOOD_3 = ?, MOOD_4 = ?, ");
+		sqlStr.append("FEMALE_1 = ?, FEMALE_2 = ?, FEMALE_3 = ?, FEMALE_4 = ?, FEMALE_5 = ?, ");
+		sqlStr.append("FEMALE_6 = ?, FEMALE_7 = ?, FEMALE_8 = ?, FEMALE_9 = ?, FEMALE_10 = ?,");
+		sqlStr.append("PHY_1 = ?, PHY_2 = ?, PHY_3 = ?, PHY_4 = ?, PHY_5 = ?, ");
+		sqlStr.append("PHY_6 = ?, PHY_7 = ?, PHY_8 = ?, PHY_9 = ?, PHY_10 = ?, ");
+		sqlStr.append("PHY_11 = ?, PHY_12 = ?, PHY_13 = ?, PHY_14 = ?, PHY_15 = ?, ");
+		sqlStr.append("PHY_16 = ?, PHY_17 = ?,  PHY_18 = ?, PHY_19 = ?, PHY_20 = ?, ");
+		sqlStr.append("GC_1 = ?, GC_2 = ?, GC_3 = ?, GC_4 = ?, GC_5 = ?, GC_6 = ?, ");
+		sqlStr.append("GC_7 = ?, GC_8 = ?, GC_9 = ?, GC_10 = ?, GC_11 = ?, GC_12 = ?, ");
+		sqlStr.append("GC_13 = ?, GC_14 = ?, GC_15 = ?, ");
+		sqlStr.append("ENT_1 = ?, ENT_2 = ?, ENT_3 = ?, ENT_4 = ?, ENT_5 = ?, ");
+		sqlStr.append("ENT_6 = ?, ENT_7 = ?, ENT_8 = ?, ENT_9 = ?, ENT_10 = ?, ");
+		sqlStr.append("ENT_11 = ?, ENT_12 = ?, ENT_13 = ?, ENT_14 = ?, ENT_15 = ?, ");
+		sqlStr.append("ENT_16 = ?,  ENT_17 = ?,  ENT_18 = ?,  ENT_19 = ?,  ENT_20 = ?, ");
+		sqlStr.append("ENT_21 = ?,  ENT_22 = ?,  ENT_23 = ?,  ENT_24 = ?,  ENT_25 = ?, ");
+		sqlStr.append("ENT_26 = ?,  ENT_27 = ?,  ENT_28 = ?,  ENT_29 = ?,  ENT_30 = ?, ");
+		sqlStr.append("ENT_31 = ?,  ENT_32 = ?,  ENT_33 = ?,  ENT_34 = ?,  ENT_35 = ?, ");
+		sqlStr.append("ENT_36 = ?,  ENT_37 = ?,  ENT_38 = ?,  ENT_39 = ?,  ENT_40 = ?, ");
+		sqlStr.append("ENT_41 = ?,  ENT_42 = ?,  ENT_43 = ?,  ENT_44 = ?,  ENT_45 = ?, ");
+		sqlStr.append("ENT_46 = ?,  ENT_47 = ?,  ENT_48 = ?,  ENT_49 = ?,  ENT_50 = ?, ");
+		sqlStr.append("ENT_51 = ?, ENT_52 = ?,  ENT_53 = ?,  ENT_54 = ?,  ENT_55 = ?, ");
+		sqlStr.append("ENT_56 = ?, ENT_57 = ?, ");
+		sqlStr.append("LS_1 = ?, LS_2 =?, LS_3 = ?, LS_4 = ?, LS_5 = ?, LS_6 = ?, ");
+		sqlStr.append("BN_1 = ? , BN_2 = ? , BN_3 = ? , BN_4 = ? , BN_5 = ? , ");
+		sqlStr.append("BN_6 = ? , BN_7 = ? , BN_8 = ? , BN_9 = ? , BN_10 = ? , ");
+		sqlStr.append("BN_11 = ? , BN_12 = ? , BN_13 = ? , BN_14 = ? , BN_15 = ? , ");
+		sqlStr.append("BN_16 = ? , ");
+		sqlStr.append("RS_1 = ?,  RS_2 = ?,  RS_3 = ?,  RS_4 = ?,  RS_5 = ?,  ");
+		sqlStr.append("RS_6 = ?,  RS_7 = ?,  RS_8 = ?,  RS_9 = ?,  RS_10 = ?,  ");
+		sqlStr.append("RS_11 = ?, RS_12 = ?, RS_13 = ?, RS_14 = ? , RS_15 = ?, RS_16 = ?, ");
+		sqlStr.append("CS_1 = ?,  CS_2 = ?,  CS_3 = ?,  CS_4 = ?,  CS_5 = ?,  ");
+		sqlStr.append("CS_6 = ?,  CS_7 = ?,  CS_8 = ?,  ");
+		sqlStr.append("NE_1 = ?,  NE_2 = ?,  NE_3 = ?,  NE_4 = ?,  NE_5 = ?,  ");
+		sqlStr.append("NE_6 = ?,  NE_7 = ?,  NE_8 = ?,  NE_9 = ?,  NE_10 = ?,  ");
+		sqlStr.append("NE_11 = ?,  NE_12 = ?,  NE_13 = ?,  NE_14 = ?,  NE_15 = ?,  ");
+		sqlStr.append("NE_16 = ?,  NE_17 = ?,  NE_18 = ?,  NE_19 = ?,  NE_20 = ?,  ");
+		sqlStr.append("S_1 = ?,  S_2 = ?,  S_3 = ?,  S_4 = ?,  ");
+		sqlStr.append("A_0 = ?,  A_1 = ?,  A_2 = ?,  A_3 = ?,  A_4 = ?,  A_5 = ?,  ");
+		sqlStr.append("A_6 = ?,  A_7 = ?,  A_8 = ?,  A_9 = ?,  A_10 = ?,  ");
+		sqlStr.append("A_11 = ?,  A_12 = ?,  A_13 = ?,  A_14 = ?,  A_15 = ?,  ");
+		sqlStr.append("A_16 = ?,  A_17 = ?,  A_18 = ?,  A_19 = ?,  A_20 = ?,  ");
+		sqlStr.append("A_21 = ?,  A_22 = ?,  A_23 = ?,  A_24 = ?,  A_25 = ?,  ");
+		sqlStr.append("A_26 = ?,  A_27 = ?,  A_28 = ?,  A_29 = ?,  A_30 = ?,  ");
+		sqlStr.append("A_31 = ?,  ");
+		sqlStr.append("A_32 = ?, A_33 = ?, A_34 = ?, A_35 = ?, A_36 = ?, ");
+		sqlStr.append("A_37 = ?, A_38 = ?, A_39 = ?, A_40 = ?, ");
+		sqlStr.append("EX_1 = ?, EX_2 = ?, ");
+		sqlStr.append("MN_1 = ?,  MN_2 = ?,  MN_3 = ?,  MN_4 = ?,  MN_5 = ?,  ");
+		sqlStr.append("MN_6 = ?,  MN_7 = ?,  MN_8 = ?,  MN_9 = ?,  MN_10 = ?,  ");
+		sqlStr.append("MN_11 = ?,  MN_12 = ?,  MN_13 = ?,  MN_14 = ?,  REMARK = ?, ");
+		sqlStr.append("COMPLETED = ?, HA_DOCCODE = ?, MN_15 = ?, ");
+		sqlStr.append("MODIFY_USER = ?, MODIFY_DATE = sysdate, ");
+		sqlStr.append("HA_Q3_A5 = ?, HA_Q3_A6 = ?, HA_Q3_B4 = ?, HA_Q3_B5 = ?, ");
+		sqlStr.append("HA_Q3_D5 = ?, HA_Q3_D6 = ?, HA_Q3_E2 = ?, HA_Q3_E3 = ?, ");
+		sqlStr.append("HA_Q3_F5 = ?, HA_Q3_F6 = ?, HA_Q3_H2 = ?, HA_Q3_I1 = ?, ");
+		sqlStr.append("HA_Q5_A7 = ?, FEMALE_11 = ?, FEMALE_12 = ?, ");
+		sqlStr.append("HA_Q3_D7 = ?, HA_Q3_D8 = ?, HA_Q3_D9 = ?, HA_Q3_D10 = ?, ");
+		sqlStr.append("EAT_15 = ?, EAT_16 = ?, EAT_17 = ?, EAT_18 = ?, EAT_19 = ?, EAT_20 = ?, ");
+		sqlStr.append("EAT_21 = ?, EAT_22 = ?, ");
+		sqlStr.append("DRINK_15 = ?, MN_16 = ?, A_41 = ?, A_42 = ?, MN_17 = ?, MN_18 = ?, ");
+		sqlStr.append("CREATE_DATE = to_date(?, 'dd/mm/yyyy hh24miss'), ");
+		sqlStr.append("EAT_23 = ?, EAT_24 = ?, SMOKE_7 = ?, ");
+		sqlStr.append("SLEEP_3 = ?, SLEEP_4 = ?, SLEEP_5 = ?, SLEEP_6 = ?, ");
+		sqlStr.append("A_43 = ?, ");
+		sqlStr.append("PHY_21 = ?, PHY_22 = ?,  PHY_23 = ?, PHY_24 = ?, PHY_25 = ?, ");
+		sqlStr.append("HA_Q3_A7 = ?, HA_Q3_B6 = ?, HA_Q3_D11 = ?, HA_Q3_F7 = ?, HA_Q3_E4 = ?, ");
+		sqlStr.append("HA_Q5_A8 = ?, GC_16 = ?, GC_17 = ?, ");
+		sqlStr.append("A_44 = ?, A_45 = ?, A_46 = ?, HA_Q3_G4 = ?, HA_Q3_G5 = ?, ");
+		// new ccr form
+		sqlStr.append("MN_19 = ?, MN_20 = ?, MN_21 = ?, MN_22 = ?, MN_23 = ?, ");
+		sqlStr.append("MN_24 = ?, MN_25 = ?, MN_26 = ?, MN_27 = ?, MN_28 = ?, MN_29 = ?, MN_30 = ?, ");
+		sqlStr.append("MN_31 = to_date(?, 'dd/mm/yyyy'), MN_32 = ?, ");
+		sqlStr.append("MN_33 = ?, MN_34 = ?, MN_35 = ?, MN_36 = ?, MN_37 = ?, ");
+		sqlStr.append("MN_38 = ?, MN_39 = ?, MN_40 = ?, MN_41 = ?, ");
+		sqlStr.append("MN_42 = ?, MN_43 = ?, MN_44 = ?, MN_45 = ?, MN_46 = ?, ");
+		sqlStr.append("MN_47 = ?, MN_48 = ?, MN_49 = ?, ");
+		sqlStr.append("MN_50 = ?, MN_51 = ?, MN_52 = ?, MN_53 = ?, MN_54 = ?, ");
+		sqlStr.append("MN_55 = ?, MN_56 = ?, MN_57 = ?, MN_58 = ?, MN_59 = ?, ");
+		sqlStr.append("MN_60 = ?, MN_61 = ?, ");
+		sqlStr.append("MN_62 = ?, MN_63 = ?, MN_64 = ?, MN_65 = ?, MN_66 = ?, ");
+		sqlStr.append("MN_67 = ?, MN_68 = ?, MN_69 = ?, ");
+		sqlStr.append("MN_70 = ?, MN_71 = ?, MN_72 = ?, MN_73 = ?, MN_74 = ?, ");
+		sqlStr.append("MN_75 = ?, MN_76 = ?, ");
+		sqlStr.append("CCR_PHASE = ?, ");
+		sqlStr.append("MN_77 = ?, MN_78 = ?, MN_79 = ?, MN_80 = ?, ");
+		sqlStr.append("MN_81 = ?, MN_82 = ?, MN_83 = ?, MN_84 = ?, mn_85 = ?, ");
+		//
+		sqlStr.append("MN_86 = ?, MN_87 = ?, MN_88 = ?, MN_89 = ?, mn_90 = ?, ");
+		sqlStr.append("MN_91 = ?, MN_92 = ?, MN_93 = ?, MN_94 = ?, mn_95 = ?, ");
+		sqlStr.append("MN_96 = ?, MN_97 = ?, ");
+		//
+		sqlStr.append("MN_98 = ?, MN_99 = ?, MN_100 = ?, MN_101 = ?, MN_102 = ?, ");
+		sqlStr.append("MN_103 = ?, MN_104 = ?, MN_105 = ?, MN_106 = ?, ");
+		sqlStr.append("HA_FORM_TYPE_OTHER = ?, MN_107 = ?, MN_108 = ?, phy_26 = ?, MN_110 = ?, ");
+//20250219 Arran added patConNo
+		sqlStr.append("patConNo = ? ");
+		sqlStr.append("WHERE HA_ID = ? and HA_REGID = ? ");
+		sqlStr_updateHAForm = sqlStr.toString();
+		
+		sqlStr.setLength(0);
+		sqlStr.append("UPDATE HA_FORM ");
+		sqlStr.append("SET ");
+		sqlStr.append(" HA_FORM_TYPE = ?, ");
+		sqlStr.append(" MODIFY_USER = ?, ");
+		sqlStr.append(" MODIFY_DATE = SYSDATE ");
+		sqlStr.append("WHERE HA_ID = ?");
+		sqlStr_updateHAFormType = sqlStr.toString();
+
+		sqlStr.setLength(0);
+		sqlStr.append("SELECT HA_SITE_CODE, HA_ID, HA_PAT_NO, HA_FORM_TYPE, HA_Q1, ");
+		sqlStr.append("HA_Q2_1, HA_Q2_2, HA_Q2_3, HA_Q2_4, HA_Q2_5, ");
+		sqlStr.append("HA_Q2_6, HA_Q3_A1, HA_Q3_A2, HA_Q3_A3, HA_Q3_A4, ");
+		sqlStr.append("HA_Q3_B1, HA_Q3_B2, HA_Q3_B3, HA_Q3_C1, HA_Q3_C2, ");
+		sqlStr.append("HA_Q3_D1, HA_Q3_D2, HA_Q3_D3, HA_Q3_D4, HA_Q3_E1, ");
+		sqlStr.append("HA_Q3_F1, HA_Q3_F2, HA_Q3_F3, HA_Q3_F4, ");
+		sqlStr.append("HA_Q3_G1, HA_Q3_G2, HA_Q3_G3, HA_Q4_1, HA_Q4_2, ");
+		sqlStr.append("HA_Q5_A1, HA_Q5_A2, HA_Q5_A3, HA_Q5_A4, HA_Q5_A5, ");
+		sqlStr.append("HA_Q5_A6, HA_Q5_B1, ");
+		sqlStr.append("HA_Q6_A1, HA_Q6_A2, HA_Q6_B1, HA_Q6_B2, HA_Q6_C1, HA_Q6_C2, ");
+		sqlStr.append("SMOKE_1, SMOKE_2, SMOKE_3, SMOKE_4, SMOKE_5, SMOKE_6, ");
+		sqlStr.append("DRINK_1, DRINK_2, DRINK_3, DRINK_4, DRINK_5, ");
+		sqlStr.append("DRINK_6, DRINK_7, DRINK_8, DRINK_9, DRINK_10, ");
+		sqlStr.append("DRINK_11, DRINK_12, DRINK_13, DRINK_14, ");
+		sqlStr.append("EAT_1, EAT_2, EAT_3, EAT_4, ");
+		sqlStr.append("EAT_5, EAT_6, EAT_7, EAT_8, EAT_9, ");
+		sqlStr.append("EAT_10, EAT_11, EAT_12, EAT_13, EAT_14, ");
+		sqlStr.append("SLEEP_1, SLEEP_2, ");
+		sqlStr.append("SPORT_1, SPORT_2, SPORT_3, SPORT_4, ");
+		sqlStr.append("MOOD_1, MOOD_2, MOOD_3, MOOD_4, ");
+		sqlStr.append("FEMALE_1, FEMALE_2, FEMALE_3, FEMALE_4, FEMALE_5, ");
+		sqlStr.append("FEMALE_6, FEMALE_7, FEMALE_8, FEMALE_9, FEMALE_10, ");
+		sqlStr.append("PHY_1, PHY_2, PHY_3, PHY_4, PHY_5, ");
+		sqlStr.append("PHY_6, PHY_7, PHY_8, PHY_9, PHY_10, ");
+		sqlStr.append("PHY_11, PHY_12, PHY_13, PHY_14, PHY_15, ");
+		sqlStr.append("PHY_16, PHY_17, ");
+		sqlStr.append("GC_1, GC_2, GC_3, GC_4, GC_5, GC_6, ");
+		sqlStr.append("GC_7, GC_8, GC_9, GC_10, GC_11, GC_12, ");
+		sqlStr.append("GC_13, GC_14, GC_15, ");
+		sqlStr.append("ENT_1, ENT_2, ENT_3, ENT_4, ENT_5, ");
+		sqlStr.append("ENT_6, ENT_7, ENT_8, ENT_9, ENT_10, ");
+		sqlStr.append("ENT_11, ENT_12, ENT_13, ENT_14, ENT_15, ");
+		sqlStr.append("ENT_16, ENT_17, ENT_18, ENT_19, ENT_20, ");
+		sqlStr.append("ENT_21, ");
+		sqlStr.append("ENT_22, ENT_23, ENT_24, ENT_25, ENT_26, ");
+		sqlStr.append("ENT_27, ENT_28, ENT_29, ENT_30, ENT_31, ");
+		sqlStr.append("ENT_32, ENT_33, ENT_34, ");
+		sqlStr.append("ENT_35, ENT_36, ENT_37, ENT_38, ENT_39, ");
+		sqlStr.append("ENT_40, ENT_41, ENT_42, ENT_43, ENT_44, ");
+		sqlStr.append("ENT_45, ");
+		sqlStr.append("LS_1, LS_2, LS_3, LS_4, LS_5, ");
+		sqlStr.append("LS_6, ");
+		sqlStr.append("BN_1, BN_2, BN_3, BN_4, BN_5, ");
+		sqlStr.append("BN_6, BN_7, BN_8, BN_9, BN_10, ");
+		sqlStr.append("BN_11, BN_12, BN_13, BN_14, BN_15, ");
+		sqlStr.append("BN_16, ");
+		sqlStr.append("RS_1, RS_2, RS_3, RS_4, RS_5, ");
+		sqlStr.append("RS_6, RS_7, RS_8, RS_9, RS_10, ");
+		sqlStr.append("CS_1, CS_2, CS_3, CS_4, CS_5, ");
+		sqlStr.append("CS_6, CS_7, CS_8, ");
+		sqlStr.append("NE_1, NE_2, NE_3, NE_4, NE_5, ");
+		sqlStr.append("NE_6, NE_7, NE_8, NE_9, NE_10, ");
+		sqlStr.append("NE_11, NE_12, NE_13, NE_14, NE_15, ");
+		sqlStr.append("NE_16, NE_17, NE_18, NE_19, NE_20, ");
+		sqlStr.append("S_1, S_2, S_3, S_4, ");
+		sqlStr.append("A_0, A_1, A_2, A_3, A_4, A_5, ");
+		sqlStr.append("A_6, A_7, A_8, A_9, A_10, ");
+		sqlStr.append("A_11, A_12, A_13, A_14, A_15, ");
+		sqlStr.append("A_16, A_17, A_18, A_19, A_20, ");
+		sqlStr.append("A_21, A_22, A_23, A_24, A_25, ");
+		sqlStr.append("A_26, A_27, A_28, A_29, A_30, ");
+		sqlStr.append("A_31, ");
+		sqlStr.append("EX_1, EX_2, ");
+		sqlStr.append("MN_1, MN_2, MN_3, MN_4, MN_5, ");
+		sqlStr.append("MN_6, MN_7, MN_8, MN_9, MN_10, ");
+		sqlStr.append("MN_11, ");
+		// key field 後加
+		sqlStr.append("HA_REGID, ");
+		sqlStr_fetchAccessForm1 = sqlStr.toString();
+
+		sqlStr.setLength(0);
+		sqlStr.append("nn.TMP, substr(nn.BP, 1, 3), substr(nn.BP, 5, 3), nn.PULSE, nn.SAO2, nn.WT, nn.HT, nn.RR, nn.HC,  ");
+		sqlStr_fetchAccessForm2 = sqlStr.toString();
+
+		sqlStr.setLength(0);
+		sqlStr.append(" '', '', '', '', '', '', '', '', '', ");
+		sqlStr_fetchAccessForm2_rpt = sqlStr.toString();
+
+		sqlStr.setLength(0);
+		sqlStr.append("PHY_18, PHY_19, PHY_20, ");
+		sqlStr.append("HA_Q2_7, HA_Q2_8,  ");
+		sqlStr.append("ENT_46, ENT_47, ENT_48, ENT_49, ENT_50, ENT_51, ");
+		sqlStr.append("RS_11, RS_12, RS_13, RS_14, RS_15, RS_16, ");
+		sqlStr.append("ENT_52, ENT_53, ENT_54, ENT_55, ");
+		sqlStr.append("A_32, A_33, A_34, A_35, A_36, ");
+		sqlStr.append("A_37, A_38, A_39, A_40, ");
+		sqlStr.append("REMARK, ");
+		sqlStr.append("COMPLETED, ");
+		sqlStr.append("MN_12, MN_13, MN_14, ");
+		sqlStr.append("HA_Q3_H1, HA_DOCCODE, ");
+		sqlStr.append("to_char(CREATE_DATE, 'dd/mm/yyyy'), to_char(CREATE_DATE, 'hh24:mi:ss'), ");
+		sqlStr.append("p.PATFNAME || ' ' || p.PATGNAME patname, ");
+		sqlStr.append("DECODE(SIGN(TO_NUMBER(TO_CHAR(SYSDATE,'MM'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'MM'))), -1, ");
+		sqlStr.append("(TO_NUMBER(TO_CHAR(SYSDATE,'YYYY'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'YYYY'))-1)||'yr '|| ");
+		sqlStr.append("(12-(TO_NUMBER(TO_CHAR(P.PATBDATE,'MM'))-TO_NUMBER(TO_CHAR(SYSDATE,'MM'))))||'mths', ");
+		sqlStr.append("0, (TO_NUMBER(TO_CHAR(SYSDATE,'YYYY'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'YYYY')))||'yr ', ");
+		sqlStr.append("1, (TO_NUMBER(TO_CHAR(SYSDATE,'YYYY'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'YYYY')))||'yr '|| ");
+		sqlStr.append("(TO_NUMBER(TO_CHAR(SYSDATE,'MM'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'MM')))||'mths') AS AGE, ");
+		sqlStr.append("P.PATSEX, TO_CHAR(P.PATBDATE, 'DD-MON-YYYY', 'NLS_DATE_LANGUAGE=AMERICAN') patdob, ");
+		sqlStr.append("d.DOCFNAME || ' ' || d.DOCGNAME docname, ");
+		sqlStr.append("MN_15, p.PATCNAME, ");
+		sqlStr.append("HA_Q3_A5, HA_Q3_A6, HA_Q3_B4, HA_Q3_B5, HA_Q3_D5, HA_Q3_D6, ");
+		sqlStr.append("HA_Q3_E2, HA_Q3_E3, HA_Q3_F5, HA_Q3_F6, HA_Q3_H2, HA_Q3_I1, ");
+		sqlStr.append("HA_Q5_A7, FEMALE_11, FEMALE_12, ");
+		sqlStr.append("HA_Q3_D7, HA_Q3_D8, HA_Q3_D9, HA_Q3_D10, ");
+		sqlStr.append("EAT_15, EAT_16, d.DOCCNAME, ");
+		sqlStr.append("to_char(MODIFY_DATE, 'dd/mm/yyyy'), to_char(MODIFY_DATE, 'hh24:mi:ss'), co_staffname, ");
+		sqlStr.append("EAT_17, EAT_18, EAT_19, EAT_20, EAT_21, EAT_22, ");
+		sqlStr.append("DRINK_15, MN_16, A_41, A_42, MN_17, MN_18, ");
+		sqlStr.append("EAT_23, EAT_24, SMOKE_7, SLEEP_3, SLEEP_4, SLEEP_5, SLEEP_6, ");
+		sqlStr.append("ENT_56, A_43, ");
+		sqlStr.append("PHY_21, PHY_22, PHY_23, PHY_24, PHY_25, ");
+		sqlStr.append("HA_Q3_A7, HA_Q3_B6, HA_Q3_D11, HA_Q3_F7, HA_Q3_E4, ");
+		sqlStr.append("HA_Q5_A8, GC_16, GC_17, ");
+		sqlStr.append("A_44, A_45, A_46, HA_Q3_G4, HA_Q3_G5, ");
+		sqlStr.append("ENT_57, ");
+		// ccr form
+		sqlStr.append("MN_19, MN_20, MN_21, MN_22, MN_23, ");
+		sqlStr.append("MN_24, MN_25, MN_26, MN_27, MN_28, MN_29, MN_30, ");
+		sqlStr.append("to_char(MN_31, 'dd/mm/yyyy'), MN_32, ");
+		sqlStr.append("MN_33, MN_34, MN_35, MN_36, MN_37, ");
+		sqlStr.append("MN_38, MN_39, MN_40, MN_41, ");
+		sqlStr.append("MN_42, MN_43, MN_44, MN_45, MN_46, ");
+		sqlStr.append("MN_47, MN_48, MN_49, ");
+		sqlStr.append("MN_50, MN_51, MN_52, MN_53, MN_54, ");
+		sqlStr.append("MN_55, MN_56, MN_57, MN_58, MN_59, ");
+		sqlStr.append("MN_60, MN_61, ");
+		sqlStr.append("MN_62, MN_63, MN_64, MN_65, MN_66, ");
+		sqlStr.append("MN_67, MN_68, MN_69, ");
+		sqlStr.append("MN_70, MN_71, MN_72, MN_73, MN_74, ");
+		sqlStr.append("MN_75, MN_76, ");
+		sqlStr.append("CCR_PHASE, ");
+		sqlStr.append("MN_77, MN_78, MN_79, MN_80, ");
+		sqlStr.append("MN_81, MN_82, MN_83, MN_84, MN_85, ");
+		//
+		sqlStr.append("MN_86, MN_87, MN_88, MN_89, MN_90, ");
+		sqlStr.append("MN_91, MN_92, MN_93, MN_94, MN_95, ");
+		sqlStr.append("MN_96, MN_97, ");
+		//
+		sqlStr.append("MN_98, MN_99, MN_100, MN_101, MN_102, ");
+		sqlStr.append("MN_103, MN_104, MN_105, MN_106, ");
+		sqlStr.append("HA_FORM_TYPE_OTHER, HA_PAT_AGE, MN_107, MN_108, ");
+		sqlStr.append("P.PATADD1, PATADD2, PATADD3, phy_26, MN_110, "); 
+//20250219 Arran added patConNo								
+		sqlStr.append("patConNo "); //end 506
+		sqlStr.append("from HA_FORM ha ");
+		sqlStr_fetchAccessForm3 = sqlStr.toString();
+
+		sqlStr.setLength(0);
+		sqlStr.append("left outer join OPD_NX_NOTE@cis nn on ha.ha_pat_no = nn.patno and nn.regid = ha.ha_regid ");
+		sqlStr_fetchAccessForm4 = sqlStr.toString();
+
+		sqlStr.setLength(0);
+		sqlStr.append("join patient@iweb p on ha.ha_pat_no = p.patno ");
+		sqlStr.append("join doctor@iweb d on ha.ha_doccode = d.doccode ");
+		sqlStr.append("left outer join co_staffs st on st.co_staff_id = MODIFY_USER ");
+		sqlStr.append("where ha_enabled = 1 and ha_id = ? ");
+		sqlStr_fetchAccessForm5 = sqlStr.toString();
+		// added 21-11-2016
+
+		sqlStr.setLength(0);
+		sqlStr.append("and cancel_reason is null and cancel_date is null ");
+		sqlStr_fetchAccessForm6 = sqlStr.toString();
+		//
+		sqlStr_fetchAccessForm = sqlStr_fetchAccessForm1 + sqlStr_fetchAccessForm2 + sqlStr_fetchAccessForm3 + sqlStr_fetchAccessForm4 + sqlStr_fetchAccessForm5 + sqlStr_fetchAccessForm6;
+	}
+
+	public static Boolean NeedAddRegHAForm(String patNo, String regID, String formType, String regDate) {
+		String sql = null;
+		String haID = null;
+
+		if ("NORMAL".equals(formType)) {
+			sql = "select ha_id from HA_FORM where ha_enabled = 1 and ha_pat_no = '" + patNo + "' and ha_regid = '" + regID + "' and ha_form_type <> 'CCR'";
+		} else {
+			sql = "select ha_id from HA_FORM where ha_enabled = 1 and ha_pat_no = '" + patNo + "' and ha_regid = '" + regID + "' and ha_form_type = '" + formType + "'";
+		}
+		sql += " and CREATE_DATE >= to_date('" + regDate + " 000000' , 'dd/mm/yyyy hh24miss') and CREATE_DATE <= to_date('" + regDate + " 235959' , 'dd/mm/yyyy hh24miss')";
+		ArrayList result = UtilDBWeb.getReportableList(sql);
+		if (result.size() > 0) {
+			ReportableListObject reportableListObject = (ReportableListObject) result.get(0);
+			haID = reportableListObject.getValue(0);
+			// set 1 for initial
+			if (haID == null || haID.length() == 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static Boolean isNewHAForm(String patNo, String regID, String formType) {
+		String sql = null;
+		String haID = null;
+
+		if (formType == null) {
+			sql = "select ha_id from HA_FORM where ha_enabled = 1 and ha_pat_no = '" + patNo + "' and ha_regid = '" + regID + "' and ha_form_type <> 'CCR'";
+		} else {
+			sql = "select ha_id from HA_FORM where ha_enabled = 1 and ha_pat_no = '" + patNo + "' and ha_regid = '" + regID + "' and ha_form_type = '" + formType + "'";
+		}
+		ArrayList result = UtilDBWeb.getReportableList(sql);
+		if (result.size() > 0) {
+			ReportableListObject reportableListObject = (ReportableListObject) result.get(0);
+			haID = reportableListObject.getValue(0);
+			// set 1 for initial
+			if (haID == null || haID.length() == 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static String getHAFormID(String patNo, String regID, String formType) {
+		String haID = null;
+		String sql = null;
+
+		if (formType == null) {
+			sql = "select ha_id from HA_FORM where ha_enabled = 1 and ha_pat_no = '" + patNo + "' and ha_regid = '" + regID + "' and ha_form_type <> 'CCR' order by ha_id desc";
+		} else {
+			sql = "select ha_id from HA_FORM where ha_enabled = 1 and ha_pat_no = '" + patNo + "' and ha_regid = '" + regID + "' and ha_form_type = '" + formType + "' order by ha_id desc";
+		}
+		ArrayList result = UtilDBWeb.getReportableList(sql);
+		if (result.size() > 0) {
+			ReportableListObject reportableListObject = (ReportableListObject) result.get(0);
+			haID = reportableListObject.getValue(0);
+
+			// set 1 for initial
+			if (haID == null || haID.length() == 0) return "1";
+		}
+		return haID;
+	}
+
+	public static String getHALastestFormID(String patNo, String formType) {
+		String haID = null;
+		String sql = null;
+
+		if (formType == null) {
+			sql = "select ha_id from HA_FORM where ha_enabled = 1 and ha_pat_no = '" + patNo + "' and ha_form_type <> 'CCR' order by ha_id desc";
+		} else {
+			sql = "select ha_id from HA_FORM where ha_enabled = 1 and ha_pat_no = '" + patNo + "' and ha_form_type like '%CCR%' and completed = 0 order by ha_id desc";
+		}
+		ArrayList result = UtilDBWeb.getReportableList(sql);
+		if (result.size() > 0) {
+			ReportableListObject reportableListObject = (ReportableListObject) result.get(0);
+			haID = reportableListObject.getValue(0);
+
+			// set 1 for initial
+			if (haID == null || haID.length() == 0) return "1";
+		}
+		return haID;
+	}
+
+	public static String getLatesrRegID(String patNo) {
+		String regID = null;
+
+		ArrayList result = UtilDBWeb.getReportableList("select HA_REGID from ha_form where ha_enabled = 1 and ha_id = (select max(HA_ID) from ha_form where ha_pat_no = '" + patNo + "')");
+		if (result.size() > 0) {
+			ReportableListObject reportableListObject = (ReportableListObject) result.get(0);
+			regID = reportableListObject.getValue(0);
+
+			if (regID == null || regID.length() == 0) return "-1";
+		}
+		return regID;
+	}
+
+	private static Boolean isNewAccessform(String patNo, String regID, String formType) {
+		String countAcessForm = null;
+		String sql = null;
+
+		if (formType == null) {
+			sql = "select count(1) from HA_FORM where ha_enabled = 1 and ha_pat_no = '" + patNo + "'  and ha_regid = '" + regID + "' and ha_form_type <> 'CCR'";
+		} else {
+			sql = "select count(1) from HA_FORM where ha_enabled = 1 and ha_pat_no = '" + patNo + "'  and ha_regid = '" + regID + "' and ha_form_type = '" + formType + "'";
+		}
+		System.out.println("HAFormDB sql="+sql);
+
+		ArrayList result = UtilDBWeb.getReportableList(sql);
+		if (result.size() > 0) {
+			ReportableListObject reportableListObject = (ReportableListObject) result.get(0);
+			countAcessForm = reportableListObject.getValue(0);
+
+			if ("0".equals(countAcessForm)) return true;
+		}
+		return false;
+	}
+
+	private static String getNextHAFormID() {
+		String haID = null;
+
+		ArrayList result = UtilDBWeb.getReportableList("SELECT MAX(HA_ID) + 1 FROM HA_FORM");
+		if (result.size() > 0) {
+			ReportableListObject reportableListObject = (ReportableListObject) result.get(0);
+			haID = reportableListObject.getValue(0);
+
+			// set 1 for initial
+			if (haID == null || haID.length() == 0) return "1";
+		}
+		return haID;
+	}
+
+	//21-12-2016
+	public static String getRegDocName(String regID) {
+		String docName = null;
+
+		ArrayList result = UtilDBWeb.getReportableList("select docfname || ' ' || docgname from doctor@iweb where doccode = (select doccode from reg@iweb where regid = '" + regID + "')");
+		if (result.size() > 0) {
+			ReportableListObject reportableListObject = (ReportableListObject) result.get(0);
+			docName = reportableListObject.getValue(0);
+		}
+		return docName;
+	}
+
+	//21-12-2016
+	public static String getRegDocCode(String regID) {
+		String docCode = null;
+
+		ArrayList result = UtilDBWeb.getReportableList("select doccode from reg@iweb where regid = '" + regID + "'");
+		if (result.size() > 0) {
+			ReportableListObject reportableListObject = (ReportableListObject) result.get(0);
+			docCode = reportableListObject.getValue(0);
+		}
+		return docCode;
+	}
+
+	public static boolean completeHAForm(String haID, String completed) {
+		StringBuffer sqlStr = new StringBuffer();
+		String status = null;
+
+		sqlStr.append("update ha_form set completed = ? where ha_id = ?");
+
+		if ("1".equals(completed)) {
+			status = "0";
+		} else {
+			status = "1";
+		}
+
+		UtilDBWeb.updateQueue(sqlStr.toString(), new String[]{status, haID});
+
+		return true;
+	}
+
+	public static boolean updateHAPatAge(String haID, String patNo) {
+		StringBuffer sqlStr = new StringBuffer();
+		String patAge = null;
+		ArrayList result = null;
+		ReportableListObject reportableListObject = null;
+
+		result = PatientDB.getPatInfo(patNo);
+		if (result.size() > 0) {
+			reportableListObject = (ReportableListObject) result.get(0);
+			patAge = reportableListObject.getValue(5);
+		}
+		sqlStr.append("update ha_form set ha_pat_age = ? where ha_id = ?");
+
+		UtilDBWeb.updateQueue(sqlStr.toString(), new String[]{patAge, haID});
+
+		return true;
+	}
+	
+//For old method calling	
+	public static String saveHAForm(UserBean userBean, String staffID,  String regID, String patNo, String formType, String q1,
+			String q2_1, String q2_2, String q2_3, String q2_4, String q2_5, String q2_6, String q2_7, String q2_8,
+			String q3_a1, String q3_a2, String q3_a3, String q3_a4,
+			String q3_b1, String q3_b2, String q3_b3, String q3_c1, String q3_c2,
+			String q3_d1, String q3_d2, String q3_d3, String q3_d4, String q3_e1,
+			String q3_f1, String q3_f2, String q3_f3, String q3_f4,
+			String q3_g1, String q3_g2, String q3_g3, String q3_h1, String q4_1, String q4_2,
+			String q5_a1, String q5_a2, String q5_a3, String q5_a4, String q5_a5,
+			String q5_a6, String q5_b1,
+			String q6_a1, String q6_a2, String q6_b1, String q6_b2, String q6_c1, String q6_c2,
+			String smoke_1, String smoke_2, String smoke_3, String smoke_4, String smoke_5, String smoke_6,
+			String drink_1, String drink_2, String drink_3, String drink_4, String drink_5,
+			String drink_6, String drink_7, String drink_8, String drink_9, String drink_10,
+			String drink_11, String drink_12, String drink_13, String drink_14,
+			String eat_1, String eat_2, String eat_3, String eat_4,
+			String eat_5, String eat_6, String eat_7, String eat_8, String eat_9,
+			String eat_10, String eat_11, String eat_12, String eat_13, String eat_14,
+			String sleep_1, String sleep_2,
+			String sport_1, String sport_2, String sport_3, String sport_4,
+			String mood_1, String mood_2, String mood_3, String mood_4,
+			String female_1, String female_2, String female_3, String female_4, String female_5,
+			String female_6, String female_7, String female_8, String female_9, String female_10,
+			String phy_1, String phy_2, String phy_3, String phy_4, String phy_5,
+			String phy_6, String phy_7, String phy_8, String phy_9, String phy_10,
+			String phy_11, String phy_12, String phy_13, String phy_14, String phy_15,
+			String phy_16, String phy_17, String phy_18, String phy_19, String phy_20,
+			String gc_1, String gc_2, String gc_3, String gc_4, String gc_5, String gc_6,
+			String gc_7, String gc_8, String gc_9, String gc_10, String gc_11,
+			String gc_12, String gc_13, String gc_14, String gc_15,
+			String[] ent_p,
+			String ls_1, String ls_2, String ls_3, String ls_4, String ls_5, String ls_6,
+			String bn_1, String bn_2, String bn_3, String bn_4, String bn_5,
+			String bn_6, String bn_7, String bn_8, String bn_9, String bn_10,
+			String bn_11, String bn_12, String bn_13, String bn_14, String bn_15,
+			String bn_16,
+			String rs_1, String rs_2, String rs_3, String rs_4, String rs_5,
+			String rs_6, String rs_7, String rs_8, String rs_9, String rs_10,
+			String rs_11, String rs_12, String rs_13, String rs_14, String rs_15, String rs_16,
+			String cs_1, String cs_2, String cs_3, String cs_4, String cs_5,
+			String cs_6, String cs_7, String cs_8,
+			String[] ne_p,
+			String s_1, String s_2, String s_3, String s_4,
+			String[] a_p, String ex_1, String ex_2, String[] mn_p,
+			String remark, String completed, String docCode,
+			String q3_a5, String q3_a6, String q3_b4, String q3_b5,
+			String q3_d5, String q3_d6, String q3_e2, String q3_e3,
+			String q3_f5, String q3_f6, String q3_h2, String q3_i1,
+			String q5_a7, String female11, String female12,
+			String q3_d7, String q3_d8, String q3_d9, String q3_d10,
+			String eat_15, String eat_16, String eat_17, String eat_18, String eat_19, String eat_20,
+			String eat_21, String eat_22,  String drink_15, String eat_23, String eat_24,
+			String smoke_7,
+			String sleep_3, String sleep_4, String sleep_5, String sleep_6,
+			String phy_21, String phy_22, String phy_23, String phy_24, String phy_25,
+			String q3_a7, String q3_b6, String q3_d11, String q3_f7, String q3_e4,
+			String q5_a8, String gc_16, String gc_17, String q3_g4, String q3_g5,
+			String seqNo,
+			String[] createDateArray,						
+			String ccr_phase, String formTypeOther, String phy_26
+			) {
+		System.out.println("DEBUG old saveHAForm");
+		return 	saveHAForm( userBean,  staffID,   regID,  patNo,  formType,  q1,
+				 q2_1,  q2_2,  q2_3,  q2_4,  q2_5,  q2_6,  q2_7,  q2_8,
+				 q3_a1,  q3_a2,  q3_a3,  q3_a4,
+				 q3_b1,  q3_b2,  q3_b3,  q3_c1,  q3_c2,
+				 q3_d1,  q3_d2,  q3_d3,  q3_d4,  q3_e1,
+				 q3_f1,  q3_f2,  q3_f3,  q3_f4,
+				 q3_g1,  q3_g2,  q3_g3,  q3_h1,  q4_1,  q4_2,
+				 q5_a1,  q5_a2,  q5_a3,  q5_a4,  q5_a5,
+				 q5_a6,  q5_b1,
+				 q6_a1,  q6_a2,  q6_b1,  q6_b2,  q6_c1,  q6_c2,
+				 smoke_1,  smoke_2,  smoke_3,  smoke_4,  smoke_5,  smoke_6,
+				 drink_1,  drink_2,  drink_3,  drink_4,  drink_5,
+				 drink_6,  drink_7,  drink_8,  drink_9,  drink_10,
+				 drink_11,  drink_12,  drink_13,  drink_14,
+				 eat_1,  eat_2,  eat_3,  eat_4,
+				 eat_5,  eat_6,  eat_7,  eat_8,  eat_9,
+				 eat_10,  eat_11,  eat_12,  eat_13,  eat_14,
+				 sleep_1,  sleep_2,
+				 sport_1,  sport_2,  sport_3,  sport_4,
+				 mood_1,  mood_2,  mood_3,  mood_4,
+				 female_1,  female_2,  female_3,  female_4,  female_5,
+				 female_6,  female_7,  female_8,  female_9, female_10,
+				 phy_1,  phy_2,  phy_3,  phy_4,  phy_5,
+				 phy_6,  phy_7,  phy_8,  phy_9,  phy_10,
+				 phy_11,  phy_12,  phy_13,  phy_14,  phy_15,
+				 phy_16,  phy_17,  phy_18,  phy_19,  phy_20,
+				 gc_1,  gc_2,  gc_3,  gc_4,  gc_5,  gc_6,
+				 gc_7,  gc_8,  gc_9,  gc_10,  gc_11,
+				 gc_12,  gc_13,  gc_14,  gc_15, ent_p,
+				 ls_1,  ls_2,  ls_3,  ls_4,  ls_5,  ls_6,
+				 bn_1,  bn_2,  bn_3,  bn_4,  bn_5,
+				 bn_6,  bn_7,  bn_8,  bn_9,  bn_10,
+				 bn_11,  bn_12,  bn_13,  bn_14,  bn_15, bn_16,
+				 rs_1,  rs_2,  rs_3,  rs_4,  rs_5,
+				 rs_6,  rs_7,  rs_8,  rs_9,  rs_10,
+				 rs_11,  rs_12,  rs_13,  rs_14,  rs_15,  rs_16,
+				 cs_1,  cs_2,  cs_3,  cs_4,  cs_5,
+				 cs_6,  cs_7,  cs_8, ne_p,
+				 s_1,  s_2,  s_3,  s_4,
+				 a_p,  ex_1,  ex_2,  mn_p,
+				 remark,  completed, docCode,
+				 q3_a5,  q3_a6,  q3_b4,  q3_b5,
+				 q3_d5,  q3_d6,  q3_e2,  q3_e3,
+				 q3_f5,  q3_f6,  q3_h2,  q3_i1,
+				 q5_a7,  female11,  female12,
+				 q3_d7,  q3_d8,  q3_d9,  q3_d10,
+				 eat_15,  eat_16,  eat_17,  eat_18,  eat_19,  eat_20,
+				 eat_21,  eat_22,   drink_15,  eat_23,  eat_24, smoke_7,
+				 sleep_3,  sleep_4,  sleep_5,  sleep_6,
+				 phy_21,  phy_22,  phy_23,  phy_24,  phy_25,
+				 q3_a7,  q3_b6,  q3_d11,  q3_f7,  q3_e4,
+				 q5_a8,  gc_16,  gc_17,  q3_g4,  q3_g5,
+				 seqNo, createDateArray,								
+				 ccr_phase,  formTypeOther,  phy_26, null
+				); 		
+	}
+	
+	public static boolean updateFormType(String haID, String newFormType, String userID) {
+		return UtilDBWeb.updateQueue(sqlStr_updateHAFormType, new String[]{newFormType, userID, haID});
+	}	
+
+	public static String saveHAForm(UserBean userBean, String staffID,  String regID, String patNo, String formType, String q1,
+									String q2_1, String q2_2, String q2_3, String q2_4, String q2_5, String q2_6, String q2_7, String q2_8,
+									String q3_a1, String q3_a2, String q3_a3, String q3_a4,
+									String q3_b1, String q3_b2, String q3_b3, String q3_c1, String q3_c2,
+									String q3_d1, String q3_d2, String q3_d3, String q3_d4, String q3_e1,
+									String q3_f1, String q3_f2, String q3_f3, String q3_f4,
+									String q3_g1, String q3_g2, String q3_g3, String q3_h1, String q4_1, String q4_2,
+									String q5_a1, String q5_a2, String q5_a3, String q5_a4, String q5_a5,
+									String q5_a6, String q5_b1,
+									String q6_a1, String q6_a2, String q6_b1, String q6_b2, String q6_c1, String q6_c2,
+									String smoke_1, String smoke_2, String smoke_3, String smoke_4, String smoke_5, String smoke_6,
+									String drink_1, String drink_2, String drink_3, String drink_4, String drink_5,
+									String drink_6, String drink_7, String drink_8, String drink_9, String drink_10,
+									String drink_11, String drink_12, String drink_13, String drink_14,
+									String eat_1, String eat_2, String eat_3, String eat_4,
+									String eat_5, String eat_6, String eat_7, String eat_8, String eat_9,
+									String eat_10, String eat_11, String eat_12, String eat_13, String eat_14,
+									String sleep_1, String sleep_2,
+									String sport_1, String sport_2, String sport_3, String sport_4,
+									String mood_1, String mood_2, String mood_3, String mood_4,
+									String female_1, String female_2, String female_3, String female_4, String female_5,
+									String female_6, String female_7, String female_8, String female_9, String female_10,
+									String phy_1, String phy_2, String phy_3, String phy_4, String phy_5,
+									String phy_6, String phy_7, String phy_8, String phy_9, String phy_10,
+									String phy_11, String phy_12, String phy_13, String phy_14, String phy_15,
+									String phy_16, String phy_17, String phy_18, String phy_19, String phy_20,
+									String gc_1, String gc_2, String gc_3, String gc_4, String gc_5, String gc_6,
+									String gc_7, String gc_8, String gc_9, String gc_10, String gc_11,
+									String gc_12, String gc_13, String gc_14, String gc_15,
+									String[] ent_p,
+									String ls_1, String ls_2, String ls_3, String ls_4, String ls_5, String ls_6,
+									String bn_1, String bn_2, String bn_3, String bn_4, String bn_5,
+									String bn_6, String bn_7, String bn_8, String bn_9, String bn_10,
+									String bn_11, String bn_12, String bn_13, String bn_14, String bn_15,
+									String bn_16,
+									String rs_1, String rs_2, String rs_3, String rs_4, String rs_5,
+									String rs_6, String rs_7, String rs_8, String rs_9, String rs_10,
+									String rs_11, String rs_12, String rs_13, String rs_14, String rs_15, String rs_16,
+									String cs_1, String cs_2, String cs_3, String cs_4, String cs_5,
+									String cs_6, String cs_7, String cs_8,
+									//String ne_1, String ne_2, String ne_3, String ne_4, String ne_5,
+									//String ne_6, String ne_7, String ne_8, String ne_9, String ne_10,
+									//String ne_11, String ne_12, String ne_13, String ne_14, String ne_15,
+									//String ne_16, String ne_17, String ne_18, String ne_19, String ne_20,
+									String[] ne_p,
+									String s_1, String s_2, String s_3, String s_4,
+									// string array
+									String[] a_p, String ex_1, String ex_2, String[] mn_p,
+									String remark, String completed, String docCode,
+									String q3_a5, String q3_a6, String q3_b4, String q3_b5,
+									String q3_d5, String q3_d6, String q3_e2, String q3_e3,
+									String q3_f5, String q3_f6, String q3_h2, String q3_i1,
+									String q5_a7, String female11, String female12,
+									String q3_d7, String q3_d8, String q3_d9, String q3_d10,
+									String eat_15, String eat_16, String eat_17, String eat_18, String eat_19, String eat_20,
+									String eat_21, String eat_22,  String drink_15, String eat_23, String eat_24,
+									String smoke_7,
+									String sleep_3, String sleep_4, String sleep_5, String sleep_6,
+									String phy_21, String phy_22, String phy_23, String phy_24, String phy_25,
+									String q3_a7, String q3_b6, String q3_d11, String q3_f7, String q3_e4,
+									String q5_a8, String gc_16, String gc_17, String q3_g4, String q3_g5,
+									String seqNo,
+									String[] createDateArray,
+									/*String createDate, String createHH, String createMM,*/	
+//20250219 Arran added patConNo								
+									String ccr_phase, String formTypeOther, String phy_26, String patConNo
+									) {
+		String haID = null;
+
+		// check patno regid
+		// if new patno regid access form
+		if (isNewAccessform(patNo, regID, formType)) {
+			haID = getNextHAFormID();
+			System.out.println("DEBUG sqlStr_insertHAForm");
+			if (UtilDBWeb.updateQueue(sqlStr_insertHAForm,
+					new String[] {formType, regID,
+									ConstantsServerSide.SITE_CODE, haID, patNo, q1, q2_1,
+									q2_2, q2_3, q2_4, q2_5, q2_6, q2_7, q2_8,
+									q3_a1, q3_a2, q3_a3, q3_a4, q3_b1,
+									q3_b2, q3_b3, q3_c1, q3_c2,
+									q3_d1, q3_d2, q3_d3, q3_d4, q3_e1,
+									q3_f1, q3_f2, q3_f3, q3_f4,
+									q3_g1, q3_g2, q3_g3, q4_1, q4_2,
+									q5_a1, q5_a2, q5_a3, q5_a4, q5_a5,
+									q3_h1,
+									q5_a6, q5_b1,
+									q6_a1, q6_a2, q6_b1, q6_b2, q6_c1, q6_c2,
+									smoke_1, smoke_2, smoke_3, smoke_4, smoke_5, smoke_6,
+									drink_1,  drink_2,  drink_3,  drink_4,  drink_5,
+									drink_6,  drink_7,  drink_8,  drink_9,  drink_10,
+									drink_11,  drink_12,  drink_13,  drink_14,
+									eat_1, eat_2, eat_3, eat_4,
+									eat_5, eat_6, eat_7, eat_8, eat_9,
+									eat_10, eat_11, eat_12, eat_13, eat_14,
+									sleep_1, sleep_2,
+									sport_1, sport_2, sport_3, sport_4,
+									mood_1, mood_2, mood_3, mood_4,
+									female_1,  female_2,  female_3,  female_4,  female_5,
+									female_6,  female_7,  female_8,  female_9, female_10,
+									phy_1,  phy_2,  phy_3,  phy_4,  phy_5,
+									phy_6,  phy_7,  phy_8,  phy_9,  phy_10,
+									phy_11,  phy_12,  phy_13,  phy_14,  phy_15,
+									phy_16,  phy_17, phy_18, phy_19, phy_20,
+									gc_1, gc_2, gc_3, gc_4, gc_5, gc_6,
+									gc_7, gc_8, gc_9, gc_10, gc_11, gc_12,
+									gc_13, gc_14, gc_15,
+									ent_p[1], ent_p[2], ent_p[3], ent_p[4], ent_p[5],
+									ent_p[6], ent_p[7], ent_p[8], ent_p[9], ent_p[10],
+									ent_p[11], ent_p[12], ent_p[13], ent_p[14], ent_p[15],
+									ent_p[16], ent_p[17], ent_p[18], ent_p[19], ent_p[20],
+									ent_p[21],
+									ent_p[22],  ent_p[23],  ent_p[24],  ent_p[25],  ent_p[26],
+									ent_p[27],  ent_p[28],  ent_p[29],  ent_p[30],  ent_p[31],
+									ent_p[32],  ent_p[33],  ent_p[34],
+									ent_p[35],  ent_p[36],  ent_p[37],  ent_p[38],  ent_p[39],
+									ent_p[40],  ent_p[41],  ent_p[42],  ent_p[43],  ent_p[44],
+									ent_p[45],
+									ent_p[46],  ent_p[47],  ent_p[48],  ent_p[49],  ent_p[50],
+									ent_p[51],  ent_p[52],  ent_p[53],  ent_p[54],  ent_p[55],
+									ent_p[56],  ent_p[57],
+									ls_1, ls_2, ls_3, ls_4, ls_5, ls_6,
+									bn_1, bn_2, bn_3, bn_4, bn_5,
+									bn_6, bn_7, bn_8, bn_9, bn_10,
+									bn_11, bn_12, bn_13, bn_14, bn_15,
+									bn_16,
+									rs_1,  rs_2,  rs_3,  rs_4,  rs_5,
+									rs_6,  rs_7,  rs_8,  rs_9,  rs_10,
+									cs_1,  cs_2,  cs_3,  cs_4,  cs_5,
+									cs_6,  cs_7,  cs_8,
+									//ne_1, ne_2, ne_3, ne_4, ne_5,
+									//ne_6, ne_7, ne_8, ne_9, ne_10,
+									//ne_11, ne_12, ne_13, ne_14, ne_15,
+									//ne_16, ne_17, ne_18, ne_19, ne_20,
+									ne_p[0], ne_p[1], ne_p[2], ne_p[3], ne_p[4],
+									ne_p[5], ne_p[6], ne_p[7], ne_p[8], ne_p[9],
+									ne_p[10], ne_p[11], ne_p[12], ne_p[13], ne_p[14],
+									ne_p[15], ne_p[16], ne_p[17], ne_p[18], ne_p[19],
+									s_1, s_2, s_3, s_4,
+									a_p[0], a_p[1], a_p[2], a_p[3], a_p[4], a_p[5],
+									a_p[6], a_p[7], a_p[8], a_p[9], a_p[10],
+									a_p[11], a_p[12], a_p[13], a_p[14], a_p[15],
+									a_p[16], a_p[17], a_p[18], a_p[19], a_p[20],
+									a_p[21], a_p[22], a_p[23], a_p[24], a_p[25],
+									a_p[26], a_p[27], a_p[28], a_p[29], a_p[30],
+									a_p[31],
+									ex_1, ex_2,
+									mn_p[0],  mn_p[1],  mn_p[2],  mn_p[3],  mn_p[4],
+									mn_p[5],  mn_p[6],  mn_p[7],  mn_p[8],  mn_p[9],
+									mn_p[10], mn_p[11], mn_p[12], mn_p[13],
+									staffID, createDateArray[0] + " " + createDateArray[1] + createDateArray[2] + "00", staffID, "1", // HA_ENABLED
+									rs_11, rs_12, rs_13, rs_14, rs_15, rs_16,
+									a_p[32], a_p[33], a_p[34], a_p[35], a_p[36],
+									a_p[37], a_p[38], a_p[39], a_p[40],
+									remark, docCode, mn_p[14],
+									q3_a5, q3_a6, q3_b4, q3_b5,
+									q3_d5, q3_d6, q3_e2, q3_e3,
+									q3_f5, q3_f6, q3_h2, q3_i1,
+									q5_a7, female11, female12,
+									q3_d7, q3_d8, q3_d9, q3_d10,
+									eat_15, eat_16, eat_17, eat_18, eat_19, eat_20,
+									eat_21, eat_22,
+									seqNo, drink_15, mn_p[15], a_p[41], a_p[42],
+									mn_p[16], mn_p[17], eat_23, eat_24,
+									smoke_7,  sleep_3, sleep_4, sleep_5, sleep_6,
+									a_p[43],
+									phy_21, phy_22, phy_23, phy_24, phy_25,
+									q3_a7, q3_b6, q3_d11, q3_f7, q3_e4,
+									q5_a8, gc_16, gc_17,
+									a_p[44], a_p[45], a_p[46], q3_g4, q3_g5,
+									 // new ccr form
+									 mn_p[18], mn_p[19], mn_p[20], mn_p[21],mn_p[22],
+									 mn_p[23], mn_p[24], mn_p[25], mn_p[26],mn_p[27],
+									 mn_p[28], mn_p[29], mn_p[30], mn_p[31],mn_p[32],
+									 mn_p[33], mn_p[34], mn_p[35], mn_p[36],mn_p[37],
+									 mn_p[38], mn_p[39], mn_p[40],
+									 //
+									 mn_p[41], mn_p[42], mn_p[43], mn_p[44],mn_p[45],
+									 mn_p[46], mn_p[47], mn_p[48], mn_p[49],mn_p[50],
+									 mn_p[51], mn_p[52], mn_p[53], mn_p[54],mn_p[55],
+									 mn_p[56], mn_p[57], mn_p[58], mn_p[59],mn_p[60],
+									 //
+									 mn_p[61],mn_p[62], mn_p[63], mn_p[64], mn_p[65],
+									 mn_p[66],mn_p[67], mn_p[68],
+									 mn_p[69],mn_p[70], mn_p[71], mn_p[72], mn_p[73],
+									 mn_p[74],mn_p[75],
+									 ccr_phase,
+									 mn_p[76],mn_p[77], mn_p[78],mn_p[79],
+									 mn_p[80],mn_p[81], mn_p[82],mn_p[83],mn_p[84],
+									//
+									 mn_p[85],mn_p[86], mn_p[87],mn_p[88],mn_p[89],
+									 mn_p[90],mn_p[91], mn_p[92],mn_p[93],mn_p[94],
+									 mn_p[95],mn_p[96],
+									 //
+									 mn_p[97],mn_p[98], mn_p[99],mn_p[100],mn_p[101],
+									 mn_p[102], mn_p[103], mn_p[104], mn_p[105],
+									 formTypeOther, mn_p[106], mn_p[107],phy_26, mn_p[110],
+//20250219 Arran added patConNo								
+									 patConNo
+								})) {
+				updateHAPatAge(haID, patNo);
+				return haID;
+			} else {
+				return null;
+			}
+		} else {
+			haID = getHAFormID(patNo, regID, formType);
+			System.out.println("DEBUG sqlStr_updateHAForm");
+			if (UtilDBWeb.updateQueue(sqlStr_updateHAForm,
+					new String[] {formType,
+									q1, q2_1, q2_2, q2_3, q2_4,
+									q2_5, q2_6, q2_7, q2_8, q3_a1, q3_a2, q3_a3, q3_a4,
+									q3_b1, q3_b2, q3_b3, q3_c1, q3_c2,
+									q3_d1, q3_d2, q3_d3, q3_d4, q3_e1,
+									q3_f1, q3_f2, q3_f3, q3_f4,
+									q3_g1, q3_g2, q3_g3, q3_h1, q4_1, q4_2,
+									q5_a1, q5_a2, q5_a3, q5_a4, q5_a5,
+									q5_a6, q5_b1,
+									q6_a1, q6_a2, q6_b1, q6_b2, q6_c1, q6_c2,
+									smoke_1, smoke_2, smoke_3, smoke_4, smoke_5, smoke_6,
+									drink_1,  drink_2,  drink_3,  drink_4,  drink_5,
+									drink_6,  drink_7,  drink_8,  drink_9,  drink_10,
+									drink_11,  drink_12,  drink_13,  drink_14,
+									eat_1, eat_2, eat_3, eat_4,
+									eat_5, eat_6, eat_7, eat_8, eat_9,
+									eat_10, eat_11, eat_12, eat_13, eat_14,
+									sleep_1, sleep_2,
+									sport_1, sport_2, sport_3, sport_4,
+									mood_1, mood_2, mood_3, mood_4,
+									female_1,  female_2,  female_3,  female_4,  female_5,
+									female_6,  female_7,  female_8,  female_9, female_10,
+									phy_1,  phy_2,  phy_3,  phy_4,  phy_5,
+									phy_6,  phy_7,  phy_8,  phy_9,  phy_10,
+									phy_11,  phy_12,  phy_13,  phy_14,  phy_15,
+									phy_16,  phy_17, phy_18, phy_19, phy_20,
+									gc_1, gc_2, gc_3, gc_4, gc_5, gc_6,
+									gc_7, gc_8, gc_9, gc_10, gc_11, gc_12,
+									gc_13, gc_14, gc_15,
+									ent_p[1], ent_p[2], ent_p[3], ent_p[4], ent_p[5],
+									ent_p[6], ent_p[7], ent_p[8], ent_p[9], ent_p[10],
+									ent_p[11], ent_p[12], ent_p[13], ent_p[14], ent_p[15],
+									ent_p[16], ent_p[17], ent_p[18], ent_p[19], ent_p[20],
+									ent_p[21],
+									ent_p[22],  ent_p[23],  ent_p[24],  ent_p[25],  ent_p[26],
+									ent_p[27],  ent_p[28],  ent_p[29],  ent_p[30],  ent_p[31],
+									ent_p[32],  ent_p[33],  ent_p[34],
+									ent_p[35],  ent_p[36],  ent_p[37],  ent_p[38],  ent_p[39],
+									ent_p[40],  ent_p[41],  ent_p[42],  ent_p[43],  ent_p[44],
+									ent_p[45],
+									ent_p[46],  ent_p[47],  ent_p[48],  ent_p[49],  ent_p[50],
+									ent_p[51],  ent_p[52],  ent_p[53],  ent_p[54],  ent_p[55],
+									ent_p[56],  ent_p[57],
+									ls_1, ls_2, ls_3, ls_4, ls_5, ls_6,
+									bn_1, bn_2, bn_3, bn_4, bn_5,
+									bn_6, bn_7, bn_8, bn_9, bn_10,
+									bn_11, bn_12, bn_13, bn_14, bn_15,
+									bn_16,
+									rs_1,  rs_2,  rs_3,  rs_4,  rs_5,
+									rs_6,  rs_7,  rs_8,  rs_9,  rs_10,
+									rs_11, rs_12, rs_13, rs_14, rs_15, rs_16,
+									cs_1,  cs_2,  cs_3,  cs_4,  cs_5,
+									cs_6,  cs_7,  cs_8,
+									//ne_1, ne_2, ne_3, ne_4, ne_5,
+									//ne_6, ne_7, ne_8, ne_9, ne_10,
+									//ne_11, ne_12, ne_13, ne_14, ne_15,
+									//ne_16, ne_17, ne_18, ne_19, ne_20,
+									ne_p[0], ne_p[1], ne_p[2], ne_p[3], ne_p[4],
+									ne_p[5], ne_p[6], ne_p[7], ne_p[8], ne_p[9],
+									ne_p[10], ne_p[11], ne_p[12], ne_p[13], ne_p[14],
+									ne_p[15], ne_p[16], ne_p[17], ne_p[18], ne_p[19],
+									s_1, s_2, s_3, s_4,
+									a_p[0], a_p[1], a_p[2], a_p[3], a_p[4], a_p[5],
+									a_p[6], a_p[7], a_p[8], a_p[9], a_p[10],
+									a_p[11], a_p[12], a_p[13], a_p[14], a_p[15],
+									a_p[16], a_p[17], a_p[18], a_p[19], a_p[20],
+									a_p[21], a_p[22], a_p[23], a_p[24], a_p[25],
+									a_p[26], a_p[27], a_p[28], a_p[29], a_p[30],
+									a_p[31],
+									a_p[32], a_p[33], a_p[34], a_p[35], a_p[36],
+									a_p[37], a_p[38], a_p[39], a_p[40],
+									ex_1, ex_2,
+									mn_p[0],  mn_p[1],  mn_p[2],  mn_p[3],  mn_p[4],
+									mn_p[5],  mn_p[6],  mn_p[7],  mn_p[8],  mn_p[9],
+									mn_p[10], mn_p[11], mn_p[12], mn_p[13],
+									remark,
+									completed, docCode, mn_p[14],
+									staffID,
+									q3_a5, q3_a6, q3_b4, q3_b5,
+									q3_d5, q3_d6, q3_e2, q3_e3,
+									q3_f5, q3_f6, q3_h2, q3_i1,
+									q5_a7, female11, female12,
+									q3_d7, q3_d8, q3_d9, q3_d10,
+									eat_15, eat_16, eat_17, eat_18, eat_19, eat_20,
+									eat_21, eat_22, drink_15, mn_p[15], a_p[41], a_p[42], mn_p[16], mn_p[17],
+									createDateArray[0] + " " + createDateArray[1] + createDateArray[2] + "00", eat_23, eat_24,
+									smoke_7, sleep_3, sleep_4, sleep_5, sleep_6,
+									a_p[43],
+									phy_21, phy_22, phy_23, phy_24, phy_25,
+									q3_a7, q3_b6, q3_d11, q3_f7, q3_e4,
+									q5_a8, gc_16, gc_17,
+									a_p[44], a_p[45], a_p[46], q3_g4, q3_g5,
+									// new ccr form
+									mn_p[18], mn_p[19], mn_p[20],mn_p[21],mn_p[22],
+									mn_p[23], mn_p[24], mn_p[25],mn_p[26],mn_p[27], mn_p[28], mn_p[29],
+									mn_p[30], mn_p[31],
+									mn_p[32], mn_p[33], mn_p[34],mn_p[35],mn_p[36],
+									mn_p[37],mn_p[38], mn_p[39], mn_p[40],
+									mn_p[41],mn_p[42], mn_p[43], mn_p[44], mn_p[45],
+									mn_p[46], mn_p[47], mn_p[48],
+									mn_p[49],mn_p[50], mn_p[51], mn_p[52], mn_p[53],
+									mn_p[54],mn_p[55], mn_p[56], mn_p[57], mn_p[58],
+									mn_p[59],mn_p[60],
+									//
+									mn_p[61],mn_p[62], mn_p[63], mn_p[64], mn_p[65],
+									mn_p[66],mn_p[67], mn_p[68],
+									mn_p[69],mn_p[70], mn_p[71], mn_p[72], mn_p[73],
+									mn_p[74],mn_p[75],
+									ccr_phase,
+									mn_p[76],mn_p[77], mn_p[78],mn_p[79],
+									mn_p[80],mn_p[81], mn_p[82],mn_p[83],mn_p[84],
+									//									//
+									mn_p[85],mn_p[86], mn_p[87],mn_p[88],mn_p[89],
+									mn_p[90],mn_p[91], mn_p[92],mn_p[93],mn_p[94],
+									mn_p[95],mn_p[96],
+									//
+									mn_p[97],mn_p[98], mn_p[99],mn_p[100],mn_p[101],
+									mn_p[102], mn_p[103], mn_p[104], mn_p[105],
+									formTypeOther, mn_p[106], mn_p[107], phy_26, mn_p[110],
+//20250219 Arran added patConNo								
+									patConNo,
+									haID, regID})) {
+				updateHAPatAge(haID, patNo);
+				return haID;
+			} else {
+				return null;
+			}
+		}
+
+	}
+
+	// get the nurse note data
+	public static ArrayList getNurseNote(String patNo, String regID, String seqNo) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("select nn.TMP, substr(nn.BP, 1, INSTR(nn.bp,'/')-1), substr(nn.BP, INSTR(nn.bp,'/') + 1, 3), nn.PULSE, nn.SAO2, nn.WT, nn.HT, nn.RR, nn.HC, r.doccode  ");
+		sqlStr.append("from reg@iweb r ");
+		sqlStr.append("left outer join OPD_NX_NOTE@CIS nn on nn.regid = r.regid and r.patno = nn.patno and nn.seq_no = ? ");
+		sqlStr.append("where r.regid = ? and r.patno = ? ");
+		sqlStr.append("order by nn.seq_no desc ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString(), new String[]{seqNo, regID, patNo});
+	}
+
+	// check if login id is medical record staff
+	public static Boolean isMRStaff(String staffID) {
+		StringBuffer sqlStr = new StringBuffer();
+		StringBuffer sqlStrSentinel = new StringBuffer();
+		StringBuffer sqlStrRpt = new StringBuffer();
+		String piDeptCode = null;
+
+		if (ConstantsServerSide.isHKAH()) {
+			piDeptCode = "760";
+		} else if (ConstantsServerSide.isTWAH()) {
+			piDeptCode = "MR";
+		}
+		sqlStr.append("select 1 from co_staffs where co_department_code = '" + piDeptCode + "' and co_staff_id = ? ");
+		ArrayList<ReportableListObject> record = UtilDBWeb.getReportableList(sqlStr.toString(), new String[]{staffID});
+		if (record.size() > 0) {
+			return true;
+		} else if ("admin".equals(staffID)) {
+			return true;
+		}
+		return false;
+	}
+	//
+
+	// get the saved access form
+	public static ArrayList fetchAccessForm(String haID) {
+		System.out.println("[HA Form DB debug]: " + sqlStr_fetchAccessForm);
+		return UtilDBWeb.getReportableList(sqlStr_fetchAccessForm, new String[]{haID});
+	}
+
+	// get the saved access form
+	public static ArrayList fetchDRPL() {
+		return UtilDBWeb.getReportableList("select pl_key, pl_desc from ha_form_dr_pl order by pl_key", new String[]{});
+	}
+
+	public static ArrayList getRegReportList(String drCode, String patNo, String patName, String patIDNo, String patTel, String completed, String form_date_from, String form_date_to) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("select to_char(r.regdate, 'dd/mm/yyyy'), r.patno, r.regid, p.patgname || ' ' || p.patfname patname, p.patcname, p.patidno, to_char(p.patbdate, 'dd/mm/yyyy'), p.patsex, p.patadd1 || ' ' || p.patadd2 || ' ' || p.patadd3 addr, p.pathtel, d.doccode, d.docfname || ' ' || d.docgname docname ");
+		sqlStr.append("from reg@iweb r ");
+		sqlStr.append("join patient@iweb p on p.patno = r.patno ");
+		sqlStr.append("join doctor@iweb d on d.doccode = r.doccode ");
+		sqlStr.append("where 1=1 ");
+
+		if (form_date_from != null && form_date_from.length() > 0) {
+			sqlStr.append(" and r.regdate >= to_date('" + form_date_from + " 000000' , 'dd/mm/yyyy hh24miss') ");
+			//sql += "AND P.PIR_INCIDENT_DATE >= TO_DATE('"+incident_date_from+" 00:00:00', 'DD/MM/YYYY HH24:MI:SS') ";
+		}
+
+		if (form_date_from != null && form_date_from.length() > 0) {
+			sqlStr.append(" and r.regdate<= to_date('" + form_date_to + " 235959' , 'dd/mm/yyyy hh24miss') ");
+		}
+
+		if (patNo != null && patNo.length() > 0) {
+			sqlStr.append(" AND r.patno like '%"+patNo+"%' ");
+		}
+
+		if (patName != null && patName.length() > 0) {
+			sqlStr.append(" AND upper(p.patgname || ' ' || p.patfname) like upper('%"+patName+"%') ");
+		}
+
+		if (patIDNo != null && patIDNo.length() > 0) {
+			sqlStr.append("AND upper(p.patidno) like upper('%"+patIDNo+"%') ");
+		}
+
+		if (patTel != null && patTel.length() > 0) {
+			sqlStr.append("AND p.pathtel like '%"+patTel+"%' ");
+		}
+
+		// if dr mode, filter his own patient
+		if (drCode != null && drCode.length() > 0) {
+			sqlStr.append("and r.doccode = '" + drCode + "' ");
+		}
+		//
+		sqlStr.append("order by r.regdate desc ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getHAReportList(String drCode, String patNo, String patName, String patIDNo, String patTel, String completed, String form_date_from, String form_date_to) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("select to_char(ha.create_date, 'dd/mm/yyyy'), ha.ha_id, ha.create_user, to_char(ha.modify_date, 'dd/mm/yyyy'), ha.modify_user, patno, patgname || ' ' || patfname patname, ");
+		sqlStr.append("patcname, patidno, to_char(patbdate, 'dd/mm/yyyy'), patsex, patadd1 || ' ' || patadd2 || ' ' || patadd3 addr, pathtel, ha.ha_regid, ");
+		sqlStr.append("ha.COMPLETED, ha.ha_doccode, d.docfname || ' ' || docgname, HA_FORM_TYPE, NN_SEQ_NO ");
+		sqlStr.append("from ha_form ha join patient@iweb p on ha.ha_pat_no = p.patno ");
+		sqlStr.append("join doctor@iweb d on ha.ha_doccode = d.doccode ");
+		sqlStr.append("where 1=1 and ha_enabled = 1 ");
+
+		if (form_date_from != null && form_date_from.length() > 0) {
+			sqlStr.append(" and ha.create_date >= to_date('" + form_date_from + " 000000' , 'dd/mm/yyyy hh24miss') ");
+		}
+
+		if (form_date_from != null && form_date_from.length() > 0) {
+			sqlStr.append(" and ha.create_date <= to_date('" + form_date_to + " 235959' , 'dd/mm/yyyy hh24miss') ");
+		}
+
+		if (patNo != null && patNo.length() > 0) {
+			sqlStr.append(" AND patno like '%"+patNo+"%' ");
+		}
+
+		if (patName != null && patName.length() > 0) {
+			sqlStr.append(" AND upper(patgname || ' ' || patfname) like upper('%"+patName+"%') ");
+		}
+
+		if (patIDNo != null && patIDNo.length() > 0) {
+			sqlStr.append("AND upper(patidno) like upper('%"+patIDNo+"%') ");
+		}
+
+		if (patTel != null && patTel.length() > 0) {
+			sqlStr.append("AND pathtel like '%"+patTel+"%' ");
+		}
+
+		if (completed != null && completed.length() > 0) {
+			sqlStr.append("AND completed like '%"+completed+"%' ");
+		}
+
+		// if dr mode, filter his own patient
+		if (drCode != null && drCode.length() > 0) {
+			sqlStr.append("AND ha.ha_pat_no in (select patno from reg@iweb where doccode = '" + drCode + "') ");
+		}
+		//
+
+		sqlStr.append("order by ha.create_date desc ");
+
+		//System.out.println("HAFormDB.getHAReportList="+sqlStr.toString());
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getHAReportList_newway(String drCode, String patNo, String patName, String patIDNo, String patTel, String completed, String form_date_from, String form_date_to) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("select to_char(regdate, 'dd/mm/yyyy'), null ha_id, null create_user, null modify_date, null modify_user, r.patno, ");
+		sqlStr.append("patgname || ' ' || patfname patname, patcname, patidno, to_char(patbdate, 'dd/mm/yyyy'), patsex,   				");
+		sqlStr.append("patadd1 || ' ' || patadd2 || ' ' || patadd3 addr, pathtel, regid,  				null completed, ");
+		sqlStr.append("doccode, docfname || ' ' || docgname docname, null ha_form_type, null nn_seq_no 			       ");
+		sqlStr.append("from reg@iweb r ");
+		sqlStr.append("join patient@iweb p on p.patno = r.patno ");
+		sqlStr.append("join doctor@iweb d on d.doccode = r.doccode  ");
+		sqlStr.append("where exists");
+		sqlStr.append("			(select 1 from sliptx@iweb x where r.slpno=x.slpno and stnsts='N' ");
+		sqlStr.append("				and pkgcode in ('P001','P002','P003','P004','P005','P006','PSM30','PSF30','P003A','P004A','P005A','P006A') ");
+		sqlStr.append(" 		) ");
+
+		if (form_date_from != null && form_date_from.length() > 0) {
+			sqlStr.append(" and regdate >= to_date('" + form_date_from + " 000000' , 'dd/mm/yyyy hh24miss') ");
+		}
+
+		if (form_date_from != null && form_date_from.length() > 0) {
+			sqlStr.append(" and regdate <= to_date('" + form_date_to + " 235959' , 'dd/mm/yyyy hh24miss') ");
+		}
+
+		if (patNo != null && patNo.length() > 0) {
+			sqlStr.append(" AND patno like '%"+patNo+"%' ");
+		}
+
+		if (patName != null && patName.length() > 0) {
+			sqlStr.append(" AND upper(patgname || ' ' || patfname) like upper('%"+patName+"%') ");
+		}
+
+		if (patIDNo != null && patIDNo.length() > 0) {
+			sqlStr.append("AND upper(patidno) like upper('%"+patIDNo+"%') ");
+		}
+
+		if (patTel != null && patTel.length() > 0) {
+			sqlStr.append("AND pathtel like '%"+patTel+"%' ");
+		}
+
+		if (completed != null && completed.length() > 0) {
+			sqlStr.append("AND completed like '%"+completed+"%' ");
+		}
+
+		// if dr mode, filter his own patient
+		if (drCode != null && drCode.length() > 0) {
+			sqlStr.append("AND ha.ha_pat_no in (select patno from reg@iweb where doccode = '" + drCode + "') ");
+		}
+		//
+
+		sqlStr.append("order by regdate desc ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getHAReportList_complex(String drCode, String patNo, String patName, String patIDNo, String patTel, String completed, String form_date_from, String form_date_to) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append(" select to_char(create_date, 'dd/mm/yyyy'), ha_id, create_user, ");
+		sqlStr.append(" 		to_char(modify_date, 'dd/mm/yyyy'), modify_user, patno, patname, patcname, patidno, to_char(patbdate, 'dd/mm/yyyy'), ");
+		sqlStr.append("			patsex, addr, pathtel, ha_regid, COMPLETED, doccode, docname , HA_FORM_TYPE, NN_SEQ_NO, hasForm  ");
+		sqlStr.append(" from ( ");
+		sqlStr.append("      select 'hasForm' hasform, ha.create_date, ha.ha_id, ha.create_user, ");
+		sqlStr.append(" 	   	ha.modify_date, ha.modify_user, patno,  ");
+		sqlStr.append(" 		patgname || ' ' || patfname patname, patcname, patidno,  ");
+		sqlStr.append(" 		patbdate, patsex, ");
+		sqlStr.append(" 		patadd1 || ' ' || patadd2 || ' ' || patadd3 addr, pathtel, ha.ha_regid,  ");
+		sqlStr.append(" 		ha.COMPLETED, ha.ha_doccode doccode, d.docfname || ' ' || docgname docname, HA_FORM_TYPE, NN_SEQ_NO  ");
+		sqlStr.append("			from ha_form ha  ");
+		sqlStr.append("			join patient@iweb p on ha.ha_pat_no = p.patno ");
+		sqlStr.append("			join doctor@iweb d on ha.ha_doccode = d.doccode ");
+		sqlStr.append("			where ha_enabled = 1 ");
+		sqlStr.append("					and ha.create_date >= to_date('" + form_date_from + " 000000', 'dd/mm/yyyy hh24miss') ");
+		sqlStr.append(" 				and ha.create_date <= to_date('" + form_date_to + " 235959', 'dd/mm/yyyy hh24miss') ");
+		sqlStr.append("			union all ");
+		sqlStr.append("			select 'noForm', null create_date, null ha_id, null create_user, ");
+		sqlStr.append(" 	 			null modify_date, null modify_user, h.patno, ");
+		sqlStr.append(" 				p.patgname || ' ' || p.patfname patname, p.patcname, p.patidno,  ");
+		sqlStr.append(" 				p.patbdate, p.patsex,  ");
+		sqlStr.append(" 				p.patadd1 || ' ' || p.patadd2 || ' ' || p.patadd3 addr, p.pathtel, h.regid, ");
+		sqlStr.append(" 				null completed, h.doccode, d.docfname || ' ' || docgname docname, null ha_form_type, null nn_seq_no ");
+		sqlStr.append("			from (");
+		sqlStr.append(" 			select r.regdate, r.regid, r.patno, r.doccode ");
+		sqlStr.append("				from reg@iweb r ");
+		sqlStr.append(" 			where ");
+		sqlStr.append(" 				regdate >= to_date('" + form_date_from + " 000000', 'dd/mm/yyyy hh24miss') ");
+		sqlStr.append(" 				and regdate <= to_date('" + form_date_to + " 235959', 'dd/mm/yyyy hh24miss') ");
+		sqlStr.append(" 				and exists (select 1 from sliptx@iweb x where r.slpno=x.slpno and stnsts='N'");
+		sqlStr.append(" 						and pkgcode in ('P001','P002','P003','P004','P005','P006','PSM30','PSF30','P003A','P004A','P005A','P006A') ");
+		sqlStr.append(" 							)");
+		sqlStr.append(" 			) h ");
+		sqlStr.append("			join patient@iweb p on h.patno = p.patno ");
+		sqlStr.append("			join doctor@iweb d on h.doccode = d.doccode ");
+		sqlStr.append("			where not exists (");
+		sqlStr.append("					select 1 from ha_form ha where 1=1 and ha_enabled = 1 and ha.ha_pat_no = h.patno and ha.ha_regid = h.regid ");
+		sqlStr.append(" 				) ");
+		sqlStr.append(" 	) ");
+		sqlStr.append("where 1=1 ");
+
+		if (form_date_from != null && form_date_from.length() > 0) {
+			sqlStr.append(" and create_date >= to_date('" + form_date_from + " 000000' , 'dd/mm/yyyy hh24miss') ");
+			//sql += "AND P.PIR_INCIDENT_DATE >= TO_DATE('"+incident_date_from+" 00:00:00', 'DD/MM/YYYY HH24:MI:SS') ";
+		}
+
+		if (form_date_from != null && form_date_from.length() > 0) {
+			sqlStr.append(" and create_date <= to_date('" + form_date_to + " 235959' , 'dd/mm/yyyy hh24miss') ");
+		}
+
+		if (patNo != null && patNo.length() > 0) {
+			sqlStr.append(" AND patno like '%"+patNo+"%' ");
+		}
+
+		if (patName != null && patName.length() > 0) {
+			sqlStr.append(" AND upper(patgname || ' ' || patfname) like upper('%"+patName+"%') ");
+		}
+
+		if (patIDNo != null && patIDNo.length() > 0) {
+			sqlStr.append("AND upper(patidno) like upper('%"+patIDNo+"%') ");
+		}
+
+		if (patTel != null && patTel.length() > 0) {
+			sqlStr.append("AND pathtel like '%"+patTel+"%' ");
+		}
+
+		if (completed != null && completed.length() > 0) {
+			sqlStr.append("AND completed like '%"+completed+"%' ");
+		}
+
+		// if dr mode, filter his own patient
+		if (drCode != null && drCode.length() > 0) {
+			sqlStr.append("AND ha_pat_no in (select patno from reg@iweb where doccode = '" + drCode + "') ");
+		}
+		//
+
+		sqlStr.append(" order by create_date desc ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getHAReportReport(String haID) {
+		System.out.println(DateTimeUtil.getCurrentDateTime() + " [HAFormDB.java getHAReport sql]: " + sqlStr_fetchAccessForm1 +	sqlStr_fetchAccessForm2_rpt + sqlStr_fetchAccessForm3 + sqlStr_fetchAccessForm5);
+		System.out.println(DateTimeUtil.getCurrentDateTime() + " [HAFormDB.java getHAReport sql para]: " + haID);
+		return UtilDBWeb.getReportableList(sqlStr_fetchAccessForm1 +	sqlStr_fetchAccessForm2_rpt + sqlStr_fetchAccessForm3 + sqlStr_fetchAccessForm5, new String[] {haID});
+	}
+}

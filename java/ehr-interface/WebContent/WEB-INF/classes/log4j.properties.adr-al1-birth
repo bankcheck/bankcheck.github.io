@@ -1,0 +1,26 @@
+### direct log messages to stdout ###
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.Target=System.out
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%d{ABSOLUTE} %5p %c{1}:%L - %m%n
+
+log4j.appender.fileout=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.fileout.file=/log/ah_ehr/ehr-interface-adr-al1-birth.log
+log4j.appender.fileout.ImmediateFlush=true
+log4j.appender.fileout.FILE.Threshold=error
+log4j.appender.fileout.append=true
+log4j.appender.fileout.DatePattern='.'yyyy-MM-dd
+log4j.appender.fileout.MaxFileSize=100MB
+log4j.appender.fileout.layout=org.apache.log4j.PatternLayout
+log4j.appender.fileout.layout.ConversionPattern=%d{ABSOLUTE} %5p %c{1}:%L - %m%n
+
+### set log levels - for more verbose logging change 'info' to 'debug' ###
+
+# for local debug
+#log4j.rootLogger=debug, stdout
+log4j.rootLogger=debug, fileout
+
+### enable the following line if you want to track down connection ###
+### leakages when using DriverManagerConnectionProvider ###
+#log4j.logger.org.hibernate.connection.DriverManagerConnectionProvider=trace
+

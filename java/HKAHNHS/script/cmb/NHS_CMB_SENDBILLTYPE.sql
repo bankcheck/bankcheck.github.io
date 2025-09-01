@@ -1,0 +1,16 @@
+CREATE OR REPLACE FUNCTION "NHS_CMB_SENDBILLTYPE"
+	RETURN Types.cursor_type
+AS
+	outcur types.cursor_type;
+BEGIN
+	OPEN outcur FOR
+		SELECT '', '' FROM DUAL
+		UNION
+		SELECT 'BD', 'BD' FROM DUAL
+		UNION
+		SELECT 'AD', 'AD' FROM DUAL;
+	RETURN outcur;
+END NHS_CMB_SENDBILLTYPE;
+/
+
+

@@ -1,0 +1,1008 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Breast_Health" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="338"/>
+	<subDataset name="dataset1"/>
+	<parameter name="BaseDir" class="java.io.File">
+		<defaultValueExpression><![CDATA[new File("C:\\projects\\HKAHIntranet\\WebContent\\report")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Site" class="java.lang.String">
+		<defaultValueExpression><![CDATA["twah"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="path" class="java.lang.String">
+		<defaultValueExpression><![CDATA["\\\\192.168.0.31\\c$\\Program Files\\Apache Software Foundation\\Tomcat 6.0\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="formuid" class="java.lang.String">
+		<defaultValueExpression><![CDATA["23088"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="formDate" class="java.lang.String"/>
+	<parameter name="consulationDate" class="java.lang.String"/>
+	<parameter name="sourceOfReferral" class="java.lang.String"/>
+	<parameter name="educationLv" class="java.lang.String"/>
+	<parameter name="occupation" class="java.lang.String"/>
+	<parameter name="smoking" class="java.lang.String"/>
+	<parameter name="quantityOfSmoke" class="java.lang.String"/>
+	<parameter name="drinking" class="java.lang.String"/>
+	<parameter name="quantityOfDrink" class="java.lang.String"/>
+	<parameter name="goh" class="java.lang.String"/>
+	<parameter name="poh" class="java.lang.String"/>
+	<parameter name="moh" class="java.lang.String"/>
+	<parameter name="toh" class="java.lang.String"/>
+	<parameter name="ageOfDelivery" class="java.lang.String"/>
+	<parameter name="breastFeeding" class="java.lang.String"/>
+	<parameter name="hrt" class="java.lang.String"/>
+	<parameter name="hrtMonth" class="java.lang.String"/>
+	<parameter name="hrtYear" class="java.lang.String"/>
+	<parameter name="menarcheAge" class="java.lang.String"/>
+	<parameter name="menopause" class="java.lang.String"/>
+	<parameter name="menopauseAge" class="java.lang.String"/>
+	<parameter name="lmpDate" class="java.lang.String"/>
+	<parameter name="pastMedicalHistory" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Im a long long sentence &#13;New Line?"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="familyHistory" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Im a long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long sentences!!"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="finding" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="imaging" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="referToBioBoolean" class="java.lang.String"/>
+	<parameter name="mammogramFollowUpBoolean" class="java.lang.String"/>
+	<parameter name="mFollowUpPlace" class="java.lang.String"/>
+	<parameter name="mFollowUpDate" class="java.lang.String"/>
+	<parameter name="usgFollowUpBoolean" class="java.lang.String"/>
+	<parameter name="uFollowUpPlace" class="java.lang.String"/>
+	<parameter name="uFollowUpDate" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patName" class="java.lang.String"/>
+	<parameter name="patDob" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="docName" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="58" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="0" width="337" height="50"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, $P{Site}.equals("twah") ?
+    "../images/Horizontal_billingual_HKAH_TW1.jpg" :
+    ($P{Site}.equals("hkah") ?
+        "../images/Horizontal_billingual_HKAH_HK1.jpg" :
+        "../images/Horizontal_billingual_HKAH_TW1.jpg" ))]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="430" y="10" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="511" y="10" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="240">
+			<ellipse>
+				<reportElement positionType="Float" x="288" y="47" width="12" height="12" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="Float" x="238" y="47" width="12" height="12" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="Float" x="288" y="68" width="12" height="12" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="Float" x="238" y="68" width="12" height="12" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="Float" x="300" y="132" width="12" height="12" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="Float" x="350" y="132" width="12" height="12" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="Float" x="371" y="152" width="12" height="12" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="Float" x="321" y="152" width="12" height="12" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="Float" x="238" y="197" width="12" height="12" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="Float" x="288" y="197" width="12" height="12" backcolor="#FFFFFF"/>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="Float" x="10" y="0" width="133" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of First Consulation:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="143" y="0" width="100" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{consulationDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="302" y="0" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Source of Referral:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="402" y="0" width="100" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{sourceOfReferral}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="10" y="25" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Background:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="25" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Education Level:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="230" y="25" width="100" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{educationLv}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="342" y="25" width="70" height="20"/>
+				<textElement/>
+				<text><![CDATA[Occupation:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="410" y="25" width="100" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{occupation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="45" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Smoking:]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="Float" x="241" y="50" width="6" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{smoking}.equals("no")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="Float" x="252" y="45" width="28" height="20"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[No]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="Float" x="291" y="50" width="6" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{smoking}.equals("yes")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="Float" x="302" y="45" width="28" height="20"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Yes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="342" y="45" width="47" height="20"/>
+				<textElement/>
+				<text><![CDATA[Quantity:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="395" y="45" width="100" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{quantityOfSmoke}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="65" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Drinking:]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="Float" x="241" y="71" width="6" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{drinking}.equals("no")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="Float" x="302" y="66" width="28" height="20"/>
+				<textElement/>
+				<text><![CDATA[Yes]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="Float" x="291" y="71" width="6" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{drinking}.equals("yes")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="Float" x="252" y="66" width="28" height="20"/>
+				<textElement/>
+				<text><![CDATA[No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="342" y="65" width="47" height="20"/>
+				<textElement/>
+				<text><![CDATA[Quantity:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="395" y="65" width="100" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{quantityOfDrink}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="10" y="90" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Obstetric History:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="90" width="20" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[G-]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="151" y="90" width="50" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{goh}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="201" y="90" width="20" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[P-]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="222" y="90" width="50" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{poh}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="272" y="90" width="20" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[M-]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="293" y="90" width="50" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{moh}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="343" y="90" width="20" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[T-]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="364" y="90" width="50" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{toh}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="110" width="150" height="20"/>
+				<textElement/>
+				<text><![CDATA[First Full Term Delivery at Age of]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="300" y="110" width="100" height="15"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ageOfDelivery}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="130" width="150" height="20"/>
+				<textElement/>
+				<text><![CDATA[History of Breast Feeding:]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="Float" x="303" y="135" width="6" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{breastFeeding}.equals("yes")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="Float" x="314" y="130" width="28" height="20"/>
+				<textElement/>
+				<text><![CDATA[Yes]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="Float" x="353" y="135" width="6" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{breastFeeding}.equals("no")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="Float" x="364" y="130" width="28" height="20"/>
+				<textElement/>
+				<text><![CDATA[No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="150" width="188" height="20"/>
+				<textElement/>
+				<text><![CDATA[History of Hormonal Contraceptive / HRT:]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="Float" x="324" y="155" width="6" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{hrt}.equals("yes")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="Float" x="335" y="150" width="28" height="20"/>
+				<textElement/>
+				<text><![CDATA[Yes]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="Float" x="374" y="155" width="6" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{hrt}.equals("no")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="Float" x="384" y="150" width="28" height="20"/>
+				<textElement/>
+				<text><![CDATA[No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="10" y="175" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Menstrual History:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="175" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Menarche at age of ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="230" y="175" width="100" height="15"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{menarcheAge}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="195" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Menopause]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="Float" x="241" y="200" width="6" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{menopause}.equals("yes")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="Float" x="252" y="195" width="28" height="20"/>
+				<textElement/>
+				<text><![CDATA[Yes]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="Float" x="291" y="200" width="6" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{menopause}.equals("no")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="Float" x="302" y="195" width="28" height="20"/>
+				<textElement/>
+				<text><![CDATA[No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="341" y="195" width="50" height="20"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[at age of ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="391" y="195" width="100" height="15"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{menopauseAge}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="230" y="215" width="100" height="15"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{lmpDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="215" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Date of LMP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="413" y="150" width="17" height="20"/>
+				<textElement/>
+				<text><![CDATA[For]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="430" y="150" width="29" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{hrtMonth}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="458" y="150" width="33" height="20"/>
+				<textElement/>
+				<text><![CDATA[Months]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="491" y="150" width="25" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{hrtYear}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="515" y="150" width="35" height="20"/>
+				<textElement/>
+				<text><![CDATA[Years]]></text>
+			</staticText>
+		</band>
+		<band height="55">
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="10" y="0" width="113" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Past Medical History:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="10" y="25" width="532" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement markup="html"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{pastMedicalHistory}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="55">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="10" y="25" width="532" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement markup="html"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{familyHistory}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="10" y="0" width="100" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Family History:]]></text>
+			</staticText>
+		</band>
+		<band height="140">
+			<image>
+				<reportElement positionType="Float" x="140" y="10" width="205" height="120" isPrintWhenDetailOverflows="true"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{path} + "BreastHealth_"+ $P{formuid} +".png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="10" y="0" width="113" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Physical Examination:]]></text>
+			</staticText>
+		</band>
+		<band height="55">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="10" y="25" width="530" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement markup="html"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{finding}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="10" y="0" width="100" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Findings:]]></text>
+			</staticText>
+		</band>
+		<band height="55">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="10" y="25" width="530" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement markup="html"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{imaging}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="10" y="0" width="100" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Imaging:]]></text>
+			</staticText>
+		</band>
+		<band height="93">
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="15" y="30" width="12" height="12" isPrintWhenDetailOverflows="true"/>
+			</rectangle>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="15" y="50" width="12" height="12" isPrintWhenDetailOverflows="true"/>
+			</rectangle>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="15" y="70" width="12" height="12" isPrintWhenDetailOverflows="true"/>
+			</rectangle>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="175" y="50" width="12" height="12" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="225" y="50" width="12" height="12" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="275" y="50" width="12" height="12" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="345" y="50" width="12" height="12" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="410" y="50" width="12" height="12" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="470" y="50" width="12" height="12" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="175" y="70" width="12" height="12" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="225" y="70" width="12" height="12" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="275" y="70" width="12" height="12" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="345" y="70" width="12" height="12" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="410" y="70" width="12" height="12" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</ellipse>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="470" y="70" width="12" height="12" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="10" y="0" width="100" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Recommendation:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="18" y="33" width="6" height="6" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{referToBioBoolean}.equals("true")]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="30" y="28" width="118" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<text><![CDATA[Refer to Biopsy or FNAC]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="18" y="53" width="6" height="6" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{mammogramFollowUpBoolean}.equals("true")]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="30" y="48" width="118" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<text><![CDATA[Mammogram Follow up]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="178" y="53" width="6" height="6" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{mFollowUpPlace}.equals("left")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="190" y="48" width="30" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<text><![CDATA[Left]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="228" y="53" width="6" height="6" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{mFollowUpPlace}.equals("right")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="240" y="48" width="30" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<text><![CDATA[Right]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="278" y="53" width="6" height="6" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{mFollowUpPlace}.equals("both")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="290" y="48" width="30" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<text><![CDATA[Both]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="348" y="53" width="6" height="6" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{mFollowUpDate}.equals("6Months")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="360" y="48" width="45" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<text><![CDATA[6 Months]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="413" y="53" width="6" height="6" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{mFollowUpDate}.equals("1Year")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="425" y="48" width="45" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<text><![CDATA[1 Year]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="473" y="53" width="6" height="6" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{mFollowUpDate}.equals("routine")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="485" y="48" width="45" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<text><![CDATA[Routine]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="18" y="73" width="6" height="6" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{usgFollowUpBoolean}.equals("true")]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="30" y="68" width="118" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<text><![CDATA[USG Follow up]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="178" y="73" width="6" height="6" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{uFollowUpPlace}.equals("left")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="190" y="68" width="30" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<text><![CDATA[Left]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="228" y="73" width="6" height="6" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{uFollowUpPlace}.equals("right")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="240" y="68" width="30" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<text><![CDATA[Right]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="278" y="73" width="6" height="6" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{uFollowUpPlace}.equals("both")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="290" y="68" width="30" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<text><![CDATA[Both]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="348" y="73" width="6" height="6" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{uFollowUpDate}.equals("6Months")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="360" y="68" width="45" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<text><![CDATA[6 Months]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="413" y="73" width="6" height="6" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{uFollowUpDate}.equals("1Year")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="425" y="68" width="45" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<text><![CDATA[1 Year]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement positionType="FixRelativeToBottom" x="473" y="73" width="6" height="6" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA[$P{uFollowUpDate}.equals("routine")]]></printWhenExpression>
+				</reportElement>
+			</ellipse>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="485" y="68" width="45" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<text><![CDATA[Routine]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="85" splitType="Stretch">
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="2" width="300" height="80"/>
+			</rectangle>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="300" y="2" width="250" height="80"/>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="5" y="2" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paitent No.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="5" y="22" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="5" y="42" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of Birth:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="5" y="62" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gender:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="105" y="2" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="105" y="22" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="105" y="42" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patDob}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="105" y="62" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patSex}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="301" y="32" width="125" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Vesion: 08 Mar 2017"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="301" y="2" width="250" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Breast Health Centre Progress Sheet]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="300" y="32" width="250" height="1"/>
+			</line>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="300" y="52" width="250" height="1"/>
+			</line>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="426" y="33" width="1" height="19"/>
+			</line>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="310" y="55" width="230" height="23"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode("BRHCMBA002",com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="440" y="32" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[BRHC-MBA002]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="125">
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="1" y="41" width="300" height="80"/>
+			</rectangle>
+			<rectangle>
+				<reportElement positionType="FixRelativeToBottom" x="301" y="41" width="250" height="80"/>
+			</rectangle>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="106" y="41" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patno}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="301" y="91" width="250" height="1"/>
+			</line>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="6" y="81" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of Birth:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="441" y="71" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[BRHC-MBA002]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="106" y="81" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patDob}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="106" y="101" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patSex}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="302" y="71" width="125" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Vesion: 08 Mar 2017"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="302" y="41" width="250" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Breast Health Centre Progress Sheet]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="301" y="71" width="250" height="1"/>
+			</line>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="427" y="72" width="1" height="19"/>
+			</line>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="106" y="61" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="6" y="41" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paitent No.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="6" y="101" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gender:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="6" y="61" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="311" y="94" width="230" height="23"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode("BRHCMBA002",com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="9" y="21" width="100" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Doctor's signature:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="290" y="21" width="100" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA["("+$P{docName}+")"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="392" y="21" width="50" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="442" y="21" width="100" height="15" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{formDate}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="9" y="35" width="379" height="1"/>
+			</line>
+		</band>
+	</lastPageFooter>
+</jasperReport>

@@ -1,0 +1,167 @@
+body {
+	font-family: verdana,arial,helvetica,sans-serif;
+	font-size: 11px;
+	text-align: center;
+	background-image:url('../images/login_bg.png');
+	background-repeat:repeat-x;
+}
+
+#login_content input, 
+#login_content select, 
+#login_content textarea {
+    background-color: #FCFCFC;
+    border: 1px solid #CCCCCC;
+    margin: 1px 0;
+    padding: 2px 4px;
+}
+
+.login_table {
+}
+
+#hkahcms_logo {
+	margin: 0 auto;
+}
+
+#login_content {
+	margin: 0 auto;
+	text-align: left;
+	width: 424px;
+}
+
+.errmsg {
+	color: #ff0000;
+	background: #e8e8e8;
+	width: 100%;
+	padding: 5px;
+	border: 2px solid #FFFF88;
+}
+
+.app-title {
+	font-family: verdana,arial,helvetica,sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.app-sub-title {
+	font-size: 15px;
+	font-style:italic;
+}
+
+.ver-info {
+	font-size: 10px;	
+}
+
+.main {
+	/*background: #F0D2E1;*/
+}
+
+input {
+	width: 150px;
+}
+
+.flabel {
+	font-weight: bold;	
+}
+
+#actions{
+	margin: 25px 0 0 0;
+}
+
+#submit	{
+	background-color: #ffb94b;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#fddb6f), to(#ffb94b));
+	background-image: -webkit-linear-gradient(top, #fddb6f, #ffb94b);
+	background-image: -moz-linear-gradient(top, #fddb6f, #ffb94b);
+	background-image: -ms-linear-gradient(top, #fddb6f, #ffb94b);
+	background-image: -o-linear-gradient(top, #fddb6f, #ffb94b);
+	background-image: linear-gradient(top, #fddb6f, #ffb94b);
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#fddb6f, endColorstr=#ffb94b);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#fddb6f, endColorstr=#ffb94b)";
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+	-moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+	-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #d69e31 #e3a037 #d5982d #e3a037;
+	float: left;
+	height: 35px;
+	padding: 0;
+	width: 120px;
+	cursor: pointer;
+	font: bold 15px Arial, Helvetica;
+	color: #8f5a0a;
+}
+#submit:hover,
+#submit:focus		{
+	background-color: #fddb6f;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#ffb94b), to(#fddb6f));
+	background-image: -webkit-linear-gradient(top, #ffb94b, #fddb6f);
+	background-image: -moz-linear-gradient(top, #ffb94b, #fddb6f);
+	background-image: -ms-linear-gradient(top, #ffb94b, #fddb6f);
+	background-image: -o-linear-gradient(top, #ffb94b, #fddb6f);
+	background-image: linear-gradient(top, #ffb94b, #fddb6f);
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ffb94b, endColorstr=#fddb6f);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#ffb94b, endColorstr=#fddb6f)";
+}
+#submit:active {
+	outline: none;
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
+	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
+}
+#submit::-moz-focus-inner	{
+	border: none;
+}
+
+.overlay {
+    overflow: scroll;
+    position: fixed;
+    top: 0;
+    bottom: 110%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 10000;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    -khtml-opacity: 0;
+    -moz-opacity: 0;
+    background: #4D4D4D;
+    transition: opacity 200ms linear, bottom 0s linear 200ms;
+}
+
+.overlay-open {
+        bottom: 0;
+        opacity: 1;
+        filter: alpha(opacity=1);
+	    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";
+	    -khtml-opacity: 1;
+	    -moz-opacity: 1;
+        transition: opacity 200ms linear, bottom 0s linear;
+    }
+    
+.overlay-view {
+        overflow: hidden;
+    }
+
+.overlay-form {
+        .overlay-inner {
+            background: #FFF;
+            margin: 5rem auto;
+            padding: 4rem;
+            max-width: 700px;
+        }
+    }
+
+.overlay-inner {
+  max-width: 40rem;
+  margin: 0 auto;
+  margin-top: 100px;
+  padding: 2rem;
+  background: #FFF;
+}

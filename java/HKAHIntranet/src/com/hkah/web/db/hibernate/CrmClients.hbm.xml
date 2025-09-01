@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 8, 2010 4:36:15 PM by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.CrmClients" table="CRM_CLIENTS">
+        <id name="crmClientId" type="big_decimal">
+            <column name="CRM_CLIENT_ID"   />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="coSite" class="com.hkah.web.db.hibernate.CoSite" fetch="select">
+            <column name="CRM_CREATED_SITE_CODE"  not-null="true" />
+        </many-to-one>
+       
+        <property name="crmLastname" type="string">
+            <column name="CRM_LASTNAME"  />
+        </property>
+        <property name="crmFirstname" type="string">
+            <column name="CRM_FIRSTNAME"  />
+        </property>
+        <property name="crmChinesename" type="string">
+            <column name="CRM_CHINESENAME"  />
+        </property>
+        <property name="crmTitle" type="string">
+            <column name="CRM_TITLE"  />
+        </property>
+        <property name="crmReligion" type="string">
+            <column name="CRM_RELIGION"  />
+        </property>
+        <property name="crmSex" type="string">
+            <column name="CRM_SEX"  />
+        </property>
+        <property name="crmDobYy" type="string">
+            <column name="CRM_DOB_YY"  />
+        </property>
+        <property name="crmDobMm" type="string">
+            <column name="CRM_DOB_MM"  />
+        </property>
+        <property name="crmDobDd" type="string">
+            <column name="CRM_DOB_DD"  />
+        </property>
+        <property name="crmDeceaseYy" type="string">
+            <column name="CRM_DECEASE_YY"  />
+        </property>
+        <property name="crmDeceaseMm" type="string">
+            <column name="CRM_DECEASE_MM"  />
+        </property>
+        <property name="crmDeceaseDd" type="string">
+            <column name="CRM_DECEASE_DD"  />
+        </property>
+        <property name="crmAgeGroup" type="big_decimal">
+            <column name="CRM_AGE_GROUP"   />
+        </property>
+        <property name="crmEducationLevelId" type="big_decimal">
+            <column name="CRM_EDUCATION_LEVEL_ID"   />
+        </property>
+        <property name="crmEducationLevelDesc" type="string">
+            <column name="CRM_EDUCATION_LEVEL_DESC"  />
+        </property>
+        <property name="crmOccupationId" type="big_decimal">
+            <column name="CRM_OCCUPATION_ID"   />
+        </property>
+        <property name="crmOccupationDesc" type="string">
+            <column name="CRM_OCCUPATION_DESC"  />
+        </property>
+        <property name="crmHkid" type="string">
+            <column name="CRM_HKID"  />
+        </property>
+        <property name="crmPassport" type="string">
+            <column name="CRM_PASSPORT"  />
+        </property>
+        <property name="crmStreet1" type="string">
+            <column name="CRM_STREET1"  />
+        </property>
+        <property name="crmStreet2" type="string">
+            <column name="CRM_STREET2"  />
+        </property>
+        <property name="crmStreet3" type="string">
+            <column name="CRM_STREET3"  />
+        </property>
+        <property name="crmStreet4" type="string">
+            <column name="CRM_STREET4"  />
+        </property>
+        <property name="crmDistrictId" type="big_decimal">
+            <column name="CRM_DISTRICT_ID"   />
+        </property>
+        <property name="crmDistrictDesc" type="string">
+            <column name="CRM_DISTRICT_DESC"  />
+        </property>
+        <property name="crmAreaId" type="big_decimal">
+            <column name="CRM_AREA_ID"   />
+        </property>
+        <property name="crmCountry" type="string">
+            <column name="CRM_COUNTRY"  />
+        </property>
+        <property name="crmLanguage" type="string">
+            <column name="CRM_LANGUAGE"  />
+        </property>
+        <property name="crmHomeNumber" type="string">
+            <column name="CRM_HOME_NUMBER"  />
+        </property>
+        <property name="crmOfficeNumber" type="string">
+            <column name="CRM_OFFICE_NUMBER"  />
+        </property>
+        <property name="crmMobileNumber" type="string">
+            <column name="CRM_MOBILE_NUMBER"  />
+        </property>
+        <property name="crmFaxNumber" type="string">
+            <column name="CRM_FAX_NUMBER"  />
+        </property>
+        <property name="crmEmail" type="string">
+            <column name="CRM_EMAIL"  />
+        </property>
+        <property name="crmEmergencyPerson" type="string">
+            <column name="CRM_EMERGENCY_PERSON"  />
+        </property>
+        <property name="crmEmergencyNumber" type="string">
+            <column name="CRM_EMERGENCY_NUMBER"  />
+        </property>
+        <property name="crmEmergencyRelationship" type="string">
+            <column name="CRM_EMERGENCY_RELATIONSHIP"  />
+        </property>
+        <property name="crmFacebook" type="string">
+            <column name="CRM_FACEBOOK"  />
+        </property>
+        <property name="crmIncome" type="big_decimal">
+            <column name="CRM_INCOME"  />
+        </property>
+        <property name="crmWillingPromotion" type="string">
+            <column name="CRM_WILLING_PROMOTION"  />
+        </property>
+        <property name="crmPreferContactMethod" type="string">
+            <column name="CRM_PREFER_CONTACT_METHOD"  />
+        </property>
+        <property name="crmRemarks" type="string">
+            <column name="CRM_REMARKS"  />
+        </property>
+        <property name="crmCreatedDate" >
+            <column name="CRM_CREATED_DATE"  />
+        </property>
+        <property name="crmCreatedUser" type="string">
+            <column name="CRM_CREATED_USER"  />
+        </property>
+        <property name="crmCreatedDepartmentCode" type="big_decimal">
+            <column name="CRM_CREATED_DEPARTMENT_CODE"   not-null="true" />
+        </property>
+        <property name="crmModifiedDate" >
+            <column name="CRM_MODIFIED_DATE"  />
+        </property>
+        <property name="crmModifiedUser" type="string">
+            <column name="CRM_MODIFIED_USER"  />
+        </property>
+        <property name="crmEnabled" type="integer">
+            <column name="CRM_ENABLED"   />
+        </property>
+        <property name="crmDobYyEstimate" type="string">
+            <column name="CRM_DOB_YY_ESTIMATE"  />
+        </property>
+        <property name="crmTitleDesc" type="string">
+            <column name="CRM_TITLE_DESC"  />
+        </property>
+    </class>
+</hibernate-mapping>

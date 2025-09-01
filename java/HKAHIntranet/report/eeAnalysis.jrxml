@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="eeAnalysis" pageWidth="2300" pageHeight="802" columnWidth="2300" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" forecolor="#FFFFFF" backcolor="#333333" fill="Solid" hAlign="Center" lineSpacing="Single">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF" fill="Solid" lineSpacing="Single" isBlankWhenNull="true" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" isPdfEmbedded="true">
+		<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="2">
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="courseCategory" class="java.lang.String"/>
+	<parameter name="date_from" class="java.lang.String"/>
+	<parameter name="date_to" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT  CE.CO_EVENT_ID, CE.CO_SCHEDULE_ID,
+        C.CO_EVENT_CATEGORY, C.CO_EVENT_DESC, CS.CO_SCHEDULE_DESC,
+        TO_CHAR(CS.CO_SCHEDULE_START, 'MON', 'nls_date_language=american') CO_MONTH,
+        TO_CHAR(CS.CO_SCHEDULE_START, 'dd/MM/YYYY') CO_CLASS_DATE,
+        TO_CHAR(CS.CO_SCHEDULE_START, 'HH24:MI') CO_CLASS_TIME_START,
+        TO_CHAR(CS.CO_SCHEDULE_END, 'HH24:MI') CO_CLASS_TIME_END,
+        CS.CO_SCHEDULE_DURATION, CS.CO_LECTURE_DESC,
+        CE.CO_ENROLL_ID,
+        S.CO_STAFFNAME, S.CO_STAFF_ID, S.CO_DEPARTMENT_CODE, D.CO_DEPARTMENT_DESC,
+        DECODE(S.CO_POSITION_1, NULL , NULL, S.CO_POSITION_1 || ' ')||S.CO_POSITION_2 CO_POSITION,
+
+        DECODE(CE.CO_ATTEND_STATUS,'1','ATTENDED','ENROLLED') CO_ATTEND_STATUS,
+        DECODE(CE.CO_REMARK,'1','YES','NO') CO_ONDUTY
+FROM CO_ENROLLMENT CE, CO_EVENT C, CO_SCHEDULE CS, CO_STAFFS S, CO_DEPARTMENTS D
+WHERE  CE.CO_SITE_CODE = C.CO_SITE_CODE
+AND    CE.CO_MODULE_CODE = C.CO_MODULE_CODE
+AND    CE.CO_EVENT_ID = C.CO_EVENT_ID
+AND    CE.CO_SITE_CODE = CS.CO_SITE_CODE
+AND    CE.CO_MODULE_CODE = CS.CO_MODULE_CODE
+AND    CE.CO_EVENT_ID = CS.CO_EVENT_ID
+AND    CE.CO_SCHEDULE_ID = CS.CO_SCHEDULE_ID
+AND    CE.CO_USER_ID = S.CO_STAFF_ID
+AND    S.CO_DEPARTMENT_CODE = D.CO_DEPARTMENT_CODE
+AND     CE.CO_MODULE_CODE = 'education'
+AND     C.CO_EVENT_CATEGORY = 'inservice'
+AND     C.CO_EVENT_TYPE = 'class'
+AND    CE.CO_ATTEND_DATE >= to_date('01/04/2018','dd/mm/yyyy')
+AND    CE.CO_ATTEND_DATE < to_date('30/04/2018','dd/mm/yyyy')
+AND    CE.CO_ENABLED = 1
+ORDER BY CO_EVENT_ID, CO_SCHEDULE_ID, CS.CO_SCHEDULE_START]]>
+	</queryString>
+	<field name="1" class="java.lang.String"/>
+	<field name="2" class="java.lang.String"/>
+	<field name="3" class="java.lang.String"/>
+	<field name="4" class="java.lang.String"/>
+	<field name="5" class="java.lang.String"/>
+	<field name="6" class="java.lang.String"/>
+	<field name="7" class="java.lang.String"/>
+	<field name="8" class="java.lang.String"/>
+	<field name="9" class="java.lang.String"/>
+	<field name="10" class="java.lang.String"/>
+	<field name="11" class="java.lang.String"/>
+	<field name="12" class="java.lang.String"/>
+	<field name="13" class="java.lang.String"/>
+	<field name="14" class="java.lang.String"/>
+	<field name="15" class="java.lang.String"/>
+	<field name="16" class="java.lang.String"/>
+	<field name="17" class="java.lang.String"/>
+	<field name="18" class="java.lang.String"/>
+	<field name="19" class="java.lang.String"/>
+	<field name="20" class="java.lang.String"/>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<staticText>
+				<reportElement style="table_TH" x="0" y="0" width="200" height="16" backcolor="#333333"/>
+				<textElement/>
+				<text><![CDATA[Course Category]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" mode="Opaque" x="200" y="0" width="400" height="16" backcolor="#333333"/>
+				<textElement/>
+				<text><![CDATA[Course Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="600" y="0" width="100" height="16" backcolor="#333333"/>
+				<textElement/>
+				<text><![CDATA[Month]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="700" y="0" width="100" height="16" backcolor="#333333"/>
+				<textElement/>
+				<text><![CDATA[Class Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="800" y="0" width="100" height="16" backcolor="#333333"/>
+				<textElement/>
+				<text><![CDATA[Class Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="900" y="0" width="100" height="16" backcolor="#333333"/>
+				<textElement/>
+				<text><![CDATA[Class Duration]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="1000" y="0" width="250" height="16" backcolor="#333333"/>
+				<textElement/>
+				<text><![CDATA[Lecturer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="1250" y="0" width="200" height="16" backcolor="#333333"/>
+				<textElement/>
+				<text><![CDATA[Staff Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="1450" y="0" width="100" height="16" backcolor="#333333"/>
+				<textElement/>
+				<text><![CDATA[Emp No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="1550" y="0" width="250" height="16" backcolor="#333333"/>
+				<textElement/>
+				<text><![CDATA[Department]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="1900" y="0" width="200" height="16" backcolor="#333333"/>
+				<textElement/>
+				<text><![CDATA[Position]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="2100" y="0" width="100" height="16" backcolor="#333333"/>
+				<textElement/>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="2200" y="0" width="100" height="16" backcolor="#333333"/>
+				<textElement/>
+				<text><![CDATA[On Duty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" mode="Opaque" x="1800" y="0" width="100" height="16" backcolor="#333333"/>
+				<textElement/>
+				<text><![CDATA[Category]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="200" height="16" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{3}.equals("compulsory")?"Mandatory":
+$F{3}.equals("inservice")?"In-services and Special Training":
+$F{3}.equals("other")?"Others":
+$F{3}.equals("CNE")?"CNE":
+$F{3}.equals("firedrill")?"Fire and Disaster Drills":
+$F{3}.equals("tND")?"T&D":
+$F{3}.equals("intClass")?"Interest Class / Other Activities":
+$F{3}.equals("mockCode")?"Mock Code":
+$F{3}.equals("mockDrill")?"Drills":
+"Other"
+]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" mode="Opaque" x="200" y="0" width="400" height="16" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[new Boolean ($F{5} != "")?
+$F{4} + "(" + $F{5} + ")":
+$F{4}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" mode="Opaque" x="600" y="0" width="100" height="16" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{6}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" mode="Opaque" x="700" y="0" width="100" height="16" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{7}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" mode="Opaque" x="800" y="0" width="100" height="16" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{8} + " - " + $F{9}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" mode="Opaque" x="900" y="0" width="100" height="16" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[new Boolean ($F{10} != "")?$F{10} + " hour(s)":""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" mode="Opaque" x="1000" y="0" width="250" height="16" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{11}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" mode="Opaque" x="1250" y="0" width="200" height="16" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{13}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" mode="Opaque" x="1450" y="0" width="100" height="16" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{14}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" mode="Opaque" x="1550" y="0" width="250" height="16" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{16}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" mode="Opaque" x="1800" y="0" width="100" height="16" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{18}.equals("6338")?"Nursing":
+$F{18}.equals("6339")?"Allied Health":
+$F{18}.equals("6340")?"Ancillary":
+$F{18}.equals("6341")?"Others":"Others"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" mode="Opaque" x="1900" y="0" width="200" height="16" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{17}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" mode="Opaque" x="2100" y="0" width="100" height="16" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{19}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" mode="Opaque" x="2200" y="0" width="100" height="16" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{20}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

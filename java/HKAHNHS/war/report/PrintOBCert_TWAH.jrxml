@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PrintOBCert_TWAH" pageWidth="553" pageHeight="821" columnWidth="494" leftMargin="28" rightMargin="31" topMargin="19" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SlpNo" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHNHS\\war\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<field name="HospitalNo" class="java.lang.String"/>
+	<field name="PatName" class="java.lang.String"/>
+	<field name="PatCName" class="java.lang.String"/>
+	<field name="DOB" class="java.lang.String"/>
+	<field name="PatIdNo" class="java.lang.String"/>
+	<field name="ExDate" class="java.lang.String"/>
+	<field name="IssueDt" class="java.lang.String"/>
+	<field name="EXDate60" class="java.lang.String"/>
+	<field name="Doccode" class="java.lang.String"/>
+	<field name="husdoctype" class="java.lang.String"/>
+	<field name="patdoctype" class="java.lang.String"/>
+	<field name="docfname" class="java.lang.String"/>
+	<field name="docgname" class="java.lang.String"/>
+	<field name="docptel" class="java.lang.String"/>
+	<field name="docotel" class="java.lang.String"/>
+	<field name="hkmclicno" class="java.lang.String"/>
+	<field name="antchkdt1" class="java.lang.String"/>
+	<field name="antchkdt2" class="java.lang.String"/>
+	<field name="antchkdt3" class="java.lang.String"/>
+	<field name="antchkdt4" class="java.lang.String"/>
+	<field name="antchkdt5" class="java.lang.String"/>
+	<field name="antchkdt6" class="java.lang.String"/>
+	<field name="antchkdt7" class="java.lang.String"/>
+	<field name="antchkdt8" class="java.lang.String"/>
+	<field name="antchkdt9" class="java.lang.String"/>
+	<field name="antchkdt10" class="java.lang.String"/>
+	<field name="patfname" class="java.lang.String"/>
+	<field name="patgname" class="java.lang.String"/>
+	<detail>
+		<band height="802" splitType="Stretch">
+			<textField>
+				<reportElement x="270" y="210" width="100" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{HospitalNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="322" y="390" width="67" height="13"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{docfname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="389" y="390" width="111" height="13"/>
+				<box leftPadding="2"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{docgname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="321" y="410" width="100" height="13"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{hkmclicno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="382" y="429" width="66" height="13"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{docptel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="321" y="429" width="62" height="13"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{docotel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="322" y="480" width="140" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{antchkdt2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="322" y="503" width="140" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{antchkdt4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="322" y="525" width="139" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{antchkdt6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="401" y="568" width="72" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ExDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="389" y="638" width="81" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{EXDate60}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="448" y="774" width="65" height="13" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{IssueDt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="107" y="480" width="116" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{antchkdt1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="107" y="503" width="116" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{antchkdt3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="107" y="525" width="116" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{antchkdt5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="205" y="278" width="208" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PatIdNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="321" y="98" width="92" height="13"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{patfname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="413" y="98" width="100" height="13"/>
+				<box leftPadding="2"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{patgname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="87" y="262" width="17" height="17"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[X]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="186" y="98" width="100" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Ming(for ISO10646_V3)" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PatCName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="271" y="226" width="100" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOB}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="1" splitType="Prevent">
+			<subreport isUsingCache="false">
+				<reportElement x="-25" y="0" width="546" height="1" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PatIdNo">
+					<subreportParameterExpression><![CDATA[$F{PatIdNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SlpNo">
+					<subreportParameterExpression><![CDATA[$P{SlpNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patgname">
+					<subreportParameterExpression><![CDATA[$F{patgname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DOB">
+					<subreportParameterExpression><![CDATA[$F{DOB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PatCName">
+					<subreportParameterExpression><![CDATA[$F{PatCName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="IssueDt">
+					<subreportParameterExpression><![CDATA[$F{IssueDt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ExDate">
+					<subreportParameterExpression><![CDATA[$F{ExDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patfname">
+					<subreportParameterExpression><![CDATA[$F{patfname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "PrintOBCertConsent_TWAH.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="1">
+			<subreport isUsingCache="false">
+				<reportElement x="-25" y="0" width="546" height="1" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PatIdNo">
+					<subreportParameterExpression><![CDATA[$F{PatIdNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SlpNo">
+					<subreportParameterExpression><![CDATA[$P{SlpNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patgname">
+					<subreportParameterExpression><![CDATA[$F{patgname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DOB">
+					<subreportParameterExpression><![CDATA[$F{DOB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PatCName">
+					<subreportParameterExpression><![CDATA[$F{PatCName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="IssueDt">
+					<subreportParameterExpression><![CDATA[$F{IssueDt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ExDate">
+					<subreportParameterExpression><![CDATA[$F{ExDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patfname">
+					<subreportParameterExpression><![CDATA[$F{patfname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "PrintOBCertAgreement_TWAH.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

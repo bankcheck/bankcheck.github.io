@@ -1,0 +1,121 @@
+<html>
+	<head>
+		<!--meta http-equiv="X-UA-Compatible" content="IE=9"-->
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<link type="text/css" rel="stylesheet" href="HKAHNHS.css">
+		<link type="text/css" rel="stylesheet" href="css/gxt-all.css" />
+		<link type="text/css" rel="stylesheet" href="themes/purple/css/xtheme-purple.css"/>
+		<link rel="shortcut icon" href="images/hats.ico" type="image/x-icon" />
+		<title>New HATS System</title>
+		<!--  <script type="text/javascript" language="javascript" src="hkahnhs/hkahnhs.nocache.js"></script> -->
+		<script type="text/javascript" language="javascript">
+			document.write("<script type='text/javascript' language='javascript' src='hkahnhs/hkahnhs.nocache.js?v=" + (new Date()) + "'><\/script>");
+
+			document.onhlep = new Function("return false");
+			window.onhelp = new Function("return false");
+
+			/**
+			 * refer to http://www.technicaladvices.com/2012/07/16/preventing-backspace-from-navigating-back-in-all-the-browsers/
+			 */
+			document.onkeydown = function (event) {
+				if (!event) { /* This will happen in IE */
+					event = window.event;
+				}
+
+				var keyCode = event.keyCode;
+
+				if (keyCode >= 112 && keyCode <= 123) {
+					event.keyCode = 0;
+					event.returnValue = false;
+				} else if (keyCode == 8 &&
+					((event.target || event.srcElement).tagName != "TEXTAREA") &&
+					((event.target || event.srcElement).tagName != "INPUT")) {
+
+					if (navigator.userAgent.toLowerCase().indexOf("msie") == -1) {
+						event.stopPropagation();
+					} else {
+						event.keyCode = 0;
+						event.returnValue = false;
+					}
+
+					return false;
+				}
+			}
+
+			function getWebSocketID() {
+				return wsId;
+			}
+
+			var wsId = -1;
+			var wsUri = getWebsocketUri();
+			var websocket;
+
+			function getWebsocketUri() {
+				var newUrl = window.location.href;
+				var index = newUrl.indexOf('/HKAH');
+				if (index > 0) {
+					var index2 = newUrl.indexOf('/', index + 1);
+					if (index2 > 0) {
+						newUrl = "ws://" + newUrl.substring(7, index2) + "/websocket";
+						return newUrl;
+					} else {
+						index2 = newUrl.indexOf('/', 9);
+						if (index2 > 0) {
+//							newUrl = "ws://160.100.3.39:8080/HKAHNHS_UAT/websocket";
+							newUrl = "ws://" + newUrl.substring(7, index2) + "/websocket";
+							return newUrl;
+						}
+					}
+				}
+				return "";
+			}
+
+			function connectWebsocket() {
+				if (wsId == -1) {
+					websocket = new WebSocket(wsUri);
+					websocket.onopen = function(event) { onOpen(event) };
+					websocket.onclose = function(event) { onClose(event) };
+					websocket.onmessage = function(event) { onMessage(event) };
+					websocket.onerror = function(event) { onError(event) };
+				}
+			}
+
+			function disconnectWebsocket() {
+				if (wsId != -1) {
+					websocket.close();
+				}
+			}
+
+			function onOpen(event) {
+				console.log('onopen::' + JSON.stringify(event, null, 4));
+			}
+
+			function onClose(event) {
+				console.log('onclose::' + JSON.stringify(event, null, 4));
+			}
+
+			function onMessage(event) {
+				var msg = event.data;
+				console.log('onmessage::' + JSON.stringify(msg, null, 4));
+				if (msg.indexOf('Return ID:') == 0) {
+					wsId = msg.substring(10);
+					console.log("Websocket ID:[" + wsId + "]");
+				} else {
+					window.MasterPanel_doECRAfterECR(msg);
+					console.log(msg);
+				}
+			}
+
+			function onError(event) {
+				console.log('onerror::' + JSON.stringify(event, null, 4));
+			}
+		</script>
+	</head>
+	<body bgcolor="white">
+		<div id="loading">
+			<div class="loading-indicator">
+				<img src="images/A Logo.gif" width="32" height="32"/>New HATS System<br /><span id="loading-msg">Loading...</span>
+			</div>
+		</div>
+	</body>
+</html>

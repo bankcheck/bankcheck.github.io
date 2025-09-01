@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PHYORDERFORM_SUB2" pageWidth="510" pageHeight="802" columnWidth="510" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.650000000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="7"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF" hAlign="Center">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF" fill="Solid" isBlankWhenNull="true">
+		<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="2">
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="BreastImg" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<detail>
+		<band height="313" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="153" width="510" height="115"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement style="table_TD" x="430" y="0" width="40" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Yes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="0" y="66" width="27" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[4.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="0" y="82" width="27" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[5.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="470" y="18" width="40" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="0" y="98" width="27" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[6.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="0" y="34" width="27" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[2.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="430" y="98" width="40" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="470" y="114" width="40" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="0" y="0" width="430" height="18"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Please answer the following question:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="430" y="50" width="40" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="430" y="18" width="40" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="0" y="50" width="27" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[3.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="470" y="0" width="40" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="0" y="18" width="27" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[1.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="0" y="114" width="27" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[7.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="430" y="114" width="40" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="27" y="98" width="403" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Chemotherapy]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="27" y="34" width="403" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Family history of breast cancer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="430" y="66" width="40" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="27" y="114" width="403" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Previous mammogram]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="430" y="82" width="40" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="470" y="34" width="40" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="470" y="66" width="40" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="470" y="82" width="40" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="27" y="18" width="403" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Contraceptive pill / Hormones Receptive Treatment (H.R.T.)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="27" y="82" width="403" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Radiotherapy]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="470" y="50" width="40" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="470" y="98" width="40" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="27" y="66" width="403" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Mastectomy]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="430" y="34" width="40" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="190" width="50" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Yes / No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="190" width="100" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Pain:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="81" y="237" width="80" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="448" y="202" width="50" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Yes / No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="214" width="100" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Nipple Inversion:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="202" width="50" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Yes / No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="178" width="50" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Yes / No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="226" width="50" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="178" width="50" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Yes / No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="190" width="50" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Yes / No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="190" width="100" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Pain:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="202" width="100" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Lumps of Thickening:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="0" y="135" width="510" height="18"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Clinical Information]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="226" width="100" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Others:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="178" width="100" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Routine Exam: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="202" width="100" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Lumps of Thickening:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="418" y="237" width="80" height="1"/>
+			</line>
+			<image onErrorType="Blank">
+				<reportElement x="178" y="170" width="192" height="89"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{BreastImg}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="12" y="178" width="100" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Routine Exam: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="226" width="100" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Others:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="27" y="50" width="403" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[History of surgery to the breast – Aspiration / Excision / Implant]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="154" width="208" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Skin Mass / Scar / Mole]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="214" width="50" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Yes / No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="214" width="50" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Yes / No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="214" width="100" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Nipple Inversion:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="226" width="50" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="297" width="56" height="16"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Menopause:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="56" y="281" width="150" height="16"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[( Yes / No )]]></text>
+			</staticText>
+			<line>
+				<reportElement x="27" y="281" width="100" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="268" width="27" height="16"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[LMP:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="281" width="56" height="16"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Pregnancy:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="56" y="297" width="150" height="16"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[( Yes / No )]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="268" width="76" height="16"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[(DD/MM/YYYY)]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

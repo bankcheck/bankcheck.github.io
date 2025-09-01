@@ -1,0 +1,132 @@
+#main {
+	width:680px;
+	margin:0 auto;
+}
+
+#images {
+	display:none;	
+}
+
+.panel {
+	position:absolute;
+	float:left;	
+}
+
+ul.exposureThumbs {
+	background:#111;
+	border:5px solid #444;
+	border-right:none;
+	padding:0;
+	margin:0;
+	list-style-type:none;
+	height:320px;
+}
+
+ul.exposureThumbs li {
+	margin:0 0 5px 0;
+	padding:0;
+	text-align:center;
+	display:none;
+}
+
+ul.exposureThumbs li img {
+	cursor:pointer;
+	width:10%;
+	height10%;
+}
+
+ul.exposureThumbs li.last {
+	margin:0;	
+}
+
+.exposureTarget {
+	width:530px;
+	height:330px;
+	background-color:#fff;	
+	background-image:url(res/loader.gif);
+	background-repeat:no-repeat;
+	background-position:center center;
+	padding:0;
+	left:140px;
+	margin:0;
+	border:5px solid #111;
+	position:relative;
+	overflow:hidden; 
+	border:5px solid #444;
+}
+
+.exposureWrapper {
+	position:absolute; 
+	top:0; 
+	left:0;
+}
+
+.exposureWrapper img {
+	cursor:pointer;
+	position:absolute;
+	top:0;
+	left:0;
+}
+
+.exposureLoaded {
+	background-image:none;	
+}
+
+.exposureData {
+	position:absolute;
+ 	left:0;
+ 	right:0;
+ 	bottom:0;
+	height:60px;
+	padding:7px;
+	background-image:url(res/veil.png);
+	color:#fff;
+	font-family:Arial,Verdana,Helvetica,sans-serif;
+	font-size:16px;
+	font-weight:bold;
+}
+
+/* In this demo we are using thumbs with fixed size */
+ul.exposureThumbs li {
+	width:140px;
+	height:80px;
+}
+
+.exposureSlideshowControls a,
+.exposureControls span,
+.exposureControls a {
+	font-family:Arial,Verdana,Helvetica,sans-serif;
+	font-size:11px;
+	padding:8px;
+	background-color:#555;
+	display:block;
+	float:left;
+}
+
+.exposureSlideshowControls a {
+	float:right;	
+}
+
+.exposureSlideshowControls a,
+.exposureControls a {
+	color:#ccc;
+	text-decoration:none;
+	outline:none;
+}
+
+.exposureSlideshowControls a:active,
+.exposureSlideshowControls a:hover,
+.exposureControls a:active,
+.exposureControls a:hover {
+	background-color:#444;
+	color:#ddd;
+}
+
+.exposurePaging .active {
+	color:#fff;
+	background-color:#111;	
+}
+
+.clear {
+	clear:both;	
+}

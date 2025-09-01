@@ -1,0 +1,20 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_REASON"
+(V_RSNCODE REASON.RSNCODE%TYPE,
+v_RSNDESC REASON.RSNDESC%TYPE)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN outcur FOR
+      SELECT
+        RSNCODE, RSNDESC
+      FROM REASON
+      WHERE ( RSNCODE LIKE '%' || v_RSNCODE || '%')
+      AND ( RSNDESC like '%' || v_RSNDESC || '%')
+      AND ROWNUM < 100
+      ORDER BY RSNCODE;
+   RETURN OUTCUR;
+END NHS_LIS_REASON;
+/
+
+

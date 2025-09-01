@@ -1,0 +1,28 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_PAYMENT"
+(V_PAYCODE PAYCODE.PAYCODE%TYPE)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN outcur FOR
+    SELECT
+        PA.PAYCODE,
+        PA.PAYTYPE,
+        PA.PAYDESC,
+        PA.PAYCDESC,
+        PA.GLCCODE,
+        GL.GLCNAME,  --
+        PA.STECODE,  -- site code
+        PA.RETGLCCODE,
+        GL.GLCNAME,  --
+        DECODE(PA.PAYNOTEAR,-1,'Y','N')
+    FROM PAYCODE PA, GLCODE GL
+    WHERE PA.GLCCODE=GL.GLCCODE(+)
+    AND ( PA.PAYCODE LIKE '%' || v_PAYCODE || '%')
+    AND ROWNUM < 100
+    ORDER BY PA.PAYCODE;
+  RETURN OUTCUR;
+END NHS_LIS_PAYMENT;
+/
+
+

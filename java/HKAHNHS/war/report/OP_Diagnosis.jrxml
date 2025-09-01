@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OP_Diagnosis" pageWidth="510" pageHeight="802" columnWidth="510" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.8181818181818181"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="DIAGNOSIS" class="java.lang.String"/>
+	<field name="DOCCODE" class="java.lang.String"/>
+	<field name="DOCNAME" class="java.lang.String"/>
+	<field name="ECERT1" class="java.lang.String"/>
+	<field name="ECERT2" class="java.lang.String"/>
+	<field name="ECERT3" class="java.lang.String"/>
+	<field name="ECERT4" class="java.lang.String"/>
+	<field name="ECERT5" class="java.lang.String"/>
+	<field name="ECERT6" class="java.lang.String"/>
+	<field name="ECERT7" class="java.lang.String"/>
+	<field name="ECERT8" class="java.lang.String"/>
+	<field name="ECERT9" class="java.lang.String"/>
+	<field name="ECERT10" class="java.lang.String"/>
+	<field name="PROCEDURES" class="java.lang.String"/>
+	<field name="STECODE" class="java.lang.String"/>
+	<detail>
+		<band height="17">
+			<printWhenExpression><![CDATA[(!$F{DIAGNOSIS}.isEmpty() && $F{DIAGNOSIS}.length() > 0) ||
+(!$F{PROCEDURES}.isEmpty() && $F{PROCEDURES}.length() > 0)]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="10" y="2" width="455" height="15" isPrintWhenDetailOverflows="true"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial Unicode MS" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(!$F{DIAGNOSIS}.isEmpty() && $F{DIAGNOSIS}.length() > 0) ?
+("Diagnosis "+
+($F{STECODE}.equals( "TWAH" )?"診斷":"")):""]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="15" splitType="Prevent">
+			<printWhenExpression><![CDATA[!$F{DIAGNOSIS}.isEmpty()]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="21" y="0" width="444" height="15" isPrintWhenDetailOverflows="true"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DIAGNOSIS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="10" y="0" width="12" height="15" isPrintWhenDetailOverflows="true"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="15">
+			<printWhenExpression><![CDATA[!$F{PROCEDURES}.isEmpty()]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="10" y="0" width="455" height="15" isPrintWhenDetailOverflows="true"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<b>Procedure </b><br>&nbsp;&nbsp;&nbsp;&nbsp;"+$F{PROCEDURES}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="26">
+			<printWhenExpression><![CDATA[(!$F{DIAGNOSIS}.isEmpty() && $F{DIAGNOSIS}.length() > 0) ||
+(!$F{PROCEDURES}.isEmpty() && $F{PROCEDURES}.length() > 0)]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="10" y="0" width="455" height="24" isPrintWhenDetailOverflows="true"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom" markup="html">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<br><b>"+$F{DOCNAME}+"</b>"+
+" </style><style fontName='Ming(for ISO10646_V3)'>" + ($F{ECERT1}.isEmpty()?"":"<br>"+$F{ECERT1})+
+($F{ECERT2}.isEmpty()?"":"<br>"+$F{ECERT2})+
+($F{ECERT3}.isEmpty()?"":"<br>"+$F{ECERT3})+
+($F{ECERT4}.isEmpty()?"":"<br>"+$F{ECERT4})+
+($F{ECERT5}.isEmpty()?"":"<br>"+$F{ECERT5})+
+($F{ECERT6}.isEmpty()?"":"<br>"+$F{ECERT6})+
+($F{ECERT7}.isEmpty()?"":"<br>"+$F{ECERT7})+
+($F{ECERT8}.isEmpty()?"":"<br>"+$F{ECERT8})+
+($F{ECERT9}.isEmpty()?"":"<br>"+$F{ECERT9})+
+($F{ECERT10}.isEmpty()?"":"<br>"+$F{ECERT10})+ "</style>"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

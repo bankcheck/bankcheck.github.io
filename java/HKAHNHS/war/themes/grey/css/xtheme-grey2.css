@@ -1,0 +1,56 @@
+.x-toolbar{
+    /*background:#9c9c9c url(../images/darkgray/toolbar/bg.gif) repeat-x top left;*/
+    background:#DDDAD3 !important;
+}
+
+.x-grid3-row-selected {
+	 background: #C0C0C0 !important;/*grey*/
+}
+
+.x-border-layout-ct {
+	background: #DDDAD3 !important;
+}
+
+.read-only{
+	background:#F3F3F3 !important;
+}
+
+.read-only-OT{
+	background:#FAAC58 !important;
+}
+
+.x-window-tl {
+	background: #D1CFCA !important;
+}
+
+.x-window-tc {
+	background: #D1CFCA !important;
+}
+
+.x-window-tr {
+	background: #D1CFCA !important;
+}
+
+.x-window-ml {
+	background: #D1CFCA !important;
+}
+
+.x-window-mc {
+	background: #DDDAD3 !important;
+}
+
+.x-window-mr {
+	background: #D1CFCA !important;
+}
+
+.x-window-bl {
+	background: #D1CFCA !important;
+}
+
+.x-window-bc {
+	background: #D1CFCA !important;
+}
+
+.x-window-br {
+	background: #D1CFCA !important;
+}

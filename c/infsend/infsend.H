@@ -75,6 +75,7 @@ char *ParseDelimiter (char *str, int idx, char delimiter, char *buf);
 void GetData(void);
 int SendData(void);
 int ConvertCode(char *item, char *code);
+int RevertCode(char *item, char *code);
 int SendLine(CLIENT *c, char *buf);
 int SendFile(char *fname);
 int SendCancel(char *fname);

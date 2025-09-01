@@ -1,0 +1,77 @@
+CREATE OR REPLACE FUNCTION "NHS_RPT_RPTPETTYCASH" (
+	v_StartDate  VARCHAR2,
+	v_EndDate    VARCHAR2,
+	v_SteCode    VARCHAR2,
+	v_ReportType VARCHAR2
+)
+	RETURN Types.cursor_type
+AS
+	outcur types.cursor_type;
+	CASHTX_NONPATIENT_RELATED VARCHAR2(1) := 'N';
+BEGIN
+	IF v_ReportType = 'N' THEN
+		OPEN OUTCUR FOR
+			SELECT DECODE(CT.CTXTYPE, 'P', 'Payout Report', 'R', 'Receipt Report', CT.CTXTYPE) AS CTXTYPE,
+				CS.USRID,
+				DECODE(CT.CTXMETH,'C', 'Cash' ,
+						'D', 'Credit Card',
+						'E', 'EPS',
+						'Q', 'Cheque',
+						'A', 'Autopay',
+						'U', 'CUP',
+						'T', 'OCTOPUS',
+						'R', 'WECHAT/ALIPAY',
+						'Other') AS CTXMETH,
+				CD.CTNCTYPE, CT.CTXSNO, CT.CTXNAME, CT.CTXAMT, CT.CTXDESC,
+				TO_CHAR(CT.CTXCDATE, 'ddMONyyyy', 'nls_date_language=ENGLISH') AS CTXCDATE,
+				SIT.STENAME, ARP.ARCCODE
+--				TO_DATE(v_StartDate,'dd-mm-yyyy') as DateRangeStart,
+--				TO_DATE(v_EndDate, 'dd-mm-yyyy') as DateRangeEnd,
+			FROM  CASHTX CT, CASHIER CS, SITE SIT, CARDTX CD, ARPTX ARP
+			WHERE CT.CTNID = CD.CTNID(+)
+			AND   CT.CSHCODE = CS.CSHCODE
+			AND   CS.STECODE = v_STECODE
+			AND   CS.STECODE = SIT.STECODE
+			AND   CT.CTXTDATE >= TO_DATE(v_STARTDATE, 'DD/MM/YYYY')
+			AND   CT.CTXTDATE < TO_DATE(v_ENDDATE, 'DD/MM/YYYY') + 1
+			AND ((CT.CTXSTS = 'N' AND TO_CHAR(CT.CTXTDATE, 'DD/MM/YYYY') != TO_CHAR(CT.CTXCDATE, 'DD/MM/YYYY'))
+			OR   (CT.CTXSTS = 'V' AND TO_CHAR(CT.CTXVDATE, 'DD/MM/YYYY') != TO_CHAR(CT.CTXCDATE, 'DD/MM/YYYY')))
+			AND   CT.CTXCAT = CASHTX_NONPATIENT_RELATED
+			AND   CT.CTXTYPE <> 'A'
+			AND   CT.CTXSNO = ARP.ARPRECNO(+)
+			ORDER BY  CT.CTXTYPE DESC, CS.USRID ASC, CT.CTXMETH ASC;
+	ELSE
+		OPEN OUTCUR FOR
+			SELECT DECODE(CT.CTXTYPE, 'P', 'Payout Report', 'R', 'Receipt Report', CT.CTXTYPE) AS CTXTYPE,
+				CS.USRID,
+				DECODE(CT.CTXMETH,'C', 'Cash' ,
+						'D', 'Credit Card',
+						'E', 'EPS',
+						'Q', 'Cheque',
+						'A', 'Autopay',
+						'U', 'CUP',
+						'T', 'OCTOPUS',
+						'R', 'WECHAT/ALIPAY',
+						'Other') AS CTXMETH,
+				CD.CTNCTYPE, CT.CTXSNO, CT.CTXNAME, CT.CTXAMT, CT.CTXDESC,
+				TO_CHAR(CT.CTXCDATE, 'ddMONyyyy', 'nls_date_language=ENGLISH') AS CTXCDATE,
+				SIT.STENAME, ARP.ARCCODE
+--				TO_DATE(v_StartDate,'dd-mm-yyyy') as DateRangeStart,
+--				TO_DATE(v_EndDate, 'dd-mm-yyyy') as DateRangeEnd,
+			FROM  CASHTX CT, CASHIER CS, SITE SIT, CARDTX CD, ARPTX ARP
+			WHERE CT.CTNID = CD.CTNID(+)
+			AND   CT.CSHCODE = CS.CSHCODE
+			AND   CS.STECODE = v_STECODE
+			AND   CS.STECODE = SIT.STECODE
+			AND   CT.CTXCDATE >= TO_DATE(v_STARTDATE, 'DD/MM/YYYY')
+			AND   CT.CTXCDATE < TO_DATE(v_ENDDATE, 'DD/MM/YYYY') + 1
+			AND   CT.CTXCAT = CASHTX_NONPATIENT_RELATED
+			AND   CT.CTXSTS = 'N'
+			AND   CT.CTXTYPE <> 'A'
+			AND   CT.CTXSNO = ARP.ARPRECNO(+)
+			ORDER BY  CT.CTXTYPE DESC, CS.USRID ASC, CT.CTXMETH ASC;
+	END IF;
+
+	RETURN OUTCUR;
+END NHS_RPT_RPTPETTYCASH;
+/

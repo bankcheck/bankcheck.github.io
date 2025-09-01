@@ -1,0 +1,49 @@
+  create or replace FUNCTION "NHS_GET_SLIPTX_CANCEL_STNCDATE"
+(V_SLPNO SLIPTX.SLPNO%TYPE,
+V_STNSEQ SLIPTX.STNSEQ%TYPE
+,V_GENDATE IN VARCHAR2
+)
+  RETURN sliptx.STNCDATE%TYPE
+AS
+  V_STNCDATE SLIPTX.STNCDATE%TYPE;
+BEGIN 
+    BEGIN
+      SELECT SLIPTX.STNCDATE 
+      INTO V_STNCDATE 
+      FROM SLIPTX 
+      WHERE SLPNO = V_SLPNO 
+      AND STNDESC = V_STNSEQ
+      AND STNSTS = 'U';
+      
+      IF V_GENDATE IS NOT NULL THEN
+        IF V_STNCDATE < TO_DATE(V_GENDATE||' 00:00:00', 'DD/MM/YYYY HH24:MI:SS') THEN
+          return null;
+        ELSE
+          SELECT SLIPTX.STNCDATE 
+          INTO V_STNCDATE 
+          FROM SLIPTX 
+          WHERE SLPNO = V_SLPNO 
+          AND STNSEQ = V_STNSEQ
+          AND STNSTS = 'C';
+          
+          return V_STNCDATE;        
+        END IF;
+      END IF;      
+    EXCEPTION
+    WHEN OTHERS THEN
+      SELECT SLIPTX.STNCDATE 
+      INTO V_STNCDATE 
+      FROM SLIPTX 
+      WHERE SLPNO = V_SLPNO 
+      AND STNSEQ = V_STNSEQ
+      AND STNSTS = 'C';  
+	  
+      IF V_STNCDATE < TO_DATE(V_GENDATE||' 00:00:00', 'DD/MM/YYYY HH24:MI:SS') THEN
+        return null;
+      ELSE
+        return V_STNCDATE;        
+      END IF;
+    END;
+RETURN V_STNCDATE;
+end;
+/

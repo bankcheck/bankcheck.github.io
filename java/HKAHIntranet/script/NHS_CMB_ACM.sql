@@ -1,0 +1,13 @@
+create or replace
+FUNCTION "NHS_CMB_ACM"
+  RETURN Types.CURSOR_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN OUTCUR FOR
+      SELECT ACMCODE, ACMNAME
+      FROM ACM@IWEB
+      WHERE ROWNUM < 100
+      ORDER BY ACMNAME;
+   RETURN OUTCUR;
+END NHS_CMB_ACM;

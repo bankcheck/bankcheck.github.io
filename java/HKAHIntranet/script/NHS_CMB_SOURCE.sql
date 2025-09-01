@@ -1,0 +1,13 @@
+create or replace
+FUNCTION "NHS_CMB_SOURCE"
+  RETURN Types.CURSOR_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN OUTCUR FOR
+      SELECT SRCCODE,SRCDESC
+      FROM SOURCE@IWEB
+      WHERE ROWNUM < 100
+      ORDER BY SRCDESC;
+   RETURN OUTCUR;
+END NHS_CMB_SOURCE;

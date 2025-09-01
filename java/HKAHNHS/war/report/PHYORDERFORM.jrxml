@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PHYORDERFORM" columnCount="2" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="275" columnSpacing="5" leftMargin="20" rightMargin="20" topMargin="40" bottomMargin="22">
+	<property name="ireport.zoom" value="2.143588810000036"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="266"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF" fill="Solid" isBlankWhenNull="true">
+		<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="2">
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="regid" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="name" class="java.lang.String"/>
+	<parameter name="sex" class="java.lang.String"/>
+	<parameter name="dob" class="java.lang.String"/>
+	<parameter name="hkid" class="java.lang.String"/>
+	<parameter name="orderDate" class="java.lang.String"/>
+	<parameter name="docName" class="java.lang.String"/>
+	<parameter name="govDept" class="java.lang.String"/>
+	<parameter name="govPosition" class="java.lang.String"/>
+	<parameter name="LogoImg" class="java.lang.String"/>
+	<parameter name="userID" class="java.lang.String"/>
+	<parameter name="userName" class="java.lang.String"/>
+	<parameter name="newbarcode" class="java.lang.String"/>
+	<parameter name="pkgCode" class="java.lang.String"/>
+	<parameter name="pkgName" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHNHS\\war\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="patcname" class="java.lang.String"/>
+	<parameter name="BreastImg" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="DPTCODE" class="java.lang.String"/>
+	<field name="DPTNAME" class="java.lang.String"/>
+	<field name="ITMCODE" class="java.lang.String"/>
+	<field name="ITMNAME" class="java.lang.String"/>
+	<field name="NUM" class="java.lang.String"/>
+	<field name="DSCCODE" class="java.lang.String"/>
+	<field name="DSCDESC" class="java.lang.String"/>
+	<group name="DEPT" isStartNewColumn="true" isStartNewPage="true" isResetPageNumber="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{DPTNAME}]]></groupExpression>
+		<groupHeader>
+			<band height="16">
+				<printWhenExpression><![CDATA[Integer.valueOf($F{NUM})<=20]]></printWhenExpression>
+				<staticText>
+					<reportElement style="table_TH" mode="Transparent" x="20" y="0" width="160" height="16" backcolor="#FFFFFF">
+						<printWhenExpression><![CDATA[!"370-".equals($F{DPTCODE})]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Item	]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="table_TH" mode="Transparent" x="180" y="0" width="350" height="16" backcolor="#FFFFFF">
+						<printWhenExpression><![CDATA[!"370-".equals($F{DPTCODE})]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Description]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="table_TH" mode="Transparent" x="20" y="0" width="80" height="16" backcolor="#FFFFFF">
+						<printWhenExpression><![CDATA["370-".equals($F{DPTCODE})]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Item	]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="table_TH" mode="Transparent" x="100" y="0" width="270" height="16" backcolor="#FFFFFF">
+						<printWhenExpression><![CDATA["370-".equals($F{DPTCODE})]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Description]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="table_TH" mode="Transparent" x="370" y="0" width="80" height="16" backcolor="#FFFFFF">
+						<printWhenExpression><![CDATA["370-".equals($F{DPTCODE})]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Performed]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="table_TH" mode="Transparent" x="450" y="0" width="80" height="16" backcolor="#FFFFFF">
+						<printWhenExpression><![CDATA["370-".equals($F{DPTCODE})]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Signature]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="11" splitType="Stretch">
+				<printWhenExpression><![CDATA["240-".equals($F{DPTCODE}) || "340-".equals($F{DPTCODE}) || "350-".equals($F{DPTCODE}) || "300-".equals($F{DPTCODE}) || "260-".equals($F{DPTCODE})?
+    Boolean.TRUE:
+	Boolean.FALSE]]></printWhenExpression>
+				<subreport isUsingCache="true">
+					<reportElement x="20" y="10" width="510" height="0">
+						<printWhenExpression><![CDATA["300-".equals($F{DPTCODE})?
+Boolean.TRUE:
+Boolean.FALSE]]></printWhenExpression>
+					</reportElement>
+					<subreportParameter name="BreastImg">
+						<subreportParameterExpression><![CDATA[$P{BreastImg}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "PHYORDERFORM_FD.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport isUsingCache="true">
+					<reportElement x="20" y="10" width="510" height="1">
+						<printWhenExpression><![CDATA["240-".equals($F{DPTCODE}) || "340-".equals($F{DPTCODE}) || "350-".equals($F{DPTCODE})?
+Boolean.TRUE:
+Boolean.FALSE]]></printWhenExpression>
+					</reportElement>
+					<subreportParameter name="ITMCODE">
+						<subreportParameterExpression><![CDATA[$F{ITMCODE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "PHYORDERFORM_SUB1.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport isUsingCache="true">
+					<reportElement x="20" y="10" width="510" height="1">
+						<printWhenExpression><![CDATA["260-".equals($F{DPTCODE})?
+Boolean.TRUE:
+Boolean.FALSE]]></printWhenExpression>
+					</reportElement>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "PHYORDERFORM_DN.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="DSC" isStartNewColumn="true" isResetPageNumber="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA["280-".equals($F{DPTCODE})?
+$F{DSCCODE}:
+("230-".equals($F{DPTCODE})?
+$F{DSCCODE}:
+$F{DPTCODE})]]></groupExpression>
+		<groupFooter>
+			<band height="16">
+				<printWhenExpression><![CDATA["280-".equals($F{DPTCODE}) || "230-".equals($F{DPTCODE})?
+Boolean.TRUE:
+Boolean.FALSE]]></printWhenExpression>
+				<subreport isUsingCache="true">
+					<reportElement x="20" y="15" width="510" height="1">
+						<printWhenExpression><![CDATA["280-".equals($F{DPTCODE})?
+    ("MM".equals($F{DSCCODE})?
+    Boolean.TRUE:
+    Boolean.FALSE):
+Boolean.FALSE]]></printWhenExpression>
+					</reportElement>
+					<subreportParameter name="BreastImg">
+						<subreportParameterExpression><![CDATA[$P{BreastImg}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "PHYORDERFORM_SUB2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport isUsingCache="true">
+					<reportElement x="20" y="15" width="510" height="1">
+						<printWhenExpression><![CDATA["280-".equals($F{DPTCODE})?
+    ("MM".equals($F{DSCCODE})?
+    Boolean.FALSE:
+    Boolean.TRUE):
+Boolean.FALSE]]></printWhenExpression>
+					</reportElement>
+					<subreportParameter name="ITMCODE">
+						<subreportParameterExpression><![CDATA[$F{ITMCODE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "PHYORDERFORM_SUB1.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport isUsingCache="true">
+					<reportElement x="20" y="15" width="510" height="1">
+						<printWhenExpression><![CDATA["230-".equals($F{DPTCODE}) && Integer.valueOf($F{NUM})<17?
+Boolean.TRUE:
+Boolean.FALSE]]></printWhenExpression>
+					</reportElement>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "PHYORDERFORM_SUB3.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="198">
+			<rectangle>
+				<reportElement x="465" y="34" width="90" height="63">
+					<printWhenExpression><![CDATA["230-".equals($F{DPTCODE})]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="330" y="-12" width="225" height="28"/>
+				<box rightPadding="0">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="10" isUnderline="true" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DPTNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="112" width="460" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="111" width="70" height="15"/>
+				<textElement/>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="141" width="90" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{sex}.equals("F")?"Female":
+$P{sex}.equals("M")?"Male":""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="141" width="70" height="15"/>
+				<textElement/>
+				<text><![CDATA[Gender: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="79" width="396" height="18"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Basic Information:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="141" width="80" height="15"/>
+				<textElement/>
+				<text><![CDATA[Date of Birth: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="260" y="141" width="90" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{dob}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="141" width="100" height="15"/>
+				<textElement/>
+				<text><![CDATA[Document No.: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="141" width="100" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{hkid}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="156" width="110" height="15"/>
+				<textElement/>
+				<text><![CDATA[Consultation Doctor: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="156" width="200" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="97" width="110" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="97" width="70" height="15"/>
+				<textElement/>
+				<text><![CDATA[Hospital No.:]]></text>
+			</staticText>
+			<image scaleImage="RetainShape">
+				<reportElement x="0" y="-12" width="294" height="38"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{LogoImg}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="400" y="156" width="130" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{orderDate}.substring( 0, 10 )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="330" y="156" width="70" height="15"/>
+				<textElement/>
+				<text><![CDATA[Order Date:]]></text>
+			</staticText>
+			<image hAlign="Left" vAlign="Top" isLazy="true">
+				<reportElement x="200" y="97" width="138" height="14"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode($P{newbarcode}.substring(0, $P{newbarcode}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="0" y="58" width="555" height="16">
+					<printWhenExpression><![CDATA[!"230-".equals($F{DPTCODE})]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["("+$P{pkgCode}+" - "+$P{pkgName}+")"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="90" y="127" width="460" height="15"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patcname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="16" width="225" height="18">
+					<printWhenExpression><![CDATA["280-".equals($F{DPTCODE})?
+Boolean.TRUE:
+("230-".equals($F{DPTCODE})?
+    Boolean.TRUE:
+    Boolean.FALSE)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["("+$F{DSCDESC}+")"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="180" width="510" height="18"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Examinations to be performed:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="34" width="555" height="24">
+					<printWhenExpression><![CDATA[!"230-".equals($F{DPTCODE})]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Physical Checkup Order Form]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="473" y="39" width="12" height="12">
+					<printWhenExpression><![CDATA["230-".equals($F{DPTCODE})]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="473" y="59" width="12" height="12">
+					<printWhenExpression><![CDATA["230-".equals($F{DPTCODE})]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="473" y="79" width="12" height="12">
+					<printWhenExpression><![CDATA["230-".equals($F{DPTCODE})]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="34" width="465" height="24">
+					<printWhenExpression><![CDATA["230-".equals($F{DPTCODE})]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Physical Checkup Order Form]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="58" width="465" height="16">
+					<printWhenExpression><![CDATA["230-".equals($F{DPTCODE})]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["("+$P{pkgCode}+" - "+$P{pkgName}+")"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="490" y="39" width="55" height="13">
+					<printWhenExpression><![CDATA["230-".equals($F{DPTCODE})]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<text><![CDATA[Urine test]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="59" width="55" height="13">
+					<printWhenExpression><![CDATA["230-".equals($F{DPTCODE})]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<text><![CDATA[Stool test]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="79" width="55" height="13">
+					<printWhenExpression><![CDATA["230-".equals($F{DPTCODE})]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<text><![CDATA[Blood test]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="16">
+			<printWhenExpression><![CDATA[Integer.valueOf($F{NUM})>20]]></printWhenExpression>
+			<staticText>
+				<reportElement style="table_TH" mode="Transparent" x="20" y="0" width="80" height="16" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[Integer.valueOf($F{NUM})>20]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Item	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" mode="Transparent" x="100" y="0" width="150" height="16" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[Integer.valueOf($F{NUM})>20]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<printWhenExpression><![CDATA[Integer.valueOf($F{NUM})<=20]]></printWhenExpression>
+			<textField>
+				<reportElement style="table_TD" x="20" y="0" width="160" height="17">
+					<printWhenExpression><![CDATA[!"370-".equals($F{DPTCODE})]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ITMCODE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="180" y="0" width="350" height="17">
+					<printWhenExpression><![CDATA[!"370-".equals($F{DPTCODE})]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ITMNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="20" y="0" width="80" height="17">
+					<printWhenExpression><![CDATA["370-".equals($F{DPTCODE})]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ITMCODE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="100" y="0" width="270" height="17">
+					<printWhenExpression><![CDATA["370-".equals($F{DPTCODE})]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ITMNAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="table_TH" mode="Transparent" x="450" y="0" width="80" height="17" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA["370-".equals($F{DPTCODE})]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" mode="Transparent" x="370" y="0" width="80" height="17" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA["370-".equals($F{DPTCODE})]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="404" y="3" width="12" height="12">
+					<printWhenExpression><![CDATA["370-".equals($F{DPTCODE})]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+		</band>
+		<band height="17">
+			<printWhenExpression><![CDATA[Integer.valueOf($F{NUM})>20 && !"300-".equals($F{DPTCODE})]]></printWhenExpression>
+			<textField>
+				<reportElement style="table_TD" x="100" y="0" width="150" height="17" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ITMNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="20" y="0" width="80" height="17" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ITMCODE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="164">
+			<subreport isUsingCache="true">
+				<reportElement x="20" y="10" width="510" height="30">
+					<printWhenExpression><![CDATA["230-".equals($F{DPTCODE}) && Integer.valueOf($F{NUM})>=17 ?
+Boolean.TRUE:
+Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "PHYORDERFORM_SUB3.jasper"]]></subreportExpression>
+			</subreport>
+			<textField pattern="dd/MM/yyyy HH:mm">
+				<reportElement x="90" y="149" width="186" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="149" width="70" height="15"/>
+				<textElement/>
+				<text><![CDATA[Print Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="315" y="149" width="60" height="15"/>
+				<textElement/>
+				<text><![CDATA[Print By:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="20" y="103" width="200" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="20" y="119" width="200" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="104" width="200" height="15"/>
+				<textElement/>
+				<text><![CDATA[Doctor Signature]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="375" y="149" width="180" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{userID} + ", " + $P{userName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

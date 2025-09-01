@@ -1,0 +1,24 @@
+create or replace
+FUNCTION "NHS_LIS_ARCOVERAGE"
+(
+v_ACTID varchar2
+)
+return types.cursor_type
+as
+outcur types.cursor_type;
+begin
+  OPEN OUTCUR FOR
+  SELECT
+    ACM.ACTID,
+    ACM.CARDID,
+    COV.HEALTHTEXT,
+    COV.IMMUNIZATIONTEXT,
+    COV.PRENATALTEXT,
+    COV.COVERATE,
+    COV.WBTEXT 
+  FROM ACTID_CARDID_MAPPING ACM, COVERAGE COV
+  WHERE COV.CARDID = ACM.CARDID(+)
+  AND COV.ACTID = v_ACTID;
+return outcur;
+end NHS_LIS_ARCOVERAGE;
+/

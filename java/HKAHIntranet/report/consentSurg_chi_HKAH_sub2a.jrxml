@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="2a" pageWidth="524" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="524" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.415765000000026"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="325"/>
+	<property name="net.sf.jasperreports.export.pdf.compressed" value="true"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="Site" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patname" class="java.lang.String"/>
+	<parameter name="patcname" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="patDOB" class="java.lang.String"/>
+	<parameter name="procedure" class="java.lang.String"/>
+	<parameter name="procedureChi" class="java.lang.String"/>
+	<parameter name="anaethesiaType" class="java.lang.String"/>
+	<parameter name="regionAnaeSelect" class="java.lang.String"/>
+	<parameter name="anaethesiaOtherText" class="java.lang.String"/>
+	<parameter name="docname" class="java.lang.String"/>
+	<parameter name="doccname" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHIntranet\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="lang" class="java.lang.String"/>
+	<parameter name="ImgTick" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHNHS\\war\\images\\tick1.gif"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="factSheetNo" class="java.lang.String"/>
+	<parameter name="patientYN" class="java.lang.String"/>
+	<parameter name="complication" class="java.lang.String"/>
+	<parameter name="consentDate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<columnHeader>
+		<band height="666">
+			<staticText>
+				<reportElement x="0" y="0" width="26" height="272"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(3)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="21" y="15" width="18" height="38"/>
+				<box topPadding="1" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="38" y="76" width="21" height="35"/>
+				<box topPadding="5" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(i)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="38" y="110" width="21" height="20"/>
+				<box topPadding="1" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(ii)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="129" width="462" height="52"/>
+				<box topPadding="5" leftPadding="0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[如果在該程序期間切除組織或器官，所切除的組織或器官可送作病理學檢驗，並於病理學檢驗後妥為處置所切除的組織或器官，或者可在沒有進行有關病理學檢驗的情況下處置所切除的組織或器官；]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="38" y="129" width="21" height="52"/>
+				<box topPadding="5" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(iii)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="38" y="180" width="21" height="52"/>
+				<box topPadding="5" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(iv)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="180" width="462" height="52"/>
+				<box topPadding="5" leftPadding="0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[在該程序進行期間，有可能拍攝照片或其他記錄作醫學記錄或教學用途。就後者而言，不會披露該病人身份或使該病人身份可供識別；或]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="38" y="231" width="21" height="39"/>
+				<box topPadding="5" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(v)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="231" width="462" height="39"/>
+				<box topPadding="5" leftPadding="0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[該病人的病情或預後於該程序之後是否有所改善，一概不予保證。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="272" width="26" height="46"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(4)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="39" y="272" width="482" height="31"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人確定，本人已獲提供該程序的資料小冊子(現附上副本)，本人已審閱該資料小冊子，而本人完全明白其內容。 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="302" width="376" height="16"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="10" isBold="false" isItalic="true" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(如不適用，請刪除此段)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="321" width="26" height="30"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(5)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="321" width="483" height="30"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="10" isBold="false" isItalic="true" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(如曾作出任何其他解釋(無論是否由於該病人/該病人的父母/該病人的監護人/其他人所發問的問題而作出的解釋)，請在此記下問題、答案及解釋。)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="368" width="184" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="388" width="184" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[簽署者姓名*]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="202" y="388" width="142" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[簽署]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="202" y="368" width="142" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="377" y="368" width="118" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="377" y="388" width="118" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[日期：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="377" y="444" width="118" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[日期：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="202" y="424" width="142" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="202" y="444" width="142" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[簽署]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="444" width="184" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[醫生姓名*]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="377" y="424" width="118" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="424" width="184" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="377" y="475" width="118" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="202" y="495" width="142" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[簽署<i>(可選擇的)*</i>]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="202" y="475" width="142" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="475" width="184" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="377" y="495" width="118" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[日期：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="495" width="184" height="31"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[見證人姓名  <i>(可選擇的)* </i>]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="541" width="26" height="21"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" lineSpacing="1_1_2" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[本人 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="26" y="541" width="176" height="21"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="202" y="541" width="321" height="21"/>
+				<textElement textAlignment="Justified" verticalAlignment="Bottom" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[，現證明本人已將本文件內容向該病人/該病人的父母/該病人的]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="561" width="184" height="21"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Bottom" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[監護人真實明確及清晰可聞的傳譯至]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="184" y="561" width="336" height="21"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="603" width="184" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="623" width="184" height="17"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[傳譯員]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="266" y="603" width="118" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="266" y="623" width="118" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[日期：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="0" width="369" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人進一步確認：-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="15" width="486" height="38"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[盡本人所知及所信，本人在應該期間所給予該醫生及其他醫護人員的全部資料均屬真實正確。本人完全明白，如所得的資料有任何遺漏或不準確，均可能導致嚴重醫學併發症及/或影響與該程序相關的預期風險的準確程度。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="61" width="376" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人明白：-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="76" width="463" height="35"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[上文第2(c)及(d)分段所指的併發症及副作用的風險未必盡列而無遺漏，而且可能有其他潛在併發症；]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="110" width="463" height="20"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[除該醫生以外的執業醫生可協助進行該程序；]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<summary>
+		<band height="1" splitType="Prevent"/>
+	</summary>
+</jasperReport>

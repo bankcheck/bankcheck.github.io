@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptCshrAuditSmy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="525" leftMargin="35" rightMargin="35" topMargin="71" bottomMargin="71" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\iReport\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="EndDate" class="java.lang.String"/>
+	<parameter name="StartDate" class="java.lang.String"/>
+	<parameter name="ReportType" class="java.lang.String"/>
+	<parameter name="SubDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<queryString>
+		<![CDATA[select * from
+(select
+                to_char(ct.ctxcdate,'dd/mm/yyyy') ctxcdate,
+                cs.usrid,
+                decode(ct.ctxmeth,'C','Cash','D','Credit Card','Q','Cheque','E','EPS','A','Autopay','U','Cup Card','T','Octopus','Others') as ctxmeth,
+                decode(ct.ctxtype,'P','Payout','R','Receipt','A','Advance',ct.ctxtype) as ctxtype,
+                cd.ctnctype,
+                ct.ctxamt,
+                sit.stename
+                from cashtx ct, cashier cs, site sit, cardtx cd
+                where
+                ct.ctnid = cd.ctnid(+) and
+                ct.cshcode= cs.cshcode and
+                cs.stecode= 'HKAH' and
+                cs.stecode= sit.stecode
+                and ct.ctxcdate >= to_date('01/01/2005', 'DD/MM/YYYY')
+                and ct.ctxcdate< to_date('03/01/2005', 'DD/MM/YYYY')+1
+union all
+                select
+                null as ctxcdate,
+                cs.usrid,
+                '' as ctxmeth,
+                '' as ctxtype,
+                '' as ctnctype ,
+                0 as ctxamt,
+                sit.stename
+                from cashier cs, site sit
+                where
+                cs.stecode= 'HKAH' and
+                cs.stecode= sit.stecode
+                and (cs.cshsts='N'  or cs.cshsts='O'))]]>
+	</queryString>
+	<field name="CTXCDATE" class="java.lang.String"/>
+	<field name="USRID" class="java.lang.String"/>
+	<field name="CTXMETH" class="java.lang.String"/>
+	<field name="CTXTYPE" class="java.lang.String"/>
+	<field name="CTNCTYPE" class="java.lang.String"/>
+	<field name="CTXAMT" class="java.lang.String"/>
+	<field name="STENAME" class="java.lang.String"/>
+	<variable name="CTXAMT_1" class="java.lang.Double" resetType="Group" resetGroup="Group5_CTNCTYPE" calculation="Sum">
+		<variableExpression><![CDATA[$F{CTXAMT}.length()>0?Double.parseDouble($F{CTXAMT}):0.0]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
+	</variable>
+	<variable name="CTXAMT_2" class="java.lang.Double" resetType="Group" resetGroup="Group2_USRID" calculation="Sum">
+		<variableExpression><![CDATA[$F{CTXAMT}.length()>0?Double.parseDouble($F{CTXAMT}):0.0]]></variableExpression>
+	</variable>
+	<filterExpression><![CDATA[$F{USRID}.length()>0]]></filterExpression>
+	<group name="Group2_USRID">
+		<groupExpression><![CDATA[$F{USRID}]]></groupExpression>
+		<groupHeader>
+			<band height="41">
+				<staticText>
+					<reportElement x="0" y="0" width="47" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cashier]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="47" y="0" width="203" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{USRID}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="47" y="21" width="53" height="19"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Type]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="476" y="21" width="45" height="19"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Amount]]></text>
+				</staticText>
+				<line>
+					<reportElement x="47" y="40" width="477" height="1"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="24">
+				<staticText>
+					<reportElement x="117" y="4" width="53" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Net Cash]]></text>
+				</staticText>
+				<line>
+					<reportElement x="47" y="3" width="477" height="1"/>
+				</line>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="441" y="4" width="80" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{CTXAMT_2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group3_CTXMETH">
+		<groupExpression><![CDATA[$F{CTXMETH}]]></groupExpression>
+	</group>
+	<group name="Group4_CTXTYPE">
+		<groupExpression><![CDATA[$F{CTXTYPE}]]></groupExpression>
+	</group>
+	<group name="Group5_CTNCTYPE">
+		<groupExpression><![CDATA[$F{CTNCTYPE}]]></groupExpression>
+		<groupFooter>
+			<band height="16">
+				<textField isBlankWhenNull="true">
+					<reportElement x="47" y="0" width="123" height="16"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{CTXMETH}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="285" y="0" width="135" height="16"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{CTXTYPE}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="177" y="0" width="100" height="16"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{CTNCTYPE}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="440" y="0" width="81" height="16"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{CTXAMT_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="104" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="79" width="525" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{StartDate} + " to " +$P{EndDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="61" width="525" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Cashier Summary" + ("N".equals($P{ReportType})?" (Dayend before Cashier Close)":"")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="42" width="525" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{STENAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="404" y="1" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="484" y="1" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[rptCshrAuditSmy]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="0" y="21" width="79" height="20"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(new java.text.SimpleDateFormat(     "dd/MMM/yyyy",Locale.ENGLISH)).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="HH:mm:ss">
+				<reportElement x="79" y="21" width="100" height="20"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="68" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="524" height="68"/>
+				<dataSourceExpression><![CDATA[$P{SubDataSource}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "SubRptCshrAuditSmy.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

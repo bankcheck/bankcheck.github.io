@@ -1,0 +1,18 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_MEDRECMED"
+(V_MRMID MEDRECMED.MRMID%TYPE)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN outcur FOR
+      SELECT
+        MRMID,MRMDESC,
+        decode(AUTOADD,'-1','Y','N')
+      FROM MEDRECMED
+      WHERE ( MRMID LIKE '%' || v_MRMID || '%')
+      ORDER BY MRMID;
+   RETURN OUTCUR;
+END NHS_LIS_MEDRECMED;
+/
+
+

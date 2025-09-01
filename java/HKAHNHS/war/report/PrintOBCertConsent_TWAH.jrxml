@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PrintOBCertConsent_TWAH" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0000000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PatIdNo" class="java.lang.String"/>
+	<parameter name="patgname" class="java.lang.String"/>
+	<parameter name="PatCName" class="java.lang.String"/>
+	<parameter name="IssueDt" class="java.lang.String"/>
+	<parameter name="patfname" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHNHS\\war\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SlpNo" class="java.lang.String"/>
+	<parameter name="DOB" class="java.lang.String"/>
+	<parameter name="ExDate" class="java.lang.String"/>
+	<summary>
+		<band height="587" splitType="Prevent">
+			<staticText>
+				<reportElement x="164" y="54" width="226" height="17"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Consent to collection of data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="71" width="204" height="17"/>
+				<textElement textAlignment="Center">
+					<font fontName="Ming(for ISO10646_V3)" size="14" isBold="true" isUnderline="true"  pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[資料收集同意書]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="124" width="476" height="145"/>
+				<box topPadding="0" leftPadding="2" rightPadding="2"/>
+				<textElement lineSpacing="1_1_2">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[I agree/disagree* ____________________________________ to disclose the contents of the Confirmation Certificate on Delivery Booking (Certificate Number __________________________________________) to the Food and Health Bureau and/or the Department of Health, Government of the Hong Kong Special Administrative Region for the purposes of health service planning and monitoring and related matters and for quality assurance activities by the Hospital.
+
+I understand that consent to the above is voluntary.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="269" width="476" height="90"/>
+				<box topPadding="0" leftPadding="2" rightPadding="2"/>
+				<textElement lineSpacing="1_1_2">
+					<font fontName="Ming(for ISO10646_V3)" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人同意／不同意*　_________________________________向香港特別行政區政府食物及衞生局及/或衞生署披露預約分娩服務確認書 (證書編號_________________________________________________) 的內容，作為醫療服務規劃及監察等相關事宜，以及醫院進行確保醫療服務質素活動之用。
+
+本人明白簽署本同意書純屬自願。
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="157" y="269" width="65" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[荃灣港安醫院]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="134" y="124" width="145" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[Tsuen Wan Adventist Hospital]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="387" width="139" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[Name of expectant mother:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="400" width="50" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[產婦姓名：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="148" y="400" width="156" height="13"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[Name in Chinese (Surname first)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="148" y="413" width="156" height="13"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Ming(for ISO10646_V3)" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[中文姓名 (姓氏先行)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="179" y="378" width="100" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Ming(for ISO10646_V3)" size="12" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PatCName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="328" y="378" width="83" height="20"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patfname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="325" y="400" width="185" height="13"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[Name in English (Surname first)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="325" y="413" width="185" height="13"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Ming(for ISO10646_V3)" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[英文姓名 (姓氏先行)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="411" y="378" width="99" height="20"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patgname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="9" y="451" width="157" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[Travel document type and number:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="464" width="157" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[旅遊證件類別及編號]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="254" y="453" width="100" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PatIdNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="179" y="464" width="331" height="13"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="500" width="52" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[(Signature)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="512" width="52" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(簽署)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="500" width="156" height="13"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[ (                                                   )]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="512" width="156" height="13"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Ming(for ISO10646_V3)" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="305" y="512" width="205" height="13"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Ming(for ISO10646_V3)" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="254" y="512" width="52" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[日期：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="254" y="500" width="52" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="339" y="502" width="100" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{IssueDt}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="557" width="165" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[*Please delete where appropriate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="557" width="159" height="13"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[請删去不適用者]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

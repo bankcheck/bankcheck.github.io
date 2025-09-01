@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptContSwitch" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="561" leftMargin="17" rightMargin="17" topMargin="17" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SteName" class="java.lang.String"/>
+	<parameter name="EndDate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[(
+                   select A.ARCCODE, A.ARCNAME, C1.CPSCODE,C1. CPSDESC, RT.CPSCODE CPSCODE1, RT.CPSDESC CPSDESC1,to_char(RT.ACHEDATE,'dd/mm/yyyy') ACHEDATE
+                   from Arcode A, Conpceset C1, Arccpshist AH1,
+                       (SELECT AH2.ARCCODE, C2.CPSCODE, C2.CPSDESC, AH2.ACHEDATE FROM CONPCESET C2, ARCCPSHIST AH2 WHERE C2.CPSID=AH2.CPSID AND AH2.ACHSDATE=TO_DATE('01/02/2006','DD/MM/YYYY')+1) RT
+                   Where A.ArcCode = AH1.ArcCode
+                   AND AH1.CPSID=C1.CPSID
+                AND A.stecode= 'HKAH'
+                   AND A.ARCCODE= RT.ARCCODE (+)
+                   AND AH1.ACHEDATE=TO_DATE('01/02/2006','DD/MM/YYYY')
+                )
+                Union
+                (
+                   select A.ARCCODE, A.ARCNAME, LT.CPSCODE, LT.CPSDESC, C2.CPSCODE CPSCODE1, C2.CPSDESC CPSDESC1,to_char(AH2.ACHEDATE,'dd/mm/yyyy') ACHEDATE
+                   from Arcode A,
+                       (SELECT AH1.ARCCODE, C1.CPSCODE, C1.CPSDESC FROM CONPCESET C1, ARCCPSHIST AH1 WHERE C1.CPSID=AH1.CPSID AND AH1.ACHEDATE=TO_DATE('01/02/2006','DD/MM/YYYY')) LT,
+                   Conpceset C2, Arccpshist AH2
+                   Where A.ArcCode = AH2.ArcCode
+                   AND AH2.CPSID=C2.CPSID
+                AND A.stecode= 'HKAH'
+                   AND A.ARCCODE=LT.ARCCODE (+)
+                   AND AH2.ACHSDATE=TO_DATE('01/02/2006','DD/MM/YYYY')+1
+                )
+                 ORDER BY ARCCODE]]>
+	</queryString>
+	<field name="ARCCODE" class="java.lang.String"/>
+	<field name="ARCNAME" class="java.lang.String"/>
+	<field name="CPSCODE" class="java.lang.String"/>
+	<field name="CPSDESC" class="java.lang.String"/>
+	<field name="CPSCODE1" class="java.lang.String"/>
+	<field name="CPSDESC1" class="java.lang.String"/>
+	<field name="ACHEDATE" class="java.lang.String"/>
+	<filterExpression><![CDATA[$F{ARCCODE}.length()>0]]></filterExpression>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="130" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="61" width="561" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contract Switching Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11"/>
+				</textElement>
+				<text><![CDATA[rptContSwitch]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="47" width="561" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SteName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="75" width="561" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{EndDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="481" y="0" width="80" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="115" width="47" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ARCode]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="115" width="143" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Company Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="191" y="115" width="53" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Set Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="244" y="115" width="105" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[From
+(Contractual Price)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="349" y="115" width="55" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Set Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="404" y="115" width="105" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[To
+(Contractual Price)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="509" y="115" width="53" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[End Date]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="HH:mm:ss">
+				<reportElement x="0" y="30" width="100" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="11"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="0" y="16" width="100" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="11"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(new java.text.SimpleDateFormat(     "dd/MMM/yyyy",Locale.ENGLISH)).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="1" y="0" width="47" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ARCCODE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="48" y="0" width="143" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ARCNAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="191" y="0" width="53" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CPSCODE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="509" y="0" width="52" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ACHEDATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="349" y="0" width="55" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CPSCODE1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="404" y="0" width="105" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CPSDESC1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="244" y="0" width="105" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CPSDESC}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

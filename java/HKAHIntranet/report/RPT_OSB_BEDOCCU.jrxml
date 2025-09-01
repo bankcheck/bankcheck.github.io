@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT_OSB_BEDOCCUONE" pageWidth="1400" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="1400" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="154"/>
+	<property name="ireport.y" value="0"/>
+	<style name="style1" backcolor="#FFCCCC">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{roomClass}.toUpperCase().equals("I")]]></conditionExpression>
+			<style backcolor="#FFDB99"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{roomClass}.toUpperCase().equals("P")]]></conditionExpression>
+			<style backcolor="#99CC00"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{roomClass}.toUpperCase().equals("S")]]></conditionExpression>
+			<style backcolor="#CCCCFF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\projects\\Reports\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SubDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="WRDCODE" class="java.lang.String"/>
+	<parameter name="DOCCODE" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="room" class="java.lang.String"/>
+	<field name="roomClass" class="java.lang.String"/>
+	<field name="gender" class="java.lang.String"/>
+	<field name="diagnosis" class="java.lang.String"/>
+	<field name="doctor" class="java.lang.String"/>
+	<field name="admissionDate" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="tentativeDisDate" class="java.lang.String"/>
+	<field name="nextTentativeAdmissionTwo" class="java.lang.String"/>
+	<field name="doctorTwo" class="java.lang.String"/>
+	<field name="diagnosisTwo" class="java.lang.String"/>
+	<field name="tentativeDisDateTwo" class="java.lang.String"/>
+	<field name="nextTentativeAdmissionThree" class="java.lang.String"/>
+	<field name="TENTATIVE_DISCHARGE_DATE" class="java.lang.String"/>
+	<field name="day" class="java.lang.String"/>
+	<field name="dayOne" class="java.lang.String"/>
+	<field name="dayTwo" class="java.lang.String"/>
+	<field name="dayThree" class="java.lang.String"/>
+	<field name="dayFour" class="java.lang.String"/>
+	<field name="dayFive" class="java.lang.String"/>
+	<field name="daySix" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="106" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="66" width="56" height="40" backcolor="#FFCCCC"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Room]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="56" y="66" width="56" height="40" backcolor="#FFCCCC"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Class]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="877" y="66" width="75" height="40" backcolor="#99CC00"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Next Tentative Admission:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="168" y="66" width="159" height="40" backcolor="#FFCCCC"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Diagnosis / Procedure]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="482" y="66" width="40" height="40" backcolor="#FFCCCC"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="522" y="66" width="75" height="40" backcolor="#FFCCCC"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Tentative Discharge Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="407" y="66" width="75" height="40" backcolor="#FFCCCC"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Admission Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="327" y="66" width="80" height="40" backcolor="#FFCCCC"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Doctor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="637" y="66" width="40" height="40" backcolor="#CCCCFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[{today} +1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="597" y="66" width="40" height="40" backcolor="#CCCCFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[{today}]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="757" y="66" width="40" height="40" backcolor="#CCCCFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[{today} +4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="717" y="66" width="40" height="40" backcolor="#CCCCFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[{today} +3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="797" y="66" width="40" height="40" backcolor="#CCCCFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[{today} +5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="677" y="66" width="40" height="40" backcolor="#CCCCFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[{today} +2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="837" y="66" width="40" height="40" backcolor="#CCCCFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[{today} +6]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1248" y="66" width="75" height="40" backcolor="#FFDB99"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Next Tentative Admission]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="952" y="66" width="81" height="40" backcolor="#99CC00"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Doctor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1173" y="66" width="75" height="40" backcolor="#99CC00"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Tentative Discharge Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1033" y="66" width="140" height="40" backcolor="#99CC00"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Diagnosis / Procedure]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1323" y="66" width="75" height="40" backcolor="#FFDB99"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Tentative Discharge Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="597" y="0" width="280" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nursing Department]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="522" y="20" width="430" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bed Occupany and Booking Detail Report]]></text>
+			</staticText>
+			<textField pattern="">
+				<reportElement x="597" y="40" width="280" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["as of " + (new java.text.SimpleDateFormat(
+    "MMMMM dd, yyyy",Locale.ENGLISH)).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="112" y="66" width="56" height="40" backcolor="#FFCCCC"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Gender]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="56" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{room}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" mode="Transparent" x="56" y="0" width="56" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{roomClass}.equals("I") ? "V" : $F{roomClass}.equals("P") ? "P" : $F{roomClass}.equals("S") ? "SP" : "S"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="168" y="0" width="159" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{diagnosis}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="327" y="0" width="80" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{doctor}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="522" y="0" width="75" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tentativeDisDate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="407" y="0" width="75" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{admissionDate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="482" y="0" width="40" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1173" y="0" width="75" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tentativeDisDateTwo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="952" y="0" width="81" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{doctorTwo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="877" y="0" width="75" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nextTentativeAdmissionTwo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1323" y="0" width="75" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TENTATIVE_DISCHARGE_DATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1248" y="0" width="75" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nextTentativeAdmissionThree}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="597" y="0" width="40" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{day}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="637" y="0" width="40" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dayOne}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="677" y="0" width="40" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dayTwo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="717" y="0" width="40" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dayThree}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="757" y="0" width="40" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dayFour}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="797" y="0" width="40" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dayFive}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="837" y="0" width="40" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{daySix}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1033" y="0" width="140" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{diagnosisTwo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" mode="Transparent" x="112" y="0" width="56" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{gender}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="110">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="80" width="56" height="20" backcolor="#FFCCCC"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="60" width="56" height="20" backcolor="#CCCCFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="40" width="56" height="20" backcolor="#99CC00"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="20" width="56" height="20" backcolor="#FFDB99"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="56" y="20" width="196" height="20" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[V - VIP, Pearl]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="56" y="40" width="196" height="20" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[P - Private, Single Room
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="56" y="60" width="196" height="20" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[SP - Semi-private, Step-down Ward]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="56" y="80" width="196" height="20" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[S - Standard
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="0" width="56" height="20" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

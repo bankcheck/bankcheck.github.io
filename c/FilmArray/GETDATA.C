@@ -149,18 +149,29 @@ void ProcessFile(char *xmlfname)
 												strcpy(result, szKey);
 												WriteLog("result: %s", result);
 												xmlFree(szKey);
-/*
+
+
+//20250107 use equivoc for uncern result
 												if (strncmp(result, "DETECT", 6) == 0)
 													sprintf(buf, "%s|%s\n", test, g_Detect);
+												else if (strncmp(result, "POS", 3) == 0)
+													sprintf(buf, "%s|%s\n", test, g_Detect);
+												else if (strncmp(result, "NEG", 3) == 0)
+													sprintf(buf, "%s|%s\n", test, g_NotDetect);
 												else if (strcmp(result, "NOT_DETECT") == 0)
 													sprintf(buf, "%s|%s\n", test, g_NotDetect);
 												else
 													sprintf(buf, "%s|%s\n", test, g_Equivoc);
-*/
+/*
+
 												if (strncmp(result, "DETECT", 6) == 0)
+													sprintf(buf, "%s|%s\n", test, g_Detect);
+//Add POS result for SpotFire
+												else if (strncmp(result, "POS", 3) == 0)
 													sprintf(buf, "%s|%s\n", test, g_Detect);
 												else
 													sprintf(buf, "%s|%s\n", test, g_NotDetect);
+*/
 
 												if (out == NULL)
 													WriteLog("Cannot open file: %s", fname);

@@ -1,0 +1,79 @@
+<project name="ehr-interface" basedir="." default="default">
+	<property name="src" location="src" />
+	<property name="wardir" location="../ehr-interface" />
+
+	<path id="runClasspath">
+		<!-- fileset dir="${lib}" includes="**/*.jar" /-->
+		<fileset dir="WebContent/WEB-INF/lib" includes="**/*.jar" />
+	</path>
+
+	<!-- 
+	<taskdef name="jrc" classname="net.sf.jasperreports.ant.JRAntCompileTask">
+		<classpath refid="runClasspath" />
+	</taskdef>
+
+	<target name="buildreport" description="compile jasper report">
+		<delete dir="build" />
+		<delete>
+			<fileset dir="WebContent/report" includes="**/*.jasper" />
+		</delete>
+
+		<mkdir dir="build" />
+		<jrc srcdir="WebContent/report"
+				destdir="WebContent/report"
+				tempdir="build"
+				keepjava="true"
+				xmlvalidation="true">
+			<classpath refid="runClasspath" />
+			<include name="**/*.jrxml" />
+		</jrc>
+	</target>
+ 	-->
+ 	
+	<target name="buildclass" description="build class">
+		<delete dir="WebContent/WEB-INF/classes" />
+		<mkdir dir="WebContent/WEB-INF/classes" />
+
+		<copy todir="WebContent/WEB-INF/classes">
+			<fileset dir="${src}" includes="**/*.properties" />
+			<fileset dir="${src}" includes="**/*.wav" />
+			<fileset dir="${src}" includes="**/*.gif" />
+			<fileset dir="${src}" includes="**/*.jpg" />
+			<fileset dir="${src}" includes="**/*.xml" />
+		</copy>
+
+		<javac srcdir="${src}" destdir="WebContent/WEB-INF/classes"
+				source="1.6" target="1.6" nowarn="on">
+			<classpath refid="runClasspath" />
+		</javac>
+	</target>
+
+	<target name="buildwar" depends="buildclass">
+		<tstamp>
+			<format property="time" pattern="yyyyMMdd" offset="-8" unit="hour"/>
+		</tstamp>
+
+		<propertyfile file="WebContent/WEB-INF/classes/ServerConfig.properties">
+			<entry key="system.version.number" value="${time}"/>
+		</propertyfile>
+		<war basedir="WebContent" destfile="ehr-interface.war" webxml="WebContent/WEB-INF/web.xml">
+			<exclude name="WEB-INF/**" />
+			<exclude name="**/*.jrxml" />
+			<webinf dir="WebContent/WEB-INF/">
+				<include name="**/*.class" />
+				<include name="**/*.properties" />
+				<include name="**/*.wav" />
+				<include name="**/*.gif" />
+				<include name="**/*.html" />
+				<include name="**/*.jpg" />
+				<include name="**/*.jpeg" />
+				<include name="**/*.png" />
+				<include name="**/*.xml" />
+				<include name="**/*.jar" />
+				<include name="**/*.jsp" />
+			</webinf>
+		</war>
+	</target>
+
+	<target name="default" depends="buildwar"></target>
+ </project>

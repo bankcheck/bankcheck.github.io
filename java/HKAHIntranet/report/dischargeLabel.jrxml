@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dischargeLabel" printOrder="Horizontal" pageWidth="300" pageHeight="64" whenNoDataType="AllSectionsNoDetail" columnWidth="300" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="3.6363636363636362"/>
+	<property name="ireport.x" value="39"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patname" class="java.lang.String"/>
+	<parameter name="patsex" class="java.lang.String"/>
+	<parameter name="drname" class="java.lang.String"/>
+	<parameter name="drcode" class="java.lang.String"/>
+	<parameter name="bedcode" class="java.lang.String"/>
+	<parameter name="wrdcode" class="java.lang.String"/>
+	<parameter name="startdate" class="java.lang.String"/>
+	<parameter name="regid" class="java.lang.String"/>
+	<columnHeader>
+		<band height="64" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="230" y="9" width="63" height="50" isRemoveLineWhenBlank="true"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode($P{regid},com.google.zxing.BarcodeFormat.QR_CODE,320,320))]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="12" y="19" width="220" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Pat. Name: "+$P{patname}+" ("+$P{patsex}+")"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="12" y="6" width="90" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Hosp No: "+$P{patno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="12" y="32" width="220" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Start Discharge Date: "+$P{startdate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="107" y="6" width="125" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Bed: "+$P{bedcode}+" ("+$P{wrdcode}+")"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="12" y="45" width="220" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Dotor: "+$P{drname}+" ("+$P{drcode}+")"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+</jasperReport>

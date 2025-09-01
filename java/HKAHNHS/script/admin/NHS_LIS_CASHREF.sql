@@ -1,0 +1,19 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_CASHREF"
+(v_CRFDESC CASHREF.CRFDESC%TYPE)
+  RETURN Types.CURSOR_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN OUTCUR FOR
+      SELECT
+         CRFID,
+         CRFDESC
+      FROM CASHREF
+      WHERE ( CRFDESC like '%' || v_CRFDESC || '%')
+      --AND ROWNUM < 100
+      ORDER BY CRFDESC;
+   RETURN OUTCUR;
+END NHS_LIS_CASHREF;
+/
+
+

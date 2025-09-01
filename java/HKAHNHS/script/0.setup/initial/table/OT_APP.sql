@@ -1,0 +1,8 @@
+alter table
+   OT_APP
+add
+   (
+   CANCELISADM VARCHAR2(10),  
+   CANCELBY VARCHAR2(10),
+   CANCELRSNCDE2 VARCHAR2(10)
+   );

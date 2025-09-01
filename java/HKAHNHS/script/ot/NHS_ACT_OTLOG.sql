@@ -1,0 +1,491 @@
+CREATE OR REPLACE FUNCTION "NHS_ACT_OTLOG" (
+	v_ACTION      IN VARCHAR2,
+	-- 1
+	v_OTLID       IN VARCHAR2,
+	v_OTLDATE     IN VARCHAR2,
+	v_PATNO       IN VARCHAR2,
+	v_OTLROOM     IN VARCHAR2,
+	-- 5
+	v_WRDCODE     IN VARCHAR2,
+	v_USRID       IN VARCHAR2,
+	v_OTLSETUP    IN VARCHAR2,
+	v_OTLPATIN    IN VARCHAR2,
+	v_OTLPATOUT   IN VARCHAR2,
+	-- 10
+	v_OTLASDATE   IN VARCHAR2,
+	v_OTLAEDATE   IN VARCHAR2,
+	v_OTLOSDATE   IN VARCHAR2,
+	v_OTLOEDATE   IN VARCHAR2,
+	v_OTLRCYIN    IN VARCHAR2,
+	-- 15
+	v_OTLRCYOUT   IN VARCHAR2,
+	v_OTLCLEAN    IN VARCHAR2,
+	v_OTLLATE     IN VARCHAR2,
+	v_OTLTNQON    IN VARCHAR2,
+	v_OTLTNQOFF   IN VARCHAR2,
+	-- 20
+	v_OTCID_BT    IN VARCHAR2,
+	v_OTLID_ST    IN VARCHAR2,
+	v_OTLOTCM     IN VARCHAR2,
+	v_OTLDRES     IN VARCHAR2,
+	v_OTLRESN     IN VARCHAR2,
+	-- 25
+	v_OTLSPEC     IN VARCHAR2,
+	v_OTLSPECDEST IN VARCHAR2,
+	v_OTPID       IN VARCHAR2,
+	v_OTLANESMETH IN VARCHAR2,
+	v_DOCCODE_S   IN VARCHAR2,
+	-- 30
+	v_DOCCODE_A   IN VARCHAR2,
+	v_OTLRMK      IN VARCHAR2,
+	v_OTLCMT      IN VARCHAR2,
+	v_OTPWT       IN VARCHAR2,
+	v_DOCCODE_E   IN VARCHAR2,
+	-- 35
+	v_DOCCODE_R   IN VARCHAR2,
+	v_FEREQ_1     IN VARCHAR2,
+	v_FEREC_1     IN VARCHAR2,
+	v_Otaid       IN VARCHAR2,
+	v_SLPNO       IN VARCHAR2,
+	-- table
+	v_OTLOGPROC In OTLOGPROC_TAB,
+	v_OTLOGPROC_DEL IN OTLOGPROC_TAB,
+	v_OTLOGMETH IN OTLOGMETH_TAB,
+	v_OTLOGMETH_DEL IN OTLOGMETH_TAB,
+	v_OTLOGSURG IN OTLOGSURG_TAB,
+	v_OTLOGSURG_DEL IN OTLOGSURG_TAB,
+	v_OTLOGANES IN OTLOGANES_TAB,
+	v_OTLOGANES_DEL IN OTLOGANES_TAB,
+	v_OTLOGTEAM IN OTLOGTEAM_TAB,
+	v_OTLOGTEAM_DEL IN OTLOGTEAM_TAB,
+	v_OTLOGIMPL IN OTLOGIMPL_TAB,
+	v_OTLOGIMPL_DEL IN OTLOGIMPL_TAB,
+	v_OTLOGEQUI IN OTLOGEQUI_TAB,
+	v_OTLOGEQUI_DEL IN OTLOGEQUI_TAB,
+	v_OTLOGINST IN OTLOGINST_TAB,
+	v_OTLOGINST_DEL IN OTLOGINST_TAB,
+	v_OTLOGDRUG IN OTLOGDRUG_TAB,
+	v_OTLOGDRUG_DEL IN OTLOGDRUG_TAB,
+	O_ERRMSG OUT VARCHAR2
+)
+	RETURN NUMBER
+AS
+	o_errcode NUMBER;
+	v_noOfRec1 NUMBER := 0;
+	v_noOfRec2 NUMBER := 0;
+	v_noOfRec3 NUMBER := 0;
+	NEG_SIGN VARCHAR2(1);
+	ACTION_MOD VARCHAR2(3);
+	ACTION_DEL VARCHAR2(3);
+	v_OTLID2 VARCHAR2(22);
+	v_newOtlid NUMBER;
+	v_FEREQ VARCHAR2(1);
+	v_FEREC VARCHAR2(1);
+BEGIN
+	NEG_SIGN := '-';
+	ACTION_MOD := 'MOD';
+	ACTION_DEL := 'DEL';
+	o_errcode := 0;
+	o_errmsg := 'OK';
+
+	IF v_OTLID IS NOT NULL THEN
+		SELECT COUNT(1) INTO v_noOfRec1 FROM OT_LOG WHERE PATNO = v_Patno AND OTLID = v_OTLID AND OTLSTS IN ('A', 'C');
+	END IF;
+
+	IF v_Otaid IS NOT NULL THEN
+		IF v_action = 'ADD' THEN
+			SELECT COUNT(1) INTO v_noOfRec2 FROM OT_APP WHERE PATNO = v_Patno AND OTAID = v_Otaid AND OTASTS = 'N';
+			IF v_noOfRec2 = 1 THEN
+				SELECT COUNT(1) INTO v_noOfRec2 FROM OT_LOG WHERE PATNO = v_Patno AND OTAID = v_Otaid AND OTLSTS IN ('A', 'C');
+				IF v_noOfRec2 = 0 THEN
+					UPDATE OT_APP SET OTASTS = 'F' WHERE PATNO = v_Patno AND OTAID = v_Otaid AND OTASTS = 'N';
+				ELSE
+					o_errcode := -1;
+					o_errmsg := 'OT Log is already created.';
+					RETURN o_errcode;
+				END IF;
+			ELSE
+				o_errcode := -1;
+				o_errmsg := 'OT App is either confirmed or cancelled.';
+				RETURN o_errcode;
+			END IF;
+		ELSE
+			SELECT COUNT(1) INTO v_noOfRec2 FROM OT_LOG WHERE PATNO = v_Patno AND OTAID = v_Otaid AND OTLSTS IN ('A', 'C');
+		END IF;
+	END IF;
+
+	IF LENGTH(v_OTLRMK) > 50 THEN
+		o_errcode := -1;
+		o_errmsg := 'remark is too longer. (' || LENGTH(v_OTLRMK) || ' > 50)';
+		RETURN o_errcode;
+	END IF;
+
+	SELECT COUNT(1) INTO v_noOfRec3
+	FROM OT_APP OA LEFT JOIN OT_APP_EXTRA OTE ON OA.OTAID = OTE.OTAID
+	WHERE OA.OTAID = v_Otaid;
+
+	IF v_noOfRec3 = 1 THEN
+		SELECT OTE.FEREQ, OTE.FEREC INTO v_FEREQ, v_FEREC
+		FROM OT_APP OA
+		LEFT JOIN OT_APP_EXTRA OTE ON OA.OTAID = OTE.OTAID
+		WHERE OA.OTAID = v_Otaid;
+	END IF;
+
+	IF v_action = 'ADD' THEN
+		IF v_noOfRec1 + v_noOfRec2 = 0 THEN
+			Select Seq_Ot_Log.Nextval Into v_Newotlid From Dual;
+			INSERT INTO OT_LOG (
+				OTLID,
+				OTAID,
+				OTLDATE,
+				PATNO,
+				SLPNO,
+				OTLROOM,
+				WRDCODE,
+				OTLSTS,
+				USRID,
+				OTLRODATE,
+				USRID_1,
+				USRID_2,
+				OTLSETUP,
+				OTLPATIN,
+				OTLPATOUT,
+				OTLASDATE,
+				OTLAEDATE,
+				OTLOSDATE,
+				OTLOEDATE,
+				OTLRCYIN,
+				OTLRCYOUT,
+				OTLCLEAN,
+				OTLLATE,
+				OTLTNQON,
+				OTLTNQOFF,
+				OTCID_BT,
+				OTLID_ST,
+				OTLOTCM,
+				OTLDRES,
+				OTLRESN,
+				OTLSPEC,
+				OTLSPECDEST,
+				OTPID,
+				OTLANESMETH,
+				DOCCODE_S,
+				DOCCODE_A,
+				OTLRMK,
+				OTLCMT,
+				OTPWT,
+				DOCCODE_E,
+				DOCCODE_R
+			) VALUES (
+				v_Newotlid,
+				TO_NUMBER(v_Otaid),
+				TO_DATE(v_Otldate,  'DD/MM/YYYY HH24:MI'),
+				v_Patno,
+				v_Slpno,
+				TO_NUMBER(v_OTLROOM),
+				v_Wrdcode,
+				'A',
+				v_USRID,
+				Null, --OTLRODATE
+				Null, --USRID_1
+				Null,  --USRID_2
+				TO_NUMBER(v_Otlsetup),
+				TO_DATE(v_OTLPATIN,  'DD/MM/YYYY HH24:MI'),
+				To_Date(v_Otlpatout, 'DD/MM/YYYY HH24:MI'),
+				TO_DATE(v_OTLASDATE, 'DD/MM/YYYY HH24:MI'),
+				TO_DATE(v_OTLAEDATE, 'DD/MM/YYYY HH24:MI'),
+				TO_DATE(v_OTLOSDATE, 'DD/MM/YYYY HH24:MI'),
+				TO_DATE(v_OTLOEDATE, 'DD/MM/YYYY HH24:MI'),
+				To_Date(v_Otlrcyin,  'DD/MM/YYYY HH24:MI'),
+				To_Date(v_Otlrcyout, 'DD/MM/YYYY HH24:MI'),
+				TO_NUMBER(v_Otlclean),
+				TO_NUMBER(v_Otllate),
+				To_Date(v_Otltnqon, 'DD/MM/YYYY HH24:MI'),
+				To_Date(v_Otltnqoff, 'DD/MM/YYYY HH24:MI'),
+				TO_NUMBER(v_Otcid_Bt),
+				TO_NUMBER(v_Otlid_St),
+				TO_NUMBER(v_Otlotcm),
+				TO_NUMBER(v_Otldres),
+				TO_NUMBER(v_OTLRESN),
+				TO_NUMBER(v_Otlspec),
+				TO_NUMBER(v_Otlspecdest),
+				TO_NUMBER(v_Otpid),
+				TO_NUMBER(v_Otlanesmeth),
+				v_DOCCODE_S,
+				v_Doccode_A,
+				v_Otlrmk,
+				v_OTLCMT,
+				TO_DATE(v_OTPWT, 'DD/MM/YYYY HH24:MI'),
+				v_DOCCODE_E,
+				v_DOCCODE_R
+			);
+
+			INSERT INTO OT_LOG_EXTRA (
+				OTLID, FEREQ, FEREC, OTLUPUSR, OTLUPDT
+			) VALUES (
+				v_Newotlid, v_FEREQ, v_FEREC, v_USRID, SYSDATE
+			);
+
+			v_OTLID2 := v_Newotlid;
+		ELSE
+			o_errcode := -1;
+			o_errmsg := 'record already exists.';
+			RETURN o_errcode;
+		END IF;
+	ELSIF v_action = 'MOD' THEN
+		IF v_noOfRec1 > 0 THEN
+			UPDATE OT_LOG
+			SET
+				OTLDATE     = TO_DATE(v_OTLDATE,  'DD/MM/YYYY HH24:MI'),
+				OTLROOM     = TO_NUMBER(v_OTLROOM),
+				WRDCODE     = v_WRDCODE,
+				USRID       = v_USRID,
+				OTLSETUP    = TO_NUMBER(v_OTLSETUP),
+				OTLPATIN    = TO_DATE(v_OTLPATIN,  'DD/MM/YYYY HH24:MI'),
+				OTLPATOUT   = TO_DATE(v_OTLPATOUT, 'DD/MM/YYYY HH24:MI'),
+				OTLASDATE   = TO_DATE(v_OTLASDATE, 'DD/MM/YYYY HH24:MI'),
+				OTLAEDATE   = TO_DATE(v_OTLAEDATE, 'DD/MM/YYYY HH24:MI'),
+				OTLOSDATE   = TO_DATE(v_OTLOSDATE, 'DD/MM/YYYY HH24:MI'),
+				OTLOEDATE   = TO_DATE(v_OTLOEDATE, 'DD/MM/YYYY HH24:MI'),
+				OTLRCYIN    = TO_DATE(v_OTLRCYIN,  'DD/MM/YYYY HH24:MI'),
+				OTLRCYOUT   = TO_DATE(v_OTLRCYOUT, 'DD/MM/YYYY HH24:MI'),
+				OTLCLEAN    = TO_NUMBER(v_OTLCLEAN),
+				OTLLATE     = TO_NUMBER(v_OTLLATE),
+				OTLTNQON    = TO_DATE(v_OTLTNQON, 'DD/MM/YYYY HH24:MI'),
+				OTLTNQOFF   = TO_DATE(v_OTLTNQOFF, 'DD/MM/YYYY HH24:MI'),
+				OTCID_BT    = TO_NUMBER(v_OTCID_BT),
+				OTLID_ST    = TO_NUMBER(v_OTLID_ST),
+				OTLOTCM     = TO_NUMBER(v_OTLOTCM),
+				OTLDRES     = TO_NUMBER(v_OTLDRES),
+				OTLRESN     = TO_NUMBER(v_OTLRESN),
+				OTLSPEC     = TO_NUMBER(v_OTLSPEC),
+				OTLSPECDEST = TO_NUMBER(v_OTLSPECDEST),
+				OTPID       = TO_NUMBER(v_OTPID),
+				OTLANESMETH = TO_NUMBER(v_OTLANESMETH),
+				DOCCODE_S   = v_DOCCODE_S,
+				DOCCODE_A   = v_DOCCODE_A,
+				OTLRMK      = v_OTLRMK,
+				OTLCMT      = v_OTLCMT,
+				OTPWT       = TO_DATE(v_OTPWT, 'DD/MM/YYYY HH24:MI'),
+				DOCCODE_E   = v_DOCCODE_E,
+				DOCCODE_R   = v_DOCCODE_R
+			WHERE OTLID = v_OTLID;
+
+			v_OTLID2 := v_OTLID;
+
+			SELECT COUNT(1) INTO v_noOfRec1 FROM OT_LOG_EXTRA WHERE OTLID = v_OTLID;
+			IF v_noOfRec1 = 0 THEN
+				INSERT INTO OT_LOG_EXTRA (
+					OTLID, FEREQ, FEREC, OTLUPUSR, OTLUPDT
+				) VALUES (
+					v_OTLID, v_FEREQ, v_FEREC, v_USRID, SYSDATE
+				);
+			ELSE
+				UPDATE OT_LOG_EXTRA
+				SET
+					FEREQ = v_FEREQ,
+					FEREC = v_FEREC,
+					OTLUPUSR = v_USRID,
+					OTLUPDT = SYSDATE
+				WHERE OTLID = v_OTLID;
+			END IF;
+		ELSE
+			o_errcode := -1;
+			o_errmsg := 'record not exist.';
+			RETURN o_errcode;
+		END IF;
+	END IF;
+
+	IF v_action = 'ADD' OR v_action = 'MOD' THEN
+		--------------------
+		-- clean up table --
+		--------------------
+
+		IF v_action = 'MOD' THEN
+			-- OTLOGPROC
+			FOR I IN 1..v_OTLOGPROC_DEL.COUNT LOOP
+				o_errcode := NHS_ACT_OTLOGPROC(ACTION_DEL, v_OTLOGPROC_DEL(I).OLPID, NULL, v_OTLID2, o_errmsg);
+				IF o_errcode < 0 THEN
+					ROLLBACK;
+					RETURN o_errcode;
+				END IF;
+			END LOOP;
+
+			-- OTLOGMETH
+			FOR I IN 1..v_OTLOGMETH_DEL.COUNT LOOP
+				o_errcode := NHS_ACT_OTLOGMETH(ACTION_DEL, v_OTLOGMETH_DEL(I).OLMID, NULL, v_OTLID2, o_errmsg);
+				IF o_errcode < 0 THEN
+					ROLLBACK;
+					RETURN o_errcode;
+				END IF;
+			END LOOP;
+
+			-- v_OTLOGSURG
+			FOR I IN 1..v_OTLOGSURG_DEL.COUNT LOOP
+				o_errcode := NHS_ACT_OTLOGSUR(ACTION_DEL, v_OTLOGSURG_DEL(I).OLSID, NULL, v_OTLID2, o_errmsg);
+				IF o_errcode < 0 THEN
+					ROLLBACK;
+					RETURN o_errcode;
+				END IF;
+			END LOOP;
+
+			-- v_OTLOGANES
+			FOR I IN 1..v_OTLOGANES_DEL.COUNT LOOP
+				o_errcode := NHS_ACT_OTLOGANES(ACTION_DEL, v_OTLOGANES_DEL(I).OLAID, NULL, v_OTLID2, o_errmsg);
+				IF o_errcode < 0 THEN
+					ROLLBACK;
+					RETURN o_errcode;
+				END IF;
+			END LOOP;
+
+			-- v_OTLOGTEAM
+			FOR I IN 1..v_OTLOGTEAM_DEL.COUNT LOOP
+				o_errcode := NHS_ACT_OTLOGTEAMMEB(ACTION_DEL, NULL, NULL, v_OTLOGTEAM_DEL(I).OLTID, v_OTLID2, o_errmsg);
+				IF o_errcode < 0 THEN
+					ROLLBACK;
+					RETURN o_errcode;
+				END IF;
+			END LOOP;
+
+			-- v_OTLOGIMPL
+			FOR I IN 1..v_OTLOGIMPL_DEL.COUNT LOOP
+				o_errcode := NHS_ACT_OTLOGIMPL(ACTION_DEL, NULL, NULL, v_OTLOGIMPL_DEL(I).OLIID, v_OTLID2, o_errmsg);
+				IF o_errcode < 0 THEN
+					ROLLBACK;
+					RETURN o_errcode;
+				END IF;
+			END LOOP;
+
+			-- v_OTLOGEQUI
+			FOR I IN 1..v_OTLOGEQUI_DEL.COUNT LOOP
+				o_errcode := NHS_ACT_OTLOGEQUI(ACTION_DEL, NULL, NULL, v_OTLOGEQUI_DEL(I).OLEID, v_OTLID2, o_errmsg);
+				IF o_errcode < 0 THEN
+					ROLLBACK;
+					RETURN o_errcode;
+				END IF;
+			END LOOP;
+
+			-- v_OTLOGINST
+			FOR I IN 1..v_OTLOGINST_DEL.COUNT LOOP
+				o_errcode := NHS_ACT_OTLOGINST(ACTION_DEL, NULL, NULL, v_OTLOGINST_DEL(I).OLUID, v_OTLID2, o_errmsg);
+				IF o_errcode < 0 THEN
+					ROLLBACK;
+					RETURN o_errcode;
+				END IF;
+			END LOOP;
+
+			-- v_OTLOGDRUG
+			FOR I IN 1..v_OTLOGDRUG_DEL.COUNT LOOP
+				o_errcode := NHS_ACT_OTLOGDRUG(ACTION_DEL, NULL, NULL, NULL, NULL, NULL, v_OTLOGDRUG_DEL(I).OLDID, v_OTLID2, o_errmsg);
+				IF o_errcode < 0 THEN
+					ROLLBACK;
+					RETURN o_errcode;
+				END IF;
+			END LOOP;
+		END IF;
+
+		----------------
+		-- save table --
+		----------------
+
+		-- OTLOGPROC
+		FOR I IN 1..v_OTLOGPROC.COUNT LOOP
+			o_errcode := NHS_ACT_OTLOGPROC(ACTION_MOD, v_OTLOGPROC(I).OLPID, v_OTLOGPROC(I).OTPCODE, v_OTLID2, o_errmsg);
+			IF o_errcode < 0 THEN
+				ROLLBACK;
+				RETURN o_errcode;
+			END IF;
+		END LOOP;
+
+		-- OTLOGMETH
+		FOR I IN 1..v_OTLOGMETH.COUNT LOOP
+			o_errcode := NHS_ACT_OTLOGMETH(ACTION_MOD, v_OTLOGMETH(I).OLMID, v_OTLOGMETH(I).OTCID, v_OTLID2, o_errmsg);
+			IF o_errcode < 0 THEN
+				ROLLBACK;
+				RETURN o_errcode;
+			END IF;
+		END LOOP;
+
+		-- v_OTLOGSURG
+		FOR I IN 1..v_OTLOGSURG.COUNT LOOP
+			o_errcode := NHS_ACT_OTLOGSUR(ACTION_MOD, v_OTLOGSURG(I).OLSID, v_OTLOGSURG(I).DOCCODE, v_OTLID2, o_errmsg);
+			IF o_errcode < 0 THEN
+				ROLLBACK;
+				RETURN o_errcode;
+			END IF;
+		END LOOP;
+
+		-- v_OTLOGANES
+		FOR I IN 1..v_OTLOGANES.COUNT LOOP
+			o_errcode := NHS_ACT_OTLOGANES(ACTION_MOD, v_OTLOGANES(I).OLAID, v_OTLOGANES(I).DOCCODE, v_OTLID2, o_errmsg);
+			IF o_errcode < 0 THEN
+				ROLLBACK;
+				RETURN o_errcode;
+			END IF;
+		END LOOP;
+
+		-- v_OTLOGTEAM
+		FOR I IN 1..v_OTLOGTEAM.COUNT LOOP
+			o_errcode := NHS_ACT_OTLOGTEAMMEB(ACTION_MOD, v_OTLOGTEAM(I).OTCID_SF, v_OTLOGTEAM(I).OTCID_FN, v_OTLOGTEAM(I).OLTID, v_OTLID2, o_errmsg);
+			IF o_errcode < 0 THEN
+				ROLLBACK;
+				RETURN o_errcode;
+			END IF;
+		END LOOP;
+
+		-- v_OTLOGIMPL
+		FOR I IN 1..v_OTLOGIMPL.COUNT LOOP
+			o_errcode := NHS_ACT_OTLOGIMPL(ACTION_MOD, v_OTLOGIMPL(I).OTCID, v_OTLOGIMPL(I).OLICMT, v_OTLOGIMPL(I).OLIID, v_OTLID2, o_errmsg);
+			IF o_errcode < 0 THEN
+				ROLLBACK;
+				RETURN o_errcode;
+			END IF;
+		END LOOP;
+
+		-- v_OTLOGEQUI
+		FOR I IN 1..v_OTLOGEQUI.COUNT LOOP
+			o_errcode := NHS_ACT_OTLOGEQUI(ACTION_MOD, v_OTLOGEQUI(I).OTCID, v_OTLOGEQUI(I).OLECMT, v_OTLOGEQUI(I).OLEID, v_OTLID2, o_errmsg);
+			IF o_errcode < 0 THEN
+				ROLLBACK;
+				RETURN o_errcode;
+			END IF;
+		END LOOP;
+
+		-- v_OTLOGINST
+		FOR I IN 1..v_OTLOGINST.COUNT LOOP
+			o_errcode := NHS_ACT_OTLOGINST(ACTION_MOD, v_OTLOGINST(I).OTCID, v_OTLOGINST(I).OLUCMT, v_OTLOGINST(I).OLUID, v_OTLID2, o_errmsg);
+			IF o_errcode < 0 THEN
+				ROLLBACK;
+				RETURN o_errcode;
+			END IF;
+		END LOOP;
+
+		-- v_OTLOGDRUG
+		FOR I IN 1..v_OTLOGDRUG.COUNT LOOP
+			o_errcode := NHS_ACT_OTLOGDRUG(ACTION_MOD, v_OTLOGDRUG(I).OTCID, v_OTLOGDRUG(I).OLDCOST, v_OTLOGDRUG(I).OLDUNIT, v_OTLOGDRUG(I).OLDQTY, v_OTLOGDRUG(I).OLDCMT, v_OTLOGDRUG(I).OLDID, v_OTLID2, o_errmsg);
+			IF o_errcode < 0 THEN
+				ROLLBACK;
+				RETURN o_errcode;
+			End If;
+		END LOOP;
+
+		o_errcode := v_OTLID2;
+	ELSIF v_action = 'DEL' THEN
+		IF v_noOfRec1 > 0 THEN
+			DELETE OT_LOG WHERE OTLID = v_OTLID;
+		ELSE
+			o_errcode := -1;
+			o_errmsg := 'record not exist.';
+		END IF;
+	END IF;
+	RETURN o_errcode;
+
+EXCEPTION
+WHEN OTHERS THEN
+	ROLLBACK;
+	dbms_output.put_line('An ERROR was encountered - '||SQLCODE||' -ERROR- '||SQLERRM);
+	o_errcode := -101;
+	o_errmsg := SQLERRM || '(' || SQLCODE || ')';
+	RETURN o_errcode;
+END NHS_ACT_OTLOG;
+/

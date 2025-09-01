@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="2" pageWidth="524" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="524" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.420000000000007"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="787"/>
+	<property name="net.sf.jasperreports.export.pdf.compressed" value="true"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="Site" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patname" class="java.lang.String"/>
+	<parameter name="patcname" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="patDOB" class="java.lang.String"/>
+	<parameter name="procedure" class="java.lang.String"/>
+	<parameter name="procedureChi" class="java.lang.String"/>
+	<parameter name="anaethesiaType" class="java.lang.String"/>
+	<parameter name="regionAnaeSelect" class="java.lang.String"/>
+	<parameter name="anaethesiaOtherText" class="java.lang.String"/>
+	<parameter name="docname" class="java.lang.String"/>
+	<parameter name="doccname" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHIntranet\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="lang" class="java.lang.String"/>
+	<parameter name="ImgTick" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHNHS\\war\\images\\tick1.gif"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="factSheetNo" class="java.lang.String"/>
+	<parameter name="patientYN" class="java.lang.String"/>
+	<parameter name="complication" class="java.lang.String"/>
+	<parameter name="consentDate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<columnHeader>
+		<band height="598">
+			<rectangle>
+				<reportElement x="48" y="70" width="10" height="10"/>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="101" y="125" width="27" height="35"/>
+				<box topPadding="0" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="13" y="125" width="89" height="35"/>
+				<box topPadding="0" rightPadding="2">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="8" isBold="false" isItalic="true" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="101" y="193" width="27" height="16"/>
+				<box topPadding="0" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(b)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="13" y="160" width="89" height="47"/>
+				<box topPadding="0" rightPadding="2">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="8" isBold="false" isItalic="true" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="101" y="258" width="27" height="30"/>
+				<box topPadding="0" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(c)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="13" y="225" width="89" height="63"/>
+				<box topPadding="0" rightPadding="2">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="8" isBold="false" isItalic="true" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="13" y="310" width="89" height="59"/>
+				<box topPadding="0" rightPadding="2">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="8" isBold="false" isItalic="true" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="101" y="332" width="27" height="47"/>
+				<box topPadding="0" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(d)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="103" y="420" width="27" height="47"/>
+				<box topPadding="0" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(e)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="15" y="398" width="89" height="47"/>
+				<box topPadding="0" rightPadding="2">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="8" isBold="false" isItalic="true" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="15" y="476" width="89" height="63"/>
+				<box topPadding="0" rightPadding="2">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="8" isBold="false" isItalic="true" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="103" y="500" width="27" height="19"/>
+				<box topPadding="0" rightPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(f)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="232" y="534" width="10" height="10"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="130" y="534" width="10" height="10"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="130" y="552" width="10" height="10"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="0" width="18" height="230"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(2)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="0" width="490" height="39"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[本人確認，本人於簽署本同意書之前，已經完全獲悉擬進行的該程序(一如下文第(a)至(f)分段所載列)的資料。本人確定，本人完全明白就該程序所獲得的解釋，而且本人接受第(2)(c)及(d)分段所載列的併發症的風險。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="56" width="282" height="20"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="14" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[醫療程序資料單張 (附頁)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="75" width="404" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="10" isBold="false" isItalic="true" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(在附有醫療程序資料單張，沒有必要填補以下 (a) 至 (f) 分段)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="90" width="89" height="36"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="8" isBold="false" isItalic="true" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[請於各分段旁草簽，以確認明白該分段]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="125" width="376" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[需要進行該程序的指徵。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="140" width="376" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="10" isBold="false" isItalic="true" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(加入資料及解釋(如適用))]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="208" width="376" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="10" isBold="false" isItalic="true" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(加入資料及解釋(如適用))]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="193" width="376" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[該程序的一般性質及描述所涉及的步驟。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="258" width="383" height="40"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[出現併發症及副作用的一般潛在風險，包括但不限於：出血；傷口感染；胸部感染；其他感染；心臟病；中風；腳部深層靜脈栓塞；肺血管栓塞；以及死亡。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="332" width="376" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[出現與該程序及該病人病情有關的併發症及副作用的特殊潛在風險。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="347" width="376" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="10" isBold="false" isItalic="true" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(請註明)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="435" width="376" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="10" isBold="false" isItalic="true" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(加入資料及解釋(如適用))]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="420" width="376" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[其他治療選擇，以及與各項選擇相關連的可能預後。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="500" width="376" height="31"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[在該程序期間或之後，可能需要進行額外一項或多項治療及管理及/或相應而生的一項或多項治療及管理。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="531" width="80" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[深切治療;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="245" y="531" width="80" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[輸血 ;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="143" y="548" width="344" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[由內窺鏡檢查或腹腔鏡檢查轉為開刀程序;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="563" width="69" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="10" isBold="false" isItalic="true" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(請在方格加上]]></text>
+			</staticText>
+			<image>
+				<reportElement mode="Transparent" x="199" y="566" width="10" height="10"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="211" y="563" width="242" height="16"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="10" isBold="false" isItalic="true" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[號(如適用)，及/或加入其他治療或管理(如適用))]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<summary>
+		<band height="1">
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="509" height="1" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="ImgTick">
+					<subreportParameterExpression><![CDATA[$P{ImgTick}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logo">
+					<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regionAnaeSelect">
+					<subreportParameterExpression><![CDATA[$P{regionAnaeSelect}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Site">
+					<subreportParameterExpression><![CDATA[$P{Site}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patSex">
+					<subreportParameterExpression><![CDATA[$P{patSex}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="doccname">
+					<subreportParameterExpression><![CDATA[$P{doccname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="procedureChi">
+					<subreportParameterExpression><![CDATA[$P{procedureChi}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patientYN">
+					<subreportParameterExpression><![CDATA[$P{patientYN}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BaseDir">
+					<subreportParameterExpression><![CDATA[$P{BaseDir}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="docname">
+					<subreportParameterExpression><![CDATA[$P{docname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="factSheetNo">
+					<subreportParameterExpression><![CDATA[$P{factSheetNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="lang">
+					<subreportParameterExpression><![CDATA[$P{lang}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patno">
+					<subreportParameterExpression><![CDATA[$P{patno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="anaethesiaOtherText">
+					<subreportParameterExpression><![CDATA[$P{anaethesiaOtherText}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="complication">
+					<subreportParameterExpression><![CDATA[$P{complication}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patDOB">
+					<subreportParameterExpression><![CDATA[$P{patDOB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="consentDate">
+					<subreportParameterExpression><![CDATA[$P{consentDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patcname">
+					<subreportParameterExpression><![CDATA[$P{patcname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="anaethesiaType">
+					<subreportParameterExpression><![CDATA[$P{anaethesiaType}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="procedure">
+					<subreportParameterExpression><![CDATA[$P{procedure}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patname">
+					<subreportParameterExpression><![CDATA[$P{patname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} == null ?
+"C:\\projects\\HKAHIntranet\\report" :
+$P{SUBREPORT_DIR} + "consentSurg_chi_HKAH_sub2a.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

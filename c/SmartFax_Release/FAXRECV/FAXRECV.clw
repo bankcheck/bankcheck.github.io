@@ -12,11 +12,12 @@ Class1=CFAXRECVApp
 Class2=CFAXRECVDlg
 Class3=CAboutDlg
 
-ResourceCount=4
+ResourceCount=5
 Resource1=IDD_ABOUTBOX
 Resource2=IDR_MAINFRAME
 Resource3=IDD_FAXRECV_DIALOG
 Resource4=IDD_FAXRECV_DIALOG (Chinese (P.R.C.))
+Resource5=IDD_ABOUTBOX (Chinese (P.R.C.))
 
 [CLS:CFAXRECVApp]
 Type=0
@@ -138,4 +139,12 @@ Control38=ID_LINE3,static,1342177296
 Control39=IDC_STATIC,static,1342308352
 Control40=IDC_STATIC_ANI,static,1342308352
 Control41=IDC_STATIC_WWW,static,1342308608
+
+[DLG:IDD_ABOUTBOX (Chinese (P.R.C.))]
+Type=1
+ControlCount=4
+Control1=IDC_STATIC,static,1342177283
+Control2=IDC_STATIC,static,1342308480
+Control3=IDC_STATIC,static,1342308352
+Control4=IDOK,button,1342373889
 

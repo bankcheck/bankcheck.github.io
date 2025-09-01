@@ -1,0 +1,6 @@
+create or replace TRIGGER "LIS_ONLINE_2".before_labo_qc_result before insert on labo_qc_result
+for each row
+declare
+begin
+  SELECT SEQ_LABO_QC_RESULT.NEXTVAL INTO :new.row_num FROM DUAL;
+end ;

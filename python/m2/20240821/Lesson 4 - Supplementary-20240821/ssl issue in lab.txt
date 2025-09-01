@@ -1,1 +1,0 @@
-pip install --user urllib3==1.26.6

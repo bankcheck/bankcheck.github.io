@@ -1,0 +1,469 @@
+create or replace FUNCTION NHS_ACT_GENPATLETTER (
+S_PATNO IN VARCHAR2,
+S_OUTAMT IN VARCHAR2,
+V_STARTDATE IN VARCHAR2,
+V_PREDAYS IN VARCHAR2,
+V_SIPBUFFDAYS IN VARCHAR2,
+V_REGID IN VARCHAR2,
+vtmpRegdate IN VARCHAR2,
+VTMPSSLPNO IN VARCHAR2,
+v_sysdate DATE,
+V_BILLTYPE IN VARCHAR2
+)
+
+	RETURN NUMBER
+AS
+	V_PATNO PATIENT.PATNO%TYPE;
+  V_SLPNO SLIP.SLPNO%TYPE;
+  V_REGDATE REG.REGDATE%TYPE;
+	V_PATNAME VARCHAR2(81);
+	V_PATFNAME PATIENT.PATFNAME%TYPE;
+	v_BEDCODE inpat.BEDCODE%TYPE;
+	V_TITDESC VARCHAR2(10);
+  V_LASTPRTDATE REG.REGDATE%TYPE;
+  V_SLPTYPE SLIP.SLPTYPE%TYPE;
+  v_arcode SLIP.ARCCODE%TYPE;
+  V_ISCURRENTIP NUMBER;
+  V_PATNO1 PATIENT.PATNO%TYPE;
+  V_PATNAME1 VARCHAR2(81);
+  V_PATFNAME1 PATIENT.PATGNAME%TYPE;
+  V_BEDCODE1 inpat.BEDCODE%TYPE;
+  V_TITDESC1 VARCHAR2(10);
+  V_LASTPRTDATE1 DATE;
+  TMPRS_SLPNO SLIP.SLPNO%TYPE;
+  v_OutAmt FLOAT(126);
+  VRS_OUTAMT FLOAT(126);
+  RS2_OUTAMT FLOAT(126);
+  V_DPAYAMT FLOAT(126);
+  V_REFUND FLOAT(126);
+  V_DCDEBIT FLOAT(126);
+  V_HSPDEBIT FLOAT(126);
+  V_CRTAMT FLOAT(126);
+  sBuffer VARCHAR2(10);
+	O_ERRCODE NUMBER;
+  O_ERRCODE_FINAL NUMBER;
+  V_TRACK_NO VARCHAR2(1000);
+
+CURSOR c_rs1 IS
+SELECT DISTINCT PATNO,SLPNO,PATNAME,PATFNAME,BEDCODE,TITDESC,REGDATE,SLPTYPE,ARCODE,ISCURRENTIP,OUTAMT
+FROM (
+(SELECT A.PATNO,D.SLPNO,A.PATFNAME||' '||A.PATGNAME AS PATNAME,A.PATFNAME,'' AS BEDCODE,A.TITDESC,C.REGDATE,D.SLPTYPE,'' AS ARCODE,0 AS ISCURRENTIP, SUM(NVL(E.STNNAMT,0)) AS OUTAMT
+from patient a,reg c,slip d ,sliptx e
+WHERE C.PATNO=A.PATNO
+AND D.REGID=C.REGID
+AND D.SLPNO=E.SLPNO
+AND TRUNC(E.STNCDATE)<=TRUNC(v_sysdate)-1
+and  d.slptype in ('D','O')
+AND D.ARCCODE IS NULL
+AND C.REGSTS <> 'C'
+AND D.SLPSTS<>'R'
+and d.slpsts<>'C'
+and a.patno= S_PATNO
+group by a.patno,d.slpno,a.PATFNAME||' '||a.PATGNAME,a.PATFNAME, a.TITDESC,c.regdate,d.slptype
+HAVING SUM(NVL(E.STNNAMT, 0)) > 0
+) Union
+(SELECT A.PATNO,D.SLPNO,A.PATFNAME||' '||A.PATGNAME AS PATNAME,A.PATFNAME,'' AS BEDCODE,A.TITDESC,TO_DATE(NULL,'dd/mm/yyyy') AS REGDATE,D.SLPTYPE,'' AS ARCODE,0 AS ISCURRENTIP, SUM(NVL(E.STNNAMT,0)) AS OUTAMT
+from patient a,slip d ,sliptx e
+WHERE D.PATNO=A.PATNO
+AND D.SLPNO=E.SLPNO
+AND TRUNC(E.STNCDATE)<=TRUNC(v_sysdate)-1
+and d.slptype in ('D','O')
+AND D.ARCCODE IS NULL
+AND D.SLPSTS<>'R'
+AND D.SLPSTS<>'C'
+and d.regid is null
+AND A.PATNO= S_PATNO
+group by a.patno,d.slpno,a.PATFNAME||' '||a.PATGNAME,a.PATFNAME, a.TITDESC,to_date(null,'dd/mm/yyyy'),d.slptype
+HAVING SUM(NVL(E.STNNAMT, 0)) > 0
+/* COMMENT START:EXTRACT INCORRECT EXTRA DATA
+) Union
+(select distinct a.patno,d.slpno,a.PATFNAME||' '||a.PATGNAME as PATNAME,a.PATFNAME,b.BEDCODE,a.TITDESC,c.regdate,d.slptype,d.arccode as arcode,1 as iscurrentIP,0 as OutAmt
+from patient a,inpat b,reg c,slip d
+WHERE C.PATNO=A.PATNO
+AND B.INPDDATE IS NULL
+AND B.INPID=C.INPID
+AND D.REGID=C.REGID
+AND C.REGSTS <> 'C'
+AND D.SLPSTS<>'R'
+AND D.SLPSTS<>'C'
+and a.patno= S_PATNO
+GROUP BY A.PATNO,D.SLPNO,A.PATFNAME||' '||A.PATGNAME,A.PATFNAME,B.BEDCODE, A.TITDESC,C.REGDATE,D.SLPTYPE,D.ARCCODE
+--COMMENT END:EXTRACT INCORRECT EXTRA DATA
+*/
+)
+
+/*
+--COMMENT START:NO NEED DISCHARGED RECORD WHO HAS SUM(NVL(E.STNNAMT, 0)) > 0)
+UNION
+(SELECT A.PATNO,D.SLPNO,A.PATFNAME||' '||A.PATGNAME AS PATNAME,A.PATFNAME,'' AS BEDCODE,A.TITDESC,C.REGDATE,D.SLPTYPE,'' AS ARCODE,0 AS ISCURRENTIP,SUM(NVL(E.STNNAMT,0)) AS OUTAMT
+from patient a,inpat b,reg c,slip d  ,sliptx e
+WHERE C.PATNO=A.PATNO
+AND D.SLPNO=E.SLPNO
+AND TRUNC(E.STNCDATE)<=TRUNC(v_sysdate)-1
+AND B.INPDDATE IS NOT NULL
+AND B.INPID=C.INPID
+AND D.REGID=C.REGID
+AND C.REGSTS <> 'C'
+AND D.SLPSTS<>'R'
+and d.slpsts<>'C'
+AND D.ARCCODE IS NULL
+and a.patno= S_PATNO
+group by  a.patno,d.slpno,a.PATFNAME||' '||a.PATGNAME,a.PATFNAME, a.TITDESC,c.regdate,d.slptype
+HAVING SUM(NVL(E.STNNAMT, 0)) > 0)
+--COMMENT END:NO NEED DISCHARGED RECORD WHO HAS SUM(NVL(E.STNNAMT, 0)) > 0)
+*/
+Union
+(SELECT A.PATNO,D.SLPNO,A.PATFNAME||' '||A.PATGNAME AS PATNAME,A.PATFNAME,B.BEDCODE,A.TITDESC,C.REGDATE,D.SLPTYPE,D.ARCCODE,0 AS ISCURRENTIP,SUM(NVL(E.STNNAMT,0)) AS OUTAMT
+from patient a,inpat b,reg c,slip d ,sliptx e
+WHERE C.PATNO=A.PATNO
+AND B.INPDDATE IS NULL
+AND D.SLPNO=E.SLPNO
+AND TRUNC(E.STNCDATE)<=TRUNC(v_sysdate)-1
+AND B.INPID=C.INPID
+and d.regid=c.regid
+AND C.REGSTS <> 'C'
+AND D.SLPSTS<>'R'
+AND D.SLPSTS<>'C'
+AND D.ARCCODE IS NULL
+AND A.PATNO= S_PATNO
+and trunc(v_sysdate,'dd')-trunc(c.regdate,'dd')-2 >= TO_NUMBER(V_PREDAYS)
+group by a.patno,d.slpno,a.PATFNAME||' '||a.PATGNAME,a.PATFNAME,b.BEDCODE,a.TITDESC,c.regdate,d.slptype,d.arccode
+) union
+(SELECT Z2.PATNO,Z2.SLPNO,Z4.PATFNAME||' '||Z4.PATGNAME AS PATNAME,Z4.PATFNAME,Z3.BEDCODE,Z4.TITDESC,Z1.REGDATE,Z2.SLPTYPE,Z2.ARCCODE AS ARCODE, 0 AS ISCURRENTIP, SUM(NVL(Z5.STNNAMT,0)) AS OUTAMT
+from (
+  SELECT R.REGID
+  from patient a,slip d, inpat i, reg r ,sliptx e
+  Where a.patno=r.patno
+  and d.RegID = r.RegID
+  And r.inpid = i.inpid
+  and r.regsts <> 'C'
+  AND A.patno=D.patno
+  And i.inpddate Is Null
+  and d.slpno=e.slpno
+  and trunc(e.stncdate)<=trunc(v_sysdate)-1
+  and d.arccode is null
+  and d.slpsts <> 'R'
+  and d.slpsts<>'C'
+  and  a.patno= S_PATNO
+GROUP BY R.REGID
+having sum(nvl(e.stnnamt,0))> TO_NUMBER(S_OUTAMT)) z ,reg z1,slip z2, inpat z3,patient z4,sliptx z5
+where z.regid=z1.regid
+and z1.inpid=z3.inpid
+and z3.inpddate Is Null
+and z2.slpsts <> 'R'
+and z2.slpsts<>'C'
+and z2.regid=z1.regid
+and z1.patno=z2.patno
+and z1.patno=z4.patno
+and z2.slpno=z5.slpno
+and trunc(z5.stncdate)<=trunc(v_sysdate)-1
+and z1.regsts <> 'C'
+group by z2.patno,z2.slpno,z4.PATFNAME||' '||z4.PATGNAME,z4.PATFNAME,z3.bedcode,z4.TITDESC,z1.regdate,z2.slptype,z2.arccode
+)) order by slpno asc;
+
+CURSOR tmprsMDB IS
+SELECT DISTINCT SLPNO
+FROM DAYENDSLIPTMP
+order by slpno asc;
+
+BEGIN
+  O_ERRCODE := 0;
+  O_ERRCODE_FINAL :=0;
+  V_TRACK_NO := 'A0000';
+  BEGIN
+  SELECT A.PATNO,A.PATFNAME||' '||A.PATGNAME AS PATNAME,A.PATFNAME,B.BEDCODE,A.TITDESC,DECODE(A.LASTPRTDATE,NULL,C.REGDATE,A.LASTPRTDATE) AS LASTPRTDATE
+  INTO V_PATNO1,V_PATNAME1,V_PATFNAME1,V_BEDCODE1,V_TITDESC1,V_LASTPRTDATE1
+  from patient a,inpat b,reg c,slip d
+  WHERE C.PATNO=A.PATNO
+  AND B.INPID=C.INPID
+  AND D.REGID=C.REGID
+  AND C.REGSTS <> 'C'
+  AND B.INPDDATE IS NULL
+  AND D.SLPSTS<>'R'
+  AND A.PATNO= S_PATNO;
+  /*
+  sBuffer = IIf(IsNull(rs.Fields("PATNAME")), "", rs.Fields("PATNAME"))
+  oWordReport.SetField "PatName", sBuffer, "S"
+  sBuffer = IIf(IsNull(rs.Fields("BEDCODE")), "", rs.Fields("BEDCODE"))
+  oWordReport.SetField "BedCode", sBuffer, "S"
+  sBuffer = IIf(IsNull(rs.Fields("TITDESC")), "", rs.Fields("TITDESC"))
+  oWordReport.SetField "Title", sBuffer, "S"
+  oWordReport.SetField "Title1", sBuffer, "S"
+  SBUFFER = IIF(ISNULL(RS.FIELDS("PATFNAME")), "", RS.FIELDS("PATFNAME"))
+  oWordReport.SetField "FmlyName", sBuffer, "S"
+  vlastprtdate = rs.Fields("lastprtdate")
+  */
+  DBMS_OUTPUT.PUT_LINE('[S_PATNO]:'||S_PATNO);
+  EXCEPTION
+  WHEN OTHERS THEN
+     DBMS_OUTPUT.PUT_LINE('0001 NOT FOUND');
+  END;
+
+  delete from DayEndSlipTmp;
+
+  OPEN c_rs1;
+  LOOP
+  FETCH C_RS1 INTO V_PATNO,V_SLPNO,V_PATNAME,V_PATFNAME,V_BEDCODE,V_TITDESC,V_REGDATE,V_SLPTYPE,V_ARCODE,V_ISCURRENTIP,V_OUTAMT;
+  O_ERRCODE := 0;
+  EXIT WHEN C_RS1%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE('[v_patno]:'||v_patno||';[V_ISCURRENTIP]:'||V_ISCURRENTIP);
+    IF V_ISCURRENTIP = 1 THEN
+      BEGIN
+        SELECT NVL(SUM(NVL(E.STNNAMT,0)),0) AS OUTAMT
+        INTO VRS_OUTAMT
+        from patient a,inpat b,reg c,slip d,sliptx e,sliptx_extra f
+        WHERE C.PATNO=A.PATNO
+        AND B.INPDDATE IS NULL
+        AND B.INPID=C.INPID
+        AND D.REGID=C.REGID
+        AND D.SLPNO=E.SLPNO
+        AND E.STNID=F.STNID(+)
+        AND TRUNC(DECODE(F.STNSDATE,null,E.STNCDATE,F.STNSDATE))<=TRUNC(v_sysdate)-1
+        AND C.REGSTS <> 'C'
+        and d.slpsts<>'R'
+        AND A.PATNO= S_PATNO
+        and d.slpno=v_slpno;
+      EXCEPTION
+      WHEN OTHERS THEN
+        vrs_OutAmt := 0;
+      END;
+
+      V_TRACK_NO := 'A0001';
+      INSERT INTO SYSLOG (MODULE,ACTION,REMARK,USERID,SYSTIME,PCNAME)
+      VALUES (
+      'PORTAL',
+      'NHS_ACT_GENALLPATLETTER',
+      '[V_SYSDATE]:'||V_SYSDATE||';[v_patno]:'||V_PATNO||';[V_TRACK_NO]:'||V_TRACK_NO,
+      'SYSTEM',
+      SYSDATE,
+      NULL);
+    ELSE
+      vrs_OutAmt := v_OutAmt;
+    END IF;
+
+    INSERT INTO DAYENDSLIPS(
+    PATNO,SLPNO,PATNAME,PATFNAME,BEDCODE,TITDESC,REGDATE,SLPTYPE,ARCODE,OUTAMT,PRINTDATE,BILLTYPE,MODUSRID,MODDATE,ENABLED) VALUES(
+    V_PATNO,V_SLPNO,V_PATNAME,V_PATFNAME,V_BEDCODE,V_TITDESC,V_REGDATE,V_SLPTYPE,V_ARCODE,VRS_OUTAMT,v_sysdate,V_BILLTYPE,'SYSTEM',SYSDATE,1);
+
+    V_TRACK_NO := 'A0002';
+    INSERT INTO SYSLOG (MODULE,ACTION,REMARK,USERID,SYSTIME,PCNAME)
+    VALUES (
+    'PORTAL',
+    'NHS_ACT_GENALLPATLETTER',
+    '[V_SYSDATE]:'||V_SYSDATE||';[v_patno]:'||V_PATNO||';[V_TRACK_NO]:'||V_TRACK_NO,
+    'SYSTEM',
+    SYSDATE,
+    NULL);
+
+    O_ERRCODE := 1;
+    O_ERRCODE_FINAL := O_ERRCODE;
+
+    INSERT INTO DayEndSlipTmp (Slpno) VALUES (v_slpno);
+  END LOOP;
+  CLOSE c_rs1;
+
+  DELETE FROM DAYENDSLIPS D
+  WHERE PATNO = V_PATNO
+  AND SLPTYPE = 'O'
+  AND NOT EXISTS (
+    SELECT 1
+    FROM DAYENDSLIPS I
+    WHERE I.PATNO = D.PATNO
+    AND I.SLPTYPE = 'I'
+    AND I.PRINTDATE = v_sysdate)
+  AND D.ENABLED = 1
+  AND D.PRINTDATE = v_sysdate;
+
+  V_TRACK_NO := 'A0003';
+  INSERT INTO SYSLOG (MODULE,ACTION,REMARK,USERID,SYSTIME,PCNAME)
+  VALUES (
+  'PORTAL',
+  'NHS_ACT_GENALLPATLETTER',
+  '[V_SYSDATE]:'||V_SYSDATE||';[v_patno]:'||V_PATNO||';[V_TRACK_NO]:'||V_TRACK_NO,
+  'SYSTEM',
+  SYSDATE,
+  NULL);
+
+  OPEN tmprsMDB;
+  LOOP
+  FETCH tmprsMDB INTO tmprs_SLPNO;
+  EXIT WHEN TMPRSMDB%NOTFOUND;
+--        SBUFFER = IIF(ISNULL(TMPRSMDB.FIELDS("slpno")), "", TMPRSMDB.FIELDS("slpno"))
+--        oWordReport.GridRowSetField "SlpNo", sBuffer, "S"
+  END LOOP;
+
+  delete from DayEndSlipTmp;
+
+--Outstading amount
+  BEGIN
+    SELECT NVL(SUM(NVL(E.STNNAMT,0)),0) AS OUTAMT
+    INTO RS2_OUTAMT
+    from slip d,reg b,inpat c,sliptx e
+    WHERE D.REGID = B.REGID
+    AND C.INPID = B.INPID
+    AND C.INPDDATE IS NULL
+    AND D.SLPNO=E.SLPNO
+    AND TRUNC(E.STNCDATE)<=TRUNC(SYSDATE)-1
+    AND B.REGSTS <> 'C'
+    AND D.ARCCODE IS NULL
+    AND D.SLPTYPE='I'
+    AND D.SLPSTS <> 'R'
+    AND D.PATNO= S_PATNO;
+
+    --sBuffer = 0
+    --sBuffer = IIf(IsNull(rs2.Fields("OutAmt")), "", rs2.Fields("OutAmt"))
+  EXCEPTION
+  WHEN OTHERS THEN
+    --sBuffer = 0
+    --oWordReport.SetField "OutAmt", sBuffer, "F"
+    DBMS_OUTPUT.PUT_LINE('[Outstading amount][sBuffer]:'||sBuffer);
+  END;
+
+--  OWORDREPORT.SETFIELD "StartDate", VLASTPRTDATE, "D"
+--  oWordReport.SetField "EndDate", Format(DateAdd("d", -1, GetServerDate(MainDef.Database)), "DD/MM/YYYY"), "D"
+
+--Payment amount
+  BEGIN
+    SELECT NVL(SUM(NVL(B.STNNAMT,0)),0) AS PAYAMT
+    INTO V_DPAYAMT
+    FROM SLIP A,SLIPTX B,REG C,INPAT D
+    WHERE C.REGID=A.REGID
+    AND C.INPID=D.INPID
+    AND C.PATNO=A.PATNO
+    AND TRUNC(B.STNCDATE)<=TRUNC(SYSDATE)-1
+    AND D.INPDDATE IS NULL AND A.SLPTYPE='I'
+    AND A.SLPNO=B.SLPNO
+    AND A.ARCCODE IS NULL
+    AND B.ITMCODE='PAYME'
+    AND A.SLPSTS<> 'R'
+    AND  A.PATNO=S_PATNO;
+
+    V_TRACK_NO := 'A0003';
+    INSERT INTO SYSLOG (MODULE,ACTION,REMARK,USERID,SYSTIME,PCNAME)
+    VALUES (
+    'PORTAL',
+    'NHS_ACT_GENALLPATLETTER',
+    '[V_SYSDATE]:'||V_SYSDATE||';[v_patno]:'||V_PATNO||';[V_TRACK_NO]:'||V_TRACK_NO,
+    'SYSTEM',
+    SYSDATE,
+    NULL);
+
+    IF V_DPAYAMT < 0 THEN
+      V_DPAYAMT := V_DPAYAMT * -1;
+    END IF;
+
+--    sBuffer = CStr(dPayAmt);
+  EXCEPTION
+  WHEN OTHERS THEN
+    --sBuffer = 0
+    DBMS_OUTPUT.PUT_LINE('[Payment amount][sBuffer]:'||sBuffer);
+  END;
+
+  --Credit amount
+  BEGIN
+  SELECT NVL(SUM(NVL(B.STNNAMT,0)),0) AS CRTAMT
+  INTO V_CRTAMT
+  FROM SLIP A,SLIPTX B,REG C,INPAT D
+  WHERE  C.REGID=A.REGID
+  AND C.INPID=D.INPID
+  AND C.PATNO=A.PATNO
+  AND TRUNC(B.STNCDATE)<=TRUNC(SYSDATE)-1
+  AND D.INPDDATE IS NULL AND A.SLPTYPE='I'
+  AND  B.STNTYPE IN ('P','I','C')
+  AND A.SLPNO=B.SLPNO
+  AND A.ARCCODE IS NULL
+  AND A.PATNO=S_PATNO
+  AND A.SLPSTS <> 'R';
+
+  IF V_CRTAMT < 0 THEN
+    V_CrtAmt := V_CrtAmt * -1;
+  END IF;
+
+--  sBuffer = CStr(dTemp)
+  EXCEPTION
+  WHEN OTHERS THEN
+--sBuffer = 0
+    DBMS_OUTPUT.PUT_LINE('[Credit amount][sBuffer]:'||sBuffer);
+  END;
+--oWordReport.SetField "CrtAmt", sBuffer, "F"
+
+--hospital Debit amount
+  BEGIN
+  SELECT NVL(SUM(NVL(B.STNNAMT,0)),0) AS HSPDEBIT
+  INTO V_HSPDEBIT
+  FROM SLIP A,SLIPTX B,REG C,INPAT D
+  WHERE C.REGID=A.REGID
+  AND C.INPID=D.INPID
+  AND C.PATNO=A.PATNO
+  AND TRUNC(B.STNCDATE)<=TRUNC(SYSDATE)-1
+  AND D.INPDDATE IS NULL
+  AND A.SLPTYPE='I'
+  AND B.STNTYPE='D'
+  AND  A.SLPNO=B.SLPNO
+  AND A.ARCCODE IS NULL
+  AND ITMTYPE='H'
+  AND A.PATNO=S_PATNO
+  AND A.SLPSTS <> 'R';
+
+--sBuffer = IIf(IsNull(rs2.Fields("HspDebit")), "", rs2.Fields("HspDebit"))
+  EXCEPTION
+  WHEN OTHERS THEN
+--sBuffer = 0
+    DBMS_OUTPUT.PUT_LINE('[hospital Debit amount][sBuffer]:'||sBuffer);
+  END;
+--oWordReport.SetField "HspDebit", sBuffer, "F"
+
+--Doctor Debit amount
+  BEGIN
+    SELECT NVL(SUM(NVL(B.STNNAMT,0)),0) AS DCDEBIT
+    INTO V_DCDEBIT
+    FROM SLIP A,SLIPTX B,REG C,INPAT D
+    WHERE C.REGID=A.REGID
+    AND C.INPID=D.INPID
+    AND B.STNTYPE='D'
+    AND C.PATNO=A.PATNO
+    AND TRUNC(B.STNCDATE)<=TRUNC(SYSDATE)-1
+    AND D.INPDDATE IS NULL AND A.SLPTYPE='I'
+    AND A.SLPNO=B.SLPNO
+    AND A.ARCCODE IS NULL
+    AND ITMTYPE='D'
+    AND  A.PATNO=S_PATNO;
+--sBuffer = IIf(IsNull(rs2.Fields("DcDebit")), "", rs2.Fields("DcDebit"))
+  EXCEPTION
+  WHEN OTHERS THEN
+--sBuffer = 0
+    DBMS_OUTPUT.PUT_LINE('[Doctor Debit amount][sBuffer]:'||sBuffer);
+  END;
+--oWordReport.SetField "DcDebit", sBuffer, "F"
+
+--Refund amount
+  BEGIN
+    SELECT NVL(SUM(NVL(B.STNNAMT,0)),0) AS REFUND
+    INTO V_REFUND
+    FROM SLIP A,SLIPTX B,REG C,INPAT D
+    WHERE C.REGID=A.REGID
+    AND C.INPID=D.INPID
+    AND C.PATNO=A.PATNO
+    AND TRUNC(B.STNCDATE)<=TRUNC(SYSDATE)-1
+    AND D.INPDDATE IS NULL AND A.SLPTYPE='I'
+    AND A.SLPNO=B.SLPNO
+    AND A.ARCCODE IS NULL
+    AND STNTYPE='R'
+    AND A.PATNO=S_PATNO
+    AND A.SLPSTS <> 'R';
+--sBuffer = IIf(IsNull(rs2.Fields("Refund")), "", rs2.Fields("Refund"))
+  EXCEPTION
+  WHEN OTHERS THEN
+--sBuffer = 0
+    DBMS_OUTPUT.PUT_LINE('[Refund amount][sBuffer]:'||sBuffer);
+  END;
+--oWordReport.SetField "Refund", sBuffer, "F"
+ RETURN O_ERRCODE_FINAL;
+EXCEPTION
+WHEN OTHERS THEN
+ROLLBACK;
+O_ERRCODE_FINAL := -1;
+DBMS_OUTPUT.PUT_LINE('An ERROR was encountered - '||SQLCODE||' -ERROR- '||SQLERRM);
+   RETURN O_ERRCODE;
+END;
+/

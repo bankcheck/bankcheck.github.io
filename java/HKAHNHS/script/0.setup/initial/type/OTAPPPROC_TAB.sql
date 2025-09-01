@@ -1,0 +1,3 @@
+create or replace
+TYPE OTAPPPROC_TAB
+AS TABLE OF OTAPPPROC;

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spring boot with Thymeleaf</title>
+  </head>
+  	<body>
+		<form method="post" th:action="@{/submit}" th:object="${francoStudent}">
+    		<table>
+        		<tr>
+            		<td><input type="text" id="test" th:field="*{studentNameInClass}"/></td>
+        		</tr>
+        		<tr>
+            		<td><textarea th:field="*{studentNameInClass}"></textarea></td>
+        		</tr>
+        		<select th:field="*{genderInClass}">
+            		<option th:each="gender : ${gendersInController}" th:value="${gender}" th:text="${gender}"></option>
+        		</select>
+        		<tr>
+            		<td><input type="submit" value="Submit"/></td>
+        		</tr>
+    </table>
+</form>
+  </body>
+</html>

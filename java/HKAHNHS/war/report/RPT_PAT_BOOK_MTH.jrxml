@@ -1,0 +1,1627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT_OSB_SERVUSAGE" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true">
+	<property name="ireport.zoom" value="1.9487171000000092"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="T_DATE" class="java.lang.String"/>
+	<parameter name="DATE_FROM" class="java.lang.String"/>
+	<parameter name="DATE_TO" class="java.lang.String"/>
+	<parameter name="WRDCODE" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+  r.wrdcode,
+  r.time_slot,
+  nvl(d."1", 0) "1",
+  nvl(d."2", 0) "2",
+  nvl(d."3", 0) "3",
+  nvl(d."4", 0) "4",
+  nvl(d."5", 0) "5",
+  nvl(d."6", 0) "6",
+  nvl(d."7", 0) "7",
+  nvl(d."8", 0) "8",
+  nvl(d."9", 0) "9",
+  nvl(d."10", 0) "10",
+  nvl(d."11", 0) "11",
+  nvl(d."12", 0) "12",
+  nvl(d."13", 0) "13",
+  nvl(d."14", 0) "14",
+  nvl(d."15", 0) "15",
+  nvl(d."16", 0) "16",
+  nvl(d."17", 0) "17",
+  nvl(d."18", 0) "18",
+  nvl(d."19", 0) "19",
+  nvl(d."20", 0) "20",
+  nvl(d."21", 0) "21",
+  nvl(d."22", 0) "22",
+  nvl(d."23", 0) "23",
+  nvl(d."24", 0) "24",
+  nvl(d."25", 0) "25",
+  nvl(d."26", 0) "26",
+  nvl(d."27", 0) "27",
+  nvl(d."28", 0) "28",
+  nvl(d."29", 0) "29",
+  nvl(d."30", 0) "30",
+  nvl(d."31", 0) "31"
+from (
+  select
+    wrdcode,
+    time_slot,
+    sum(decode(date_of_m, '01', cnt)) "1",
+    sum(decode(date_of_m, '02', cnt)) "2",
+    sum(decode(date_of_m, '03', cnt)) "3",
+    sum(decode(date_of_m, '04', cnt)) "4",
+    sum(decode(date_of_m, '05', cnt)) "5",
+    sum(decode(date_of_m, '06', cnt)) "6",
+    sum(decode(date_of_m, '07', cnt)) "7",
+    sum(decode(date_of_m, '08', cnt)) "8",
+    sum(decode(date_of_m, '09', cnt)) "9",
+    sum(decode(date_of_m, '10', cnt)) "10",
+    sum(decode(date_of_m, '11', cnt)) "11",
+    sum(decode(date_of_m, '12', cnt)) "12",
+    sum(decode(date_of_m, '13', cnt)) "13",
+    sum(decode(date_of_m, '14', cnt)) "14",
+    sum(decode(date_of_m, '15', cnt)) "15",
+    sum(decode(date_of_m, '16', cnt)) "16",
+    sum(decode(date_of_m, '17', cnt)) "17",
+    sum(decode(date_of_m, '18', cnt)) "18",
+    sum(decode(date_of_m, '19', cnt)) "19",
+    sum(decode(date_of_m, '20', cnt)) "20",
+    sum(decode(date_of_m, '21', cnt)) "21",
+    sum(decode(date_of_m, '22', cnt)) "22",
+    sum(decode(date_of_m, '23', cnt)) "23",
+    sum(decode(date_of_m, '24', cnt)) "24",
+    sum(decode(date_of_m, '25', cnt)) "25",
+    sum(decode(date_of_m, '26', cnt)) "26",
+    sum(decode(date_of_m, '27', cnt)) "27",
+    sum(decode(date_of_m, '28', cnt)) "28",
+    sum(decode(date_of_m, '29', cnt)) "29",
+    sum(decode(date_of_m, '30', cnt)) "30",
+    sum(decode(date_of_m, '31', cnt)) "31"
+  from (
+    select
+      wrdcode,
+      time_slot,
+      date_of_m,
+      count(1) cnt
+    from (
+      select
+        wrdcode,
+        case when time >= '0000' and time <= '0559' then '0000-0559' else
+          case when time >= '0600' and time <= '0659' then '0600-0659' else
+            case when time >= '0700' and time <= '0759' then '0700-0759' else
+              case when time >= '0800' and time <= '0859' then '0800-0859' else
+                case when time >= '0900' and time <= '0959' then '0900-0959' else
+                  case when time >= '1000' and time <= '1059' then '1000-1059' else
+                    case when time >= '1100' and time <= '1159' then '1100-1159' else
+                      case when time >= '1200' and time <= '1259' then '1200-1259' else
+                        case when time >= '1300' and time <= '1359' then '1300-1359' else
+                          case when time >= '1400' and time <= '1459' then '1400-1459' else
+                            case when time >= '1500' and time <= '1559' then '1500-1559' else
+                              case when time >= '1600' and time <= '1659' then '1600-1659' else
+                                case when time >= '1700' and time <= '1759' then '1700-1759' else
+                                  case when time >= '1800' and time <= '1859' then '1800-1859' else
+                                    case when time >= '1900' and time <= '1959' then '1900-1959' else
+                                      case when time >= '2000' and time <= '2059' then '2000-2059' else
+                                        case when time >= '2100' and time <= '2159' then '2100-2159' else
+                                          case when time >= '2200' and time <= '2259' then '2200-2259' else
+                                            case when time >= '2300' and time <= '2359' then '2300-2359' else
+                                            '0' end
+                                          end
+                                        end
+                                      end
+                                    end
+                                  end
+                                end
+                              end
+                            end
+                          end
+                        end
+                      end
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end time_slot,
+        date_of_m
+      from
+      (
+        select
+          wrdcode,
+          to_char(bpbhdate, 'dd') date_of_m,
+          to_char(bpbhdate, 'hh24mi') time
+        from bedprebok@iweb
+        where
+        bpbsts in ('N', 'F')
+        AND BPBHDATE >= TO_DATE('01/02/2013 00:00', 'dd/mm/yyyy hh24:mi')
+        AND BPBHDATE < TO_DATE('28/02/2013', 'dd/mm/yyyy hh24:mi') + 1
+--        and wrdcode = 'OB'
+        --order by bpbhdate
+      )
+    )
+    group by wrdcode, time_slot, date_of_m
+    --order by time_slot, date_of_m
+
+    /*
+    union
+
+    select
+      wrdcode,
+      'tot' time_slot,
+      date_of_m,
+      cnt
+    from
+    (
+      select
+        wrdcode,
+        to_char(bpbhdate, 'dd') date_of_m,
+        count(1) cnt
+      from bedprebok@iweb
+      where
+      bpbsts in ('N', 'F')
+      and bpbhdate >= to_date('01/02/2014 00:00', 'dd/mm/yyyy hh24:mi')
+      and bpbhdate < to_date('28/02/2014', 'dd/mm/yyyy hh24:mi') + 1
+      --and wrdcode = 'OB'
+      group by wrdcode, to_char(bpbhdate, 'dd')
+    )
+    */
+  )
+  GROUP BY WRDCODE, TIME_SLOT
+) d,
+(
+  SELECT
+    w.WRDCODE,
+    t.time_slot
+  from
+  (
+    select
+      decode(
+        rownum,
+        1, '0000-0559',
+        2, '0600-0659',
+        3, '0700-0759',
+        4, '0800-0859',
+        5, '0900-0959',
+        6, '1000-1059',
+        7, '1100-1159',
+        8, '1200-1259',
+        9, '1300-1359',
+        10, '1400-1459',
+        11, '1500-1559',
+        12, '1600-1659',
+        13, '1700-1759',
+        14, '1800-1859',
+        15, '1900-1959',
+        16, '2000-2059',
+        17, '2100-2159',
+        18, '2200-2259',
+        19, '2300-2359'
+        --, 20, 'tot'
+        ) time_slot
+    from dual
+    CONNECT BY ROWNUM <=19
+  ) t,
+  (
+    SELECT WRDCODE FROM WARD@IWEB
+  ) w WHERE 1 = 1
+) R
+WHERE R.TIME_SLOT=D.TIME_SLOT(+)
+AND R.WRDCODE=D.WRDCODE(+)
+order by r.wrdcode, r.time_slot]]>
+	</queryString>
+	<field name="WRDCODE" class="java.lang.String"/>
+	<field name="TIME_SLOT" class="java.lang.String"/>
+	<field name="1" class="java.math.BigDecimal"/>
+	<field name="2" class="java.math.BigDecimal"/>
+	<field name="3" class="java.math.BigDecimal"/>
+	<field name="4" class="java.math.BigDecimal"/>
+	<field name="5" class="java.math.BigDecimal"/>
+	<field name="6" class="java.math.BigDecimal"/>
+	<field name="7" class="java.math.BigDecimal"/>
+	<field name="8" class="java.math.BigDecimal"/>
+	<field name="9" class="java.math.BigDecimal"/>
+	<field name="10" class="java.math.BigDecimal"/>
+	<field name="11" class="java.math.BigDecimal"/>
+	<field name="12" class="java.math.BigDecimal"/>
+	<field name="13" class="java.math.BigDecimal"/>
+	<field name="14" class="java.math.BigDecimal"/>
+	<field name="15" class="java.math.BigDecimal"/>
+	<field name="16" class="java.math.BigDecimal"/>
+	<field name="17" class="java.math.BigDecimal"/>
+	<field name="18" class="java.math.BigDecimal"/>
+	<field name="19" class="java.math.BigDecimal"/>
+	<field name="20" class="java.math.BigDecimal"/>
+	<field name="21" class="java.math.BigDecimal"/>
+	<field name="22" class="java.math.BigDecimal"/>
+	<field name="23" class="java.math.BigDecimal"/>
+	<field name="24" class="java.math.BigDecimal"/>
+	<field name="25" class="java.math.BigDecimal"/>
+	<field name="26" class="java.math.BigDecimal"/>
+	<field name="27" class="java.math.BigDecimal"/>
+	<field name="28" class="java.math.BigDecimal"/>
+	<field name="29" class="java.math.BigDecimal"/>
+	<field name="30" class="java.math.BigDecimal"/>
+	<field name="31" class="java.math.BigDecimal"/>
+	<variable name="1_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{1}]]></variableExpression>
+	</variable>
+	<variable name="2_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{2}]]></variableExpression>
+	</variable>
+	<variable name="3_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{3}]]></variableExpression>
+	</variable>
+	<variable name="4_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{4}]]></variableExpression>
+	</variable>
+	<variable name="5_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{5}]]></variableExpression>
+	</variable>
+	<variable name="6_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{6}]]></variableExpression>
+	</variable>
+	<variable name="7_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{7}]]></variableExpression>
+	</variable>
+	<variable name="8_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{8}]]></variableExpression>
+	</variable>
+	<variable name="9_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{9}]]></variableExpression>
+	</variable>
+	<variable name="10_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{10}]]></variableExpression>
+	</variable>
+	<variable name="11_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{11}]]></variableExpression>
+	</variable>
+	<variable name="12_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{12}]]></variableExpression>
+	</variable>
+	<variable name="13_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{13}]]></variableExpression>
+	</variable>
+	<variable name="14_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{14}]]></variableExpression>
+	</variable>
+	<variable name="15_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{15}]]></variableExpression>
+	</variable>
+	<variable name="16_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{16}]]></variableExpression>
+	</variable>
+	<variable name="17_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{17}]]></variableExpression>
+	</variable>
+	<variable name="18_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{18}]]></variableExpression>
+	</variable>
+	<variable name="19_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{19}]]></variableExpression>
+	</variable>
+	<variable name="20_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{20}]]></variableExpression>
+	</variable>
+	<variable name="21_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{21}]]></variableExpression>
+	</variable>
+	<variable name="22_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{22}]]></variableExpression>
+	</variable>
+	<variable name="23_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{23}]]></variableExpression>
+	</variable>
+	<variable name="24_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{24}]]></variableExpression>
+	</variable>
+	<variable name="25_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{25}]]></variableExpression>
+	</variable>
+	<variable name="26_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{26}]]></variableExpression>
+	</variable>
+	<variable name="27_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{27}]]></variableExpression>
+	</variable>
+	<variable name="28_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{28}]]></variableExpression>
+	</variable>
+	<variable name="29_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{29}]]></variableExpression>
+	</variable>
+	<variable name="30_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{30}]]></variableExpression>
+	</variable>
+	<variable name="31_1" class="java.math.BigDecimal" resetType="Group" resetGroup="WARD" calculation="Sum">
+		<variableExpression><![CDATA[$F{31}]]></variableExpression>
+	</variable>
+	<variable name="SUMTOTAL" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{1_1}+$V{2_1}+$V{3_1}+$V{4_1}+$V{5_1}+$V{6_1}+$V{7_1}+$V{8_1}+$V{9_1}+$V{10_1}+$V{11_1}+$V{12_1}+$V{13_1}+$V{14_1}+$V{15_1}+$V{16_1}+$V{17_1}+$V{18_1}+$V{19_1}+$V{20_1}+$V{21_1}+$V{22_1}+$V{23_1}+$V{24_1}+$V{25_1}+$V{26_1}+$V{27_1}+$V{28_1}+$V{29_1}+$V{30_1}+$V{31_1}]]></variableExpression>
+	</variable>
+	<group name="WARD">
+		<groupExpression><![CDATA[$F{WRDCODE}]]></groupExpression>
+		<groupHeader>
+			<band height="31">
+				<staticText>
+					<reportElement x="70" y="0" width="525" height="17"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Oct 2014]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="70" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[1]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="86" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[2]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="102" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[3]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="118" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[4]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="0" y="0" width="70" height="31"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{WRDCODE}.equals("MS")?"Medical-Surgical":
+$F{WRDCODE}.equals("SC")?"Special Care":
+$F{WRDCODE}.equals("ON")?"Oncology":
+$F{WRDCODE}.equals("IC")?"Intensive Care":
+$F{WRDCODE}.equals("ME")?"Medical":
+$F{WRDCODE}.equals("OB")?"Obstetric":
+$F{WRDCODE}.equals("PD")?"Pediatric":
+$F{WRDCODE}.equals("SU")?"Surgical":
+$F{WRDCODE}.equals("DC")?"[ Closed ] Day Case":
+$F{WRDCODE}.equals("IN")?"Integrated":
+$F{WRDCODE}.equals("SS")?"Short Stay":
+$F{WRDCODE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="134" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[5]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="150" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[6]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="166" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[7]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="182" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[8]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="198" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[9]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="214" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[10]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="230" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[11]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="246" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[12]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="262" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[13]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="278" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[14]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="294" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[15]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="310" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[16]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="326" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[17]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="342" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[18]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="358" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[19]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="374" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[20]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="390" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[21]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="406" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[22]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="422" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[23]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="438" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[24]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="454" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[25]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="470" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[26]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="486" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[27]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="502" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[28]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="518" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[29]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="534" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[30]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="550" y="17" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<text><![CDATA[31]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="34">
+				<textField>
+					<reportElement x="70" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{1_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="86" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{2_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="102" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{3_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="118" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{4_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="134" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{5_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="150" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{6_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="166" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{7_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{8_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="198" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{9_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="214" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{10_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="230" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{11_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="246" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{12_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="262" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{13_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="278" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{14_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="294" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{15_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="310" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{16_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="326" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{17_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="342" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{18_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="358" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{19_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="374" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{20_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="390" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{21_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="406" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{22_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="422" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{23_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="438" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{24_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{25_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="470" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{26_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="486" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{27_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="502" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{28_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="518" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{29_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="534" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{30_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="550" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{31_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="566" y="0" width="16" height="14"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUMTOTAL}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="70" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="70" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TIME_SLOT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="86" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="102" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{3}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="118" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{4}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="134" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{5}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="150" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{6}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="166" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{7}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="182" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{8}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="198" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{9}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="214" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{10}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="230" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{11}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="246" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{12}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="262" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{13}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="278" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{14}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="294" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{15}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="310" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{16}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="326" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{17}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="342" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{18}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="358" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{19}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="374" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{20}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="390" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{21}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="406" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{22}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="422" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{23}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="438" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{24}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="454" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{25}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="470" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{26}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="486" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{27}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="502" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{28}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="518" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{29}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="534" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{30}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="550" y="0" width="16" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{31}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

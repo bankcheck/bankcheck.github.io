@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptArAging" pageWidth="550" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="510" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ArcCode" class="java.lang.String"/>
+	<parameter name="SteCode" class="java.lang.String"/>
+	<parameter name="SteName" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="ARCCODE" class="java.lang.String"/>
+	<field name="ARCNAME" class="java.lang.String"/>
+	<field name="PNUM" class="java.lang.String"/>
+	<field name="PATIENT" class="java.lang.String"/>
+	<field name="REF" class="java.lang.String"/>
+	<field name="ATXCDATE" class="java.lang.String"/>
+	<field name="AMT" class="java.lang.String"/>
+	<field name="STENAME" class="java.lang.String"/>
+	<field name="PTYPE" class="java.lang.String"/>
+	<field name="AGE" class="java.lang.String"/>
+	<variable name="ArName" class="java.lang.String" resetType="None">
+		<variableExpression><![CDATA[$F{ARCCODE}+ " - " + $F{ARCNAME}]]></variableExpression>
+	</variable>
+	<variable name="Currt" class="java.lang.Double" resetType="None">
+		<variableExpression><![CDATA[($V{AgeNum}.doubleValue() < 30 ? $V{AmtNum}: 0)]]></variableExpression>
+	</variable>
+	<variable name="days30" class="java.lang.Double">
+		<variableExpression><![CDATA[($V{AgeNum}.doubleValue() >= 30 & $V{AgeNum}.doubleValue() < 60 ?
+    $V{AmtNum}: 0)]]></variableExpression>
+	</variable>
+	<variable name="days60" class="java.lang.Double">
+		<variableExpression><![CDATA[($V{AgeNum}.doubleValue() >= 60 & $V{AgeNum}.doubleValue() < 90 ?
+    $V{AmtNum}: 0)]]></variableExpression>
+	</variable>
+	<variable name="days90" class="java.lang.Double">
+		<variableExpression><![CDATA[($V{AgeNum}.doubleValue() >= 90 & $V{AgeNum}.doubleValue() < 120 ?
+    $V{AmtNum} : 0)]]></variableExpression>
+	</variable>
+	<variable name="days120" class="java.lang.Double">
+		<variableExpression><![CDATA[($V{AgeNum}.doubleValue() >= 120 ? $V{AmtNum} : 0)]]></variableExpression>
+	</variable>
+	<variable name="SubCurrt" class="java.lang.Double" resetType="Group" resetGroup="ARCCODE" calculation="Sum">
+		<variableExpression><![CDATA[$V{Currt}]]></variableExpression>
+	</variable>
+	<variable name="Sub30" class="java.lang.Double" resetType="Group" resetGroup="ARCCODE" calculation="Sum">
+		<variableExpression><![CDATA[$V{days30}]]></variableExpression>
+	</variable>
+	<variable name="Sub60" class="java.lang.Double" resetType="Group" resetGroup="ARCCODE" calculation="Sum">
+		<variableExpression><![CDATA[$V{days60}]]></variableExpression>
+	</variable>
+	<variable name="Sub90" class="java.lang.Double" resetType="Group" resetGroup="ARCCODE" calculation="Sum">
+		<variableExpression><![CDATA[$V{days90}]]></variableExpression>
+	</variable>
+	<variable name="Sub120" class="java.lang.Double" resetType="Group" resetGroup="ARCCODE" calculation="Sum">
+		<variableExpression><![CDATA[$V{days120}]]></variableExpression>
+	</variable>
+	<variable name="grdCurrt" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{Currt}]]></variableExpression>
+	</variable>
+	<variable name="grd30" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{days30}]]></variableExpression>
+	</variable>
+	<variable name="grd60" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{days60}]]></variableExpression>
+	</variable>
+	<variable name="grd90" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{days90}]]></variableExpression>
+	</variable>
+	<variable name="grd120" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{days120}]]></variableExpression>
+	</variable>
+	<variable name="CompanyTotal" class="java.lang.Double" resetType="Group" resetGroup="ARCCODE" calculation="Sum">
+		<variableExpression><![CDATA[$V{Currt}.doubleValue()+
+$V{days30}.doubleValue()+
+$V{days60}.doubleValue()+
+$V{days90}.doubleValue()+
+$V{days120}.doubleValue()]]></variableExpression>
+	</variable>
+	<variable name="Grand" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{Currt}.doubleValue()+
+$V{days30}.doubleValue()+
+$V{days60}.doubleValue()+
+$V{days90}.doubleValue()+
+$V{days120}.doubleValue()]]></variableExpression>
+	</variable>
+	<variable name="AmtNum" class="java.lang.Double" resetType="None">
+		<variableExpression><![CDATA[Double.valueOf($F{AMT})]]></variableExpression>
+	</variable>
+	<variable name="AgeNum" class="java.lang.Double" resetType="None">
+		<variableExpression><![CDATA[Double.valueOf($F{AGE})]]></variableExpression>
+	</variable>
+	<variable name="NOOFPAGE" class="java.lang.String">
+		<variableExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of " + $V{PAGE_COUNT}]]></variableExpression>
+	</variable>
+	<group name="ARCCODE" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{ARCCODE}]]></groupExpression>
+		<groupHeader>
+			<band height="16">
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="ARCCODE" isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="510" height="16"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="7" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$V{ArName}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="33">
+				<staticText>
+					<reportElement x="288" y="17" width="81" height="16"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="7"/>
+					</textElement>
+					<text><![CDATA[Payer Total]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="ARCCODE" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="288" y="1" width="38" height="16"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{SubCurrt}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="ARCCODE" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="369" y="1" width="43" height="16"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{Sub60}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="ARCCODE" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="412" y="1" width="44" height="16"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{Sub90}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="ARCCODE" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="456" y="1" width="54" height="16"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{Sub120}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="ARCCODE" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="369" y="17" width="141" height="16"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{CompanyTotal}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="ARCCODE" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="326" y="1" width="43" height="16"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{Sub30}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="217" y="1" width="71" height="16"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="7"/>
+					</textElement>
+					<text><![CDATA[Sub Total]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="98">
+			<staticText>
+				<reportElement x="0" y="78" width="164" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="7" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Patient]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="164" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<text><![CDATA[rptArAging]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="HH:mm:ss">
+				<reportElement x="34" y="12" width="130" height="10"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="0" y="12" width="34" height="10"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(new java.text.SimpleDateFormat(     "dd/MMM/yyyy",Locale.ENGLISH)).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="48" width="510" height="11"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A/R Aging Analysis]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="164" y="78" width="53" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="7" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Slip No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="217" y="78" width="48" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="7" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Billed On]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="265" y="78" width="23" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="7" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[D/I/O]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="78" width="38" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="7" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Current]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="326" y="78" width="43" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="7" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[30 Days]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="369" y="78" width="43" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="7" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[60 Days]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="78" width="44" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="7" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[90 Days]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="456" y="78" width="54" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="7" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[120+ Days]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="38" width="510" height="11"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SteName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="58" width="510" height="11"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[As of Report Time]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="412" y="0" width="98" height="12"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{NOOFPAGE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="164" y="0" width="53" height="18" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{REF}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="MM/dd/yyyy" isBlankWhenNull="true">
+				<reportElement x="217" y="0" width="48" height="18" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ATXCDATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="265" y="0" width="23" height="18" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PTYPE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="34" height="18" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PNUM}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="34" y="0" width="130" height="18" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATIENT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="326" y="0" width="43" height="18" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$V{days30}>0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{days30}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="369" y="0" width="43" height="18" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$V{days60}>0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{days60}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="412" y="0" width="44" height="18" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$V{days90}>0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{days90}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="456" y="0" width="54" height="18" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{days120}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="288" y="0" width="38" height="18" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$V{Currt}>0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{Currt}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="217" y="0" width="71" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="7"/>
+				</textElement>
+				<text><![CDATA[Grand Total]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="412" y="0" width="44" height="18"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{grd90}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="369" y="0" width="43" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{grd60}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="326" y="0" width="43" height="18"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{grd30}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="288" y="18" width="81" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="7"/>
+				</textElement>
+				<text><![CDATA[Grand Total]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="288" y="0" width="38" height="18"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{grdCurrt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="456" y="0" width="54" height="18"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{grd120}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="369" y="18" width="141" height="17"/>
+				<box>
+					<bottomPen lineWidth="4.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{Grand}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

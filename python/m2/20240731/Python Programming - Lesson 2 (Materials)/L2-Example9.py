@@ -1,2 +1,2 @@
 import math
-print(math.exp(999))
+print(math.exp(3))

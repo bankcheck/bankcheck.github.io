@@ -1,0 +1,15 @@
+<div th:text="${francoDate}"></div>
+<div th:text="${#dates.format(francoDate)}"></div>
+<div th:text="${#dates.formatISO(francoDate)}"></div>
+<div th:text="${#dates.format(francoDate, 'yyyy-MM-dd HH:mm:ss (z)')}"></div>
+<div th:text="${#dates.year(francoDate)}"></div>
+<div th:text="${#dates.month(francoDate)}"></div>
+<div th:text="${#dates.monthName(francoDate)}"></div>
+<div th:text="${#dates.day(francoDate)}"></div>
+<div th:text="${#dates.dayOfWeek(francoDate)}"></div>
+<div th:text="${#dates.dayOfWeekName(francoDate)}"></div>
+<div th:text="${#dates.dayOfWeekNameShort(francoDate)}"></div>
+<div th:text="${#dates.hour(francoDate)}"></div>
+<div th:text="${#dates.minute(francoDate)}"></div>
+<div th:text="${#dates.second(francoDate)}"></div>
+<div th:text="${#dates.millisecond(francoDate)}"></div>

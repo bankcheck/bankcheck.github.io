@@ -1,0 +1,91 @@
+create or replace
+FUNCTION "NHS_LIS_ARCREDITALLOC" (
+	v_Action   IN VARCHAR2,
+	v_ArcCode   IN VARCHAR2,
+	v_PatNo     IN VARCHAR2,
+	v_Check     IN VARCHAR2,
+	v_SlipNo    IN VARCHAR2,
+	v_PolicyNo  IN VARCHAR2,
+	v_VoucherNo IN VARCHAR2,
+	v_PatType   IN VARCHAR2,
+  	v_patName   IN VARCHAR2,
+  	v_amtFrom   IN VARCHAR2,
+  	v_amtTo     IN VARCHAR2
+)
+	RETURN TYPES.CURSOR_TYPE
+AS
+	OUTCUR TYPES.CURSOR_TYPE;
+	ARPTX_STATUS_NORMAL VARCHAR2(1) := 'N';
+BEGIN
+	IF v_Action = 'COMPANYLVL' THEN
+		OPEN OUTCUR FOR
+			SELECT '',
+				ATXDESC,
+				ATXREFID,
+				TO_CHAR(ATXTDATE, 'DD/MM/YYYY') AS TDATE,
+				ATXAMT - ATXSAMT AS OAMT,
+				'' AS ATXAAMT,
+				ATXSTS AS STS,
+				0,
+				ATXAMT,
+				ATXSAMT,
+				ATXID
+			FROM  ARTX
+			WHERE ATXSTS = ARPTX_STATUS_NORMAL
+			AND   ARCCODE = v_ArcCode
+			AND   PATNO IS NULL
+			AND   SLPNO IS NULL
+			AND   ATXAMT <> ATXSAMT
+			ORDER BY ATXTDATE;
+	ELSIF v_Action = 'SLIPLVL' THEN
+		OPEN OUTCUR FOR
+			SELECT '',
+				A.ATXID,
+				A.PATNO,
+				DECODE(A.PATNO, NULL, S.SLPFNAME || ' ' || S.SLPGNAME, P.PATFNAME || ' ' || P.PATGNAME) AS PATNAME,
+				A.SLPNO,
+				TO_CHAR(A.ATXTDATE, 'DD/MM/YYYY'),
+				A.ATXAMT - A.ATXSAMT AS ATXOAMT,
+				'' AS ATXAAMT,
+				0 AS OLDATXAAMT,
+				A.ATXSTS,
+				S.SLPPLYNO,
+				S.SLPVCHNO,
+				S.SLPTYPE
+			FROM ARTX A, PATIENT P, SLIP S
+			WHERE A.PATNO = P.PATNO (+)
+			AND   A.SLPNO = S.SLPNO
+			AND   A.SLPNO IS NOT NULL
+			AND   ATXAMT <> ATXSAMT
+			AND   ATXSTS = ARPTX_STATUS_NORMAL
+			AND   A.ARCCODE = v_ArcCode
+			AND ((v_Check = 'N' AND A.PATNO IS NULL)
+			OR   (v_Check = 'Y' AND (v_PatNo IS NULL OR A.PATNO = v_PatNo)))
+			AND  (v_SlipNo IS NULL OR S.SLPNO = v_SlipNo)
+			AND  (v_PolicyNo IS NULL OR UPPER(S.SLPPLYNO) like '%'||UPPER(v_PolicyNo)||'%')
+			AND  (v_VoucherNo IS NULL OR UPPER(S.SLPVCHNO) like '%'||UPPER(v_VoucherNo)||'%')
+			AND  (v_PatType IS NULL OR S.SLPTYPE = v_PatType)
+      		AND  (v_patName IS NULL OR UPPER(P.PATFNAME || ' ' || P.PATGNAME) like '%'||v_patName||'%')
+      		AND  (v_amtFrom IS NULL OR (A.ATXAMT - A.ATXSAMT) >= TO_NUMBER(v_amtFrom))
+      		AND  (v_amtTo IS NULL OR (A.ATXAMT - A.ATXSAMT) <= TO_NUMBER(v_amtTo))
+			ORDER BY ATXTDATE;
+	ELSE
+		OPEN OUTCUR FOR
+			SELECT '',
+				ArpID,
+				ArpOAmt,
+				ArpAAmt,
+				ArpOAmt + ArpAAmt as ArpAllwAmt,
+				TO_CHAR(ArpTDate, 'DD/MM/YYYY'),
+				ArpRecNo,
+				ArpSts,
+				ArpDesc
+			FROM  ArpTx
+			WHERE ArcCode = v_ArcCode
+			AND   ArpSts = ARPTX_STATUS_NORMAL
+			AND   ArpOAmt + ArpAAmt < 0
+			ORDER BY ArpID DESC;
+	END IF;
+	RETURN OUTCUR;
+END NHS_LIS_ARCREDITALLOC;
+/

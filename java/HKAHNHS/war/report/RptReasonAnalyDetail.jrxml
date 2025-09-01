@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptReasonAnalyDetail" language="groovy" pageWidth="520" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="480" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="67"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="StartDate" class="java.lang.String"/>
+	<parameter name="EndDate" class="java.lang.String"/>
+	<parameter name="SteCode" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+      to_date($P{StartDate},'dd-mm-yyyy') as DateRangeStart,
+      to_date($P{EndDate},'dd-mm-yyyy') as DateRangeEnd,
+      sc.stename,
+      rs.rsncode,
+      rs.rsndesc,
+      sum(decode(ds.destype,'H',1,0)) as cntHome,
+      sum(decode(ds.destype,'P',1,0)) as cntHospital,
+      sum(decode(ds.destype,'D',1,0)) as cntDeath,
+      sr.SRsnCode,
+      sr.SRSNDESC
+FROM
+    inpat ip,
+    reg rg,
+    sreason sr,
+    reason rs,
+    dest ds,
+    site sc
+WHERE
+     ip.inpddate>= to_date($P{StartDate}, 'dd-mm-yyyy')
+     and ip.inpddate< to_date($P{EndDate}, 'dd-mm-yyyy') + 1
+     and ip.inpddate is not null
+     and ip.inpid = rg.inpid
+     and rg.regsts= 'N'
+     and rg.stecode= $P{SteCode}
+     and ip.rsncode  = sr.srsncode
+     and sr.rsncode = rs.rsncode
+     and ip.descode = ds.descode
+     and rg.stecode = sc.stecode
+     and sr.RSNCODE = 'DH'
+     and sr.SRSNNEW = -1
+GROUP BY
+       sc.stename,
+       rs.rsncode,
+       rs.rsndesc,
+       ds.destype,
+       sr.SRSNCODE,
+       sr.SRSNDESC]]>
+	</queryString>
+	<field name="DATERANGESTART" class="java.sql.Timestamp"/>
+	<field name="DATERANGEEND" class="java.sql.Timestamp"/>
+	<field name="STENAME" class="java.lang.String"/>
+	<field name="RSNCODE" class="java.lang.String"/>
+	<field name="RSNDESC" class="java.lang.String"/>
+	<field name="CNTHOME" class="java.math.BigDecimal"/>
+	<field name="CNTHOSPITAL" class="java.math.BigDecimal"/>
+	<field name="CNTDEATH" class="java.math.BigDecimal"/>
+	<field name="SRSNCODE" class="java.lang.String"/>
+	<field name="SRSNDESC" class="java.lang.String"/>
+	<sortField name="SRSNCODE"/>
+	<variable name="dtlCntHome" class="java.lang.Integer" resetType="Group" resetGroup="SRSNCODE" calculation="Sum">
+		<variableExpression><![CDATA[$F{CNTHOME}]]></variableExpression>
+	</variable>
+	<variable name="dtlCntHosp" class="java.lang.Integer" resetType="Group" resetGroup="SRSNCODE" calculation="Sum">
+		<variableExpression><![CDATA[$F{CNTHOSPITAL}]]></variableExpression>
+	</variable>
+	<variable name="dtlCntDeath" class="java.lang.Integer" resetType="Group" resetGroup="SRSNCODE" calculation="Sum">
+		<variableExpression><![CDATA[$F{CNTDEATH}]]></variableExpression>
+	</variable>
+	<variable name="rowTot" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{dtlCntDeath} + $V{dtlCntHome} + $V{dtlCntHosp}]]></variableExpression>
+	</variable>
+	<variable name="totHome" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{CNTHOME}]]></variableExpression>
+	</variable>
+	<variable name="totHosp" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{CNTHOSPITAL}]]></variableExpression>
+	</variable>
+	<variable name="totDeath" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{CNTDEATH}]]></variableExpression>
+	</variable>
+	<variable name="grdRowTot" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{totDeath} + $V{totHome} + $V{totHosp}]]></variableExpression>
+	</variable>
+	<group name="RSNCODE">
+		<groupExpression><![CDATA[$F{RSNCODE}]]></groupExpression>
+	</group>
+	<group name="SRSNCODE">
+		<groupExpression><![CDATA[$F{SRSNCODE}]]></groupExpression>
+		<groupFooter>
+			<band height="18">
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="5" y="0" width="40" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{SRSNCODE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="55" y="0" width="175" height="18"/>
+					<textElement verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{SRSNDESC}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+					<reportElement x="235" y="0" width="50" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{dtlCntHome}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+					<reportElement x="291" y="0" width="65" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{dtlCntHosp}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+					<reportElement x="369" y="0" width="35" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{dtlCntDeath}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+					<reportElement x="418" y="0" width="60" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{rowTot}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="16" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="365" y="0" width="80" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement x="445" y="0" width="35" height="16"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="102" splitType="Stretch">
+			<staticText>
+				<reportElement x="56" y="18" width="330" height="15"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUPPLEMENTARY CLASSIFICATION OF EXTERNAL CAUSES OF INJURY AND POISONING (new)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="334" y="33" width="120" height="12"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hong Kong Adventist Hospital]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="67" width="45" height="35"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tabulation
+List
+Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="86" width="55" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cause Groups]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="235" y="77" width="50" height="25"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Discharged
+Home (A)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="67" width="65" height="35"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transferred to
+Other Hospital
+(B)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="369" y="76" width="35" height="26"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Deaths
+(C)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="418" y="67" width="60" height="35"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[In-Patients
+Treated
+(A) + (B) + (C)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="50" width="40" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[In-Patients]]></text>
+			</staticText>
+			<line>
+				<reportElement x="5" y="97" width="45" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="55" y="97" width="175" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="235" y="97" width="50" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="291" y="97" width="65" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="369" y="97" width="35" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="418" y="97" width="60" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="264" y="61" width="40" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="404" y="45" width="45" height="12"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{EndDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="395" y="45" width="9" height="12"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[to]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="358" y="45" width="37" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{StartDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<summary>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="25" y="4" width="40" height="16"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grand Total]]></text>
+			</staticText>
+			<line>
+				<reportElement x="25" y="15" width="70" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="25" y="17" width="70" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="235" y="15" width="50" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="235" y="17" width="50" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="291" y="17" width="65" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="291" y="15" width="65" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="362" y="17" width="50" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="362" y="15" width="50" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="418" y="17" width="60" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="418" y="15" width="60" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="235" y="4" width="50" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{totHome}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="291" y="4" width="65" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{totHosp}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="362" y="4" width="50" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{totDeath}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="418" y="4" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{grdRowTot}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

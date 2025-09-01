@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2010?~5??25?? ?U??04:37:00 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.CrmPromotionRefCode" table="CRM_PROMOTION_REF_CODE">
+        <id name="crmRefTypeCode" type="string">
+            <column name="CRM_REF_TYPE_CODE" />
+            <generator class="assigned" />
+        </id>
+        <property name="crmRefTypeDescription" type="string">
+            <column name="CRM_REF_TYPE_DESCRIPTION" />
+        </property>
+        <property name="crmCreatedDate">
+            <column name="CRM_CREATED_DATE" />
+        </property>
+        <property name="crmCreatedUser" type="string">
+            <column name="CRM_CREATED_USER" />
+        </property>
+        <property name="crmModifiedDate">
+            <column name="CRM_MODIFIED_DATE" />
+        </property>
+        <property name="crmModifiedUser" type="string">
+            <column name="CRM_MODIFIED_USER" />
+        </property>
+        <property name="crmEnabled" type="java.lang.Integer">
+            <column name="CRM_ENABLED" />
+        </property>
+        <set name="crmPromotions" inverse="true">
+            <key>
+                <column name="CRM_REF_TYPE_CODE" />
+            </key>
+            <one-to-many class="com.hkah.web.db.hibernate.CrmPromotion" />
+        </set>
+    </class>
+</hibernate-mapping>

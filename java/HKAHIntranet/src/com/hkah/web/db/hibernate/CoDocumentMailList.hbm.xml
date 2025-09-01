@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2010?~7??2?? ?U??04:17:33 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.CoDocumentMailList" table="CO_DOCUMENT_MAIL_LIST">
+        <id name="coDocumentMailListId" type="big_decimal">
+            <column name="CO_DOCUMENT_MAIL_LIST_ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="coDocumentId" type="big_decimal">
+            <column name="CO_DOCUMENT_ID" not-null="true" />
+        </property>
+        <property name="coSendType" type="string">
+            <column name="CO_SEND_TYPE"  />
+        </property>
+        <property name="coUsername" type="string">
+            <column name="CO_USERNAME"  />
+        </property>
+        <property name="coEmail" type="string">
+            <column name="CO_EMAIL" />
+        </property>
+        <property name="coCreatedDate">
+            <column name="CO_CREATED_DATE"  />
+        </property>
+        <property name="coCreatedUser" type="string">
+            <column name="CO_CREATED_USER"  />
+        </property>
+        <property name="coModifiedDate">
+            <column name="CO_MODIFIED_DATE"  />
+        </property>
+        <property name="coModifiedUser" type="string">
+            <column name="CO_MODIFIED_USER"  />
+        </property>
+        <property name="coEnabled" type="java.lang.Integer">
+            <column name="CO_ENABLED" />
+        </property>
+		<property name="userEmail" type="string"
+			formula="( 	SELECT 	U.CO_EMAIL
+						FROM 	CO_USERS U
+						WHERE 	CO_USERNAME = U.CO_USERNAME )">
+        </property>
+    </class>
+</hibernate-mapping>

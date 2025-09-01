@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptReceiptNonPatient" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="99" bottomMargin="72" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.callouts" value="##Sat Nov 20 15:10:43 CST 2010"/>
+	<parameter name="ctxId" class="java.lang.String"/>
+	<parameter name="isCopy" class="java.lang.String"/>
+	<parameter name="rptType" class="java.lang.String"/>
+	<parameter name="receipt" class="java.lang.String"/>
+	<parameter name="receiptNo" class="java.lang.String"/>
+	<parameter name="Payer" class="java.lang.String"/>
+	<parameter name="Copy" class="java.lang.String"/>
+	<parameter name="Date" class="java.lang.String"/>
+	<parameter name="Desc" class="java.lang.String"/>
+	<parameter name="Amount" class="java.lang.String"/>
+	<parameter name="HKD" class="java.lang.String"/>
+	<parameter name="PayOut" class="java.lang.String"/>
+	<parameter name="recipientSign" class="java.lang.String"/>
+	<parameter name="recipient" class="java.lang.String"/>
+	<parameter name="staffSign" class="java.lang.String"/>
+	<parameter name="witnessSign" class="java.lang.String"/>
+	<parameter name="watermark" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select
+     ct.ctxsno,
+     ct.ctxmeth,
+     ct.ctxname,
+     ctxamt,
+     ctxdesc,
+     to_char(CTXTDATE, 'DD/MM/YYYY'),nvl(cd.ctntrace ,'') as traceNo
+from
+     cashtx ct,
+     cardtx cd
+where
+     ct.ctnid = cd.ctnid (+)
+     and ct.ctxid = $P{ctxId}]]>
+	</queryString>
+	<field name="CTXSNO" class="java.lang.String"/>
+	<field name="CTXMETH" class="java.lang.String"/>
+	<field name="CTXNAME" class="java.lang.String"/>
+	<field name="CTXAMT" class="java.lang.String"/>
+	<field name="CTXDESC" class="java.lang.String"/>
+	<field name="CTXTDATE" class="java.lang.String"/>
+	<field name="TRACENO" class="java.lang.String"/>
+	<field name="printDate" class="java.lang.String"/>
+	<field name="CARDTYPE" class="java.lang.String"/>
+	<variable name="ReceiptNo" class="java.lang.String">
+		<variableExpression><![CDATA[$F{CTXDESC} + " - " +
+($F{CTXMETH}.equals("C")?"Cash":
+ $F{CTXMETH}.equals("Q")?"Cheque":
+ $F{CTXMETH}.equals("D")?"Credit Card  ("+$F{CARDTYPE}+")":
+ $F{CTXMETH}.equals("E")?
+ ($F{TRACENO}.isEmpty()||$F{TRACENO}.length()<1?"EPS":"EPS" + " ISN#" + $F{TRACENO}):
+ $F{CTXMETH}.equals("A")?"Autopay":
+ $F{CTXMETH}.equals("U")?"CUP":
+ $F{CTXMETH}.equals("R")?($F{CARDTYPE}.isEmpty()?"WECHAT/ALI PAY":$F{CARDTYPE}):
+ $F{CTXMETH}.equals("T")?"OCTOPUS":"Other")]]></variableExpression>
+	</variable>
+	<background>
+		<band height="443" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="49" y="110" width="439" height="297">
+					<printWhenExpression><![CDATA[$P{isCopy}.equals("Y") && $P{rptType}.equals( "R" )]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.lang.String"><![CDATA[$P{watermark}]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<pageHeader>
+		<band height="58">
+			<textField>
+				<reportElement x="15" y="22" width="511" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{rptType}.equals( "R" )?
+("<style fontName='Arial Unicode MS'>RECEIPT </style><style fontName='Ming(for ISO10646_V3)'>"+$P{receipt}+"</style>"):
+("<style fontName='Arial Unicode MS'>PAYOUT </style><style fontName='Ming(for ISO10646_V3)'>"+$P{PayOut}+"</style>")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="453" y="12" width="30" height="15">
+					<printWhenExpression><![CDATA[$P{isCopy}.equals("Y")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[Copy]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="483" y="12" width="28" height="15">
+					<printWhenExpression><![CDATA[$P{isCopy}.equals("Y")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="10" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[副本]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="455" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="1" width="55" height="15">
+					<printWhenExpression><![CDATA[$P{rptType}.equals("R")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[Receipt No.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="21" width="53" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{rptType}.equals( "R" )?
+"Payer ":"Recipent "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="113" y="1" width="354" height="15">
+					<printWhenExpression><![CDATA[$P{rptType}.equals("R")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CTXSNO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="113" y="21" width="353" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="10" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CTXNAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="407" y="80" width="101" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[new BigDecimal($F{CTXAMT})]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="80" width="510" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="87" y="80" width="286" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{ReceiptNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="96" y="21" width="18" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="1" width="18" height="15">
+					<printWhenExpression><![CDATA[$P{rptType}.equals("R")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="63" width="87" height="15"/>
+				<textElement verticalAlignment="Bottom" markup="styled">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style fontName='Arial Unicode MS'>Date </style><style fontName='Ming(for ISO10646_V3)'>" + $P{Date} + "</style>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="87" y="63" width="340" height="15"/>
+				<textElement verticalAlignment="Bottom" markup="styled">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style fontName='Arial Unicode MS'>Description </style><style fontName='Ming(for ISO10646_V3)'>" + $P{Desc} + "</style>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="392" y="50" width="118" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style fontName='Arial Unicode MS'>Amount </style><style fontName='Ming(for ISO10646_V3)'>" + $P{Amount} + "</style>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="411" y="64" width="99" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style fontName='Arial Unicode MS'>HKD </style><style fontName='Ming(for ISO10646_V3)'>" + $P{HKD} + "</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="81" width="87" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CTXTDATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="53" y="21" width="41" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="10" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{rptType}.equals( "R" )?
+$P{Payer}
+:
+$P{recipient}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="54" y="1" width="41" height="15">
+					<printWhenExpression><![CDATA[$P{rptType}.equals("R")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="10" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{receiptNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="294" width="167" height="15">
+					<printWhenExpression><![CDATA[$P{rptType}.equals("P")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[Recipient Signature]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="308" width="84" height="15">
+					<printWhenExpression><![CDATA[$P{rptType}.equals("P")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="10" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{recipientSign}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="100" y="308" width="320" height="15">
+					<printWhenExpression><![CDATA[$P{rptType}.equals("P")]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="86" y="308" width="18" height="15">
+					<printWhenExpression><![CDATA[$P{rptType}.equals("P")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="86" y="350" width="18" height="15">
+					<printWhenExpression><![CDATA[$P{rptType}.equals("P")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="336" width="94" height="15">
+					<printWhenExpression><![CDATA[$P{rptType}.equals("P")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[Staff Signature]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="350" width="84" height="15">
+					<printWhenExpression><![CDATA[$P{rptType}.equals("P")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="10" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{staffSign}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="100" y="350" width="320" height="15">
+					<printWhenExpression><![CDATA[$P{rptType}.equals("P")]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="390" width="84" height="15">
+					<printWhenExpression><![CDATA[$P{rptType}.equals("P")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="10" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{witnessSign}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="86" y="390" width="18" height="15">
+					<printWhenExpression><![CDATA[$P{rptType}.equals("P")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="390" width="320" height="15">
+					<printWhenExpression><![CDATA[$P{rptType}.equals("P")]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="376" width="136" height="15">
+					<printWhenExpression><![CDATA[$P{rptType}.equals("P")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[Witness Signature]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="22">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="67" height="20"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(new java.text.SimpleDateFormat(
+    "ddMMMyyyy",Locale.ENGLISH)).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm:ss">
+				<reportElement x="67" y="0" width="100" height="20"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

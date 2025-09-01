@@ -1,0 +1,36 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_FUNCTIONSECURITY"
+(
+  v_list VARCHAR2,
+  v_ROLID ROLE.ROLID%TYPE
+)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  IF v_list = 'AVAILABLE' THEN
+    OPEN outcur FOR
+      SELECT
+        FSCID,
+        FSCDESC
+      FROM FUNCSEC
+      WHERE FSCID NOT IN (
+        SELECT FSCID
+        FROM ROLEFUNCSEC
+        WHERE ROLID = v_ROLID
+       )
+      ORDER BY FSCDESC;
+  ELSE
+    OPEN outcur FOR
+      SELECT
+        R.FSCID,
+        F.FSCDESC
+      FROM ROLEFUNCSEC R, FUNCSEC F
+      WHERE R.FSCID = F.FSCID
+      AND R.ROLID = v_ROLID
+      ORDER BY FSCDESC;
+  END IF;
+  RETURN OUTCUR;
+END NHS_LIS_FUNCTIONSECURITY;
+/
+
+

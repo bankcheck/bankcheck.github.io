@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2010?~3??10?? ?U??03:56:15 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.HaaChecklistProgress" table="HAA_CHECKLIST_PROGRESS">
+        <id name="haaChecklistPid" type="int">
+            <column name="HAA_CHECKLIST_PID" />
+            <generator class="assigned" />
+        </id>
+        <property name="haaProgress" type="string">
+            <column name="HAA_PROGRESS"  />
+        </property>
+        <property name="haaIndent" type="int">
+            <column name="HAA_INDENT" />
+        </property>
+        <property name="haaDept" type="string">
+            <column name="HAA_DEPT"  />
+        </property>
+        <property name="haaInitParty" type="string">
+            <column name="HAA_INIT_PARTY"  />
+        </property>
+        <property name="haaRspn" type="string">
+            <column name="HAA_RSPN"  />
+        </property>
+        <property name="haaModifiedDate" >
+            <column name="HAA_MODIFIED_DATE"  />
+        </property>
+        <property name="haaModifiedUser" type="string">
+            <column name="HAA_MODIFIED_USER"  />
+        </property>
+        <property name="haaEnabled" type="int">
+            <column name="HAA_ENABLED" />
+        </property>
+    </class>
+</hibernate-mapping>

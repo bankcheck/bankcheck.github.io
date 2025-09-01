@@ -1,0 +1,2450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ADMFRM2PAT" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="579" leftMargin="8" rightMargin="8" topMargin="8" bottomMargin="8" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="101"/>
+	<property name="ireport.y" value="708"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="LogoImg" class="java.lang.String"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="patNo" class="java.lang.String"/>
+	<parameter name="patDOB" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="patName" class="java.lang.String"/>
+	<parameter name="patAge" class="java.lang.String"/>
+	<parameter name="formType" class="java.lang.String"/>
+	<parameter name="createDate" class="java.lang.String"/>
+	<parameter name="createTime" class="java.lang.String"/>
+	<parameter name="phy_1" class="java.lang.String"/>
+	<parameter name="phy_2" class="java.lang.String"/>
+	<parameter name="phy_3" class="java.lang.String"/>
+	<parameter name="phy_4" class="java.lang.String"/>
+	<parameter name="phy_5" class="java.lang.String"/>
+	<parameter name="phy_6" class="java.lang.String"/>
+	<parameter name="phy_7" class="java.lang.String"/>
+	<parameter name="phy_8" class="java.lang.String"/>
+	<parameter name="phy_9" class="java.lang.String"/>
+	<parameter name="phy_10" class="java.lang.String"/>
+	<parameter name="phy_11" class="java.lang.String"/>
+	<parameter name="phy_18" class="java.lang.String"/>
+	<parameter name="phy_19" class="java.lang.String"/>
+	<parameter name="phy_20" class="java.lang.String"/>
+	<parameter name="phy_12" class="java.lang.String"/>
+	<parameter name="phy_13" class="java.lang.String"/>
+	<parameter name="phy_14" class="java.lang.String"/>
+	<parameter name="phy_15" class="java.lang.String"/>
+	<parameter name="phy_16" class="java.lang.String"/>
+	<parameter name="phy_17" class="java.lang.String"/>
+	<parameter name="q1" class="java.lang.String"/>
+	<parameter name="q2_1" class="java.lang.String"/>
+	<parameter name="q2_2" class="java.lang.String"/>
+	<parameter name="q2_3" class="java.lang.String"/>
+	<parameter name="q2_4" class="java.lang.String"/>
+	<parameter name="q2_5" class="java.lang.String"/>
+	<parameter name="q2_6" class="java.lang.String"/>
+	<parameter name="q2_7" class="java.lang.String"/>
+	<parameter name="q2_8" class="java.lang.String"/>
+	<parameter name="q3_a1" class="java.lang.String"/>
+	<parameter name="q3_a2" class="java.lang.String"/>
+	<parameter name="q3_a3" class="java.lang.String"/>
+	<parameter name="q3_a4" class="java.lang.String"/>
+	<parameter name="q3_b1" class="java.lang.String"/>
+	<parameter name="q3_b2" class="java.lang.String"/>
+	<parameter name="q3_b3" class="java.lang.String"/>
+	<parameter name="q3_c1" class="java.lang.String"/>
+	<parameter name="q3_c2" class="java.lang.String"/>
+	<parameter name="q3_d1" class="java.lang.String"/>
+	<parameter name="q3_d2" class="java.lang.String"/>
+	<parameter name="q3_d3" class="java.lang.String"/>
+	<parameter name="q3_d4" class="java.lang.String"/>
+	<parameter name="q3_e1" class="java.lang.String"/>
+	<parameter name="q3_f1" class="java.lang.String"/>
+	<parameter name="q3_f2" class="java.lang.String"/>
+	<parameter name="q3_f3" class="java.lang.String"/>
+	<parameter name="q3_f4" class="java.lang.String"/>
+	<parameter name="q3_g1" class="java.lang.String"/>
+	<parameter name="q3_g2" class="java.lang.String"/>
+	<parameter name="q3_g3" class="java.lang.String"/>
+	<parameter name="q4_1" class="java.lang.String"/>
+	<parameter name="q4_2" class="java.lang.String"/>
+	<parameter name="q5_a1" class="java.lang.String"/>
+	<parameter name="q5_a2" class="java.lang.String"/>
+	<parameter name="q5_a3" class="java.lang.String"/>
+	<parameter name="q5_a4" class="java.lang.String"/>
+	<parameter name="q5_a5" class="java.lang.String"/>
+	<parameter name="q5_a6" class="java.lang.String"/>
+	<parameter name="q5_b1" class="java.lang.String"/>
+	<parameter name="completed" class="java.lang.String"/>
+	<parameter name="q3_h1" class="java.lang.String"/>
+	<parameter name="temp1" class="java.lang.String"/>
+	<parameter name="temp2" class="java.lang.String"/>
+	<parameter name="smoke_1" class="java.lang.String"/>
+	<parameter name="smoke_2" class="java.lang.String"/>
+	<parameter name="smoke_3" class="java.lang.String"/>
+	<parameter name="smoke_4" class="java.lang.String"/>
+	<parameter name="smoke_5" class="java.lang.String"/>
+	<parameter name="smoke_6" class="java.lang.String"/>
+	<parameter name="drink_1" class="java.lang.String"/>
+	<parameter name="drink_2" class="java.lang.String"/>
+	<parameter name="drink_3" class="java.lang.String"/>
+	<parameter name="drink_4" class="java.lang.String"/>
+	<parameter name="drink_5" class="java.lang.String"/>
+	<parameter name="drink_6" class="java.lang.String"/>
+	<parameter name="drink_7" class="java.lang.String"/>
+	<parameter name="drink_8" class="java.lang.String"/>
+	<parameter name="drink_9" class="java.lang.String"/>
+	<parameter name="drink_10" class="java.lang.String"/>
+	<parameter name="drink_11" class="java.lang.String"/>
+	<parameter name="drink_12" class="java.lang.String"/>
+	<parameter name="drink_13" class="java.lang.String"/>
+	<parameter name="drink_14" class="java.lang.String"/>
+	<parameter name="eat_1" class="java.lang.String"/>
+	<parameter name="eat_2" class="java.lang.String"/>
+	<parameter name="eat_3" class="java.lang.String"/>
+	<parameter name="eat_4" class="java.lang.String"/>
+	<parameter name="eat_5" class="java.lang.String"/>
+	<parameter name="eat_6" class="java.lang.String"/>
+	<parameter name="eat_7" class="java.lang.String"/>
+	<parameter name="eat_8" class="java.lang.String"/>
+	<parameter name="eat_9" class="java.lang.String"/>
+	<parameter name="eat_10" class="java.lang.String"/>
+	<parameter name="eat_11" class="java.lang.String"/>
+	<parameter name="eat_12" class="java.lang.String"/>
+	<parameter name="eat_13" class="java.lang.String"/>
+	<parameter name="eat_14" class="java.lang.String"/>
+	<parameter name="sleep_1" class="java.lang.String"/>
+	<parameter name="sleep_2" class="java.lang.String"/>
+	<parameter name="sport_1" class="java.lang.String"/>
+	<parameter name="sport_2" class="java.lang.String"/>
+	<parameter name="sport_3" class="java.lang.String"/>
+	<parameter name="sport_4" class="java.lang.String"/>
+	<parameter name="mood_1" class="java.lang.String"/>
+	<parameter name="mood_2" class="java.lang.String"/>
+	<parameter name="mood_3" class="java.lang.String"/>
+	<parameter name="mood_4" class="java.lang.String"/>
+	<parameter name="female_1" class="java.lang.String"/>
+	<parameter name="female_2" class="java.lang.String"/>
+	<parameter name="female_3" class="java.lang.String"/>
+	<parameter name="female_4" class="java.lang.String"/>
+	<parameter name="female_5" class="java.lang.String"/>
+	<parameter name="female_6" class="java.lang.String"/>
+	<parameter name="female_7" class="java.lang.String"/>
+	<parameter name="female_8" class="java.lang.String"/>
+	<parameter name="female_9" class="java.lang.String"/>
+	<parameter name="female_10" class="java.lang.String"/>
+	<parameter name="gc_1" class="java.lang.String"/>
+	<parameter name="gc_2" class="java.lang.String"/>
+	<parameter name="gc_3" class="java.lang.String"/>
+	<parameter name="gc_4" class="java.lang.String"/>
+	<parameter name="gc_5" class="java.lang.String"/>
+	<parameter name="gc_6" class="java.lang.String"/>
+	<parameter name="gc_7" class="java.lang.String"/>
+	<parameter name="gc_8" class="java.lang.String"/>
+	<parameter name="gc_9" class="java.lang.String"/>
+	<parameter name="gc_10" class="java.lang.String"/>
+	<parameter name="gc_11" class="java.lang.String"/>
+	<parameter name="gc_12" class="java.lang.String"/>
+	<parameter name="gc_13" class="java.lang.String"/>
+	<parameter name="gc_14" class="java.lang.String"/>
+	<parameter name="gc_15" class="java.lang.String"/>
+	<parameter name="ent_p1" class="java.lang.String"/>
+	<parameter name="ent_p2" class="java.lang.String"/>
+	<parameter name="ent_p3" class="java.lang.String"/>
+	<parameter name="ent_p4" class="java.lang.String"/>
+	<parameter name="ent_p5" class="java.lang.String"/>
+	<parameter name="ent_p6" class="java.lang.String"/>
+	<parameter name="ent_p7" class="java.lang.String"/>
+	<parameter name="ent_p8" class="java.lang.String"/>
+	<parameter name="ent_p9" class="java.lang.String"/>
+	<parameter name="ent_p10" class="java.lang.String"/>
+	<parameter name="ent_p11" class="java.lang.String"/>
+	<parameter name="ent_p12" class="java.lang.String"/>
+	<parameter name="ent_p13" class="java.lang.String"/>
+	<parameter name="ent_p14" class="java.lang.String"/>
+	<parameter name="ent_p15" class="java.lang.String"/>
+	<parameter name="ent_p16" class="java.lang.String"/>
+	<parameter name="ent_p17" class="java.lang.String"/>
+	<parameter name="ent_p18" class="java.lang.String"/>
+	<parameter name="ent_p19" class="java.lang.String"/>
+	<parameter name="ent_p20" class="java.lang.String"/>
+	<parameter name="ent_p21" class="java.lang.String"/>
+	<parameter name="ent_p22" class="java.lang.String"/>
+	<parameter name="ent_p23" class="java.lang.String"/>
+	<parameter name="ent_p24" class="java.lang.String"/>
+	<parameter name="ent_p25" class="java.lang.String"/>
+	<parameter name="ent_p26" class="java.lang.String"/>
+	<parameter name="ent_p27" class="java.lang.String"/>
+	<parameter name="ent_p28" class="java.lang.String"/>
+	<parameter name="ent_p29" class="java.lang.String"/>
+	<parameter name="ent_p30" class="java.lang.String"/>
+	<parameter name="ent_p31" class="java.lang.String"/>
+	<parameter name="ent_p32" class="java.lang.String"/>
+	<parameter name="ent_p33" class="java.lang.String"/>
+	<parameter name="ent_p34" class="java.lang.String"/>
+	<parameter name="ent_p35" class="java.lang.String"/>
+	<parameter name="ent_p36" class="java.lang.String"/>
+	<parameter name="ent_p37" class="java.lang.String"/>
+	<parameter name="ent_p38" class="java.lang.String"/>
+	<parameter name="ent_p39" class="java.lang.String"/>
+	<parameter name="ent_p40" class="java.lang.String"/>
+	<parameter name="ent_p41" class="java.lang.String"/>
+	<parameter name="ent_p42" class="java.lang.String"/>
+	<parameter name="ent_p43" class="java.lang.String"/>
+	<parameter name="ent_p44" class="java.lang.String"/>
+	<parameter name="ent_p45" class="java.lang.String"/>
+	<parameter name="ent_p46" class="java.lang.String"/>
+	<parameter name="ent_p47" class="java.lang.String"/>
+	<parameter name="ent_p48" class="java.lang.String"/>
+	<parameter name="ent_p49" class="java.lang.String"/>
+	<parameter name="ent_p50" class="java.lang.String"/>
+	<parameter name="ent_p51" class="java.lang.String"/>
+	<parameter name="ent_p52" class="java.lang.String"/>
+	<parameter name="ent_p53" class="java.lang.String"/>
+	<parameter name="ent_p54" class="java.lang.String"/>
+	<parameter name="ent_p55" class="java.lang.String"/>
+	<parameter name="ls_1" class="java.lang.String"/>
+	<parameter name="ls_2" class="java.lang.String"/>
+	<parameter name="ls_3" class="java.lang.String"/>
+	<parameter name="ls_4" class="java.lang.String"/>
+	<parameter name="ls_5" class="java.lang.String"/>
+	<parameter name="ls_6" class="java.lang.String"/>
+	<parameter name="bn_1" class="java.lang.String"/>
+	<parameter name="bn_2" class="java.lang.String"/>
+	<parameter name="bn_3" class="java.lang.String"/>
+	<parameter name="bn_4" class="java.lang.String"/>
+	<parameter name="bn_5" class="java.lang.String"/>
+	<parameter name="bn_6" class="java.lang.String"/>
+	<parameter name="bn_7" class="java.lang.String"/>
+	<parameter name="bn_8" class="java.lang.String"/>
+	<parameter name="bn_9" class="java.lang.String"/>
+	<parameter name="bn_10" class="java.lang.String"/>
+	<parameter name="bn_11" class="java.lang.String"/>
+	<parameter name="bn_12" class="java.lang.String"/>
+	<parameter name="bn_13" class="java.lang.String"/>
+	<parameter name="bn_14" class="java.lang.String"/>
+	<parameter name="bn_15" class="java.lang.String"/>
+	<parameter name="bn_16" class="java.lang.String"/>
+	<parameter name="rs_1" class="java.lang.String"/>
+	<parameter name="rs_2" class="java.lang.String"/>
+	<parameter name="rs_3" class="java.lang.String"/>
+	<parameter name="rs_4" class="java.lang.String"/>
+	<parameter name="rs_5" class="java.lang.String"/>
+	<parameter name="rs_6" class="java.lang.String"/>
+	<parameter name="rs_7" class="java.lang.String"/>
+	<parameter name="rs_8" class="java.lang.String"/>
+	<parameter name="rs_9" class="java.lang.String"/>
+	<parameter name="rs_10" class="java.lang.String"/>
+	<parameter name="rs_11" class="java.lang.String"/>
+	<parameter name="rs_12" class="java.lang.String"/>
+	<parameter name="rs_13" class="java.lang.String"/>
+	<parameter name="rs_14" class="java.lang.String"/>
+	<parameter name="rs_15" class="java.lang.String"/>
+	<parameter name="rs_16" class="java.lang.String"/>
+	<parameter name="cs_1" class="java.lang.String"/>
+	<parameter name="cs_2" class="java.lang.String"/>
+	<parameter name="cs_3" class="java.lang.String"/>
+	<parameter name="cs_4" class="java.lang.String"/>
+	<parameter name="cs_5" class="java.lang.String"/>
+	<parameter name="cs_6" class="java.lang.String"/>
+	<parameter name="cs_7" class="java.lang.String"/>
+	<parameter name="cs_8" class="java.lang.String"/>
+	<parameter name="ne_1" class="java.lang.String"/>
+	<parameter name="ne_2" class="java.lang.String"/>
+	<parameter name="ne_3" class="java.lang.String"/>
+	<parameter name="ne_4" class="java.lang.String"/>
+	<parameter name="ne_5" class="java.lang.String"/>
+	<parameter name="ne_6" class="java.lang.String"/>
+	<parameter name="ne_7" class="java.lang.String"/>
+	<parameter name="ne_8" class="java.lang.String"/>
+	<parameter name="ne_9" class="java.lang.String"/>
+	<parameter name="ne_10" class="java.lang.String"/>
+	<parameter name="ne_11" class="java.lang.String"/>
+	<parameter name="ne_12" class="java.lang.String"/>
+	<parameter name="ne_13" class="java.lang.String"/>
+	<parameter name="ne_14" class="java.lang.String"/>
+	<parameter name="ne_15" class="java.lang.String"/>
+	<parameter name="ne_16" class="java.lang.String"/>
+	<parameter name="ne_17" class="java.lang.String"/>
+	<parameter name="ne_18" class="java.lang.String"/>
+	<parameter name="ne_19" class="java.lang.String"/>
+	<parameter name="ne_20" class="java.lang.String"/>
+	<parameter name="s_1" class="java.lang.String"/>
+	<parameter name="s_2" class="java.lang.String"/>
+	<parameter name="s_3" class="java.lang.String"/>
+	<parameter name="s_4" class="java.lang.String"/>
+	<parameter name="a_p0" class="java.lang.String"/>
+	<parameter name="a_p1" class="java.lang.String"/>
+	<parameter name="a_p2" class="java.lang.String"/>
+	<parameter name="a_p3" class="java.lang.String"/>
+	<parameter name="a_p4" class="java.lang.String"/>
+	<parameter name="a_p5" class="java.lang.String"/>
+	<parameter name="a_p6" class="java.lang.String"/>
+	<parameter name="a_p7" class="java.lang.String"/>
+	<parameter name="a_p8" class="java.lang.String"/>
+	<parameter name="a_p9" class="java.lang.String"/>
+	<parameter name="a_p10" class="java.lang.String"/>
+	<parameter name="a_p11" class="java.lang.String"/>
+	<parameter name="a_p12" class="java.lang.String"/>
+	<parameter name="a_p13" class="java.lang.String"/>
+	<parameter name="a_p14" class="java.lang.String"/>
+	<parameter name="a_p15" class="java.lang.String"/>
+	<parameter name="a_p16" class="java.lang.String"/>
+	<parameter name="a_p17" class="java.lang.String"/>
+	<parameter name="a_p18" class="java.lang.String"/>
+	<parameter name="a_p19" class="java.lang.String"/>
+	<parameter name="a_p20" class="java.lang.String"/>
+	<parameter name="a_p21" class="java.lang.String"/>
+	<parameter name="a_p22" class="java.lang.String"/>
+	<parameter name="a_p23" class="java.lang.String"/>
+	<parameter name="a_p24" class="java.lang.String"/>
+	<parameter name="a_p25" class="java.lang.String"/>
+	<parameter name="a_p26" class="java.lang.String"/>
+	<parameter name="a_p27" class="java.lang.String"/>
+	<parameter name="a_p28" class="java.lang.String"/>
+	<parameter name="a_p29" class="java.lang.String"/>
+	<parameter name="a_p30" class="java.lang.String"/>
+	<parameter name="a_p31" class="java.lang.String"/>
+	<parameter name="a_p32" class="java.lang.String"/>
+	<parameter name="a_p33" class="java.lang.String"/>
+	<parameter name="a_p34" class="java.lang.String"/>
+	<parameter name="a_p35" class="java.lang.String"/>
+	<parameter name="a_p36" class="java.lang.String"/>
+	<parameter name="a_p37" class="java.lang.String"/>
+	<parameter name="a_p38" class="java.lang.String"/>
+	<parameter name="a_p39" class="java.lang.String"/>
+	<parameter name="a_p40" class="java.lang.String"/>
+	<parameter name="mn_p0" class="java.lang.String"/>
+	<parameter name="mn_p1" class="java.lang.String"/>
+	<parameter name="mn_p2" class="java.lang.String"/>
+	<parameter name="mn_p3" class="java.lang.String"/>
+	<parameter name="mn_p4" class="java.lang.String"/>
+	<parameter name="mn_p5" class="java.lang.String"/>
+	<parameter name="mn_p6" class="java.lang.String"/>
+	<parameter name="mn_p7" class="java.lang.String"/>
+	<parameter name="mn_p8" class="java.lang.String"/>
+	<parameter name="mn_p9" class="java.lang.String"/>
+	<parameter name="mn_p10" class="java.lang.String"/>
+	<parameter name="mn_p11" class="java.lang.String"/>
+	<parameter name="mn_p12" class="java.lang.String"/>
+	<parameter name="mn_p13" class="java.lang.String"/>
+	<parameter name="mn_p14" class="java.lang.String"/>
+	<parameter name="remark" class="java.lang.String"/>
+	<parameter name="ex_1" class="java.lang.String"/>
+	<parameter name="ex_2" class="java.lang.String"/>
+	<parameter name="patCName" class="java.lang.String"/>
+	<parameter name="docName" class="java.lang.String"/>
+	<parameter name="q3_a5" class="java.lang.String"/>
+	<parameter name="q3_a6" class="java.lang.String"/>
+	<parameter name="q3_b4" class="java.lang.String"/>
+	<parameter name="q3_b5" class="java.lang.String"/>
+	<parameter name="q3_d5" class="java.lang.String"/>
+	<parameter name="q3_d6" class="java.lang.String"/>
+	<parameter name="q3_e2" class="java.lang.String"/>
+	<parameter name="q3_e3" class="java.lang.String"/>
+	<parameter name="q3_f5" class="java.lang.String"/>
+	<parameter name="q3_f6" class="java.lang.String"/>
+	<parameter name="q3_h2" class="java.lang.String"/>
+	<parameter name="q3_i1" class="java.lang.String"/>
+	<parameter name="q5_a7" class="java.lang.String"/>
+	<parameter name="female_11" class="java.lang.String"/>
+	<parameter name="female_12" class="java.lang.String"/>
+	<parameter name="q3_d7" class="java.lang.String"/>
+	<parameter name="q3_d8" class="java.lang.String"/>
+	<parameter name="q3_d9" class="java.lang.String"/>
+	<parameter name="q3_d10" class="java.lang.String"/>
+	<parameter name="eat_15" class="java.lang.String"/>
+	<parameter name="eat_16" class="java.lang.String"/>
+	<parameter name="docCName" class="java.lang.String"/>
+	<parameter name="eat_17" class="java.lang.String"/>
+	<parameter name="eat_18" class="java.lang.String"/>
+	<parameter name="eat_19" class="java.lang.String"/>
+	<parameter name="eat_20" class="java.lang.String"/>
+	<parameter name="eat_21" class="java.lang.String"/>
+	<parameter name="eat_22" class="java.lang.String"/>
+	<parameter name="drink_15" class="java.lang.String"/>
+	<parameter name="eat_23" class="java.lang.String"/>
+	<parameter name="eat_24" class="java.lang.String"/>
+	<parameter name="sleep_3" class="java.lang.String"/>
+	<parameter name="sleep_4" class="java.lang.String"/>
+	<parameter name="sleep_5" class="java.lang.String"/>
+	<parameter name="sleep_6" class="java.lang.String"/>
+	<parameter name="ent_p56" class="java.lang.String"/>
+	<parameter name="phy_21" class="java.lang.String"/>
+	<parameter name="phy_22" class="java.lang.String"/>
+	<parameter name="phy_23" class="java.lang.String"/>
+	<parameter name="q3_a7" class="java.lang.String"/>
+	<parameter name="q3_b6" class="java.lang.String"/>
+	<parameter name="q3_d11" class="java.lang.String"/>
+	<parameter name="q3_e4" class="java.lang.String"/>
+	<parameter name="q3_f7" class="java.lang.String"/>
+	<parameter name="q5_a8" class="java.lang.String"/>
+	<parameter name="gc_16" class="java.lang.String"/>
+	<parameter name="gc_17" class="java.lang.String"/>
+	<parameter name="q3_g4" class="java.lang.String"/>
+	<parameter name="q3_g5" class="java.lang.String"/>
+	<parameter name="ent_p57" class="java.lang.String"/>
+	<parameter name="mn_p18" class="java.lang.String"/>
+	<parameter name="mn_p19" class="java.lang.String"/>
+	<parameter name="mn_p20" class="java.lang.String"/>
+	<parameter name="mn_p21" class="java.lang.String"/>
+	<parameter name="mn_p22" class="java.lang.String"/>
+	<parameter name="mn_p23" class="java.lang.String"/>
+	<parameter name="mn_p24" class="java.lang.String"/>
+	<parameter name="mn_p25" class="java.lang.String"/>
+	<parameter name="mn_p26" class="java.lang.String"/>
+	<parameter name="mn_p27" class="java.lang.String"/>
+	<parameter name="mn_p28" class="java.lang.String"/>
+	<parameter name="mn_p29" class="java.lang.String"/>
+	<parameter name="mn_p30" class="java.lang.String"/>
+	<parameter name="mn_p31" class="java.lang.String"/>
+	<parameter name="mn_p32" class="java.lang.String"/>
+	<parameter name="mn_p33" class="java.lang.String"/>
+	<parameter name="mn_p34" class="java.lang.String"/>
+	<parameter name="mn_p35" class="java.lang.String"/>
+	<parameter name="mn_p36" class="java.lang.String"/>
+	<parameter name="mn_p37" class="java.lang.String"/>
+	<parameter name="mn_p38" class="java.lang.String"/>
+	<parameter name="mn_p39" class="java.lang.String"/>
+	<parameter name="mn_p40" class="java.lang.String"/>
+	<parameter name="mn_p41" class="java.lang.String"/>
+	<parameter name="mn_p42" class="java.lang.String"/>
+	<parameter name="mn_p43" class="java.lang.String"/>
+	<parameter name="mn_p44" class="java.lang.String"/>
+	<parameter name="mn_p45" class="java.lang.String"/>
+	<parameter name="mn_p46" class="java.lang.String"/>
+	<parameter name="mn_p47" class="java.lang.String"/>
+	<parameter name="mn_p48" class="java.lang.String"/>
+	<parameter name="mn_p49" class="java.lang.String"/>
+	<parameter name="mn_p50" class="java.lang.String"/>
+	<parameter name="mn_p51" class="java.lang.String"/>
+	<parameter name="mn_p52" class="java.lang.String"/>
+	<parameter name="mn_p53" class="java.lang.String"/>
+	<parameter name="mn_p54" class="java.lang.String"/>
+	<parameter name="mn_p55" class="java.lang.String"/>
+	<parameter name="mn_p56" class="java.lang.String"/>
+	<parameter name="mn_p57" class="java.lang.String"/>
+	<parameter name="mn_p58" class="java.lang.String"/>
+	<parameter name="mn_p59" class="java.lang.String"/>
+	<parameter name="mn_p60" class="java.lang.String"/>
+	<parameter name="mn_p61" class="java.lang.String"/>
+	<parameter name="mn_p62" class="java.lang.String"/>
+	<parameter name="mn_p63" class="java.lang.String"/>
+	<parameter name="mn_p64" class="java.lang.String"/>
+	<parameter name="mn_p65" class="java.lang.String"/>
+	<parameter name="mn_p66" class="java.lang.String"/>
+	<parameter name="mn_p67" class="java.lang.String"/>
+	<parameter name="mn_p68" class="java.lang.String"/>
+	<parameter name="mn_p69" class="java.lang.String"/>
+	<parameter name="mn_p70" class="java.lang.String"/>
+	<parameter name="mn_p71" class="java.lang.String"/>
+	<parameter name="mn_p72" class="java.lang.String"/>
+	<parameter name="mn_p73" class="java.lang.String"/>
+	<parameter name="mn_p74" class="java.lang.String"/>
+	<parameter name="mn_p75" class="java.lang.String"/>
+	<parameter name="mn_p76" class="java.lang.String"/>
+	<parameter name="mn_p77" class="java.lang.String"/>
+	<parameter name="mn_p78" class="java.lang.String"/>
+	<parameter name="mn_p79" class="java.lang.String"/>
+	<parameter name="mn_p85" class="java.lang.String"/>
+	<parameter name="mn_p86" class="java.lang.String"/>
+	<parameter name="mn_p87" class="java.lang.String"/>
+	<parameter name="mn_p88" class="java.lang.String"/>
+	<parameter name="mn_p89" class="java.lang.String"/>
+	<parameter name="mn_p90" class="java.lang.String"/>
+	<parameter name="mn_p91" class="java.lang.String"/>
+	<parameter name="mn_p92" class="java.lang.String"/>
+	<parameter name="mn_p93" class="java.lang.String"/>
+	<parameter name="mn_p94" class="java.lang.String"/>
+	<parameter name="mn_p95" class="java.lang.String"/>
+	<parameter name="mn_p96" class="java.lang.String"/>
+	<parameter name="mn_p97" class="java.lang.String"/>
+	<parameter name="mn_p98" class="java.lang.String"/>
+	<parameter name="mn_p99" class="java.lang.String"/>
+	<parameter name="mn_p100" class="java.lang.String"/>
+	<parameter name="mn_p101" class="java.lang.String"/>
+	<parameter name="mn_p102" class="java.lang.String"/>
+	<parameter name="ccr_phase" class="java.lang.String"/>
+	<parameter name="mn_p103" class="java.lang.String"/>
+	<parameter name="parameter1" class="java.lang.String"/>
+	<parameter name="mn_p105" class="java.lang.String"/>
+	<parameter name="mn_p106" class="java.lang.String"/>
+	<parameter name="mn_p107" class="java.lang.String"/>
+	<pageHeader>
+		<band height="63">
+			<rectangle radius="10">
+				<reportElement x="267" y="1" width="306" height="60"/>
+			</rectangle>
+			<textField>
+				<reportElement x="319" y="21" width="14" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patAge}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="495" y="21" width="68" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patDOB}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="394" y="21" width="14" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patSex}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="269" y="21" width="50" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[年齡 Age :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="432" y="42" width="106" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[房號 Consultation No :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="21" width="72" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[出生日期 DOB :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="331" y="3" width="138" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="270" y="4" width="59" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[姓名 Name :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="374" y="42" width="45" height="13"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="271" y="42" width="103" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[登記號碼 Hospital No :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="345" y="21" width="50" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[性別 Sex :]]></text>
+			</staticText>
+			<image scaleImage="RealSize">
+				<reportElement x="0" y="0" width="258" height="59"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/logo_twah.gif")]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="471" y="3" width="92" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patCName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="108" splitType="Prevent">
+			<frame>
+				<reportElement x="1" y="0" width="285" height="33" forecolor="#CC00CC" backcolor="#CC00CC"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="285" height="32" forecolor="#FFFFFF" backcolor="#6FAB5D">
+						<printWhenExpression><![CDATA["CCRP3".equals($P{formType})]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[肺塵埃沉着病及間皮瘤病人 社區綜合復康計劃  身體檢查評估表
+CCR HEALTH ASSESSMENT FORM]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="285" height="32" forecolor="#FFFFFF" backcolor="#6BA3D8">
+						<printWhenExpression><![CDATA["CCRP2".equals($P{formType})]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[肺塵埃沉着病及間皮瘤病人 社區綜合復康計劃  身體檢查評估表
+CCR HEALTH ASSESSMENT FORM]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement x="453" y="0" width="126" height="33"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textField>
+					<reportElement x="65" y="10" width="56" height="15"/>
+					<box leftPadding="1"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{createTime}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="19" y="0" width="45" height="33"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[填表時間
+Time:]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="1" y="33" width="578" height="17" backcolor="#CCCCCC"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<staticText>
+					<reportElement x="138" y="2" width="307" height="13"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="9" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[身體檢查 Physical Examination (由職員填寫Staff only)]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement x="1" y="50" width="104" height="36"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<staticText>
+					<reportElement x="53" y="10" width="5" height="16"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[°]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="57" y="10" width="14" height="16"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[C):]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement x="105" y="50" width="122" height="36"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="227" y="50" width="104" height="36"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="331" y="50" width="101" height="36"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="432" y="50" width="147" height="36"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<image>
+					<reportElement x="61" y="2" width="19" height="15"/>
+					<imageExpression class="java.io.File"><![CDATA[$P{phy_23}.equals("0") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="61" y="19" width="19" height="15"/>
+					<imageExpression class="java.io.File"><![CDATA[$P{phy_23}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+				</image>
+			</frame>
+			<staticText>
+				<reportElement x="3" y="57" width="51" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Temp 體溫(]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="75" y="61" width="21" height="13"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{phy_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="108" y="61" width="71" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[BP 血壓(mmHg):  ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="178" y="61" width="21" height="13"/>
+				<box leftPadding="1"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{phy_2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="199" y="61" width="7" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[/]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="205" y="61" width="21" height="13"/>
+				<box leftPadding="1"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{phy_3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="306" y="61" width="21" height="13"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{phy_4}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="232" y="61" width="73" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Pulse 脈搏(bpm): ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="61" width="21" height="13"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{phy_5}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="336" y="61" width="74" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Resp 呼吸(/min): ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="434" y="55" width="34" height="24"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[SpO2
+血氣(%): ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="468" y="60" width="19" height="14"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{phy_6}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="230" y="88" width="52" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[BMI 體格指數:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="72" y="88" width="21" height="13"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{phy_7}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="544" y="89" width="32" height="13"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{phy_11}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="316" y="86" width="140" height="20"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="105" y="86" width="122" height="20"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<textField>
+				<reportElement x="179" y="89" width="45" height="13"/>
+				<box leftPadding="1"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{phy_8}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="456" y="86" width="123" height="20"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="3" y="88" width="71" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Weight 體重(kg):]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="284" y="88" width="30" height="13"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{phy_9}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="459" y="89" width="83" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Waist Girth 腰圍(cm):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="318" y="89" width="98" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Ideal Weight 理想體重(kg):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="108" y="88" width="70" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Height 身高(cm): ]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="1" y="86" width="104" height="20"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="227" y="86" width="89" height="20"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<textField>
+				<reportElement x="417" y="89" width="36" height="13"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{phy_10}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="286" y="0" width="167" height="33"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<staticText>
+					<reportElement x="5" y="0" width="62" height="33"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[檢查日期
+Date of
+Screening :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="72" y="10" width="75" height="15"/>
+					<box leftPadding="1"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{createDate}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement x="510" y="50" width="39" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Room Air:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="536" y="70" width="20" height="13"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{phy_22}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="510" y="69" width="27" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[N.C.in]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="556" y="69" width="21" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[L O2]]></text>
+			</staticText>
+		</band>
+		<band height="26" splitType="Prevent">
+			<frame>
+				<reportElement mode="Opaque" x="1" y="7" width="577" height="17" backcolor="#9ECDF9"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<staticText>
+					<reportElement x="176" y="1" width="220" height="16"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[Medical Notes 醫療記錄]]></text>
+				</staticText>
+			</frame>
+		</band>
+		<band height="2" splitType="Prevent"/>
+		<band height="31" splitType="Prevent">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="19" y="15" width="554" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p0}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="0" width="244" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Significant Findings 重要的發現如下:]]></text>
+			</staticText>
+		</band>
+		<band height="36" splitType="Prevent">
+			<printWhenExpression><![CDATA["1".equals("2")]]></printWhenExpression>
+			<staticText>
+				<reportElement x="2" y="3" width="542" height="16"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Significant Findings 重要的發現如下:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="19" y="19" width="555" height="16"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p1}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="71" splitType="Prevent">
+			<staticText>
+				<reportElement x="2" y="2" width="395" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="true" isUnderline="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Careplan Meeting Records 護理計劃會議記錄 (Date of Careplan Meeting 會議日期:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="38" width="368" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Previous problems:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="457" y="2" width="13" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="true" isUnderline="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="21" width="368" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Problems Identified / Progress 發現的問題 / 進展:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="24" y="53" width="550" height="16"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p61}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="398" y="2" width="58" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p30}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="36">
+			<staticText>
+				<reportElement x="6" y="2" width="368" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[New problems:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="24" y="17" width="550" height="16"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p62}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="96">
+			<staticText>
+				<reportElement x="2" y="2" width="368" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Progress of Previous Goals 較早前的目標之進展:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="19" width="171" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[1. 6-min Walk Test 六分鐘步行測試]]></text>
+			</staticText>
+			<image>
+				<reportElement x="504" y="19" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p63}.equals("2") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="324" y="19" width="70" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Achieved 達到]]></text>
+			</staticText>
+			<image>
+				<reportElement x="391" y="19" width="19" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p63}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="307" y="19" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p63}.equals("0") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="73" y="80" width="127" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[months (s) 個月]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="19" width="95" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Not achieved 未達到]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="34" width="252" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[2. Hand Grip Strength Test (Right / Left) 手握力測試]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="65" width="293" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[4.  Reduce hospitalization, no episodes over 減少入院次數, 沒有]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="50" width="225" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[3. Prescribed Exercise Level 安排之運動級別]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="64" width="70" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Achieved 達到]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="522" y="19" width="51" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[N/A不適用]]></text>
+			</staticText>
+			<image>
+				<reportElement x="391" y="34" width="19" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p64}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="408" y="34" width="95" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Not achieved 未達到]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="522" y="34" width="51" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[N/A不適用]]></text>
+			</staticText>
+			<image>
+				<reportElement x="504" y="34" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p64}.equals("2") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="307" y="34" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p64}.equals("0") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="324" y="34" width="70" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Achieved 達到]]></text>
+			</staticText>
+			<image>
+				<reportElement x="391" y="49" width="19" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p65}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="408" y="49" width="95" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Not achieved 未達到]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="522" y="49" width="51" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[N/A不適用]]></text>
+			</staticText>
+			<image>
+				<reportElement x="504" y="49" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p65}.equals("2") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="307" y="49" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p65}.equals("0") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="324" y="49" width="70" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Achieved 達到]]></text>
+			</staticText>
+			<image>
+				<reportElement x="391" y="64" width="19" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p66}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="408" y="64" width="95" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Not achieved 未達到]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="522" y="64" width="51" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[N/A不適用]]></text>
+			</staticText>
+			<image>
+				<reportElement x="504" y="64" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p66}.equals("2") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="307" y="64" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p66}.equals("0") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="55" y="80" width="18" height="15"/>
+				<box leftPadding="1"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p36}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="80" width="48" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[入院超過 :]]></text>
+			</staticText>
+		</band>
+		<band height="16" splitType="Prevent">
+			<printWhenExpression><![CDATA[!$P{mn_p38}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="6" y="0" width="14" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[5.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="20" y="0" width="279" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p38}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="522" y="0" width="51" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[N/A不適用]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="0" width="95" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Not achieved 未達到]]></text>
+			</staticText>
+			<image>
+				<reportElement x="307" y="0" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p67}.equals("0") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="504" y="0" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p67}.equals("2") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="324" y="0" width="70" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Achieved 達到]]></text>
+			</staticText>
+			<image>
+				<reportElement x="391" y="0" width="19" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p67}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+		</band>
+		<band height="16" splitType="Prevent">
+			<printWhenExpression><![CDATA[!$P{mn_p39}.isEmpty()]]></printWhenExpression>
+			<image>
+				<reportElement x="307" y="0" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p68}.equals("0") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="408" y="0" width="95" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Not achieved 未達到]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="522" y="0" width="51" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[N/A不適用]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="0" width="70" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Achieved 達到]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="0" width="14" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[6.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="504" y="0" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p68}.equals("2") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="20" y="0" width="279" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p39}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="391" y="0" width="19" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p68}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+		</band>
+		<band height="16" splitType="Prevent">
+			<printWhenExpression><![CDATA[!$P{mn_p85}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="6" y="0" width="13" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[7.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="20" y="0" width="279" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p85}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="324" y="0" width="70" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Achieved 達到]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="522" y="0" width="51" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[N/A不適用]]></text>
+			</staticText>
+			<image>
+				<reportElement x="307" y="0" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p86}.equals("0") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="504" y="0" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p86}.equals("2") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="408" y="0" width="95" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Not achieved 未達到]]></text>
+			</staticText>
+			<image>
+				<reportElement x="391" y="0" width="19" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p86}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+		</band>
+		<band height="16" splitType="Prevent">
+			<printWhenExpression><![CDATA[!$P{mn_p87}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="6" y="0" width="13" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[8.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="0" width="70" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Achieved 達到]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="522" y="0" width="51" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[N/A不適用]]></text>
+			</staticText>
+			<image>
+				<reportElement x="307" y="0" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p88}.equals("0") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="504" y="0" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p88}.equals("2") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="408" y="0" width="95" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Not achieved 未達到]]></text>
+			</staticText>
+			<image>
+				<reportElement x="391" y="0" width="19" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p88}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="20" y="0" width="279" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p87}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="16" splitType="Prevent">
+			<printWhenExpression><![CDATA[!$P{mn_p89}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="6" y="0" width="13" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[9.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="0" width="70" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Achieved 達到]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="522" y="0" width="51" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[N/A不適用]]></text>
+			</staticText>
+			<image>
+				<reportElement x="307" y="0" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p90}.equals("0") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="504" y="0" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p90}.equals("2") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="408" y="0" width="95" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Not achieved 未達到]]></text>
+			</staticText>
+			<image>
+				<reportElement x="391" y="0" width="19" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p90}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="20" y="0" width="279" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p89}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="16" splitType="Prevent">
+			<printWhenExpression><![CDATA[!$P{mn_p91}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="5" y="0" width="15" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[10.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="0" width="70" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Achieved 達到]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="522" y="0" width="51" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[N/A不適用]]></text>
+			</staticText>
+			<image>
+				<reportElement x="307" y="0" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p92}.equals("0") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="504" y="0" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p92}.equals("2") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="408" y="0" width="95" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Not achieved 未達到]]></text>
+			</staticText>
+			<image>
+				<reportElement x="391" y="0" width="19" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p92}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="20" y="0" width="279" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p91}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="16" splitType="Prevent">
+			<printWhenExpression><![CDATA[!$P{mn_p93}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="5" y="0" width="15" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[11.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="0" width="70" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Achieved 達到]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="522" y="0" width="51" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[N/A不適用]]></text>
+			</staticText>
+			<image>
+				<reportElement x="307" y="0" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p94}.equals("0") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="504" y="0" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p94}.equals("2") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="408" y="0" width="95" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Not achieved 未達到]]></text>
+			</staticText>
+			<image>
+				<reportElement x="391" y="0" width="19" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p94}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="20" y="0" width="279" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p93}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="16" splitType="Prevent">
+			<printWhenExpression><![CDATA[!$P{mn_p95}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="5" y="0" width="13" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[12.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="0" width="70" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Achieved 達到]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="522" y="0" width="51" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[N/A不適用]]></text>
+			</staticText>
+			<image>
+				<reportElement x="307" y="0" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p96}.equals("0") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="504" y="0" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p96}.equals("2") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="408" y="0" width="95" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Not achieved 未達到]]></text>
+			</staticText>
+			<image>
+				<reportElement x="391" y="0" width="19" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p96}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="20" y="0" width="279" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p95}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="76">
+			<staticText>
+				<reportElement x="2" y="0" width="368" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[New Goals and Actions 新目標及行動:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="15" width="178" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[1. 6-min Walk Test 六分鐘步行測試: >=]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="184" y="15" width="48" height="15"/>
+				<box leftPadding="1"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p69}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="232" y="15" width="25" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[m 米]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="297" y="30" width="27" height="15"/>
+				<box leftPadding="1"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p70}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="30" width="290" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[2. Hand Grip Strength Test (Right / Left) 手握力測試 (右 / 左): >=]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="415" y="30" width="38" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[kg 公斤]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="385" y="30" width="31" height="15"/>
+				<box leftPadding="1"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p71}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="324" y="30" width="61" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[  kg 公斤 / >=]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="216" y="45" width="357" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p72}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="45" width="210" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[3. Prescribed Exercise Level 安排之運動級別:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="60" width="80" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[months (s) 個月]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="336" y="60" width="19" height="15"/>
+				<box leftPadding="1"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p73}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="60" width="331" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[4.  Reduce hospitalization, no episodes over 減少入院次數, 沒有入院超過 :]]></text>
+			</staticText>
+		</band>
+		<band height="16" splitType="Prevent">
+			<printWhenExpression><![CDATA[!$P{mn_p74}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="5" y="0" width="13" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[5.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="19" y="0" width="550" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p74}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="17" splitType="Prevent">
+			<printWhenExpression><![CDATA[!$P{mn_p75}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="5" y="0" width="13" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[6.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="19" y="0" width="550" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p75}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="16" splitType="Prevent">
+			<printWhenExpression><![CDATA[!$P{mn_p97}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="5" y="0" width="13" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[7.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="19" y="0" width="550" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p97}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="17" splitType="Prevent">
+			<printWhenExpression><![CDATA[!$P{mn_p98}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="5" y="0" width="13" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[8.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="19" y="0" width="550" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p98}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="17" splitType="Prevent">
+			<printWhenExpression><![CDATA[!$P{mn_p99}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="5" y="0" width="13" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[9.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="19" y="0" width="550" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p99}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="17" splitType="Prevent">
+			<printWhenExpression><![CDATA[!$P{mn_p100}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="5" y="0" width="13" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[10.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="19" y="0" width="550" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p100}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="17" splitType="Prevent">
+			<printWhenExpression><![CDATA[!$P{mn_p101}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="5" y="0" width="13" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[11.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="19" y="0" width="550" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p101}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="17" splitType="Prevent">
+			<printWhenExpression><![CDATA[!$P{mn_p102}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="5" y="0" width="13" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[12.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="19" y="0" width="550" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p102}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="368">
+			<staticText>
+				<reportElement x="2" y="5" width="368" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Further Actions 進一步的行動:]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="2" width="100" height="1"/>
+			</break>
+			<image>
+				<reportElement x="2" y="31" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p41}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="240" y="48" width="320" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p105}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="226" y="31" width="320" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p42}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="2" y="74" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p43}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="18" y="74" width="71" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Prescribe 安排/]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="48" width="207" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[continue exercise training at  運動訓練繼續在:  exercise training at :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="31" width="207" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Arrange exercise training at 安排運動訓練在: /]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="106" y="74" width="89" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[continue 繼續使用:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="17" y="48" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p76}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="18" y="91" width="160" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[wheelchair for transport 輪椅作運送]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="115" width="327" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Prescribe other necessary rehabilitation aids 安排其他必需的復康輔助器: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="97" y="140" width="98" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[continue 繼續使用:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="155" width="208" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Portable oxygen concentrator during exercise (]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="245" y="155" width="119" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[L/min via nasal cannula)]]></text>
+			</staticText>
+			<image>
+				<reportElement x="2" y="140" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p46}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="2" y="115" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p44}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="81" y="139" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p78}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="18" y="171" width="67" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[手提式氧氣機(]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="140" width="67" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Arrange 安排/]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="226" y="155" width="19" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p47}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="345" y="115" width="229" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p45}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="18" y="196" width="66" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Arrange 安排/]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="98" y="196" width="90" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[continue 繼續使用:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="2" y="196" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p49}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="18" y="211" width="431" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Taxi / rehab taxi / rehab bus for transport to exercise training centre / HKAH-TW / PMB]]></text>
+			</staticText>
+			<image>
+				<reportElement x="81" y="196" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p79}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="18" y="227" width="480" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[的士 / 復康的士 / 復康巴士 往返 復康訓練中心 / 香港港安醫院 - 荃灣 / 肺塵埃沉着病判傷委員會]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="275" width="388" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Encourage participation in patient support group 鼓勵參加病人互助小組]]></text>
+			</staticText>
+			<image>
+				<reportElement x="2" y="275" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p51}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="2" y="251" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p50}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="2" y="300" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p54}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="18" y="251" width="388" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Refresher training on inhaler & spacer technique 進修培訓有關吸入器及儲霧罐的技巧]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="299" width="557" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Refresher training on breathing technique and dyspnea management 進修培訓有關呼吸技巧及呼吸困難的管理]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="322" width="557" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Advise to take Ventolin inhaler immediately before exercise training 建議在運動訓練前立即使用泛得林定量噴霧劑]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="347" width="83" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Referral to 轉介到:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="2" y="347" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p52}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="2" y="323" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p55}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="90" y="74" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p77}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="100" y="347" width="436" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p53}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="104" y="171" width="78" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[升/分鐘經鼻導管) ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="85" y="171" width="19" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p47}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="159">
+			<image>
+				<reportElement x="84" y="27" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p103}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="18" y="27" width="63" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Arrange 安排/]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="328" y="2" width="247" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p57} + ")"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="19" y="67" width="59" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Others 其他:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="2" y="27" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p58}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="17" y="43" width="229" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[smoking cessation service 戒煙服務]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="102" y="28" width="229" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[continue 繼續]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="2" width="310" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Introduce health education talks 介紹合適的健康教育講座 (E.G.例如: ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="79" y="67" width="498" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mn_p60}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="2" y="2" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p56}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="3" y="66" width="20" height="15"/>
+				<imageExpression class="java.io.File"><![CDATA[$P{mn_p59}.equals("1") ? new File($P{BaseDir}, "../images/check_box.png") : new File($P{BaseDir}, "../images/check_box_empty.png")]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="37">
+			<staticText>
+				<reportElement x="2" y="4" width="57" height="29">
+					<printWhenExpression><![CDATA["CCRP2".equals($P{formType})]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Phase TWO
+第二階段
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="4" width="59" height="29">
+					<printWhenExpression><![CDATA["CCRP3".equals($P{formType})]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Phase THREE 第三階段]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="1" width="580" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="529" y="10" width="47" height="18"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="498" y="10" width="31" height="18"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Version:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="93" y="4" width="396" height="29" forecolor="#FFFFFF" backcolor="#6BA3D8">
+					<printWhenExpression><![CDATA["CCRP2".equals($P{formType})]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["「肺塵埃沉着病及間皮瘤病人社區綜合復康計劃」身體檢查評估表 CCR Health Assessment Form "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="93" y="4" width="396" height="29" forecolor="#FFFFFF" backcolor="#6FAB5D">
+					<printWhenExpression><![CDATA["CCRP3".equals($P{formType})]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["「肺塵埃沉着病及間皮瘤病人社區綜合復康計劃」身體檢查評估表 CCR Health Assessment Form"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="61" y="6" width="25" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="9" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ccr_phase}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="81">
+			<staticText>
+				<reportElement x="2" y="52" width="58" height="29">
+					<printWhenExpression><![CDATA["CCRP2".equals($P{formType})]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Phase TWO
+第二階段
+]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="299" y="22" width="269" height="21"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docName} + "  " + $P{docCName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="52" width="64" height="29">
+					<printWhenExpression><![CDATA["CCRP3".equals($P{formType})]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Phase THREE 第三階段 ]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="93" y="52" width="396" height="29" forecolor="#FFFFFF" backcolor="#6BA3D8">
+					<printWhenExpression><![CDATA["CCRP2".equals($P{formType})]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["「肺塵埃沉着病及間皮瘤病人社區綜合復康計劃」身體檢查評估表 CCR Health Assessment Form "]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="50" width="580" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="529" y="56" width="47" height="18"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="498" y="56" width="31" height="18"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Version:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="93" y="52" width="394" height="29" forecolor="#FFFFFF" backcolor="#6FAB5D">
+					<printWhenExpression><![CDATA["CCRP3".equals($P{formType})]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["「肺塵埃沉着病及間皮瘤病人社區綜合復康計劃」身體檢查評估表 CCR Health Assessment Form "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="299" y="4" width="269" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[Doctor's Name and Signature ______________________]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="61" y="54" width="25" height="15"/>
+				<box leftPadding="1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="9" isUnderline="false" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ccr_phase}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

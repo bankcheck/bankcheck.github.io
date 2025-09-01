@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BillSummary" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="144" bottomMargin="72">
+	<property name="ireport.zoom" value="1.3310000000000015"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SLPNO" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PATNAME" class="java.lang.String"/>
+	<parameter name="SLPCAMT" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SLPPAMT" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="HOSCHG" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="DOCCHG" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="OTHCHG" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SPECHG" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="HOSNET" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="DOCNET" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="OTHNET" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SPENET" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="HOSDISC" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="DOCDISC" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="OTHDISC" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SPEDISC" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="HOSCRED" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="DOCCRED" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="OTHCRED" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SPECRED" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="DISCOUNT" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="TOTCHG" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SLPDAMT" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="DEPOSIT" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="ARPAY" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SELFPAY" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="REFUND" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="BALANCE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="PATNO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+	SLPNO,
+	PATNO,
+	(
+		select nvl(sum(stnnamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stntype in ('C')
+	) as SLPCAMT,
+	(
+		select nvl(sum(stnnamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stntype in ('S', 'P')
+	) as SLPPAMT,
+	(
+		select nvl(sum(stnbamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+ 		and stntype In ('D')
+		and itmtype = 'H'
+	) as HOSCHG,
+	(
+		select nvl(sum(stnbamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+		and stntype In ('D')
+		and itmtype =  'D'
+	) as DOCCHG,
+	(
+		select nvl(sum(stnbamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+		and stntype In ('D')
+		and itmtype = 'O'
+	) as OTHCHG,
+	(
+		select nvl(sum(stnbamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+		and stntype In ('D')
+		and itmtype = 'S'
+	) as SPECHG,
+	(
+		select nvl(sum(stnnamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+		and stntype In ('D', 'C')
+		and itmtype = 'H'
+	) as HOSNET,
+	(
+		select nvl(sum(stnnamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+		and stntype In ('D', 'C')
+		and itmtype = 'D'
+	) as DOCNET,
+	(
+		select nvl(sum(stnnamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+		and stntype In ('D', 'C')
+		and itmtype = 'O'
+	) as OTHNET,
+	(
+		select nvl(sum(stnnamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+		and stntype In ('D', 'C')
+		and itmtype = 'S'
+	) as SPENET,
+	(
+		select nvl(sum(stnnamt - stnbamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+		and stntype In ('D', 'C')
+		and itmtype = 'H'
+	) as HOSDISC,
+	(
+		select nvl(sum(stnnamt - stnbamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+		and stntype In ('D', 'C')
+		and itmtype = 'D'
+	) as DOCDISC,
+	(
+		select nvl(sum(stnnamt - stnbamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+		and stntype In ('D', 'C')
+		and itmtype = 'O'
+	) as OTHDISC,
+	(
+		select nvl(sum(stnnamt - stnbamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+		and stntype In ('D', 'C')
+		and itmtype = 'S'
+	) as SPEDISC,
+	(
+		select nvl(sum(stnnamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+		and stntype = 'C'
+		and itmtype = 'H'
+	) as HOSCRED,
+	(
+		select nvl(sum(stnnamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+		and stntype = 'C'
+		and itmtype = 'D'
+	) as DOCCRED,
+	(
+		select nvl(sum(stnnamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+		and stntype = 'C'
+		and itmtype = 'O'
+	) as OTHCRED,
+	(
+		select nvl(sum(stnnamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+		and stntype = 'C'
+		and itmtype = 'S'
+	) as SPECRED,
+	(
+		select nvl(sum(stnnamt - stnbamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+		and stntype In ('D', 'C')
+	) as DISCOUNT,
+	(
+		select nvl(sum(stnbamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+		and stntype In ('D')
+	) as TOTCHG,
+	(
+		select nvl(sum(stnnamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stnsts IN ('N', 'A')
+		and stntype In ('D', 'C')
+	) as SLPDAMT,
+	(
+		select nvl(sum(stnnamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stntype in ( 'I','O','X')
+	) as DEPOSIT,
+	(
+		select nvl(sum(stnnamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stntype = 'P'
+	) as ARPAY,
+	(
+		select nvl(sum(stnnamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stntype = 'S'
+	) as SELFPAY,
+	(
+		select nvl(sum(stnnamt),0)
+		from sliptx
+		where slpno = s.slpno
+		and stntype = 'R'
+	) as REFUND,
+	nvl(SlpCAmt+SlpDAmt+SlpPAmt,0) as BALANCE
+from slip s
+where s.slpno = $P{SLPNO}]]>
+	</queryString>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="SLPNO" class="java.lang.String"/>
+	<field name="HOSCHG" class="java.lang.String"/>
+	<field name="DOCCHG" class="java.lang.String"/>
+	<field name="OTHCHG" class="java.lang.String"/>
+	<field name="SPECHG" class="java.lang.String"/>
+	<field name="HOSDISC" class="java.lang.String"/>
+	<field name="DOCDISC" class="java.lang.String"/>
+	<field name="OTHDISC" class="java.lang.String"/>
+	<field name="SPEDISC" class="java.lang.String"/>
+	<field name="HOSCRED" class="java.lang.String"/>
+	<field name="DOCCRED" class="java.lang.String"/>
+	<field name="OTHCRED" class="java.lang.String"/>
+	<field name="SPECRED" class="java.lang.String"/>
+	<field name="HOSNET" class="java.lang.String"/>
+	<field name="DOCNET" class="java.lang.String"/>
+	<field name="OTHNET" class="java.lang.String"/>
+	<field name="SPENET" class="java.lang.String"/>
+	<field name="TOTCHG" class="java.lang.String"/>
+	<field name="DISCOUNT" class="java.lang.String"/>
+	<field name="SLPCAMT" class="java.lang.String"/>
+	<field name="SLPDAMT" class="java.lang.String"/>
+	<field name="DEPOSIT" class="java.lang.String"/>
+	<field name="ARPAY" class="java.lang.String"/>
+	<field name="SELFPAY" class="java.lang.String"/>
+	<field name="SLPPAMT" class="java.lang.String"/>
+	<field name="REFUND" class="java.lang.String"/>
+	<field name="BALANCE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="18" width="555" height="42"/>
+				<textElement textAlignment="Center">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bill Summary]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="81" height="20"/>
+				<textElement/>
+				<text><![CDATA[Patient No.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="81" height="20"/>
+				<textElement/>
+				<text><![CDATA[Patient Name:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="81" y="0" width="195" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PATNO} != null ? $P{PATNO} : $F{PATNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="20" width="447" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{PATNAME})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="387" y="0" width="43" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Slip No.:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="430" y="0" width="98" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SLPNO} != null ? $P{SLPNO} : $F{SLPNO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="1" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="267" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="15" width="68" height="20"/>
+				<textElement/>
+				<text><![CDATA[Hospital]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="35" width="68" height="20"/>
+				<textElement/>
+				<text><![CDATA[Doctor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="55" width="68" height="20"/>
+				<textElement/>
+				<text><![CDATA[Other]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="75" width="68" height="20"/>
+				<textElement/>
+				<text><![CDATA[Special]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="68" y="0" width="100" height="15"/>
+				<textElement textAlignment="Right">
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Charge]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="188" y="0" width="100" height="15"/>
+				<textElement textAlignment="Right">
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Discount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="0" width="100" height="15"/>
+				<textElement textAlignment="Right">
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Credit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="428" y="0" width="100" height="15"/>
+				<textElement textAlignment="Right">
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Net]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="68" y="15" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{HOSCHG} != null ? $P{HOSCHG} : $F{HOSCHG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="68" y="55" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{OTHCHG} != null ? $P{OTHCHG} : $F{OTHCHG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="68" y="35" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DOCCHG} != null ? $P{DOCCHG} : $F{DOCCHG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="68" y="75" width="100" height="20"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SPECHG} != null ? $P{SPECHG} : $F{SPECHG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="188" y="15" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{HOSDISC} != null ? $P{HOSDISC} : $F{HOSDISC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="188" y="35" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DOCDISC} != null ? $P{DOCDISC} : $F{DOCDISC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="188" y="55" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{OTHDISC} != null ? $P{OTHDISC} : $F{OTHDISC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="188" y="75" width="100" height="20"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SPEDISC} != null ? $P{SPEDISC} : $F{SPEDISC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="308" y="15" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{HOSCRED} != null ? $P{HOSCRED} : $F{HOSCRED}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="308" y="35" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DOCCRED} != null ? $P{DOCCRED} : $F{DOCCRED}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="308" y="55" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{OTHCRED} != null ? $P{OTHCRED} : $F{OTHCRED}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="308" y="75" width="100" height="20"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SPECRED} != null ? $P{SPECRED} : $F{SPECRED}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="428" y="15" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{HOSNET} != null ? $P{HOSNET} : $F{HOSNET}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="428" y="35" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DOCNET} != null ? $P{DOCNET} : $F{DOCNET}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="428" y="55" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{OTHNET} != null ? $P{OTHNET} : $F{OTHNET}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="428" y="75" width="100" height="20"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SPENET} != null ? $P{SPENET} : $F{SPENET}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="95" width="68" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="115" width="68" height="20"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Deposit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="135" width="68" height="20"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Payment]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="68" y="115" width="460" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DEPOSIT} != null ? $P{DEPOSIT} : $F{DEPOSIT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="68" y="155" width="100" height="20"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[AR]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="188" y="155" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ARPAY} != null ? $P{ARPAY} : $F{ARPAY}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="68" y="175" width="100" height="20"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Self paid]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="188" y="175" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SELFPAY} != null ? $P{SELFPAY} : $F{SELFPAY}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="308" y="195" width="100" height="20"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Total of Payment]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="430" y="195" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SLPPAMT} != null ? $P{SLPPAMT} : $F{SLPPAMT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="215" width="68" height="20"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Refund]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="430" y="215" width="100" height="20"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REFUND} != null ? $P{REFUND} : $F{REFUND}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="235" width="68" height="20"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Balance]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="430" y="235" width="100" height="20"/>
+				<box>
+					<pen lineStyle="Double"/>
+					<topPen lineStyle="Double"/>
+					<leftPen lineStyle="Double"/>
+					<bottomPen lineWidth="1.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{BALANCE} != null ? $P{BALANCE} : $F{BALANCE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="68" y="95" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TOTCHG} != null ? $P{TOTCHG} : $F{TOTCHG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="188" y="95" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DISCOUNT} != null ? $P{DISCOUNT} : $F{DISCOUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="308" y="95" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SLPCAMT} != null ? $P{SLPCAMT} : $F{SLPCAMT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="428" y="95" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SLPDAMT} != null ? $P{SLPDAMT} : $F{SLPDAMT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="1" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

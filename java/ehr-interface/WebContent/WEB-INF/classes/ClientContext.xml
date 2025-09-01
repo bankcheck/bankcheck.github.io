@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/jee
+http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+http://www.springframework.org/schema/util
+http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+	<!-- MessageFactory -->
+	<bean id="messageFactory"
+		class="org.springframework.ws.soap.axiom.AxiomSoapMessageFactory">
+		<property name="payloadCaching" value="true" />
+	</bean>
+	
+	<!-- WebServiceTemplate -->
+	<bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="contextPath" value="hk.gov.ehr.hepr.ws" />
+	</bean>
+	<bean id="heprWebServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
+		<constructor-arg ref="messageFactory" />
+		<property name="marshaller" ref="marshaller"></property>
+		<property name="unmarshaller" ref="marshaller"></property>
+		<property name="messageSender">
+			<bean
+				class="org.springframework.ws.transport.http.CommonsHttpMessageSender">
+			</bean>
+		</property>
+		<!-- Implement WS - Security -->
+		<property name="interceptors">
+			<list>
+				<ref bean="wsSecurityInterceptor" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="marshallerSaam" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="contextPath" value="hk.gov.ehr.saam.transform.ws" />
+	</bean>
+	<bean id="dataCollectSaamWebServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
+		<constructor-arg ref="messageFactory" />
+		<property name="marshaller" ref="marshallerSaam"></property>
+		<property name="unmarshaller" ref="marshallerSaam"></property>
+		<property name="messageSender">
+			<bean
+				class="org.springframework.ws.transport.http.CommonsHttpMessageSender">
+			</bean>
+		</property>
+		<!-- Implement WS - Security -->
+		<property name="interceptors">
+			<list>
+				<ref bean="wsSecurityInterceptor" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="marshallerEpis" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="contextPath" value="hk.gov.ehr.epis.transform.ws" />
+	</bean>
+	<bean id="dataCollectEpisWebServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
+		<constructor-arg ref="messageFactory" />
+		<property name="marshaller" ref="marshallerEpis"></property>
+		<property name="unmarshaller" ref="marshallerEpis"></property>
+		<property name="messageSender">
+			<bean
+				class="org.springframework.ws.transport.http.CommonsHttpMessageSender">
+			</bean>
+		</property>
+		<!-- Implement WS - Security -->
+		<property name="interceptors">
+			<list>
+				<ref bean="wsSecurityInterceptor" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="marshallerAlert" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="contextPath" value="hk.gov.ehr.alert.ws.beans" />
+	</bean>
+	<bean id="alertWebServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
+		<constructor-arg ref="messageFactory" />
+		<property name="marshaller" ref="marshallerAlert"></property>
+		<property name="unmarshaller" ref="marshallerAlert"></property>
+		<property name="messageSender">
+			<bean
+				class="org.springframework.ws.transport.http.CommonsHttpMessageSender">
+			</bean>
+		</property>
+		<!-- Implement WS - Security -->
+		<property name="interceptors">
+			<list>
+				<ref bean="wsSecurityInterceptor" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Implement WS - Security -->
+	<bean id="wsSecurityInterceptor" class="hepr.ws.security.ClientWss4jSecurityInterceptor" />
+	
+	<!-- Implement WS client -->
+	<bean id="HeprWebServiceClient" class="test.client.HeprWebServiceClient">
+		<constructor-arg ref="heprWebServiceTemplate"></constructor-arg>
+		<property name="messagingService" ref="messagingService"></property>
+	</bean>
+	<bean id="dataCollectSaamWebServiceClient" class="test.client.DataCollectSaamWebServiceClient">
+		<constructor-arg ref="dataCollectSaamWebServiceTemplate"></constructor-arg>
+	</bean>
+	<bean id="dataCollectEpisWebServiceClient" class="test.client.DataCollectEpisWebServiceClient">
+		<constructor-arg ref="dataCollectEpisWebServiceTemplate"></constructor-arg>
+	</bean>
+	<bean id="alertWebServiceClient" class="test.client.AlertWebServiceClient">
+		<constructor-arg ref="alertWebServiceTemplate"></constructor-arg>
+		<property name="domainCommonService" ref="domainCommonService"></property>
+		<property name="saamService" ref="saamService"></property>
+		<property name="messagingService" ref="messagingService"></property>
+	</bean>
+	
+	<!-- Service -->
+	<bean id="domainCommonService" class="com.hkah.ehr.service.DomainCommonService" />
+	<bean id="birthRecordService" class="com.hkah.ehr.service.BirthRecordService">
+		<property name="domainCommonService" ref="domainCommonService"></property>
+	</bean>
+	<bean id="saamService" class="com.hkah.ehr.service.SaamService">
+		<property name="domainCommonService" ref="domainCommonService"></property>
+	</bean>
+	<bean id="encounterService" class="com.hkah.ehr.service.EncounterService">
+		<property name="domainCommonService" ref="domainCommonService"></property>
+	</bean>
+	<bean id="risService" class="com.hkah.ehr.service.RisService">
+		<property name="domainCommonService" ref="domainCommonService"></property>
+	</bean>
+	<bean id="rxdService" class="com.hkah.ehr.service.RxdService">
+		<property name="domainCommonService" ref="domainCommonService"></property>
+	</bean>
+	<bean id="labService" class="com.hkah.ehr.service.LabService">
+		<property name="domainCommonService" ref="domainCommonService"></property>
+	</bean>
+	<bean id="messagingService" class="com.hkah.ehr.service.MessagingService" />
+</beans>

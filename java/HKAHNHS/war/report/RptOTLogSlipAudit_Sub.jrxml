@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptOTLogSlipAudit_Sub" language="groovy" pageWidth="297" pageHeight="421" columnWidth="297" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="audid" class="java.math.BigDecimal"/>
+	<parameter name="admdate" class="java.lang.String"/>
+	<parameter name="admuserid" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM ((SELECT A.AUDID,A.PATNO AS PATIENTNO,A.ADMUSERID,to_char(A.ADMDATE,'dd/mm/yyyy')ADMDATE,'Prev.' AS STATUS, A.PRESLPNO AS SLIPNO,A.PRESEQNO AS SEQNO,B.STNSEQ,B.PKGCODE,B.ITMCODE,B.USRID
+                 FROM OT_LOG_SLIP_AUD A ,SLIPTX B
+                 WHERE  A.PRESLPNO=B.SLPNO(+) AND A.PRESEQNO>=B.STNSEQ
+                 AND (A.ADMDATE >= to_date('01/01/2006 00:00:00','DD/MM/YYYY HH24:MI:SS'))  AND (A.ADMDATE <= to_date('01/02/2006 23:59:59','DD/MM/YYYY HH24:MI:SS'))
+                  )
+                 UNION (SELECT A.AUDID,A.PATNO AS PATIENTNO,A.ADMUSERID,to_char(A.ADMDATE,'dd/mm/yyyy')ADMDATE,'New' AS STATUS, A.NEWSLPNO AS SLIPNO,A.NEWSEQNO AS SEQNO,B.STNSEQ,B.PKGCODE,B.ITMCODE,B.USRID
+                 FROM OT_LOG_SLIP_AUD A ,SLIPTX B,SITE D
+                 WHERE  A.NEWSLPNO=B.SLPNO(+) AND A.NEWSEQNO<=B.STNSEQ
+                 AND (A.ADMDATE >= to_date('01/01/2006 00:00:00','DD/MM/YYYY HH24:MI:SS'))  AND (A.ADMDATE <= to_date('01/02/2006 23:59:59','DD/MM/YYYY :HH24:MI:SS'))
+                 ) ) where audid=$P{audid} and admdate=$P{admdate} and admuserid=$P{admuserid} ORDER BY PATIENTNO,ADMDATE,STATUS,STNSEQ
+]]>
+	</queryString>
+	<field name="AUDID" class="java.math.BigDecimal"/>
+	<field name="PATIENTNO" class="java.lang.String"/>
+	<field name="ADMUSERID" class="java.lang.String"/>
+	<field name="ADMDATE" class="java.lang.String"/>
+	<field name="STATUS" class="java.lang.String"/>
+	<field name="SLIPNO" class="java.lang.String"/>
+	<field name="SEQNO" class="java.math.BigDecimal"/>
+	<field name="STNSEQ" class="java.math.BigDecimal"/>
+	<field name="PKGCODE" class="java.lang.String"/>
+	<field name="ITMCODE" class="java.lang.String"/>
+	<field name="USRID" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="55" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{STATUS}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="55" y="0" width="59" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{STNSEQ}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="114" y="0" width="57" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PKGCODE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="171" y="0" width="61" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ITMCODE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="232" y="0" width="65" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{USRID}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DayCaseReceipt_Sub" pageWidth="555" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="17"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="STNTDATE" class="java.lang.String"/>
+	<field name="AMOUNT" class="java.math.BigDecimal"/>
+	<field name="DESCRIPTION" class="java.lang.String"/>
+	<field name="CDESCCODE" class="java.lang.String"/>
+	<variable name="AMOUNT_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{AMOUNT}]]></variableExpression>
+	</variable>
+	<group name="STNTDATE">
+		<groupExpression><![CDATA[$F{STNTDATE}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="12" y="4" width="100" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="118" y="4" width="100" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="4" width="100" height="15"/>
+				<box>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="4" width="542" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="18" width="542" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="4" width="12" height="16"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[  ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="542" y="4" width="1" height="16"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<printWhenExpression><![CDATA[$F{STNTDATE}.length()!=0]]></printWhenExpression>
+			<textField pattern="###,###,###,##0.00" isBlankWhenNull="true">
+				<reportElement x="437" y="0" width="100" height="12"/>
+				<box rightPadding="0">
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="118" y="0" width="319" height="12"/>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style fontName='Arial Unicode MS'>" + org.apache.commons.lang.StringEscapeUtils.escapeHtml($F{DESCRIPTION}) + "</style> <style fontName='Ming(for ISO10646_V3)'>" + $F{CDESCCODE} + "</style>"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="12" y="0" width="100" height="12"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{STNTDATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="12" height="12"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[  ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="542" y="0" width="1" height="12"/>
+			</line>
+		</band>
+	</detail>
+	<summary>
+		<band height="15" splitType="Stretch">
+			<textField pattern="###,###,###,##0.00" isBlankWhenNull="true">
+				<reportElement x="437" y="0" width="100" height="12"/>
+				<box>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{AMOUNT_1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="12" width="543" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="0" width="12" height="12"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[  ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="542" y="0" width="1" height="12"/>
+			</line>
+			<staticText>
+				<reportElement x="281" y="0" width="156" height="12"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Receipts 收據總數:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

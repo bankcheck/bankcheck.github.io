@@ -1,0 +1,23 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_ACCOMODATION"
+(
+  V_ACMCODE ACM.ACMCODE%TYPE,
+  v_ACMNAME ACM.ACMNAME%TYPE
+  -- v_ACMCNAME ACM.ACMCNAME%TYPE
+)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN outcur FOR
+      SELECT
+        ACMCODE, ACMNAME, ACMCNAME
+      FROM ACM
+      WHERE ( ACMCODE LIKE '%' || v_ACMCODE || '%')
+      AND ( ACMNAME like '%' || v_ACMNAME || '%')
+ --     AND ( ACMCNAME like '%' || v_ACMCNAME || '%')
+      ORDER BY ACMCODE;
+   RETURN OUTCUR;
+END NHS_LIS_ACCOMODATION;
+/
+
+

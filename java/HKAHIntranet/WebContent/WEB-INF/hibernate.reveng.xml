@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+
+	<!-- TWAH Staff Education -->
+	<!-- 
+	<table-filter match-name="EE_MENU_CONTENT"></table-filter>
+	<table-filter match-name="EE_MENU_CONTENT_INSERV_REVIEW"></table-filter>
+	<table-filter match-name="EE_MENU_CONTENT_MAND_CONT"></table-filter>
+	<table-filter match-name="EE_MENU_DOCUMENT"></table-filter>
+	<table-filter match-name="EE_MENU_MODULE"></table-filter>
+	-->
+	
+	<!-- CRM Promotion -->
+	<!-- 
+	<table-filter match-name="CRM_PROMOTION_DEPARTMENT"></table-filter>
+	<table-filter match-name="CRM_PROMOTION_ENQUIRY"></table-filter>
+	<table-filter match-name="CRM_PROMOTION_INSTRUCTION"></table-filter>
+	<table-filter match-name="CRM_PROMOTION_TARGET"></table-filter>
+	<table-filter match-name="CRM_PROMOTION_DOCUMENT"></table-filter>
+	<table-filter match-name="CRM_PROMOTION"></table-filter>
+	<table-filter match-name="CRM_PROMOTION_REF_CODE"></table-filter>
+	<table-filter match-name="CRM_TARGET"></table-filter>
+	
+	<table-filter match-name="CO_DEPARTMENTS"></table-filter>
+	<table-filter match-name="CO_SITE"></table-filter>
+	<table-filter match-name="CO_EVENT"></table-filter>
+	-->
+	
+	<!-- Discussion Board -->
+	<!-- 
+	<table-filter match-name="DB_COMMENT"></table-filter>
+	<table-filter match-name="DB_COMMENT_DOCUMENT"></table-filter>
+	<table-filter match-name="DB_COMMENT_HISTORY"></table-filter>
+	<table-filter match-name="DB_COMMENT_TYPES"></table-filter>
+	-->
+	
+	<!-- Document -->
+	<!-- 
+	<table-filter match-name="CO_DOCUMENT_MAIL_LIST"></table-filter>
+	-->
+</hibernate-reverse-engineering>

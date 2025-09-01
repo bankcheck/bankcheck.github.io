@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DiBfSummary" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.363636363636364"/>
+	<property name="ireport.x" value="46"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="in_rpttype" class="java.lang.String">
+		<defaultValueExpression><![CDATA["BF"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_actualrun" class="java.lang.String">
+		<defaultValueExpression><![CDATA["N"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_enddt" class="java.util.Date">
+		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHIntranet\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_dept" class="java.lang.String"/>
+	<parameter name="in_stecode" class="java.lang.String">
+		<defaultValueExpression><![CDATA["hkah"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from dual]]>
+	</queryString>
+	<field name="DUMMY" class="java.lang.String"/>
+	<variable name="docNameHeader" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="52">
+			<staticText>
+				<reportElement x="0" y="39" width="389" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[as of ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="389" y="39" width="413" height="13"/>
+				<box leftPadding="3"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{in_enddt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="26" width="802" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Doctor Income " +
+("CF".equals($P{in_rpttype})
+    ? "Carried Forward "
+    : ("BF".equals($P{in_rpttype})
+        ? "Brought Forward "
+        : ""
+       )
+) +
+"Listing" +
+("CF".equals($P{in_rpttype})
+    ? ""
+    : ("BF".equals($P{in_rpttype})
+        ? ""
+        : " (XD5)"
+       )
+)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="749" y="0" width="53" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Y".equals($P{in_actualrun}) ? "Actual" : "Trial"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="802" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["amc2".equalsIgnoreCase($P{in_stecode}) ?
+"Adventist Medical Center - Taikoo Place" :
+("Hong Kong Adventist Hospital" +
+	("hkah".equalsIgnoreCase($P{in_stecode})
+		? " – Stubbs Road "
+		: ("twah".equalsIgnoreCase($P{in_stecode})
+			? " – Tsuen Wan "
+			: ""
+		   )
+	)
+)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="13" width="802" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["RADIOLOGY" +
+("DI".equalsIgnoreCase($P{in_dept})
+    ? " (DIAGNOSTIC IMAGING)"
+    : ("OPD".equalsIgnoreCase($P{in_dept})
+        ? " (OPD)"
+        : ""
+       )
+)]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="74" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="802" height="74"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="in_dept">
+					<subreportParameterExpression><![CDATA[$P{in_dept}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="in_rpttype">
+					<subreportParameterExpression><![CDATA[$P{in_rpttype}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="in_enddt">
+					<subreportParameterExpression><![CDATA[$P{in_enddt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="in_actualrun">
+					<subreportParameterExpression><![CDATA[$P{in_actualrun}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "DiBf_byDoc.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

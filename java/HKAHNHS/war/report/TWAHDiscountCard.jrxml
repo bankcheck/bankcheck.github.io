@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TWAHDiscountCard" pageWidth="245" pageHeight="155" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="245" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.85"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PATNAME" class="java.lang.String"/>
+	<parameter name="PATCNAME" class="java.lang.String"/>
+	<parameter name="PATNO" class="java.lang.String"/>
+	<parameter name="DUEDATE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="155" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="19" y="37" width="210" height="35" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Top" rotation="UpsideDown" markup="styled">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{PATNAME}) + " <style fontName='Ming(for ISO10646_V3)'>" + $P{PATCNAME} + "</style>"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="156" y="13" width="73" height="17"/>
+				<textElement rotation="UpsideDown">
+					<font fontName="Arial Unicode MS" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PATNO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="13" width="82" height="17" isPrintWhenDetailOverflows="true"/>
+				<textElement rotation="UpsideDown">
+					<font fontName="Arial Unicode MS" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DUEDATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="81" y="13" width="56" height="17"/>
+				<textElement verticalAlignment="Middle" rotation="UpsideDown">
+					<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[有效日期：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="84" width="100" height="15"/>
+				<textElement verticalAlignment="Middle" rotation="UpsideDown">
+					<font fontName="Ming(for ISO10646_V3)" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[住戶專享優惠卡]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+</jasperReport>

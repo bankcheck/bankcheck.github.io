@@ -1,0 +1,37 @@
+create or replace
+FUNCTION OB_BOOKING_ADD_HISTORY (
+i_obbookingID IN VARCHAR2,
+i_pbpid IN VARCHAR2,
+i_edc IN VARCHAR2,
+i_status IN VARCHAR2,
+i_reason IN VARCHAR2,
+i_userID IN VARCHAR2
+)
+RETURN INTEGER
+AS
+	v_history_id INTEGER;
+BEGIN
+	-- get history id
+	SELECT COUNT(1) INTO v_history_id FROM OB_BOOKING_HISTORY WHERE OB_BOOKING_ID = i_obbookingID;
+	IF v_history_id = 0 THEN
+		v_history_id := 0;
+	ELSE
+		SELECT MAX(OB_BOOKING_HISTORY_ID) INTO v_history_id FROM OB_BOOKING_HISTORY WHERE OB_BOOKING_ID = i_obbookingID;
+	END IF;
+
+	INSERT INTO OB_BOOKING_HISTORY
+	(OB_BOOKING_ID, OB_BOOKING_HISTORY_ID, OB_PBP_ID, OB_EXPECTED_DELIVERYDATE, OB_BOOKING_STATUS, OB_CANCEL_REASON, OB_CREATED_USER, OB_MODIFIED_USER)
+	VALUES
+	(i_obbookingID, v_history_id + 1, i_pbpid, TO_DATE(i_edc, 'dd/MM/YYYY'), i_status, i_reason, i_userID, i_userID);
+
+	COMMIT;
+
+	RETURN v_history_id;
+EXCEPTION
+WHEN OTHERS THEN
+	ROLLBACK;
+	dbms_output.put_line('An ERROR was encountered - '||SQLCODE||' -ERROR- '||SQLERRM);
+
+	RETURN NULL;
+END OB_BOOKING_ADD_HISTORY;
+/

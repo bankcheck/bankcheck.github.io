@@ -1,0 +1,33 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_MEDCHARTMERGEHIST"(V_FROMDATE IN VARCHAR2,
+                                                       V_TODATE   IN VARCHAR2)
+
+ RETURN TYPES.CURSOR_TYPE AS
+  OUTCUR TYPES.CURSOR_TYPE;
+
+BEGIN
+  OPEN OUTCUR FOR
+    SELECT '',
+           TO_CHAR(PMCDATE, 'DD/MM/YYYY'),
+           FM_PATNO,
+           FM_PATFNAME,
+           FM_PATGNAME,
+           FM_PATSEX,
+           TO_CHAR(FM_PATBDATE, 'DD/MM/YYYY'),
+           FM_PATIDNO,  
+           TO_PATNO,
+           TO_PATFNAME,
+           TO_PATGNAME,
+           TO_PATSEX,
+           TO_CHAR(TO_PATBDATE, 'DD/MM/YYYY'),
+           TO_PATIDNO,
+           USRID
+      FROM PATMERCHT
+     WHERE (PMCDATE >= TO_DATE(V_FROMDATE, 'DD/MM/YYYY') OR
+           V_FROMDATE IS NULL)
+       AND (PMCDATE < TO_DATE(V_TODATE, 'DD/MM/YYYY') + 1 OR
+           V_TODATE IS NULL)
+     ORDER BY PMCDATE;
+
+  RETURN OUTCUR;
+END NHS_LIS_MEDCHARTMERGEHIST;
+/

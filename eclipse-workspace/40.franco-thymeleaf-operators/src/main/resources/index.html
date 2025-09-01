@@ -1,0 +1,30 @@
+<div th:text="${7 + 6}"></div>
+<div th:text="7 + 6"></div>
+
+<div th:text="${7 - 6}"></div>
+<div th:text="7 - 6"></div>
+
+<div th:text="${7 * 6}"></div>
+<div th:text="7 * 6"></div>
+
+<div th:text="${7 / 6}"></div>
+<div th:text="7 / 6"></div>
+
+<div th:text="${7 % 6}"></div>
+<div th:text="7 % 6"></div>
+
+<div th:text="'7 > 6 is ' + ${7 > 6}"></div>
+<!-- if no comment, exception is thrown -->
+<!-- <div th:text="'7 > 6 is ' + 7 > 6"></div> -->
+
+<div th:text="'7 >= 6 is ' + ${7 >= 6}"></div>
+
+<div th:text="'7 < 6 is ' + ${7 < 6}"></div>
+
+<div th:text="'7 <= 6 is ' + ${7 <= 6}"></div>
+
+<div th:text="'7 == 6 is ' + ${7 == 6}"></div>
+
+<div th:text="'7 != 6 is ' + ${7 != 6}"></div>
+
+<div th:text="${francoStudent.studentName == 'Jane' ? 'This is Jane' : 'This is not Jane'}"></div>

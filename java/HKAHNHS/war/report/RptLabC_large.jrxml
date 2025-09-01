@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptLabC_large" printOrder="Horizontal" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="567" leftMargin="14" rightMargin="14" topMargin="42" bottomMargin="42" whenResourceMissingType="Error" isIgnorePagination="true">
+	<property name="ireport.zoom" value="1.7715610000000022"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patsex" class="java.lang.String"/>
+	<parameter name="patbdate" class="java.lang.String"/>
+	<parameter name="patname" class="java.lang.String"/>
+	<parameter name="patcname" class="java.lang.String"/>
+	<parameter name="isCheckDight" class="java.lang.String"/>
+	<parameter name="isasterisk" class="java.lang.String"/>
+	<parameter name="CheckDigit" class="java.lang.String"/>
+	<parameter name="newbarcode" class="java.lang.String"/>
+	<parameter name="regid" class="java.lang.String"/>
+	<parameter name="regType" class="java.lang.String"/>
+	<parameter name="regDate" class="java.lang.String"/>
+	<parameter name="showRegID" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\projects\\Reports\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="rid" class="java.lang.String"/>
+	<field name="isTwoD_1" class="java.lang.String"/>
+	<field name="isTwoD_2" class="java.lang.String"/>
+	<field name="isTwoD_3" class="java.lang.String"/>
+	<field name="isTwoD_4" class="java.lang.String"/>
+	<field name="mrLblContent" class="java.lang.String"/>
+	<variable name="newMrLbl" class="java.lang.String">
+		<variableExpression><![CDATA[!$F{mrLblContent}.isEmpty()?
+($F{mrLblContent}.substring( 3,12)):""]]></variableExpression>
+	</variable>
+	<variable name="v_newbarcode" class="java.lang.String">
+		<variableExpression><![CDATA[$P{newbarcode}.substring(0, $P{newbarcode}.length()-1)]]></variableExpression>
+	</variable>
+	<variable name="v_regid" class="java.lang.String">
+		<variableExpression><![CDATA[($P{showRegID}.equals("Y") && $P{regType} != null && !$P{regType}.equals("O") && $P{regid}.length() > 0)?("<REGID>"+$P{regid}+"</REGID>"):""]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="85">
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="3" y="0" width="559" height="1" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="regType">
+					<subreportParameterExpression><![CDATA[$P{regType}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regid">
+					<subreportParameterExpression><![CDATA[$P{regid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regDate">
+					<subreportParameterExpression><![CDATA[$P{regDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="showRegID">
+					<subreportParameterExpression><![CDATA[$P{showRegID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patsex">
+					<subreportParameterExpression><![CDATA[$P{patsex}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patbdate">
+					<subreportParameterExpression><![CDATA[$P{patbdate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_2">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_1">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_4">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_3">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patno">
+					<subreportParameterExpression><![CDATA[$P{patno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="mrLblContent">
+					<subreportParameterExpression><![CDATA[$F{mrLblContent}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isCheckDight">
+					<subreportParameterExpression><![CDATA[$P{isCheckDight}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="rid">
+					<subreportParameterExpression><![CDATA[$F{rid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="newbarcode">
+					<subreportParameterExpression><![CDATA[$P{newbarcode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patcname">
+					<subreportParameterExpression><![CDATA[$P{patcname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CheckDigit">
+					<subreportParameterExpression><![CDATA[$P{CheckDigit}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isasterisk">
+					<subreportParameterExpression><![CDATA[$P{isasterisk}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patname">
+					<subreportParameterExpression><![CDATA[$P{patname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "RptLabC_large_A.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="3" y="0" width="559" height="1" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="regType">
+					<subreportParameterExpression><![CDATA[$P{regType}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regid">
+					<subreportParameterExpression><![CDATA[$P{regid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regDate">
+					<subreportParameterExpression><![CDATA[$P{regDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="showRegID">
+					<subreportParameterExpression><![CDATA[$P{showRegID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patsex">
+					<subreportParameterExpression><![CDATA[$P{patsex}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patbdate">
+					<subreportParameterExpression><![CDATA[$P{patbdate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_2">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_1">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_4">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_3">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patno">
+					<subreportParameterExpression><![CDATA[$P{patno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isCheckDight">
+					<subreportParameterExpression><![CDATA[$P{isCheckDight}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patcname">
+					<subreportParameterExpression><![CDATA[$P{patcname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="newbarcode">
+					<subreportParameterExpression><![CDATA[$P{newbarcode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CheckDigit">
+					<subreportParameterExpression><![CDATA[$P{CheckDigit}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isasterisk">
+					<subreportParameterExpression><![CDATA[$P{isasterisk}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patname">
+					<subreportParameterExpression><![CDATA[$P{patname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "RptLabC_large_B.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="3" y="0" width="559" height="1" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="regType">
+					<subreportParameterExpression><![CDATA[$P{regType}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regid">
+					<subreportParameterExpression><![CDATA[$P{regid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regDate">
+					<subreportParameterExpression><![CDATA[$P{regDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="showRegID">
+					<subreportParameterExpression><![CDATA[$P{showRegID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patsex">
+					<subreportParameterExpression><![CDATA[$P{patsex}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patbdate">
+					<subreportParameterExpression><![CDATA[$P{patbdate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_2">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_1">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_4">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_3">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patno">
+					<subreportParameterExpression><![CDATA[$P{patno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="mrLblContent">
+					<subreportParameterExpression><![CDATA[$F{mrLblContent}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isCheckDight">
+					<subreportParameterExpression><![CDATA[$P{isCheckDight}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patcname">
+					<subreportParameterExpression><![CDATA[$P{patcname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="newbarcode">
+					<subreportParameterExpression><![CDATA[$P{newbarcode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CheckDigit">
+					<subreportParameterExpression><![CDATA[$P{CheckDigit}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isasterisk">
+					<subreportParameterExpression><![CDATA[$P{isasterisk}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patname">
+					<subreportParameterExpression><![CDATA[$P{patname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "RptLabC_large_C.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="3" y="0" width="559" height="1" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="regType">
+					<subreportParameterExpression><![CDATA[$P{regType}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regid">
+					<subreportParameterExpression><![CDATA[$P{regid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regDate">
+					<subreportParameterExpression><![CDATA[$P{regDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="showRegID">
+					<subreportParameterExpression><![CDATA[$P{showRegID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patsex">
+					<subreportParameterExpression><![CDATA[$P{patsex}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patbdate">
+					<subreportParameterExpression><![CDATA[$P{patbdate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_2">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_1">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_4">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_3">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patno">
+					<subreportParameterExpression><![CDATA[$P{patno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="mrLblContent">
+					<subreportParameterExpression><![CDATA[$F{mrLblContent}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isCheckDight">
+					<subreportParameterExpression><![CDATA[$P{isCheckDight}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patcname">
+					<subreportParameterExpression><![CDATA[$P{patcname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="newbarcode">
+					<subreportParameterExpression><![CDATA[$P{newbarcode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CheckDigit">
+					<subreportParameterExpression><![CDATA[$P{CheckDigit}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isasterisk">
+					<subreportParameterExpression><![CDATA[$P{isasterisk}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patname">
+					<subreportParameterExpression><![CDATA[$P{patname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "RptLabC_large_C1.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="3" y="0" width="559" height="1" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="regType">
+					<subreportParameterExpression><![CDATA[$P{regType}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regid">
+					<subreportParameterExpression><![CDATA[$P{regid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="regDate">
+					<subreportParameterExpression><![CDATA[$P{regDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="showRegID">
+					<subreportParameterExpression><![CDATA[$P{showRegID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patsex">
+					<subreportParameterExpression><![CDATA[$P{patsex}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patbdate">
+					<subreportParameterExpression><![CDATA[$P{patbdate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_2">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_1">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_4">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isTwoD_3">
+					<subreportParameterExpression><![CDATA[$F{isTwoD_3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patno">
+					<subreportParameterExpression><![CDATA[$P{patno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isCheckDight">
+					<subreportParameterExpression><![CDATA[$P{isCheckDight}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="newbarcode">
+					<subreportParameterExpression><![CDATA[$P{newbarcode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patcname">
+					<subreportParameterExpression><![CDATA[$P{patcname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CheckDigit">
+					<subreportParameterExpression><![CDATA[$P{CheckDigit}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="isasterisk">
+					<subreportParameterExpression><![CDATA[$P{isasterisk}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patname">
+					<subreportParameterExpression><![CDATA[$P{patname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "RptLabC_large_D.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="0" y="16" width="1" height="1"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,14 @@
+create or replace
+FUNCTION "NHS_CMB_SMSCONTENT"
+	RETURN Types.cursor_type
+AS
+	outcur types.cursor_type;
+BEGIN
+	OPEN outcur FOR
+		SELECT SMCID, SMCDESC
+		FROM   SMSCONTENT@IWEB
+		WHERE  ROWNUM < 100
+		AND    SMCSTS = -1
+		ORDER  BY SMCORD;
+	RETURN outcur;
+END NHS_CMB_SMSCONTENT;

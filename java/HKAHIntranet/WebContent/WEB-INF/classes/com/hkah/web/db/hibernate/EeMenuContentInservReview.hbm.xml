@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2010?~4??15?? ?U??05:06:21 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.EeMenuContentInservReview" table="EE_MENU_CONTENT_INSERV_REVIEW">
+        <composite-id name="id" class="com.hkah.web.db.hibernate.EeMenuContentId">
+            <key-property name="eeSiteCode" type="string">
+                <column name="EE_SITE_CODE"  />
+            </key-property>
+            <key-property name="eeMenuContentId" type="big_decimal">
+                <column name="EE_MENU_CONTENT_ID"  />
+            </key-property>
+        </composite-id>
+        <many-to-one name="eeMenuContent" class="com.hkah.web.db.hibernate.EeMenuContent" update="false" insert="false" fetch="select">
+            <column name="EE_SITE_CODE" not-null="true" />
+            <column name="EE_MENU_CONTENT_ID" not-null="true" />
+        </many-to-one>
+        <property name="eeModuleCode" type="string">
+            <column name="EE_MODULE_CODE"  />
+        </property>
+        <property name="eeCategoryCode" type="string">
+            <column name="EE_CATEGORY_CODE"  />
+        </property>
+        <property name="eeCategoryDescriptionEn" type="string">
+            <column name="EE_CATEGORY_DESCRIPTION_EN"  />
+        </property>
+        <property name="eeCategoryDescriptionZh" type="string">
+            <column name="EE_CATEGORY_DESCRIPTION_ZH"  />
+        </property>
+        <property name="eeBgColor" type="string">
+            <column name="EE_BG_COLOR"  />
+        </property>
+        <property name="eeCreatedDate" >
+            <column name="EE_CREATED_DATE"  />
+        </property>
+        <property name="eeCreatedUser" type="string">
+            <column name="EE_CREATED_USER"  />
+        </property>
+        <property name="eeModifiedDate" >
+            <column name="EE_MODIFIED_DATE"  />
+        </property>
+        <property name="eeModifiedUser" type="string">
+            <column name="EE_MODIFIED_USER"  />
+        </property>
+        <property name="eeEnabled" type="java.lang.Integer">
+            <column name="EE_ENABLED"  />
+        </property>
+    </class>
+</hibernate-mapping>

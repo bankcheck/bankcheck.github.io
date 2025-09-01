@@ -1,0 +1,872 @@
+package com.hkah.util.sms;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Locale;
+
+import com.hkah.config.MessageResources;
+import com.hkah.constant.ConstantsServerSide;
+import com.hkah.util.db.UtilDBWeb;
+import com.hkah.web.common.ReportableListObject;
+import com.hkah.web.common.UserBean;
+import com.hkah.web.db.EmailAlertDB;
+
+public class UtilSMS {
+	private static final String SMS_LINK = "http://smsc.xgate.com.hk/smshub/sendsms?";
+	private static final String SMS_STAT_LINK = "http://smsc.xgate.com.hk/xml/checkstat?";
+	private static final String SMS_INPAT_ID = "adventisthosp";
+	private static final String SMS_INPAT_PW = "HKAHinpatient36518758";
+	private static final String SMS_OUTPAT_ID = "adventisthosp2";
+	private static final String SMS_OUTPAT_PW = "HKAHoutpatient36518758";
+	private static final String SMS_TWOUTPAT_ID = "adventisthosp_pbo_tw";
+	private static final String SMS_TWOUTPAT_PW = "8234hfakl";
+	private static final String SMS_LMC_ID = "adventisthosp3";
+	private static final String SMS_LMC_PW = "HKAHlifestylecenter36518758";
+	private static final String SMS_FOUNDATION_ID = "adventisthosp4";
+	private static final String SMS_FOUNDATION_PW = "HKAHfoundation36518758";
+	private static final String SMS_ONCOLOGY_ID = "adventisthosp5";
+	private static final String SMS_ONCOLOGY_PW = "HKAHoncology36518758";
+	private static final String SMS_DENTAL_ID = "adventisthosp6";
+	private static final String SMS_DENTAL_PW = "HKAHdental36518758";
+	private static final String SMS_REHAB_ID = "adventisthosp7";
+	private static final String SMS_REHAB_PW = "HKAHrehab36518758";
+	private static final String SMS_DI_ID = "adventist_di";
+	private static final String SMS_DI_PW = "adventist2323";
+	private static final String SMS_FOODSERVICE_ID = "adventisthosp8";
+	private static final String SMS_FOODSERVICE_PW = "HKAHfoodservice36518758";
+	private static final String SMS_HA_ID = "adventist_ha";
+	private static final String SMS_HA_PW = "adha1216";
+	private static final String SMS_OT_ID = "adventisthosp9"; // TW - Wong Pik Ha
+	private static final String SMS_OT_PW = "bh34h3hggr";
+	private static final String SMS_INPAT_DOCNUM_ID = "adventisthosp10"; // TW - Cathy Chan
+	private static final String SMS_INPAT_DOCNUM_PW = "f1g2hhfdsadf";
+	private static final String SMS_NU_ID = "adventisthosp_nu";
+	private static final String SMS_NU_PW = "adventisthosp_nu1234";
+	private static final String SMS_TWMKT_ID = "adventisthosp_mkt_tw"; // TW - Rebecca Leong
+	private static final String SMS_TWMKT_PW = "2380hfsle73g";
+
+	private static final String SMS_TWWC_ID = "adventisthosp_wnc"; // TW wellness center - Becky Ng
+	private static final String SMS_TWWC_PW = "482h2f";
+	private static final String SMS_TWFD_ID = "adventisthosp_fnd_tw";
+	private static final String SMS_TWFD_PW = "B99aWns6";
+
+	private static final String SMS_CPLAB_ID = "adventisthosp_cplab_sr"; // CP LAB
+	private static final String SMS_CPLAB_PW = "yg9gheklrag24";
+
+	private static final String SMS_AMC2_ID = "adventisthosp_amc2"; // AMC2
+	private static final String SMS_AMC2_PW = "B2ehvguJ";
+
+	private static final String SMS_TWLAB_ID = "adventisthosp_lab_tw"; // For TW COVID 19 negative result to patients
+	private static final String SMS_TWLAB_PW = "5mKNb9zB";
+	
+	private static final String SMS_HKOPD_ID = "adventisthosp_opd_hk"; // HK COVID 19 result change to HKLAB 20200115
+	private static final String SMS_HKOPD_PW = "gW86auEZ";
+	
+	private static final String SMS_HKLAB_ID = "adventisthosp_lab_hk"; // For HK COVID 19 result to patients
+	private static final String SMS_HKLAB_PW = "Adkf29fg3VD";
+	
+	private static final String SMS_TWPHAR_ID = "adventisthosp_phar_tw"; // TW Phar - 
+	private static final String SMS_TWPHAR_PW = "Ah81prs@";
+	private static final String SMS_HKPHAR_ID = "adventisthosp_phar_hk"; // HK Phar - Fion
+	private static final String SMS_HKPHAR_PW = "21pHfi0n!";
+	
+	private static final String SMS_TWDENT_ID = "adventisthosp_dent_tw"; // TW Dental 
+	private static final String SMS_TWDENT_PW = "j9qsMcHGurbi";
+
+	private static final String SMS_SENDER_ID = "Adventist H";
+	private static final String SMS_MSG_TYPE = "TEXT";
+	private static final String SMS_MSG_LANG = "UTF8";
+
+	public static final String SMS_INPAT = "INPAT";
+	public static final String SMS_OUTPAT = "OUTPAT";
+	public static final String SMS_TWOUTPAT = "TWOUTPAT";
+	public static final String SMS_LMC = "LMC";
+	public static final String SMS_FOUNDATION = "FOUNDATION";
+	public static final String SMS_ONCOLOGY = "ONCOLOGY";
+	public static final String SMS_DENTAL = "DENTAL";
+	public static final String SMS_REHAB = "REHAB";
+	public static final String SMS_FOODSERVICE = "FOODSERVICE";
+	public static final String SMS_HA = "HA";
+	public static final String SMS_OT = "OT";
+	public static final String SMS_INPAT_DOCNUM = "INPATDOCNUM";
+	public static final String SMS_INPAT_DISCH = "INPATDISCH";
+	public static final String SMS_CPLAB = "CPLAB";
+	public static final String SMS_TWMKT = "TWMKT";
+	public static final String SMS_TWWC = "WC";
+	public static final String SMS_AMC2 = "AMC2";
+	public static final String SMS_TWFD = "TWFD";
+	public static final String SMS_TWLAB = "TWLAB";
+	public static final String SMS_HKOPD = "HKOPD";
+	public static final String SMS_HKLAB = "HKLAB";
+	public static final String SMS_TWDENT = "TWDENT";
+
+	public static String sendSMS(UserBean userBean, String[] receivers, String message,
+			String type, String keyId, String tempLang, String smcId) throws IOException {
+
+		return sendSMS(userBean.getStaffID(), receivers, message, SMS_LINK, getSMSID(type), getSMSPassword(type), SMS_SENDER_ID,
+				SMS_MSG_TYPE, SMS_MSG_LANG, type, keyId, tempLang, smcId);
+	}
+
+	public static String sendSMS(String staffID, String[] receivers, String message,
+			String type, String keyId, String tempLang, String smcId) throws IOException {
+
+		return sendSMS(staffID, receivers, message, SMS_LINK, getSMSID(type), getSMSPassword(type), SMS_SENDER_ID,
+				SMS_MSG_TYPE, SMS_MSG_LANG, type, keyId, tempLang, smcId);
+	}
+
+	public static String sendSMS(String smsID, String smsPassword, String staffID, String receiver, String message,
+			String type) throws IOException {
+
+		return sendSMS(staffID, new String[] { receiver }, message, SMS_LINK, smsID, smsPassword, SMS_SENDER_ID,
+				SMS_MSG_TYPE, SMS_MSG_LANG, type, null, null, null);
+	}
+
+	public static String getSMSID(String type) {
+		String smsID = "";
+		if (type.equals(SMS_INPAT)) {
+			smsID = SMS_INPAT_ID;
+		} else if (type.equals(SMS_OUTPAT)) {
+			if (ConstantsServerSide.isHKAH()) {
+				smsID = SMS_OUTPAT_ID;
+			} else {
+				smsID = SMS_TWOUTPAT_ID;
+			}
+		} else if (type.equals(SMS_LMC)) {
+			if (ConstantsServerSide.isHKAH()) {
+				smsID = SMS_OUTPAT_ID;
+			} else {
+				smsID = SMS_LMC_ID;
+			}
+		} else if (type.equals(SMS_FOUNDATION)) {
+			smsID = SMS_FOUNDATION_ID;
+		} else if (type.equals(SMS_ONCOLOGY)) {
+			smsID = SMS_ONCOLOGY_ID;
+		} else if (type.equals(SMS_DENTAL)) {
+			smsID = SMS_DENTAL_ID;
+		} else if (type.equals(SMS_REHAB)) {
+			smsID = SMS_REHAB_ID;
+		} else if (type.equals(SMS_FOODSERVICE)) {
+			smsID = SMS_FOODSERVICE_ID;
+		} else if (type.equals(SMS_HA)) {
+			smsID = SMS_HA_ID;
+		} else if (type.equals(SMS_OT)) {
+			if (ConstantsServerSide.isHKAH()) {
+				smsID = SMS_NU_ID;
+			} else {
+				smsID = SMS_OT_ID;
+			}
+		} else if (type.equals(SMS_INPAT_DOCNUM)) {
+			if (ConstantsServerSide.isHKAH()) {
+				smsID = SMS_NU_ID;
+			} else {
+				smsID = SMS_INPAT_DOCNUM_ID;
+			}
+		} else if (type.equals(SMS_TWWC)) {
+			smsID = SMS_TWWC_ID;
+		} else if (type.equals(SMS_TWFD)) {
+			smsID = SMS_TWFD_ID;
+		} else if (type.equals(SMS_TWMKT)) {
+			smsID = SMS_TWMKT_ID;
+		} else if (type.equals(SMS_INPAT_DISCH)) {
+			if (ConstantsServerSide.isHKAH()) {
+				smsID = SMS_INPAT_ID;
+			} else {
+				smsID = SMS_TWOUTPAT_ID;
+			}
+		} else if (type.equals(SMS_CPLAB)) {
+			smsID = SMS_CPLAB_ID;
+		} else if (type.equals(SMS_AMC2)) {
+			smsID = SMS_AMC2_ID;
+		} else if (type.equals(SMS_TWLAB)) {
+			smsID = SMS_TWLAB_ID;
+		} else if (type.equals(SMS_HKOPD)) {
+			smsID = SMS_HKOPD_ID;
+		} else if (type.equals(SMS_HKLAB)) {
+			smsID = SMS_HKLAB_ID;
+		} else if (type.equals(SMS_TWDENT)) {
+			smsID = SMS_TWDENT_ID;
+		}
+
+
+		return smsID;
+	}
+
+	public static String getSMSPassword(String type) {
+		String pw = "";
+		if (type.equals(SMS_INPAT)) {
+			pw = SMS_INPAT_PW;
+		} else if (type.equals(SMS_OUTPAT)) {
+			if (ConstantsServerSide.isHKAH()) {
+				pw = SMS_OUTPAT_PW;
+			} else {
+				pw = SMS_TWOUTPAT_PW;
+			}
+		} else if (type.equals(SMS_LMC)) {
+			if (ConstantsServerSide.isHKAH()) {
+				pw = SMS_OUTPAT_PW;
+			} else {
+				pw = SMS_LMC_PW;
+			}
+		} else if (type.equals(SMS_FOUNDATION)) {
+			pw = SMS_FOUNDATION_PW;
+		} else if (type.equals(SMS_ONCOLOGY)) {
+			pw = SMS_ONCOLOGY_PW;
+		} else if (type.equals(SMS_DENTAL)) {
+			pw = SMS_DENTAL_PW;
+		} else if (type.equals(SMS_REHAB)) {
+			pw = SMS_REHAB_PW;
+		} else if (type.equals(SMS_FOODSERVICE)) {
+			pw = SMS_FOODSERVICE_PW;
+		} else if (type.equals(SMS_HA)) {
+			pw = SMS_HA_PW;
+		} else if (type.equals(SMS_OT)) {
+			if (ConstantsServerSide.isHKAH()) {
+				pw = SMS_NU_PW;
+			} else {
+				pw = SMS_OT_PW;
+			}
+		} else if (type.equals(SMS_INPAT_DOCNUM)) {
+			if (ConstantsServerSide.isHKAH()) {
+				pw = SMS_NU_PW;
+			} else {
+				pw = SMS_INPAT_DOCNUM_PW;
+			}
+		} else if (type.equals(SMS_TWWC)) {
+			pw = SMS_TWWC_PW;
+		} else if (type.equals(SMS_TWFD)) {
+			pw = SMS_TWFD_PW;
+		} else if (type.equals(SMS_TWMKT)) {
+			pw = SMS_TWMKT_PW;
+		} else if (type.equals(SMS_INPAT_DISCH)) {
+			if (ConstantsServerSide.isHKAH()) {
+				pw = SMS_INPAT_PW;
+			} else {
+				pw = SMS_TWOUTPAT_PW;
+			}
+		} else if (type.equals(SMS_CPLAB)) {
+			pw = SMS_CPLAB_PW;
+		} else if (type.equals(SMS_AMC2)) {
+			pw = SMS_AMC2_PW;
+		} else if (type.equals(SMS_TWLAB)) {
+			pw = SMS_TWLAB_PW;
+		} else if (type.equals(SMS_HKOPD)) {
+			pw = SMS_HKOPD_PW;
+		} else if (type.equals(SMS_HKLAB)) {
+			pw = SMS_HKLAB_PW;
+		} else if (type.equals(SMS_TWDENT)) {
+			pw = SMS_TWDENT_PW;
+		}
+
+
+		return pw;
+	}
+
+	private static String getSmsStatus(String type) throws IOException {
+		String strURL = SMS_STAT_LINK +
+				"UserID="+getSMSID(type)+
+				"&UserPassword="+getSMSPassword(type);
+		String respone = "";
+		String inputLine;
+		/*secure method
+		BufferedReader in = null;
+		try {
+			URL url = new URL(SMS_STAT_LINK);
+			HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+			connection.setDoInput(true);
+			connection.setDoOutput(true);
+			connection.setFollowRedirects(true);
+
+			String data = "UserID="+(type.equals("INPAT")?SMS_INPAT_ID:SMS_OUTPAT_ID)+
+						  "&UserPassword="+(type.equals("INPAT")?SMS_INPAT_PW:SMS_OUTPAT_PW);
+
+			DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
+			outputStream.writeBytes(data);
+			in = new BufferedReader(new InputStreamReader(
+											connection.getInputStream()));
+
+			while ((inputLine = in.readLine()) != null) {
+				//System.out.println(inputLine);
+				respone = respone + inputLine;
+			}
+
+			in.close();
+		}
+		catch (Exception e) {
+			UtilMail.sendMail(
+						"alert@hkah.org.hk",
+						new String[] { "andrew.lau@hkah.org.hk" },
+						null,
+						new String[] {"cherry.wong@hkah.org.hk",
+										"ricky.leung@hkah.org.hk" },
+						"SMS Error", e.toString(), null, null, true);
+		}
+		*/
+		try {
+			URL aURL = new URL(strURL);
+			aURL.openConnection();
+
+			BufferedReader in = new BufferedReader(
+										new InputStreamReader(
+										aURL.openStream()));
+
+			while ((inputLine = in.readLine()) != null) {
+				// System.out.println(inputLine);
+				respone = respone + inputLine;
+			}
+
+			in.close();
+		} catch (Exception e) {
+			System.out.println("SMS Error: " + e.toString());
+			EmailAlertDB.sendEmail("sms.alert", "Update SMS Status Error", e.toString());
+		}
+
+		return respone;
+	}
+
+	public static void updateSmsStatus(String type, String testMsg) throws IOException {
+		String respone = (testMsg == null) ? (getSmsStatus(type)) : (testMsg);
+		String status[] = respone.split("</ShortMessageResponse>");
+		// System.out.println(respone);
+		for (int i = 0; i < status.length; i++) {
+			String msgID = getResponeData(status[i], "MessageID");
+			String stat = getResponeData(status[i], "Status");
+			String devTime = getResponeData(status[i], "DeliveryTime");
+
+			if (stat.length() > 0) {
+				updateLog(type, msgID, stat, devTime);
+			}
+		}
+	}
+
+	private static String getKeyID(String msgID) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT KEY_ID ");
+		sqlStr.append("FROM SMS_LOG ");
+		sqlStr.append("WHERE MSGID = '" + msgID + "' ");
+
+		ArrayList record = UtilDBWeb.getReportableList(sqlStr.toString());
+		ReportableListObject row = null;
+		if (record.size() > 0) {
+			row = (ReportableListObject) record.get(0);
+
+			return row.getValue(0);
+		} else {
+			return null;
+		}
+	}
+
+//20180115 Arran added for Patient Recall SMS status update
+	private static String getBatchID(String msgID) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT MSG_BATCH_ID ");
+		sqlStr.append("FROM SMS_LOG ");
+		sqlStr.append("WHERE MSGID = '" + msgID + "' ");
+
+		ArrayList record = UtilDBWeb.getReportableList(sqlStr.toString());
+		ReportableListObject row = null;
+		if (record.size() > 0) {
+			row = (ReportableListObject) record.get(0);
+
+			return row.getValue(0);
+		} else {
+			return null;
+		}
+	}
+
+	private static boolean updateLog(String type, String msgID, String stat, String devTime) {
+		StringBuffer sqlStr1 = new StringBuffer();
+		StringBuffer sqlStr2 = new StringBuffer();
+		String keyID = getKeyID(msgID);
+//20180115 Arran added for Patient Recall SMS status update
+		String batchID = getBatchID(msgID);
+
+		if (keyID != null) {
+			if (type.equals(SMS_OUTPAT) || type.equals(SMS_ONCOLOGY)) {
+				sqlStr1.append("UPDATE BOOKING@IWEB ");
+				if (stat.equals("DELIVRD")) {
+					sqlStr1.append("SET SMSSDTOK = TO_DATE('" + devTime + "', 'YYYY-MM-DD HH24:MI:SS'), ");
+				} else {
+					sqlStr1.append("SET SMSSDTOK = NULL, ");
+					sqlStr1.append("SMSSDT = TO_DATE('" + devTime + "', 'YYYY-MM-DD HH24:MI:SS'), ");
+				}
+				sqlStr1.append("SMSRTNMSG = '" + stat + "' ");
+				sqlStr1.append("WHERE BKGID = '" + keyID + "' ");
+			} else if (type.equals(SMS_INPAT)) {
+				sqlStr1.append("UPDATE BEDPREBOK@IWEB ");
+				sqlStr1.append("SET SMSSENTDT = TO_DATE('" + devTime + "', 'YYYY-MM-DD HH24:MI:SS') ");
+				sqlStr1.append("WHERE PBPID = '" + keyID + "' ");
+			} else if (type.equals(SMS_INPAT_DOCNUM)) {
+//20180115 Arran edited for Patient Recall SMS status update
+				sqlStr1.append("UPDATE PR_APPOINTMENT@CIS ");
+				if (stat.equals("DELIVRD")) {
+					sqlStr1.append(" SET SMSSDTOK = TO_DATE('" + devTime + "', 'YYYY-MM-DD HH24:MI:SS'), ");
+				} else {
+					sqlStr1.append(" SET SMSSDTOK = NULL, ");
+					sqlStr1.append(" SMSSDT = TO_DATE('" + devTime + "', 'YYYY-MM-DD HH24:MI:SS'), ");
+				}
+				sqlStr1.append(" SMSRTNMSG = '" + stat + "' ");
+				sqlStr1.append(" WHERE SMS_ID = '" + batchID + "' ");
+			}
+
+			sqlStr2.append("UPDATE SMS_LOG ");
+			sqlStr2.append("SET SUCCESS = '" + (stat.equals("DELIVRD") ? "1" : "0") + "', ");
+			sqlStr2.append("RES_MSG = '" + stat + "', ");
+			sqlStr2.append("SEND_TIME = TO_DATE('" + devTime + "', 'YYYY-MM-DD HH24:MI:SS') ");
+			sqlStr2.append("WHERE MSGID = '" + msgID + "' ");
+
+			// System.out.println("--------------UtilSMS (updateLog)--------------");
+			// System.out.println(sqlStr1.toString());
+			// System.out.println(sqlStr2.toString());
+			// System.out.println("-----------------------------------------------------------------------");
+			if (sqlStr1.length() > 0) {
+				return UtilDBWeb.updateQueue(sqlStr1.toString()) &&
+						UtilDBWeb.updateQueue(sqlStr2.toString());
+			} else {
+				return UtilDBWeb.updateQueue(sqlStr2.toString());
+			}
+		} else {
+			return true;
+		}
+	}
+
+	private static String sendSMS(String staffID, String[] receiver, String message, String smsLink,
+									String smsID, String smsPW, String senderID, String msgType,
+									String msgLang, String type, String keyId, String tempLang,
+									String smcId) throws IOException {
+		String inputLine;
+		String output = "";
+
+		/*secure method
+		//System.out.println("message: "+URLEncoder.encode(message, "UTF-8"));
+		try {
+			URL url = new URL(SMS_LINK);
+			HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+			connection.setDoInput(true);
+			connection.setDoOutput(true);
+			connection.setRequestMethod("POST");
+			connection.setFollowRedirects(true);
+
+			String data = "UserID=" + smsID +
+							"&UserPassword=" + smsPW +
+							"&MessageType=" + msgType +
+							"&MessageLanguage=" + msgLang +
+							//"&Senderid=" + URLEncoder.encode(senderID, "UTF-8") +
+							"&MessageReceiver=" + getReceiver(receiver) +
+							"&MessageBody=" + URLEncoder.encode(message, "UTF-8");
+
+			connection.setRequestProperty("Host", "smsc.xgate.com.hk");
+			connection.setRequestProperty("Content-length",String.valueOf (data.length()));
+			connection.setRequestProperty("Content-Type","application/x-www- form-urlencoded");
+
+			DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
+			outputStream.writeBytes(data);
+			BufferedReader in = new BufferedReader(
+									new InputStreamReader(
+											connection.getInputStream()));
+
+			//System.out.println("Resp Code:"+connection.getResponseCode());
+			//System.out.println("Resp Message:"+ connection.getResponseMessage());
+
+			while ((inputLine = in.readLine()) != null) {
+	    		output = output + inputLine;
+	       	}
+
+	    	in.close();
+	    	//System.out.println(output);
+		}
+		catch (Exception e) {
+			UtilMail.sendMail(
+						"alert@hkah.org.hk",
+						new String[] { "andrew.lau@hkah.org.hk" },
+						null,
+						new String[] {"cherry.wong@hkah.org.hk",
+										"ricky.leung@hkah.org.hk" },
+						"SMS Error", e.toString(), null, null, true);
+		}
+    	*/
+		try {
+			String strURL = SMS_LINK +
+							"UserID=" + smsID +
+							"&UserPassword=" + smsPW +
+							"&MessageType=" + msgType +
+							"&MessageLanguage=" + msgLang +
+							//"&Senderid=" + URLEncoder.encode(senderID, "UTF-8") +
+							"&MessageReceiver=" + getReceiver(receiver) +
+							"&MessageBody=" + URLEncoder.encode(message, "UTF-8");
+
+			URL aURL = new URL(strURL);
+			aURL.openConnection();
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+															aURL.openStream()));
+
+			while ((inputLine = in.readLine()) != null) {
+				output = output + inputLine;
+			}
+
+			in.close();
+		} catch (Exception e) {
+			System.out.println("SMS Error: " + e.toString());
+			EmailAlertDB.sendEmail("sms.alert", "Send SMS Error", e.toString());
+		}
+
+//		System.out.println("SMS Response Data: "+output);
+
+		if (sendSuccess(smsID, output, staffID, type, keyId, tempLang, smcId)) {
+			return getResponeData(output, "MessageBatchID");
+		} else {
+			return "";
+		}
+	}
+
+	// private void
+
+	private static String getReceiver(final String[] rec) {
+		String output = "";
+
+		for (int i = 0; i < rec.length; i++) {
+			if (i == 0) {
+				output = rec[0];
+			} else {
+				output = output + "|" + rec[i];
+			}
+		}
+
+		return output;
+	}
+
+	private static String getResponeData(String respone, String key) {
+		if (respone.indexOf("</" + key + ">") > -1) {
+			return respone.substring(respone.indexOf("<" + key + ">") + ("<" + key + ">").length(),
+					respone.indexOf("</" + key + ">")).replaceAll("'", "''").trim();
+		} else {
+			return "";
+		}
+	}
+
+	public static boolean saveLog(String errMsg, String keyId, String type, String tempLang, String smcId) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("INSERT INTO SMS_LOG(");
+		sqlStr.append("RES_MSG, SUCCESS, SEND_TIME, SENDER, ACT_TYPE, KEY_ID, TEMPLATE_LANG, SMCID) ");
+		sqlStr.append("VALUES (");
+		sqlStr.append("'" + errMsg + "', ");
+		sqlStr.append("'0', ");
+		sqlStr.append("SYSDATE, ");
+		sqlStr.append("'SYSTEM', ");
+		sqlStr.append("'" + type + "', ");
+		sqlStr.append("'" + keyId + "', ");
+		sqlStr.append("'" + tempLang + "', ");
+		sqlStr.append("'" + smcId + "') ");
+
+		// System.out.println("--------------UtilSMS (saveLog)--------------");
+		// System.out.println(sqlStr.toString());
+		// System.out.println("-----------------------------------------------------------------------");
+
+		return UtilDBWeb.updateQueue(sqlStr.toString());
+	}
+
+	private static boolean saveLog(String smsID, String respone, String staffID,
+		String type, String keyId, String tempLang, String smcId) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("INSERT INTO SMS_LOG(");
+		sqlStr.append("MSG_BATCH_ID, MSG_LANG, NO_OF_MSG, NO_OF_SUCCESS, ");
+		sqlStr.append("REV_AREA_CODE, REV_MOBILE, REV_OPERATOR, RES_CODE, ");
+		sqlStr.append("RES_MSG, SUCCESS, SEND_TIME, SENDER, SMS_AC, ACT_TYPE, KEY_ID ");
+		if (tempLang != null) {
+			sqlStr.append(", TEMPLATE_LANG");
+		}
+		if (smcId != null) {
+			sqlStr.append(", SMCID");
+		}
+		sqlStr.append(", MSGID");
+		sqlStr.append(") ");
+		sqlStr.append("VALUES (");
+		sqlStr.append("'" + getResponeData(respone, "MessageBatchID") + "', ");
+		sqlStr.append("'" + getResponeData(respone, "MessageLanguage") + "', ");
+		sqlStr.append("'" + getResponeData(respone, "NumberOfMessage") + "', ");
+		sqlStr.append("'" + getResponeData(respone, "NumberOfSuccess") + "', ");
+		sqlStr.append("'" + getResponeData(respone, "AreaCode") + "', ");
+		sqlStr.append("'" + getResponeData(respone, "MobileNumber") + "', ");
+		sqlStr.append("'" + getResponeData(respone, "OperatorID") + "', ");
+		sqlStr.append("'" + getResponeData(respone, "ResponseCode") + "', ");
+		sqlStr.append("'" + getResponeData(respone, "ResponseMessage") + "', ");
+		sqlStr.append("'" + (getResponeData(respone, "Success").equals("true") ? "1" : "0") + "', ");
+		// send time
+		sqlStr.append("SYSDATE, ");
+		// sender
+		// sender
+		sqlStr.append("'" + ((staffID == null || staffID.isEmpty()) ? "SYSTEM" : staffID) + "', ");
+		sqlStr.append("'" + smsID + "', ");
+		sqlStr.append("'" + type + "', ");
+		sqlStr.append("'" + keyId + "' ");
+		if (tempLang != null) {
+			sqlStr.append(",'" + tempLang + "' ");
+		}
+		if (smcId != null) {
+			sqlStr.append(",'" + smcId + "' ");
+		}
+		sqlStr.append(",'" + getResponeData(respone, "MessageID") + "' ");
+		sqlStr.append(") ");
+
+		// System.out.println("--------------UtilSMS (saveLog)--------------");
+		// System.out.println(sqlStr.toString());
+		// System.out.println("-----------------------------------------------------------------------");
+
+		return UtilDBWeb.updateQueue(sqlStr.toString());
+	}
+
+	private static boolean sendSuccess(String smsID, String respone, String staffID, String type, String keyId,
+			String tempLang, String smcId) {
+		String success = getResponeData(respone, "Success");
+
+		saveLog(smsID, respone, staffID, type, keyId, tempLang, smcId);
+		return success.equals("true");
+	}
+
+	public static String getTyphoonSmsContent(String smcid, String lang) {
+		if (lang == null) {
+			return null;
+		}
+
+		if (smcid == null || smcid.length() <= 0 || smcid.equals("1")) { // default template
+			if (ConstantsServerSide.isHKAH()) {
+				if (lang.equals("ENG")) {
+					return MessageResources.getMessageEnglish("prompt.sms.op.typhoon");
+				} else {
+					return MessageResources.getMessageTraditionalChinese("prompt.sms.op.typhoon");
+				}
+			} else {
+				if (lang.equals("ENG")) {
+					return MessageResources.getMessageEnglish("prompt.sms.op.typhoon.tw");
+				} else {
+					return MessageResources.getMessageTraditionalChinese("prompt.sms.op.typhoon.tw");
+				}
+			}
+
+		} else if (smcid.equals("2")) {
+			if (lang.equals("ENG")) {
+				return MessageResources.getMessageEnglish("prompt.sms.hc.typhoon");
+			} else if (lang.equals("TRC")) {
+				return MessageResources.getMessageTraditionalChinese("prompt.sms.hc.typhoon");
+			} else if (lang.equals("SMC")) {
+				return MessageResources.getMessageSimplifiedChinese("prompt.sms.hc.typhoon");
+			} else if (lang.equals("JAP")) {
+				return MessageResources.getMessage(Locale.JAPAN, "prompt.sms.hc.typhoon");
+			}
+		} else if (smcid.equals("3")) {
+			if (lang.equals("ENG")) {
+				return MessageResources.getMessageEnglish("prompt.sms.ha.typhoon");
+			} else if (lang.equals("TRC")) {
+				return MessageResources.getMessageTraditionalChinese("prompt.sms.ha.typhoon");
+			} else if (lang.equals("SMC")) {
+				return MessageResources.getMessageSimplifiedChinese("prompt.sms.ha.typhoon");
+			} else if (lang.equals("JAP")) {
+				return MessageResources.getMessage(Locale.JAPAN, "prompt.sms.ha.typhoon");
+			}
+		} else if (smcid.equals("5") || smcid.equals("6") || smcid.equals("7") || smcid.equals("8") || smcid.equals("10")) {
+			if (lang.equals("ENG")) {
+				return MessageResources.getMessageEnglish("prompt.sms.rehab.typhoon");
+			} else if (lang.equals("TRC")) {
+				return MessageResources.getMessageTraditionalChinese("prompt.sms.rehab.typhoon");
+			} else if (lang.equals("SMC")) {
+				return MessageResources.getMessageSimplifiedChinese("prompt.sms.rehab.typhoon");
+			} else if (lang.equals("JAP")) {
+				return MessageResources.getMessage(Locale.JAPAN, "prompt.sms.rehab.typhoon");
+			}
+		} else if (smcid.equals("9")) {
+
+			if (lang.equals("ENG")) {
+				return MessageResources.getMessageEnglish("prompt.sms.fs.typhoon");
+			} else if (lang.equals("TRC")) {
+				return MessageResources.getMessageTraditionalChinese("prompt.sms.fs.typhoon");
+			} else if (lang.equals("SMC")) {
+				return MessageResources.getMessageSimplifiedChinese("prompt.sms.fs.typhoon");
+			} else if (lang.equals("JAP")) {
+				return MessageResources.getMessage(Locale.JAPAN, "prompt.sms.fs.typhoon");
+			}
+		} else if (smcid.equals("11")) {
+
+			if (lang.equals("ENG")) {
+				return MessageResources.getMessageEnglish("prompt.sms.dental.typhoon");
+			} else if (lang.equals("TRC")) {
+				return MessageResources.getMessageTraditionalChinese("prompt.sms.dental.typhoon");
+			} else if (lang.equals("SMC")) {
+				return MessageResources.getMessageSimplifiedChinese("prompt.sms.dental.typhoon");
+			} else if (lang.equals("JAP")) {
+				return MessageResources.getMessage(Locale.JAPAN, "prompt.sms.dental.typhoon");
+			}
+		} else if (smcid.equals("12")) {
+			return MessageResources.getMessageEnglish("prompt.sms.doctor.typhoon");
+		}
+
+		return null;
+	}
+
+	public static String getPhoneNo(String phoneNo, String couCode, String patNo,
+			String bkgId, String lang, String smcId, String type) {
+		if (patNo != null && patNo.length() > 0) {
+			if (phoneNo != null && phoneNo.length() > 0) {
+				if (couCode != null && couCode.length() > 0) {
+					if (couCode.equals("852") || couCode.equals("853")) {
+						if (phoneNo.length() == 8) {
+							// send
+							return couCode + phoneNo;
+						} else {
+							// error
+							UtilSMS.saveLog("The country code is 852/853, but the phone no. is not 8 digits",
+								bkgId, type, lang, smcId);
+							return null;
+						}
+					} else if (couCode.equals("86")) {
+						if (phoneNo.substring(0, 1).equals("1") && phoneNo.length() == 11) {
+							return couCode + phoneNo;
+						} else {
+							UtilSMS.saveLog("The country code is 86, but first letter of phone no. is not ''1'' or the phone no. is not 11 digits",
+								bkgId, type, lang, smcId);
+							return null;
+						}
+					} else {
+						UtilSMS.saveLog("The country code is not 852/853/86",
+							bkgId, type, lang, smcId);
+						return null;
+					}
+				} else {
+					if (phoneNo.length() == 8) {
+						return phoneNo;
+					} else if (phoneNo.length() > 8) {
+						if (phoneNo.substring(0, 3).equals("861") && phoneNo.length() == 13) {
+							return phoneNo;
+						} else if (phoneNo.substring(0, 3).equals("853") && phoneNo.length() == 11) {
+							return phoneNo;
+						} else {
+							UtilSMS.saveLog("Phone No. is greater than 8 digits, but it does not belong to 86 or 853",
+								bkgId, type, lang, smcId);
+							return null;
+						}
+					} else {
+						UtilSMS.saveLog("Phone No. is less than 8 digits",
+							bkgId, type, lang, smcId);
+						return null;
+					}
+				}
+			} else {
+				UtilSMS.saveLog("Phone No. is empty value",
+					bkgId, type, lang, smcId);
+				return null;
+			}
+		} else {
+			if (phoneNo != null && phoneNo.length() > 0) {
+				if (phoneNo.length() == 8) {
+					return phoneNo;
+				} else if (phoneNo.length() > 8) {
+					if (phoneNo.substring(0, 3).equals("861") && phoneNo.length() == 13) {
+						return phoneNo;
+					} else if (phoneNo.substring(0, 3).equals("853") && phoneNo.length() == 11) {
+						return phoneNo;
+					} else {
+						UtilSMS.saveLog("Phone No. is greater than 8 digits, but it does not belong to 86 or 853",
+							bkgId, type, lang, smcId);
+						return null;
+					}
+				} else {
+					UtilSMS.saveLog("Phone No. is less than 8 digits",
+						bkgId, type, lang, smcId);
+					return null;
+				}
+			} else {
+				UtilSMS.saveLog("Phone No. is empty value",
+					bkgId, type, lang, smcId);
+				return null;
+			}
+		}
+	}
+
+	public static String getPhoneNo2(String phoneNo, String couCode, String patNo,
+			String bkgId, String lang, String smcId, String type) {
+		if (patNo != null && patNo.length() > 0) {
+			if (phoneNo != null && phoneNo.length() > 0) {
+				if (ConstantsServerSide.isHKAH() && (couCode != null && couCode.length() > 0)) {
+					if (couCode.equals("852") || couCode.equals("853")) {
+						if (phoneNo.length() == 8) {
+							// send
+							return couCode + phoneNo;
+						} else {
+							// error
+							UtilSMS.saveLog("The country code is 852/853, but the phone no. is not 8 digits",
+									bkgId, type, lang, smcId);
+							return null;
+						}
+					} else if (couCode.equals("86")) {
+						if (phoneNo.substring(0, 1).equals("1") && phoneNo.length() == 11) {
+							return couCode + phoneNo;
+						} else {
+							UtilSMS.saveLog("The country code is 86, but first letter of phone no. is not ''1'' or the phone no. is not 11 digits",
+									bkgId, type, lang, smcId);
+							return null;
+						}
+					} else {
+						UtilSMS.saveLog("The country code is not 852/853/86",
+							bkgId, type, lang, smcId);
+						return null;
+					}
+				} else if (ConstantsServerSide.isTWAH()) {
+					if (phoneNo.length() == 8) {
+						return "852" + phoneNo;
+					} else {
+						return phoneNo;
+					}
+				} else {
+					UtilSMS.saveLog("Country Code is empty value",
+						bkgId, type, lang, smcId);
+					return null;
+				}
+			} else {
+				UtilSMS.saveLog("Phone No. is empty value",
+					bkgId, type, lang, smcId);
+				return null;
+			}
+		} else {
+			if (phoneNo != null && phoneNo.length() > 0) {
+				if (phoneNo.length() == 8) {
+					return phoneNo;
+				} else if (phoneNo.length() > 8) {
+					if (phoneNo.substring(0, 3).equals("861") && phoneNo.length() == 13) {
+						return phoneNo;
+					} else if (phoneNo.substring(0, 3).equals("853") && phoneNo.length() == 11) {
+						return phoneNo;
+					} else {
+						UtilSMS.saveLog("Phone No. is greater than 8 digits, but it does not belong to 86 or 853",
+							bkgId, type, lang, smcId);
+						return null;
+					}
+				} else {
+					UtilSMS.saveLog("Phone No. is less than 8 digits",
+							bkgId, type, lang, smcId);
+					return null;
+				}
+			} else {
+				UtilSMS.saveLog("Phone No. is empty value",
+						bkgId, type, lang, smcId);
+				return null;
+			}
+		}
+	}
+
+	public static ArrayList getLog(String keyID, String actType) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("SELECT SENDER, SEND_TIME, SUCCESS ");
+		sqlStr.append("FROM SMS_LOG ");
+		sqlStr.append("WHERE KEY_ID = '" + keyID + "' ");
+		sqlStr.append("AND ACT_TYPE = '" + actType + "' ORDER BY SEND_TIME");
+		System.out.println(sqlStr.toString());
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+}

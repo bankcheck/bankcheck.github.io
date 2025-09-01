@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RegPrtCallCht" language="groovy" pageWidth="291" pageHeight="223" whenNoDataType="AllSectionsNoDetail" columnWidth="291" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true">
+	<property name="ireport.zoom" value="1.610510000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="steName" class="java.lang.String"/>
+	<parameter name="bkgpName" class="java.lang.String"/>
+	<parameter name="spcName" class="java.lang.String"/>
+	<parameter name="docName" class="java.lang.String"/>
+	<parameter name="bkgsDate" class="java.lang.String"/>
+	<parameter name="bkgsDate2" class="java.lang.String"/>
+	<parameter name="stecode" class="java.lang.String"/>
+	<parameter name="patNOA" class="java.lang.String"/>
+	<parameter name="patNOB" class="java.lang.String"/>
+	<parameter name="patNOC" class="java.lang.String"/>
+	<parameter name="patNOD" class="java.lang.String"/>
+	<parameter name="patNOE" class="java.lang.String"/>
+	<parameter name="volume" class="java.lang.String"/>
+	<parameter name="alertcode" class="java.lang.String"/>
+	<parameter name="isStaff" class="java.lang.String"/>
+	<parameter name="pcName" class="java.lang.String"/>
+	<parameter name="walkin" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="219" splitType="Stretch">
+			<rectangle>
+				<reportElement x="10" y="7" width="267" height="200"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="220" y="7" width="1" height="200"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="224" y="7" width="53" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hospital No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="26" width="207" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Request for Medical Record]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="83" y="44" width="137" height="34"/>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{bkgpName}+($P{isStaff}.isEmpty()?"":"   <style isBold='true'>"+$P{isStaff}+"</style>")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="44" width="69" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[PATIENT NAME:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="78" width="55" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[LOCATION:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="100" width="70" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[REQUIRED BY:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="124" width="105" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[REQUIRED DATE/TIME:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="160" width="65" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[CALLED BY :]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="69" y="78" width="151" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{spcName}+"/"+$P{pcName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="83" y="100" width="137" height="24" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docName}.isEmpty()?"":$P{docName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="117" y="124" width="80" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{bkgsDate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="117" y="139" width="80" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{bkgsDate2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="78" y="160" width="142" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{stecode}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="223" y="19" width="52" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patNOA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="223" y="52" width="52" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patNOB}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="223" y="85" width="52" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patNOC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="223" y="118" width="52" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patNOD}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="223" y="151" width="52" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patNOE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="13" y="8" width="207" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{steName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="223" y="185" width="52" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["( "+$P{volume}+" )"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="181" width="65" height="15">
+					<printWhenExpression><![CDATA[$P{alertcode}!=null&&$P{alertcode}.length()>0]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[ALERT:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="78" y="181" width="142" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{alertcode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="196" y="124" width="24" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{walkin}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

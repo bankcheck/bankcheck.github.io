@@ -1,0 +1,14 @@
+create or replace
+FUNCTION "NHS_CMB_BOOKINGSRC"
+	RETURN Types.cursor_type
+AS
+	outcur types.cursor_type;
+BEGIN
+	OPEN outcur FOR
+		SELECT BKSID, BKSDESC
+		FROM   BOOKINGSRC@IWEB
+		WHERE  ROWNUM < 100
+		AND    BKSSTS = -1
+		ORDER  BY BKSORD;
+	RETURN outcur;
+END NHS_CMB_BOOKINGSRC;

@@ -1,0 +1,637 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" %>
+<%@ page import="java.util.*" %>
+<%@ page import="java.text.*"%>
+<%@ page import="com.hkah.constant.*"%>
+<%@ page import="com.hkah.util.*" %>
+<%@ page import="com.hkah.util.db.*" %>
+<%@ page import="com.hkah.web.common.*" %>
+<%@ page import="com.hkah.web.db.*"%>
+<%@ page import="com.hkah.jasper.*"%>
+<%@ page import="net.sf.jasperreports.engine.*" %>
+<%@ page import="net.sf.jasperreports.engine.util.*" %>
+<%@ page import="net.sf.jasperreports.engine.export.*" %>
+<%@ page import="net.sf.jasperreports.j2ee.servlets.*" %>
+<%@ page import="java.io.*"%>
+<%!
+	DecimalFormat noDigit = new DecimalFormat("#,##0");
+	String emptyStr = "--";
+
+	private String checkNumber(String str) {
+		if (str == null || str.length() == 0 || emptyStr.equals(str)) {
+			return ConstantsVariable.ZERO_VALUE;
+		} else {
+			return str;
+		}
+	}
+
+	private String currencyFormat(String value) {
+		if (value != null && value.length() > 0) {
+			try {
+				return noDigit.format(Integer.parseInt(value));
+			} catch (Exception e) {
+			}
+		}
+		return "0";
+	}
+
+	private String getValueForReportWithCurrency(String minValue, String maxValue){
+		String returnValue = null;
+		if (minValue != null && minValue.length() > 0
+				&& maxValue != null && maxValue.length() > 0
+				&& !minValue.equals(maxValue)) {
+			returnValue = "$"+currencyFormat(minValue) + " ~ " + currencyFormat(maxValue);
+		} else if (minValue != null && minValue.length() > 0 && !"0".equals(minValue)) {
+			returnValue = "$" + currencyFormat(minValue);
+		} else if (maxValue != null && maxValue.length() > 0 && !"0".equals(minValue)) {
+			returnValue = "$" + currencyFormat(maxValue);
+		} else {
+			returnValue = "--";
+		}
+		return returnValue;
+	}
+
+	private ArrayList<ReportableListObject> fetchDoctor(String doccode) {
+		return UtilDBWeb.getReportableListHATS("SELECT DOCFNAME || ' ' || DOCGNAME, DOCCNAME FROM DOCTOR WHERE DOCCODE = ?", new String[] { doccode });
+	}
+
+	private String fetchAcmDesc(String acmcode) {
+		ArrayList<ReportableListObject> record = UtilDBWeb.getReportableListHATS("SELECT ACMNAME FROM FIN_ACM WHERE ACMCODE = ?", new String[] { acmcode });
+		ReportableListObject row = null;
+
+		if (record.size() > 0) {
+			row = (ReportableListObject) record.get(0);
+			return row.getValue(0);
+		} else {
+			return "";
+		}
+	}
+
+	private String fetchProcedureDesc(String procedure) {
+		ArrayList<ReportableListObject> record = UtilDBWeb.getReportableListHATS("SELECT PROCDESC FROM FIN_PROC WHERE PROCCODE = ?", new String[] { procedure });
+		ReportableListObject row = null;
+
+		if (record.size() > 0) {
+			row = (ReportableListObject) record.get(0);
+			return row.getValue(0);
+		} else {
+			return "";
+		}
+	}
+
+	private ArrayList<ReportableListObject> fetchOTCharge(String pqId, String charges) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("SELECT I.ITMNAME, TO_CHAR(TX.PQAMT) FROM PQTX TX LEFT JOIN ITEM I ON TX.ITMCODE = I.ITMCODE WHERE SUBSTR(TX.PQBOX,0,2) IN ('OT','SU','EN','GY','OR') AND TX.PQID = '");
+		sqlStr.append(pqId);
+		sqlStr.append("' UNION SELECT 'OT Charges' ITMNAME, ");
+		try {
+			// checking valid integer using parseInt() method
+			Integer.parseInt(charges);
+			sqlStr.append("TO_CHAR('");
+			sqlStr.append(charges);
+			sqlStr.append("')");
+		} catch (NumberFormatException e) {
+			sqlStr.append("'");
+			sqlStr.append(charges);
+			sqlStr.append("'");
+		}
+		sqlStr.append(" AS PQAMT FROM DUAL ORDER BY ITMNAME");
+//		System.err.println("[fetchOTCharge]:"+sqlStr.toString());
+		return UtilDBWeb.getReportableListHATS(sqlStr.toString());
+	}
+
+	private ArrayList<ReportableListObject> fetchOtherCharge(String pqId, String charges) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("SELECT 'A' AS ITMNAME, '0' AS PQAMT FROM DUAL ");
+		sqlStr.append("UNION SELECT I.ITMNAME, TO_CHAR(TX.PQAMT) FROM PQTX TX LEFT JOIN ITEM I ON TX.ITMCODE = I.ITMCODE WHERE SUBSTR(TX.PQBOX,0,2) NOT IN ('OT','SU','EN','GY','OR') AND TX.PQID = '");
+		sqlStr.append(pqId);
+		sqlStr.append("' UNION SELECT 'Other Charges' AS ITMNAME, ");
+		try {
+			Integer.parseInt(charges);
+			sqlStr.append("TO_CHAR('");
+			sqlStr.append(charges);
+			sqlStr.append("')");
+		} catch (NumberFormatException e) {
+			sqlStr.append("'");
+			sqlStr.append(charges);
+			sqlStr.append("'");
+		}
+		sqlStr.append(" AS PQAMT FROM DUAL ORDER BY ITMNAME");
+//		System.err.println("[fetchOtherCharge]:"+sqlStr.toString());
+		return UtilDBWeb.getReportableListHATS(sqlStr.toString());
+	}
+
+	private void saveQuotation(UserBean userBean,
+			String patno, String patname, String patcname, String patidno, String doccode, String docname,
+			String proccode, String diagnosis, String los, String acmcode, String drrnddaysummin1, String drrnddaysummax1,
+			String profeemin, String profeemax, String anaesthetistfeemin, String anaesthetistfeemax, String othermin1,
+			String othermax1, String othermin2, String othermax2, String drrnddaysummin2, String drrnddaysummax2,
+			String otmin, String otmax, String othermin3, String othermax3, String totalmin, String totalmax,
+			String profeeminQ, String profeemaxQ, String anaesthetistfeeminQ, String anaesthetistfeemaxQ,
+			String roomchgminQ, String roomchgmaxQ, String otminQ, String otmaxQ, String othermin3Q, String othermax3Q, String totalminQ, String totalmaxQ,
+			String profeeminS, String profeemaxS, String anaesthetistfeeminS, String anaesthetistfeemaxS,
+			String roomchgminS, String roomchgmaxS, String otminS, String otmaxS, String othermin3S, String othermax3S, String totalminS, String totalmaxS,
+			String profeeminT, String profeemaxT, String anaesthetistfeeminT, String anaesthetistfeemaxT,
+			String roomchgminT, String roomchgmaxT, String otminT, String otmaxT, String othermin3T, String othermax3T, String totalminT, String totalmaxT,
+			String procedure3
+	) {
+
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("INSERT INTO FIN_QUOTATION (");
+		sqlStr.append("PATNO, PATNAME, PATCNAME, PATIDNO, DOCCODE, DOCNAME, ");	// 1
+		sqlStr.append("PROCCODE, DIAGNOSIS, LOS, ACMCODE, DRRNDDAYSUMMIN1, DRRNDDAYSUMMAX1, ");	// 2
+		sqlStr.append("PROFEEMIN, PROFEEMAX, ANAESTHETISTFEEMIN, ANAESTHETISTFEEMAX, OTHERMIN1, ");	// 3
+		sqlStr.append("OTHERMAX1, OTHERMIN2, OTHERMAX2, DRRNDDAYSUMMIN2, DRRNDDAYSUMMAX2, ");	// 4
+		sqlStr.append("OTMIN, OTMAX, OTHERMIN3, OTHERMAX3, TOTALMIN, TOTALMAX, ");	// 5
+		sqlStr.append("PROFEEMINQ, PROFEEMAXQ, ANAESTHETISTFEEMINQ, ANAESTHETISTFEEMAXQ, ");	// 6
+		sqlStr.append("ROOMCHGMINQ, ROOMCHGMAXQ, OTMINQ, OTMAXQ, OTHERMIN3Q, OTHERMAX3Q, TOTALMINQ, TOTALMAXQ, ");	// 7
+		sqlStr.append("PROFEEMINS, PROFEEMAXS, ANAESTHETISTFEEMINS, ANAESTHETISTFEEMAXS, ");	// 8
+		sqlStr.append("ROOMCHGMINS, ROOMCHGMAXS, OTMINS, OTMAXS, OTHERMIN3S, OTHERMAX3S, TOTALMINS, TOTALMAXS, ");	// 9
+		sqlStr.append("PROFEEMINT, PROFEEMAXT, ANAESTHETISTFEEMINT, ANAESTHETISTFEEMAXT, ");	// 10
+		sqlStr.append("ROOMCHGMINT, ROOMCHGMAXT, OTMINT, OTMAXT, OTHERMIN3T, OTHERMAX3T, TOTALMINT, TOTALMAXT, ");	// 11
+		sqlStr.append("CREATE_USER, PROCDESC ");	// 12
+		sqlStr.append(") VALUES (");
+		sqlStr.append("?, ?, ?, ?, ?, ?,");	// 1
+		sqlStr.append("?, ?, ?, ?, ?, ?,");	// 2
+		sqlStr.append("?, ?, ?, ?, ?,");	// 3
+		sqlStr.append("?, ?, ?, ?, ?,");	// 4
+		sqlStr.append("?, ?, ?, ?, ?, ?,");	// 5
+		sqlStr.append("?, ?, ?, ?,");		// 6
+		sqlStr.append("?, ?, ?, ?, ?, ?, ?, ?,");	// 7
+		sqlStr.append("?, ?, ?, ?,");		// 8
+		sqlStr.append("?, ?, ?, ?, ?, ?, ?, ?,");	// 9
+		sqlStr.append("?, ?, ?, ?,");		// 10
+		sqlStr.append("?, ?, ?, ?, ?, ?, ?, ?,");	// 11
+		sqlStr.append("?, ?) "); //12
+
+		UtilDBWeb.updateQueueHATS(
+			sqlStr.toString(),
+			new String[] {
+				patno, patname, patcname, patidno, doccode, docname,	// 1
+				proccode, diagnosis, los, acmcode, checkNumber(drrnddaysummin1), checkNumber(drrnddaysummax1),	// 2
+				checkNumber(profeemin), checkNumber(profeemax), checkNumber(anaesthetistfeemin), checkNumber(anaesthetistfeemax), checkNumber(othermin1),	// 3
+				checkNumber(othermax1), checkNumber(othermin2), checkNumber(othermax2), checkNumber(drrnddaysummin2), checkNumber(drrnddaysummax2),	// 4
+				checkNumber(otmin), checkNumber(otmax), checkNumber(othermin3), checkNumber(othermax3), checkNumber(totalmin), checkNumber(totalmax), // 5
+				checkNumber(profeeminQ), checkNumber(profeemaxQ), checkNumber(anaesthetistfeeminQ), checkNumber(anaesthetistfeemaxQ),	// 6
+				checkNumber(roomchgminQ), checkNumber(roomchgmaxQ), checkNumber(otminQ), checkNumber(otmaxQ), checkNumber(othermin3Q), checkNumber(othermax3Q), checkNumber(totalminQ),	checkNumber(totalmaxQ), // 7
+				checkNumber(profeeminS), checkNumber(profeemaxS), checkNumber(anaesthetistfeeminS), checkNumber(anaesthetistfeemaxS), // 8
+				checkNumber(roomchgminS), checkNumber(roomchgmaxS), checkNumber(otminS), checkNumber(otmaxS), checkNumber(othermin3S), checkNumber(othermax3S), checkNumber(totalminS),	checkNumber(totalmaxS), // 9
+				checkNumber(profeeminT), checkNumber(profeemaxT), checkNumber(anaesthetistfeeminT), checkNumber(anaesthetistfeemaxT),	// 10
+				checkNumber(roomchgminT), checkNumber(roomchgmaxT), checkNumber(otminT), checkNumber(otmaxT), checkNumber(othermin3T), checkNumber(othermax3T), checkNumber(totalminT),	checkNumber(totalmaxT), // 11
+				userBean.getStaffID(), procedure3 //12
+			});
+	}
+%>
+<%
+UserBean userBean = new UserBean(request);
+boolean isGP = userBean.isLogin() && userBean.isAccessible("function.financialEstimation.gp");
+boolean isFormAOnly = false;
+boolean isTotalOnly = false;
+boolean isPackage = false;
+
+String pqId = request.getParameter("pqId");
+String packagecode = request.getParameter("package");
+String patno = request.getParameter("patno");
+if (patno == null) {
+	patno = "";
+}
+String patname = request.getParameter("patname");
+String patcname = TextUtil.parseStrUTF8(request.getParameter("patcname"));
+String patidno = request.getParameter("patidno");
+String doccode = request.getParameter("DocSelect");
+if (doccode == null) {
+	doccode = request.getParameter("doccode");
+}
+String docname = request.getParameter("DocInput");
+String procedure1 = request.getParameter("ProcedureSelect1");
+String procedure2 = request.getParameter("ProcedureSelect2");
+String procedure3 = request.getParameter("ProcedureText");
+String procedure2Text = null;
+if (procedure3 != null) {
+	procedure2Text = procedure3;
+} else if (procedure2 != null) {
+	procedure2Text = fetchProcedureDesc(procedure2);
+	if (procedure2Text != null) {
+		if (procedure2Text.indexOf("Health Assessment") == 0 || procedure2Text.indexOf("Referrals from Public Hospitals") >= 0) {
+			isFormAOnly = true;
+		}
+		if (procedure2Text.indexOf("Colorectal Package Part") >= 0) {
+			isTotalOnly = true;
+		}
+		if (procedure2Text.indexOf("(Package)") >= 0) {
+			isPackage = true;
+		}
+	}
+}
+String DiagnosisText = TextUtil.parseStrUTF8(request.getParameter("DiagnosisText"));
+String day = request.getParameter("DaySelect");
+String acmcode = request.getParameter("acmSelect");
+String rangeFrom = request.getParameter("rangeFrom");
+String rangeTo = request.getParameter("rangeTo");
+String showdate = request.getParameter("showdate");
+String staffID = userBean.getStaffID();
+if (staffID != null && ConstantsServerSide.isHKAH()) {
+	staffID = "#" + staffID;
+} else {
+	staffID = "";
+}
+String remark1 = null;
+String remark2 = null;
+String remark3 = null;
+String remark4 = null;
+String remark5 = null;
+
+String DrRndDaySumMin1 = request.getParameter("DrRndDaySumMin1");
+String DrRndDaySumMax1 = request.getParameter("DrRndDaySumMax1");
+String ProFeeMinInput = request.getParameter("ProFeeMinInput");
+String ProFeeMaxInput = request.getParameter("ProFeeMaxInput");
+String AnaesthetistFeeMinInput = request.getParameter("AnaesthetistFeeMinInput");
+String AnaesthetistFeeMaxInput = request.getParameter("AnaesthetistFeeMaxInput");
+String DrRndDaySumMin2 = request.getParameter("DrRndDaySumMin2");
+String DrRndDaySumMax2 = request.getParameter("DrRndDaySumMax2");
+String OTMinInput = request.getParameter("OTMinInput");
+String OTMaxInput = request.getParameter("OTMaxInput");
+String OtherMin1Input = request.getParameter("OtherMin1Input");
+String OtherMax1Input = request.getParameter("OtherMax1Input");
+String OtherMin2Input = request.getParameter("OtherMin2Input");
+String OtherMax2Input = request.getParameter("OtherMax2Input");
+String OtherMin3Input = request.getParameter("OtherMin3Input");
+String OtherMax3Input = request.getParameter("OtherMax3Input");
+String totalMinInput = request.getParameter("totalMinInput");
+String totalMaxInput = request.getParameter("totalMaxInput");
+
+if ((DrRndDaySumMin1 == null || DrRndDaySumMin1.length() == 0) && (DrRndDaySumMax1 != null && DrRndDaySumMax1.length() > 0)) {
+	DrRndDaySumMin1 = DrRndDaySumMax1;
+}
+if ((DrRndDaySumMax1 == null || DrRndDaySumMax1.length() == 0) && (DrRndDaySumMin1 != null && DrRndDaySumMin1.length() > 0)) {
+	DrRndDaySumMax1 = DrRndDaySumMin1;
+}
+if ((ProFeeMinInput == null || ProFeeMinInput.length() == 0) && (ProFeeMaxInput != null && ProFeeMaxInput.length() > 0)) {
+	ProFeeMinInput = ProFeeMaxInput;
+}
+if ((ProFeeMaxInput == null || ProFeeMaxInput.length() == 0) && (ProFeeMinInput != null && ProFeeMinInput.length() > 0)) {
+	ProFeeMaxInput = ProFeeMinInput;
+}
+if ((AnaesthetistFeeMinInput == null || AnaesthetistFeeMinInput.length() == 0) && (AnaesthetistFeeMaxInput != null && AnaesthetistFeeMaxInput.length() > 0)) {
+	AnaesthetistFeeMinInput = AnaesthetistFeeMaxInput;
+}
+if ((AnaesthetistFeeMaxInput == null || AnaesthetistFeeMaxInput.length() == 0) && (AnaesthetistFeeMinInput != null && AnaesthetistFeeMinInput.length() > 0)) {
+	AnaesthetistFeeMaxInput = AnaesthetistFeeMinInput;
+}
+if ((DrRndDaySumMin2 == null || DrRndDaySumMin2.length() == 0) && (DrRndDaySumMax2 != null && DrRndDaySumMax2.length() > 0)) {
+	DrRndDaySumMin2 = DrRndDaySumMax2;
+}
+if ((DrRndDaySumMax2 == null || DrRndDaySumMax2.length() == 0) && (DrRndDaySumMin2 != null && DrRndDaySumMin2.length() > 0)) {
+	DrRndDaySumMax2 = DrRndDaySumMin2;
+}
+if ((OTMinInput == null || OTMinInput.length() == 0) && (OTMaxInput != null && OTMaxInput.length() > 0)) {
+	OTMinInput = OTMaxInput;
+}
+if ((OTMaxInput == null || OTMaxInput.length() == 0) && (OTMinInput != null && OTMinInput.length() > 0)) {
+	OTMaxInput = OTMinInput;
+}
+if ((OtherMin1Input == null || OtherMin1Input.length() == 0) && (OtherMax1Input != null && OtherMax1Input.length() > 0)) {
+	OtherMin1Input = OtherMax1Input;
+}
+if ((OtherMax1Input == null || OtherMax1Input.length() == 0) && (OtherMin1Input != null && OtherMin1Input.length() > 0)) {
+	OtherMax1Input = OtherMin1Input;
+}
+if ((OtherMin2Input == null || OtherMin2Input.length() == 0) && (OtherMax2Input != null && OtherMax2Input.length() > 0)) {
+	OtherMin2Input = OtherMax2Input;
+}
+if ((OtherMax2Input == null || OtherMax2Input.length() == 0) && (OtherMin2Input != null && OtherMin2Input.length() > 0)) {
+	OtherMax2Input = OtherMin2Input;
+}
+if ((OtherMin3Input == null || OtherMin3Input.length() == 0) && (OtherMax3Input != null && OtherMax3Input.length() > 0)) {
+	OtherMin3Input = OtherMax3Input;
+}
+if ((OtherMax3Input == null || OtherMax3Input.length() == 0) && (OtherMin3Input != null && OtherMin3Input.length() > 0)) {
+	OtherMax3Input = OtherMin3Input;
+}
+
+String ProFeeMinQ = request.getParameter("ProFeeMinQ");
+String ProFeeMaxQ = request.getParameter("ProFeeMaxQ");
+String AnaesthetistFeeMinQ = request.getParameter("AnaesthetistFeeMinQ");
+String AnaesthetistFeeMaxQ = request.getParameter("AnaesthetistFeeMaxQ");
+String RoomChgMinQ = request.getParameter("RoomChgMinQ");
+String RoomChgMaxQ = request.getParameter("RoomChgMaxQ");
+String OTMinQ = request.getParameter("OTMinQ");
+String OTMaxQ = request.getParameter("OTMaxQ");
+String OtherMin3Q = request.getParameter("OtherMin3Q");
+String OtherMax3Q = request.getParameter("OtherMax3Q");
+String totalMinQ = request.getParameter("totalMinQ");
+String totalMaxQ = request.getParameter("totalMaxQ");
+
+String ProFeeMinS = request.getParameter("ProFeeMinS");
+String ProFeeMaxS = request.getParameter("ProFeeMaxS");
+String AnaesthetistFeeMinS = request.getParameter("AnaesthetistFeeMinS");
+String AnaesthetistFeeMaxS = request.getParameter("AnaesthetistFeeMaxS");
+String RoomChgMinS = request.getParameter("RoomChgMinS");
+String RoomChgMaxS = request.getParameter("RoomChgMaxS");
+String OTMinS = request.getParameter("OTMinS");
+String OTMaxS = request.getParameter("OTMaxS");
+String OtherMin3S = request.getParameter("OtherMin3S");
+String OtherMax3S = request.getParameter("OtherMax3S");
+String totalMinS = request.getParameter("totalMinS");
+String totalMaxS = request.getParameter("totalMaxS");
+
+String ProFeeMinT = request.getParameter("ProFeeMinT");
+String ProFeeMaxT = request.getParameter("ProFeeMaxT");
+String AnaesthetistFeeMinT = request.getParameter("AnaesthetistFeeMinT");
+String AnaesthetistFeeMaxT = request.getParameter("AnaesthetistFeeMaxT");
+String RoomChgMinT = request.getParameter("RoomChgMinT");
+String RoomChgMaxT = request.getParameter("RoomChgMaxT");
+String OTMinT = request.getParameter("OTMinT");
+String OTMaxT = request.getParameter("OTMaxT");
+String OtherMin3T = request.getParameter("OtherMin3T");
+String OtherMax3T = request.getParameter("OtherMax3T");
+String totalMinT = request.getParameter("totalMinT");
+String totalMaxT = request.getParameter("totalMaxT");
+
+String currentDate = null;
+if ("Y".equals(showdate) && !isGP) {
+	currentDate = DateTimeUtil.getCurrentDate();
+} else {
+	currentDate = "___/___/_____";
+}
+
+String mothcode = null;
+
+int docFee1 = 0;
+try {
+	docFee1 += Integer.parseInt(DrRndDaySumMin1);
+} catch (Exception e) {}
+try {
+	docFee1 += Integer.parseInt(ProFeeMinInput);
+} catch (Exception e) {}
+try {
+	docFee1 += Integer.parseInt(AnaesthetistFeeMinInput);
+} catch (Exception e) {}
+try {
+	docFee1 += Integer.parseInt(OtherMin1Input);
+} catch (Exception e) {}
+try {
+	docFee1 += Integer.parseInt(OtherMin2Input);
+} catch (Exception e) {}
+
+int docFee2 = 0;
+try {
+	docFee2 += Integer.parseInt(DrRndDaySumMax1);
+} catch (Exception e) {}
+try {
+	docFee2 += Integer.parseInt(ProFeeMaxInput);
+} catch (Exception e) {}
+try {
+	docFee2 += Integer.parseInt(AnaesthetistFeeMaxInput);
+} catch (Exception e) {}
+try {
+	docFee2 += Integer.parseInt(OtherMax1Input);
+} catch (Exception e) {}
+try {
+	docFee2 += Integer.parseInt(OtherMax2Input);
+} catch (Exception e) {}
+
+int hospitalFee1 = 0;
+try {
+	hospitalFee1 += Integer.parseInt(DrRndDaySumMin2);
+} catch (Exception e) {}
+try {
+	hospitalFee1 += Integer.parseInt(OTMinInput);
+} catch (Exception e) {}
+try {
+	hospitalFee1 += Integer.parseInt(OtherMin3Input);
+} catch (Exception e) {}
+
+int hospitalFee2 = 0;
+try {
+	hospitalFee2 += Integer.parseInt(DrRndDaySumMax2);
+} catch (Exception e) {}
+try {
+	hospitalFee2 += Integer.parseInt(OTMaxInput);
+} catch (Exception e) {}
+try {
+	hospitalFee2 += Integer.parseInt(OtherMax3Input);
+} catch (Exception e) {}
+
+ArrayList<ReportableListObject> record = null;
+ReportableListObject row = null;
+
+if (pqId != null && pqId.length() > 0) {
+	record = fetchOTCharge(pqId, "0");
+	int OTFee = 0;
+	int OTAdditionInput = 0;
+	for (int i = 0; i < record.size(); i++) {
+		row = (ReportableListObject) record.get(i);
+		OTFee = 0;
+		try {
+			OTFee = Integer.parseInt(row.getValue(1));
+		} catch (Exception e) {}
+		OTAdditionInput += OTFee;
+		hospitalFee1 += OTFee;
+		hospitalFee2 += OTFee;
+	}
+	if (OTMinInput == null || OTMinInput.length() == 0) {
+		OTFee = OTAdditionInput;
+	}else{
+		OTFee = Integer.parseInt(OTMinInput)+ OTAdditionInput;
+	}
+	OTMinInput = String.valueOf(OTFee);
+	if (OTMaxInput == null || OTMaxInput.length() == 0) {
+		OTFee = OTAdditionInput;
+	}else{
+		OTFee = Integer.parseInt(OTMaxInput)+ OTAdditionInput;
+	}
+	OTMaxInput = String.valueOf(OTFee);
+
+	record = fetchOtherCharge(pqId, "0");
+	int OtherFee = 0;
+	int OtherAdditionInput = 0;
+	for (int i = 0; i < record.size(); i++) {
+		row = (ReportableListObject) record.get(i);
+		OtherFee = 0;
+		try {
+			OtherFee = Integer.parseInt(row.getValue(1));
+		} catch (Exception e) {}
+		OtherAdditionInput += OtherFee;
+		hospitalFee1 += OtherFee;
+		hospitalFee2 += OtherFee;
+	}
+	if (OtherMin3Input == null || OtherMin3Input.length() == 0) {
+		OtherFee = OtherAdditionInput;
+	}else{
+		OtherFee = Integer.parseInt(OtherMin3Input)+ OtherAdditionInput;
+	}
+	OtherMin3Input = String.valueOf(OtherFee);
+	if (OtherMax3Input == null || OtherMax3Input.length() == 0) {
+		OtherFee = OtherAdditionInput;
+	}else{
+		OtherFee = Integer.parseInt(OtherMax3Input)+ OtherAdditionInput;
+	}
+	OtherMax3Input = String.valueOf(OtherFee);
+}
+
+if (doccode != null && doccode.length() > 0) {
+	record = fetchDoctor(doccode);
+
+	if (record != null && record.size() > 0) {
+		row = (ReportableListObject) record.get(0);
+		docname = row.getValue(0) + " " + row.getValue(1);
+	} else {
+		docname = "";
+	}
+}
+
+saveQuotation(userBean, patno, patname, patcname, patidno, doccode, docname,
+				procedure2, DiagnosisText, day, acmcode, DrRndDaySumMin1, DrRndDaySumMax1,
+				ProFeeMinInput, ProFeeMaxInput, AnaesthetistFeeMinInput, AnaesthetistFeeMaxInput, OtherMin1Input,
+				OtherMax1Input, OtherMin2Input, OtherMax2Input, DrRndDaySumMin2, DrRndDaySumMax2,
+				OTMinInput, OTMaxInput, OtherMin3Input, OtherMax3Input, totalMinInput, totalMaxInput,
+				ProFeeMinQ, ProFeeMaxQ, AnaesthetistFeeMinQ, AnaesthetistFeeMaxQ,
+				RoomChgMinQ, RoomChgMaxQ, OTMinQ, OTMaxQ, OtherMin3Q, OtherMax3Q, totalMinQ, totalMaxQ,
+				ProFeeMinS, ProFeeMaxS, AnaesthetistFeeMinS, AnaesthetistFeeMaxS,
+				RoomChgMinS, RoomChgMaxS, OTMinS, OTMaxS, OtherMin3S, OtherMax3S, totalMinS, totalMaxS,
+				ProFeeMinT, ProFeeMaxT, AnaesthetistFeeMinT, AnaesthetistFeeMaxT,
+				RoomChgMinT, RoomChgMaxT, OTMinT, OTMaxT, OtherMin3T, OtherMax3T, totalMinT, totalMaxT,
+				procedure3);
+
+String url = null;
+String logo = null;
+String VIPRoom = null;
+String privateRoom = null;
+String semiPrivateRoom = null;
+String standardRoom = null;
+if (ConstantsServerSide.isTWAH()) {
+	url = "http://www.twah.org.hk";
+	logo = "twah_portal_logo.gif";
+	VIPRoom = "3,500-4,000";
+	privateRoom = "0";
+	semiPrivateRoom = "2,500";
+	standardRoom = "950-1,200";
+} else {
+	url = "http://www.hkah.org.hk";
+	logo = "hkah_portal_logo.gif";
+	VIPRoom = "3,800-8,600";
+	privateRoom = "2,300-3,700";
+	semiPrivateRoom = "2,200-2,400";
+	standardRoom = "900";
+}
+
+String docRdFee = getValueForReportWithCurrency(DrRndDaySumMin1, DrRndDaySumMax1);
+String proFee = getValueForReportWithCurrency(ProFeeMinInput, ProFeeMaxInput);
+String annaesFee = getValueForReportWithCurrency(AnaesthetistFeeMinInput, AnaesthetistFeeMaxInput);
+String otherFee1 = getValueForReportWithCurrency(OtherMin1Input, OtherMax1Input);
+String otherFee2 = getValueForReportWithCurrency(OtherMin2Input, OtherMax2Input);
+String docTotal = getValueForReportWithCurrency(String.valueOf(docFee1), String.valueOf(docFee2));
+String drRndDaySum = getValueForReportWithCurrency(DrRndDaySumMin2, DrRndDaySumMax2);
+String otCharge = getValueForReportWithCurrency(OTMinInput, OTMaxInput);
+String otherFee3 = getValueForReportWithCurrency(OtherMin3Input, OtherMax3Input);
+String hospitalTotal = getValueForReportWithCurrency(String.valueOf(hospitalFee1), String.valueOf(hospitalFee2));
+
+if (isTotalOnly) {
+	remark1 = "*Terms and Conditions: refer to leaflet";
+	remark2 = "*Terms and Conditions: refer to leaflet";
+	otherFee2 = "--";
+	otherFee3 = "--";
+} else if (DrRndDaySumMin2.equals(RoomChgMinS) && DrRndDaySumMax2.equals(RoomChgMaxS)
+		&& OTMinInput.equals(OTMinS) && OTMaxInput.equals(OTMaxS)
+		&& OtherMin3Input.equals(OtherMin3S) && OtherMax3Input.equals(OtherMax3S)) {
+	if (isFormAOnly && "--".equals(docTotal) && !"--".equals(hospitalTotal)) {
+		remark1 = "Price included both doctor and hospital charges";
+		remark3 = "*Refer to Form A and leaflet";
+		remark4 = "No doctor signature is required";
+		remark5 = "Please sign on Form A";
+		otherFee3 = "--";
+		docTotal = hospitalTotal;
+		hospitalTotal = "--";
+	} else {
+		remark3 = "Package";
+	}
+} else if (isPackage) {
+	remark3 = "Package";
+}
+if (docname == null) {
+	docname = "";
+}
+if (remark1 == null) {
+	remark1 = "";
+}
+if (remark2 == null) {
+	remark2 = "";
+}
+if (remark3 == null) {
+	remark3 = "";
+}
+if (remark4 == null) {
+	remark4 = "";
+}
+if (remark5 == null) {
+	remark5 = "";
+}
+
+File reportFile = new File(application.getRealPath("/report/finEstFrm.jasper"));
+File reportDir = new File(application.getRealPath("/report/"));
+if (reportFile.exists()) {
+	JasperReport jasperReport = (JasperReport)JRLoader.loadObject(reportFile.getPath());
+
+	Map parameters = new HashMap();
+	parameters.put("BaseDir", reportFile.getParentFile());
+	parameters.put("SUBREPORT_DIR", reportDir.getPath()+"\\");
+	parameters.put("Site", ConstantsServerSide.SITE_CODE);
+	parameters.put("patno", patno);
+	parameters.put("patcname", patcname);
+	parameters.put("patname", patname);
+	parameters.put("patidno", patidno);
+	parameters.put("DiagnosisText", DiagnosisText);
+	parameters.put("day", day);
+	parameters.put("acmdesc", fetchAcmDesc(acmcode));
+	parameters.put("operation", procedure2Text);
+	parameters.put("docname", docname);
+	parameters.put("docRdFee", docRdFee);
+	parameters.put("proFee", proFee);
+	parameters.put("annaesFee", annaesFee);
+	parameters.put("otherFee1", otherFee1);
+	parameters.put("otherFee2", otherFee2);
+	parameters.put("total", docTotal);
+	parameters.put("currentDate", currentDate);
+	parameters.put("drRndDaySum", drRndDaySum);
+	parameters.put("otCharge", otCharge);
+	parameters.put("otherFee3", otherFee3);
+	parameters.put("drRndDaySum", drRndDaySum);
+	parameters.put("remark1", remark1);
+	parameters.put("remark2", remark2);
+	parameters.put("remark3", remark3);
+	parameters.put("remark4", remark4);
+	parameters.put("remark5", remark5);
+	parameters.put("staffID", staffID);
+	parameters.put("hospitalTotal", hospitalTotal);
+	parameters.put("url", url);
+	parameters.put("logo", logo);
+	parameters.put("VIPRoom", VIPRoom);
+	parameters.put("privateRoom", privateRoom);
+	parameters.put("semiPrivateRoom", semiPrivateRoom);
+	parameters.put("standardRoom", standardRoom);
+	parameters.put("SubDataSource2", new ReportListDataSource(UtilDBWeb.getReportableList("Select 1 From Dual Connect By Level <= 1")));
+	parameters.put("SubDataSource",
+			new ReportMapDataSource(fetchOTCharge(pqId, otCharge), new String[]{"ITMNAME", "PQAMT"}, new boolean[]{false,false}));
+	parameters.put("SubDataSource1",
+			new ReportMapDataSource(fetchOtherCharge(pqId, otherFee3), new String[]{"ITMNAME", "PQAMT"}, new boolean[]{false,false}));
+
+//	parameters.put("SubDataSource", new ReportListDataSource(UtilDBWeb.getReportableList("select patfname as ITMNAME, 100 as PQAMT from patient@iweb where patno = '222222'")));
+//	parameters.put("SubDataSource1", new ReportListDataSource(UtilDBWeb.getReportableList("select patfname as ITMNAME, 100 as PQAMT from patient@iweb where patno = '222222'")));
+
+	JasperPrint jasperPrint =
+		JasperFillManager.fillReport(
+			jasperReport, parameters, new ReportListDataSource(UtilDBWeb.getReportableList("Select 1 From Dual Connect By Level <= 1")));
+
+	String encodedFileName = "FinancialEstimation_" + doccode + "_" + patname + ".pdf";
+	request.getSession().setAttribute(ImageServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE, jasperPrint);
+	OutputStream ouputStream = response.getOutputStream();
+	response.setContentType("application/pdf");
+	response.setHeader("Content-disposition", "attachment; filename=\"" + encodedFileName + "\"");
+	JRPdfExporter exporter = new JRPdfExporter();
+	exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+	exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, ouputStream);
+	exporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, "../servlets/image?image=");
+	exporter.exportReport();
+	return;
+}
+%>

@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank A4 Landscape" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="60">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="549"/>
+	<parameter name="PATNO" class="java.lang.String"/>
+	<parameter name="NAME" class="java.lang.String"/>
+	<parameter name="DOB" class="java.lang.String"/>
+	<parameter name="SEX" class="java.lang.String"/>
+	<parameter name="ROOM" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<field name="1" class="java.lang.String"/>
+	<field name="2" class="java.lang.String"/>
+	<field name="3" class="java.lang.String"/>
+	<field name="4" class="java.lang.String"/>
+	<field name="5" class="java.lang.String"/>
+	<field name="6" class="java.lang.String"/>
+	<field name="7" class="java.lang.String"/>
+	<field name="8" class="java.lang.String"/>
+	<field name="9" class="java.lang.String"/>
+	<field name="10" class="java.lang.String"/>
+	<field name="11" class="java.lang.String"/>
+	<field name="12" class="java.lang.String"/>
+	<field name="13" class="java.lang.String"/>
+	<field name="14" class="java.lang.String"/>
+	<field name="15" class="java.lang.String"/>
+	<field name="16" class="java.lang.String"/>
+	<field name="17" class="java.lang.String"/>
+	<field name="18" class="java.lang.String"/>
+	<field name="19" class="java.lang.String"/>
+	<field name="20" class="java.lang.String"/>
+	<variable name="staff" class="java.lang.String">
+		<variableExpression><![CDATA[$F{3}+" ("+$F{2}+")"]]></variableExpression>
+	</variable>
+	<variable name="fever1" class="java.lang.String">
+		<variableExpression><![CDATA[($F{5}.equals( "1" ) ? "Yes" : "No" )]]></variableExpression>
+	</variable>
+	<variable name="fever2" class="java.lang.String">
+		<variableExpression><![CDATA[($F{6}.equals( "1" ) ? "Yes" : "No" )]]></variableExpression>
+	</variable>
+	<variable name="travel1" class="java.lang.String">
+		<variableExpression><![CDATA[($F{7}.equals( "1" ) ? "Yes" : ($F{7}.equals( "0" ) ? "No" : "" ) )]]></variableExpression>
+	</variable>
+	<variable name="travel2" class="java.lang.String">
+		<variableExpression><![CDATA[($F{8}.equals( "1" ) ? "Yes" : ($F{8}.equals( "0" ) ? "No" : "" ) )]]></variableExpression>
+	</variable>
+	<variable name="occ1" class="java.lang.String">
+		<variableExpression><![CDATA[($F{9}.equals( "1" ) ? "Yes" : ($F{9}.equals( "0" ) ? "No" : "" ) )]]></variableExpression>
+	</variable>
+	<variable name="occ2" class="java.lang.String">
+		<variableExpression><![CDATA[($F{10}.equals( "1" ) ? "Yes" : ($F{10}.equals( "0" ) ? "No" : "" ) )]]></variableExpression>
+	</variable>
+	<variable name="contact" class="java.lang.String">
+		<variableExpression><![CDATA[($F{11}.equals( "1" ) ? "Yes" : ($F{11}.equals( "0" ) ? "No" : "" ) )]]></variableExpression>
+	</variable>
+	<variable name="cluster" class="java.lang.String">
+		<variableExpression><![CDATA[($F{12}.equals( "1" ) ? "Yes" : ($F{12}.equals( "0" ) ? "No" : "" ) )]]></variableExpression>
+	</variable>
+	<variable name="hosp" class="java.lang.String">
+		<variableExpression><![CDATA[($F{13}.equals( "1" ) ? "Yes" : ($F{13}.equals( "0" ) ? "No" : "" ) )]]></variableExpression>
+	</variable>
+	<variable name="temp" class="java.lang.String">
+		<variableExpression><![CDATA[$F{14}+"°C"]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70">
+			<image isUsingCache="true" isLazy="true" onErrorType="Blank">
+				<reportElement x="0" y="0" width="389" height="67"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/logo_hkah.bmp")]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="26">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[FTOCC Screening]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="553" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Transparent" x="21" y="358" width="519" height="73"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="64" y="0" width="89" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date and Time:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="271" y="0" width="68" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Staff Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="36" y="24" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fever History]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="301" y="64" width="121" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{15}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="423" y="46" width="77" height="38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{fever1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="423" y="84" width="77" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{fever2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="153" y="0" width="118" height="20"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{4}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="21" y="84" width="477" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="423" y="149" width="77" height="56"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{travel1}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="21" y="44" width="519" height="80"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="36" y="129" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Travel History]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="113" y="185" width="308" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{16}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="27" y="206" width="395" height="32"/>
+				<textElement>
+					<font fontName="Arial" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Recent (21 days) travel affected area/place with confirmed case identified.
+e.g. Restaurant with confirmed case identified.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="423" y="205" width="76" height="53"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{travel2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="499" y="149" width="41" height="109"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="24"/>
+				</textElement>
+				<text><![CDATA[T]]></text>
+			</staticText>
+			<line>
+				<reportElement x="498" y="44" width="1" height="80"/>
+			</line>
+			<line>
+				<reportElement x="423" y="44" width="1" height="80"/>
+			</line>
+			<staticText>
+				<reportElement x="36" y="263" width="136" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Occupational Exposure]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="283" width="300" height="14"/>
+				<textElement>
+					<font fontName="Arial" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Work in laboratory or associated job nature processing specimen of ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="315" width="397" height="20"/>
+				<textElement>
+					<font fontName="Arial" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Worked in the live poultry industry or contact with wild bird/poultry/animal in farm and zoo.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="423" y="283" width="76" height="32"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{occ1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="423" y="315" width="76" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{occ2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="500" y="283" width="40" height="52"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="24"/>
+				</textElement>
+				<text><![CDATA[O]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Transparent" x="20" y="507" width="519" height="40"/>
+			</rectangle>
+			<line>
+				<reportElement x="21" y="315" width="478" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="35" y="338" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contact History]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="358" width="294" height="14"/>
+				<textElement>
+					<font fontName="Arial" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[In Recent (21 days), any patient contact with suspected/confirmed C]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="423" y="358" width="77" height="73"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{contact}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="498" y="358" width="41" height="73"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="24"/>
+				</textElement>
+				<text><![CDATA[C]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="35" y="433" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cluster]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="423" y="453" width="76" height="46"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{cluster}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="27" y="453" width="395" height="46"/>
+				<textElement>
+					<font fontName="Arial" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Any association or cohabited family members or co-workers shared the similar Pneumonia/Respiratory symptoms, or you are informed being exposed among cluster of certain diseases.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="453" width="40" height="46"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="24"/>
+				</textElement>
+				<text><![CDATA[C]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="507" width="231" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hospitalization History(last month):]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="257" y="507" width="42" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{hosp}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="299" y="508" width="89" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hospital Name:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="388" y="507" width="151" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{17}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="26" y="527" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Admission Date: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="126" y="527" width="53" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{18}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="179" y="527" width="104" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Duration of Stay: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="283" y="527" width="30" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{19}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="313" y="527" width="147" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diagnosis(if applicable): ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="527" width="79" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{20}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="20" y="527" width="519" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="27" y="44" width="306" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Fever 37.5°C or over in the past 48 hours. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="64" width="88" height="20"/>
+				<textElement>
+					<font fontName="Arial" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Body Temperature:__________ ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="169" y="64" width="132" height="20"/>
+				<textElement>
+					<font fontName="Arial" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Please list medication taken : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="46" width="40" height="78"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="24"/>
+				</textElement>
+				<text><![CDATA[F]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="149" width="395" height="15"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Recent (21 days) travel history outside Hong Kong.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="185" width="87" height="20"/>
+				<textElement>
+					<font fontName="Arial" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[If yes, please note:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="115" y="64" width="54" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{temp}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="27" y="104" width="398" height="20"/>
+				<textElement>
+					<font fontName="Arial" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[e.g. cough, sore throat, running nose, skin bleeding, gums bleeding, bloody diarrhoea etc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="84" width="254" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Pneumonia / Respiratory symptoms / Inexplicable bleeding]]></text>
+			</staticText>
+			<line>
+				<reportElement x="21" y="205" width="477" height="1"/>
+			</line>
+			<line>
+				<reportElement x="498" y="149" width="1" height="109"/>
+			</line>
+			<line>
+				<reportElement x="423" y="149" width="1" height="109"/>
+			</line>
+			<rectangle>
+				<reportElement mode="Transparent" x="21" y="149" width="519" height="109"/>
+			</rectangle>
+			<line>
+				<reportElement x="499" y="283" width="1" height="52"/>
+			</line>
+			<line>
+				<reportElement x="423" y="283" width="1" height="52"/>
+			</line>
+			<rectangle>
+				<reportElement mode="Transparent" x="21" y="453" width="519" height="46"/>
+			</rectangle>
+			<line>
+				<reportElement x="499" y="358" width="1" height="73"/>
+			</line>
+			<line>
+				<reportElement x="423" y="358" width="1" height="73"/>
+			</line>
+			<rectangle>
+				<reportElement mode="Transparent" x="21" y="283" width="519" height="52"/>
+			</rectangle>
+			<line>
+				<reportElement x="500" y="453" width="1" height="46"/>
+			</line>
+			<line>
+				<reportElement x="423" y="453" width="1" height="46"/>
+			</line>
+			<textField>
+				<reportElement x="339" y="0" width="216" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{staff}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="26" y="391" width="396" height="20"/>
+				<textElement/>
+				<text><![CDATA[Contact with poultry or wild birds, or visit to environments contaminated by their faeces.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="411" width="396" height="20"/>
+				<textElement/>
+				<text><![CDATA[Consumption of raw or undercooked poultry products.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="21" y="391" width="402" height="1"/>
+			</line>
+			<line>
+				<reportElement x="21" y="410" width="402" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="27" y="165" width="395" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Alert: Any countries/areas outside Hong Kong.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="238" width="395" height="20"/>
+				<textElement/>
+				<text><![CDATA[Recent (21 days) travel to affected area with visiting wet market/ farm/ zoo?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="283" width="48" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[COVID-19]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="375" y="283" width="49" height="14"/>
+				<textElement/>
+				<text><![CDATA[,  Middle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="297" width="396" height="18"/>
+				<textElement/>
+				<text><![CDATA[East Respiratory Syndrome(MERS),  Avian Influenza or Ebola Virus Disease(EVD).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="358" width="48" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[COVID-19]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="358" width="56" height="14"/>
+				<textElement/>
+				<text><![CDATA[, Middle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="372" width="396" height="19"/>
+				<textElement/>
+				<text><![CDATA[East Respiratory Syndrome(MERS),  Avian Influenza or Ebola Virus Disease(EVD).]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<lastPageFooter>
+		<band height="101">
+			<rectangle>
+				<reportElement mode="Transparent" x="27" y="0" width="486" height="100"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="36" y="20" width="61" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="36" y="40" width="61" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Date of Birth:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="36" y="60" width="61" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Gender:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="36" y="80" width="61" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Room No.:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="97" y="0" width="216" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PATNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="97" y="20" width="216" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="97" y="40" width="215" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DOB}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="97" y="60" width="216" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SEX}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="314" y="0" width="199" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[FTOCC Screening]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="531" y="0" width="24" height="11"/>
+				<textElement>
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[200-410]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="314" y="40" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Rev:  19 Aug 2020]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="40" width="99" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OPDU-MOA10a]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="36" y="0" width="61" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Patient No.:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="312" y="0" width="1" height="100"/>
+			</line>
+			<line>
+				<reportElement x="313" y="40" width="200" height="1"/>
+			</line>
+			<line>
+				<reportElement x="312" y="65" width="201" height="1"/>
+			</line>
+			<line>
+				<reportElement x="414" y="41" width="1" height="24"/>
+			</line>
+			<image>
+				<reportElement x="314" y="68" width="197" height="31"/>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode("OPDUMOA10A",com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="97" y="80" width="204" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ROOM}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

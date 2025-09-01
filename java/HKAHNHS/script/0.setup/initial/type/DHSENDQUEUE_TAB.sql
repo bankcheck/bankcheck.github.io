@@ -1,0 +1,4 @@
+create or replace
+TYPE DHSENDQUEUE_TAB
+AS TABLE OF DHSENDQUEUE;
+/

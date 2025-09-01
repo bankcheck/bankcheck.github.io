@@ -1,0 +1,1 @@
+create or replace TYPE queuingList_Tab IS TABLE OF queuingList_Obj;

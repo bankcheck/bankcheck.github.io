@@ -1,0 +1,50 @@
+create or replace
+FUNCTION NHS_RPT_RPTCONTSWITCH
+(
+  v_EndDate VARCHAR2,
+  v_SteCode VARCHAR2
+)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN OUTCUR FOR
+  SELECT * 
+  FROM (
+        SELECT A.ARCCODE, A.ARCNAME, C1.CPSCODE, C1.CPSDESC, RT.CPSCODE CPSCODE1, RT.CPSDESC CPSDESC1,
+               TO_CHAR(RT.ACHEDATE,'dd/mm/yyyy') ACHEDATE
+        FROM ARCODE A, CONPCESET C1, ARCCPSHIST AH1,
+             (
+                SELECT AH2.ARCCODE, C2.CPSCODE, C2.CPSDESC, AH2.ACHEDATE 
+                FROM CONPCESET C2, ARCCPSHIST AH2 
+                WHERE C2.CPSID = AH2.CPSID 
+                AND AH2.ACHSDATE = TO_DATE(V_ENDDATE,'DD/MM/YYYY') + 1
+             ) RT
+        WHERE A.ARCCODE = AH1.ARCCODE 
+        AND AH1.CPSID = C1.CPSID
+        AND A.STECODE = V_STECODE
+        AND A.ARCCODE = RT.ARCCODE (+)
+        AND AH1.ACHEDATE = TO_DATE(v_EndDate,'DD/MM/YYYY')
+
+        UNION
+        
+        SELECT A.ARCCODE, A.ARCNAME, LT.CPSCODE, LT.CPSDESC, C2.CPSCODE CPSCODE1, C2.CPSDESC CPSDESC1,
+               TO_CHAR(AH2.ACHEDATE,'dd/mm/yyyy') ACHEDATE
+        FROM ARCODE A,
+             (
+                SELECT AH1.ARCCODE, C1.CPSCODE, C1.CPSDESC
+                FROM CONPCESET C1, ARCCPSHIST AH1 
+                WHERE C1.CPSID = AH1.CPSID 
+                AND AH1.ACHEDATE = TO_DATE(V_ENDDATE,'DD/MM/YYYY')
+             ) LT,
+             Conpceset C2, Arccpshist AH2
+        WHERE A.ARCCODE = AH2.ARCCODE
+        AND AH2.CPSID = C2.CPSID
+        AND A.STECODE = V_STECODE
+        AND A.ARCCODE = LT.ARCCODE (+)
+        AND AH2.ACHSDATE = TO_DATE(v_EndDate,'DD/MM/YYYY') + 1
+  )
+  ORDER BY ARCCODE;
+RETURN outcur;
+END NHS_RPT_RPTCONTSWITCH;
+/

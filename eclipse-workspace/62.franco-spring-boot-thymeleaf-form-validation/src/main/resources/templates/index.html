@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spring boot with Thymeleaf</title>
+  </head>
+  	<body>
+  		<h1>index.html</h1>
+		<form method="post" th:action="@{/submit}" th:object="${francoStudent}">
+    		<table>
+    			<tr>
+    				<td>
+    					<label th:for="${#ids.seq('name')}">Name: </label>
+            			<input type="text" th:field="*{studentNameInClass}" th:id="${#ids.prev('name')}"/>
+            			<div th:if="${#fields.hasErrors('${francoStudent.studentNameInClass}')}"><div th:errors="${francoStudent.studentNameInClass}"></div>
+            		</td>
+    			</tr>
+				<tr>
+					<td>
+    					<label th:for="${#ids.seq('email')}">Email: </label>
+            			<input type="text" th:field="*{emailInClass}" th:id="${#ids.prev('email')}"/>
+            			<div th:if="${#fields.hasErrors('${francoStudent.emailInClass}')}"><div th:errors="${francoStudent.emailInClass}"></div>            			             			
+            		</td>
+    			</tr>
+    			<tr>
+					<td>
+    					<label th:for="${#ids.seq('password')}">Password: </label>
+            			<input type="text" th:field="*{passwordInClass}" th:id="${#ids.prev('password')}"/>
+            			<div th:if="${#fields.hasErrors('${francoStudent.passwordInClass}')}"><div th:errors="${francoStudent.passwordInClass}"></div>
+            		</td>
+    			</tr>
+    			<tr>
+					<td>    					
+            			<input type="submit" value="Submit"/>
+            		</td>
+    			</tr>
+			</table>
+			<div th:each="err : ${#fields.errors('*')}">
+				<span th:text="${err}"></span></br>
+   			</div>
+		</form>
+ 	</body>
+</html>

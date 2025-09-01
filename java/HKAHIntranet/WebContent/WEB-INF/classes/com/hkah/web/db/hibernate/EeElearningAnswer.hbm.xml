@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2010?~4??14?? ?W??08:52:05 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.EeElearningAnswer" table="EE_ELEARNING_ANSWER">
+        <composite-id name="id" class="com.hkah.web.db.hibernate.EeElearningAnswerId">
+            <key-property name="eeSiteCode" type="string">
+                <column name="EE_SITE_CODE" />
+            </key-property>
+            <key-property name="eeElearningId" type="big_decimal">
+                <column name="EE_ELEARNING_ID" />
+            </key-property>
+            <key-property name="eeElearningQid" type="big_decimal">
+                <column name="EE_ELEARNING_QID" />
+            </key-property>
+            <key-property name="eeElearningAid" type="big_decimal">
+                <column name="EE_ELEARNING_AID" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="eeElearningQuestion" class="com.hkah.web.db.hibernate.EeElearningQuestion" update="false" insert="false" fetch="select">
+            <column name="EE_SITE_CODE" not-null="true" />
+            <column name="EE_ELEARNING_ID" not-null="true" />
+            <column name="EE_ELEARNING_QID" not-null="true" />
+        </many-to-one>
+        <property name="eeAnswer" type="string">
+            <column name="EE_ANSWER" />
+        </property>
+        <property name="eeCorrectAns" type="big_decimal">
+            <column name="EE_CORRECT_ANS" />
+        </property>
+        <property name="eeCreatedDate">
+            <column name="EE_CREATED_DATE" />
+        </property>
+        <property name="eeCreatedUser" type="string">
+            <column name="EE_CREATED_USER" />
+        </property>
+        <property name="eeModifiedDate">
+            <column name="EE_MODIFIED_DATE" />
+        </property>
+        <property name="eeModifiedUser" type="string">
+            <column name="EE_MODIFIED_USER" />
+        </property>
+        <property name="eeEnabled" type="java.lang.Integer">
+            <column name="EE_ENABLED" />
+        </property>
+    </class>
+</hibernate-mapping>

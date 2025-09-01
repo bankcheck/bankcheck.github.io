@@ -1,0 +1,24 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_DESTINATION"
+(
+  V_DESCODE DEST.DESCODE%TYPE,
+  v_DESDESC DEST.DESDESC%TYPE
+  --V_DESTYPE DEST.DESTYPE%TYPE
+)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN outcur FOR
+
+    SELECT
+        DESCODE, DESDESC, destype
+    FROM DEST
+    WHERE ( DESCODE LIKE '%' || v_DESCODE || '%')
+    AND (DESDESC like '%' || V_DESDESC || '%')
+  --  AND (DESTYPE LIKE '%' || v_DESTYPE || '%')
+    ORDER BY DESCODE;
+  RETURN OUTCUR;
+END NHS_LIS_DESTINATION;
+/
+
+

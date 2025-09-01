@@ -1,0 +1,37 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_ROLEASSIGNMENT"
+(
+  v_list VARCHAR2,
+  v_USRID USRROLE.USRID%TYPE
+)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  IF v_list = 'AVAILABLE' THEN
+    OPEN outcur FOR
+      SELECT
+        ROLID,
+        ROLNAM,
+        ROLDESC
+      FROM ROLE
+      WHERE ROLID NOT IN
+        (SELECT ROLID
+         FROM USRROLE
+         WHERE USRID = v_USRID)
+      ORDER BY ROLNAM;
+  ELSE
+    OPEN outcur FOR
+      SELECT
+        R.ROLID,
+        R.ROLNAM,
+        R.ROLDESC
+      FROM USRROLE U, ROLE R
+      WHERE U.ROLID = R.ROLID
+      AND   U.USRID = v_USRID
+      ORDER BY R.ROLNAM;
+  END IF;
+  RETURN OUTCUR;
+END NHS_LIS_ROLEASSIGNMENT;
+/
+
+

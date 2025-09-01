@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Spring boot with Thymeleaf</title>
+	</head>
+	<body>
+		<h1>submit.html</h1>
+		<form method="post" th:action="@{/submit}" th:object="${francoStudent}">
+    		<table>
+        		<tr>
+    				<label th:for="${#ids.seq('name')}">Name</label>
+            		<input type="text" th:field="*{studentNameInClass}" th:id="${#ids.prev('name')}"/>
+    			</tr>
+        		<tr th:each="gender : ${gendersInController}">
+            		<td>
+                		<input type="radio" th:field="*{genderInClass}" th:value="${gender}"/>
+                		<label th:for="${#ids.prev('genderInClass')}" th:text="${gender}"></label>
+            		</td>
+        		</tr>
+        		<tr th:each="color : ${colorsInController}">
+            		<td>
+                		<label th:for="${color}" th:text="${color}"></label>
+                		<input type="checkbox" th:field="*{likeColorsInClass}" th:value="${color}"/>
+            		</td>
+        		</tr>        		
+        		<tr>
+            		<td><input type="submit" value="Submit"/></td>
+        		</tr>
+    </table>
+</form>
+	</body>
+</html>

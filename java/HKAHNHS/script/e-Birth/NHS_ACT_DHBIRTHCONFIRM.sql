@@ -1,0 +1,28 @@
+CREATE OR REPLACE FUNCTION "NHS_ACT_DHBIRTHCONFIRM"(V_ACTION  IN VARCHAR2,
+                                                     V_BBPATNO IN VARCHAR2,
+                                                     V_USER    IN VARCHAR2,
+                                                     O_ERRMSG  OUT VARCHAR2)
+
+ RETURN NUMBER AS
+  O_ERRCODE NUMBER;
+
+BEGIN
+  O_ERRCODE := 0;
+  O_ERRMSG  := 'OK';
+
+  UPDATE DHBIRTHDTL
+     SET RECSTATUS = 'C', CONFIRMBY = V_USER, CONFIRMDATE = SYSDATE
+  WHERE BBPATNO = V_BBPATNO;
+   
+  INSERT INTO DHBIRTHHISTORY
+  VALUES
+    (SEQ_DHHISTORY.NEXTVAL,
+     V_BBPATNO,
+     'Confirm',
+     V_USER,
+     SYSDATE,
+     NULL,
+     NULL);
+  RETURN O_ERRCODE;
+END NHS_ACT_DHBIRTHCONFIRM;
+/

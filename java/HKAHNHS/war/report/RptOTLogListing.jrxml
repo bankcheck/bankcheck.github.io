@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptOTLogBook" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="812" leftMargin="15" rightMargin="15" topMargin="15" bottomMargin="15">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SteName" class="java.lang.String"/>
+	<parameter name="StartDate" class="java.lang.String"/>
+	<parameter name="EndDate" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<field name="OTLID" class="java.lang.String"/>
+	<field name="OTLOSDATE" class="java.lang.String"/>
+	<field name="OTLOEDATE" class="java.lang.String"/>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="PATNAME" class="java.lang.String"/>
+	<field name="PATSEX" class="java.lang.String"/>
+	<field name="BEDNO" class="java.lang.String"/>
+	<field name="OPRM" class="java.lang.String"/>
+	<field name="PATDOB" class="java.lang.String"/>
+	<field name="OTLSPEC" class="java.lang.String"/>
+	<field name="PATTYPE" class="java.lang.String"/>
+	<field name="OTLRMK" class="java.lang.String"/>
+	<field name="OTL_AM_PRIM" class="java.lang.String"/>
+	<field name="OTPNAME" class="java.lang.String"/>
+	<field name="OTLANESMETH" class="java.lang.String"/>
+	<field name="OTLPROC" class="java.lang.String"/>
+	<field name="OTMEMBER" class="java.lang.String"/>
+	<field name="OTFUNCTION" class="java.lang.String"/>
+	<field name="FEREQ" class="java.lang.String"/>
+	<field name="FEREC" class="java.lang.String"/>
+	<variable name="sexDOB" class="java.lang.String">
+		<variableExpression><![CDATA[$F{PATSEX}+"/"+$F{PATDOB}]]></variableExpression>
+	</variable>
+	<variable name="feReqRec" class="java.lang.String">
+		<variableExpression><![CDATA[$F{FEREQ}+"/"+$F{FEREC}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="80">
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[rptOTLogListing]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="45" width="812" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Operation Room Log Book]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="HH:mm:ss">
+				<reportElement x="80" y="15" width="70" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="0" y="15" width="80" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(new java.text.SimpleDateFormat(     "dd/MMM/yyyy",Locale.ENGLISH)).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="60" width="812" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{StartDate}+" - "+$P{EndDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="30" width="812" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SteName}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="771" y="0" width="43" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="564" y="0" width="207" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="1" width="80" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date Of Operation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="1" width="70" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[End]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="14" width="70" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sex/DOB]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="27" width="70" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="40" width="70" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Operation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="53" width="70" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Remarks]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="1" width="83" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="14" width="83" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Speciment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="1" width="239" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="14" width="106" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bed #]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="472" y="1" width="153" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Member]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="625" y="1" width="187" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Function]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="14" width="133" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Operation Room]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="27" width="106" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Anesthetics Method]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="27" width="83" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FE Req/Rec]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="80">
+			<textField>
+				<reportElement x="0" y="0" width="80" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OTLOSDATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="75" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OTLOEDATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="13" width="70" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{sexDOB}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="26" width="70" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATTYPE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="233" y="26" width="106" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OTL_AM_PRIM}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="80" y="65" width="392" height="13" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OTLRMK}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="0" width="83" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="13" width="83" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OTLSPEC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="233" y="0" width="239" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="233" y="13" width="106" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{BEDNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="339" y="13" width="133" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OPRM}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="80" y="39" width="392" height="13" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OTPNAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="625" y="0" width="187" height="65" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OTFUNCTION}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="472" y="0" width="153" height="65" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OTMEMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="26" width="83" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{feReqRec}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

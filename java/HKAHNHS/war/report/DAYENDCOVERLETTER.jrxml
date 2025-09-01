@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DAYENDCOVERLETTER" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="433" leftMargin="89" rightMargin="73" topMargin="115" bottomMargin="60">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\projects\\Reports\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="printDate" class="java.lang.String"/>
+	<parameter name="SubDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="DSLP.PATNO" class="java.lang.String"/>
+	<field name="PATTITLE" class="java.lang.String"/>
+	<field name="PATNAME" class="java.lang.String"/>
+	<field name="PATFNAME" class="java.lang.String"/>
+	<field name="SLPNO" class="java.lang.String"/>
+	<field name="ALLSLPNO" class="java.lang.String"/>
+	<field name="BEDCODE" class="java.lang.String"/>
+	<field name="FROMDATE" class="java.lang.String"/>
+	<field name="TODATE" class="java.lang.String"/>
+	<field name="AMT" class="java.lang.String"/>
+	<variable name="OAMT" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[new BigDecimal($F{AMT})]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal($F{AMT})]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="455">
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="433" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" pdfFontName="Helvetica" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{printDate}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="99" width="433" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["DEAR "+$F{PATTITLE}+" "+$F{PATFNAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="20" width="433" height="15"/>
+				<textElement verticalAlignment="Top" lineSpacing="Single" markup="styled">
+					<font fontName="Arial Unicode MS" size="10" pdfFontName="Helvetica" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATTITLE}+" "+$F{PATNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="139" width="433" height="15"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Re: Interim Hospital Bill"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+				<reportElement x="0" y="170" width="433" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" lineSpacing="Single" markup="html">
+					<font fontName="Arial" size="11" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Data entry from "+$F{FROMDATE}+" To "+$F{TODATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+				<reportElement x="0" y="201" width="433" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" lineSpacing="Single" markup="html">
+					<font fontName="Arial" size="11" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Our reference :"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement x="0" y="222" width="433" height="37" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" lineSpacing="Single" markup="html">
+					<font fontName="Arial" size="11" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ALLSLPNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="40" width="433" height="15"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{BEDCODE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement isPrintRepeatedValues="false" x="0" y="259" width="433" height="154" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Top" lineSpacing="Single" markup="html">
+					<font fontName="Arial" size="11" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Thank you for choosing us as your healthcare provider and we are proud to have the opportunities to serve your healthcare needs.  <br><br>"+
+"Kindly note that all accounts are payable every five days or if the outstanding balance reaches HK$100,000.  Enclosed please find the interim hospital bill for your settlement.  <br><br>"+
+"<b>Please settle the payment of HK$"+new DecimalFormat("#,##0.00").format($V{OAMT})+
+" within 2 days at the Admission/Discharge Office or Information Desk at the Ground Floor. </b>  You can settle the bill by cash, EPS, bank draft, UnionPay or credit card.<br><br>"+
+"Should you have any questions regarding the hospital bill, please feel free to contact our Admission/Discharge Office at 3651 8805 / 3651 8806 from 9 a.m. to 9 p.m."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="60" width="433" height="15"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DSLP.PATNO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="150">
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement x="0" y="78" width="433" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Top" lineSpacing="Single" markup="html">
+					<font fontName="Arial" size="11" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Admission/Discharge Office<br>Patient Business Department<br><br><br>Encl."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement x="0" y="0" width="433" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Top" lineSpacing="Single" markup="html">
+					<font fontName="Arial" size="11" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Yours truly,"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,148 @@
+<html>
+	<head>
+		<!-- <meta http-equiv="X-UA-Compatible" content="IE=8"> -->
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<link type="text/css" rel="stylesheet" href="HKAHNHS.css">
+		<link type="text/css" rel="stylesheet" href="css/gxt-all.css" />
+		<link type="text/css" rel="stylesheet" href="themes/darkgray/css/xtheme-darkgray.css"/>
+		<link rel="shortcut icon" href="images/hats.ico" type="image/x-icon" />
+		<title>New HATS System</title>
+		<!--  <script type="text/javascript" language="javascript" src="hkahnhs/hkahnhs.nocache.js"></script> -->
+		<script type="text/javascript" language="javascript">
+			document.write("<script type='text/javascript' language='javascript' src='hkahnhs/hkahnhs.nocache.js?v=" + (new Date()) + "'><\/script>");
+/*
+			function window.onload() {
+				window.attachEvent("onbeforeunload", onBeforeUnloadAction);
+			}
+
+			function onBeforeUnloadAction() {
+				event.returnValue = "You are closing the window. do you want to continue. Click 'Ok' to close or click 'Cancel' to stay back";
+			}
+
+			window.onunload = function() {
+				var currentUrl = window.location.href;
+				var pathname = window.location.pathname.split("/")[1];
+				var endIndex = currentUrl.indexOf(pathname)+pathname.length;
+
+				if (window.XMLHttpRequest) {// code for all new browsers
+      					xmlhttp = new XMLHttpRequest();
+  				} else if (window.ActiveXObject) {// code for IE5 and IE6
+      					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+
+				if (xmlhttp != null) {
+//          				xmlhttp.onreadystatechange = state_Change;
+      					xmlhttp.open("POST",currentUrl.substr(0, endIndex)+'/hkahnhs/signoff?uid='+
+      									window.GetUserID()+'&cid='+window.GetCashierCode()+
+      									'&ssosid='+window.GetSsoSessionId()+
+      									'&ssomcode='+window.GetSsoModuleCode()+
+      									'&cn='+window.GetComputerName(), true);
+     					xmlhttp.send(null);
+  				}
+			}
+
+			window.onbeforeunload = function() {
+				if ((window.event.clientX < 0) || (window.event.clientY < 0)) {
+					onBeforeUnloadAction();
+				}
+			}
+*/
+			document.onhlep = new Function("return false");
+			window.onhelp = new Function("return false");
+
+			/**
+			 * refer to http://www.technicaladvices.com/2012/07/16/preventing-backspace-from-navigating-back-in-all-the-browsers/
+			 */
+			document.onkeydown = function (event) {
+				if (!event) { /* This will happen in IE */
+					event = window.event;
+				}
+
+				var keyCode = event.keyCode;
+
+				if (keyCode >= 112 && keyCode <= 123) {
+					event.keyCode = 0;
+					event.returnValue = false;
+				} else if (keyCode == 8 &&
+					((event.target || event.srcElement).tagName != "TEXTAREA") &&
+					((event.target || event.srcElement).tagName != "INPUT")) {
+
+					if (navigator.userAgent.toLowerCase().indexOf("msie") == -1) {
+						event.stopPropagation();
+					} else {
+						event.keyCode = 0;
+						event.returnValue = false;
+					}
+
+					return false;
+				}
+			}
+
+			function getApplet(appletName) {
+				/*@cc_on return document.getElementById(appletName + "-object") @*/
+				return document.getElementById(appletName + "-embed");
+			}
+		</script>
+	</head>
+	<body bgcolor="white">
+		<div id="loading">
+			<div class="loading-indicator">
+				<img src="images/A Logo.gif" width="32" height="32"/>New HATS System<br /><span id="loading-msg">Loading...</span>
+			</div>
+		</div>
+
+		<object id="HKAHNHSApplet-object" name="HKAHNHSApplet"
+			width="0" height="0"
+			classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+			codebase="http://java.sun.com/update/1.7.0/jinstall-7u65-windows-i586.cab#Version=1,7,0,0"
+			type="application/x-java-applet;version=1.6"
+			style="width: 0px; height: 0px; float: left;">
+			<param name="archive" value="
+				applet/HKAHNHSApplet.jar,
+				applet/commons-logging-1.1.1.jar,
+				applet/commons-collections-3.2.1.jar,
+				applet/commons-digester-1.7.jar,
+				applet/jacob.jar,
+				applet/jasperreports-4.0.1.jar,
+				applet/json_simple-1.1.jar,
+				applet/RXTXcomm.jar,
+				applet/poi-3.10-FINAL-20140208.jar,
+				applet/plugin.jar,
+				applet/CrystalReportsRuntime.jar,
+				applet/CrystalCommon2.jar,
+				applet/logging.jar,
+				applet/log4j-1.2.15.jar,
+				applet/keycodeDecoder.jar,
+				applet/commons-configuration-1.2.jar,
+				applet/commons-lang-2.6.jar,
+				applet/icu4j.jar,
+				applet/JDBInterface.jar" />
+			<param name="code" value="com.hkah.applet.HKAHNHSApplet.class" />
+			<embed id="HKAHNHSApplet-embed"
+				type="application/x-java-applet;version=1.6"
+				width="0" height="0"
+				archive="
+					applet/HKAHNHSApplet.jar,
+					applet/commons-logging-1.1.1.jar,
+					applet/commons-collections-3.2.1.jar,
+					applet/commons-digester-1.7.jar,
+					applet/jacob.jar,
+					applet/jasperreports-4.0.1.jar,
+					applet/json_simple-1.1.jar,
+					applet/RXTXcomm.jar,
+					applet/poi-3.10-FINAL-20140208.jar,
+					applet/plugin.jar,
+					applet/CrystalReportsRuntime.jar,
+					applet/CrystalCommon2.jar,
+					applet/logging.jar,
+					applet/log4j-1.2.15.jar,
+					applet/keycodeDecoder.jar,
+					applet/commons-configuration-1.2.jar,
+					applet/commons-lang-2.6.jar,
+					applet/icu4j.jar,
+					applet/JDBInterface.jar"
+				code="com.hkah.applet.HKAHNHSApplet.class"
+				pluginspage="http://java.com/download/" />
+		</object>
+	</body>
+</html>

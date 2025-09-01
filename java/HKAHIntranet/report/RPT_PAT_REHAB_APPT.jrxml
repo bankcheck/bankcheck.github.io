@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT_PAT_REHAB_APPT" pageWidth="842" pageHeight="595" whenNoDataType="AllSectionsNoDetail" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="792"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="T_DATE" class="java.lang.String"/>
+	<parameter name="DATE_FROM" class="java.lang.String"/>
+	<parameter name="DATE_TO" class="java.lang.String"/>
+	<parameter name="reportMth" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+YEARMTH AS MON,
+TO_CHAR(TO_DATE(YEARMTH||'01','YYYYMMDD'),'MON','NLS_DATE_LANGUAGE=AMERICAN') AS ENG_MON,
+AM_TOTAL AS COL1,
+AM_CANCEL,
+DECODE(AM_TOTAL,0,0,ROUND((AM_CANCEL/AM_TOTAL)*100,2)) AS COL2,
+AM_NOSHOW,
+DECODE(AM_TOTAL,0,0,ROUND((AM_NOSHOW/AM_TOTAL)*100,2)) AS COL3,
+PM_TOTAL AS COL4,
+PM_CANCEL,
+DECODE(PM_TOTAL,0,0,ROUND((PM_CANCEL/PM_TOTAL)*100,2)) AS COL5,
+PM_NOSHOW,
+DECODE(PM_TOTAL,0,0,ROUND((PM_NOSHOW/PM_TOTAL)*100,2)) AS COL6
+FROM (
+SELECT
+TO_CHAR(B.BKGSDATE,'YYYYMM') AS YEARMTH,
+NVL(COUNT(
+  CASE WHEN
+    TO_CHAR(B.BKGSDATE, 'hh24mi') >= '0800' AND TO_CHAR(B.BKGSDATE, 'hh24mi') <= '1759'
+    AND B.BKGSTS IN ('N', 'F', 'C')
+  THEN TO_CHAR(B.BKGSDATE, 'YYYYMM') ELSE NULL END),0) AS AM_TOTAL,
+NVL(COUNT(
+  CASE WHEN
+    TO_CHAR(B.BKGSDATE, 'hh24mi') >= '0800' AND TO_CHAR(B.BKGSDATE, 'hh24mi') <= '1759'
+    AND B.BKGSTS IN ('C')
+  THEN TO_CHAR(B.BKGSDATE, 'YYYYMM') ELSE NULL END),0) AS AM_CANCEL,
+NVL(COUNT(
+  CASE WHEN
+    TO_CHAR(B.BKGSDATE, 'hh24mi') >= '0800' AND TO_CHAR(B.BKGSDATE, 'hh24mi') <= '1759'
+    AND B.BKGSTS IN ('N')
+    AND TRUNC(B.BKGSDATE, 'DD') < TRUNC(SYSDATE, 'DD')
+    THEN TO_CHAR(B.BKGSDATE, 'YYYYMM') ELSE NULL END),0) AS AM_NOSHOW,
+NVL(COUNT(
+  CASE WHEN
+    ((TO_CHAR(B.BKGSDATE-8/24, 'hh24mi') >= '1600' AND TO_CHAR(B.BKGSDATE-8/24, 'hh24mi') <= '2359') OR
+    (TO_CHAR(B.BKGSDATE, 'hh24mi') >= '1800' AND TO_CHAR(B.BKGSDATE, 'hh24mi') <= '2359'))
+    AND B.BKGSTS IN ('N', 'F', 'C' )
+  THEN TO_CHAR(B.BKGSDATE, 'YYYYMM') ELSE NULL END),0) AS PM_TOTAL,
+NVL(COUNT(
+  CASE WHEN
+    ((TO_CHAR(B.BKGSDATE-8/24, 'hh24mi') >= '1600' AND TO_CHAR(B.BKGSDATE-8/24, 'hh24mi') <= '2359') OR
+    (TO_CHAR(B.BKGSDATE, 'hh24mi') >= '1800' AND TO_CHAR(B.BKGSDATE, 'hh24mi') <= '2359'))
+    AND B.BKGSTS IN ('C')
+  THEN TO_CHAR(B.BKGSDATE, 'YYYYMM') ELSE NULL END),0) AS PM_CANCEL,
+NVL(COUNT(
+  CASE WHEN
+    ((TO_CHAR(B.BKGSDATE-8/24, 'hh24mi') >= '1600' AND TO_CHAR(B.BKGSDATE-8/24, 'hh24mi') <= '2359') OR
+    (TO_CHAR(B.BKGSDATE, 'hh24mi') >= '1800' AND TO_CHAR(B.BKGSDATE, 'hh24mi') <= '2359'))
+    AND B.BKGSTS IN ('N')
+    AND TRUNC(B.BKGSDATE, 'DD') < TRUNC(SYSDATE, 'DD')
+    THEN TO_CHAR(B.BKGSDATE, 'YYYYMM') ELSE NULL END),0) AS PM_NOSHOW
+FROM BOOKING@IWEB B, SCHEDULE@IWEB SCH, DOCTOR@IWEB DOC, SPEC@IWEB SP
+WHERE B.SCHID = SCH.SCHID(+)
+AND DOC.SPCCODE = SP.SPCCODE
+AND SCH.DOCCODE = DOC.DOCCODE
+--AND SP.SPCCODE = 'PHYSIO'
+AND TO_CHAR(B.BKGSDATE,'YYYY') = '2014'
+GROUP BY TO_CHAR(B.BKGSDATE,'YYYYMM'))
+ORDER BY 1]]>
+	</queryString>
+	<field name="MON" class="java.lang.String"/>
+	<field name="ENG_MON" class="java.lang.String"/>
+	<field name="COL1" class="java.lang.String"/>
+	<field name="AM_CANCEL" class="java.lang.String"/>
+	<field name="COL2" class="java.lang.String"/>
+	<field name="AM_NOSHOW" class="java.lang.String"/>
+	<field name="COL3" class="java.lang.String"/>
+	<field name="COL4" class="java.lang.String"/>
+	<field name="PM_CANCEL" class="java.lang.String"/>
+	<field name="COL5" class="java.lang.String"/>
+	<field name="PM_NOSHOW" class="java.lang.String"/>
+	<field name="COL6" class="java.lang.String"/>
+	<variable name="1_1" class="java.math.BigDecimal" resetType="Group" resetGroup="MON" calculation="Sum">
+		<variableExpression><![CDATA[new BigDecimal($F{COL1})]]></variableExpression>
+	</variable>
+	<variable name="2_1" class="java.math.BigDecimal" resetType="Group" resetGroup="MON" calculation="Sum">
+		<variableExpression><![CDATA[new BigDecimal($F{COL2})]]></variableExpression>
+	</variable>
+	<variable name="3_1" class="java.math.BigDecimal" resetType="Group" resetGroup="MON" calculation="Sum">
+		<variableExpression><![CDATA[new BigDecimal($F{COL3})]]></variableExpression>
+	</variable>
+	<variable name="4_1" class="java.math.BigDecimal" resetType="Group" resetGroup="MON" calculation="Sum">
+		<variableExpression><![CDATA[new BigDecimal($F{COL4})]]></variableExpression>
+	</variable>
+	<variable name="5_1" class="java.math.BigDecimal" resetType="Group" resetGroup="MON" calculation="Sum">
+		<variableExpression><![CDATA[new BigDecimal($F{COL5})]]></variableExpression>
+	</variable>
+	<variable name="6_1" class="java.math.BigDecimal" resetType="Group" resetGroup="MON" calculation="Sum">
+		<variableExpression><![CDATA[new BigDecimal($F{COL6})]]></variableExpression>
+	</variable>
+	<variable name="SUMTOTAL" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{1_1}.add($V{2_1}).add($V{3_1}).add($V{4_1}).add($V{5_1}).add($V{6_1})]]></variableExpression>
+	</variable>
+	<variable name="SUMBYCOL_1" class="java.math.BigDecimal" resetType="Column" incrementType="Group" incrementGroup="MON" calculation="Sum">
+		<variableExpression><![CDATA[$V{1_1}]]></variableExpression>
+	</variable>
+	<variable name="SUMBYCOL_2" class="java.math.BigDecimal" resetType="Column" incrementType="Group" incrementGroup="MON" calculation="Sum">
+		<variableExpression><![CDATA[$V{2_1}]]></variableExpression>
+	</variable>
+	<variable name="SUMBYCOL_3" class="java.math.BigDecimal" resetType="Column" incrementType="Group" incrementGroup="MON" calculation="Sum">
+		<variableExpression><![CDATA[$V{3_1}]]></variableExpression>
+	</variable>
+	<variable name="SUMBYCOL_4" class="java.math.BigDecimal" resetType="Column" incrementType="Group" incrementGroup="MON" calculation="Sum">
+		<variableExpression><![CDATA[$V{4_1}]]></variableExpression>
+	</variable>
+	<variable name="SUMBYCOL_5" class="java.math.BigDecimal" resetType="Column" incrementType="Group" incrementGroup="MON" calculation="Sum">
+		<variableExpression><![CDATA[$V{5_1}]]></variableExpression>
+	</variable>
+	<variable name="SUMBYCOL_6" class="java.math.BigDecimal" resetType="Column" incrementType="Group" incrementGroup="MON" calculation="Sum">
+		<variableExpression><![CDATA[$V{6_1}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_AVG_CANCEL_AM" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{SUMBYCOL_1}.intValue() > 0 ? $V{SUM_AM_CANCEL}.divide($V{SUMBYCOL_1}, 4, RoundingMode.HALF_UP) : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_AVG_NOSHOW_AM" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{SUMBYCOL_1}.intValue() > 0 ? $V{SUMBYCOL_3}.divide($V{SUMBYCOL_1}, 2, RoundingMode.HALF_UP) : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_AVG_CANCEL_PM" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{SUMBYCOL_4}.intValue() > 0 ? $V{SUMBYCOL_5}.divide($V{SUMBYCOL_4}, 2, RoundingMode.HALF_UP) : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_AVG_NOSHOW_PM" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{SUMBYCOL_4}.intValue() > 0 ? $V{SUMBYCOL_6}.divide($V{SUMBYCOL_4}, 2, RoundingMode.HALF_UP) : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="SUM_AM_CANCEL" class="java.math.BigDecimal" incrementType="Group" incrementGroup="MON" calculation="Sum">
+		<variableExpression><![CDATA[new BigDecimal($F{AM_CANCEL})]]></variableExpression>
+	</variable>
+	<variable name="SUM_AM_NOSHOW" class="java.math.BigDecimal" incrementType="Group" incrementGroup="MON" calculation="Sum">
+		<variableExpression><![CDATA[new BigDecimal($F{AM_NOSHOW})]]></variableExpression>
+	</variable>
+	<variable name="SUM_PM_CANCEL" class="java.math.BigDecimal" incrementType="Group" incrementGroup="MON" calculation="Sum">
+		<variableExpression><![CDATA[new BigDecimal($F{PM_CANCEL})]]></variableExpression>
+	</variable>
+	<variable name="SUM_PM_NOSHOW" class="java.math.BigDecimal" incrementType="Group" incrementGroup="MON" calculation="Sum">
+		<variableExpression><![CDATA[new BigDecimal($F{PM_NOSHOW})]]></variableExpression>
+	</variable>
+	<group name="MON">
+		<groupExpression><![CDATA[$F{MON}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="17">
+			<staticText>
+				<reportElement x="0" y="0" width="842" height="17"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rehab Appointment Statistics ( By Month)]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="46">
+			<staticText>
+				<reportElement x="92" y="32" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[# of Booking]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="92" y="0" width="150" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{reportMth}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="167" y="32" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[# of Cancel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="317" y="32" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[# of DNA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="467" y="32" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[# of Booking]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="542" y="32" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[# of Cancel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="692" y="32" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[# of DNA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="92" height="17"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Enter:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="17" width="375" height="15"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Day time (8:00 am ~ 5:59 pm)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="467" y="17" width="375" height="15"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Evening time (6:00 pm ~ 7:59 am)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="32" width="92" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Month]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="242" y="32" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[% of Cancel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="392" y="32" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[% of DNA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="617" y="32" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[% of Cancel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="767" y="32" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[% of DNA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="92" height="14"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ENG_MON}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="92" y="0" width="75" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["0".equals($F{COL1})?null:$F{COL1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="392" y="0" width="75" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["0".equals($F{COL1})?null:$F{COL3}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="617" y="0" width="75" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["0".equals($F{COL1})?null:$F{COL5}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="767" y="0" width="75" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["0".equals($F{COL1})?null:$F{COL6}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="242" y="0" width="75" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["0".equals($F{COL1})?null:$F{COL2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="467" y="0" width="75" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["0".equals($F{COL1})?null:$F{COL4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="167" y="0" width="75" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{AM_CANCEL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="317" y="0" width="75" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{AM_NOSHOW}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="542" y="0" width="75" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PM_CANCEL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="692" y="0" width="75" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PM_NOSHOW}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="51">
+			<textField>
+				<reportElement x="92" y="0" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Double"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUMBYCOL_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="467" y="0" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Double"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUMBYCOL_4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="242" y="0" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Double"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUMBYCOL_1}.intValue() > 0 ? ($V{SUM_AM_CANCEL}.multiply(new BigDecimal(100))).divide($V{SUMBYCOL_1}, 2, RoundingMode.HALF_UP) : new BigDecimal(0)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="392" y="0" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Double"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUMBYCOL_1}.intValue() > 0 ? ($V{SUM_AM_NOSHOW}.multiply(new BigDecimal(100))).divide($V{SUMBYCOL_1}, 2, RoundingMode.HALF_UP) : new BigDecimal(0)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="617" y="0" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Double"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUMBYCOL_4}.intValue() > 0 ? ($V{SUM_PM_CANCEL}.multiply(new BigDecimal(100))).divide($V{SUMBYCOL_4}, 2, RoundingMode.HALF_UP) : new BigDecimal(0)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="767" y="0" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Double"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUMBYCOL_4}.intValue() > 0 ? ($V{SUM_PM_NOSHOW}.multiply(new BigDecimal(100))).divide($V{SUMBYCOL_4}, 2, RoundingMode.HALF_UP) : new BigDecimal(0)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="167" y="0" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Double"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUM_AM_CANCEL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="317" y="0" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Double"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUM_AM_NOSHOW}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="542" y="0" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Double"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUM_PM_CANCEL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="692" y="0" width="75" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Double"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUM_PM_NOSHOW}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="92" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

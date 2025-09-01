@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptTreatByPatient" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="DATERANGE" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+SLP.PATNO,
+(
+SELECT
+DECODE(SIGN(INSTR(P.TITDESC,'.', 1)),0,P.TITDESC,1,SUBSTR(P.TITDESC,LENGTH(P.TITDESC)*-1,INSTR(P.TITDESC,'.', 1)-1))||'. '||P.PATGNAME||', '||P.PATFNAME
+FROM PATIENT P WHERE P.PATNO = SLP.PATNO
+) AS PATNAME,
+SPX.ITMCODE,
+(SELECT ITEM.ITMNAME FROM ITEM WHERE ITEM.ITMCODE = SPX.ITMCODE) AS ITMNAME,
+SUM(SPX.STNNAMT) AS AMT,
+COUNT(
+  CASE WHEN
+    SPX.STNSTS = 'N'
+  THEN SPX.ITMCODE ELSE NULL END) AS COUNT_TREAT
+FROM SLIPTX SPX, SLIP SLP
+WHERE SLP.SLPNO = SPX.SLPNO
+AND SLP.PATNO = '135375'
+AND SPX.GLCCODE LIKE '210-%'
+AND SPX.STNTDATE >= TO_DATE('01/04/2013 00:00', 'dd/mm/yyyy hh24:mi')
+AND SPX.STNTDATE < TO_DATE('30/04/2013 00:00', 'dd/mm/yyyy hh24:mi') + 1
+GROUP BY SLP.PATNO , SPX.ITMCODE
+HAVING COUNT(
+  CASE WHEN
+    SPX.STNSTS = 'N'
+  THEN SPX.ITMCODE ELSE NULL END) > 0
+ORDER BY SPX.ITMCODE ASC]]>
+	</queryString>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="PATNAME" class="java.lang.String"/>
+	<field name="ITMCODE" class="java.lang.String"/>
+	<field name="ITMNAME" class="java.lang.String"/>
+	<field name="AMT" class="java.lang.String"/>
+	<field name="COUNT_TREAT" class="java.lang.String"/>
+	<variable name="V_PATNO" class="java.lang.String">
+		<variableExpression><![CDATA[$F{PATNO} + " (" + $F{PATNAME} + ")"]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{PATNO} + "(" + $F{PATNAME} + ")"]]></initialValueExpression>
+	</variable>
+	<variable name="V_AMT" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[new BigDecimal($F{AMT})]]></variableExpression>
+	</variable>
+	<variable name="SUMTOTAL" class="java.math.BigDecimal" resetType="Group" resetGroup="PATNO" calculation="Sum">
+		<variableExpression><![CDATA[$V{V_AMT}]]></variableExpression>
+	</variable>
+	<group name="PATNO">
+		<groupExpression><![CDATA[$F{PATNO}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="595" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Treatment / Cosumption Breakdown By Patient]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="40" width="495" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DATERANGE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="20" width="495" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{V_PATNO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="60" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Itme Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="60" width="83" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[# of treatment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="60" width="340" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Item Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="523" y="60" width="72" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fee]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ITMCODE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="340" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ITMNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="83" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COUNT_TREAT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0">
+				<reportElement x="523" y="0" width="72" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{V_AMT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="50">
+			<textField pattern="$ #,##0">
+				<reportElement x="523" y="0" width="72" height="20"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUMTOTAL}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="440" y="0" width="83" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

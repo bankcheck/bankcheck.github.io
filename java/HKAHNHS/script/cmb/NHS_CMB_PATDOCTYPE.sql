@@ -1,0 +1,29 @@
+create or replace FUNCTION "NHS_CMB_PATDOCTYPE"
+	RETURN Types.CURSOR_type
+AS
+	outcur types.cursor_type;
+BEGIN
+	OPEN outcur FOR
+--		SELECT 'ID', '01 HKID Card' FROM DUAL
+--		UNION
+--		SELECT 'OP', '02 Passport' FROM DUAL
+--		UNION
+--		SELECT 'MA', '03 Macau ID' FROM DUAL
+--		UNION
+--		SELECT 'CI', '04 Consulate ID' FROM DUAL
+--		UNION
+--		SELECT 'BC', '05 Birth Certificate' FROM DUAL
+--		UNION
+--		SELECT 'TW', '06 Two-way Permit' FROM DUAL
+--		UNION
+--		SELECT 'DL', '07 Driving License' FROM DUAL
+--		UNION
+--		SELECT 'NI', '08 Navy ID Card' FROM DUAL
+--		UNION
+--		SELECT 'NA', '09 Others' FROM DUAL
+      SELECT HPKEY, HPSTATUS FROM HPSTATUS WHERE HPTYPE='PATDOCTYPE' AND HPACTIVE='-1'
+      ORDER BY HPSTATUS
+		;
+	RETURN OUTCUR;
+END NHS_CMB_PATDOCTYPE;
+/

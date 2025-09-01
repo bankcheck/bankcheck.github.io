@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="eShareLetter" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="534" leftMargin="5" rightMargin="56" topMargin="5" bottomMargin="36">
+	<property name="ireport.zoom" value="1.1000000000000012"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="REGID" class="java.lang.String"/>
+	<parameter name="QRCODE" class="java.lang.String"/>
+	<parameter name="SteCode" class="java.lang.String"/>
+	<parameter name="LogoImg" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<title>
+		<band height="94" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="523" height="71"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{LogoImg}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="684" splitType="Stretch">
+			<staticText>
+				<reportElement x="51" y="0" width="483" height="308" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+				</textElement>
+				<text><![CDATA[Dear Customer,
+
+Adventist Health Hong Kong aims to provide the very best medical services and facilities. You are important to us and we care about your comfort and the way you are treated while you are in our care.
+
+Our hospital has designed a special program with you, the patient, in mind. Entitled <style forecolor='#cc0066'>SHARE</style>, this program involves us making the following promises to you:
+
+         <style forecolor='#cc0066'>S</style> – Sense people’s needs before they ask
+         <style forecolor='#cc0066'>H</style> – Help each other
+         <style forecolor='#cc0066'>A</style> – Acknowledge people’s feelings
+         <style forecolor='#cc0066'>R</style> – Respect the dignity and privacy of others
+         <style forecolor='#cc0066'>E</style> – Explain what is happening
+
+We would like to know exactly what you think about our hospital, in aspects of our services, facilities, and staff. Your comments on the things you like and the areas which we can improve are of utmost importance to us.
+
+Please take a few moments to scan the specific QR code for you below and fill out the feedback form.
+
+Adventist Health Hong Kong is committed to excellence – not just our idea of excellence, but your ideas as well.]]></text>
+			</staticText>
+			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle" isUsingCache="false" isLazy="true">
+				<reportElement x="377" y="475" width="180" height="180"/>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode($P{QRCODE},com.google.zxing.BarcodeFormat.QR_CODE,180,180))]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="51" y="308" width="483" height="38"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["TWAH".equalsIgnoreCase($P{SteCode}) ?
+"We thank you for choosing Hong Kong Adventist Hospital – Tsuen Wan."
+: "We thank you for choosing Hong Kong Adventist Hospital – Stubbs Road."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="51" y="346" width="483" height="258" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement markup="styled">
+					<font fontName="Ming(for ISO10646_V3)" size="10" isBold="false" pdfFontName="Ming(for ISO10646_V3)" pdfEncoding="Ming(for ISO10646_V3)"/>
+				</textElement>
+				<text><![CDATA[親愛的客戶：
+
+港安醫療一向以提供卓越的醫療服務和設施為宗旨，尤其重視每位病人的感受和需要。為此，本院特別設立了「SHARE 與爾共享」服務標準，要求院內每位醫護人員和員工切實執行。
+
+「SHARE 與爾共享」英文名稱的每個英文字母，代表了本院對每位病人的態度和服務承諾：
+<style forecolor='#cc0066'>「S」</style> ， 先出援手；
+<style forecolor='#cc0066'>「H」</style> ， 互助互勉；
+<style forecolor='#cc0066'>「A」</style> ， 感同身受；
+<style forecolor='#cc0066'>「R」</style> ， 尊重私隱；
+<style forecolor='#cc0066'>「E」</style> ， 深入溝通。
+
+為了解閣下對本院設備、員工和服務的感想，懇請撥冗掃描閣下的專屬二維碼，並完成有關問卷。您的寶貴意見，是我們不斷進步的動力。
+
+多謝！
+
+
+
+Alex Lan 凌宏寶
+President and Chief Executive Officer 院長及行政總裁
+]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+</jasperReport>

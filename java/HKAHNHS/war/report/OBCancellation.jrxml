@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OBCancellation" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="71" bottomMargin="57">
+	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.x" value="22"/>
+	<property name="ireport.y" value="378"/>
+	<parameter name="ImagePath" class="java.lang.String"/>
+	<field name="DOCCODE" class="java.lang.String"/>
+	<field name="DOCNAME" class="java.lang.String"/>
+	<field name="DOCTEL" class="java.lang.String"/>
+	<field name="DOCFAX" class="java.lang.String"/>
+	<field name="ADD1" class="java.lang.String"/>
+	<field name="ADD2" class="java.lang.String"/>
+	<field name="ADD3" class="java.lang.String"/>
+	<field name="ADD4" class="java.lang.String"/>
+	<field name="PATNAME" class="java.lang.String"/>
+	<field name="EDC" class="java.lang.String"/>
+	<field name="BPBNO" class="java.lang.String"/>
+	<title>
+		<band height="318" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="21" y="115" width="281" height="15"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCNAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="205" width="70" height="13"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[Fax :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2" y="252" width="458" height="15"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Dear DR "+$F{DOCNAME}+" and Clinic Staff,"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="278" width="458" height="36"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[Thank you for your cooperation with the new Obstetrical Unit Booking system.
+
+We have not received any deposit payments from the following patients before the due date.
+
+
+
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="191" width="70" height="14"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[Telephone :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="72" y="205" width="99" height="13"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCFAX}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="72" y="191" width="100" height="14"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCTEL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2" y="130" width="300" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ADD1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2" y="145" width="300" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ADD2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2" y="160" width="300" height="14"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ADD3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2" y="174" width="300" height="14"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ADD4}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="2" y="93" width="100" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="226" width="458" height="20"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Cancellation of Obstetric Package Booking]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="115" width="19" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<text><![CDATA[DR ]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="-1" width="219" height="94"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{ImagePath}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="14">
+			<textField isBlankWhenNull="true">
+				<reportElement x="28" y="0" width="191" height="14"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="219" y="0" width="100" height="14"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{EDC}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="319" y="0" width="103" height="14"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{BPBNO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="143">
+			<staticText>
+				<reportElement x="2" y="4" width="458" height="139"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[We have already processed booking cancellation for the patients who have not made deposit
+payments. Please inform your patients of the status accordingly.  Should you have any questions
+regarding the above, please do not hesitate to contact our Patient Business Office at (852) 3651
+8900 during Monday to Friday 9:00 am till 5:00 pm.
+
+We thank you for your attention.
+
+
+
+Patient Business Department
+Hong Kong Adventist Hospital
+]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

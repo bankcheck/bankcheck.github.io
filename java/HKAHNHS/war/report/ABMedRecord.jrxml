@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ABMedRecord" pageWidth="291" pageHeight="223" columnWidth="291" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.143588810000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT SIT.STENAME,
+           SUBSTR(B.PATNO2, 1, 2) AS PATNOA,
+           SUBSTR(B.PATNO2, 3, 2) AS PATNOB,
+           SUBSTR(B.PATNO2, 5, 2) AS PATNOC,
+           SUBSTR(B.PATNO2, 7, 2) AS PATNOD,
+           SUBSTR(B.PATNO2, 9, 2) AS PATNOE,
+            B.BKGPNAME || ' ' || DECODE(P.PATSTAFF, -1, '(S)', '') AS NAME,
+           'OPD - ' || SP.SPCNAME AS SPNAME,
+           D.DOCFNAME || ' ' || D.DOCGNAME AS DOCNAME,
+           TO_CHAR(B.BKGSDATE, 'DD/MM/YYYY HH24:MI') AS BKGSDATE,
+           U.USRNAME AS CALLEDBY,
+	   '' AS ALERT
+      FROM (SELECT LPAD(Y.PATNO, 10, ' ') AS PATNO2, Y.* FROM BOOKING Y) B,
+           SCHEDULE S,
+           DOCTOR D,
+           SITE SIT,
+           SPEC SP,
+           USR U,
+           PATIENT P
+     WHERE B.SCHID = S.SCHID
+       AND S.DOCCODE = D.DOCCODE
+       AND D.DOCPICKLIST = -1
+       AND B.BKGSTS = 'N'
+       AND B.STECODE = SIT.STECODE
+       AND B.PATNO IS NOT NULL
+       AND D.SPCCODE = SP.SPCCODE
+       AND UPPER(B.USRID) = UPPER(U.USRID)
+       AND B.PATNO = P.PATNO
+       AND TO_CHAR(B.BKGSDATE,'DD/MM/YYYY')='10/10/2008']]>
+	</queryString>
+	<field name="STENAME" class="java.lang.String"/>
+	<field name="PATNOA" class="java.lang.String"/>
+	<field name="PATNOB" class="java.lang.String"/>
+	<field name="PATNOC" class="java.lang.String"/>
+	<field name="PATNOD" class="java.lang.String"/>
+	<field name="PATNOE" class="java.lang.String"/>
+	<field name="NAME" class="java.lang.String"/>
+	<field name="SPNAME" class="java.lang.String"/>
+	<field name="DOCNAME" class="java.lang.String"/>
+	<field name="BKGSDATE" class="java.lang.String"/>
+	<field name="CALLEDBY" class="java.lang.String"/>
+	<field name="ALERT" class="java.lang.String"/>
+	<group name="Date" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{BKGSDATE}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="208" splitType="Stretch">
+			<staticText>
+				<reportElement x="12" y="16" width="210" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Request for Medical Record]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="10" y="5" width="266" height="200"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="225" y="5" width="1" height="195"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="226" y="57" width="48" height="31"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="32" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNOB}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="145" width="65" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[CALLED BY :]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="226" y="126" width="48" height="31"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="32" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNOD}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="61" width="55" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[LOCATION:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="226" y="160" width="48" height="31"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="32" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNOE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="89" width="70" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[REQUIRED BY:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="226" y="91" width="48" height="31"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="32" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNOC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="109" width="110" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[REQUIRED DATE/TIME:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="42" width="75" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[PATIENT NAME:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="226" y="23" width="48" height="31"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="32" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNOA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="226" y="9" width="48" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hospital No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="21" width="209" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Request for Medical Record]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="13" y="8" width="209" height="15"/>
+				<textElement>
+					<font size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{STENAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="87" y="42" width="135" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{NAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="87" y="61" width="135" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SPNAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="87" y="89" width="135" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="123" y="109" width="99" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{BKGSDATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="87" y="145" width="135" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CALLEDBY}]]></textFieldExpression>
+			</textField>
+			<textField pattern="(dd/MM/yyyy HH:mm)">
+				<reportElement x="123" y="126" width="99" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="164" width="44" height="15">
+					<printWhenExpression><![CDATA[$F{ALERT} != null && !$F{ALERT}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[ALERT :]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="87" y="164" width="135" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ALERT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

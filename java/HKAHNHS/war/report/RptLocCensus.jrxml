@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptLocCensus" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.callouts" value="##Thu Feb 24 12:09:46 CST 2011"/>
+	<parameter name="stename" class="java.lang.String"/>
+	<parameter name="daterange" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+t1.loccode,t1.dstcode,t1.locname,t1.dstname,t1.regtype,t1.NoOfPat,t1.DistinctNoOfPat,t2.SumOfIP,t2.SumOfOP,t2.SumOfDayCase
+from
+      (SELECT
+               p.loccode ,l.dstcode ,l.locname ,dst.dstname ,r.regtype ,
+                count(r.regid) as NoOfPat ,
+                count(distinct r.patno) as DistinctNoOfPat
+      FROM
+               patient p, reg r, location l, district dst
+      WHERE
+               r.regdate>= to_date('01-01-2006', 'dd-mm-yyyy')
+             and r.regdate < to_date('03-01-2006','dd-mm-yyyy') + 1
+             AND r.stecode='HKAH'
+             AND r.regsts='N'
+             AND r.patno= p.patno (+)
+             AND p.loccode= l.loccode
+             AND l.dstcode= dst.dstcode
+             GROUP BY p.loccode ,l.dstcode ,l.locname ,dst.dstname ,r.regtype ) t1,
+             (select
+sum(decode(regtype,'I',NoOfPat,0)) SumOfIP,
+sum(decode(regtype,'O',distinctnoofpat,0)) SumOfOP,sum(decode(regtype,'D',NoOfPat,0)) SumOfDayCase
+from
+      (SELECT
+               p.loccode ,l.dstcode ,l.locname ,dst.dstname ,r.regtype ,
+                count(r.regid) as NoOfPat ,
+                count(distinct r.patno) as DistinctNoOfPat
+      FROM
+               patient p, reg r, location l, district dst
+      WHERE
+               r.regdate>= to_date('01-01-2006', 'dd-mm-yyyy')
+             and r.regdate < to_date('03-01-2006','dd-mm-yyyy') + 1
+             AND r.stecode='HKAH'
+             AND r.regsts='N'
+             AND r.patno= p.patno (+)
+             AND p.loccode= l.loccode
+             AND l.dstcode= dst.dstcode
+             GROUP BY p.loccode ,l.dstcode ,l.locname ,dst.dstname ,r.regtype )) t2]]>
+	</queryString>
+	<field name="LOCCODE" class="java.lang.String"/>
+	<field name="DSTCODE" class="java.lang.String"/>
+	<field name="LOCNAME" class="java.lang.String"/>
+	<field name="DSTNAME" class="java.lang.String"/>
+	<field name="REGTYPE" class="java.lang.String"/>
+	<field name="NOOFPAT" class="java.math.BigDecimal"/>
+	<field name="DISTINCTNOOFPAT" class="java.math.BigDecimal"/>
+	<field name="SUMOFIP" class="java.math.BigDecimal"/>
+	<field name="SUMOFOP" class="java.math.BigDecimal"/>
+	<field name="SUMOFDAYCASE" class="java.math.BigDecimal"/>
+	<variable name="Groupdst" class="java.lang.String">
+		<variableExpression><![CDATA[$F{DSTCODE}+$F{DSTNAME}]]></variableExpression>
+	</variable>
+	<variable name="GroupLoc" class="java.lang.String">
+		<variableExpression><![CDATA[$F{LOCCODE}+$F{LOCNAME}]]></variableExpression>
+	</variable>
+	<variable name="noofOPvist" class="java.math.BigDecimal" resetType="Group" resetGroup="Group2_loc" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}== "O") ? $F{NOOFPAT} : 0]]></variableExpression>
+	</variable>
+	<variable name="noofOP" class="java.math.BigDecimal" resetType="Group" resetGroup="Group2_loc" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}== "O") ? $F{DISTINCTNOOFPAT} : 0]]></variableExpression>
+	</variable>
+	<variable name="noofdaycase" class="java.math.BigDecimal" resetType="Group" resetGroup="Group2_loc" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}=="D") ? $F{NOOFPAT} : 0]]></variableExpression>
+	</variable>
+	<variable name="noofAdm" class="java.math.BigDecimal" resetType="Group" resetGroup="Group2_loc" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}=="I") ? $F{NOOFPAT} : 0]]></variableExpression>
+	</variable>
+	<variable name="percentofAdm" class="java.lang.Number" resetType="Group" resetGroup="Group2_loc" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}== "I") ?
+($F{SUMOFIP}== 0  ? 0 : $F{NOOFPAT}/ $F{SUMOFIP}) : 0]]></variableExpression>
+	</variable>
+	<variable name="percentofdaycase" class="java.lang.Number" resetType="Group" resetGroup="Group2_loc" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}== "D") ?
+($F{SUMOFDAYCASE}==0 ? 0 :$F{NOOFPAT}/ $F{SUMOFDAYCASE})
+ : 0]]></variableExpression>
+	</variable>
+	<variable name="percentofOP" class="java.lang.Number" resetType="Group" resetGroup="Group2_loc" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}== "O") ? ($F{SUMOFOP}==0 ? 0 : $F{DISTINCTNOOFPAT}/ $F{SUMOFOP})
+ : 0]]></variableExpression>
+	</variable>
+	<variable name="visit/patient" class="java.lang.Number" resetType="Group" resetGroup="Group2_loc" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}== "O") ? ($F{DISTINCTNOOFPAT}== 0 ? 0 : $F{NOOFPAT}/ $F{DISTINCTNOOFPAT}) : 0]]></variableExpression>
+	</variable>
+	<variable name="noofOPvist1" class="java.math.BigDecimal" resetType="Group" resetGroup="Group1_dst" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}== "O") ? $F{NOOFPAT} : 0]]></variableExpression>
+	</variable>
+	<variable name="noofOP1" class="java.lang.Integer" resetType="Group" resetGroup="Group1_dst" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}== "O") ? $F{DISTINCTNOOFPAT} : 0]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="noofdaycase1" class="java.math.BigDecimal" resetType="Group" resetGroup="Group1_dst" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}=="D") ? $F{NOOFPAT} : 0]]></variableExpression>
+	</variable>
+	<variable name="noofAdm1" class="java.math.BigDecimal" resetType="Group" resetGroup="Group1_dst" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}=="I") ? $F{NOOFPAT} : 0]]></variableExpression>
+	</variable>
+	<variable name="percentofAdm1" class="java.lang.Number" resetType="Group" resetGroup="Group1_dst" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}== "I") ?
+($F{SUMOFIP}== 0  ? 0 : $F{NOOFPAT}/ $F{SUMOFIP}) : 0]]></variableExpression>
+	</variable>
+	<variable name="percentofdaycase1" class="java.lang.Number" resetType="Group" resetGroup="Group1_dst" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}== "D") ?
+($F{SUMOFDAYCASE}==0 ? 0 :$F{NOOFPAT}/ $F{SUMOFDAYCASE})
+ : 0]]></variableExpression>
+	</variable>
+	<variable name="percentofOP1" class="java.lang.Number" resetType="Group" resetGroup="Group1_dst" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}== "O") ? ($F{SUMOFOP}==0 ? 0 : $F{DISTINCTNOOFPAT}/ $F{SUMOFOP})
+ : 0]]></variableExpression>
+	</variable>
+	<variable name="percentofOP2" class="java.lang.Number" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}== "O") ? ($F{SUMOFOP}==0 ? 0 : $F{DISTINCTNOOFPAT}/ $F{SUMOFOP})
+ : 0]]></variableExpression>
+	</variable>
+	<variable name="percentofdaycase2" class="java.lang.Number" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}== "D") ?
+($F{SUMOFDAYCASE}==0 ? 0 :$F{NOOFPAT}/ $F{SUMOFDAYCASE})
+ : 0]]></variableExpression>
+	</variable>
+	<variable name="percentofAdm2" class="java.lang.Number" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}== "I") ?
+($F{SUMOFIP}== 0  ? 0 : $F{NOOFPAT}/ $F{SUMOFIP}) : 0]]></variableExpression>
+	</variable>
+	<variable name="noofAdm2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}=="I") ? $F{NOOFPAT} : 0]]></variableExpression>
+	</variable>
+	<variable name="noofdaycase2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}=="D") ? $F{NOOFPAT} : 0]]></variableExpression>
+	</variable>
+	<variable name="noofOP2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}== "O") ? $F{DISTINCTNOOFPAT} : 0]]></variableExpression>
+	</variable>
+	<variable name="noofOPvis2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{REGTYPE}== "O") ? $F{NOOFPAT} : 0]]></variableExpression>
+	</variable>
+	<group name="Group1_dst">
+		<groupExpression><![CDATA[$V{Groupdst}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="136" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{DSTNAME}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="23">
+				<textField evaluationTime="Group" evaluationGroup="Group1_dst">
+					<reportElement x="135" y="3" width="45" height="17"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{noofOPvist1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="Group1_dst">
+					<reportElement x="189" y="3" width="42" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{noofOP1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00 %">
+					<reportElement x="236" y="3" width="49" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{percentofOP1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00 %">
+					<reportElement x="394" y="3" width="42" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{percentofdaycase1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="3" width="42" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{noofdaycase1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="442" y="3" width="52" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{noofAdm1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00 %">
+					<reportElement x="501" y="3" width="53" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{percentofAdm1}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="189" y="2" width="42" height="1"/>
+				</line>
+				<line>
+					<reportElement x="136" y="2" width="44" height="1"/>
+				</line>
+				<line>
+					<reportElement x="236" y="2" width="47" height="1"/>
+				</line>
+				<line>
+					<reportElement x="291" y="2" width="44" height="1"/>
+				</line>
+				<line>
+					<reportElement x="343" y="2" width="44" height="1"/>
+				</line>
+				<line>
+					<reportElement x="394" y="2" width="44" height="1"/>
+				</line>
+				<line>
+					<reportElement x="442" y="2" width="52" height="1"/>
+				</line>
+				<line>
+					<reportElement x="501" y="2" width="53" height="1"/>
+				</line>
+				<textField>
+					<reportElement x="291" y="3" width="44" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$V{noofOP1}==0 ? "-" : (new BigDecimal($V{noofOPvist1}/$V{noofOP1}).setScale(2,BigDecimal.ROUND_HALF_UP)).toString()
+]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group2_loc">
+		<groupExpression><![CDATA[$V{GroupLoc}]]></groupExpression>
+		<groupFooter>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="136" height="20"/>
+					<textElement>
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{LOCNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="136" y="0" width="45" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{noofOPvist}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="189" y="0" width="42" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{noofOP}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00 %">
+					<reportElement x="236" y="0" width="49" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{percentofOP}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="291" y="0" width="44" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{visit/patient}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="42" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{noofdaycase}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00 %">
+					<reportElement x="394" y="0" width="42" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{percentofdaycase}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="442" y="0" width="52" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{noofAdm}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00 %">
+					<reportElement x="501" y="0" width="53" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{percentofAdm}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="144" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="109" width="136" height="35"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Location]]></text>
+			</staticText>
+			<textField pattern="HH.mm.ss">
+				<reportElement x="0" y="21" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="434" y="1" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="514" y="1" width="40" height="20"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="175" y="32" width="234" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{stename}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="175" y="72" width="234" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{daterange}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="175" y="52" width="234" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Location Census]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[rptLocCensus]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="136" y="109" width="45" height="35"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[# of OP
+Visit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="189" y="109" width="42" height="35"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[# of
+OP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="236" y="109" width="49" height="35"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[% of
+Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="109" width="44" height="35"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Visit/
+Patient]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="109" width="42" height="35"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[# of Day
+Case]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="394" y="109" width="42" height="35"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[% of
+Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="442" y="109" width="52" height="35"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[# of
+Admission]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="501" y="109" width="53" height="35"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[% of
+Total]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="136" y="0" width="45" height="20"/>
+				<box>
+					<bottomPen lineWidth="4.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{noofOPvis2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="0" width="42" height="20"/>
+				<box>
+					<bottomPen lineWidth="4.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{noofOP2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="236" y="0" width="49" height="20"/>
+				<box>
+					<bottomPen lineWidth="4.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{percentofOP2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="394" y="0" width="42" height="20"/>
+				<box>
+					<bottomPen lineWidth="4.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{percentofdaycase2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="343" y="0" width="42" height="20"/>
+				<box>
+					<bottomPen lineWidth="4.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{noofdaycase2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="0" width="52" height="20"/>
+				<box>
+					<bottomPen lineWidth="4.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{noofAdm2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="501" y="0" width="53" height="20"/>
+				<box>
+					<bottomPen lineWidth="4.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{percentofAdm2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grand Tatol]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="291" y="0" width="44" height="20"/>
+				<box>
+					<bottomPen lineWidth="4.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{noofOP2}==0 ? "-" : (new BigDecimal($V{noofOPvis2}/$V{noofOP2}).setScale(2,BigDecimal.ROUND_HALF_UP)).toString()
+]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

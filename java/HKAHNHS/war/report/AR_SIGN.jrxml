@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AR_SIGN" pageWidth="510" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="510" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.5000000000000016"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="mothLang" class="java.lang.String"/>
+	<summary>
+		<band height="82">
+			<printWhenExpression><![CDATA[!$P{mothLang}.isEmpty()]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="95" y="35" width="391" height="15">
+					<printWhenExpression><![CDATA[$P{mothLang} != null && $P{mothLang}.length()>0]]></printWhenExpression>
+				</reportElement>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mothLang}.equals("TRC")?
+"<style fontName='Ming(for ISO10646_V3)'>病人或 父/母 (如病人十八歲以下) / 合法監護人簽署:_________________________________</style>":
+($P{mothLang}.equals("SMC")?
+"<style fontName='Ming(for ISO10646_V3)'>病人或 父/母 (如病人十八歲以下) / 合法監護人簽署:_________________________________</style>":
+"")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="217" y="68" width="277" height="13">
+					<printWhenExpression><![CDATA[!$P{mothLang}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mothLang}.equals("ENG")?
+"<style fontName='Arial Unicode MS'>PRINT NAME : (                                                                        )</style>":""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="55" width="210" height="13">
+					<printWhenExpression><![CDATA[!$P{mothLang}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mothLang}.equals("TRC")?
+"<style fontName='Ming(for ISO10646_V3)'>姓名:(                                )</style>":
+($P{mothLang}.equals("SMC")?
+"<style fontName='Ming(for ISO10646_V3)'>姓名:(                                )</style>":"")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="64" y="35" width="445" height="15">
+					<printWhenExpression><![CDATA[$P{mothLang} != null && $P{mothLang}.length()>0]]></printWhenExpression>
+				</reportElement>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mothLang}.equals("TRC")?
+"":
+($P{mothLang}.equals("SMC")?
+"":
+"<style fontName='Arial Unicode MS'>SIGNATURE OF PATIENT / LEGAL GUARDIAN / \nPARENTS IF PATIENT IS UNDER THE AGE OF 18 : _________________________________________</style>"
+)]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

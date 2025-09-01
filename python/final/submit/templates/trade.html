@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='container'>
+    <h1>{% block title %} Trade {% endblock %}</h1>
+    <form id="trade-form" class="form-inline" method="POST" >
+
+      <div class="row align-items-end">
+        <div class="form-group col-4">
+          <label for="code">Code</label><input type="text" class="form-control" id="code" name="code" value="{{ code }}"/>
+        </div>
+        <div class="col-2">
+            <button id="btnQuote" type="button" class="btn btn-secondary w-100 py-2" onClick="formSubmit('quote')">
+                Get Quote</button></div>
+      </div>
+      <div class="row align-items-end">
+        <div id="" class="col-6 h5 text-success end" align="right">&nbsp{{ price }}</div>
+      </div>
+      <div class="row align-items-end">
+        <div class="form-group col-4">
+          <label for="qty">Quantity</label><input type="number" class="form-control" id="qty" name="qty"/>
+        </div>
+      </div>
+      <br>
+      <div class="row align-items-end">
+        <div class="col-3">
+            <button type="button" class="btn btn-primary w-100" onClick="formSubmit('buy')">Buy</button>
+        </div>
+        <div class="col-3">
+            <button type="button" class="btn btn-primary w-100 btn-danger" onClick="formSubmit('sell')">Sell</button>
+        </div>
+      </div>
+      <input type="hidden" name="action" id="action"/>
+    </form> 
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+function formSubmit(action) {
+    document.getElementById('action').value=action;
+    document.getElementById("trade-form").submit();
+}
+</script>
+{% endblock %}
+

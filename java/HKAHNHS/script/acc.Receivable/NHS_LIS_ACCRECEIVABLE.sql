@@ -1,0 +1,128 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_ACCRECEIVABLE" (
+	v_Action  IN VARCHAR2,
+	v_ARCCODE IN VARCHAR2,
+	v_PATNO   IN VARCHAR2,
+	v_SLIPNO  IN VARCHAR2,
+	v_CHECK   IN VARCHAR2
+)
+	RETURN TYPES.CURSOR_TYPE
+AS
+	OUTCUR TYPES.CURSOR_TYPE;
+	SqlStr VARCHAR2(2000);
+	ARTX_STATUS_NORMAL VARCHAR2(1) := 'N';
+BEGIN
+	IF v_Action = 'COMPANYLVL' THEN
+		SqlStr := '
+			SELECT '''', ARID, DES, AMT, REF, TO_CHAR(TDATE, ''DD/MM/YYYY''), STS, RECEIPT, PAYTYPE, ATXTTYPE, USRID
+			FROM (
+				SELECT
+					ATXID AS ARID,
+					ATXDESC AS DES,
+					ATXAMT - ATXSAMT AS AMT,
+					TO_NUMBER(ATXREFID) AS REF,
+					ATXTDATE AS TDATE,
+					ATXSTS AS STS,
+					'''' AS RECEIPT,
+					''C'' AS PAYTYPE,
+					ATXTTYPE,
+					USRID
+				FROM  ARTX
+				WHERE ATXSTS = ''' || ARTX_STATUS_NORMAL || '''
+				AND   ARCCODE = ''' || v_ARCCODE || '''
+				AND   PATNO IS NULL
+				AND   SlpNo IS NULL
+				AND   ARPID IS NULL';
+
+		IF v_CHECK = 'Y' THEN
+			SqlStr := SqlStr || ' AND ATXAMT <> ATXSAMT';
+		END IF;
+
+		SqlStr := SqlStr || ' UNION
+			SELECT
+				ARPID AS ARID,
+				ARPDESC AS DES,
+				ARPOAMT + ARPAAMT AS AMT,
+				NULL AS REF,
+				ARPTDATE AS TDATE,
+				ARPSTS AS STS,
+				ARPRECNO AS RECEIPT,
+				''P'' AS PAYTYPE,
+				'''' AS ATXTTYPE,
+				USRID
+			FROM  ARPTX
+			WHERE ARCCODE = ''' || v_ARCCODE || '''
+			AND   ARPSTS = ''' || ARTX_STATUS_NORMAL || '''';
+
+		IF v_CHECK = 'Y' THEN
+			SqlStr := SqlStr || ' AND ARPOAMT <> -ARPAAMT';
+		END IF;
+
+		SqlStr := SqlStr || ') ORDER BY TDATE DESC, RECEIPT DESC';
+	ELSIF v_Action = 'SLIPLVL' THEN
+		SqlStr := '
+			SELECT '''', ATXID, PATNO, PATNAME, TO_CHAR(TDATE, ''DD/MM/YYYY''), SlpNo, BALANCE, ATXSTS
+			FROM (
+				SELECT
+					A.ATXID AS ATXID,
+					A.PATNO AS PATNO,
+					P.PATFNAME || '' '' || P.PATGNAME AS PATNAME,
+					A.ATXTDATE AS TDATE,
+					A.SlpNo AS SlpNo,
+					A.ATXAMT - A.ATXSAMT AS BALANCE,
+					A.ATXSTS AS ATXSTS
+				FROM  ARTX A, PATIENT P
+				WHERE A.PATNO IS NOT NULL
+				AND   A.PATNO = P.PATNO(+)
+				AND   A.ARCCODE = ''' || v_ARCCODE || '''
+				AND   A.ARPID IS NULL
+				AND   A.ATXSTS = ''' || ARTX_STATUS_NORMAL || '''';
+
+		IF v_PATNO IS NOT NULL THEN
+			SqlStr := SqlStr || ' AND A.PATNO = ''' || v_PATNO || '''';
+		END IF;
+
+		IF v_SLIPNO IS NOT NULL THEN
+			SqlStr := SqlStr || ' AND A.SlpNo = ''' || v_SLIPNO || '''';
+		ELSE
+			SqlStr := SqlStr || ' AND A.SlpNo IS NOT NULL ';
+		END IF;
+
+		IF v_CHECK = 'Y' THEN
+			SqlStr := SqlStr || ' AND A.ATXAMT <> A.ATXSAMT';
+		END IF;
+
+		IF v_PATNO IS NULL THEN
+			SqlStr := SqlStr || ' UNION ALL
+				SELECT
+					A.ATXID AS ATXID,
+					A.PATNO AS PATNO,
+					SP.SLPFNAME || '' '' || SP.SLPGNAME AS PATNAME,
+					A.ATXTDATE AS TDATE,
+					A.SlpNo AS SlpNo,
+					A.ATXAMT - A.ATXSAMT AS BALANCE,
+					A.ATXSTS AS ATXSTS
+				FROM  ARTX A, SLIP SP
+				WHERE A.PATNO IS NULL
+				AND   A.ARCCODE = ''' || v_ARCCODE || '''
+				AND   A.ARPID IS NULL
+				AND   A.ATXSTS = ''' || ARTX_STATUS_NORMAL || '''
+				AND   A.SlpNo = SP.SlpNo';
+
+			IF v_SLIPNO IS NOT NULL THEN
+				SqlStr := SqlStr || ' AND A.SlpNo = ''' || v_SLIPNO || '''';
+			ELSE
+				SqlStr := SqlStr || ' AND A.SlpNo IS NOT NULL ';
+			END IF;
+
+			IF v_CHECK = 'Y' THEN
+				SqlStr := SqlStr || ' AND A.ATXAMT <> A.ATXSAMT';
+			END IF;
+		END IF;
+
+		SqlStr := SqlStr || ') ORDER BY SlpNo DESC';
+	END IF;
+
+	OPEN OUTCUR FOR SqlStr;
+	RETURN OUTCUR;
+END NHS_LIS_ACCRECEIVABLE;
+/

@@ -1,0 +1,12 @@
+create or replace
+TYPE DOCPCTHIST_OBJ AS OBJECT
+(
+	DPHID                   VARCHAR2(20 BYTE),
+	DOCCODE                 VARCHAR2(10 BYTE),
+	CONSTARTDATE		   	VARCHAR2(10 BYTE),
+	CONENDDATE		   		VARCHAR2(10 BYTE),
+	DOCPCT_I                VARCHAR2(3 BYTE),
+	DOCPCT_O                VARCHAR2(3 BYTE),
+	DOCPCT_D                VARCHAR2(3 BYTE)
+);
+/

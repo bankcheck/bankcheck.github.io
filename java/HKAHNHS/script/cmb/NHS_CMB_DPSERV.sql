@@ -1,0 +1,13 @@
+CREATE OR REPLACE FUNCTION "NHS_CMB_DPSERV"
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN outcur FOR
+    SELECT
+      DSCCODE, DSCDESC||' 'DSCCDESC
+    FROM DPSERV
+    ORDER BY DSCCODE;
+  RETURN outcur;
+end NHS_CMB_DPSERV;
+/

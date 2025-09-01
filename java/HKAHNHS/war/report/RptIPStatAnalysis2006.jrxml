@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptIPStatAnalysis2006" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="56" bottomMargin="56">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SteName" class="java.lang.String"/>
+	<parameter name="StartDate" class="java.lang.String"/>
+	<parameter name="EndDate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="SPCCODE" class="java.lang.String"/>
+	<field name="SPCNAME" class="java.lang.String"/>
+	<field name="FG" class="java.lang.String"/>
+	<field name="NOOFDISCHARGED" class="java.lang.String"/>
+	<field name="NOOFMID" class="java.lang.String"/>
+	<field name="NOOF24" class="java.lang.String"/>
+	<field name="NOOF_DEATH" class="java.lang.String"/>
+	<variable name="Fgname" class="java.lang.String">
+		<variableExpression><![CDATA[$F{FG}.equals("A") ? "Adult" : ($F{FG}.equals("B") ? "Nursery" : "New Born")]]></variableExpression>
+	</variable>
+	<variable name="nottl" class="java.lang.Integer">
+		<variableExpression><![CDATA[Integer.parseInt($F{NOOFMID})+Integer.parseInt($F{NOOF24})]]></variableExpression>
+	</variable>
+	<variable name="novag" class="java.lang.Double">
+		<variableExpression><![CDATA[Double.parseDouble($F{NOOFDISCHARGED})==0.0?0.0:$V{nottl}/Double.parseDouble($F{NOOFDISCHARGED})]]></variableExpression>
+	</variable>
+	<variable name="NOOFDISCHARGED_1" class="java.lang.Integer" resetType="Group" resetGroup="Group_FgName" calculation="Sum">
+		<variableExpression><![CDATA[Integer.parseInt($F{NOOFDISCHARGED})]]></variableExpression>
+	</variable>
+	<variable name="NOOFMID_1" class="java.lang.Integer" resetType="Group" resetGroup="Group_FgName" calculation="Sum">
+		<variableExpression><![CDATA[Integer.parseInt($F{NOOFMID})]]></variableExpression>
+	</variable>
+	<variable name="NOOF24_1" class="java.lang.Integer" resetType="Group" resetGroup="Group_FgName" calculation="Sum">
+		<variableExpression><![CDATA[Integer.parseInt($F{NOOF24})]]></variableExpression>
+	</variable>
+	<variable name="NOOFDEATH_1" class="java.lang.Integer" resetType="Group" resetGroup="Group_FgName" calculation="Sum">
+		<variableExpression><![CDATA[Integer.parseInt($F{NOOF_DEATH})]]></variableExpression>
+	</variable>
+	<variable name="sum_nottl" class="java.lang.Integer" resetType="Group" resetGroup="Group_FgName" calculation="Sum">
+		<variableExpression><![CDATA[Integer.parseInt($F{NOOFMID})+Integer.parseInt($F{NOOF24})]]></variableExpression>
+	</variable>
+	<variable name="NOOFDISCHARGED_2" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[Integer.parseInt($F{NOOFDISCHARGED})]]></variableExpression>
+	</variable>
+	<variable name="NOOFMID_2" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[Integer.parseInt($F{NOOFMID})]]></variableExpression>
+	</variable>
+	<variable name="NOOF24_2" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[Integer.parseInt($F{NOOF24})]]></variableExpression>
+	</variable>
+	<variable name="NOOFDEATH_2" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[Integer.parseInt($F{NOOF_DEATH})]]></variableExpression>
+	</variable>
+	<variable name="allsum_nottl" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[Integer.parseInt($F{NOOFMID})+Integer.parseInt($F{NOOF24})]]></variableExpression>
+	</variable>
+	<variable name="NOOFDISCHARGED_0" class="java.lang.Integer">
+		<variableExpression><![CDATA[Integer.parseInt($F{NOOFDISCHARGED})]]></variableExpression>
+	</variable>
+	<variable name="NOOFMID_0" class="java.lang.Integer">
+		<variableExpression><![CDATA[Integer.parseInt($F{NOOFMID})]]></variableExpression>
+	</variable>
+	<variable name="NOOF24_0" class="java.lang.Integer">
+		<variableExpression><![CDATA[Integer.parseInt($F{NOOF24})]]></variableExpression>
+	</variable>
+	<variable name="NOOFDEATH_0" class="java.lang.Integer">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<group name="Group_FgName">
+		<groupExpression><![CDATA[$F{FG}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="88" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{FG}.equals("A") ? "Adult" : ($F{FG}.equals("B") ? "Nursery" : "New Born")]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="14">
+				<textField pattern="#,##0;-#,##0">
+					<reportElement x="353" y="0" width="52" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{NOOF24_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.0;-#,##0.0">
+					<reportElement x="452" y="0" width="46" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{NOOFDISCHARGED_1}==0?0.0:(double)$V{sum_nottl}/$V{NOOFDISCHARGED_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0;-#,##0">
+					<reportElement x="233" y="0" width="53" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{NOOFDISCHARGED_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0;-#,##0">
+					<reportElement x="291" y="0" width="55" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{NOOFMID_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0;-#,##0">
+					<reportElement x="412" y="0" width="35" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{sum_nottl}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="69" y="0" width="164" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SubTotal:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="511" y="0" width="28" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{NOOFDEATH_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="130" splitType="Stretch">
+			<textField>
+				<reportElement x="156" y="80" width="242" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{StartDate}+" to "+$P{EndDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="156" y="51" width="242" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SteName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="235" y="114" width="53" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[No. of Discharged]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="499" y="1" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="411" y="114" width="38" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="419" y="1" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="293" y="114" width="55" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Patient Days]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="506" y="114" width="35" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Death]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="454" y="114" width="46" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Average]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="156" y="66" width="242" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monthly  In-Patients Statistical Analysis ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="353" y="114" width="52" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Same Day]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="99" width="207" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hospital Days]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="69" y="114" width="165" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Specialty Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="114" width="59" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Specialty Code]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="HH:mm:ss">
+				<reportElement x="81" y="22" width="100" height="16"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="3" y="22" width="79" height="16"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(new java.text.SimpleDateFormat(     "dd/MMM/yyyy",Locale.ENGLISH)).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField>
+				<reportElement x="511" y="0" width="28" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{NOOF_DEATH}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0">
+				<reportElement x="452" y="0" width="46" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{novag}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="412" y="0" width="35" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{nottl}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="0" width="59" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SPCCODE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="0" width="164" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SPCNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="353" y="0" width="52" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{NOOF24_0}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="291" y="0" width="55" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{NOOFMID_0}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="233" y="0" width="53" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{NOOFDISCHARGED_0}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="13" splitType="Stretch">
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="353" y="0" width="52" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{NOOF24_2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.0;-#,##0.0">
+				<reportElement x="452" y="0" width="46" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{NOOFDISCHARGED_2}==0?0.0:(double)$V{allsum_nottl}/$V{NOOFDISCHARGED_2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="412" y="0" width="35" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{allsum_nottl}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="69" y="0" width="164" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="233" y="0" width="53" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{NOOFDISCHARGED_2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="291" y="0" width="55" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{NOOFMID_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="511" y="0" width="28" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{NOOFDEATH_2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

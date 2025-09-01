@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AppListing" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28">
+	<property name="ireport.zoom" value="1.5000000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="isCheckDigit" class="java.lang.String"/>
+	<parameter name="SiteName" class="java.lang.String"/>
+	<parameter name="mrChartLocation" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+           S.DOCCODE,
+           D.DOCFNAME ||' ' ||D.DOCGNAME AS DOCNAME,
+           D.docsex||'/'||to_char(floor((sysdate-d.docbdate)/365)) AS SEXAGE,
+           p.coucode AS COUNTRY,
+           TO_CHAR(B.BKGSDATE, 'DD/MM/YYYY') AS BKGSDATE,
+           TO_CHAR(B.BKGSDATE, 'HH24:MI') AS ATIME,
+           B.PATNO,
+           B.BKGPNAME  AS PATNAME,P.PATCNAME,
+           B.BKGPTEL,
+           to_char(B.BKGSCNT) BKGSCNT,
+           TO_CHAR(B.BKGCDATE, 'DD/MM/YYYY HH24:MI') AS BKGCDATE,
+           TO_CHAR(B.BKGCDATE, 'HH24:MI') AS CTIME,
+           B.USRID,
+           NVL(P.PATPAGER, '') AS MOBILE,
+           B.BKGRMK,
+           P.PATOTEL AS OFFICETEL,
+           GET_ALERT_CODE(B.PATNO, '') AS ALERT,
+           SIT.STENAME
+      FROM BOOKING B, SCHEDULE S, DOCTOR D, SITE SIT, PATIENT P
+     WHERE B.SCHID = S.SCHID
+       AND S.DOCCODE = D.DOCCODE
+       AND D.DOCPICKLIST = -1
+       AND B.BKGSTS = 'N'
+       AND B.STECODE = SIT.STECODE
+       AND B.PATNO = P.PATNO(+)
+       AND B.STECODE = 'HKAH'
+       AND B.BKGSDATE >= TO_DATE('16/02/2012 00:00', 'DD/MM/YYYY HH24:MI')
+       AND B.BKGSDATE <= TO_DATE('16/02/2012 23:55', 'DD/MM/YYYY HH24:MI')
+       AND (B.BKGCDATE >= TO_DATE('16/02/2012 04:15', 'DD/MM/YYYY HH24:MI') OR
+           '16/02/2012 04:15' IS NULL)
+       AND (S.DOCCODE = '1499' OR '1499' IS NULL)
+order by d.doccode]]>
+	</queryString>
+	<field name="DOCCODE" class="java.lang.String"/>
+	<field name="DOCCODEWITHCHKDGT" class="java.lang.String"/>
+	<field name="DOCCODEWITHOUTCHKDGT" class="java.lang.String"/>
+	<field name="DOCNAME" class="java.lang.String"/>
+	<field name="SEXAGE" class="java.lang.String"/>
+	<field name="COUNTRY" class="java.lang.String"/>
+	<field name="BKGSDATE" class="java.lang.String"/>
+	<field name="ATIME" class="java.lang.String"/>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="PATNAME" class="java.lang.String"/>
+	<field name="PATCNAME" class="java.lang.String"/>
+	<field name="BKGPTEL" class="java.lang.String"/>
+	<field name="BKGSCNT" class="java.lang.String"/>
+	<field name="BKGCDATE" class="java.lang.String"/>
+	<field name="CTIME" class="java.lang.String"/>
+	<field name="USRID" class="java.lang.String"/>
+	<field name="MOBILE" class="java.lang.String"/>
+	<field name="BKGRMK" class="java.lang.String"/>
+	<field name="OFFICETEL" class="java.lang.String"/>
+	<field name="ALERT" class="java.lang.String"/>
+	<field name="STENAME" class="java.lang.String"/>
+	<field name="SMS" class="java.lang.String"/>
+	<field name="SMSSDTOK" class="java.lang.String"/>
+	<field name="SMSRTNMSG" class="java.lang.String"/>
+	<field name="TESTDONE" class="java.lang.String"/>
+	<field name="PATNO_T" class="java.lang.String"/>
+	<field name="LOC" class="java.lang.String"/>
+	<field name="VOLNUM" class="java.lang.String"/>
+	<field name="MFM" class="java.lang.String"/>
+	<variable name="PATNO_1" class="java.lang.Integer" resetType="Group" resetGroup="DOCTOR" calculation="Count">
+		<variableExpression><![CDATA[$F{PATNO}]]></variableExpression>
+	</variable>
+	<variable name="grppagenum" class="java.lang.Number" resetType="Group" resetGroup="DOCTOR" incrementType="Page" calculation="Count">
+		<variableExpression><![CDATA[$V{grppagenum}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<filterExpression><![CDATA[$F{DOCCODE}.length()>0]]></filterExpression>
+	<group name="DOCTOR" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{DOCCODE}+$F{BKGSDATE}]]></groupExpression>
+		<groupHeader>
+			<band>
+				<printWhenExpression><![CDATA[$F{DOCCODE}.length()>0]]></printWhenExpression>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="158">
+			<textField isBlankWhenNull="true">
+				<reportElement x="93" y="74" width="148" height="11"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCNAME}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="93" y="85" width="35" height="11"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCCODE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="0" y="15" width="100" height="12"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="93" y="62" width="148" height="12"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{BKGSDATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="62" width="90" height="12"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Appointment Date:	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="74" width="90" height="11"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Doctor Name:	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="85" width="90" height="11"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Doctor Code:	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="96" width="90" height="11"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Total no. of Patient:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="129" width="26" height="16"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="129" width="37" height="16"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Patient 	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="68" y="129" width="67" height="16"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Patient Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="363" y="131" width="42" height="16">
+					<printWhenExpression><![CDATA[$P{mrChartLocation} == null || !$P{mrChartLocation}.equals("1")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Remark]]></text>
+			</staticText>
+			<textField evaluationTime="Group" evaluationGroup="DOCTOR">
+				<reportElement x="93" y="96" width="42" height="11"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PATNO_1}== null?new Integer("0"):$V{PATNO_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[rptAppListing]]></text>
+			</staticText>
+			<image scaleImage="RealSize" hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="135" y="85" width="142" height="15"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode("YES".equals($P{isCheckDigit})?($F{DOCCODEWITHCHKDGT}.substring(0, $F{DOCCODEWITHCHKDGT}.length()-1)):$F{DOCCODEWITHOUTCHKDGT},com.google.zxing.BarcodeFormat.CODE_39,100,15))]]></imageExpression>
+			</image>
+			<textField evaluationTime="Page">
+				<reportElement x="428" y="0" width="80" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+ String.valueOf($V{grppagenum}.intValue())+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="DOCTOR">
+				<reportElement x="508" y="0" width="30" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + String.valueOf($V{grppagenum}.intValue())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="117" y="20" width="305" height="42"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SiteName}+
+"\nDental Appointment Listing"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="249" y="131" width="86" height="16">
+					<printWhenExpression><![CDATA[$P{mrChartLocation} == null || !$P{mrChartLocation}.equals("1")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Mobile / Home]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="365" y="0" width="174" height="16">
+					<printWhenExpression><![CDATA[$P{mrChartLocation} == null || !$P{mrChartLocation}.equals("1")]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{BKGRMK}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="68" y="0" width="181" height="16"/>
+				<box bottomPadding="0"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="31" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ATIME}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="32" y="0" width="36" height="16" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="249" y="0" width="116" height="16">
+					<printWhenExpression><![CDATA[$P{mrChartLocation} == null || !$P{mrChartLocation}.equals("1")]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{MOBILE}+"/"+$F{BKGPTEL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

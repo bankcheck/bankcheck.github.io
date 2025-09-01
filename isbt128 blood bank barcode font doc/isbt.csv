@@ -1,0 +1,102 @@
+ISBT Product Description codes,Long Description
+E4213,Apheresis Fresh Frozen Plasma|ACD-A/XX/<-30C
+E2940,Apheresis Platelets|ACD-A/XX/20-24C
+E3045,Apheresis Platelets|ACD-A/XX/20-24C|Irradiated
+E3093,Apheresis Platelets|ACD-A/XX/20-24C|Plasma reduced
+E3062,Apheresis Platelets|ACD-A/XX/20-24C|Irradiated|Plasma reduced
+E3928,Apheresis Platelets|ACD-A/XX/20-24C|ResLeu:<1log6
+E3929,Apheresis Platelets|ACD-A/XX/20-24C|Irradiated|ResLeu:<1log6
+E3930,Apheresis Platelets|ACD-A/XX/20-24C|ResLeu:<1log6|Plasma reduced
+E3931,Apheresis Platelets|ACD-A/XX/20-24C|Irradiated|ResLeu:<1log6|Plasma reduced
+E2981,Apheresis Platelets|ACD-A/XX/20-24C|Open
+E2982,Apheresis Platelets|ACD-A/XX/20-24C|Open|Irradiated
+E5358,Cryoprecipitate|CPD/450mL/<-30C
+E8264,Cryoprecipitate|CPD/450mL/<-30C|ResLeu:<1E6
+E7448,Deglycerolized Red Blood Cells|AS3/XX/refg|Open|ResLeu:<1log6
+E7447,Deglycerolized Red Blood Cells|AS3/XX/refg|ResLeu:<1log6
+E7462,Leukocytes | CPD/350 mL/rt | Irradiated
+E6080,Leukocytes|CPD/450mL/rt|Irradiated
+E8260,Plasma |CPD/450mL/<-30C|Frozen <=24h
+E8262,Plasma|CPD/350mL/<-30C|Frozen <=24h
+E8261,Plasma | CPD/450 mL/<-30 C | Res Leu: <1log6|Frozen <=24h
+E8263,Plasma | CPD/450 mL/<-30 C | Res Leu: <1log6| Methylene blue treated|Frozen<=24h
+E5359,Plasma|CPD/450mL/<-30C|Cryo reduced
+E5690,Plasma|CPD/450mL/<-30C|ResLeu:<1E6|Cryo reduced
+E2807,Platelets|CPD/450mL/20-24C
+E2809,Platelets|CPD/450mL/20-24C|Irradiated
+E6506,Platelets|CPD/350mL/20-24C
+E7453,Platelets | CPD/350 mL/20-24 C| Irradiated
+E2823,Platelets|CPD/450mL/20-24C|Buffy coat plts prep
+E2816,Platelets|CPD/450mL/20-24C|Irradiated|Buffy coat plts prep
+E7456,Platelets|CPD/350mL/20-24C|Buffy coat plts prep
+E7457,Platelets | CPD/350 mL/20-24 C | Irradiated | Buffy coat plts prep
+E8259,Pooled Platelets|PAS-C/XX/20-24C|Buffy coat plts prep|Psoralen-treated
+E7455,Pooled Platelets|CPD/XX/20-24C
+E7864,Pooled Platelets|CPD/XX/20-24C|Irradiated
+E7454,Pooled Platelets|CPD/XX/20-24C|Plasma reduced
+E5996,Pooled Platelets|CPD/XX/20-24C|Irradiated|Plasma reduced
+E8255,Pooled Platelets | CPD/XX/20-24C |ResLeu:<1E6
+E8256,Pooled Platelets | CPD/XX/20-24C |Irradiated|ResLeu:<1E6
+E8257,Pooled Platelets | CPD/XX/20-24C |ResLeu:<1E6| Plasma reduced
+E8258,Pooled Platelets | CPD/XX/20-24C |Irradiated|ResLeu:<1E6| Plasma reduced
+E6882,Pooled Platelets|CPD/XX/20-24C|Buffy coat plts prep|2 units
+E6883,Pooled Platelets|CPD/XX/20-24C|Buffy coat plts prep|3 units
+E6647,Pooled Platelets|CPD/XX/20-24C|Buffy coat plts prep|4 units
+E6884,Pooled Platelets|CPD/XX/20-24C|Buffy coat plts prep|5 units
+E6885,Pooled Platelets|CPD/XX/20-24C|Buffy coat plts prep|6 units
+E6886,Pooled Platelets|CPD/XX/20-24C|Buffy coat plts prep|7 units
+E6887,Pooled Platelets|CPD/XX/20-24C|Buffy coat plts prep|8 units
+E6249,Pooled Platelets|CPD/XX/20-24C|Irradiated|Buffy coat plts prep|2 units
+E6250,Pooled Platelets|CPD/XX/20-24C|Irradiated|Buffy coat plts prep|3 units
+E6251,Pooled Platelets|CPD/XX/20-24C|Irradiated|Buffy coat plts prep|4 units
+E6252,Pooled Platelets|CPD/XX/20-24C|Irradiated|Buffy coat plts prep|5 units
+E6253,Pooled Platelets|CPD/XX/20-24C|Irradiated|Buffy coat plts prep|6 units
+E6254,Pooled Platelets|CPD/XX/20-24C|Irradiated|Buffy coat plts prep|7 units
+E6255,Pooled Platelets|CPD/XX/20-24C|Irradiated|Buffy coat plts prep|8 units
+E5151,Pooled Platelets|CPD/XX/20-24C|Open
+E7425,Red Blood Cells|CPD>SAGM/450mL/refg
+E7436,Red Blood Cells|CPD>SAGM/450mL/refg|Irradiated
+E6467,Red Blood Cells|CPD>SAGM/450mL/refg|Buffy coat removed
+E7439,Red Blood Cells|CPD>SAGM/450mL/refg|Irradiated|Buffy coat removed
+E7429,Red Blood Cells|CPD>SAGM/450mL/refg|ResLeu:<1log6
+E7442,Red Blood Cells|CPD>SAGM/450mL/refg|Irradiated|ResLeu:<1log6
+E6053,Red Blood Cells|CPD>SAGM/XX/refg|LowVol:anticoag not adj
+E7437,Red Blood Cells|CPD>SAGM/XX/refg|Irradiated|LowVol:anticoag not adj
+E7427,Red Blood Cells|CPD>SAGM/XX/refg|Buffy coat removed|LowVol:anticoag not adj
+E7440,Red Blood Cells|CPD>SAGM/XX/refg|Irradiated|Buffy coat removed|LowVol:anticoag not adj
+E7430,Red Blood Cells|CPD>SAGM/XX/refg|ResLeu:<1log6|LowVol:anticoag not adj
+E7443,Red Blood Cells|CPD>SAGM/XX/refg|Irradiated|ResLeu:<1log6|LowVol:anticoag not adj
+E7426,Red Blood Cells|CPD>SAGM/350mL/refg
+E7428,Red Blood Cells|CPD>SAGM/350mL/refg|Buffy coat removed
+E7438,Red Blood Cells|CPD>SAGM/350mL/refg|Irradiated
+E7441,Red Blood Cells|CPD>SAGM/350mL/refg|Irradiated|Buffy coat removed
+E7431,Red Blood Cells|CPD>SAGM/350mL/refg|ResLeu:<1log6
+E7445,Red Blood Cells|CPD>SAGM/350mL/refg|Irradiated|ResLeu:<1log6
+E7446,Red Blood Cells|CPD>SAGM/XX/refg|Irradiated|ResLeu:<1log6|Supernat reduced
+E7449,Red Blood Cells|CPD>SAGM/XX/refg|ResLeu:<1.2log9|Plasma added
+E7450,Red Blood Cells|CPD>SAGM/XX/refg|Open|ResLeu:<1.2log9|Plasma added
+E7451,Red Blood Cells|CPD>SAGM/XX/refg|ResLeu:<1log6|Plasma added
+E7452,Red Blood Cells|CPD>SAGM/XX/refg|Open|ResLeu:<1log6|Plasma added
+E7458,Red Blood Cells | CPD>SAGM/xx/refg | Irradiated  | Res Leu: <1.2log9 | Plasma added
+E7459,Red Blood Cells | CPD>SAGM/xx/refg | Open | Irradiated  |Res Leu: <1.2log9 | Plasma added
+E7460,Red Blood Cells | CPD>SAGM/xx/refg | Irradiated  |Res Leu: <1log6 | Plasma added
+E7461,Red Blood Cells | CPD>SAGM/xx/refg | Open |Irradiated | Res Leu: <1log6 | Plasma added
+E7432,Washed Red Blood Cells|AS3/XX/refg|ResLeu:<1.2log9
+E7433,Washed Red Blood Cells|AS3/XX/refg|Open|ResLeu:<1.2log9
+E7434,Washed Red Blood Cells|AS3/XX/refg|ResLeu:<1log6
+E7435,Washed Red Blood Cells|AS3/XX/refg|Open|ResLeu:<1log6
+E6507,Whole Blood|CPD/350mL/refg
+E7424,Whole Blood|CPD/350mL/refg|Irradiated
+E6508,Whole Blood|CPD/350mL/refg|ResLeu:<1log6
+E6509,Whole Blood|CPD/350mL/refg|Irradiated|ResLeu:<1log6
+E0009,Whole Blood|CPD/450mL/refg
+E0017,Whole Blood|CPD/450mL/refg|Irradiated
+E4209,Whole Blood|CPD/450mL/refg|ResLeu:<1log6
+E5584,Whole Blood|CPD/450mL/refg|Irradiated|ResLeu:<1log6
+E5128,Whole Blood|CPDA-1/350mL/refg
+E5356,Whole Blood|CPDA-1/350mL/refg|ResLeu:<1log6
+E5357,Whole Blood|CPDA-1/350mL/refg|Irradiated|ResLeu:<1log6
+E0053,Whole Blood|CPDA-1/450mL/refg
+E0061,Whole Blood|CPDA-1/450mL/refg|Irradiated
+E4396,Whole Blood|CPDA-1/450mL/refg|ResLeu:<1log6
+E5064,Whole Blood|CPDA-1/450mL/refg|Irradiated|ResLeu:<1log6

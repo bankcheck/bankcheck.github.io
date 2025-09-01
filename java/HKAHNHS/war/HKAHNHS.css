@@ -1,0 +1,287 @@
+/** Add css rules here for your application. */
+.x-viewport
+{
+  background-color: #070;
+}
+#loading {
+  position: absolute;
+  left: 45%;
+  top: 40%;
+  margin-left: -45px;
+  padding: 2px;
+  z-index: 20001;
+  height: auto;
+  border: 1px solid #ccc;
+}
+#loading a {
+  color: #225588;
+}
+#loading .loading-indicator {
+  background: white;
+  color: #444;
+  font: bold 13px tahoma, arial, helvetica;
+  padding: 10px;
+  margin: 0;
+  height: auto;
+}
+#loading .loading-indicator img {
+  margin-right:8px;
+  float:left;
+vertical-align:top;
+}
+#loading-msg {
+  font: normal 10px arial, tahoma, sans-serif;
+}
+.link-feed {
+  background: url(images/icons/feed_link.png) no-repeat
+  center left
+  !important;
+}
+.create-feed {
+  background: url(images/icons/feed_create.png) no-repeat
+  center left
+  !important;
+}
+.save {
+background: url(images/icons/disk.png) no-repeat center
+  left
+  !important;
+}
+
+/** Example rules used by the template application (remove for your app) */
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+  color: #777777;
+  margin: 40px 0px 70px;
+  text-align: center;
+}
+
+.sendButton {
+  display: block;
+  font-size: 16pt;
+}
+
+/** Most GWT widgets already have a style name defined */
+.gwt-DialogBox {
+  width: 400px;
+}
+
+.dialogVPanel {
+  margin: 5px;
+}
+
+.serverResponseLabelError {
+  color: red;
+}
+
+/** Set ids using widget.getElement().setId("idOfElement") */
+#closeButton {
+  margin: 15px 6px 6px;
+}
+
+.x-combo-listfixedheight-item {
+    padding:2px;
+    white-space: nowrap;
+    overflow:hidden;
+    height: 20px;
+}
+.pat-info-from {
+	color: black;
+	font-weight: bold;
+	text-align: center;
+}
+
+.pat-info-to {
+	color: red;
+	font-weight: bold;
+	text-align: center;
+}
+
+.read-only-white{
+	background-color:#FFF !important;
+	background-image: none !important;
+}
+
+.read-only{
+	background-color:#DFE8F6 !important;
+	background-image: none !important;
+}
+
+.read-only-OT{
+	background-color:#FAAC58 !important;
+	background-image: none !important;
+}
+
+.read-only-negative{
+	color: #FF0000 !important;
+}
+
+.button-alert button{
+	color: #FFFFFF !important;
+	background-color:#FA7070 !important;
+}
+
+
+.button-alert-blue button{
+	color: #FDFEFE!important;
+	background-color:#2874A6 !important;
+}
+
+.button-alert-green button{
+	color: #000000!important;
+	background-color:#46FF33 !important;
+}
+
+.button-alert-yellow button{
+	color: #000000 !important;
+	background-color:#F4D03F !important;
+}
+
+.allegy-alert {
+	background-color: #0000FF;
+}
+
+.otappbse-dv-normal {
+	color: #C00000;
+	font-weight: bold;
+	text-align: center;
+}
+
+.otappbse-dv-confirmed {
+	color: #00C000;
+	font-weight: bold;
+	text-align: center;
+}
+
+.otappbse-dv-mixed {
+	color: #808000;
+	font-weight: bold;
+	text-align: center;
+}
+
+.ot-cell-bkgcolor1 {
+	background-color: #EFFFA3 !important;
+}
+
+.ot-cell-bkgcolor2 {
+	background-color: #FFB9FE !important;
+}
+
+.ot-cell-bkgcolor2confirmed {
+	background-color: #C75FC6 !important;
+}
+
+.ot-cell-bkgcolor3 {
+	background-color: #DFE0FF !important;
+}
+
+.ot-cell-bkgcolor3confirmed {
+	background-color: #AAABC3 !important;
+}
+
+.ot-cell-bkgcolor4 {
+	background-color: #C0FFFF !important;
+}
+
+.ot-cell-bkgcolor5 {
+	background-color: #C0FFC0 !important;
+}
+
+.ot-cell-bkgcolor6 {
+	background-color: #FFFFC0 !important;
+}
+
+.ot-cell-bkgcolor7 {
+	background-color: #FFC0C0 !important;
+}
+
+.ot-cell-bkgcolor8 {
+	background-color: #ADFEFF !important;
+}
+
+.ot-cell-bkgcolor9 {
+	background-color: #E1E7ED !important;
+}
+
+.ot-cell-bkgcolor10 {
+	background-color: #808080 !important;
+}
+
+.ot-cell-bkgcolorBlock {
+	background-color: #e20000 !important;
+}
+
+.ot-cell-bkgcolorSelected {
+	background-color: #a900b4 !important;
+}
+
+.cell-border-alert1 {
+	border: solid 3px #FF0000 !important;
+}
+
+.cell-alert1 {
+	background-color: #FF0000 !important;
+	color: #FFFFFF !important;
+}
+
+/*
+.schema-cell {
+	background-color: #C00000;
+}
+*/
+
+.schema-cell-highlight {
+	background-color: #B8CFEE !important;
+}
+
+.search-item {
+/*    font:normal 11px tahoma, arial, helvetica, sans-serif;*/
+    padding:3px 10px 3px 10px;
+    border:1px solid #fff;
+    border-bottom:1px solid #eeeeee;
+    white-space:normal;
+/*    color:#555;*/
+}
+.search-item h3 {
+    display:block;
+    font:inherit;
+    font-weight:bold;
+    color:#222;
+}
+
+.search-item h3 span {
+    float: right;
+    font-weight:normal;
+    margin:0 0 5px 5px;
+    width:100px;
+    display:block;
+    clear:none;
+}
+
+.search-item h5 {
+    display:block;
+    font:inherit;
+    font-weight:normal;
+    color:#222;
+}
+
+.search-item h5 span {
+    float: left;
+    font-weight:bold;
+    margin:0 0 5px 5px;
+    width:60px;
+    display:block;
+    clear:none;
+}
+
+.strike-through {
+    text-decoration: line-through;
+}
+body {
+	zoom: 100%;
+}
+
+.biggerFont textarea{
+	font-size: 25px;
+}

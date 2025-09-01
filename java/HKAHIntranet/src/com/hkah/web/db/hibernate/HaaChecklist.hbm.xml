@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2010?~3??10?? ?U??03:56:15 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.HaaChecklist" table="HAA_CHECKLIST">
+        <composite-id name="id" class="com.hkah.web.db.hibernate.HaaChecklistId">
+            <key-property name="haaSiteCode" type="string">
+                <column name="HAA_SITE_CODE"  />
+            </key-property>
+            <key-property name="haaChecklistId" type="int">
+                <column name="HAA_CHECKLIST_ID" />
+            </key-property>
+            <generator class="com.hkah.web.db.hibernate.id.IdGenerator"></generator>
+        </composite-id>    
+        <property name="haaCorpName" type="string">
+            <column name="HAA_CORP_NAME"  />
+        </property>
+        <property name="haaBusinessType" type="string">
+            <column name="HAA_BUSINESS_TYPE"  />
+        </property>
+        <property name="haaContractDateFrom" >
+            <column name="HAA_CONTRACT_DATE_FROM"  />
+        </property>
+        <property name="haaContractDateTo" >
+            <column name="HAA_CONTRACT_DATE_TO"  />
+        </property>
+        <property name="haaCreatedDate" >
+            <column name="HAA_CREATED_DATE"  />
+        </property>
+        <property name="haaCreatedUser" type="string">
+            <column name="HAA_CREATED_USER"  />
+        </property>
+        <property name="haaModifiedDate" >
+            <column name="HAA_MODIFIED_DATE"  />
+        </property>
+        <property name="haaModifiedUser" type="string">
+            <column name="HAA_MODIFIED_USER"  />
+        </property>
+        <property name="haaEnabled" type="int">
+            <column name="HAA_ENABLED" />
+        </property>
+    </class>
+</hibernate-mapping>

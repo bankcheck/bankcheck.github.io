@@ -1,0 +1,62 @@
+create or replace FUNCTION "NHS_RPT_DENTAPPLISTING" (
+	v_BKGSDATE IN VARCHAR2,
+	v_BKGEDATE IN VARCHAR2,
+  V_DRCODE IN VARCHAR2
+)
+	RETURN TYPES.CURSOR_TYPE AS
+	OUTCUR TYPES.CURSOR_TYPE;
+	Strsql Varchar2(30000);
+	Strdoc Varchar2(30000);
+	STRBKGCDATE VARCHAR2(100);
+	alertVar varchar2(50);
+BEGIN
+
+	Strsql:='
+		SELECT
+			S.DOCCODE,
+			''$B'' || S.DOCCODE || NHS_GEN_CHECKDIGIT(''$B'' || S.DOCCODE) || ''#'' as DOCCODEWITHCHKDGT,
+			''$B'' || S.DOCCODE as DOCCODEWITHOUTCHKDGT,
+			D.DOCFNAME || '' '' || D.DOCGNAME AS DOCNAME,
+			TO_CHAR(B.BKGSDATE, ''DD/MM/YYYY'') AS BKGSDATE,
+			TO_CHAR(B.BKGSDATE, ''HH24:MI'') AS ATIME,
+			B.PATNO,
+			B.BKGPNAME  AS PATNAME,P.PATCNAME,
+			B.BKGPTEL,
+			TO_CHAR(B.BKGSCNT) BKGSCNT,
+			TO_CHAR(B.BKGCDATE, ''DD/MM/YYYY HH24:MI'') AS BKGCDATE,
+			TO_CHAR(B.BKGCDATE, ''HH24:MI'') AS CTIME,
+			DECODE(U.USRNAME, NULL, B.USRID, U.USRNAME),
+			NVL(b.bkgmtel, '''') AS MOBILE,
+			B.BKGRMK,
+			P.PATOTEL AS OFFICETEL,
+			GET_ALERT_CODE(B.PATNO,null) as alert,
+			SIT.STENAME,
+			DECODE(b.sms, -1, ''Yes'', 0, ''No'') AS sms,
+			TO_CHAR(b.smssdtok,''dd/mm/yyyy hh24:mi'') AS smssdtok,
+			b.smsrtnmsg,
+			NHS_UTL_LASTTEST(B.PATNO,  ''' || REPLACE(v_BKGSDATE, '+', ' ') || ''', ''' || REPLACE(v_BKGEDATE, '+', ' ') || ''', ''10'') AS TESTDONE,
+			DECODE(Is_Number(B.PATNO), 0, TRIM(TO_CHAR(B.PATNO, ''000000'')), B.PATNO) AS PATNO_T
+		FROM  BOOKING B, SCHEDULE S, DOCTOR D, SITE SIT, PATIENT P, USR U
+		WHERE B.SCHID = S.SCHID
+		AND   S.DOCCODE = D.DOCCODE
+		AND   B.BKGSTS = ''N''
+		AND   B.STECODE = SIT.STECODE
+		AND   B.PATNO = P.PATNO (+)
+		AND   B.USRID = U.USRID (+)
+		AND   B.STECODE = ''' || GET_CURRENT_STECODE() || '''
+		AND   B.BKGSDATE >= TO_DATE(''' || REPLACE(v_BKGSDATE, '+', ' ') || ''', ''DD/MM/YYYY HH24:MI'')
+		AND   B.BKGSDATE <= TO_DATE(''' || REPLACE(v_BKGEDATE, '+', ' ') || ''', ''DD/MM/YYYY HH24:MI'') ';
+		STRSQL := STRSQL ||' AND S.DOCCODE in (Select doccode from doctor WHERE SPCCODE in  (''DN'',''OS'') ) ';
+    IF V_DRCODE IS NOT NULL THEN
+    		STRSQL := STRSQL || ' AND S.DOCCODE in ( ''' || REPLACE(UPPER(V_DRCODE), ',', ''',''') || ''' )  ';
+    END IF;
+		Strsql := Strsql ||'order by d.doccode, atime';
+
+
+
+	dbms_output.put_line(Strsql);
+
+	OPEN OUTCUR FOR STRSQL;
+	RETURN OUTCUR;
+END NHS_RPT_DENTAPPLISTING;
+/

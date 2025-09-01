@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PHYORDERFORM_MR" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="40" bottomMargin="40" whenResourceMissingType="Empty">
+	<property name="ireport.zoom" value="1.1000000000000159"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="68"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FFFFFF" isBold="true">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF" fill="Solid" isBlankWhenNull="true">
+		<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="2">
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHNHS\\war\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Site" class="java.lang.String"/>
+	<parameter name="regid" class="java.lang.String"/>
+	<parameter name="deptSql" class="java.lang.String"/>
+	<parameter name="itemSql" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="name" class="java.lang.String"/>
+	<parameter name="sex" class="java.lang.String"/>
+	<parameter name="dob" class="java.lang.String"/>
+	<parameter name="hkid" class="java.lang.String"/>
+	<parameter name="orderDate" class="java.lang.String"/>
+	<parameter name="docName" class="java.lang.String"/>
+	<parameter name="govDept" class="java.lang.String"/>
+	<parameter name="govPosition" class="java.lang.String"/>
+	<parameter name="SUBREPORT2_DIR" class="java.lang.String"/>
+	<parameter name="SubDataSource1" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="SubDataSource2" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="LogoImg" class="java.lang.String"/>
+	<parameter name="userID" class="java.lang.String"/>
+	<parameter name="userName" class="java.lang.String"/>
+	<parameter name="reportDueDate" class="java.lang.String"/>
+	<parameter name="newbarcode" class="java.lang.String"/>
+	<parameter name="patcname" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="DPTCODE" class="java.lang.String"/>
+	<field name="DPTNAME" class="java.lang.String"/>
+	<field name="ITMCODE" class="java.lang.String"/>
+	<field name="ITMNAME" class="java.lang.String"/>
+	<title>
+		<band height="420" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="120" width="510" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Basic Information:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="200" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Document No.: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="200" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{hkid}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="200" width="70" height="20"/>
+				<textElement/>
+				<text><![CDATA[Gender: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="140" width="70" height="20"/>
+				<textElement/>
+				<text><![CDATA[Hospital No.:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="220" width="440" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{govDept}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="220" width="70" height="20">
+					<printWhenExpression><![CDATA[new Boolean ($P{govDept} != null && $P{govDept}.length() > 0)]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<text><![CDATA[Department:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="240" width="440" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{govPosition}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="140" width="110" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="260" width="120" height="20"/>
+				<textElement/>
+				<text><![CDATA[Consultation Doctor: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="240" width="70" height="20">
+					<printWhenExpression><![CDATA[new Boolean ($P{govPosition} != null && $P{govPosition}.length() > 0)]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<text><![CDATA[Position:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="140" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Report Due Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="555" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Physical Checkup Order Form]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="260" width="390" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="360" y="44" width="195" height="18"/>
+				<box topPadding="0" leftPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Doctor / Nurse / Medical Record's Copy]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="160" width="460" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="160" width="70" height="20"/>
+				<textElement/>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="200" width="90" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{sex}.equals("F")?"Female":
+$P{sex}.equals("M")?"Male":""]]></textFieldExpression>
+			</textField>
+			<image scaleImage="RetainShape">
+				<reportElement x="0" y="0" width="294" height="38"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{LogoImg}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="180" y="200" width="80" height="20"/>
+				<textElement/>
+				<text><![CDATA[Date of Birth: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="260" y="200" width="90" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{dob}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="table_TH" x="20" y="320" width="120" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Appointment Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="140" y="320" width="180" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Consult By]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="320" y="320" width="210" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Remark]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="300" width="510" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Appointments:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="table_TD" x="20" y="340" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{orderDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="140" y="340" width="180" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{docName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="table_TD" x="320" y="340" width="210" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="20" y="360" width="120" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="140" y="360" width="180" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="320" y="360" width="210" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="20" y="380" width="120" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="140" y="380" width="180" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="320" y="380" width="210" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="140" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{reportDueDate}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Left" vAlign="Top" isLazy="true">
+				<reportElement positionType="FixRelativeToBottom" x="200" y="140" width="138" height="14"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode($P{newbarcode}.substring(0, $P{newbarcode}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="90" y="180" width="460" height="20"/>
+				<textElement>
+					<font fontName="Ming(for ISO10646_V3)" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patcname}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="20">
+			<subreport>
+				<reportElement positionType="Float" x="20" y="0" width="510" height="20" isRemoveLineWhenBlank="true"/>
+				<dataSourceExpression><![CDATA[$P{SubDataSource1}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "PHYORDERFORM_MR_SUB1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="40">
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="15" y="0" width="70" height="20"/>
+				<textElement/>
+				<text><![CDATA[Print Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="310" y="0" width="60" height="20"/>
+				<textElement/>
+				<text><![CDATA[Print By:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="370" y="0" width="180" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{userID} + ", " + $P{userName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm">
+				<reportElement positionType="FixRelativeToBottom" x="85" y="0" width="186" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,26 @@
+create or replace FUNCTION NHS_ACT_APPBILL_CLOSE(
+	v_action      IN VARCHAR2,
+	v_billid       IN VARCHAR2,
+	o_errmsg      OUT VARCHAR2
+)
+	RETURN NUMBER
+AS
+	o_errcode NUMBER:=0;
+	v_noOfRec NUMBER;
+  v_patno PATIENT.PATNO%TYPE;
+  v_pamt APPBILLS.BILLPAMT%TYPE;
+  v_oamt APPBILLS.BILLOAMT%TYPE;
+  v_title APPBILLS.BILLTITLE%TYPE;
+BEGIN
+    
+    UPDATE APPBILLS SET BILLSTS =  'C' WHERE BILLID = v_billid;
+    
+	RETURN o_ERRCODE;
+EXCEPTION
+WHEN OTHERS THEN
+	ROLLBACK;
+  	o_ERRCODE := -1;
+	DBMS_OUTPUT.PUT_LINE('An ERROR was encountered - '||SQLCODE||' -ERROR- '||SQLERRM);
+	RETURN o_errcode;
+end NHS_ACT_APPBILL_CLOSE;
+/

@@ -1,0 +1,23 @@
+<div th:text='${francoNumber1}'></div>
+<div th:text='${#numbers.formatInteger(francoNumber1,1)}'/></div>
+<div th:text='${#numbers.formatInteger(francoNumber1,2)}'/></div>
+<div th:text='${#numbers.formatInteger(francoNumber1,3)}'/></div>
+<div th:text='${#numbers.formatInteger(francoNumber1,4)}'/></div>
+<div th:text='${#numbers.formatInteger(francoNumber1,5)}'/></div>
+<hr>
+<div th:text='${#numbers.formatInteger(francoNumber1,4,"DEFAULT")}'/></div>
+<div th:text='${#numbers.formatInteger(francoNumber1,4,"NONE")}'/></div>
+<div th:text='${#numbers.formatInteger(francoNumber1,4,"COMMA")}'/></div>
+<div th:text='${#numbers.formatInteger(francoNumber1,4,"POINT")}'/></div>
+<div th:text='${#numbers.formatInteger(francoNumber1,4,"WHITESPACE")}'/></div>
+<hr>
+<div th:text='${#numbers.formatDecimal(francoNumber1,5,1)}'/></div>
+<div th:text='${#numbers.formatDecimal(francoNumber1,5,2)}'/></div>
+<div th:text='${#numbers.formatDecimal(francoNumber1,5,3)}'/></div>
+<div th:text='${#numbers.formatDecimal(francoNumber1,5,4)}'/></div>
+<div th:text='${#numbers.formatDecimal(francoNumber1,5,5)}'/></div>
+<hr>
+<div th:text='${francoNumber2}'/></div>
+<div th:text='${#numbers.formatPercent(francoNumber2,0,0)}'/></div>
+<div th:text='${#numbers.formatPercent(francoNumber2,3,0)}'/></div>
+<div th:text='${#numbers.formatPercent(francoNumber2,0,2)}'/></div>

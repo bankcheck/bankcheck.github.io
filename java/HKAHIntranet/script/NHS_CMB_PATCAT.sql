@@ -1,0 +1,13 @@
+create or replace
+FUNCTION "NHS_CMB_PATCAT"
+  RETURN Types.CURSOR_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN OUTCUR FOR
+      SELECT PCYID ,PCYCODE || '  ' || PCYDESC
+      FROM PATCAT
+ ORDER BY PCYCODE asc;
+ RETURN OUTCUR;
+END NHS_CMB_PATCAT;
+/

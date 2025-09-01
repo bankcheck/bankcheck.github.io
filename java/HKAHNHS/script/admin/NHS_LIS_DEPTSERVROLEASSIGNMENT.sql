@@ -1,0 +1,38 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_DEPTSERVROLEASSIGNMENT"
+(
+  v_list VARCHAR2,
+  v_ROLID ROLE.ROLID%TYPE
+)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  IF v_list = 'AVAILABLE' THEN
+    OPEN outcur FOR
+      SELECT DSCCODE,
+        DSCDESC
+      FROM DPSERV
+      WHERE DSCCODE NOT IN
+       (SELECT DSCCODE
+        FROM ROLE_DEPT_SERV
+        WHERE ROLE_ID = v_ROLID)
+      ORDER BY DSCCODE;
+  ELSE
+    OPEN outcur FOR
+       SELECT
+         S.DSCCODE,
+         S.DSCDESC
+       FROM
+        DPSERV S,
+        ROLE_DEPT_SERV RDS,
+        ROLE R
+       WHERE   S.DSCCODE = RDS.DSCCODE
+       AND RDS.ROLE_ID = R.ROLID
+       AND R.ROLID = v_ROLID
+       ORDER BY S.DSCCODE;
+  END IF;
+  RETURN OUTCUR;
+END "NHS_LIS_DEPTSERVROLEASSIGNMENT";
+/
+
+

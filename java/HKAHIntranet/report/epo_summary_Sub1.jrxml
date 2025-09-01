@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="epo_summary_Sub1" pageWidth="802" pageHeight="555" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT REQ_NO, REQ_DATE,
+(SELECT CD.CO_DEPARTMENT_DESC FROM CO_DEPARTMENTS CD WHERE CD.CO_DEPARTMENT_CODE = REQ_DEPT_CODE) DEPT_DESC,
+REQ_DESC,
+(SELECT CS.CO_STAFFNAME FROM CO_STAFFS CS WHERE CS.CO_STAFF_ID = APPROVED_BY AND CS.CO_SITE_CODE = 'hkah') AS APPROVED_BY,
+AMOUNT
+FROM
+(SELECT M.REQ_NO, TO_CHAR(M.REQ_DATE,'DD/MM/YYYY') AS REQ_DATE, M.REQ_DEPT_CODE, M.REQ_DESC, M.APPROVED_BY, SUM(D.REQ_AMOUNT) AS AMOUNT
+FROM EPO_REQUEST_M M, EPO_REQUEST_D D
+WHERE M.REQ_NO = D.REQ_NO(+)
+AND M.REQ_NO IS NOT NULL
+AND D.REQ_NO IS NOT NULL
+AND TO_CHAR(M.REQ_DATE,'YYYYMMDD') >= '20180101'
+AND TO_CHAR(M.REQ_DATE,'YYYYMMDD') <= '20180131'
+GROUP BY M.REQ_NO, TO_CHAR(M.REQ_DATE,'DD/MM/YYYY'), M.REQ_DEPT_CODE, M.REQ_DESC, M.APPROVED_BY
+HAVING SUM(D.REQ_AMOUNT)>=100000)
+ORDER BY 1]]>
+	</queryString>
+	<field name="REQ_NO" class="java.lang.String"/>
+	<field name="REQ_DATE" class="java.lang.String"/>
+	<field name="DEPT_DESC" class="java.lang.String"/>
+	<field name="REQ_DESC" class="java.lang.String"/>
+	<field name="APPROVED_BY" class="java.lang.String"/>
+	<field name="AMOUNT" class="java.math.BigDecimal"/>
+	<field name="SUPPLIER_NAME" class="java.lang.String"/>
+	<field name="BUDGET_CODE" class="java.lang.String"/>
+	<variable name="AMOUNT_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{AMOUNT}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="5" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="705" y="0" width="80" height="27"/>
+				<box>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="645" y="0" width="60" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Approved
+By]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="790" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="26" width="790" height="1"/>
+			</line>
+			<line>
+				<reportElement x="790" y="0" width="1" height="27"/>
+			</line>
+			<staticText>
+				<reportElement x="5" y="0" width="59" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Request
+NO.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="64" y="0" width="64" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Request
+Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="0" width="110" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Request
+Department]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="1" height="27"/>
+			</line>
+			<staticText>
+				<reportElement x="238" y="0" width="118" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Code Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="545" y="1" width="100" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Budget/Ad_Council/
+Board/Finance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="0" width="189" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[User Subject]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="790" y="0" width="1" height="30" isPrintWhenDetailOverflows="true"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="5" y="5" width="59" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{REQ_NO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="64" y="5" width="64" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{REQ_DATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="128" y="5" width="110" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DEPT_DESC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="238" y="5" width="118" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{REQ_DESC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="645" y="5" width="60" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{APPROVED_BY}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="30" isPrintWhenDetailOverflows="true"/>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="###,###,###,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="705" y="5" width="80" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="356" y="5" width="189" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SUPPLIER_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="545" y="5" width="100" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{BUDGET_CODE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField pattern="###,###,###,###.00" isBlankWhenNull="true">
+				<reportElement x="705" y="0" width="80" height="20"/>
+				<box>
+					<pen lineStyle="Double"/>
+					<topPen lineStyle="Double"/>
+					<leftPen lineStyle="Double"/>
+					<bottomPen lineWidth="1.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{AMOUNT_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="645" y="0" width="60" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="24" width="790" height="1"/>
+			</line>
+			<line>
+				<reportElement x="790" y="0" width="1" height="25"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="25"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

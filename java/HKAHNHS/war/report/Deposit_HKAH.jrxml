@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Deposit" pageWidth="595" pageHeight="842" columnWidth="517" leftMargin="36" rightMargin="42" topMargin="20" bottomMargin="76">
+	<property name="ireport.zoom" value="1.4641000000000022"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<parameter name="TXDATE" class="java.lang.String"/>
+	<parameter name="ITEM_DESC" class="java.lang.String"/>
+	<parameter name="DESC" class="java.lang.String"/>
+	<parameter name="AMOUNT" class="java.lang.String"/>
+	<parameter name="3LINESTEXT" class="java.lang.String"/>
+	<parameter name="ISCOPY" class="java.lang.String"/>
+	<parameter name="Deposit" class="java.lang.String"/>
+	<parameter name="PatNo" class="java.lang.String"/>
+	<parameter name="PatName" class="java.lang.String"/>
+	<parameter name="TreDr" class="java.lang.String"/>
+	<parameter name="BillNo" class="java.lang.String"/>
+	<parameter name="Date" class="java.lang.String"/>
+	<parameter name="Amount" class="java.lang.String"/>
+	<parameter name="Page" class="java.lang.String"/>
+	<parameter name="Copy" class="java.lang.String"/>
+	<parameter name="CDESC" class="java.lang.String"/>
+	<parameter name="Item" class="java.lang.String"/>
+	<parameter name="HKD" class="java.lang.String"/>
+	<parameter name="watermark" class="java.lang.String"/>
+	<parameter name="DOCBKGCPY" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\projects\\Reports\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="AppIOSQRImg" class="java.lang.String"/>
+	<parameter name="AppAndImg" class="java.lang.String"/>
+	<parameter name="OpTreDr" class="java.lang.String"/>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="SLPNO" class="java.lang.String"/>
+	<field name="PATNAME" class="java.lang.String"/>
+	<field name="PATCNAME" class="java.lang.String"/>
+	<field name="DOCNAME" class="java.lang.String"/>
+	<field name="DOCCNAME" class="java.lang.String"/>
+	<field name="CURDATE" class="java.lang.String"/>
+	<field name="field1" class="java.lang.String"/>
+	<background>
+		<band height="541" splitType="Stretch">
+			<printWhenExpression><![CDATA[$P{DOCBKGCPY}.equals( "Y" )]]></printWhenExpression>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="49" y="200" width="439" height="297">
+					<printWhenExpression><![CDATA[$P{ISCOPY}.equals( "Y" )]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.lang.String"><![CDATA[$P{watermark}]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<pageHeader>
+		<band height="151" splitType="Stretch">
+			<textField>
+				<reportElement x="437" y="121" width="80" height="15">
+					<printWhenExpression><![CDATA["N".equals($P{DOCBKGCPY}) || ($P{DOCBKGCPY}==null)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ISCOPY}.equals("Y") ? "Copy "+$P{Copy} : ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="99" width="517" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style fontName='Arial Unicode MS'>DEPOSIT </style><style fontName='Ming(for ISO10646_V3)'>" + org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{Deposit}) + "</style>"]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="136" width="517" height="14" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="P_SLPNO">
+					<subreportParameterExpression><![CDATA[$F{SLPNO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DOCBKGCPY">
+					<subreportParameterExpression><![CDATA[$P{DOCBKGCPY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PATCNAME">
+					<subreportParameterExpression><![CDATA[$F{PATCNAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SLPNO">
+					<subreportParameterExpression><![CDATA[$F{SLPNO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DOCCNAME">
+					<subreportParameterExpression><![CDATA[$F{DOCCNAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="OpTreDr">
+					<subreportParameterExpression><![CDATA[$P{OpTreDr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PATNO">
+					<subreportParameterExpression><![CDATA[$F{PATNO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TreDr">
+					<subreportParameterExpression><![CDATA[$P{TreDr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PATNAME">
+					<subreportParameterExpression><![CDATA[$F{PATNAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PatNo">
+					<subreportParameterExpression><![CDATA[$P{PatNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PatName">
+					<subreportParameterExpression><![CDATA[$P{PatName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BillNo">
+					<subreportParameterExpression><![CDATA[$P{BillNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DOCNAME">
+					<subreportParameterExpression><![CDATA[$F{DOCNAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "DEPOSIT_PNAME.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="29" width="513" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="70" y="14" width="233" height="15"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style fontName='Arial Unicode MS'>DESCRIPTION </style><style fontName='Ming(for ISO10646_V3)'>" + org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{Item}) + "</style>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="14" width="71" height="15"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style fontName='Arial Unicode MS'>DATE </style><style fontName='Ming(for ISO10646_V3)'>" + org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{Date}) + "</style>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="404" y="14" width="109" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="styled">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style fontName='Arial Unicode MS'>HKD </style><style fontName='Ming(for ISO10646_V3)'>" + org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{HKD}) + "</style>"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="1" width="71" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(new java.text.SimpleDateFormat(
+    "dd MMM yyyy",Locale.ENGLISH)).format(new SimpleDateFormat("dd/MM/yyyy").parse($P{TXDATE})).toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###,###,###,##0.00" isBlankWhenNull="true">
+				<reportElement x="404" y="1" width="109" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[new BigDecimal($P{AMOUNT})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="70" y="1" width="298" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DESC}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="1">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="555" height="1" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{3LINESTEXT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="78" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="26" y="56" width="142" height="20"/>
+				<box rightPadding="3"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Printed Date & Time: "+(new java.text.SimpleDateFormat(
+    "dd/MMM/yyyy",Locale.ENGLISH)).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm:ss">
+				<reportElement x="167" y="56" width="100" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="437" y="56" width="87" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$P{Page}+" "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="476" y="3" width="50" height="50"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{AppIOSQRImg}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="26" y="29" width="381" height="20"/>
+				<box leftPadding="0"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[一APP在手，盡享香港港安醫院全方位服務]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="10" width="381" height="20"/>
+				<box leftPadding="0"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Experience HKAH all-round services at your fingertips ]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="417" y="3" width="50" height="50"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{AppAndImg}]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,10 @@
+explain plan for 
+	select * from your_table_name; 
+
+select * from table(dbms_xplan.display('plan_table',null,'basic'));   
+
+SELECT * FROM all_ind_columns WHERE table_name = 'your_table_name';
+
+alter session set ddl_lock_timeout=300;
+
+CREATE INDEX index_name ON table_name (column1, column2, ...columnN);

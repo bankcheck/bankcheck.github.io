@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="patAddrLabel" pageWidth="206" pageHeight="104" whenNoDataType="AllSectionsNoDetail" columnWidth="206" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.143588810000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="patName" class="java.lang.String"/>
+	<parameter name="patAddr1" class="java.lang.String"/>
+	<parameter name="patAddr2" class="java.lang.String"/>
+	<parameter name="patAddr3" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="104" splitType="Stretch">
+			<textField>
+				<reportElement x="5" y="6" width="191" height="20"/>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patName}.getBytes().length == $P{patName}.length()?$P{patName}:("<style fontName='Ming(for ISO10646_V3)'>"+$P{patName}+"</style>")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5" y="26" width="191" height="25"/>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{patAddr1})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5" y="51" width="191" height="25"/>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{patAddr2})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5" y="76" width="191" height="25"/>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{patAddr3})]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+</jasperReport>

@@ -1,0 +1,1029 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TransferBedLabel" language="groovy" pageWidth="595" pageHeight="865" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="5" bottomMargin="5" isIgnorePagination="true">
+	<property name="ireport.zoom" value="1.6"/>
+	<property name="ireport.x" value="39"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="OLDBED" class="java.lang.String"/>
+	<parameter name="NEWBED" class="java.lang.String"/>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="PATSEX" class="java.lang.String"/>
+	<field name="BIRTHDATE" class="java.lang.String"/>
+	<field name="PATNAME" class="java.lang.String"/>
+	<field name="PATCNAME" class="java.lang.String"/>
+	<field name="BARCODE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="855" splitType="Stretch">
+			<elementGroup>
+				<textField>
+					<reportElement x="53" y="49" width="59" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="130" y="15" width="133" height="28"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="23" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{NEWBED}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="112" y="49" width="16" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATSEX}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="33" y="15" width="77" height="17"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{OLDBED}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="81" y="68" width="92" height="12"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATCNAME}]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="81" y="80" width="92" height="12"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode(
+$F{BARCODE}.substring(0, $F{BARCODE}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="53" y="58" width="180" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="128" y="49" width="80" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{BIRTHDATE}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<elementGroup>
+				<textField>
+					<reportElement x="365" y="68" width="92" height="12"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATCNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="396" y="49" width="16" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATSEX}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="317" y="15" width="77" height="17"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{OLDBED}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="336" y="58" width="180" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="412" y="49" width="80" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{BIRTHDATE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="337" y="49" width="59" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="414" y="15" width="133" height="28"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="23" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{NEWBED}]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="365" y="80" width="92" height="12"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode(
+$F{BARCODE}.substring(0, $F{BARCODE}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+			</elementGroup>
+			<elementGroup>
+				<textField>
+					<reportElement x="81" y="173" width="92" height="12"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATCNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="112" y="153" width="16" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATSEX}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="33" y="119" width="77" height="17"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{OLDBED}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="53" y="163" width="180" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="128" y="153" width="80" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{BIRTHDATE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="53" y="153" width="59" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="130" y="119" width="133" height="28"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="23" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{NEWBED}]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="81" y="185" width="92" height="12"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode(
+$F{BARCODE}.substring(0, $F{BARCODE}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+			</elementGroup>
+			<elementGroup>
+				<textField>
+					<reportElement x="81" y="281" width="92" height="12"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATCNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="112" y="261" width="16" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATSEX}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="33" y="227" width="77" height="17"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{OLDBED}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="53" y="271" width="180" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="128" y="261" width="80" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{BIRTHDATE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="53" y="261" width="59" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="130" y="227" width="133" height="28"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="23" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{NEWBED}]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="81" y="293" width="92" height="12"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode(
+$F{BARCODE}.substring(0, $F{BARCODE}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+			</elementGroup>
+			<elementGroup>
+				<textField>
+					<reportElement x="81" y="389" width="92" height="12"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATCNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="112" y="369" width="16" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATSEX}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="33" y="335" width="77" height="17"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{OLDBED}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="53" y="379" width="180" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="128" y="369" width="80" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{BIRTHDATE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="53" y="369" width="59" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="130" y="335" width="133" height="28"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="23" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{NEWBED}]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="81" y="401" width="92" height="12"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode(
+$F{BARCODE}.substring(0, $F{BARCODE}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+			</elementGroup>
+			<elementGroup>
+				<textField>
+					<reportElement x="83" y="497" width="92" height="12"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATCNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="114" y="477" width="16" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATSEX}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="35" y="443" width="77" height="17"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{OLDBED}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="53" y="487" width="180" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="130" y="477" width="80" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{BIRTHDATE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="53" y="477" width="61" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="132" y="443" width="133" height="28"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="23" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{NEWBED}]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="83" y="509" width="92" height="12"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode(
+$F{BARCODE}.substring(0, $F{BARCODE}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+			</elementGroup>
+			<elementGroup>
+				<textField>
+					<reportElement x="81" y="609" width="92" height="12"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATCNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="112" y="589" width="16" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATSEX}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="33" y="555" width="77" height="17"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{OLDBED}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="53" y="599" width="180" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="128" y="589" width="82" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{BIRTHDATE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="53" y="589" width="59" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="130" y="555" width="133" height="28"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="23" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{NEWBED}]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="81" y="621" width="92" height="12"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode(
+$F{BARCODE}.substring(0, $F{BARCODE}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+			</elementGroup>
+			<elementGroup>
+				<textField>
+					<reportElement x="81" y="719" width="92" height="12"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATCNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="112" y="699" width="16" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATSEX}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="33" y="665" width="77" height="17"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{OLDBED}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="53" y="709" width="180" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="128" y="699" width="82" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{BIRTHDATE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="53" y="699" width="59" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="130" y="665" width="133" height="28"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="23" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{NEWBED}]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="81" y="731" width="92" height="12"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode(
+$F{BARCODE}.substring(0, $F{BARCODE}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+			</elementGroup>
+			<elementGroup>
+				<textField>
+					<reportElement x="81" y="825" width="92" height="12"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATCNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="112" y="805" width="16" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATSEX}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="33" y="771" width="77" height="17"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{OLDBED}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="53" y="815" width="180" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="128" y="805" width="82" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{BIRTHDATE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="53" y="805" width="59" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="130" y="771" width="133" height="28"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="23" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{NEWBED}]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="81" y="837" width="92" height="12"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode(
+$F{BARCODE}.substring(0, $F{BARCODE}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+			</elementGroup>
+			<elementGroup>
+				<textField>
+					<reportElement x="365" y="173" width="92" height="12"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATCNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="396" y="153" width="16" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATSEX}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="317" y="119" width="77" height="17"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{OLDBED}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="336" y="163" width="180" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="412" y="153" width="80" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{BIRTHDATE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="337" y="153" width="59" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="414" y="119" width="133" height="28"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="23" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{NEWBED}]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="365" y="185" width="92" height="12"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode(
+$F{BARCODE}.substring(0, $F{BARCODE}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+			</elementGroup>
+			<elementGroup>
+				<textField>
+					<reportElement x="365" y="281" width="92" height="12"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATCNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="396" y="261" width="16" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATSEX}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="317" y="227" width="77" height="17"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{OLDBED}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="336" y="271" width="180" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="412" y="261" width="80" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{BIRTHDATE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="337" y="261" width="59" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="414" y="227" width="133" height="28"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="23" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{NEWBED}]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="365" y="293" width="92" height="12"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode(
+$F{BARCODE}.substring(0, $F{BARCODE}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+			</elementGroup>
+			<elementGroup>
+				<textField>
+					<reportElement x="365" y="389" width="92" height="12"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATCNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="396" y="369" width="16" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATSEX}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="317" y="335" width="77" height="17"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{OLDBED}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="336" y="379" width="180" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="412" y="369" width="80" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{BIRTHDATE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="337" y="369" width="59" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="414" y="335" width="133" height="28"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="23" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{NEWBED}]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="365" y="401" width="92" height="12"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode(
+$F{BARCODE}.substring(0, $F{BARCODE}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+			</elementGroup>
+			<elementGroup>
+				<textField>
+					<reportElement x="365" y="497" width="92" height="12"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATCNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="396" y="477" width="16" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATSEX}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="317" y="443" width="77" height="17"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{OLDBED}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="336" y="487" width="180" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="412" y="477" width="80" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{BIRTHDATE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="337" y="477" width="59" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="414" y="443" width="133" height="28"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="23" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{NEWBED}]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="365" y="509" width="92" height="12"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode(
+$F{BARCODE}.substring(0, $F{BARCODE}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+			</elementGroup>
+			<elementGroup>
+				<textField>
+					<reportElement x="365" y="609" width="92" height="12"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATCNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="396" y="589" width="16" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATSEX}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="317" y="555" width="77" height="17"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{OLDBED}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="336" y="599" width="180" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="412" y="589" width="81" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{BIRTHDATE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="337" y="589" width="59" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="414" y="555" width="133" height="28"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="23" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{NEWBED}]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="365" y="621" width="92" height="12"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode(
+$F{BARCODE}.substring(0, $F{BARCODE}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+			</elementGroup>
+			<elementGroup>
+				<textField>
+					<reportElement x="365" y="719" width="92" height="12"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATCNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="396" y="699" width="16" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATSEX}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="317" y="665" width="77" height="17"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{OLDBED}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="336" y="709" width="180" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="412" y="699" width="81" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{BIRTHDATE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="336" y="699" width="60" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="414" y="665" width="133" height="28"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="23" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{NEWBED}]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="365" y="731" width="92" height="12"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode(
+$F{BARCODE}.substring(0, $F{BARCODE}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+			</elementGroup>
+			<elementGroup>
+				<textField>
+					<reportElement x="365" y="825" width="92" height="12"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Ming(for ISO10646_V3)" size="11" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATCNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="396" y="805" width="16" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATSEX}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="317" y="771" width="77" height="17"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{OLDBED}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="336" y="815" width="180" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="412" y="805" width="81" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{BIRTHDATE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="337" y="805" width="59" height="11"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="414" y="771" width="133" height="28"/>
+					<textElement>
+						<font fontName="Arial Unicode MS" size="23" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{NEWBED}]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement positionType="FixRelativeToBottom" x="365" y="837" width="92" height="12"/>
+					<box>
+						<pen lineColor="#FFFFFF"/>
+						<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+						<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#FFFFFF"/>
+					</box>
+					<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.MultiFormatWriter().encode(
+$F{BARCODE}.substring(0, $F{BARCODE}.length()-1),com.google.zxing.BarcodeFormat.CODE_39,114,20))]]></imageExpression>
+				</image>
+			</elementGroup>
+		</band>
+	</detail>
+</jasperReport>

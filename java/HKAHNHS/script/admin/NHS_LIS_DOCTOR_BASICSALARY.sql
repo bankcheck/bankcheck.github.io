@@ -1,0 +1,20 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_DOCTOR_BASICSALARY"
+(V_DOCCODE DOCBASSAL.DOCCODE%TYPE)
+    RETURN tYPES.CURSOR_TYPE
+AS
+    OUTCUR types.CURSOR_TYPE;
+BEGIN
+   OPEN OUTCUR FOR
+     SELECT
+     -- dbsid, doccode,
+     TO_CHAR(dbssdate,'DD/MM/YYYY'),
+     TO_CHAR(dbsedate,'DD/MM/YYYY'),
+     dbsamt, dbsid
+     FROM DOCBASSAL
+     WHERE DOCCODE= v_doccode
+     ORDER BY DBSSDATE;
+     return outcur;
+END NHS_LIS_DOCTOR_BASICSALARY;
+/
+
+

@@ -1,0 +1,23 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_REMLTRSCH"
+(V_RLSTYPE REMLTRSCH.RLSTYPE%TYPE)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN outcur FOR
+    SELECT
+        RLSID,
+        RLSTYPE,
+        RLSDAY,
+        RLSPATH,
+        COUCODE,
+        DECODE(RLSDEF,-1,'Y','N'),
+        DUEDAY
+      FROM REMLTRSCH
+   -- WHERE ( RLSTYPE LIKE '%' || v_RLSTYPE || '%')
+  ORDER BY RLSTYPE, RLSDAY, RLSPATH;
+  RETURN OUTCUR;
+END NHS_LIS_REMLTRSCH;
+/
+
+

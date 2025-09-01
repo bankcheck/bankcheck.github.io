@@ -1,0 +1,16 @@
+CREATE OR REPLACE FUNCTION "NHS_CMB_BED_FREE"
+	RETURN Types.CURSOR_type
+AS
+	outcur types.cursor_type;
+	BED_STS_FREE VARCHAR2(1) := 'F';
+BEGIN
+	OPEN OUTCUR FOR
+		SELECT B.BedCode, B.BedCode, R.AcmCode
+		FROM   Bed B LEFT JOIN Room R ON B.RomCode = R.RomCode
+		WHERE  B.BedSts = BED_STS_FREE
+		AND    B.BedCode NOT IN (SELECT RlkKey FROM rlock WHERE RlkType = 'Bed')
+		AND   (B.BEDREMARK IS NULL OR B.BEDREMARK NOT LIKE 'Invalid%')
+		ORDER BY B.BedCode;
+	RETURN OUTCUR;
+end NHS_CMB_BED_FREE;
+/

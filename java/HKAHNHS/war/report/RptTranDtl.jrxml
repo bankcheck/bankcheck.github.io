@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptTranDtl" pageWidth="505" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="465" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="StartDate" class="java.lang.String"/>
+	<parameter name="EndDate" class="java.lang.String"/>
+	<parameter name="SteCode" class="java.lang.String"/>
+	<parameter name="daterange" class="java.lang.String"/>
+	<parameter name="SteName" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[Select
+       D.Doccode || ' ' || D.Docfname || ' ' || D.Docgname as Doctor,
+       I.Itmcode || ' ' || Itmname as Item, S.Patno,
+       decode(S.Patno, Null, S.Slpfname || ' ' || S.Slpgname, P.Patfname || ' ' || P.Patgname) as Name,
+       stnnamt,
+       to_char(stncdate, 'dd/mm/yyyy hh24:mi:ss') as stncdate,
+       Pt.Pcydesc,
+       I.Itmgrp
+from
+     Patient P,
+     Slip S,
+     Sliptx St,
+     Item I,
+     Doctor D,
+     Patcat Pt
+where
+     P.Patno (+) = S.Patno
+     and S.Slpno = St.Slpno
+     and S.Pcyid = Pt.Pcyid (+)
+     and St.Itmcode = I.Itmcode
+     and St.Doccode = D.Doccode
+     and stncdate >= to_date($P{StartDate}, 'dd/mm/yyyy')
+     and stncdate < to_date($P{EndDate}, 'dd/mm/yyyy') + 1
+     and stnsts <> 'A'
+     and S.stecode= $P{SteCode}
+     and St.Doccode is not null]]>
+	</queryString>
+	<field name="DOCTOR" class="java.lang.String"/>
+	<field name="ITEM" class="java.lang.String"/>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="NAME" class="java.lang.String"/>
+	<field name="STNNAMT" class="java.lang.String"/>
+	<field name="STNCDATE" class="java.lang.String"/>
+	<field name="PCYDESC" class="java.lang.String"/>
+	<field name="ITMGRP" class="java.lang.String"/>
+	<sortField name="DOCTOR"/>
+	<sortField name="ITEM"/>
+	<sortField name="PATNO" order="Descending"/>
+	<variable name="CountName" class="java.lang.Integer" resetType="Group" resetGroup="STNCDATE" calculation="Count">
+		<variableExpression><![CDATA[$F{NAME}]]></variableExpression>
+	</variable>
+	<variable name="CName" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{NAME}]]></variableExpression>
+	</variable>
+	<variable name="v_stnnamt" class="java.lang.Double">
+		<variableExpression><![CDATA[java.lang.Double.parseDouble($F{STNNAMT})]]></variableExpression>
+	</variable>
+	<group name="DOCTOR">
+		<groupExpression><![CDATA[$F{DOCTOR}]]></groupExpression>
+		<groupHeader>
+			<band height="15">
+				<staticText>
+					<reportElement x="5" y="0" width="20" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<text><![CDATA[Doctor]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="34" y="0" width="350" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCTOR}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="ITEM">
+		<groupExpression><![CDATA[$F{ITEM}]]></groupExpression>
+		<groupHeader>
+			<band height="29">
+				<staticText>
+					<reportElement x="5" y="0" width="20" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<text><![CDATA[Item]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="29" y="0" width="350" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{ITEM}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="10" y="14" width="36" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font size="6" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Patient No]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="65" y="14" width="21" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font size="6" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Name]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="228" y="14" width="40" height="15"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Net Amount]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="280" y="14" width="18" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font size="6" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Date]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="339" y="14" width="43" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font size="6" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Pat Category]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="409" y="14" width="22" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font size="6" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Group]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="STNCDATE">
+		<groupExpression><![CDATA[$F{STNCDATE}]]></groupExpression>
+		<groupFooter>
+			<band height="12">
+				<staticText>
+					<reportElement x="390" y="0" width="30" height="12"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<text><![CDATA[Count : ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="STNCDATE" isBlankWhenNull="true">
+					<reportElement x="430" y="0" width="35" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{CountName}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="16" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="350" y="0" width="80" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement x="430" y="0" width="35" height="16"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="73" splitType="Stretch">
+			<staticText>
+				<reportElement x="5" y="0" width="50" height="10"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[rptTranDtl]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="184" y="58" width="100" height="15"/>
+				<textElement textAlignment="Justified">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{daterange}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="HH:mm:ss">
+				<reportElement x="84" y="10" width="100" height="10"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="5" y="10" width="79" height="10"/>
+				<textElement>
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(new java.text.SimpleDateFormat(     "dd/MMM/yyyy",Locale.ENGLISH)).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="169" y="33" width="125" height="25"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SteName}+
+"\nTransaction Detail"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="10" y="0" width="50" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="65" y="0" width="160" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{NAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="339" y="0" width="55" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PCYDESC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="409" y="0" width="40" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ITMGRP}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="228" y="0" width="40" height="17"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{v_stnnamt}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="12" splitType="Stretch">
+			<staticText>
+				<reportElement x="396" y="0" width="25" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Total : ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="430" y="0" width="35" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{CName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

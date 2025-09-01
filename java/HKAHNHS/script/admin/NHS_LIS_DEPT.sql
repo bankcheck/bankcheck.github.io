@@ -1,0 +1,20 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_DEPT"
+(V_DPTCODE DEPT.DPTCODE%TYPE,
+v_DPTNAME DEPT.DPTNAME%TYPE)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN outcur FOR
+
+    SELECT
+        DPTCODE, DPTNAME, dptcname, stecode
+    FROM DEPT
+    WHERE ( DPTCODE LIKE '%' || v_DPTCODE || '%')
+    AND (DPTNAME like '%' || V_DPTNAME || '%')
+    ORDER BY DPTCODE;
+  RETURN OUTCUR;
+END NHS_LIS_DEPT;
+/
+
+

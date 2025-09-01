@@ -1,0 +1,40 @@
+create or replace FUNCTION "NHS_ACT_DOCTOR_QUALIFICATION" (
+	V_ACTION     IN VARCHAR2,
+	V_USERID     IN varchar2,
+	V_DOCCODE    IN varchar2,
+	V_TABLE      IN DOCTOR_QUALIFICATION_TAB,
+	O_ERRMSG     OUT VARCHAR2
+)
+	RETURN NUMBER
+AS
+	O_ERRCODE number;
+	v_noOfRec NUMBER;
+BEGIN
+	O_ERRCODE := 0;
+	O_ERRMSG  := 'OK';
+
+	for I in 1..V_TABLE.COUNT LOOP
+		select COUNT(1) into V_NOOFREC from DOCQLFLINK where DQLID = V_TABLE(I).DQLID;
+		if V_NOOFREC = 0 then
+			INSERT INTO DOCQLFLINK (
+				DQLID,
+				DOCCODE,
+				QLFID,
+				DQLIDATE
+			) values (
+				SEQ_DOCQLFLINK.NEXTVAL,
+				V_DOCCODE,
+				V_TABLE(I).QLFID,
+				TO_DATE(V_TABLE(I).DQLIDATE,  'DD/MM/YYYY')
+			);
+		ELSE
+			update DOCQLFLINK set
+				qlfid = V_TABLE(I).qlfid,
+				dqlidate =  TO_DATE(V_TABLE(I).dqlidate,  'DD/MM/YYYY')
+			where DQLID = V_TABLE(I).DQLID;
+		END IF;
+	END LOOP;
+
+	return O_ERRCODE;
+END NHS_ACT_DOCTOR_QUALIFICATION;
+/

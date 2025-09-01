@@ -1,0 +1,4 @@
+create or replace
+TYPE APPT_INFO_TAB
+AS TABLE OF APPT_INFO;
+/

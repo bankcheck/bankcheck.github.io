@@ -1,0 +1,14 @@
+Save Format v3.0(19990112)
+@begin Unchecked
+@end;
+@begin Targets
+ 0 "lis (dev).pbt";
+ 1 "..\\CIS\\CIS (Compile).pbt";
+ 2 "..\\doc\\hisagent.pbt";
+ 3 "..\\lis-discharge-dev\\lis (discharge).pbt";
+ 4 "\\\\160.100.1.10\\ah\\IT\\projects\\CIS\\working\\CIS (Compile).pbt";
+ 5 "\\\\160.100.1.10\\ah\\IT\\projects\\Daemon\\working\\ris2his.pbt";
+ 6 "P:\\AIS\\working\\Integra.pbt";
+@end;
+DefaultTarget "lis (dev).pbt";
+DefaultRemoteTarget "lis (dev).pbt";

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="patAddrEnvelope" language="groovy" pageWidth="320" pageHeight="683" whenNoDataType="AllSectionsNoDetail" columnWidth="280" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="patName" class="java.lang.String"/>
+	<parameter name="patAddr1" class="java.lang.String"/>
+	<parameter name="patAddr2" class="java.lang.String"/>
+	<parameter name="patAddr3" class="java.lang.String"/>
+	<parameter name="containChinese" class="java.lang.String"/>
+	<columnHeader>
+		<band height="663" splitType="Stretch">
+			<textField>
+				<reportElement x="170" y="11" width="32" height="386"/>
+				<box>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" rotation="Left" markup="styled">
+					<font fontName="Arial Unicode MS" size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{containChinese}.equals("N")?
+("<style fontName='Arial Unicode MS'>"+org.apache.commons.lang.StringEscapeUtils.escapeHtml("ATTN: "+$P{patName}) +" </style>")
+:("<style fontName='Ming(for ISO10646_V3)'>" + $P{patName} + "</style>")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="11" width="20" height="386"/>
+				<box>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" rotation="Left" markup="styled">
+					<font fontName="Arial Unicode MS" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{containChinese}.equals("N")?
+("<style fontName='Arial Unicode MS'>"+org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{patAddr1}) +" </style>")
+:("<style fontName='Ming(for ISO10646_V3)'>" + $P{patAddr1} + "</style>")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="11" width="20" height="386"/>
+				<box>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" rotation="Left" markup="styled">
+					<font fontName="Arial Unicode MS" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{containChinese}.equals("N")?
+("<style fontName='Arial Unicode MS'>"+org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{patAddr2}) +" </style>")
+:("<style fontName='Ming(for ISO10646_V3)'>" + $P{patAddr2} + "</style>")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="11" width="20" height="386"/>
+				<box>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" rotation="Left" markup="styled">
+					<font fontName="Arial Unicode MS" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{containChinese}.equals("N")?
+("<style fontName='Arial Unicode MS'>"+org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{patAddr3}) +" </style>")
+:("<style fontName='Ming(for ISO10646_V3)'>" + $P{patAddr3} + "</style>")]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+</jasperReport>

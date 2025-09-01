@@ -1,0 +1,20 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_SICK"
+(V_SCKCODE SICK.SCKCODE%TYPE,
+v_SCKDESC SICK.SCKDESC%TYPE)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN outcur FOR
+      SELECT
+        SCKCODE, SCKDESC
+      FROM SICK
+      WHERE ( SCKCODE LIKE '%' || v_SCKCODE || '%')
+      AND ( SCKDESC like '%' || v_SCKDESC || '%')
+      AND ROWNUM < 100
+      ORDER BY SCKCODE;
+   RETURN OUTCUR;
+END NHS_LIS_SICK;
+/
+
+

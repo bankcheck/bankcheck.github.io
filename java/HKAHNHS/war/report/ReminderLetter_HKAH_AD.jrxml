@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReminderLetter_HKAH_AD" pageWidth="481" pageHeight="113" whenNoDataType="AllSectionsNoDetail" columnWidth="481" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.65"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="patNo" class="java.lang.String"/>
+	<parameter name="patName" class="java.lang.String"/>
+	<parameter name="totalAmt" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="SLPNO" class="java.lang.String"/>
+	<field name="AMT" class="java.lang.String"/>
+	<title>
+		<band height="40">
+			<line>
+				<reportElement x="0" y="4" width="478" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="1" y="12" width="59" height="15"/>
+				<textElement verticalAlignment="Bottom" markup="styled">
+					<font fontName="Arial Unicode MS" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient No.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="26" width="75" height="13"/>
+				<textElement verticalAlignment="Bottom" markup="styled">
+					<font fontName="Arial Unicode MS" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient Name:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="61" y="12" width="100" height="15"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="78" y="26" width="400" height="13"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="168" y="7" width="144" height="20"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Arial Unicode MS" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Payment Slip]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="13" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="0" width="69" height="13"/>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font fontName="Arial Unicode MS" size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Bill No.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="349" y="0" width="131" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" markup="styled">
+					<font fontName="Arial Unicode MS" size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Outstanding Amount (HKD)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField pattern="###,###,###,##0.00" isBlankWhenNull="true">
+				<reportElement x="413" y="0" width="65" height="13"/>
+				<box rightPadding="0">
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[new BigDecimal($F{AMT})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement isPrintRepeatedValues="false" x="1" y="0" width="185" height="13"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SLPNO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="15">
+			<line>
+				<reportElement x="412" y="0" width="65" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="283" y="0" width="66" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField pattern="###,###,###,##0.00" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="413" y="1" width="65" height="14"/>
+				<box bottomPadding="2" rightPadding="0">
+					<pen lineStyle="Double"/>
+					<topPen lineStyle="Double"/>
+					<leftPen lineStyle="Double"/>
+					<bottomPen lineWidth="1.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[new BigDecimal($P{totalAmt})]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

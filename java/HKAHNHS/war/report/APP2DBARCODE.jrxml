@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="APP2DBARCODE" pageWidth="215" pageHeight="116" whenNoDataType="AllSectionsNoDetail" columnWidth="215" leftMargin="0" rightMargin="0" topMargin="4" bottomMargin="0" isIgnorePagination="true">
+	<property name="ireport.zoom" value="4.392300000000009"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="chgfontSize" fill="Solid" fontName="Arial Unicode MS">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{patname}.length() <= 27 ? true : false]]></conditionExpression>
+			<style vAlign="Top" isBlankWhenNull="true" fontSize="9"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{patname}.length() > 27 ? true : false]]></conditionExpression>
+			<style vAlign="Top" fontName="Arial Unicode MS" fontSize="8"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="otherLblDtl" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<field name="patno" class="java.lang.String"/>
+	<field name="patname" class="java.lang.String"/>
+	<field name="patcname" class="java.lang.String"/>
+	<field name="appointdate" class="java.lang.String"/>
+	<field name="docname" class="java.lang.String"/>
+	<field name="barcode" class="java.lang.String"/>
+	<field name="chiAppointDate" class="java.lang.String"/>
+	<variable name="variable1" class="java.lang.String">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="100" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="90" y="30" width="73" height="13"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{patno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="9" y="30" width="43" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Patient No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="0" width="24" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement style="chgfontSize" isPrintRepeatedValues="false" x="54" y="0" width="158" height="36" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{patname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="9" y="63" width="43" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Doctor]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement positionType="FixRelativeToBottom" isPrintRepeatedValues="false" x="58" y="63" width="154" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="9" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{docname}.split("<C>")[0]]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="9" y="38" width="107" height="13"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Appointment Date & Time]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement x="9" y="50" width="152" height="14" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[("<style fontName='Arial Unicode MS' size='10'>"+$F{appointdate}+"</style>")+($F{chiAppointDate}.length() > 0?("<br/><style fontName='Arial Unicode MS' size='9'>"+$F{chiAppointDate}+"</style>"):"")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="52" y="30" width="38" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[病歷號碼:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="34" y="0" width="20" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[姓名:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="104" y="38" width="63" height="13"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[預約日期及時間:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="35" y="63" width="23" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[醫生:]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement x="163" y="19" width="46" height="48"/>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode($F{barcode},com.google.zxing.BarcodeFormat.QR_CODE,41,41))]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="58" y="75" width="157" height="12"/>
+				<box topPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($F{docname}.split( "<C>" ).length > 1)?
+$F{docname}.split( "<C>" )[1]+"醫生":""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="9" y="75" width="155" height="13"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{otherLblDtl}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+</jasperReport>

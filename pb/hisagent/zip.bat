@@ -1,0 +1,1 @@
+c:\moxa\hisagent\7za.exe a -sdel -p%1 %2 %3

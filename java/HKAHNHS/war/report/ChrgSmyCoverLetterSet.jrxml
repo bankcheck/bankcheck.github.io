@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ChrgSmyCoverLetterSet" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="539" leftMargin="36" rightMargin="20" topMargin="20" bottomMargin="42" isSummaryNewPage="true">
+	<property name="ireport.zoom" value="1.000000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="44"/>
+	<parameter name="P_SLPNO" class="java.lang.String"/>
+	<parameter name="ISCOPY" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\projects\\Reports\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SubDataSource2" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="SubDataSource1" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="ALLSLPNO" class="java.lang.String"/>
+	<parameter name="PRNRANGENOTE" class="java.lang.String"/>
+	<parameter name="ALINESNOTE" class="java.lang.String"/>
+	<parameter name="3LINESNOTE" class="java.lang.String"/>
+	<parameter name="TotChgTtl" class="java.lang.String"/>
+	<parameter name="Copy" class="java.lang.String"/>
+	<parameter name="BillNo" class="java.lang.String"/>
+	<parameter name="BedNo" class="java.lang.String"/>
+	<parameter name="DisDtTime" class="java.lang.String"/>
+	<parameter name="PatName" class="java.lang.String"/>
+	<parameter name="TreDr" class="java.lang.String"/>
+	<parameter name="AdmDtTime" class="java.lang.String"/>
+	<parameter name="PatNo" class="java.lang.String"/>
+	<parameter name="Page" class="java.lang.String"/>
+	<parameter name="SpecialFee" class="java.lang.String"/>
+	<parameter name="DocCredit" class="java.lang.String"/>
+	<parameter name="Credits" class="java.lang.String"/>
+	<parameter name="HosCharge" class="java.lang.String"/>
+	<parameter name="DocCharge" class="java.lang.String"/>
+	<parameter name="HosCredit" class="java.lang.String"/>
+	<parameter name="Charges" class="java.lang.String"/>
+	<parameter name="Refund" class="java.lang.String"/>
+	<parameter name="SpecialSrv" class="java.lang.String"/>
+	<parameter name="Packages" class="java.lang.String"/>
+	<parameter name="Balance" class="java.lang.String"/>
+	<parameter name="watermark" class="java.lang.String"/>
+	<parameter name="DOCBKGCPY" class="java.lang.String"/>
+	<parameter name="mothLang" class="java.lang.String"/>
+	<parameter name="printDate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     S."SLPNO" AS SLPNO,
+     P."PATNO",
+     DECODE(S.SLPFNAME,NULL,P.PATFNAME||' '||P.PATGNAME,S.SLPFNAME||' '||S.SLPGNAME)||'   '||P."PATCNAME" AS PATNAME,
+     R."REGDATE",
+     TO_CHAR(R.REGDATE,'HH24:MI')AS REGTIME,
+     I.BEDCODE||'-'||I.ACMCODE AS BEDACM,
+     I."INPDDATE",
+     TO_CHAR(I.INPDDATE,'HH24:MI')AS INPDTIME,
+     D.DOCFNAME||' '||D.DOCGNAME||'   '||D."DOCCNAME" AS DOCNAME
+FROM
+     "SLIP" S,
+     "PATIENT" P,
+     "REG" R,
+     "INPAT" I,
+     "DOCTOR" D
+WHERE
+     S.REGID = R.REGID
+ AND S.PATNO = P.PATNO(+)
+ AND R.INPID = I.INPID(+)
+ AND S.DOCCODE = D.DOCCODE
+ AND S.SLPNO = $P{P_SLPNO}]]>
+	</queryString>
+	<field name="SLPNO" class="java.lang.String"/>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="PATNAME" class="java.lang.String"/>
+	<field name="REGDATE" class="java.lang.String"/>
+	<field name="REGTIME" class="java.lang.String"/>
+	<field name="BEDACM" class="java.lang.String"/>
+	<field name="INPDDATE" class="java.lang.String"/>
+	<field name="INPDTIME" class="java.lang.String"/>
+	<field name="DOCNAME" class="java.lang.String"/>
+	<field name="PATCNAME" class="java.lang.String"/>
+	<field name="DOCCNAME" class="java.lang.String"/>
+	<field name="ALLSLPNO" class="java.lang.String"/>
+	<field name="PATFNAME" class="java.lang.String"/>
+	<field name="PATTITLE" class="java.lang.String"/>
+	<field name="AMT" class="java.lang.String"/>
+	<field name="FROMDATE" class="java.lang.String"/>
+	<field name="TODATE" class="java.lang.String"/>
+	<variable name="AMT_BD" class="java.math.BigDecimal" resetType="None"/>
+	<variable name="AMOUNT_4" class="java.math.BigDecimal" calculation="System"/>
+	<variable name="AMOUNT_3" class="java.math.BigDecimal" calculation="System"/>
+	<background>
+		<band height="531" splitType="Stretch">
+			<printWhenExpression><![CDATA[$P{DOCBKGCPY}.equals( "Y" )]]></printWhenExpression>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="36" y="189" width="439" height="297">
+					<printWhenExpression><![CDATA[!$P{ISCOPY}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.lang.String"><![CDATA[$P{watermark}]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<pageHeader>
+		<band height="146" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="99" width="539" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style fontName='Arial Unicode MS'>HOSPITAL CHARGES SUMMARY </style><style fontName='Ming(for ISO10646_V3)'>" + org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{TotChgTtl}) + "</style>"]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="131" width="539" height="14" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="P_SLPNO">
+					<subreportParameterExpression><![CDATA[$P{P_SLPNO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REGDATE">
+					<subreportParameterExpression><![CDATA[$F{REGDATE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ALLSLPNO">
+					<subreportParameterExpression><![CDATA[$P{ALLSLPNO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DOCBKGCPY">
+					<subreportParameterExpression><![CDATA[$P{DOCBKGCPY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BEDACM">
+					<subreportParameterExpression><![CDATA[$F{BEDACM}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DisDtTime">
+					<subreportParameterExpression><![CDATA[$P{DisDtTime}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Copy">
+					<subreportParameterExpression><![CDATA[$P{Copy}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ISCOPY">
+					<subreportParameterExpression><![CDATA[$P{ISCOPY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PATCNAME">
+					<subreportParameterExpression><![CDATA[$F{PATCNAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SLPNO">
+					<subreportParameterExpression><![CDATA[$F{SLPNO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DOCCNAME">
+					<subreportParameterExpression><![CDATA[$F{DOCCNAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BedNo">
+					<subreportParameterExpression><![CDATA[$P{BedNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PATNO">
+					<subreportParameterExpression><![CDATA[$F{PATNO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="INPDTIME">
+					<subreportParameterExpression><![CDATA[$F{INPDTIME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TreDr">
+					<subreportParameterExpression><![CDATA[$P{TreDr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PATNAME">
+					<subreportParameterExpression><![CDATA[$F{PATNAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="AdmDtTime">
+					<subreportParameterExpression><![CDATA[$P{AdmDtTime}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PatNo">
+					<subreportParameterExpression><![CDATA[$P{PatNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DOCNAME">
+					<subreportParameterExpression><![CDATA[$F{DOCNAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="INPDDATE">
+					<subreportParameterExpression><![CDATA[$F{INPDDATE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REGTIME">
+					<subreportParameterExpression><![CDATA[$F{REGTIME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BillNo">
+					<subreportParameterExpression><![CDATA[$P{BillNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PatName">
+					<subreportParameterExpression><![CDATA[$P{PatName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "IP_PNAME.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="539" height="25" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="Credits">
+					<subreportParameterExpression><![CDATA[$P{Credits}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DocCharge">
+					<subreportParameterExpression><![CDATA[$P{DocCharge}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DocCredit">
+					<subreportParameterExpression><![CDATA[$P{DocCredit}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SpecialFee">
+					<subreportParameterExpression><![CDATA[$P{SpecialFee}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Balance">
+					<subreportParameterExpression><![CDATA[$P{Balance}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Charges">
+					<subreportParameterExpression><![CDATA[$P{Charges}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Packages">
+					<subreportParameterExpression><![CDATA[$P{Packages}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SpecialSrv">
+					<subreportParameterExpression><![CDATA[$P{SpecialSrv}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="HosCharge">
+					<subreportParameterExpression><![CDATA[$P{HosCharge}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="HosCredit">
+					<subreportParameterExpression><![CDATA[$P{HosCredit}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Refund">
+					<subreportParameterExpression><![CDATA[$P{Refund}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[$P{SubDataSource1}]]></dataSourceExpression>
+				<returnValue subreportVariable="AMOUNT_3" toVariable="AMOUNT_3"/>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "ChrgDayCase_Sub.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="1">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="555" height="1" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PRNRANGENOTE}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="1">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="555" height="1" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{3LINESNOTE}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="1">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="555" height="1" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ALINESNOTE}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="1">
+			<subreport isUsingCache="false">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="539" height="1" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="mothLang">
+					<subreportParameterExpression><![CDATA[$P{mothLang}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "AR_SIGN.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="1">
+			<subreport>
+				<reportElement x="274" y="0" width="200" height="1"/>
+				<subreportParameter name="Date"/>
+				<subreportParameter name="Item"/>
+				<subreportParameter name="Amount"/>
+				<subreportParameter name="TotChg"/>
+				<subreportParameter name="TotRfd"/>
+				<subreportParameter name="Balance"/>
+				<subreportParameter name="Credits"/>
+				<dataSourceExpression><![CDATA[$P{SubDataSource2}]]></dataSourceExpression>
+				<returnValue subreportVariable="AMOUNT_4" toVariable="AMOUNT_4"/>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "ChrgDayCase_Sub1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<textField>
+				<reportElement x="10" y="15" width="495" height="20"/>
+				<box>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="styled">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style fontName='Ming(for ISO10646_V3)'>此帳單乃部份費用，並非各項費用之全部，如有查詢，請在辦工時間內到出入院登記處。( 醫生巡房費、 手術費、 麻師費尚未計算在內。 )</style>"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="10" height="50"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="10" y="0" width="495" height="5"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="10" y="45" width="495" height="5"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="505" y="0" width="21" height="50"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="67" height="13"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(new java.text.SimpleDateFormat(
+    "dd/MMM/yyyy",Locale.ENGLISH)).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm:ss">
+				<reportElement x="67" y="0" width="100" height="13"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="441" y="1" width="87" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$P{Page}+" "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band>
+			<subreport>
+				<reportElement x="0" y="0" width="539" height="0" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="TotChgTtl">
+					<subreportParameterExpression><![CDATA[$P{TotChgTtl}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="3LINESNOTE">
+					<subreportParameterExpression><![CDATA[$P{3LINESNOTE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Credits">
+					<subreportParameterExpression><![CDATA[$P{Credits}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FROMDATE">
+					<subreportParameterExpression><![CDATA[$F{FROMDATE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="AMT">
+					<subreportParameterExpression><![CDATA[$F{AMT}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ALLSLPNO">
+					<subreportParameterExpression><![CDATA[$F{ALLSLPNO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DOCBKGCPY">
+					<subreportParameterExpression><![CDATA[$P{DOCBKGCPY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DocCharge">
+					<subreportParameterExpression><![CDATA[$P{DocCharge}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DisDtTime">
+					<subreportParameterExpression><![CDATA[$P{DisDtTime}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DocCredit">
+					<subreportParameterExpression><![CDATA[$P{DocCredit}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Copy">
+					<subreportParameterExpression><![CDATA[$P{Copy}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TODATE">
+					<subreportParameterExpression><![CDATA[$F{TODATE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BedNo">
+					<subreportParameterExpression><![CDATA[$P{BedNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SpecialFee">
+					<subreportParameterExpression><![CDATA[$P{SpecialFee}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Page">
+					<subreportParameterExpression><![CDATA[$P{Page}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ALINESNOTE">
+					<subreportParameterExpression><![CDATA[$P{ALINESNOTE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PRNRANGENOTE">
+					<subreportParameterExpression><![CDATA[$P{PRNRANGENOTE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Balance">
+					<subreportParameterExpression><![CDATA[$P{Balance}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Charges">
+					<subreportParameterExpression><![CDATA[$P{Charges}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="AdmDtTime">
+					<subreportParameterExpression><![CDATA[$P{AdmDtTime}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SubDataSource">
+					<subreportParameterExpression><![CDATA[$P{SubDataSource1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PatName">
+					<subreportParameterExpression><![CDATA[$P{PatName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BillNo">
+					<subreportParameterExpression><![CDATA[$P{BillNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_SLPNO">
+					<subreportParameterExpression><![CDATA[$P{P_SLPNO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Packages">
+					<subreportParameterExpression><![CDATA[$P{Packages}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="mothLang">
+					<subreportParameterExpression><![CDATA[$P{mothLang}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="printDate">
+					<subreportParameterExpression><![CDATA[$P{printDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SpecialSrv">
+					<subreportParameterExpression><![CDATA[$P{SpecialSrv}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ISCOPY">
+					<subreportParameterExpression><![CDATA[$P{ISCOPY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="watermark">
+					<subreportParameterExpression><![CDATA[$P{watermark}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="HosCharge">
+					<subreportParameterExpression><![CDATA[$P{HosCharge}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="HosCredit">
+					<subreportParameterExpression><![CDATA[$P{HosCredit}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Refund">
+					<subreportParameterExpression><![CDATA[$P{Refund}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TreDr">
+					<subreportParameterExpression><![CDATA[$P{TreDr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PatNo">
+					<subreportParameterExpression><![CDATA[$P{PatNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PATTITLE">
+					<subreportParameterExpression><![CDATA[$F{PATTITLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SubDataSource1">
+					<subreportParameterExpression><![CDATA[$P{SubDataSource1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PATFNAME">
+					<subreportParameterExpression><![CDATA[$F{PATFNAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "DAYENDCOVERLETTER_TWAH.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

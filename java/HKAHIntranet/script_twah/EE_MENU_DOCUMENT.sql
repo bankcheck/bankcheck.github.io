@@ -1,0 +1,382 @@
+ALTER TABLE EE_MENU_DOCUMENT
+ DROP PRIMARY KEY CASCADE;
+DROP TABLE EE_MENU_DOCUMENT CASCADE CONSTRAINTS;
+
+CREATE TABLE EE_MENU_DOCUMENT 
+(	
+ EE_SITE_CODE VARCHAR2(10 BYTE) NOT NULL ENABLE, 
+ EE_MENU_CONTENT_ID NUMBER(*,0) NOT NULL ENABLE, 
+ EE_MODULE_CODE VARCHAR2(20 BYTE), 
+ EE_DOCUMENT_ID NUMBER(*,0), 
+ EE_IS_URL VARCHAR2(1 BYTE), 
+ EE_URL VARCHAR2(400 BYTE), 
+ EE_CREATED_DATE DATE DEFAULT SYSDATE, 
+ EE_CREATED_USER VARCHAR2(30 BYTE) DEFAULT 'SYSTEM', 
+ EE_MODIFIED_DATE DATE DEFAULT SYSDATE, 
+ EE_MODIFIED_USER VARCHAR2(30 BYTE) DEFAULT 'SYSTEM', 
+ EE_ENABLED NUMBER(*,0) DEFAULT 1, 
+ PRIMARY KEY (EE_SITE_CODE, EE_MENU_CONTENT_ID)
+);
+ALTER TABLE EE_MENU_DOCUMENT ADD (
+ CONSTRAINT EE_MENU_DOCUMENT_EE_MENU_R01
+ FOREIGN KEY (EE_SITE_CODE, EE_MENU_CONTENT_ID)
+ REFERENCES EE_MENU_CONTENT (EE_SITE_CODE, EE_MENU_CONTENT_ID));
+
+----------------------------------
+-- Hospital Education Policies
+----------------------------------
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 1, 'education.hep', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 2, 'education.hep', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 3, 'education.hep', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 4, 'education.hep', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 5, 'education.hep', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 6, 'education.hep', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 7, 'education.hep', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 8, 'education.hep', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 9, 'education.hep', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 10, 'education.hep', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 11, 'education.hep', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 12, 'education.hep', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 13, 'education.hep', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 14, 'education.hep', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)  
+  VALUES ('twah', 224, 'education.hep', 1, 'N', null);
+
+
+----------------------------------
+-- In-service Education Calendar
+----------------------------------
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 15, 'education.is_cal', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 16, 'education.is_cal', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 17, 'education.is_cal', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 18, 'education.is_cal', 1, 'N', null);
+
+----------------------------------------------
+-- Mandatory In-service Education: Information
+----------------------------------------------
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 19, 'education.is_info', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 20, 'education.is_info', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 21, 'education.is_info', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 22, 'education.is_info', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 23, 'education.is_info', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 24, 'education.is_info', 1, 'N', null);
+
+
+----------------------------------------------
+-- Mandatory In-service Education: Content
+----------------------------------------------
+INSERT INTO EE_MENU_DOCUMENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) VALUES('twah', '207', 'education.is_content', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) VALUES('twah', '208', 'education.is_content', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) VALUES('twah', '209', 'education.is_content', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) VALUES('twah', '210', 'education.is_content', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) VALUES('twah', '211', 'education.is_content', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) VALUES('twah', '212', 'education.is_content', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) VALUES('twah', '213', 'education.is_content', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) VALUES('twah', '214', 'education.is_content', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) VALUES('twah', '215', 'education.is_content', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) VALUES('twah', '216', 'education.is_content', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) VALUES('twah', '217', 'education.is_content', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) VALUES('twah', '218', 'education.is_content', 1, 'N', null);
+-- INSERT INTO EE_MENU_DOCUMENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) VALUES('twah', '219', 'education.is_content', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) VALUES('twah', '220', 'education.is_content', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT(EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) VALUES('twah', '221', 'education.is_content', 1, 'N', null);
+
+
+
+
+----------------------------------------------
+-- Continuing External Education
+----------------------------------------------
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 38, 'education.cee', null, 'Y', 'http://www.deakin.edu.au/hmnbs/index.php');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 39, 'education.cee', null, 'Y', 'http://www.sebhs.ecu.edu.au/');
+
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 40, 'education.cee', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 41, 'education.cee', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 42, 'education.cee', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 43, 'education.cee', null, 'Y', 'http://www.sce.hkbu.edu.hk/info/pdhc/');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 44, 'education.cee', null, 'Y', 'http://www.sphpc.cuhk.edu.hk/');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 45, 'education.cee', null, 'Y', 'http://www.peak.vtc.edu.hk/course/AB-0036.html');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 46, 'education.cee', null, 'Y', 'http://www.scs.cuhk.edu.hk/scs/course/med/ab/doc/101-251500-01?disp=en');
+
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 47, 'education.cee', null, 'Y', 'http://www.hkma.org.hk/program/program_next.asp?prog_no=DBM&prog_cat=D&ver_type=E');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 48, 'education.cee', null, 'Y', 'http://www.hkma.org.hk/program/program_next.asp?prog_no=DMS&prog_cat=D&ver_type=E');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 49, 'education.cee', null, 'Y', 'http://www.hkma.org.hk/mbawp');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 50, 'education.cee', null, 'Y', 'http://www.peak.vtc.edu.hk/Peak/en/html/program/3/31.html');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 58, 'education.cee', null, 'Y', 'http://www.celhk.com/');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 59, 'education.cee', null, 'Y', 'http://www.peak.vtc.edu.hk/upload/25052009.htm');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 60, 'education.cee', null, 'Y', 'http://www.hkma.org.hk/program/program_next.asp?prog_no=DBM&prog_cat=D&ver_type=BG');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 61, 'education.cee', null, 'Y', 'http://www.hkma.org.hk/program/program_next.asp?ver_type=E&prog_cat=M&prog_no=MACON&visit_time=1');
+
+----------------------------------------------
+-- Evidence-based Practice
+----------------------------------------------
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 64, 'education.ebp', 1, 'N', null);
+
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 67, 'education.ebp', null, 'Y', 'http://www.ahrq.gov/');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 68, 'education.ebp', null, 'Y', 'http://www.york.ac.uk/inst/crd/index.htm');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 69, 'education.ebp', null, 'Y', 'http://www.hamilton.ca/HealthandSocialServices/Research/EPHPP');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 70, 'education.ebp', null, 'Y', 'http://www.joannabriggs.edu.au/');
+
+--INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+--  VALUES ('twah', 71, 'education.ebp', null, 'Y', '');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 72, 'education.ebp', null, 'Y', 'http://www.joannabriggs.edu.au/pubs/best_practice.php');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 73, 'education.ebp', null, 'Y', 'http://www.joannabriggs.edu.au/');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 74, 'education.ebp', null, 'Y', 'http://www.guidelines.gov/');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 75, 'education.ebp', null, 'Y', 'http://www.cochrane.org/');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 76, 'education.ebp', null, 'Y', 'http://www.acestar.uthscsa.edu/');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 77, 'education.ebp', null, 'Y', 'http://www.son.rochester.edu/SON/research/centers/research-evidenced-based-practice');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 78, 'education.ebp', null, 'Y', 'http://fpb.case.edu/Centers/Hirsh');
+
+----------------------------------------------
+-- Literature Search Based
+----------------------------------------------
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 81, 'education.lsb', null, 'Y', 'http://emedicine.medscape.com/');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 82, 'education.lsb', null, 'Y', 'http://www.mdlinx.com/');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 83, 'education.lsb', null, 'Y', 'http://www3.interscience.wiley.com/');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 84, 'education.lsb', null, 'Y', 'http://www3.interscience.wiley.com/browse/?type=&subject=NU00&titles=true');
+
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 85, 'education.lsb', null, 'Y', 'http://www3.interscience.wiley.com/journal/118486802/toc');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 86, 'education.lsb', null, 'Y', 'http://journals.lww.com/ajnonline/pages/default.aspx');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 87, 'education.lsb', null, 'Y', 'http://journals.lww.com/nursing/pages/default.aspx');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 88, 'education.lsb', null, 'Y', 'http://www.nursingcenter.com/home/index.asp');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 89, 'education.lsb', null, 'Y', 'http://www.nursingcenter.com/library/journalissue.asp?Journal_ID=420950&Issue_ID=949405#allissues');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 90, 'education.lsb', null, 'Y', 'http://journals.lww.com/ornursejournal/pages/default.aspx');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 91, 'education.lsb', null, 'Y', 'http://www.nursingcenter.com/library/journalissue.asp?Journal_ID=54003&Issue_ID=952755');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 92, 'education.lsb', null, 'Y', 'http://www.joannabriggs.edu.au/about/home.php');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 93, 'education.lsb', null, 'Y', 'http://www.cochrane.org/');
+
+----------------------------------------------
+-- The Nursing Council of Hong Kong
+----------------------------------------------
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 94, 'education.nchk', null, 'Y', 'http://www.nchk.org.hk/en/statistics_and_lists_of_nurses/list_of_registered_nurses/index.html');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 95, 'education.nchk', null, 'Y', 'http://www.nchk.org.hk/nursing/list_e.pdf');
+--INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+--  VALUES ('twah', 96, 'education.nchk', null, 'Y', '');
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL) 
+  VALUES ('twah', 97, 'education.nchk', null, 'Y', 'http://www.nchk.org.hk/en/home/index.html');
+
+----------------------------------------------
+-- In-service Eduction Review
+----------------------------------------------
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 128, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 129, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 130, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 131, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 132, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 133, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 134, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 135, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 136, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 137, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 138, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 139, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 140, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 141, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 142, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 143, 'education.is_review', 1, 'N', null);
+--INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+--  VALUES ('twah', 144, 'education.is_review', 1, 'N', null);
+--INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+--  VALUES ('twah', 145, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 146, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 147, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 148, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 149, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 150, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 151, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 152, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 153, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 154, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 155, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 156, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 157, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 158, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 159, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 160, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 161, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 162, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 163, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 164, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 165, 'education.is_review', 1, 'N', null);
+--INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+--  VALUES ('twah', 166, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 167, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 168, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 169, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 170, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 171, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 172, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 173, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 174, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 175, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 176, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 177, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 178, 'education.is_review', 1, 'N', null);
+--INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+--  VALUES ('twah', 179, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 180, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 181, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 182, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 183, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 184, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 185, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 186, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 187, 'education.is_review', 1, 'N', null);
+--INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+--  VALUES ('twah', 188, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 189, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 190, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 191, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 192, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 193, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 194, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 195, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 196, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 197, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 198, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 199, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 200, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 201, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 202, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 203, 'education.is_review', 1, 'N', null);
+INSERT INTO EE_MENU_DOCUMENT (EE_SITE_CODE, EE_MENU_CONTENT_ID, EE_MODULE_CODE, EE_DOCUMENT_ID, EE_IS_URL, EE_URL)
+  VALUES ('twah', 204, 'education.is_review', 1, 'N', null);

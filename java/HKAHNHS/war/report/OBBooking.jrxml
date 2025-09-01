@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OBBooking" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="417" leftMargin="89" rightMargin="89" topMargin="71" bottomMargin="71">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Image" class="java.lang.String">
+		<defaultValueExpression><![CDATA["D:\\projects\\Reports\\images\\rpt_logo2.JPG"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT B.PATFNAME || ' ' || B.PATGNAME AS PATNAME,P.PATCNAME AS PATCNAME,
+           TO_CHAR(B.BPBHDATE,'DD/MM/YYYY') AS BPBHDATE,
+           B.BPBNO,
+           D.DOCFNAME || ' ' || D.DOCGNAME AS DOCNAME,
+           D.DOCFAXNO AS DOCFAX,
+           D.DOCOTEL AS DOCTEL,
+           TO_CHAR(SYSDATE, 'DD Month,YYYY', 'nls_date_language=american') PRINTDATE
+      FROM BEDPREBOK B, DOCTOR D,PATIENT P
+     WHERE B.DOCCODE = D.DOCCODE AND B.PATNO=P.PATNO
+       AND p.patno = '400711']]>
+	</queryString>
+	<field name="PATNAME" class="java.lang.String"/>
+	<field name="PATCNAME" class="java.lang.String"/>
+	<field name="BPBHDATE" class="java.lang.String"/>
+	<field name="BPBNO" class="java.lang.String"/>
+	<field name="DOCNAME" class="java.lang.String"/>
+	<field name="DOCFAX" class="java.lang.String"/>
+	<field name="DOCTEL" class="java.lang.String"/>
+	<field name="PRINTDATE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="587" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="-61" width="216" height="99"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{Image}]]></imageExpression>
+			</image>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="2" y="51" width="100" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PRINTDATE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="24" y="80" width="211" height="14"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCNAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="108" width="70" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[Office Phone :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="72" y="108" width="100" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCTEL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="72" y="123" width="99" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCFAX}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="123" width="70" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[Fax :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="186" width="417" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Dear DR "+$F{DOCNAME}+" and Clinic Staff / Patient,"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="216" width="417" height="58" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[We are writing to inform you that our hospital has now implemented a deposit system for pre-bookings of our obstetric packages.
+
+In order to secure a confirmed pre-booking, patients must make their deposit payment to the Hong Kong Adventist Hospital. Under the system, Non-HKID holders shall make a deposit
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="274" width="54" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[payment of ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="54" y="274" width="66" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HK$40,000.00]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="274" width="231" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[and HKID holders shall make a deposit payment of ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="351" y="274" width="66" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HK$20,000.00.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="289" width="417" height="52" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[We will accept payment via EPS, credit card including American Express, Visa and Master, CUP Card and cash.
+
+Please kindly inform the patients listed below to register at Hong Kong Adventist Hospital and]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="341" width="89" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[make their deposit payment ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="341" width="181" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ in person within 2 weeks from today.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="356" width="417" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[as advised, their bookings will be cancelled without prior notice.]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="27" y="396" width="208" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)"  pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{BPBHDATE}+"    "+$F{PATNAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="262" y="341" width="155" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[ If patients do not pay their deposit ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="150" width="417" height="20"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Deposit Request for Confirmation of Obstetric Package Booking]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="444" width="417" height="111"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[For deposit payment: Sunday to Friday 9:00am – 5:00pm except public holidays.
+For enquiry: Please contact our Patient Business Office at (852)3651-8900, Monday to Friday 9:00am – 5:00pm except public holidays.
+
+We thank you for your attention.
+
+
+Patient Business Department
+Hong Kong Adventist Hospital
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="80" width="22" height="14"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[DR]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="298" y="396" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)"  pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{BPBNO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="235" y="396" width="63" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)"  pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATCNAME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

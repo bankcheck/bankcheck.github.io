@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptReAdmiss" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="daterange" class="java.lang.String"/>
+	<parameter name="SelectCrit" class="java.lang.String"/>
+	<parameter name="stename" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[Select                     P.Patno,
+                           trunc(MONTHS_BETWEEN (sysdate, P.Patbdate) / 12) as Age,
+                           to_char(R.Regdate,'DD/MM/YYYY') as Regdate1 ,
+                           to_char(I.Inpddate,'DD/MM/YYYY') as Inpddate1,
+                           Trunc(I.Inpddate) - Trunc(R.Regdate) as Los1,
+                           D_1.DocFname || ' ' || D_1.DocGname as AdmDr1,
+                           D_2.DocFname || ' ' || D_2.DocGname as DisDr1,
+                           I.Sdscode as SckCode1,
+                           S.Sdsdesc as SckDesc1,
+                           TO_CHAR(SR.Regdate,'DD/MM/YYYY') as Regdate2,
+                           TO_CHAR(SI.Inpddate,'DD/MM/YYYY') as Inpddate2,
+                           Trunc(SI.Inpddate) - Trunc(SR.Regdate) as Los2,
+                           SD_1.DocFname || ' ' || SD_1.DocGname as AdmDr2,
+                           SD_2.DocFname || ' ' || SD_2.DocGname as DisDr2,
+                           SI.Sdscode as SckCode2,
+                           SS.Sdsdesc as SckDesc2,
+                           s_1.spcname AS spec_sa,
+                           s_2.spcname AS spec_sd,
+                           ss_1.spcname AS spec_ssa,
+                           ss_2.spcname AS spec_ssd
+From
+                           Reg R,
+                           Inpat I,
+                           Sdisease S,
+                           Doctor D_1,
+                           spec s_1,
+                           Doctor D_2,
+                           spec s_2,
+                           Reg SR,
+                           Inpat SI,
+                           Sdisease SS,
+                           Doctor SD_1,
+                           spec ss_1,
+                           Doctor SD_2,
+                           spec ss_2 ,
+                           (Select  P.Patno ,P.Patbdate from Patient P where P.stecode= 'HKAH') P
+Where
+                P.Patno = R.Patno
+                and R.Inpid = I.Inpid
+                and P.Patno = SR.Patno
+                and SR.Inpid= SI.Inpid
+                and I.Sdscode = S.Sdscode(+)
+                and I.Doccode_a = D_1.Doccode
+                and I.Doccode_d = D_2.Doccode(+)
+                and SI.Sdscode = SS.Sdscode(+)
+                and SI.doccode_a = SD_1.Doccode
+                and SI.Doccode_d = SD_2.Doccode(+)
+                and s_1.spccode = D_1.spccode
+                and s_2.spccode = D_2.spccode
+                and ss_1.spccode = SD_1.spccode
+                and ss_2.spccode = SD_2.spccode
+                and R.Regtype = 'I'
+                and SR.Regtype = 'I'
+                and (nvl(I.Doccode_D, ' ') = nvl(SI.Doccode_D, ' ') or 'S'<>'S' )
+                and (nvl(I.Doccode_D, ' ') <> nvl(SI.Doccode_D, ' ') or 'S'<>'N' )
+                and (nvl(I.Sdscode, ' ') = nvl(SI.Sdscode, ' ') or 'S'<>'S')
+                and (nvl(I.Sdscode, ' ') <> nvl(SI.Sdscode, ' ') or 'S'<>'N')
+                and R.Regid = GET_LAST_IP_REGID (SR.Regid, SR.Patno)
+                and SI.Inpddate >= to_date('01/01/2006','dd/mm/yyyy')
+                and SI.Inpddate <= to_date('01/06/2006','dd/mm/yyyy')+1
+                and TRUNC(SR.Regdate) between TRUNC(I.Inpddate) and TRUNC(I.Inpddate)+3
+                Order by R.Patno, R.Regdate]]>
+	</queryString>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="AGE" class="java.lang.String"/>
+	<field name="REGDATE1" class="java.lang.String"/>
+	<field name="INPDDATE1" class="java.lang.String"/>
+	<field name="LOS1" class="java.lang.String"/>
+	<field name="ADMDR1" class="java.lang.String"/>
+	<field name="DISDR1" class="java.lang.String"/>
+	<field name="SCKCODE1" class="java.lang.String"/>
+	<field name="SCKDESC1" class="java.lang.String"/>
+	<field name="REGDATE2" class="java.lang.String"/>
+	<field name="INPDDATE2" class="java.lang.String"/>
+	<field name="LOS2" class="java.lang.String"/>
+	<field name="ADMDR2" class="java.lang.String"/>
+	<field name="DISDR2" class="java.lang.String"/>
+	<field name="SCKCODE2" class="java.lang.String"/>
+	<field name="SCKDESC2" class="java.lang.String"/>
+	<field name="SPEC_SA" class="java.lang.String"/>
+	<field name="SPEC_SD" class="java.lang.String"/>
+	<field name="SPEC_SSA" class="java.lang.String"/>
+	<field name="SPEC_SSD" class="java.lang.String"/>
+	<variable name="v_age" class="java.lang.Integer">
+		<variableExpression><![CDATA[java.lang.Integer.parseInt($F{AGE})]]></variableExpression>
+	</variable>
+	<variable name="v_los1" class="java.lang.Integer">
+		<variableExpression><![CDATA[java.lang.Integer.parseInt($F{LOS1})]]></variableExpression>
+	</variable>
+	<variable name="v_los2" class="java.lang.Integer">
+		<variableExpression><![CDATA[java.lang.Integer.parseInt($F{LOS2})]]></variableExpression>
+	</variable>
+	<filterExpression><![CDATA[$F{PATNO}.length()!=0]]></filterExpression>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="129" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="30" width="786" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{stename}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="48" width="785" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[Re-Admission Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="70" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<text><![CDATA[rptReAdmiss]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="684" y="0" width="87" height="16"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="771" y="0" width="14" height="16"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="80" width="783" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{daterange}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="109" width="47" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Patient No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="109" width="24" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Age]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="109" width="56" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Adm Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="145" y="109" width="49" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Dis Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="199" y="109" width="30" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[LOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="109" width="79" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Adm Dr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="318" y="109" width="68" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Specialty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="391" y="109" width="76" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Dis Dr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="476" y="109" width="76" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Specialty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="558" y="109" width="40" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Sick Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="603" y="109" width="182" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="2" y="65" width="783" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SelectCrit}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="HH:mm:ss">
+				<reportElement x="84" y="16" width="100" height="14"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="5" y="16" width="79" height="14"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(new java.text.SimpleDateFormat(     "dd/MMM/yyyy",Locale.ENGLISH)).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="18" splitType="Prevent">
+			<textField>
+				<reportElement x="2" y="0" width="47" height="18"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement x="234" y="0" width="79" height="18"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ADMDR1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement x="391" y="0" width="76" height="18"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DISDR1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement x="318" y="0" width="68" height="18"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SPEC_SA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement x="476" y="0" width="76" height="18"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SPEC_SD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="558" y="0" width="40" height="18"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SCKCODE1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="603" y="0" width="182" height="18"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SCKDESC1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="84" y="0" width="56" height="18"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{REGDATE1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="0" width="49" height="18"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{INPDDATE1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="55" y="0" width="24" height="18"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{v_age}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="0" width="30" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{v_los1}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="21" splitType="Prevent">
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement x="234" y="0" width="79" height="21"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ADMDR2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement x="318" y="0" width="68" height="21"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SPEC_SSA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement x="476" y="0" width="76" height="21"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SPEC_SSD}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement x="391" y="0" width="76" height="21"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DISDR2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="558" y="0" width="40" height="21"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SCKCODE2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="603" y="0" width="182" height="21"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SCKDESC2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="84" y="0" width="56" height="21"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{REGDATE2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="0" width="49" height="21"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{INPDDATE2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="0" width="30" height="21"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{v_los2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

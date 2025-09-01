@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT_PAT_CHARGE_SUMMARY" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.128947860107559"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="LastPageFlag" class="java.lang.Boolean" isForPrompting="false">
+		<defaultValueExpression><![CDATA[Boolean.FALSE]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHIntranet\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_stecode" class="java.lang.String">
+		<defaultValueExpression><![CDATA["hkah"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_datefrom" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_dateto" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="BaseDir" class="java.io.File">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+  d.doccode DOCCODE,
+  s.DOCCODE DOCCODE_SLIP,
+  s.DOCFNAME,
+  s.DOCGNAME,
+  s.REGTYPE,
+  s.SDSCODE,
+  s.SDSDESC,
+  s.ACMNAME,
+  s.LOS,
+  s.DISCH_DATE,
+  s.PATNO,
+  s.PATFNAME,
+  s.PATGNAME,
+  s.DR_FEE,
+  s.OTHER_DR,
+  s.OTHER_DR_FEE,
+  s.HAS_ANES_ITEM,
+  s.HOSP_FEE,
+  s.TOTAL,
+  s.TITLE,
+  s.ADD1,
+  s.ADD2,
+  s.ADD3,
+  s.ADD4
+from
+(
+select
+  s.doccode "DOCCODE",
+  inp.doccode_a "DOCCODE_A",
+  d.docfname "DOCFNAME",
+  d.docgname "DOCGNAME",
+  r.regtype "REGTYPE",
+  CASE WHEN r.regtype = 'D' THEN dayp.sdscode ELSE inp.sdscode END "SDSCODE",
+  CASE WHEN r.regtype = 'D' THEN sd2.sdsdesc ELSE sd.sdsdesc END "SDSDESC",
+  a.acmname "ACMNAME",
+  --r.regdate "REGDATE",
+  to_char(TRUNC(Inp.INPDDATE) - TRUNC(R.REGDATE) + 1) "LOS",
+  --inp.inpid "INPID",
+  to_char(inp.inpddate, 'dd/mm/yyyy') "DISCH_DATE",
+  r.patno "PATNO",
+  p.patfname "PATFNAME",
+  p.patgname "PATGNAME",
+  -- doctor own charges
+  to_char(SUM(CASE WHEN tx.doccode = s.doccode and tx.itmtype = 'D' THEN tx.stnnamt ELSE 0 END)) "DR_FEE",
+  -- other doctor
+  to_char(CASE WHEN COUNT(DISTINCT(case when (($P{in_stecode} = 'hkah' and tx.itmcode = 'DF') or ($P{in_stecode} = 'twah' and tx.itmcode like 'WF%' and tx.itmtype = 'D')) and tx.doccode <> s.doccode then tx.doccode else null end)) > 0 THEN 1 ELSE 0 END) "OTHER_DR",
+  to_char(SUM(CASE WHEN tx.doccode <> r.doccode and tx.itmtype = 'D' THEN tx.stnnamt ELSE 0 END)) "OTHER_DR_FEE",
+  -- is include anes fee
+  to_char(CASE WHEN COUNT(case when tx.itmcode in ('DFA', 'AN1G') then tx.doccode else null end) > 1 THEN 1 ELSE 0 END) "HAS_ANES_ITEM",
+  --COUNT(case when tx.itmcode in ('DFA', 'AN1G') then tx.doccode else null end) "HAS_ANES_ITEM_NUM",
+  -- hospital charges (-ve for discount)
+  to_char(SUM(CASE WHEN tx.itmtype = 'H' THEN tx.stnnamt ELSE 0 END)) "HOSP_FEE",
+  -- all item charge
+  to_char(sum(tx.stnnamt)) "TOTAL",
+-- doc addr
+  d.tittle "TITLE",
+  decode(d.RPTTO,NULL,'','C',d.DOCADD1,'H',d.DOCHOMADD1,'O',d.DOCOFFADD1) AS ADD1,
+  decode(d.RPTTO,NULL,'','C',d.DOCADD2,'H',d.DOCHOMADD2,'O',d.DOCOFFADD2) AS ADD2,
+  decode(d.RPTTO,NULL,'','C',d.DOCADD3,'H',d.DOCHOMADD3,'O',d.DOCOFFADD3) AS ADD3,
+  decode(d.RPTTO,NULL,'','C',d.DOCADD4,'H',d.DOCHOMADD4,'O',d.DOCOFFADD4) AS ADD4
+from
+  reg@iweb r
+  join slip@iweb s on r.regid = s.regid
+  join inpat@iweb inp on r.inpid = inp.inpid
+  left join daypat@iweb dayp on r.daypid = dayp.daypid
+  join sliptx@iweb tx on s.slpno = tx.slpno
+  join item@iweb itm on tx.itmcode = itm.itmcode
+  join patient@iweb p on r.patno = p.patno
+  join doctor@iweb d on s.doccode = d.doccode
+  left join acm@iweb a on inp.acmcode = a.acmcode
+  left join sdisease@iweb sd on inp.sdscode = sd.sdscode
+  left join sdisease@iweb sd2 on dayp.sdscode = sd2.sdscode
+  left join patcat@iweb pc on s.pcyid = pc.pcyid
+
+where
+1=1
+-- filter only itmtype D, H
+and tx.itmtype in ('D', 'H')
+-- filter out payment items
+and tx.itmcode not in ('PAYME', 'REF')
+-- filter out deposit items
+and itm.itmcat <> 'O'
+-- filter by inp(hk)/daycase(tw)
+and (($P{in_stecode} = 'hkah' and r.regtype = 'I') or ($P{in_stecode} = 'twah' and r.regtype in ('I', 'D')))
+-- filter by discharge date
+and
+  (
+   (r.regtype = 'I' and inp.inpddate between to_date($P{in_datefrom}, 'dd/mm/yyyy') and to_date($P{in_dateto}, 'dd/mm/yyyy') +1) or
+   (r.regtype = 'D' and r.regdate between to_date($P{in_datefrom}, 'dd/mm/yyyy') and to_date($P{in_dateto}, 'dd/mm/yyyy') +1)
+  )
+-- filter by normal reg, slip and sliptx
+and r.regsts in ('N')
+and s.slpsts in ('A', 'C')
+and tx.stnsts in ('N', 'A', 'P')
+-- filter by reg that have ot log
+and r.regid in
+(
+  select s2.regid
+  from ot_log@iweb l
+    join slip@iweb s2 on l.slpno = s2.slpno
+)
+-- filter out patient cateogory: charity
+and (('hkah' = 'hkah' and (s.pcyid is null or pc.pcycode not in ('CH'))) or ('hkah' = 'twah' and s.slpno not in (select slpno from sliptx@iweb where itmcode in ('MSCHT') and stnsts = 'N')))
+group by s.doccode, inp.doccode_a, d.docfname, d.docgname, r.regtype, inp.sdscode, dayp.sdscode, sd.sdsdesc, sd2.sdsdesc, a.acmname, r.regdate, TRUNC(Inp.INPDDATE) - TRUNC(R.REGDATE) + 1, inp.inpddate, r.patno, p.patfname, p.patgname, d.tittle, d.RPTTO, d.DOCADD1, d.DOCADD2, d.DOCADD3, d.DOCADD4, d.DOCHOMADD1, d.DOCHOMADD2, d.DOCHOMADD3, d.DOCHOMADD4, d.DOCOFFADD1, d.DOCOFFADD2, d.DOCOFFADD3, d.DOCOFFADD4
+) s
+join doctor@iweb d on s.doccode_a = d.doccode or s.DOCCODE = d.doccode
+where s.DOCCODE is not null
+order by s.DOCFNAME, s.DOCGNAME, s.REGTYPE desc, s.sdscode, s.ACMNAME, s.LOS, s.DISCH_DATE]]>
+	</queryString>
+	<field name="DOCCODE" class="java.lang.String"/>
+	<field name="DOCCODE_SLIP" class="java.lang.String"/>
+	<field name="DOCFNAME" class="java.lang.String"/>
+	<field name="DOCGNAME" class="java.lang.String"/>
+	<field name="REGTYPE" class="java.lang.String"/>
+	<field name="SDSCODE" class="java.lang.String"/>
+	<field name="SDSDESC" class="java.lang.String"/>
+	<field name="ACMNAME" class="java.lang.String"/>
+	<field name="LOS" class="java.lang.String"/>
+	<field name="DISCH_DATE" class="java.lang.String"/>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="PATFNAME" class="java.lang.String"/>
+	<field name="PATGNAME" class="java.lang.String"/>
+	<field name="DR_FEE" class="java.lang.String"/>
+	<field name="OTHER_DR" class="java.lang.String"/>
+	<field name="OTHER_DR_FEE" class="java.lang.String"/>
+	<field name="HAS_ANES_ITEM" class="java.lang.String"/>
+	<field name="HOSP_FEE" class="java.lang.String"/>
+	<field name="TOTAL" class="java.lang.String"/>
+	<field name="TITLE" class="java.lang.String"/>
+	<field name="ADD1" class="java.lang.String"/>
+	<field name="ADD2" class="java.lang.String"/>
+	<field name="ADD3" class="java.lang.String"/>
+	<field name="ADD4" class="java.lang.String"/>
+	<variable name="drFee" class="java.lang.Number">
+		<variableExpression><![CDATA[$F{DR_FEE} == null ? new BigDecimal("0") : new BigDecimal($F{DR_FEE})]]></variableExpression>
+	</variable>
+	<variable name="hospFee" class="java.lang.Number">
+		<variableExpression><![CDATA[$F{HOSP_FEE} == null ? new BigDecimal("0") : new BigDecimal($F{HOSP_FEE})]]></variableExpression>
+	</variable>
+	<variable name="total" class="java.lang.Number">
+		<variableExpression><![CDATA[$F{TOTAL} == null ? new BigDecimal("0") : new BigDecimal($F{TOTAL})]]></variableExpression>
+	</variable>
+	<variable name="drFee_2" class="java.lang.Number" resetType="Group" resetGroup="Doctor" calculation="Sum">
+		<variableExpression><![CDATA[$V{drFee}]]></variableExpression>
+	</variable>
+	<variable name="hospFee_2" class="java.lang.Number" resetType="Group" resetGroup="Doctor" calculation="Sum">
+		<variableExpression><![CDATA[$V{hospFee}]]></variableExpression>
+	</variable>
+	<variable name="total_2" class="java.lang.Number" resetType="Group" resetGroup="Doctor" calculation="Sum">
+		<variableExpression><![CDATA[$V{total}]]></variableExpression>
+	</variable>
+	<variable name="drFee_1" class="java.lang.Number" resetType="Group" resetGroup="slpType" calculation="Sum">
+		<variableExpression><![CDATA[$V{drFee}]]></variableExpression>
+	</variable>
+	<variable name="hospFee_1" class="java.lang.Number" resetType="Group" resetGroup="slpType" calculation="Sum">
+		<variableExpression><![CDATA[$V{hospFee}]]></variableExpression>
+	</variable>
+	<variable name="total_1" class="java.lang.Number" resetType="Group" resetGroup="slpType" calculation="Sum">
+		<variableExpression><![CDATA[$V{total}]]></variableExpression>
+	</variable>
+	<variable name="otherDrFee" class="java.lang.Number">
+		<variableExpression><![CDATA[$F{OTHER_DR_FEE} == null ? new BigDecimal("0") : new BigDecimal($F{OTHER_DR_FEE})]]></variableExpression>
+	</variable>
+	<variable name="otherDrFee_1" class="java.lang.Number" resetType="Group" resetGroup="slpType" calculation="Sum">
+		<variableExpression><![CDATA[$V{otherDrFee}]]></variableExpression>
+	</variable>
+	<variable name="otherDrFee_2" class="java.lang.Number" resetType="Group" resetGroup="Doctor" calculation="Sum">
+		<variableExpression><![CDATA[$V{otherDrFee}]]></variableExpression>
+	</variable>
+	<group name="Doctor" isStartNewPage="true" isResetPageNumber="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{DOCCODE}]]></groupExpression>
+		<groupHeader>
+			<band height="5"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="17">
+				<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="582" y="0" width="70" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{drFee_2} == null ? new BigDecimal("0") : $V{drFee_2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="657" y="0" width="70" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{hospFee_2} == null ? new BigDecimal("0") : $V{hospFee_2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="732" y="0" width="70" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{total_2} == null ? new BigDecimal("0") : $V{total_2}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="479" y="0" width="98" height="15"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement>
+						<font size="9" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Doctor Total]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="slpType" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{REGTYPE}]]></groupExpression>
+		<groupHeader>
+			<band height="32">
+				<textField>
+					<reportElement x="0" y="0" width="91" height="15"/>
+					<textElement>
+						<font size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[("D".equals($F{REGTYPE})
+    ? "Day-Case"
+    : ("I".equals($F{REGTYPE})
+        ? "In-Patient"
+        : ("O".equals($F{REGTYPE})
+            ? "Out-Patient"
+            : ""
+        )
+    )
+)]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="387" y="16" width="45" height="12"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font size="8" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Patient No.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="437" y="16" width="140" height="12"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font size="8" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Patient Name]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="582" y="16" width="70" height="12"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Dr. Fee]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="657" y="16" width="70" height="12"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Hospital Fee]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="732" y="16" width="70" height="12"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="231" y="16" width="53" height="12"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement>
+						<font size="8" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[ACM]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="318" y="16" width="65" height="12"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement>
+						<font size="8" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Discharge Date]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="289" y="16" width="25" height="12"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement>
+						<font size="8" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[LOS	]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="16" width="60" height="12"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement>
+						<font size="8" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Diagnosis Code]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="65" y="16" width="161" height="12"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement>
+						<font size="8" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Diagnosis Description]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="16">
+				<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="732" y="0" width="70" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{total_1} == null ? new BigDecimal("0") : $V{total_1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="657" y="0" width="70" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{hospFee_1} == null ? new BigDecimal("0") : $V{hospFee_1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="582" y="0" width="70" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{drFee_1} == null ? new BigDecimal("0") : $V{drFee_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="479" y="0" width="98" height="15"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement>
+						<font size="9" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[DIO Sub Total]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band/>
+	</title>
+	<pageHeader>
+		<band height="67" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} != $P{REPORT_MAX_COUNT}]]></printWhenExpression>
+			<textField>
+				<reportElement x="0" y="18" width="802" height="18"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Patient Discharge Summary"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="802" height="18"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Hong Kong Adventist Hospital" +
+("hkah".equalsIgnoreCase($P{in_stecode})
+    ? " - Stubbs Road"
+    : ("twah".equalsIgnoreCase($P{in_stecode})
+        ? " - Tsuen Wan"
+        : ""
+       )
+)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="261" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER}.intValue() == 1 ?
+($F{ADD1} == null ? "" :
+    (
+    ($F{TITLE} == null || "".equals($F{TITLE}) ? "" : $F{TITLE} + " ") +
+    $F{DOCFNAME} + " " + $F{DOCGNAME}
+    )
+) : ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="13" width="261" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER}.intValue() == 1 ? $F{ADD1} : ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="39" width="261" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER}.intValue() == 1 ? $F{ADD3} : ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="26" width="261" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER}.intValue() == 1 ? $F{ADD2} : ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="52" width="261" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER}.intValue() == 1 ? $F{ADD4} : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="54" width="802" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["From " + $P{in_datefrom} + " to " + $P{in_dateto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="Doctor" pattern="" isBlankWhenNull="false">
+				<reportElement x="0" y="36" width="802" height="18"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($V{REPORT_COUNT} == 0 ?
+    "No record" :
+    "Dr. " + $F{DOCFNAME} + " " + $F{DOCGNAME} +
+    ($F{DOCCODE} == null ? "" : " (" + $F{DOCCODE} + ")")
+)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="686" y="52" width="80" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="Doctor">
+				<reportElement x="766" y="52" width="36" height="15"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="697" y="0" width="105" height="18"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["(For Reference Only)"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band>
+			<printWhenExpression><![CDATA[false]]></printWhenExpression>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="60" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SDSCODE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="65" y="0" width="161" height="12"/>
+				<textElement>
+					<font size="8" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SDSDESC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement x="231" y="0" width="53" height="12"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ACMNAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="289" y="0" width="25" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{LOS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="387" y="0" width="45" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement x="437" y="0" width="140" height="12"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATFNAME} + " " + $F{PATGNAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="318" y="0" width="65" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DISCH_DATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="582" y="0" width="70" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{drFee} == null ? new BigDecimal("0") : $V{drFee}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="657" y="0" width="70" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{hospFee} == null ? new BigDecimal("0") : $V{hospFee}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="732" y="0" width="70" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{total} == null ? new BigDecimal("0") : $V{total}]]></textFieldExpression>
+			</textField>
+			<elementGroup/>
+		</band>
+	</detail>
+</jasperReport>

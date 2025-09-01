@@ -1,0 +1,24 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_ALERT"
+(
+  v_ALTCODE ALERT.ALTCODE%TYPE,
+  v_ALTDESC ALERT.ALTDESC%TYPE
+)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN outcur FOR
+    SELECT
+      ALTCODE,
+      ALTDESC,
+      DECODE(ALTEMAIL,-1,'Y','N'),
+      DECODE(ALERT,-1,'Y','N')
+    FROM ALERT
+    WHERE ( ALTCODE LIKE '%' || v_ALTCODE || '%')
+    AND   ( ALTDESC LIKE '%' || v_ALTDESC || '%')
+    ORDER BY ALTCODE;
+  RETURN OUTCUR;
+END NHS_LIS_ALERT;
+/
+
+

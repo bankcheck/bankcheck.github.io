@@ -1,0 +1,4 @@
+create or replace
+TYPE OTLOGMETH_TAB
+AS TABLE OF OTLOGMETH;
+/

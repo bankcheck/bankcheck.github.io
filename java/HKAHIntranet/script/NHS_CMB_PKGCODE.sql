@@ -1,0 +1,13 @@
+create or replace
+FUNCTION      "NHS_CMB_PKGCODE"
+  RETURN Types.CURSOR_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN OUTCUR FOR
+      SELECT PKGNAME,PKGCODE
+      FROM PACKAGE@IWEB
+      WHERE ROWNUM < 100
+      ORDER BY PKGCODE;
+   RETURN OUTCUR;
+END NHS_CMB_PKGCODE;

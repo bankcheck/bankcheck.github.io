@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.hkah.web.db.hibernate.ELeaveBalanceObj" table="EL_ELEAVE_BALANCE">
+  	<composite-id name="id" class="com.hkah.web.db.hibernate.ELeaveBalanceObjID">
+	  	<key-property name="staffID" column="EL_STAFF_ID"
+	  		type="string">
+	  	</key-property>
+	  	<key-property name="year" column="EL_YEAR" type="int"></key-property>
+  	</composite-id>
+  	<property name="siteCode" type="string" column="EL_SITE_CODE"></property>
+  	<property name="actualBalance" column="EL_ACTUAL_BALANCE" type="float"></property>
+  	<property name="pendingBalance" column="EL_PENDING_BALANCE" type="float"></property>
+  	<property name="enabled" column="EL_ENABLED" type="int"></property>
+  	<property name="createdUser" column="EL_CREATED_USER" type="string"></property>
+  	<property name="modifiedUser" column="EL_MODIFIED_USER" type="string"></property>
+  	<property name="createdDate" column="EL_CREATED_DATE"></property>
+  	<property name="modifiedDate" column="EL_MODIFIED_DATE"></property>
+  </class>
+</hibernate-mapping>

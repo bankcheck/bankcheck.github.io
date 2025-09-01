@@ -1,0 +1,157 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 12.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>How To Print PCL Fonts to a PCL Printer</title>
+</head>
+
+<body>
+
+      <TABLE bgColor=#CC0000 width="100%" cellpadding="0" cellspacing="0">
+        <TBODY>
+        <TR>
+          <TD bgcolor="#FFFFFF">
+            <p align="center"><i><b><font size="6">ID<font color="#CC0000">Automation.com,
+            Inc.</font></font></b></i>
+          </TD></TR>
+        <TR>
+          <TD>
+            <p align="center"><em><b><font face="Arial" color="#FFFFFF" size="3">Your
+            Source for Quality Symbology</font></b></em>
+          </TD></TR>
+        </TBODY></TABLE>
+
+      <table bgColor="#CC0000" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td bgcolor="#FFFFFF">
+            <p align="center"><b><font size="3">[<a href="https://www.idautomation.com/" style="color: #003399" target="_top">IDAutomation.com</a> 
+			| <a href="https://www.idautomation.com/barcode-fonts/">
+			<font color="#003399">Barcode Fonts</font></a> |
+			<a href="https://www.idautomation.com/barcode-components/">
+			<font color="#003399">Components</font></a> |
+			<a href="https://www.idautomation.com/barcode-scanners/">
+			<font color="#003399">Scanners</font></a> |
+			<a href="https://support.idautomation.com/">
+			<font color="#003399">Support</font></a>]</font></b></td>
+        </tr>
+      </table>
+
+<h1><span style="font-weight: 400"><font size="4"><em>NOTE: In the Demo version of 
+		these Code 128 fonts, an intermittent &quot;DEMO&quot; watermark will appear at 
+		the top of the barcode, which may sometimes cause scanner read errors. A 
+		successful scan can be obtained for testing purposes by scanning the 
+		lower portion of the barcode that does not contain the watermark.
+In addition, not all PCL fonts are included in the Demo version.
+		To order the complete Code 128 
+Font Package:<br></em>
+<a href="https://www.idautomation.com/barcode-fonts/code-128/"><em>
+https://www.idautomation.com/barcode-fonts/code-128/</em></a></font></span></h1>
+	  <h1><font color="#CC0000"><b>PCL Font Support Document</b></font></h1>
+<p><font face="Times">This document describes how to print PCL (HP's Printer
+Command Language) fonts to a PCL compatible printer. PCL fonts can be used on any
+operating system that can send files to a PCL compatible printer in binary mode.
+From the Windows command prompt, this is performed by using the COPY command with the /B switch. </font></p>
+      <h1><font size="4" color="#CC0000">FONT NAMING</font></h1>
+      <p>The syntax for naming the PCL fonts is as follows: <b>Font Type</b> (C128) +
+      <b>height</b> (<i>see chart below</i>) + <b>point size</b> (8, 12, 16, 20 
+      or 24)&nbsp; + <b>.SFP&quot;</b>. All C128 PCL fonts are 300 DPI.</p>
+      <table id="table1" style="BORDER-COLLAPSE: collapse" borderColor="#003399" cellSpacing="0" width="409" border="1">
+        <tr>
+          <td bgColor="#cc0000" width="137"><font color="#ffffff"><b>Font </b></font>
+          <font color="#FFFFFF"><b>height</b></font></td>
+          <td bgColor="#cc0000" width="265"><font color="#ffffff"><b>Font height 
+          @12 points</b></font></td>
+        </tr>
+        <tr>
+          <td width="137">&nbsp;XXS</td>
+          <td width="265">&nbsp;.10&quot; or .254 CM</td>
+        </tr>
+        <tr>
+          <td width="137">&nbsp;XS</td>
+          <td width="265">&nbsp;.20&quot; or .508 CM</td>
+        </tr>
+        <tr>
+          <td width="137">&nbsp;S</td>
+          <td width="265">&nbsp;.35&quot; or .889 CM</td>
+        </tr>
+        <tr>
+          <td width="137">&nbsp;M</td>
+          <td width="265">&nbsp;.50&quot; or 1.27 CM</td>
+        </tr>
+        <tr>
+          <td width="137">&nbsp;L</td>
+          <td width="265">&nbsp;.60&quot; or 1.46 CM</td>
+        </tr>
+        <tr>
+          <td width="137">&nbsp;XL</td>
+          <td width="265">&nbsp;.75&quot; or 1.90 CM</td>
+        </tr>
+        <tr>
+          <td width="137">&nbsp;XXL</td>
+          <td width="265">&nbsp; 1&quot;&nbsp;&nbsp; or 2.54 CM</td>
+        </tr>
+      </table>
+<h3><font color="#CC0000"><b>PCL FONT PRINTING EXAMPLE</b></font></h3>
+<p>The example provided below is only one method of printing with PCL 
+fonts. We provide this example for you to test the PCL fonts and ensure they are 
+compatible with your printer. Your application will need to perform similar 
+commands to copy the escape sequences and fonts to the printer as a single 
+string 
+of data. We cannot 
+perform consulting services to help you with the implementation in your application because it 
+is beyond the scope of our
+<a href="https://www.idautomation.com/product-support/statement-of-support/">support policy</a>. </p>
+<p>In the example below, <font color="#336600">&lt;Esc&gt;</font><font face="Times"> 
+represents the escape character. To create the </font><font color="#336600">
+&lt;Esc&gt; </font><font face="Times">command in DOS Edit, hold down the
+CTRL key and press the letter &quot;P&quot;, then release both keys and then press the ESC
+character.&nbsp;</font></p>
+<p>The following commands will download a font to the PCL printer and assign it an ID number of 70:</p>
+<ol>
+  <li><font color="#336600">&lt;Esc&gt;*c70D</font>&nbsp; tells the printer it will receive a soft font and to assign it an 
+  ID of 
+  70 (provided in file <font color="#336600">c70D.txt</font>)</li>
+  <li>Copy the font file to the printer</li>
+  <li><font color="#336600">&lt;Esc&gt;*c5F</font>&nbsp;&nbsp; tells the printer to make this a permanent 
+  font (provided in file <font color="#336600">c5F.txt</font>)</li>
+  <li><font color="#336600">&lt;Esc&gt;(70X</font>&nbsp; selects the font 
+  (provided in file <font color="#336600">data.txt</font>)</li>
+</ol>
+<p>To test these commands from a Windows command prompt, run the TEST.BAT file 
+provided. The TEST.BAT file assumes you have a PCL printer attached to 
+the LPT1 port. View the files c70D.txt, c5F.txt and data.txt with a
+standard text editor to view the commands in the files.</p>
+<p>You may type the copy commands manually from the prompt, for example:</p>
+<pre><font color="#336600">copy /B c70D.txt +C128S12.SFP +c5F.txt +data.txt LPT1</font></pre>
+<p>The files may also be copied to a printer on a network, for example:</p>
+<pre><font color="#336600">copy /B c70D.txt +C128S12.SFP +c5F.txt +data.txt \\server1\printer1</font></pre>
+<p><b>More Information:</b></p>
+<p><font face="Times">PCL defines a standard set of commands that enable programs
+to communicate with PCL or PCL compatible printers. If you need further
+information about PCL commands, you may want to obtain the Technical Reference
+Manual, part number 5021-0377. Order the manual set from HP's Support
+Materials Organization.</font></p>
+
+      <TABLE bgColor=#CC0000 width="100%" cellpadding="0" cellspacing="0">
+        <TBODY>
+        <TR>
+          <TD bgcolor="#C0C0C0">
+            <table bgColor="#CC0000" width="100%" cellpadding="0" cellspacing="0">
+				<tr>
+					<td bgcolor="#C0C0C0">
+					<p align="left"><i>Copyright © 2020 IDAutomation.com, Inc. 
+					All rights reserved.
+					<a href="https://www.idautomation.com/about-us/legal-notices/">Legal Notices</a>.</i></td>
+				</tr>
+			</table>
+			</TD></TR>
+        <TR>
+          <TD>
+            <p align="center">&nbsp;</TD></TR>
+        </TBODY></TABLE>
+
+      </body>
+
+</html>

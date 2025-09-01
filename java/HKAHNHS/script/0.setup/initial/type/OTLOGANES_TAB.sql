@@ -1,0 +1,5 @@
+drop TYPE OTLOGANES_TAB;
+create or replace
+TYPE OTLOGANES_TAB
+AS TABLE OF OTLOGANES;
+/

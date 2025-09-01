@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2010?~4??14?? ?W??08:52:05 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.EeElearningStaffAnswer" table="EE_ELEARNING_STAFF_ANSWER">
+        <composite-id name="id" class="com.hkah.web.db.hibernate.EeElearningStaffAnswerId">
+            <key-property name="eeSiteCode" type="string">
+                <column name="EE_SITE_CODE" length="10" />
+            </key-property>
+            <key-property name="eeModuleCode" type="string">
+                <column name="EE_MODULE_CODE" length="10" />
+            </key-property>
+            <key-property name="eeEventId" type="big_decimal">
+                <column name="EE_EVENT_ID" precision="22" scale="0" />
+            </key-property>
+            <key-property name="eeEnrollId" type="big_decimal">
+                <column name="EE_ENROLL_ID" precision="22" scale="0" />
+            </key-property>
+            <key-property name="eeElearningId" type="big_decimal">
+                <column name="EE_ELEARNING_ID" precision="22" scale="0" />
+            </key-property>
+            <key-property name="eeElearningQid" type="big_decimal">
+                <column name="EE_ELEARNING_QID" precision="22" scale="0" />
+            </key-property>
+            <key-property name="eeElearningAid" type="big_decimal">
+                <column name="EE_ELEARNING_AID" precision="22" scale="0" />
+            </key-property>
+            <key-property name="eeUserType" type="string">
+                <column name="EE_USER_TYPE" length="10" />
+            </key-property>
+            <key-property name="eeUserId" type="string">
+                <column name="EE_USER_ID" length="10" />
+            </key-property>
+        </composite-id>
+        <property name="eeCorrectAns" type="big_decimal">
+            <column name="EE_CORRECT_ANS" precision="22" scale="0" />
+        </property>
+        <property name="eeCreatedDate" type="date">
+            <column name="EE_CREATED_DATE" length="7" />
+        </property>
+        <property name="eeCreatedUser" type="string">
+            <column name="EE_CREATED_USER" length="30" />
+        </property>
+        <property name="eeModifiedDate" type="date">
+            <column name="EE_MODIFIED_DATE" length="7" />
+        </property>
+        <property name="eeModifiedUser" type="string">
+            <column name="EE_MODIFIED_USER" length="30" />
+        </property>
+        <property name="eeEnabled" type="big_decimal">
+            <column name="EE_ENABLED" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

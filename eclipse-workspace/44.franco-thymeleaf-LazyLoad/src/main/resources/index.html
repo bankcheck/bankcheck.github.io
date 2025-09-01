@@ -1,0 +1,5 @@
+<table th:if="${show == true}">
+	<tr th:each="eachFrancoStudent: ${francoStudents}">
+		<td th:text="${eachFrancoStudent.studentName}"></td>
+	</tr>
+</table>

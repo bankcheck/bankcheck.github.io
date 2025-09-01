@@ -1,0 +1,58 @@
+CREATE OR REPLACE FUNCTION "NHS_ACT_UPDATEREGNOSIGN" (
+	v_ACTION       IN VARCHAR2,
+	v_REGID        IN VARCHAR2,
+	v_SLPNO        IN VARCHAR2,
+	v_NOSIGN       IN VARCHAR2,
+	v_UPDALL       IN VARCHAR2,
+	O_ERRMSG       OUT VARCHAR2
+)
+	RETURN NUMBER
+AS
+	O_ERRCODE NUMBER;
+	v_ERRCODE NUMBER;
+	v_ERRMSG VARCHAR2(100);
+	v_NoOfRec NUMBER;
+
+BEGIN
+	O_ERRCODE := 0;
+	O_ERRMSG := 'OK';
+
+	IF UPPER(v_UPDALL) = 'Y' THEN
+		FOR SLP IN (SELECT SLPNO FROM Slip where REGID = v_REGID )
+		LOOP
+			SELECT COUNT(1) INTO v_noOfRec FROM Slip_Extra WHERE slpno = SLP.slpno;
+			IF v_noOfRec = 0 THEN
+				INSERT INTO Slip_Extra
+				(SLPNO,NOSIGN)
+				VALUES
+				(SLP.slpno,v_NOSIGN);
+			ELSE
+				UPDATE Slip_Extra set
+				NOSIGN = v_NOSIGN
+				WHERE slpno = SLP.slpno;
+			END IF;
+		END LOOP;
+	ELSE
+		SELECT COUNT(1) INTO v_noOfRec FROM Slip_Extra WHERE slpno = v_SLPNO;
+			IF v_noOfRec = 0 THEN
+				INSERT INTO Slip_Extra
+				(SLPNO,NOSIGN)
+				VALUES
+				(v_SLPNO,v_NOSIGN);
+			ELSE
+				UPDATE Slip_Extra set
+				NOSIGN = v_NOSIGN
+				WHERE slpno = v_SLPNO;
+			END IF;
+	END IF;
+
+	RETURN O_ERRCODE;
+EXCEPTION
+WHEN OTHERS THEN
+	ROLLBACK;
+	dbms_output.put_line('An ERROR was encountered -ERROR- ' || SQLERRM);
+	o_ERRMSG := SQLERRM || o_ERRMSG;
+
+	RETURN -999;
+END NHS_ACT_UPDATEREGNOSIGN;
+/

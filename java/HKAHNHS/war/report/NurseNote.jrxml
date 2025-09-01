@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NurseNote" pageWidth="206" pageHeight="104" whenNoDataType="AllSectionsNoDetail" columnWidth="206" leftMargin="0" rightMargin="0" topMargin="4" bottomMargin="0">
+	<property name="ireport.zoom" value="3.797498335832415"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<columnHeader>
+		<band height="96">
+			<staticText>
+				<reportElement x="43" y="0" width="55" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="10"/>
+				</textElement>
+				<text><![CDATA[Patient No.:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="97" y="0" width="69" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="15" width="20" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[BP:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="91" y="15" width="14" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[P:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="15" width="33" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[Temp:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="35" width="39" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[SpO2:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="35" width="25" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[RR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="55" width="39" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[C/O:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="75" width="39" height="15"/>
+				<textElement>
+					<font fontName="Arial Unicode MS"/>
+				</textElement>
+				<text><![CDATA[Allergy:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+</jasperReport>

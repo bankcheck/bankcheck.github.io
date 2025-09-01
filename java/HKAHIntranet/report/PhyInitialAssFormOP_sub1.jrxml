@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PhyInitialAssFormOP" pageWidth="510" pageHeight="623" whenNoDataType="AllSectionsNoDetail" columnWidth="510" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.6500000000000024"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="75"/>
+	<property name="net.sf.jasperreports.export.pdf.compressed" value="true"/>
+	<parameter name="regid" class="java.lang.String"/>
+	<parameter name="path" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patName" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="patDOB" class="java.lang.String"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="vasPain" class="java.lang.String"/>
+	<parameter name="vasPn" class="java.lang.String"/>
+	<parameter name="vasNumb" class="java.lang.String"/>
+	<parameter name="painDesc" class="java.lang.String"/>
+	<parameter name="assessDate" class="java.lang.String"/>
+	<parameter name="patientGoal" class="java.lang.String"/>
+	<parameter name="funcAssmt" class="java.lang.String"/>
+	<parameter name="diagnosis" class="java.lang.String"/>
+	<parameter name="emotional" class="java.lang.String"/>
+	<parameter name="fallAssmt" class="java.lang.String"/>
+	<parameter name="pastMedHist" class="java.lang.String"/>
+	<parameter name="socialHistory" class="java.lang.String"/>
+	<parameter name="hpi" class="java.lang.String"/>
+	<parameter name="subjective" class="java.lang.String"/>
+	<parameter name="objective" class="java.lang.String"/>
+	<parameter name="tcp1" class="java.lang.String"/>
+	<parameter name="tcp2" class="java.lang.String"/>
+	<parameter name="tcp3" class="java.lang.String"/>
+	<parameter name="tcp4" class="java.lang.String"/>
+	<parameter name="tcp5" class="java.lang.String"/>
+	<parameter name="tcp6" class="java.lang.String"/>
+	<parameter name="tcp7" class="java.lang.String"/>
+	<parameter name="tcp8" class="java.lang.String"/>
+	<parameter name="tcp9" class="java.lang.String"/>
+	<parameter name="tcpOther1" class="java.lang.String"/>
+	<parameter name="treatmentGoal" class="java.lang.String"/>
+	<parameter name="carePlan" class="java.lang.String"/>
+	<parameter name="treatment" class="java.lang.String"/>
+	<parameter name="education" class="java.lang.String"/>
+	<parameter name="exercises" class="java.lang.String"/>
+	<parameter name="defection" class="java.lang.String"/>
+	<parameter name="postTreatment" class="java.lang.String"/>
+	<parameter name="frequency" class="java.lang.String"/>
+	<parameter name="options" class="java.lang.String"/>
+	<parameter name="peca1" class="java.lang.String"/>
+	<parameter name="peca2" class="java.lang.String"/>
+	<parameter name="pecaOther1" class="java.lang.String"/>
+	<parameter name="ad1" class="java.lang.String"/>
+	<parameter name="ad2" class="java.lang.String"/>
+	<parameter name="ad3" class="java.lang.String"/>
+	<parameter name="ad4" class="java.lang.String"/>
+	<parameter name="ad5" class="java.lang.String"/>
+	<parameter name="ad6" class="java.lang.String"/>
+	<parameter name="ad7" class="java.lang.String"/>
+	<parameter name="ad8" class="java.lang.String"/>
+	<parameter name="adOther1" class="java.lang.String"/>
+	<parameter name="adOther2" class="java.lang.String"/>
+	<parameter name="pt" class="java.lang.String"/>
+	<parameter name="mstrRegid" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[Select 1 From Dual Connect By Level <= 1]]>
+	</queryString>
+	<field name="1" class="java.math.BigDecimal"/>
+	<title>
+		<band height="362" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="312" width="116" height="15"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Patient Goal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="252" width="116" height="15"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Psychological/Emotional:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="116" y="232" width="395" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{socialHistory}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="116" y="312" width="395" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{patientGoal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="232" width="116" height="15"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Social History:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="212" width="116" height="15"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Past Medical History:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="332" width="511" height="15"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[History of Present Condition:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="116" y="212" width="395" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{pastMedHist}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="292" width="116" height="15"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Fall Assessment:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="117" y="292" width="395" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{fallAssmt}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="116" y="252" width="395" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{emotional}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="272" width="116" height="15"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Functional Assessment:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="1" y="30" width="510" height="175"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="69" y="175" width="52" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Pain]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="357" y="30" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Auscultation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="30" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Body Chart]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1" y="347" width="511" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{hpi}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement positionType="Float" x="354" y="50" width="145" height="120" isPrintWhenDetailOverflows="true"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{path} + "PhyInitAssFormOP_"+ $P{regid} +"_2.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement positionType="Float" x="383" y="175" width="12" height="11" isPrintWhenDetailOverflows="true"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/piaform/cross.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement positionType="Float" x="0" y="50" width="145" height="120" isPrintWhenDetailOverflows="true"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{path} + "PhyInitAssFormOP_"+ $P{regid} +"_1.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement positionType="Float" x="345" y="175" width="12" height="11" isPrintWhenDetailOverflows="true"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/piaform/airEntry.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement positionType="Float" x="437" y="175" width="12" height="11" isPrintWhenDetailOverflows="true"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/piaform/wheeze.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement positionType="Float" x="15" y="175" width="12" height="11" isPrintWhenDetailOverflows="true"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/piaform/P1.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement positionType="Float" x="27" y="175" width="12" height="11" isPrintWhenDetailOverflows="true"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/piaform/P2.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement positionType="Float" x="39" y="175" width="12" height="11" isPrintWhenDetailOverflows="true"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/piaform/P3.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement positionType="Float" x="51" y="175" width="12" height="11" isPrintWhenDetailOverflows="true"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/piaform/P4.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement positionType="Float" x="15" y="190" width="12" height="11" isPrintWhenDetailOverflows="true"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/piaform/PN1.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement positionType="Float" x="39" y="190" width="12" height="11" isPrintWhenDetailOverflows="true"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/piaform/PN2.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="180" y="77" width="77" height="20"/>
+				<textElement/>
+				<text><![CDATA[P/N VAS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="282" y="57" width="17" height="20"/>
+				<textElement/>
+				<text><![CDATA[/10]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="257" y="57" width="25" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{vasPain}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="449" y="175" width="41" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Wheeze]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="257" y="97" width="25" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{vasNumb}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="69" y="190" width="52" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Paraesthesia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="57" width="77" height="20"/>
+				<textElement/>
+				<text><![CDATA[Pain VAS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="282" y="97" width="17" height="20"/>
+				<textElement/>
+				<text><![CDATA[/10]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="180" y="137" width="119" height="58"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{painDesc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="396" y="175" width="41" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Crackles]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="282" y="77" width="17" height="20"/>
+				<textElement/>
+				<text><![CDATA[/10]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="357" y="175" width="22" height="30"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Air
+Entry]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="257" y="77" width="25" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{vasPn}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="180" y="97" width="77" height="20"/>
+				<textElement/>
+				<text><![CDATA[Numbness VAS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="117" width="77" height="20"/>
+				<textElement/>
+				<text><![CDATA[Pain Description:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="116" y="272" width="395" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{funcAssmt}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="51" y="15" width="196" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{diagnosis}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="15" width="51" height="15"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diagnosis:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="51" y="0" width="196" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{assessDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="51" height="15"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="0" width="120" height="25"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Parent/
+Guardian's consent to treatment]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="369" y="3" width="8" height="8" isPrintWhenDetailOverflows="true"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="371" y="5" width="4" height="4" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA["Y".equals($P{ad5})]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="276" y="3" width="8" height="8" isPrintWhenDetailOverflows="true"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="278" y="5" width="4" height="4" isPrintWhenDetailOverflows="true" backcolor="#000000">
+					<printWhenExpression><![CDATA["Y".equals($P{ad1})]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="287" y="0" width="70" height="25" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Patient consent
+treatment]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="15" width="116" height="15"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Subjective Examination:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="116" y="15" width="395" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{subjective}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="511" height="15"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Assessment:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<summary>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="116" height="15"/>
+				<textElement>
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Objective Examination:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="116" y="0" width="395" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{objective}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

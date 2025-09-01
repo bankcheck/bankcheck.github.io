@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="1a" pageWidth="524" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="524" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.8150000000000117"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.pdf.compressed" value="true"/>
+	<style name="chgfontSize_doc" fill="Solid" isBlankWhenNull="true" fontName="Arial Unicode MS" isBold="true">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{docname}.length() <= 20 ? true : false]]></conditionExpression>
+			<style markup="styled" fontSize="11"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[($P{docname}.length() >20 && $P{docname}.length() <= 30) ? true : false]]></conditionExpression>
+			<style markup="styled" fontSize="10"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{docname}.length() > 30 ? true : false]]></conditionExpression>
+			<style markup="styled" fontSize="9"/>
+		</conditionalStyle>
+	</style>
+	<scriptlet name="TextScriptlet" class="com.text.TextScriptlet"/>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="Site" class="java.lang.String"/>
+	<parameter name="patno" class="java.lang.String"/>
+	<parameter name="patname" class="java.lang.String"/>
+	<parameter name="patcname" class="java.lang.String"/>
+	<parameter name="patSex" class="java.lang.String"/>
+	<parameter name="patDOB" class="java.lang.String"/>
+	<parameter name="procedure" class="java.lang.String"/>
+	<parameter name="procedureChi" class="java.lang.String"/>
+	<parameter name="anaethesiaType" class="java.lang.String"/>
+	<parameter name="regionAnaeSelect" class="java.lang.String"/>
+	<parameter name="anaethesiaOtherText" class="java.lang.String"/>
+	<parameter name="docname" class="java.lang.String"/>
+	<parameter name="doccname" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHIntranet\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="lang" class="java.lang.String"/>
+	<parameter name="ImgTick" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\projects\\HKAHNHS\\war\\images\\tick1.gif"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="factSheetNo" class="java.lang.String"/>
+	<parameter name="patientYN" class="java.lang.String"/>
+	<parameter name="complication" class="java.lang.String"/>
+	<parameter name="consentDate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<title>
+		<band height="56" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="5" width="25" height="20"/>
+				<textElement textAlignment="Justified" verticalAlignment="Bottom" lineSpacing="Single" markup="html">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[私、]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="5" width="453" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Top" lineSpacing="Single" markup="html">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="5" width="18" height="20"/>
+				<box topPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(B)]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="17" y="29" width="502" height="22"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle" lineSpacing="1_1_2" markup="styled">
+					<font fontName="SansSerif" size="11" isBold="false" isUnderline="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TextScriptlet_SCRIPTLET}.returnChinese($P{patname}+($P{patcname}.length() > 0?" "+$P{patcname}:""))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="498" y="5" width="25" height="20"/>
+				<textElement textAlignment="Justified" verticalAlignment="Bottom" lineSpacing="Single" markup="html">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[は、]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="74">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="17" y="42" width="505" height="22"/>
+				<box topPadding="0">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" lineSpacing="1_1_2" markup="styled">
+					<font fontName="Arial Unicode MS" size="11" isBold="true" isUnderline="false" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TextScriptlet_SCRIPTLET}.returnChinese($P{procedure}.substring( 0, $P{procedure}.lastIndexOf( ";" ) ).replace(";",";\n"))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="17" y="4" width="505" height="29"/>
+				<textElement textAlignment="Justified" verticalAlignment="Bottom" lineSpacing="Single" markup="styled">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[（以下“患者”という）の父親／母親／法定後見人（該当しない箇所を削除）であり、患者が次の処置をうけることに自発的に同意します。<i>（処置名を略さず記入する）</i>]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<summary>
+		<band height="182" splitType="Stretch">
+			<rectangle>
+				<reportElement x="64" y="4" width="10" height="10"/>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="48" y="107" width="476" height="32">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[患者が治療に同意するのに必要な知的能力を有しない未成年である場合は、親あるいは法定後見人が署名する。或は]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="48" y="138" width="475" height="44">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[患者が処置に同意するのに必要な知的能力を有しない精神障害者（MIP）であり、精神健康条例第4部により指名された法定後見人がMIPの代理として治療に同意する権限が与えられてる場合、その法定後見人が同意書に署名する。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="138" width="32" height="16"/>
+				<box topPadding="0" leftPadding="0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(ii)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="38" width="53" height="22"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" lineSpacing="1_1_2" markup="html">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[施行医師名:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="chgfontSize_doc" x="74" y="38" width="391" height="21"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle" lineSpacing="Single" markup="styled">
+					<font fontName="Arial Unicode MS" size="11" isBold="false" isUnderline="false" pdfFontName="Helvetica" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TextScriptlet_SCRIPTLET}.returnChinese($P{docname}+($P{doccname}.length() > 0?" "+$P{doccname}:""))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="19" y="84" width="505" height="17"/>
+				<textElement verticalAlignment="Top" lineSpacing="Single" markup="html">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[以下に該当する場合はこの項目にご記入ください: -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="465" y="37" width="55" height="22"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" lineSpacing="1_1_2" markup="html">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[（医師）]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="14" width="171" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom" lineSpacing="Single" markup="styled">
+					<font fontName="Arial Unicode MS" size="9" isBold="false" isItalic="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(該当する場合はチェックする)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="64" y="21" width="10" height="10"/>
+			</rectangle>
+			<image>
+				<reportElement mode="Transparent" x="64" y="21" width="8" height="8">
+					<printWhenExpression><![CDATA[$P{anaethesiaType}.contains( "region" ) == true]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement mode="Transparent" x="225" y="5" width="8" height="8">
+					<printWhenExpression><![CDATA[$P{anaethesiaType}.contains( "local" ) == true]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement mode="Transparent" x="64" y="4" width="8" height="8">
+					<printWhenExpression><![CDATA[$P{anaethesiaType}.contains( "ins" ) == true]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Transparent" x="21" y="1" width="31" height="14">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[使用麻酔]]></text>
+			</staticText>
+			<image>
+				<reportElement mode="Transparent" x="64" y="4" width="8" height="8">
+					<printWhenExpression><![CDATA[$P{anaethesiaType}.contains( "ins" ) == true]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement mode="Transparent" x="64" y="21" width="8" height="8">
+					<printWhenExpression><![CDATA[$P{anaethesiaType}.contains( "region" ) == true]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick1.gif")]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="225" y="5" width="10" height="10"/>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="74" y="17" width="151" height="14">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[経静脈局所麻酔]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="235" y="1" width="187" height="14">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[局所麻酔 / 表面麻酔]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="107" width="31" height="16"/>
+				<box topPadding="0" leftPadding="0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="11" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(i)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="74" y="0" width="98" height="14">
+					<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="TRUE"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Unicode MS" size="10" isBold="false" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[静脈内鎮静]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

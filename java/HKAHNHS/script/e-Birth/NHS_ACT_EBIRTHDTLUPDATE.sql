@@ -1,0 +1,229 @@
+CREATE OR REPLACE FUNCTION NHS_ACT_EBIRTHDTLUPDATE (
+	v_ACTION       IN VARCHAR2,
+	v_BBPATNO      IN VARCHAR2,
+	v_BBGNAME      IN VARCHAR2,
+	v_BBFNAME      IN VARCHAR2,
+	v_BBCFNAME     IN VARCHAR2,
+--	v_BBCGNAME     IN VARCHAR2,
+	v_SEX          IN VARCHAR2,
+	v_BBDOB        IN VARCHAR2,
+	v_BBDOBTIME    IN VARCHAR2,
+	v_BIRTHTYPE    IN VARCHAR2,
+	v_BIRTHORDER   IN VARCHAR2,
+	v_ARRIVAL      IN VARCHAR2,
+	v_ONARRIVAL    IN VARCHAR2,
+	v_PLACE        IN VARCHAR2,
+	v_PLACEDESC    IN VARCHAR2,
+	v_ALIVE        IN VARCHAR2,
+	v_REMARKS      IN VARCHAR2,
+	--Mother detail
+	v_MOPATNO      IN VARCHAR2,
+	v_MOHKIC       IN VARCHAR2,
+	v_MOTRVDOCNO   IN VARCHAR2,
+	v_MOTRVDOCTYPE IN VARCHAR2,
+	v_MOGNAME      IN VARCHAR2,
+	v_MOFNAME      IN VARCHAR2,
+	v_MOCFNAME     IN VARCHAR2,
+--	v_MOCGNAME     IN VARCHAR2,
+	v_MODOB        IN VARCHAR2,
+	v_MOTEL        IN VARCHAR2,
+	v_MOHKIDHOLDER IN VARCHAR2,
+	v_MOBIRTHEXACT IN VARCHAR2,
+	v_MORESIDENCE  IN VARCHAR2,
+	v_MOEMAIL      IN VARCHAR2,
+	v_MOATTDOC     IN VARCHAR2,
+	--Father detail
+	v_FAINFOSOURCE IN VARCHAR2,
+	v_FAPATNO      IN VARCHAR2,
+	v_FAHKIC       IN VARCHAR2,
+	v_FATRVDOCNO   IN VARCHAR2,
+	v_FATRVDOCTYPE IN VARCHAR2,
+	v_FAGNAME      IN VARCHAR2,
+	v_FAFNAME      IN VARCHAR2,
+	v_FACFNAME     IN VARCHAR2,
+--  v_FACGNAME     IN VARCHAR2,
+	v_FADOB        IN VARCHAR2,
+	v_FAHKIDHOLDER IN VARCHAR2,
+	v_FABIRTHEXACT IN VARCHAR2,
+	v_FACASEREF    IN VARCHAR2,
+	v_FATEL        IN VARCHAR2,
+	v_FARESIDENCE  IN VARCHAR2,
+	--Address detail
+	v_ADDTYPE      IN VARCHAR2,
+	v_FLAT         IN VARCHAR2,
+	v_FLOOR        IN VARCHAR2,
+--  v_BLOCK        IN VARCHAR2,
+	v_HOUSE        IN VARCHAR2,
+	v_LOTPREFIX    IN VARCHAR2,
+	v_LOTNO        IN VARCHAR2,
+	v_BLDG         IN VARCHAR2,
+	v_ESTATE       IN VARCHAR2,
+	v_STREET       IN VARCHAR2,
+	v_DISTRIC      IN VARCHAR2,
+	v_AREA         IN VARCHAR2,
+	v_USER         IN VARCHAR2,
+	o_ERRMSG OUT VARCHAR2
+)
+	RETURN NUMBER
+AS
+	o_ERRCODE  NUMBER;
+
+	v_NOOFREC  NUMBER;
+	v_RECSTATUS VARCHAR2(1);
+	v_sDHPatno EBIRTHDTL.BB_PATNO%TYPE;
+	v_mdocno EBIRTHDTL.MO_TRAVELDOCNO%TYPE;
+	v_BB_DOB_DT DATE;
+
+BEGIN
+	o_ERRCODE := -1;
+	o_ERRMSG  := 'OK';
+	v_BB_DOB_DT := NULL;
+
+	SELECT COUNT(1) INTO v_NOOFREC FROM EBIRTHDTL WHERE BB_PATNO = v_BBPATNO;
+	IF v_ACTION = 'MOD' THEN
+		IF v_NOOFREC > 0 THEN
+			IF v_BBDOB IS NOT NULL AND v_BBDOBTIME IS NOT NULL AND LENGTH(v_BBDOB) = 10 AND LENGTH(v_BBDOBTIME) = 8 THEN
+				BEGIN
+					v_BB_DOB_DT := TO_DATE(v_BBDOB || ' ' || v_BBDOBTIME, 'YYYY/MM/DD HH24:MI:SS');
+				EXCEPTION
+				WHEN OTHERS THEN
+					v_BB_DOB_DT := NULL;
+				END;
+			END IF;
+
+			UPDATE EBIRTHDTL
+			SET
+				BB_GNAME            = v_BBGNAME,
+				BB_FNAME            = v_BBFNAME,
+				BB_CFNAME           = v_BBCFNAME,
+--				BB_CGNAME           = v_BBCGNAME,
+				BB_NAMETYPE         = DECODE(v_BBCFNAME, NULL, 'EN', 'CN'),
+				BB_SEX              = v_SEX,
+				BB_DOB              = v_BB_DOB_DT,
+				BB_DOBTIME          = DECODE(v_BBDOB, NULL, NULL, DECODE(v_BBDOBTIME, NULL, NULL, '00:00:00', NULL, v_BBDOBTIME)),
+				BB_BIRTHTYPE        = TO_NUMBER(v_BIRTHTYPE),
+				BB_BIRTHORDER       = TO_NUMBER(v_BIRTHORDER),
+				BB_BORNB4ARRIVAL    = v_ARRIVAL,
+				BB_BORNONARRIVAL    = v_ONARRIVAL,
+				BB_CORDCUTPLACE     = v_PLACE,
+				BB_CORDCUTPLACEDESC = v_PLACEDESC,
+				BB_ALIVE            = v_ALIVE,
+				REMARKS             = v_REMARKS,
+				--Mother
+				MO_RELATION         = 'M',
+				MO_PATNO            = v_MOPATNO,
+				MO_HKIC             = v_MOHKIC,
+				MO_TRAVELDOCNO      = v_MOTRVDOCNO,
+				MO_TRAVELDOCTYPE    = v_MOTRVDOCTYPE,
+				MO_GNAME            = v_MOGNAME,
+				MO_FNAME            = v_MOFNAME,
+				MO_CFNAME           = v_MOCFNAME,
+--				MO_CGNAME           = v_MOCGNAME,
+				MO_NAMETYPE         = DECODE(v_MOCFNAME, NULL, 'EN', 'CN'),
+				MO_DOB              = TO_DATE(v_MODOB, 'YYYY/MM/DD'),
+				MO_TEL              = v_MOTEL,
+				MO_HKIDHOLDER       = v_MOHKIDHOLDER,
+				MO_BIRTHEXACTFLAG   = v_MOBIRTHEXACT,
+				MO_RESIDENCE        = v_MORESIDENCE,
+				MO_EMAIL            = v_MOEMAIL,
+				ATTDOC              = v_MOATTDOC,
+				--Father
+				FA_INFOSOURCE       = v_FAINFOSOURCE,
+				FA_RELATION         = 'F',
+				FA_PATNO            = v_FAPATNO,
+				FA_HKIC             = v_FAHKIC,
+				FA_TRAVELDOCNO      = v_FATRVDOCNO,
+				FA_TRAVELDOCTYPE    = v_FATRVDOCTYPE,
+				FA_GNAME            = v_FAGNAME,
+				FA_FNAME            = v_FAFNAME,
+				FA_CFNAME           = v_FACFNAME,
+--				FA_CGNAME           = v_FACGNAME,
+				FA_NAMETYPE         = DECODE(v_FACFNAME, NULL, 'EN', 'CN'),
+				FA_DOB              = TO_DATE(v_FADOB, 'YYYY/MM/DD'),
+				REL_CASE_REF        = v_FACASEREF,
+				FA_TEL              = v_FATEL,
+				FA_HKIDHOLDER       = v_FAHKIDHOLDER,
+				FA_BIRTHEXACTFLAG   = v_FABIRTHEXACT,
+				FA_RESIDENCE        = v_FARESIDENCE,
+				--Address
+				ADD_TYPE            = v_ADDTYPE,
+				ADD_FLAT            = v_FLAT,
+				ADD_FLOOR           = v_FLOOR,
+--				ADD_BLOCK           = v_BLOCK,
+				ADD_HOUSE           = v_HOUSE,
+				ADD_LOTPREFIX       = v_LOTPREFIX,
+				ADD_LOTNO           = v_LOTNO,
+				ADD_BLDG            = v_BLDG,
+				ADD_ESTATE          = v_ESTATE,
+				ADD_STREET          = v_STREET,
+				ADD_DISTRIC         = v_DISTRIC,
+				ADD_AREA            = v_AREA
+			WHERE BB_PATNO = v_BBPATNO;
+
+			INSERT INTO EBIRTHHISTORY
+			VALUES (
+				SEQ_EBIRTHHISTORY.NEXTVAL,
+				v_BBPATNO,
+				'Edit',
+				v_USER,
+				SYSDATE,
+				NULL,
+				NULL
+			);
+		BEGIN
+			SELECT bbpatno
+			INTO v_sDHPatno
+			FROM dhbirthdtl
+			WHERE bbpatno = v_BBPATNO;
+
+			IF v_sDHPatno IS NOT NULL THEN
+				SELECT RECSTATUS
+				INTO v_RECSTATUS
+				FROM EBIRTHDTL
+				WHERE BB_PATNO = v_BBPATNO;
+
+				IF v_RECSTATUS = 'N' THEN
+					IF v_MOHKIC IS NULL THEN
+						v_mdocno := v_MOTRVDOCNO;
+					ELSE
+						v_mdocno := v_MOHKIC;
+					END IF;
+
+					UPDATE dhbirthdtl
+					SET
+						birthorder = TO_NUMBER(v_BIRTHORDER),
+						mo_docno = v_mdocno,
+						mo_traveldoctype = substr(v_MOTRVDOCTYPE, 0, 1)
+					WHERE bbpatno = v_sDHPatno;
+				END IF;
+			END IF;
+			EXCEPTION
+			WHEN OTHERS THEN
+				v_sDHPatno := NULL;
+			END;
+
+			o_ERRCODE := 0;
+		ELSE
+			o_ERRCODE := -1;
+			o_ERRMSG  := 'Fail to update due to record not exist.';
+		END IF;
+	ELSIF v_ACTION = 'DEL' THEN
+		SELECT RECSTATUS INTO v_RECSTATUS FROM EBIRTHDTL WHERE BB_PATNO = v_BBPATNO;
+		IF v_RECSTATUS = 'N' THEN
+			DELETE FROM EBIRTHDTL WHERE BB_PATNO = v_BBPATNO;
+			DELETE FROM EBIRTHHISTORY WHERE BB_PATNO = v_BBPATNO;
+
+			o_ERRCODE := 0;
+			o_ERRMSG  := 'Delete Successfully';
+		ELSE
+			o_ERRMSG  := 'Only normal record can be deleted.';
+		END IF;
+	END IF;
+
+	RETURN o_ERRCODE;
+EXCEPTION
+WHEN OTHERS THEN
+	o_ERRMSG := SQLERRM || v_BBDOB;
+	RETURN o_ERRCODE;
+END NHS_ACT_EBIRTHDTLUPDATE;
+/

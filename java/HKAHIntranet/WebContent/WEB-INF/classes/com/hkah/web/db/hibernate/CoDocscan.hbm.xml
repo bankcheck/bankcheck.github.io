@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 14, 2011 11:45:15 AM by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.CoDocscan" table="CO_DOCSCAN">
+        <composite-id name="id" class="com.hkah.web.db.hibernate.CoDocscanId">
+            <key-property name="coSiteCode" type="string">
+                <column name="CO_SITE_CODE" />
+            </key-property>
+            <key-property name="coDocscanId" type="big_decimal">
+                <column name="CO_DOCSCAN_ID" />
+            </key-property>
+            <generator class="com.hkah.web.db.hibernate.id.IdGenerator"></generator>
+        </composite-id>
+        <property name="coParentCoDocscanId" type="big_decimal">
+            <column name="CO_PARENT_CO_DOCSCAN_ID" />
+        </property>
+        <property name="coDescriptionEn" type="string">
+            <column name="CO_DESCRIPTION_EN" />
+        </property>
+        <property name="coDescriptionZh" type="string">
+            <column name="CO_DESCRIPTION_ZH" />
+        </property>
+        <property name="coSortOrder" type="big_decimal">
+            <column name="CO_SORT_ORDER" />
+        </property>
+        <property name="coCreatedDate">
+            <column name="CO_CREATED_DATE"  />
+        </property>
+        <property name="coCreatedUser" type="string">
+            <column name="CO_CREATED_USER" />
+        </property>
+        <property name="coModifiedDate">
+            <column name="CO_MODIFIED_DATE"  />
+        </property>
+        <property name="coModifiedUser" type="string">
+            <column name="CO_MODIFIED_USER" />
+        </property>
+        <property name="coEnabled" type="java.lang.Integer">
+            <column name="CO_ENABLED" />
+        </property>
+        <set name="coDocscanDocuments" inverse="true" lazy="false" fetch="subselect" where="CO_ENABLED = 1">
+            <key>
+                <column name="CO_SITE_CODE"  not-null="true" />
+                <column name="CO_DOCSCAN_ID"   not-null="true" />
+            </key>
+            <one-to-many class="com.hkah.web.db.hibernate.CoDocscanDocument" />
+        </set>
+    </class>
+</hibernate-mapping>

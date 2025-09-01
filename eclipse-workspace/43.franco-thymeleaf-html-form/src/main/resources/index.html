@@ -1,0 +1,20 @@
+<form th:method="post" th:name="${francoFormName}" th:action="@{~/user/save}">
+	<input type="text" name="userName" value="Franco"/>
+	
+	<input type="checkbox" th:checked="true" />
+	<input type="checkbox" th:checked="false" />
+	
+	<input type="submit" value="Submit"/>	
+</form>
+
+<div id="franco-div-id" th:attrappend="id='-dataId'"></div>
+<div id="franco-div-id" th:attrprepend="id='data-'"></div>
+
+<div th:if="${francoStudent.age >= 18}">You are adult.!</div>
+<div th:if="${francoStudent.age < 18}">You are NOT adult.!</div>
+
+<select th:switch="${francoStudent.gender}">	
+	<option th:case="M">Male</option>	
+	<option th:case="F">Female</option>
+	<option th:case="*">Others</option>
+</select>

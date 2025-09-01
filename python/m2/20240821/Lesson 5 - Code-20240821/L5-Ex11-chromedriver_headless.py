@@ -8,7 +8,7 @@ options.add_argument("--window-size=1920,1200")
 #options.add_argument("download.default_directory=C:\Downloads")
 
 
-driver = webdriver.Chrome(options=options, executable_path="C:\Drivers\chromedriver")
+driver = webdriver.Chrome(options=options, executable_path=r"C:\Drivers\chromedriver")
 driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
 
 params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': "C:\Downloads"}}

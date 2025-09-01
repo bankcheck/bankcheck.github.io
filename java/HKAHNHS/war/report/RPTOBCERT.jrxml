@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTOBCERT" pageWidth="3789" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="3789" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.8627639691774716"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="CERTNO" class="java.lang.String"/>
+	<field name="PATNAME" class="java.lang.String"/>
+	<field name="PATCNAME" class="java.lang.String"/>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="PATDOB" class="java.lang.String"/>
+	<field name="PATDOCTYPE" class="java.lang.String"/>
+	<field name="PATIDNO" class="java.lang.String"/>
+	<field name="ISHKSPOUSE" class="java.lang.String"/>
+	<field name="DRNAME" class="java.lang.String"/>
+	<field name="DRMCHKNO" class="java.lang.String"/>
+	<field name="DRTEL" class="java.lang.String"/>
+	<field name="ANTCHKDT1" class="java.lang.String"/>
+	<field name="ANTCHKDT2" class="java.lang.String"/>
+	<field name="ANTCHKDT3" class="java.lang.String"/>
+	<field name="ANTCHKDT4" class="java.lang.String"/>
+	<field name="ANTCHKDT5" class="java.lang.String"/>
+	<field name="ANTCHKDT6" class="java.lang.String"/>
+	<field name="PATEDC" class="java.lang.String"/>
+	<field name="CISEDATE" class="java.lang.String"/>
+	<field name="REMARK" class="java.lang.String"/>
+	<field name="ISVALID" class="java.lang.String"/>
+	<field name="invalidrsn" class="java.lang.String"/>
+	<field name="cancelDate" class="java.lang.String"/>
+	<field name="REPLTRSN" class="java.lang.String"/>
+	<field name="HUSNAME" class="java.lang.String"/>
+	<field name="HUSCNAME" class="java.lang.String"/>
+	<field name="HUSIDNO" class="java.lang.String"/>
+	<field name="ISHUSHKPM" class="java.lang.String"/>
+	<field name="HUSDOB" class="java.lang.String"/>
+	<field name="PATMDATE" class="java.lang.String"/>
+	<field name="PATMCTNO" class="java.lang.String"/>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="92" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Certificate No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="0" width="116" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Client Name (Eng)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="0" width="95" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Client Name (Chi)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="303" y="0" width="122" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name of Hospital]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="425" y="0" width="66" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hospital No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="491" y="0" width="69" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of Birth]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="560" y="0" width="119" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Travel Document Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="679" y="0" width="115" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Travel Document No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="794" y="0" width="244" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Spouse of HK Resident (Input Yes or No)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1038" y="0" width="109" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name of Case Doctor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1147" y="0" width="64" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MCHK No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1211" y="0" width="90" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telephone/ Pager]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1301" y="0" width="57" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Doctor Ext]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1358" y="0" width="75" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of AN (1)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1433" y="0" width="75" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of AN (2)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1508" y="0" width="75" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of AN (3)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1583" y="0" width="75" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of AN (4)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1658" y="0" width="75" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of AN (5)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1733" y="0" width="75" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of AN (6)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1808" y="0" width="159" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Expected Date of Confinement]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1967" y="0" width="68" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of Issue]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2035" y="0" width="70" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Remarks]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2105" y="0" width="213" height="15"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Validity of record (Valid or Invalid)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2318" y="0" width="138" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reasons for invalid record]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2456" y="0" width="185" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of cancellation / replacement]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2641" y="0" width="134" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reasons for replacement]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2775" y="0" width="107" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[New Certificate No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2882" y="0" width="131" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HUSBAND_NAME_ENG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3013" y="0" width="131" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HUSBAND_NAME_CHI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3144" y="0" width="63" height="15"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HKID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3207" y="0" width="74" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[永久/非永久]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3281" y="0" width="144" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HUSBAND_Date_of_Birth]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3425" y="0" width="89" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of marriage]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3514" y="0" width="275" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Marriage Certificate No. (Issued by HKSARG Only)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Prevent">
+			<textField>
+				<reportElement x="0" y="0" width="92" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CERTNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="92" y="0" width="116" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="208" y="0" width="95" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATCNAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="303" y="0" width="122" height="13"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<text><![CDATA[Hong Kong Adventist Hospital]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="425" y="0" width="66" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="491" y="0" width="69" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATDOB}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="560" y="0" width="119" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATDOCTYPE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="679" y="0" width="115" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATIDNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="794" y="0" width="244" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ISHKSPOUSE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1038" y="0" width="109" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DRNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1147" y="0" width="64" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DRMCHKNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1211" y="0" width="90" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DRTEL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1301" y="0" width="57" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement x="1358" y="0" width="75" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ANTCHKDT1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1433" y="0" width="75" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ANTCHKDT2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1508" y="0" width="75" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ANTCHKDT3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1583" y="0" width="75" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ANTCHKDT4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1658" y="0" width="75" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ANTCHKDT5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1733" y="0" width="75" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ANTCHKDT6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1808" y="0" width="159" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATEDC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1967" y="0" width="68" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CISEDATE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2035" y="0" width="70" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2105" y="0" width="213" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ISVALID}.equals("1")?"Valid":"Invalid"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2318" y="0" width="138" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[!$F{ISVALID}.equals("Valid")?
+($F{invalidrsn}.equals("2")?"Cancellation of Booking":
+(($F{invalidrsn}.equals("3")?"Replacement for Certificate":""))):""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2456" y="0" width="185" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cancelDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2641" y="0" width="134" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{REPLTRSN}.equals("1")?"Damaged Certificate":
+($F{REPLTRSN}.equals("2")?"Printing Problem":
+   ($F{REPLTRSN}.equals("3")?"Wrong Data":""))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2775" y="0" width="107" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{REMARK}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2882" y="0" width="131" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{HUSNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3013" y="0" width="131" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{HUSCNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3144" y="0" width="63" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{HUSIDNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3207" y="0" width="74" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ISHUSHKPM}.equals("Y")?"永久":"非永久"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3281" y="0" width="144" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{HUSDOB}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3425" y="0" width="89" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATMDATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3514" y="0" width="275" height="13"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATMCTNO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

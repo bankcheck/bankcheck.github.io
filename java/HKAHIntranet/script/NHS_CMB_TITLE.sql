@@ -1,0 +1,13 @@
+create or replace
+FUNCTION "NHS_CMB_TITLE"
+  RETURN Types.CURSOR_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN OUTCUR FOR
+      SELECT TITDESC
+      FROM TITLE@IWEB
+      WHERE ROWNUM < 100
+      ORDER BY TITDESC;
+   RETURN OUTCUR;
+END NHS_CMB_TITLE;

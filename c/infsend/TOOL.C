@@ -176,3 +176,38 @@ int ConvertCode(char *item, char *code)
     //WriteLog("Can't find setting for %s", item);
     return (0);
 }
+
+int RevertCode(char *item, char *code)
+{
+    char buf[1024];
+    FILE *fp;
+    char *p;
+	char *q;
+
+    strcpy(code, item);
+
+    fp = fopen(g_szCodeFile, "rb");
+    if (fp == NULL) {
+        WriteLog("Can't open file %s", g_szCodeFile);
+        return 0;
+    }
+
+    while (1) {
+        if (fgets(buf, 1024, fp) == NULL) break;
+        p = strtok(buf, " \t=,\r\n");
+
+        if (p == NULL) continue;
+        if (*p == '#' || *p == ';') continue;   // comment
+		
+		q = p;
+        p = strtok(NULL, " \t=,\r\n");
+        if (strcmp(item, p) == 0) {
+            strcpy(code, q);
+            fclose(fp);
+            return 1;
+        }
+    }
+    fclose (fp);
+    //WriteLog("Can't find setting for %s", item);
+    return (0);
+}

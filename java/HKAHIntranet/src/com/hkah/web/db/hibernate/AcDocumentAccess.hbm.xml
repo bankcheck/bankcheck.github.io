@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2010?~3??23?? ?U??02:52:35 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.AcDocumentAccess" table="AC_DOCUMENT_ACCESS">
+        <composite-id name="id" class="com.hkah.web.db.hibernate.AcDocumentAccessId">
+            <key-property name="acDocumentId" type="big_decimal">
+                <column name="AC_DOCUMENT_ID" />
+            </key-property>
+            <key-property name="acUsername" type="string">
+                <column name="AC_USERNAME" default="ALL" />
+            </key-property>
+            <key-property name="acUserId" type="string">
+                <column name="AC_USER_ID" default="ALL" />
+            </key-property>
+           <key-property name="acStaffId" type="string">
+                <column name="AC_STAFF_ID" default="ALL" />
+            </key-property>            
+            <key-property name="acGroupId" type="string">
+                <column name="AC_GROUP_ID" default="ALL" />
+            </key-property>
+        </composite-id>
+        <property name="acCreatedDate" >
+            <column name="AC_CREATED_DATE" />
+        </property>
+        <property name="acCreatedUser" type="string">
+            <column name="AC_CREATED_USER" />
+        </property>
+        <property name="acModifiedDate" >
+            <column name="AC_MODIFIED_DATE" />
+        </property>
+        <property name="acModifiedUser" type="string">
+            <column name="AC_MODIFIED_USER" />
+        </property>
+        <property name="acEnabled" type="java.lang.Integer">
+            <column name="AC_ENABLED"   />
+        </property>
+    </class>
+</hibernate-mapping>

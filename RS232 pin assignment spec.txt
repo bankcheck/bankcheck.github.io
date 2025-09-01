@@ -1,0 +1,20 @@
+Straight
+5 Green		RX	2
+4 Red		TX	3
+8 White		DTR	4
+3 Black		GND	5
+1 Blue		DSR	6
+2 Orange	RTS	7
+7 Brown		CTS	8
+
+Cross
+Red		RX
+Green		TX
+Blue		DTR
+Black		GND
+White		DSR
+Brown		RTS
+Orange		CTS
+
+
+	

@@ -1,0 +1,19 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_CUSRPT"
+(V_CURDESC CUSRPT.CURDESC%TYPE,
+v_CURPATH CUSRPT.CURPATH%TYPE)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN outcur FOR
+      SELECT
+        CURID, CURDESC, CURPATH
+      FROM CUSRPT
+      WHERE ( CURDESC LIKE '%' || v_CURDESC || '%')
+      AND ( CURPATH like '%' || v_CURPATH || '%')
+      ORDER BY CURDESC;
+   RETURN OUTCUR;
+END NHS_LIS_CUSRPT;
+/
+
+

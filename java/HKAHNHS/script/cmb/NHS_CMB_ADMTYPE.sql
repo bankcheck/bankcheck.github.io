@@ -1,0 +1,14 @@
+create or replace FUNCTION "NHS_CMB_ADMTYPE"
+  RETURN Types.CURSOR_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN OUTCUR FOR
+      SELECT AMTID, AMTDESC
+      FROM ADMISSIONTYPE
+      WHERE AMTSTS = -1
+      AND ROWNUM < 100
+      ORDER BY AMTORD;
+   RETURN OUTCUR;
+END NHS_CMB_ADMTYPE;
+/

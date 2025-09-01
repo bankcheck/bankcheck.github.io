@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- the application context definition for the springapp DispatcherServlet -->
+
+	<!-- CTS -->
+	<bean name="/cts/recordList2.htm" class="com.hkah.web.controller.CTSController">
+		<property name="requestName" value="info_list"/>
+	</bean>
+	<bean name="/cts/newRecordList.htm" class="com.hkah.web.controller.CTSController">
+		<property name="requestName" value="info_newList"/>
+	</bean>	
+<!-- 		
+	<bean name="/cts/recordListTwah.htm" class="com.hkah.web.controller.CTSController">
+		<property name="requestName" value="info_list"/>
+	</bean>
+	
+	<bean name="/cts/recordListTwah2.htm" class="com.hkah.web.controller.CTSController">
+		<property name="requestName" value="info_list"/>
+	</bean>	
+ -->	
+	<bean name="/cts/docAgnRecordList.htm" class="com.hkah.web.controller.CTSController">
+		<property name="requestName" value="waitApp_list"/>
+	</bean>		
+	
+	<!-- Health Assessment -->
+	<bean name="/healthAssessment/check_list3.htm" class="com.hkah.web.controller.HealthAssessmentController">
+		<property name="requestName" value="check_list"/>
+	</bean>
+	<bean name="/healthAssessment/checkitem3.htm" class="com.hkah.web.controller.HealthAssessmentController">
+		<property name="requestName" value="checkitem"/>
+	</bean>	
+	
+	<!-- Document -->
+	<bean name="/admin/document_list.htm" class="com.hkah.web.controller.DocumentController">
+		<property name="requestName" value="document_list"/>
+	</bean>
+	<bean name="/admin/document_details.htm" class="com.hkah.web.controller.DocumentController">
+		<property name="requestName" value="document_details"/>
+	</bean>	
+
+	<!-- Staff Education -->
+	<bean name="/education/menu_list.htm" class="com.hkah.web.controller.StaffEducationController">
+		<property name="requestName" value="menu_list"/>
+	</bean>	
+	<bean name="/education/menu_details.htm" class="com.hkah.web.controller.StaffEducationController">
+		<property name="requestName" value="menu_details"/>
+	</bean>	
+	<bean name="/education/hospital_policies.htm" class="com.hkah.web.controller.StaffEducationController">
+		<property name="requestName" value="education.hep"/>
+	</bean>	
+	<bean name="/education/inserv_calendar.htm" class="com.hkah.web.controller.StaffEducationController">
+		<property name="requestName" value="education.is_cal"/>
+	</bean>	
+	<bean name="/education/mand_inserv_info.htm" class="com.hkah.web.controller.StaffEducationController">
+		<property name="requestName" value="education.is_info"/>
+	</bean>	
+	<bean name="/education/mand_inserv_content.htm" class="com.hkah.web.controller.StaffEducationController">
+		<property name="requestName" value="education.is_content"/>
+	</bean>
+	<bean name="/education/other_inserv.htm" class="com.hkah.web.controller.StaffEducationController">
+		<property name="requestName" value="education.other_is"/>
+	</bean>	
+	<bean name="/education/cont_ext_edu.htm" class="com.hkah.web.controller.StaffEducationController">
+		<property name="requestName" value="education.cee"/>
+	</bean>		
+	<bean name="/education/inserv_review.htm" class="com.hkah.web.controller.StaffEducationController">
+		<property name="requestName" value="education.is_review"/>
+	</bean>	
+	<bean name="/education/evidence_practice.htm" class="com.hkah.web.controller.StaffEducationController">
+		<property name="requestName" value="education.ebp"/>
+	</bean>
+	<bean name="/education/literature_search.htm" class="com.hkah.web.controller.StaffEducationController">
+		<property name="requestName" value="education.lsb"/>
+	</bean>
+	<bean name="/education/nchk.htm" class="com.hkah.web.controller.StaffEducationController">
+		<property name="requestName" value="education.nchk"/>
+	</bean>
+	<bean name="/education/contact.htm" class="com.hkah.web.controller.StaffEducationController">
+		<property name="requestName" value="education.contact"/>
+	</bean>
+	<bean name="/education/link.htm" class="com.hkah.web.controller.StaffEducationController">
+		<property name="requestName" value="education.ril"/>
+	</bean>	
+	<bean name="/education/smart_sop.htm" class="com.hkah.web.controller.StaffEducationController">
+		<property name="requestName" value="education.smart"/>
+	</bean>	
+		
+		
+	<!-- CRM -->
+	<bean name="/crm/promotion_list.htm" class="com.hkah.web.controller.CRMController">
+		<property name="requestName" value="promotion_list"/>
+	</bean>
+	<bean name="/crm/promotion_detail.htm" class="com.hkah.web.controller.CRMController">
+		<property name="requestName" value="promotion_detail"/>
+	</bean>
+	<bean name="/crm/target_list.htm" class="com.hkah.web.controller.CRMController">
+		<property name="requestName" value="target_list"/>
+	</bean>
+	<bean name="/crm/target_detail.htm" class="com.hkah.web.controller.CRMController">
+		<property name="requestName" value="target_detail"/>
+	</bean>
+	
+	<!-- Discussion Board -->
+	<bean name="/discussionBoard/comment_list.htm" class="com.hkah.web.controller.DiscussionBoardController">
+		<property name="requestName" value="comment_list"/>
+	</bean>
+	<bean name="/discussionBoard/comment_detail.htm" class="com.hkah.web.controller.DiscussionBoardController">
+		<property name="requestName" value="comment_detail"/>
+	</bean>	
+	
+	<!-- Forward Scanning -->
+	<bean name="/forwardScanning/category_list.htm" class="com.hkah.web.controller.ForwardScanningController">
+		<property name="requestName" value="category_list"/>
+	</bean>
+	<bean name="/forwardScanning/category_detail.htm" class="com.hkah.web.controller.ForwardScanningController">
+		<property name="requestName" value="category_detail"/>
+	</bean>	
+	
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView">
+		</property>
+		<property name="prefix" value="/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+</beans>

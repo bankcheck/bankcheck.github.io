@@ -1,0 +1,161 @@
+DROP VIEW SLIPTX_STATEMENT;
+COMMIT;
+
+CREATE VIEW "SLIPTX_STATEMENT" ("STNTDATE", "STNBAMT", "STNNAMT", "DESCRIPTION", "QTY", "STNTYPE", "ITMTYPE", "STNRLVL", "CDESCCODE", "DPTCODE", "PKGCODE", "DPTNAME", "STNSEQ", "SLPNO", "ITMFLAG", "DSCCODE", "STNSTS")
+AS
+  SELECT TO_DATE(TO_CHAR(ST.STNTDATE, 'DD/MM/YYYY')
+    || ' 00:00:00', 'DD/MM/YYYY HH24:MI:SS') STNTDATE,
+    ST.STNBAMT,
+    ST.STNNAMT,
+    UPPER(DECODE(ST.STNRLVL, 1, DPS.DSCDESC
+    ||'  '
+    ||
+    CASE
+      WHEN GET_CURRENT_STECODE = 'AMC'
+      THEN '('
+        || ST.STNDESC1
+        || ')'
+      ELSE ''
+    END, 2, DP.DPTNAME
+    ||'  '
+    ||
+    CASE
+      WHEN GET_CURRENT_STECODE = 'AMC'
+      THEN ST.STNDESC1
+      ELSE ''
+    END, 3, ST.STNDESC
+    || ' '
+    ||ST.STNDESC1, 4, PK.PKGNAME
+    ||CPK.PKGNAME
+    ||' '
+    ||
+    CASE
+      WHEN GET_CURRENT_STECODE = 'AMC'
+      THEN ST.STNDESC1
+      ELSE ''
+    END, 5, PK.PKGNAME
+    ||CPK.PKGNAME
+    ||' '
+    ||
+    CASE
+      WHEN GET_CURRENT_STECODE = 'AMC'
+      THEN ST.STNDESC1
+      ELSE ''
+    END, 6, DPS.DSCDESC
+    ||' '
+    ||ST.STNDESC
+    ||'  '
+    ||ST.STNDESC1, 7, PK.PKGNAME
+    ||CPK.PKGNAME
+    ||' ', NULL)) DESCRIPTION,
+    ST.UNIT AS QTY,
+    ST.STNTYPE,
+    ST.ITMTYPE,
+    DECODE(ST.STNRLVL, 4, 4, 7, 5, ST.STNRLVL) STNRLVL,
+    DECODE(ST.STNRLVL, 1,
+    (SELECT DESCRIPTION
+    FROM DESCRIPTION_MAPPING
+    WHERE TYPE
+      || '.'
+      || ID = 'DEPSERVICE.'
+      ||DPS.DSCCODE
+    ), 2,
+    (SELECT DESCRIPTION
+    FROM DESCRIPTION_MAPPING
+    WHERE TYPE
+      || '.'
+      || ID = 'DEPARTMENT.'
+      ||DP.DPTCODE
+    ), 3,
+    (SELECT DESCRIPTION
+    FROM DESCRIPTION_MAPPING
+    WHERE TYPE
+      || '.'
+      || ID = DECODE(ST.STNTYPE, 'S', 'PAYMENTMETHOD.'
+      ||
+      (SELECT CT.CTXMETH
+      FROM CASHTX CT,
+        SLIPTX TX
+      WHERE CT.CTXID = TX.STNXREF
+      AND TX.STNID   = ST.STNID
+      ), 'R', 'PAYMENTMETHOD.'
+      ||
+      (SELECT CT.CTXMETH
+      FROM CASHTX CT,
+        SLIPTX TX
+      WHERE CT.CTXID = TX.STNXREF
+      AND TX.STNID   = ST.STNID
+      ), 'ITEM.'
+      ||ST.ITMCODE)
+    ), 4,
+    (SELECT DESCRIPTION
+    FROM DESCRIPTION_MAPPING
+    WHERE TYPE
+      || '.'
+      || ID = 'PACKAGE.'
+      ||PK.PKGCODE
+    ), 5,
+    (SELECT DESCRIPTION
+    FROM DESCRIPTION_MAPPING
+    WHERE TYPE
+      || '.'
+      || ID = 'PACKAGE.'
+      ||PK.PKGCODE
+    ), 6, (
+    (SELECT DESCRIPTION
+    FROM DESCRIPTION_MAPPING
+    WHERE TYPE
+      || '.'
+      || ID = 'DEPSERVICE.'
+      ||DPS.DSCCODE
+    )
+    ||' '
+    ||
+    (SELECT DESCRIPTION
+    FROM DESCRIPTION_MAPPING
+    WHERE TYPE
+      || '.'
+      || ID = DECODE(ST.STNTYPE, 'S', 'PAYMENTMETHOD.'
+      ||
+      (SELECT CT.CTXMETH
+      FROM CASHTX CT,
+        SLIPTX TX
+      WHERE CT.CTXID = TX.STNXREF
+      AND TX.STNID   = ST.STNID
+      ), 'R', 'PAYMENTMETHOD.'
+      ||
+      (SELECT CT.CTXMETH
+      FROM CASHTX CT,
+        SLIPTX TX
+      WHERE CT.CTXID = TX.STNXREF
+      AND TX.STNID   = ST.STNID
+      ), 'ITEM.'
+      ||ST.ITMCODE)
+    ) ), 7,
+    (SELECT DESCRIPTION
+    FROM DESCRIPTION_MAPPING
+    WHERE TYPE
+      || '.'
+      || ID = 'PACKAGE.'
+      ||PK.PKGCODE
+    ) ) AS CDESCCODE,
+    DP.DPTCODE,
+    ST.PKGCODE,
+    DP.DPTNAME,
+    ST.STNSEQ,
+    ST.SLPNO,
+    DECODE(ST.STNTYPE,'D','A','I','B','O','B','X','B','B') AS ITMFLAG,
+    DECODE(ST.STNRLVL,4,NULL,7,NULL,ST.DSCCODE)            AS DSCCODE,
+    St.Stnsts Stnsts
+  FROM SLIPTX_STATEMENT_CHGRLVL ST,
+    DPSERV DPS,
+    DEPT DP,
+    PACKAGE PK,
+    CREDITPKG CPK
+  WHERE ST.DSCCODE             = DPS.DSCCODE(+)
+  AND SUBSTR(ST.GLCCODE, 1, 4) = DP.DPTCODE(+)
+  AND ST.PKGCODE               = PK.PKGCODE(+)
+  AND St.Pkgcode               = Cpk.Pkgcode(+)
+  AND ST.STNSTS               IN ('N', 'A');
+
+COMMIT;

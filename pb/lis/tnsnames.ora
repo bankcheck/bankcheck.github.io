@@ -1,0 +1,147 @@
+LIS_PROFILE =  
+  (DESCRIPTION =
+	(ADDRESS_LIST =           
+		(ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.154.71)(PORT = 1521))        
+	)                     
+
+    (CONNECT_DATA = (SERVICE_NAME = UHKLIS))
+  )
+
+PROFILE =  
+  (DESCRIPTION =
+	(ADDRESS_LIST =           
+		(ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.3.55)(PORT = 1521))                
+		(ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.3.54)(PORT = 1521))                
+		(ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.3.56)(PORT = 1521))                
+		(ADDRESS = (PROTOCOL = TCP)(HOST = RAC-SCAN)(PORT = 1521))                
+	)                     
+
+    (CONNECT_DATA = (SERVICE_NAME = HKSEED))
+  )
+
+PROFILE_HKUAT  =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.1.77)(PORT = 1521))
+   (CONNECT_DATA = (SERVICE_NAME = urpt))	
+  )
+
+PROFILE_TWUAT = 
+   (DESCRIPTION =                     
+	(ADDRESS_LIST =           
+		(ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.2.88)(PORT = 1521))                
+	)                     
+	(CONNECT_DATA = (SERVICE_NAME = utwseed ))
+  )
+
+hat =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.1.77)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = uhat)
+    )
+  )
+
+CIS =  
+   (DESCRIPTION =                     
+	(ADDRESS_LIST =           
+		(ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.154.191)(PORT = 1521))               
+	)                     
+	(CONNECT_DATA = (SERVICE_NAME = hkcis))
+  )
+
+
+hat_uat =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.1.77)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = uhat)
+    )
+  )
+
+######################################################
+AMC2CIS = 
+  (DESCRIPTION =
+    (ADDRESS_LIST =  (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.11.22)(PORT = 1521)))
+    (CONNECT_DATA = (SERVICE_NAME = AMC2CIS))
+  )
+
+HKCIS = 
+  (DESCRIPTION =
+    (ADDRESS_LIST =  (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.3.55)(PORT = 1521)))
+    (CONNECT_DATA = (SERVICE_NAME = hkcis))
+  )
+
+TWCIS = 
+  (DESCRIPTION =
+    (ADDRESS_LIST =  (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.0.166)(PORT = 1521)))
+    (CONNECT_DATA = (SERVICE_NAME = twcis))
+  )
+
+UCIS = 
+  (DESCRIPTION =
+    (ADDRESS_LIST =  (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.1.77)(PORT = 1521)))
+    (CONNECT_DATA = (SERVICE_NAME = ucis))
+  )
+
+
+TCIS = 
+  (DESCRIPTION =
+    (ADDRESS_LIST =  (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.2.88)(PORT = 1521)))
+    (CONNECT_DATA = (SERVICE_NAME = tcis))
+  )
+
+UTWCIS = 
+  (DESCRIPTION =
+    (ADDRESS_LIST =  (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.155.171)(PORT = 1521)))
+    (CONNECT_DATA = (SERVICE_NAME = utwcis))
+  )
+
+
+CIS_UAT = 
+  (DESCRIPTION =
+    (ADDRESS_LIST =  (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.1.77)(PORT = 1521)))
+    (CONNECT_DATA = (SERVICE_NAME = ucis))
+  )
+
+######################################################
+TLIS =  
+  (DESCRIPTION =
+	(ADDRESS_LIST =           
+		(ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.154.71)(PORT = 1521))        
+	)                     
+
+    (CONNECT_DATA = (SERVICE_NAME = UHKLIS))
+  )
+
+
+utwlis =  
+   (DESCRIPTION =                     
+	(ADDRESS_LIST =           
+		(ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.155.171)(PORT = 1521))              
+	)                     
+	(CONNECT_DATA = (SERVICE_NAME = utwlis))
+  )
+
+
+lisservice1 =
+  (DESCRIPTION =
+	(ADDRESS_LIST =            
+		(ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.155.21)(PORT = 1521))                
+	)                     
+    	(CONNECT_DATA = (SERVICE_NAME = twlis) )
+  )
+
+
+liss =  
+   (DESCRIPTION =                     
+	(ADDRESS_LIST =           
+		(ADDRESS = (PROTOCOL = TCP)(HOST = 172.25.10.21)(PORT = 1521))             
+	)                     
+	(CONNECT_DATA = (SERVICE_NAME = hklis))
+  )
+
+

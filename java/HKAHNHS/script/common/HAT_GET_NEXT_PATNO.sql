@@ -1,0 +1,51 @@
+CREATE OR REPLACE FUNCTION "HAT_GET_NEXT_PATNO"
+RETURN NUMBER
+IS
+	v_PATNO		NUMBER;
+	V_PATNO_JUMP	NUMBER;
+BEGIN
+	IF GET_REAL_STECODE = 'AMC1' OR GET_REAL_STECODE = 'AMC2' THEN
+		-- retrieve reserved patno
+		select PATNO
+		INTO v_PATNO
+		from  
+		  ( select PATNO 
+		  from PATNO_RESERVED 
+		  where use_date is null
+		  order by PATNO)
+		where ROWNUM <= 1;
+	  
+		UPDATE PATNO_RESERVED SET USE_DATE = SYSDATE WHERE PATNO = v_PATNO;
+	ELSE
+		-- update counter
+		UPDATE SYSPARAM
+		SET    PARAM1 = LPAD(TO_CHAR(TO_NUMBER(PARAM1) + 1), GREATEST(LENGTH(TO_NUMBER(PARAM1)+1),LENGTH(PARAM1)), '0')
+		WHERE  PARCDE = 'NEXTPATNO';
+	
+		-- retrieve latest patno
+		SELECT PARAM1 INTO v_PATNO FROM SYSPARAM WHERE PARCDE = 'NEXTPATNO';
+		
+		-- Jump patno for AMC1 patient import
+		IF GET_REAL_STECODE = 'HKAH' THEN
+			BEGIN
+				select PARAM1 into v_PATNO_JUMP from SYSPARAM where PARCDE = 'JUMPPATNO';
+				
+				IF v_PATNO = v_PATNO_JUMP THEN
+					UPDATE SYSPARAM
+					SET    PARAM1 = (select PARAM2 from SYSPARAM where PARCDE = 'JUMPPATNO')
+					WHERE  PARCDE = 'NEXTPATNO';
+				END IF;
+			EXCEPTION
+		      WHEN OTHERS THEN
+		      	v_PATNO_JUMP := null;
+		    END;
+		END IF;
+	END IF;
+
+	RETURN v_PATNO;
+EXCEPTION
+WHEN OTHERS THEN
+	dbms_output.put_line('An ERROR was encountered - '||SQLCODE||' -ERROR- '||SQLERRM);
+	RETURN NULL;
+END;
+/

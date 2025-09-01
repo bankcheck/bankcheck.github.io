@@ -1,0 +1,1258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptNewDocFeeTxLst" pageWidth="1000" pageHeight="595" orientation="Landscape" columnWidth="1000" leftMargin="0" rightMargin="0" topMargin="20" bottomMargin="20" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="1.3660269107301504"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.xls.wrap.text" value="false"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<parameter name="in_dateend" class="java.lang.String">
+		<defaultValueExpression><![CDATA["01/01/1970"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_actualrun" class="java.lang.String">
+		<defaultValueExpression><![CDATA["N"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_sitecode" class="java.lang.String">
+		<defaultValueExpression><![CDATA["HKAH"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_sitename" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select   a.GRP,
+  A.Subgrp,
+  A.Doccode,
+  a.DOCFNAME,
+  A.Docgname,
+  a.SLPNO,
+  A.Slptype,
+  to_char(a.STNID) STNID,
+  A.Stnsts,
+  to_char(A.Stncdate, 'dd/MM/yyyy') Stncdate,
+  A.Itmcode,
+  A.Stndesc,
+  to_char(A.Stnbamt) Stnbamt,
+  to_char(A.Stndisc) Stndisc,
+  to_char(A.Stnnamt) Stnnamt,
+  a.PATNO,
+  A.Slpfname,
+  A.Slpgname,
+  a.PATFNAME,
+  A.Patgname,
+  to_char(A.Pcyid),
+  a.DSCCODE,
+  to_char(A.Dfx_Pct) Dfx_Pct,
+  to_char(A.Dfx_Famt) Dfx_Famt,
+  to_char(A.Dfx_Samt) Dfx_Samt,
+  to_char(A.Dfx_Pamt) Dfx_Pamt,
+  to_char(A.Dfx_Camt) Dfx_Camt,
+  to_char(A.Commission) Commission,
+  A.Dfx_Code,
+  to_char(A.Stnoamt) Stnoamt,
+   to_char(a.STNTDATE, 'dd/MM/yyyy') STNTDATE,
+b.tittle,decode(b.RPTTO,NULL,'','C',DOCADD1,'H',DOCHOMADD1,'O',DOCOFFADD1) AS ADD1,
+decode(b.RPTTO,NULL,'','C',DOCADD2,'H',DOCHOMADD2,'O',DOCOFFADD2) AS ADD2,
+decode(b.RPTTO,NULL,'','C',DOCADD3,'H',DOCHOMADD3,'O',DOCOFFADD3) AS ADD3,
+decode(b.RPTTO,NULL,'','C',DOCADD4,'H',DOCHOMADD4,'O',DOCOFFADD4) AS ADD4,
+A.ARCCODE, A.AR_PCT
+from Df_Sliptx A,Doctor B
+where a.doccode=b.doccode(+)
+order by a.STNTDATE, a.PATNO]]>
+	</queryString>
+	<field name="GRP" class="java.lang.String"/>
+	<field name="SUBGRP" class="java.lang.String"/>
+	<field name="DOCCODE" class="java.lang.String"/>
+	<field name="DOCFNAME" class="java.lang.String"/>
+	<field name="DOCGNAME" class="java.lang.String"/>
+	<field name="SLPNO" class="java.lang.String"/>
+	<field name="SLPTYPE" class="java.lang.String"/>
+	<field name="STNID" class="java.lang.String"/>
+	<field name="STNSTS" class="java.lang.String"/>
+	<field name="STNCDATE" class="java.lang.String"/>
+	<field name="ITMCODE" class="java.lang.String"/>
+	<field name="STNDESC" class="java.lang.String"/>
+	<field name="STNBAMT" class="java.lang.String"/>
+	<field name="STNDISC" class="java.lang.String"/>
+	<field name="STNNAMT" class="java.lang.String"/>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="SLPFNAME" class="java.lang.String"/>
+	<field name="SLPGNAME" class="java.lang.String"/>
+	<field name="PATFNAME" class="java.lang.String"/>
+	<field name="PATGNAME" class="java.lang.String"/>
+	<field name="TO_CHAR(A.PCYID)" class="java.lang.String"/>
+	<field name="DSCCODE" class="java.lang.String"/>
+	<field name="DFX_PCT" class="java.lang.String"/>
+	<field name="DFX_FAMT" class="java.lang.String"/>
+	<field name="DFX_SAMT" class="java.lang.String"/>
+	<field name="DFX_PAMT" class="java.lang.String"/>
+	<field name="DFX_CAMT" class="java.lang.String"/>
+	<field name="COMMISSION" class="java.lang.String"/>
+	<field name="DFX_CODE" class="java.lang.String"/>
+	<field name="STNOAMT" class="java.lang.String"/>
+	<field name="STNTDATE" class="java.lang.String"/>
+	<field name="TITTLE" class="java.lang.String"/>
+	<field name="ADD1" class="java.lang.String"/>
+	<field name="ADD2" class="java.lang.String"/>
+	<field name="ADD3" class="java.lang.String"/>
+	<field name="ADD4" class="java.lang.String"/>
+	<field name="ARCCODE" class="java.lang.String"/>
+	<field name="AR_PCT" class="java.lang.Double"/>
+	<sortField name="DOCFNAME"/>
+	<sortField name="DOCGNAME"/>
+	<sortField name="DOCCODE"/>
+	<sortField name="SLPTYPE"/>
+	<sortField name="GRP"/>
+	<sortField name="DSCCODE"/>
+	<sortField name="ITMCODE"/>
+	<variable name="docNameCode" class="java.lang.String" resetType="Group" resetGroup="Doctor">
+		<variableExpression><![CDATA[$F{DOCFNAME} + "  " + $F{DOCGNAME} + " " + $F{DOCCODE}]]></variableExpression>
+	</variable>
+	<variable name="docNameDisplay" class="java.lang.String"/>
+	<variable name="STNBAMT_1" class="java.math.BigDecimal" resetType="Group" resetGroup="ItmCode" calculation="Sum">
+		<variableExpression><![CDATA[$V{STNBAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="STNNAMT_1" class="java.math.BigDecimal" resetType="Group" resetGroup="ItmCode" calculation="Sum">
+		<variableExpression><![CDATA[$V{STNNAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_PCT_1" class="java.math.BigDecimal" resetType="Group" resetGroup="ItmCode" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_PCT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_SAMT_1" class="java.math.BigDecimal" resetType="Group" resetGroup="ItmCode" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_SAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_PAMT_1" class="java.math.BigDecimal" resetType="Group" resetGroup="ItmCode" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_PAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_CAMT_1" class="java.math.BigDecimal" resetType="Group" resetGroup="ItmCode" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_CAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="COMMISSION_1" class="java.math.BigDecimal" resetType="Group" resetGroup="ItmCode" calculation="Sum">
+		<variableExpression><![CDATA[$V{COMMISSION_N}]]></variableExpression>
+	</variable>
+	<variable name="STNBAMT_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DscCode" calculation="Sum">
+		<variableExpression><![CDATA[$V{STNBAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="STNNAMT_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DscCode" calculation="Sum">
+		<variableExpression><![CDATA[$V{STNNAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_PCT_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DscCode" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_PCT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_SAMT_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DscCode" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_SAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_PAMT_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DscCode" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_PAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_CAMT_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DscCode" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_CAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="COMMISSION_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DscCode" calculation="Sum">
+		<variableExpression><![CDATA[$V{COMMISSION_N}]]></variableExpression>
+	</variable>
+	<variable name="STNBAMT_3" class="java.math.BigDecimal" resetType="Group" resetGroup="Grp" calculation="Sum">
+		<variableExpression><![CDATA[$V{STNBAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="STNNAMT_3" class="java.math.BigDecimal" resetType="Group" resetGroup="Grp" calculation="Sum">
+		<variableExpression><![CDATA[$V{STNNAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_PCT_3" class="java.math.BigDecimal" resetType="Group" resetGroup="Grp" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_PCT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_SAMT_3" class="java.math.BigDecimal" resetType="Group" resetGroup="Grp" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_SAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_PAMT_3" class="java.math.BigDecimal" resetType="Group" resetGroup="Grp" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_PAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_CAMT_3" class="java.math.BigDecimal" resetType="Group" resetGroup="Grp" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_CAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="COMMISSION_3" class="java.math.BigDecimal" resetType="Group" resetGroup="Grp" calculation="Sum">
+		<variableExpression><![CDATA[$V{COMMISSION_N}]]></variableExpression>
+	</variable>
+	<variable name="STNBAMT_4" class="java.math.BigDecimal" resetType="Group" resetGroup="slpType" calculation="Sum">
+		<variableExpression><![CDATA[$V{STNBAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="STNNAMT_4" class="java.math.BigDecimal" resetType="Group" resetGroup="slpType" calculation="Sum">
+		<variableExpression><![CDATA[$V{STNNAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_PCT_4" class="java.math.BigDecimal" resetType="Group" resetGroup="slpType" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_PCT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_SAMT_4" class="java.math.BigDecimal" resetType="Group" resetGroup="slpType" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_SAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_PAMT_4" class="java.math.BigDecimal" resetType="Group" resetGroup="slpType" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_PAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_CAMT_4" class="java.math.BigDecimal" resetType="Group" resetGroup="slpType" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_CAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="COMMISSION_4" class="java.math.BigDecimal" resetType="Group" resetGroup="slpType" calculation="Sum">
+		<variableExpression><![CDATA[$V{COMMISSION_N}]]></variableExpression>
+	</variable>
+	<variable name="STNBAMT_5" class="java.math.BigDecimal" resetType="Group" resetGroup="Doctor" calculation="Sum">
+		<variableExpression><![CDATA[$V{STNBAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="STNNAMT_5" class="java.math.BigDecimal" resetType="Group" resetGroup="Doctor" calculation="Sum">
+		<variableExpression><![CDATA[$V{STNNAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_PCT_5" class="java.math.BigDecimal" resetType="Group" resetGroup="Doctor" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_PCT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_SAMT_5" class="java.math.BigDecimal" resetType="Group" resetGroup="Doctor" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_SAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_PAMT_5" class="java.math.BigDecimal" resetType="Group" resetGroup="Doctor" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_PAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_CAMT_5" class="java.math.BigDecimal" resetType="Group" resetGroup="Doctor" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_CAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="COMMISSION_5" class="java.math.BigDecimal" resetType="Group" resetGroup="Doctor" calculation="Sum">
+		<variableExpression><![CDATA[$V{COMMISSION_N}]]></variableExpression>
+	</variable>
+	<variable name="STNBAMT_6" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{STNBAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="STNNAMT_6" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{STNNAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_PCT_6" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_PCT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_SAMT_6" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_SAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_PAMT_6" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_PAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="DFX_CAMT_6" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{DFX_CAMT_N}]]></variableExpression>
+	</variable>
+	<variable name="COMMISSION_6" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{COMMISSION_N}]]></variableExpression>
+	</variable>
+	<variable name="STNBAMT_N" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[$F{STNBAMT} == null || $F{STNBAMT}.isEmpty() ? new BigDecimal(0) : new BigDecimal($F{STNBAMT})]]></variableExpression>
+	</variable>
+	<variable name="STNNAMT_N" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[$F{STNNAMT} == null || $F{STNNAMT}.isEmpty() ? new BigDecimal(0) : new BigDecimal($F{STNNAMT})]]></variableExpression>
+	</variable>
+	<variable name="DFX_PCT_N" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[$F{DFX_PCT} == null || $F{DFX_PCT}.isEmpty() ? new BigDecimal(0) : new BigDecimal($F{DFX_PCT})]]></variableExpression>
+	</variable>
+	<variable name="DFX_SAMT_N" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[$F{DFX_SAMT} == null || $F{DFX_SAMT}.isEmpty() ? new BigDecimal(0) : new BigDecimal($F{DFX_SAMT})]]></variableExpression>
+	</variable>
+	<variable name="DFX_PAMT_N" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[$F{DFX_PAMT} == null || $F{DFX_PAMT}.isEmpty() ? new BigDecimal(0) : new BigDecimal($F{DFX_PAMT})]]></variableExpression>
+	</variable>
+	<variable name="DFX_CAMT_N" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[$F{DFX_CAMT} == null || $F{DFX_CAMT}.isEmpty() ? new BigDecimal(0) : new BigDecimal($F{DFX_CAMT})]]></variableExpression>
+	</variable>
+	<variable name="COMMISSION_N" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[$F{COMMISSION} == null || $F{COMMISSION}.isEmpty() ? new BigDecimal(0) : new BigDecimal($F{COMMISSION})]]></variableExpression>
+	</variable>
+	<variable name="ITMCODE_1" class="java.lang.Integer" resetType="Group" resetGroup="ItmCode" calculation="Count">
+		<variableExpression><![CDATA[$F{ITMCODE}]]></variableExpression>
+	</variable>
+	<variable name="BAL_N" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[(new BigDecimal(($F{DFX_SAMT} == null || $F{DFX_SAMT}.isEmpty()) ? "0" : $F{DFX_SAMT})).compareTo(new BigDecimal("0")) == 0 ?
+new BigDecimal("0") :
+(new BigDecimal(($F{DFX_SAMT} == null || $F{DFX_SAMT}.isEmpty()) ? "0" : $F{DFX_SAMT})).subtract((new BigDecimal(($F{DFX_PAMT} == null || $F{DFX_PAMT}.isEmpty()) ? "0" : $F{DFX_PAMT}))).subtract(new BigDecimal(($F{DFX_CAMT} == null || $F{DFX_CAMT}.isEmpty()) ? "0" : $F{DFX_CAMT}))]]></variableExpression>
+	</variable>
+	<variable name="BAL_1" class="java.math.BigDecimal" resetType="Group" resetGroup="ItmCode" calculation="Sum">
+		<variableExpression><![CDATA[$V{BAL_N}]]></variableExpression>
+	</variable>
+	<variable name="BAL_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DscCode" calculation="Sum">
+		<variableExpression><![CDATA[$V{BAL_N}]]></variableExpression>
+	</variable>
+	<variable name="BAL_3" class="java.math.BigDecimal" resetType="Group" resetGroup="Grp" calculation="Sum">
+		<variableExpression><![CDATA[$V{BAL_N}]]></variableExpression>
+	</variable>
+	<variable name="BAL_4" class="java.math.BigDecimal" resetType="Group" resetGroup="slpType" calculation="Sum">
+		<variableExpression><![CDATA[$V{BAL_N}]]></variableExpression>
+	</variable>
+	<variable name="BAL_5" class="java.math.BigDecimal" resetType="Group" resetGroup="Doctor" calculation="Sum">
+		<variableExpression><![CDATA[$V{BAL_N}]]></variableExpression>
+	</variable>
+	<variable name="BAL_6" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{BAL_N}]]></variableExpression>
+	</variable>
+	<group name="Doctor" isStartNewPage="true" isResetPageNumber="true">
+		<groupExpression><![CDATA[$F{DOCFNAME} + $F{DOCGNAME} + $F{DOCCODE}]]></groupExpression>
+		<groupFooter>
+			<band height="16">
+				<staticText>
+					<reportElement x="197" y="0" width="139" height="16"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement>
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<text><![CDATA[Doctor Total]]></text>
+				</staticText>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="683" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_CAMT_5}.subtract($V{COMMISSION_5})]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="738" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{BAL_5}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="336" y="0" width="50" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{STNBAMT_5}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="518" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_PAMT_5}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="463" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_SAMT_5}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="628" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{COMMISSION_5}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="573" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_CAMT_5}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="slpType">
+		<groupExpression><![CDATA[$F{SLPTYPE}]]></groupExpression>
+		<groupHeader>
+			<band height="16">
+				<textField isBlankWhenNull="true" bookmarkLevel="2">
+					<reportElement x="0" y="0" width="153" height="16"/>
+					<textElement>
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["I".equals($F{SLPTYPE}) ? "In-patient" :
+(
+    "O".equals($F{SLPTYPE}) ? "Out-patient" : "Daycase"
+)]]></textFieldExpression>
+					<anchorNameExpression><![CDATA["I".equals($F{SLPTYPE}) ? "In-patient" :
+(
+    "O".equals($F{SLPTYPE}) ? "Out-patient" : "Daycase"
+)]]></anchorNameExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="16">
+				<staticText>
+					<reportElement x="197" y="0" width="139" height="16"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement>
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<text><![CDATA[DIO Sub Total]]></text>
+				</staticText>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="738" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{BAL_4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="518" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_PAMT_4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="336" y="0" width="50" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{STNBAMT_4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="628" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{COMMISSION_4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="683" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_CAMT_4}.subtract($V{COMMISSION_4})]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="573" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_CAMT_4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="463" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_SAMT_4}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Grp">
+		<groupExpression><![CDATA[$F{GRP}]]></groupExpression>
+		<groupHeader>
+			<band height="16">
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="153" height="16"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["C".equals($F{GRP}) ? "Charge(s)" : "Deduction(s)"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="16">
+				<staticText>
+					<reportElement x="197" y="0" width="139" height="16"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement>
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="738" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{BAL_3}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="573" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_CAMT_3}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="628" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{COMMISSION_3}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="518" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_PAMT_3}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="336" y="0" width="50" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{STNBAMT_3}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="683" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_CAMT_3}.subtract($V{COMMISSION_3})]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="463" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_SAMT_3}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="DscCode">
+		<groupExpression><![CDATA[$F{DSCCODE}]]></groupExpression>
+		<groupFooter>
+			<band height="16">
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="197" y="0" width="139" height="16">
+						<printWhenExpression><![CDATA[$F{DSCCODE} != null]]></printWhenExpression>
+					</reportElement>
+					<textElement>
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Dept / Service Total (" + $F{DSCCODE} + ")"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="336" y="0" width="50" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{STNBAMT_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="463" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_SAMT_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="518" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_PAMT_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="573" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_CAMT_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="628" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{COMMISSION_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="683" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_CAMT_2}.subtract($V{COMMISSION_2})]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="738" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{BAL_2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="ItmCode">
+		<groupExpression><![CDATA[$F{ITMCODE}]]></groupExpression>
+		<groupHeader>
+			<band height="16">
+				<textField isBlankWhenNull="true" bookmarkLevel="4">
+					<reportElement x="0" y="0" width="153" height="16"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{SLPTYPE} + "   " + $F{ITMCODE}]]></textFieldExpression>
+					<anchorNameExpression><![CDATA[$F{ITMCODE}]]></anchorNameExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="16">
+				<staticText>
+					<reportElement x="197" y="0" width="139" height="16"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement>
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<text><![CDATA[Item Total]]></text>
+				</staticText>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="336" y="0" width="50" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{STNBAMT_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="463" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_SAMT_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="518" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_PAMT_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="573" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_CAMT_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="628" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{COMMISSION_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="683" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_CAMT_1}.subtract($V{COMMISSION_1})]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="738" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{BAL_1}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="843" y="0" width="71" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{ITMCODE_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="112" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} != $P{REPORT_MAX_COUNT}]]></printWhenExpression>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement x="463" y="0" width="55" height="16"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{in_sitename}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement x="463" y="16" width="55" height="16"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Doctor Fee Transaction Report"]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement x="463" y="32" width="55" height="16"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["As of " + $P{in_dateend}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="153" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER}.intValue() == 1 ?
+($F{ADD1} == null ? "" :
+    (
+    ($F{TITTLE} == null ? "" : $F{TITTLE} + " ") +
+    $F{DOCFNAME} + " " + $F{DOCGNAME}
+    )
+) : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="16" width="153" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER}.intValue() == 1 ? $F{ADD1} : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="32" width="153" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER}.intValue() == 1 ? $F{ADD2} : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="48" width="153" height="16" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER}.intValue() == 1 ? $F{ADD3} : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="64" width="153" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER}.intValue() == 1 ? $F{ADD4} : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="793" y="0" width="50" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["rptDocFeeTxLst " +
+("Y".equals($P{in_actualrun}) ? "(Actual)" : "(Trial)")]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MMM/yyyy     HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="793" y="16" width="50" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement x="463" y="48" width="55" height="16"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCFNAME} + " " + $F{DOCGNAME} + " " + $F{DOCCODE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="793" y="32" width="50" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="Doctor" isBlankWhenNull="true">
+				<reportElement x="843" y="32" width="71" height="16"/>
+				<textElement>
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="32">
+			<staticText>
+				<reportElement x="336" y="16" width="50" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Billed	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="386" y="16" width="46" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Disc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="432" y="16" width="31" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="463" y="16" width="55" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Dr Share]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="518" y="16" width="55" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Prev PMT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="573" y="16" width="55" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Curr PMT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="628" y="16" width="55" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Comm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="683" y="16" width="55" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Net pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="843" y="16" width="71" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Slip No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="153" y="16" width="44" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Patient]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="738" y="16" width="55" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Bal.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="16" width="153" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="153" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="793" y="16" width="50" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16">
+			<textField isBlankWhenNull="true">
+				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="153" height="16" isPrintInFirstWholeBand="true"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{STNDESC}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="153" y="0" width="44" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PATNO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="386" y="0" width="46" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{STNBAMT_N}.subtract($V{STNNAMT_N})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="432" y="0" width="31" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_PCT_N}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="463" y="0" width="55" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{DFX_SAMT_N}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="518" y="0" width="55" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{DFX_PAMT_N}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="573" y="0" width="55" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{DFX_CAMT_N}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="628" y="0" width="55" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{COMMISSION_N}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="683" y="0" width="55" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{DFX_CAMT_N}.subtract($V{COMMISSION_N})]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="793" y="0" width="50" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{STNCDATE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="843" y="0" width="71" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SLPNO}]]></textFieldExpression>
+			</textField>
+			<elementGroup>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="738" y="0" width="55" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Number"><![CDATA[$V{BAL_N}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<textField pattern="#,##0" isBlankWhenNull="false">
+				<reportElement x="336" y="0" width="50" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{STNBAMT_N}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="197" y="0" width="139" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SLPFNAME} == null || $F{SLPFNAME}.isEmpty() ?
+$F{PATFNAME} + " " + $F{PATGNAME} :
+$F{SLPFNAME} + " " + $F{SLPGNAME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band splitType="Prevent"/>
+	</lastPageFooter>
+	<summary>
+		<band height="92">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement x="197" y="62" width="541" height="30"/>
+				<box leftPadding="3">
+					<pen lineStyle="Double"/>
+					<topPen lineWidth="2.0" lineStyle="Double"/>
+					<leftPen lineWidth="2.0" lineStyle="Double"/>
+					<bottomPen lineWidth="2.0" lineStyle="Double"/>
+					<rightPen lineWidth="2.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true" isItalic="true" pdfFontName="Helvetica-BoldOblique"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Do not distribute this sheet to the doctor."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="197" y="32" width="139" height="16"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Grand Total]]></text>
+			</staticText>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="336" y="32" width="50" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{STNBAMT_6}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="628" y="32" width="55" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{COMMISSION_6}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="683" y="32" width="55" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_CAMT_6}.subtract($V{COMMISSION_6})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="573" y="32" width="55" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_CAMT_6}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="518" y="32" width="55" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_PAMT_6}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="738" y="32" width="55" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{BAL_6}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="463" y="32" width="55" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DFX_SAMT_6}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="843" y="16" width="71" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Slip No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="432" y="16" width="31" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="628" y="16" width="55" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Comm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="336" y="16" width="50" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Billed	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="153" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="573" y="16" width="55" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Curr
+PMT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="738" y="16" width="55" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Bal.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="16" width="153" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="683" y="16" width="55" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Net pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="518" y="16" width="55" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Prev
+PMT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="386" y="16" width="46" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Disc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="153" y="16" width="44" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Patient]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="463" y="16" width="55" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Dr Share]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="793" y="16" width="50" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="10" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,3133 @@
+package com.hkah.web.db;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+import org.apache.commons.lang.StringEscapeUtils;
+
+import com.hkah.constant.ConstantsServerSide;
+import com.hkah.util.DateTimeUtil;
+import com.hkah.util.db.UtilDBWeb;
+import com.hkah.web.common.ReportableListObject;
+import com.hkah.web.common.UserBean;
+
+public class PatientDB {
+	private static String sqlStr_allergyME = null;
+	private static String sqlStr_allergyPD = null;
+	private static String sqlStr_allergyIU = null;
+	private static String sqlStr_allergySU = null;
+	private static String sqlStr_allergyICU = null;
+	private static String sqlStr_allergy100 = null;
+	private static String sqlStr_allergy200 = null;
+	private static String sqlStr_allergy300 = null;
+	private static String sqlStr_allergy300NW = null;
+	private static String sqlStr_allergy400 = null;
+	private static String sqlStr_allergyOB = null;
+
+	public static ArrayList getPatInfo(String patNo) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT P.PATNO, P.PATSEX, P.PATIDNO, ");
+		sqlStr.append("P.PATFNAME||', '||P.PATGNAME AS PATNAME, P.PATCNAME, ");
+		sqlStr.append("trunc(months_between(sysdate,P.PATBDATE)/12)||'yr '|| ");
+		sqlStr.append("trunc(mod(months_between(sysdate,P.PATBDATE),12))||'mths' AS AGE, ");
+/*
+		sqlStr.append("DECODE(SIGN(TO_NUMBER(TO_CHAR(SYSDATE,'MM'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'MM'))), -1, ");
+		sqlStr.append("(TO_NUMBER(TO_CHAR(SYSDATE,'YYYY'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'YYYY'))-1)||'yr '|| ");
+		sqlStr.append("(12-(TO_NUMBER(TO_CHAR(P.PATBDATE,'MM'))-TO_NUMBER(TO_CHAR(SYSDATE,'MM'))))||'mths', ");
+		sqlStr.append("0, (TO_NUMBER(TO_CHAR(SYSDATE,'YYYY'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'YYYY')))||'yr ', ");
+		sqlStr.append("1, (TO_NUMBER(TO_CHAR(SYSDATE,'YYYY'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'YYYY')))||'yr '|| ");
+		sqlStr.append("(TO_NUMBER(TO_CHAR(SYSDATE,'MM'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'MM')))||'mths') AS AGE, ");
+*/
+		sqlStr.append("P.PATPAGER, P.PATHTEL, P.PATEMAIL, P.RELIGIOUS, TO_CHAR(P.PATBDATE, 'DD/MM/YYYY'),P.PATFNAME,P.PATGNAME, ");
+		sqlStr.append("P.PATMSTS,P.RELIGIOUS,P.OCCUPATION,P.PATKNAME||','||P.PATKMTEL, ");
+		sqlStr.append("TO_CHAR(P.PATBDATE, 'DD-MON-YYYY', 'NLS_DATE_LANGUAGE=AMERICAN'), P.PATIDNO AS PATIDNO2, PE.DOCTYPE, P.MOTHCODE, P.COUCODE, P.EDULEVEL, ");
+		sqlStr.append("PE.PATPGRCOUCODE "); //23
+		sqlStr.append("FROM PATIENT@IWEB P, PATIENT_EXTRA@IWEB PE ");
+		sqlStr.append("WHERE P.PATNO = PE.PATNO(+) ");
+		sqlStr.append("AND P.PATNO = '");
+		sqlStr.append(patNo);
+		sqlStr.append("'");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	/*************************Patient List*************************/
+	public static ArrayList getHeartCenterAppointmentList(String startDate, String endDate, String status) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT P.PATNO, B.BKGPNAME, B.SMCID, P.COUCODE, P.PATPAGER, BKGMTEL, ");
+		sqlStr.append("S.DOCCODE, D.DOCFNAME || ' ' || D.DOCGNAME, TO_CHAR(B.BKGCDATE, 'DD/MM/YYYY HH24:MI:SS'), ");
+		sqlStr.append("TO_CHAR(B.BKGSDATE, 'DD/MM/YYYY HH24:MI:SS'), B.USRID, ");
+		sqlStr.append("DECODE(B.BKGSTS, 'N', 'Normal', 'C', 'Cancel', 'F', 'Confirm', 'B', 'Block', B.BKGSTS), B.BKGRMK ");
+		sqlStr.append("FROM BOOKING@IWEB B, SCHEDULE@IWEB S, DOCTOR@IWEB D, PATIENT@IWEB P ");
+		sqlStr.append("WHERE B.BKGSDATE >= ");
+		sqlStr.append("TO_DATE('" + startDate+" 00:00:00', 'DD/MM/YYYY HH24:MI:SS') ");
+		sqlStr.append("AND   B.BKGSDATE <= ");
+		sqlStr.append("TO_DATE('" + endDate+" 23:59:59', 'DD/MM/YYYY HH24:MI:SS') ");
+		sqlStr.append("AND   S.SCHID(+) = B.SCHID ");
+		sqlStr.append("AND   D.DOCCODE(+) = S.DOCCODE ");
+		sqlStr.append("AND   P.PATNO(+) = B.PATNO ");
+		if (status != null && status.length() > 0) {
+			sqlStr.append("AND   B.BKGSTS = '" + status + "' ");
+		}
+		sqlStr.append("AND  (D.DOCCODE IN (SELECT DOCCODE FROM DOCTOR@IWEB WHERE SPCCODE = 'CARDIO') ");
+		sqlStr.append("OR    D.DOCCODE IN ('2020')) ");
+		sqlStr.append("ORDER BY B.BKGCDATE ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getAppointmentList(String startDate, String endDate) {
+		return getAppointmentList(startDate, null, endDate, null);
+	}
+
+	public static ArrayList getAppointmentList(String startDate, String startTime, String endDate, String endTime) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT P.MOTHCODE, B.BKGPNAME, P.PATSMS, B.SMCID, BKGMTEL, ");
+		sqlStr.append("D.DOCFNAME || ' ' || D.DOCGNAME, D.DOCCNAME, ");
+		sqlStr.append("TO_CHAR(B.BKGSDATE, 'DD'), TO_CHAR(B.BKGSDATE, 'MM'), ");
+		sqlStr.append("TO_CHAR(B.BKGSDATE, 'YYYY'), TO_CHAR(B.BKGSDATE, 'HH24'), ");
+		sqlStr.append("TO_CHAR(B.BKGSDATE, 'MI'), B.BKGID, B.SMSSDTOK, ");
+		sqlStr.append("P.PATNO, P.PATPAGER, B.SMCID, CD.CO_DISPLAYNAME, P.COUCODE, ");
+		sqlStr.append("D.TITTLE, B.SMSRTNMSG, TO_CHAR(B.BKGSDATE, 'DD/MM/YYYY'), ");
+		sqlStr.append("S.DOCCODE, B.BKGSTS, TO_CHAR(B.BKGSDATE, 'DD/MM/YYYY HH24:MI') ");
+
+		sqlStr.append("FROM BOOKING@IWEB B, SCHEDULE@IWEB S, DOCTOR@IWEB D, PATIENT@IWEB P, CO_DOCTORS CD ");
+
+		if (startTime == null) {
+			sqlStr.append("WHERE B.BKGSDATE >= TO_DATE('" + startDate+" 00:00:00', 'DD/MM/YYYY HH24:MI:SS') ");
+		} else {
+			sqlStr.append("WHERE B.BKGSDATE >= TO_DATE('" + startDate+" "+startTime+":00', 'DD/MM/YYYY HH24:MI:SS') ");
+		}
+		if (endTime == null) {
+			sqlStr.append("AND   B.BKGSDATE <= TO_DATE('" + endDate+" 23:59:59', 'DD/MM/YYYY HH24:MI:SS') ");
+		} else {
+			sqlStr.append("AND   B.BKGSDATE <= TO_DATE('" + endDate+" "+endTime+":59', 'DD/MM/YYYY HH24:MI:SS') ");
+		}
+		sqlStr.append("AND   S.SCHID(+) = B.SCHID ");
+		sqlStr.append("AND   D.DOCCODE(+) = S.DOCCODE ");
+		sqlStr.append("AND   P.PATNO(+) = B.PATNO ");
+		sqlStr.append("AND	  CD.CO_DOC_CODE(+) = S.DOCCODE ");
+		sqlStr.append("AND   B.BKGSTS = 'N' ");
+		//sqlStr.append("AND   B.USRID <> 'HACCESS' "); //Health Assessment
+		//sqlStr.append("AND   B.USRID <> 'HEART' "); //Heart Centre
+		//4 - Oncology, 9 - fs, 5, 6, 7, 8, 10 - rehab
+		sqlStr.append("AND   (B.SMCID <> '4' OR B.SMCID IS NULL) ");
+		sqlStr.append("AND   D.DOCCODE <> 'OPDN' ");
+		sqlStr.append("AND   D.DOCCODE <> 'OPDG' ");
+		sqlStr.append("AND   D.DOCCODE <> 'OPD1' ");
+		sqlStr.append("AND   D.DOCCODE <> 'OPD7' ");
+		sqlStr.append("AND   D.DOCCODE <> '1566' ");//DENTIST
+		sqlStr.append("AND   D.DOCCODE <> '1860' ");//DENTIST
+		//sqlStr.append("AND   D.DOCCODE <> 'N008' ");//FS
+		//sqlStr.append("AND   D.DOCCODE <> 'N029' ");//FS
+		//sqlStr.append("AND   B.USRID <> 'FS' ");//FS
+		//sqlStr.append("AND   D.DOCCODE NOT LIKE 'R%' ");//REHAB
+		//sqlStr.append("AND   B.USRID <> 'REHAB' ");//REHAB
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getAppointmentInformation(String bkID) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT P.MOTHCODE, B.BKGPNAME, P.PATSMS, B.SMCID, BKGMTEL, ");
+		sqlStr.append("D.DOCFNAME || ' ' || D.DOCGNAME, D.DOCCNAME, ");
+		sqlStr.append("TO_CHAR(B.BKGSDATE, 'DD'), TO_CHAR(B.BKGSDATE, 'MM'), ");
+		sqlStr.append("TO_CHAR(B.BKGSDATE, 'YYYY'), TO_CHAR(B.BKGSDATE, 'HH24'), ");
+		sqlStr.append("TO_CHAR(B.BKGSDATE, 'MI'), B.BKGID, B.SMSSDTOK, ");
+		sqlStr.append("P.PATNO, P.PATPAGER, B.SMCID, CD.CO_DISPLAYNAME, P.COUCODE, ");
+		sqlStr.append("D.TITTLE, B.SMSRTNMSG, TO_CHAR(B.BKGSDATE, 'DD/MM/YYYY'), ");
+		sqlStr.append("S.DOCCODE, B.BKGSTS, ");
+		sqlStr.append("PE.PATPGRCOUCODE ");
+		sqlStr.append("FROM BOOKING@IWEB B, SCHEDULE@IWEB S, DOCTOR@IWEB D, PATIENT@IWEB P, CO_DOCTORS CD, PATIENT_EXTRA@IWEB PE ");
+		sqlStr.append("WHERE   S.SCHID(+) = B.SCHID ");
+		sqlStr.append("AND   D.DOCCODE(+) = S.DOCCODE ");
+		sqlStr.append("AND   P.PATNO(+) = B.PATNO ");
+		sqlStr.append("AND	  CD.CO_DOC_CODE(+) = S.DOCCODE ");
+		sqlStr.append("AND	 P.PATNO = PE.PATNO(+)");
+		sqlStr.append("AND   B.BKGSTS = 'N' ");
+		sqlStr.append("AND	 B.BKGID = '" + bkID + "' ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getInPatList(boolean getPreDischarge) {
+		return getPatList(null, "I", null,
+				null, null, null, null,
+				null, null, null, null,
+				null, null, null,
+				null, null, null,
+				null, null, null,
+				null, null,
+				null, null, null,
+				null, null, null,
+				null, null, null, getPreDischarge, null,
+				null, false);
+	}
+
+	public static ArrayList getInPatList(String wrdCode, String romCode, boolean getPreDischarge) {
+		return getPatList(null, "I", wrdCode,
+				romCode, null, null, null,
+				null, null, null, null,
+				null, null, null,
+				null, null, null,
+				null, null, null,
+				null, null,
+				null, null, null,
+				null, null, null,
+				null, null, null, getPreDischarge, null,
+				null, false);
+	}
+
+	public static ArrayList getInPatList(String patNo, String wrdCode, String romCode,
+				String patService, boolean getPreDischarge) {
+		return getPatList(patNo, "I", wrdCode,
+				romCode, patService, null, null,
+				null, null, null, null,
+				null, null, null,
+				null, null, null,
+				null, null, null,
+				null, null,
+				null, null, null,
+				null, null, null,
+				null, null, null, getPreDischarge, null,
+				null,false);
+	}
+
+	public static ArrayList getInPatList(String patNo, String wrdCode, String romCode,
+				String patService, boolean getPreDischarge, String[] acmMulti) {
+		return getPatList(patNo, "I", wrdCode,
+				romCode, patService, null, null,
+				null, null, null, null,
+				null, null, null,
+				(acmMulti!=null && acmMulti.length > 0)?"L":null, null, null,
+				null, null, null,
+				acmMulti, null,
+				null, null, null,
+				null, null, null,
+				null, null, null, getPreDischarge, null,
+				null, false);
+	}
+
+	public static ArrayList getInPatList(String patNo, String wrdCode, String romCode,
+				String patService, String dischargedPatient, boolean getPreDischarge) {
+		return getPatList(patNo, "I", wrdCode,
+				romCode, patService, null, null,
+				null, null, null, null,
+				null, null, null,
+				null, null, dischargedPatient,
+				null, null, null,
+				null, null,
+				null, null, null,
+				null, null, null,
+				null, null, null, getPreDischarge, null,
+				null, false);
+	}
+
+	//For getting patList with filter requirement, ivan
+	public static ArrayList getInPatList(String patNo, String wrdCode, String romCode, String patService, String sex,
+				String religion, String language, String doccode, String diagnosis, String birthDate,
+				String admissionDate, String patEName,
+				String patCName, String ageStartYrs,
+				String ageEndYrs, String acm, String dischargedPatient,
+				String emergencyCall, String attendedWithin1hour, String inPatVisitStatus,
+				String[] acmMulti, String[] languageMulti, String[] religionMulti, String[] wardMulti, String[] roomMulti,
+				String[] doccodeMulti, String[] repeatvisitMulti, String sortBy, String ordering, String chapStaffID,
+				boolean getPreDischarge, String dischargeDate, String getOTRecord, boolean displayOutPatient) {
+
+		return getPatList(patNo, "I", wrdCode,
+				romCode, patService, sex, religion,
+				language, doccode, birthDate, patEName,
+				patCName, ageStartYrs, ageEndYrs,
+				acm, admissionDate, dischargedPatient,
+				emergencyCall, attendedWithin1hour, inPatVisitStatus,
+				acmMulti, languageMulti,
+				religionMulti, wardMulti, roomMulti,
+				doccodeMulti, repeatvisitMulti, sortBy,
+				ordering, diagnosis, chapStaffID, getPreDischarge, dischargeDate,
+				getOTRecord, displayOutPatient);
+	}
+
+	private static ArrayList getPatList(String patNo, String regType, String wrdCode,
+								String romCode, String patService, String sex, String religion,
+								String language, String doccode, String birthDate, String patEName,
+								String patCName, String ageStartYrs, String ageEndYrs,
+								String acm, String admissionDate, String dischargedPatient,
+								String emergencyCall, String attendedWithin1hour, String inPatVisitStatus,
+								String[] acmMulti, String[] languageMulti,
+								String[] religionMulti, String[] wardMulti, String[] roomMulti,
+								String[] doccodeMulti, String[] repeatvisitMulti, String sortBy,
+								String ordering, String diagnosis, String chapStaffID, boolean getPreDischarge, String dischargeDate,
+								String getOTRecord , boolean displayOutPatient) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		if (regType.equals("I")) {
+			sqlStr.append("SELECT rownum, M.WRDCODE, W.WRDNAME, I.BEDCODE, M.ROMCODE, ");//0, 1, 2, 3, 4
+			sqlStr.append("R.REGID, R.REGTYPE, P.PATNO, PATSEX, ");//5, 6, 7, 8
+			sqlStr.append("P.PATFNAME || ', ' || P.PATGNAME, ");//9
+			sqlStr.append("P.PATCNAME, ");//10
+			sqlStr.append("DECODE(SIGN(TO_NUMBER(TO_CHAR(SYSDATE,'MM'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'MM'))), -1, ");
+			sqlStr.append("(TO_NUMBER(TO_CHAR(SYSDATE,'YYYY'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'YYYY'))-1)||'yr '|| ");
+			sqlStr.append("(12-(TO_NUMBER(TO_CHAR(P.PATBDATE,'MM'))-TO_NUMBER(TO_CHAR(SYSDATE,'MM'))))||'mths', ");
+			sqlStr.append("0, (TO_NUMBER(TO_CHAR(SYSDATE,'YYYY'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'YYYY')))||'yr ', ");
+			sqlStr.append("1, (TO_NUMBER(TO_CHAR(SYSDATE,'YYYY'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'YYYY')))||'yr '|| ");
+			sqlStr.append("(TO_NUMBER(TO_CHAR(SYSDATE,'MM'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'MM')))||'mths') AS AGE, ");//11
+			sqlStr.append("TO_CHAR(P.PATBDATE, 'DD/MM/YYYY HH24:MI:SS'), ");//12
+			sqlStr.append("P.PATADD1, P.PATADD2, P.PATADD3, P.MOTHCODE, P.RELIGIOUS, I.ACMCODE, R.DOCCODE, ");//13, 14, 15, 16, 17, 18, 19
+			sqlStr.append("L.MOTHDESC, G.RELDESC, A.ACMNAME, D.DOCFNAME||' '||D.DOCGNAME, ");//20, 21, 22, 23
+			sqlStr.append("TO_CHAR(R.REGDATE , 'DD/MM/YYYY HH24:MI:SS') ");//24
+			if (patService != null && patService.length() > 0) {
+				sqlStr.append(", PS.PSID, PS.STATUS, PS.REMARK ");//25, 26, 27
+			}
+			sqlStr.append(", P.PATADD1,P.PATADD2,P.PATADD3,P.PATHTEL,P.PATOTEL,P.PATPAGER ");//28, 29, 30, 31, 32, 33
+			sqlStr.append(", P.PATKNAME,P.PATKRELA,P.PATKHTEL,P.PATKOTEL,TO_CHAR(I.INPDDATE, 'DD/MM/YYYY HH24:MI:SS') ");//34, 35, 36, 37, 38
+			sqlStr.append(", DECODE(TRUNC(TO_NUMBER(SYSDATE - R.REGDATE), 0),0,'(Today)','('|| TRUNC(TO_NUMBER(SYSDATE - R.REGDATE),0)||' days ago)') ");//39
+			sqlStr.append(", DECODE(TRUNC(TO_NUMBER(SYSDATE - I.INPDDATE), 0),0,'(Today)','('|| TRUNC(TO_NUMBER(SYSDATE - I.INPDDATE),0)||' days ago)') ");//40
+
+			if (getPreDischarge) {
+				sqlStr.append(", ( ");
+				sqlStr.append("SELECT  TO_CHAR(I3.INPDDATE , 'DD/MM/YYYY HH24:MI:SS') || ' ' || ");
+				sqlStr.append("		DECODE(TRUNC(TO_NUMBER(SYSDATE - I3.INPDDATE), 0),0,'(Today)','('|| TRUNC(TO_NUMBER(SYSDATE - I3.INPDDATE),0)||' days ago)') ");
+				sqlStr.append("FROM INPAT@IWEB I3 ");
+				sqlStr.append("INNER JOIN REG@IWEB R3 ON I3.INPID = R3.INPID ");
+				sqlStr.append("INNER JOIN PATIENT@IWEB P3 ON R3.PATNO = P3.PATNO ");
+				sqlStr.append("WHERE  P.PATNO = P3.PATNO ");
+				sqlStr.append("AND    I3.INPID IN ( ");
+				sqlStr.append("SELECT MAX(I2.INPID) ");
+				sqlStr.append("FROM INPAT@IWEB I2 ");
+				sqlStr.append("INNER JOIN REG@IWEB R2 ON I2.INPID = R2.INPID ");
+				sqlStr.append("INNER JOIN PATIENT@IWEB P2 ON R2.PATNO = P2.PATNO ");
+				sqlStr.append("WHERE  P3.PATNO = P2.PATNO ");
+				sqlStr.append("AND    R2.REGTYPE = 'I' ");
+				sqlStr.append("AND I2.INPDDATE IS NOT NULL) ");
+				sqlStr.append(") AS DAYS ");//41
+			} else {
+				sqlStr.append(", '' ");//41
+			}
+			if (getOTRecord != null && "Y".equals(getOTRecord)) {
+				if (dischargedPatient != null && dischargedPatient.length() > 0) {
+					sqlStr.append(", '' ");//42
+				} else {
+					sqlStr.append(", (SELECT  TO_CHAR(OT.OTAOSDATE , 'DD/MM/YYYY HH24:MI:SS') ");
+					sqlStr.append(" FROM OT_APP@IWEB OT ");
+					sqlStr.append(" WHERE OT.PATNO = P.PATNO ");
+					sqlStr.append(" AND OT.OTAOSDATE >= TO_DATE(TO_CHAR(SYSDATE, 'DD/MM/YYYY')||' 00:00:00', 'DD/MM/YYYY HH24:MI:SS')  ");
+					sqlStr.append(" AND rownum <= 1 ) AS OT_RECORD_DATE ");//42
+				}
+			} else {
+				sqlStr.append(", '' ");//42
+			}
+			sqlStr.append(", P.PATFNAME, P.PATGNAME, TO_CHAR(P.PATBDATE, 'DD-MON-YYYY', 'NLS_DATE_LANGUAGE=AMERICAN'), PATIDNO ");//43, 44, 45, 46
+			if ((patService != null && patService.length() > 0) && "food".equals(patService)) {
+				sqlStr.append(", COALESCE (x.iso_contact,x.iso_droplets,x.iso_airborne,x.iso_reverse,'') AS ISOL "); //47
+			}
+
+			sqlStr.append("FROM   PATIENT@IWEB P ");
+			sqlStr.append("INNER JOIN REG@IWEB R ON P.PATNO = R.PATNO ");
+
+			sqlStr.append("INNER JOIN INPAT@IWEB I ON R.INPID = I.INPID ");
+			sqlStr.append("INNER JOIN BED@IWEB B ON I.BEDCODE = B.BEDCODE ");
+			sqlStr.append("INNER JOIN ROOM@IWEB M ON B.ROMCODE = M.ROMCODE ");
+			sqlStr.append("INNER JOIN WARD@IWEB W ON M.WRDCODE = W.WRDCODE ");
+			sqlStr.append("LEFT JOIN ACM@IWEB A ON I.ACMCODE = A.ACMCODE ");
+			sqlStr.append("LEFT JOIN MOTHERLANG@IWEB L ON P.MOTHCODE = L.MOTHCODE ");
+			sqlStr.append("LEFT JOIN RELIGIOUS@IWEB G ON P.RELIGIOUS = G.RELCODE ");
+			sqlStr.append("LEFT JOIN DOCTOR@IWEB D ON R.DOCCODE = D.DOCCODE ");
+
+			if (
+					(inPatVisitStatus != null && inPatVisitStatus.length() > 0 && !"ALL".equals(inPatVisitStatus))
+					||
+					(diagnosis != null && diagnosis.length() > 0)) {
+
+				sqlStr.append("LEFT JOIN PAT_SERVICES PAT ON P.PATNO = PAT.PATNO ");
+			}
+
+			if ((patService != null && patService.length() > 0) && "food".equals(patService)) {
+				sqlStr.append("LEFT JOIN NX_HANDOVER@CIS X ON R.REGID = X.REGID ");
+			}
+
+			if (
+				(patService != null && patService.length() > 0)
+				||
+				(emergencyCall != null && emergencyCall.length() > 0)
+				||
+				(attendedWithin1hour != null && attendedWithin1hour.length() > 0)
+			) {
+				sqlStr.append("LEFT JOIN PAT_SERVICES PS ON P.PATNO = PS.PATNO ");
+				sqlStr.append("AND PS.ENABLE = 1 ");
+				if (patService != null && patService.length() > 0) {
+					sqlStr.append("AND PS.SERVICE_TYPE = '" + patService + "' ");
+					sqlStr.append("AND PS.REGID IS NOT NULL ");
+				}
+				sqlStr.append("AND PS.REGTYPE = 'I' ");
+				sqlStr.append("AND PS.PATNO IS NOT NULL ");
+				sqlStr.append("AND PS.EFFECTIVE_DATE >= TO_DATE(TO_CHAR(SYSDATE, 'DD/MM/YYYY') || ' 00:00:00', 'DD/MM/YYYY HH24:MI:SS') ");
+				sqlStr.append("AND PS.EFFECTIVE_DATE <= TO_DATE(TO_CHAR(SYSDATE, 'DD/MM/YYYY') || ' 23:59:59', 'DD/MM/YYYY HH24:MI:SS') ");
+			}
+
+			sqlStr.append("WHERE  R.REGTYPE = 'I' ");
+
+			if (dischargedPatient != null && dischargedPatient.length() > 0) {
+				sqlStr.append("AND    I.INPDDATE IS NOT NULL ");
+			} else {
+				sqlStr.append("AND    I.INPDDATE IS NULL ");
+			}
+			sqlStr.append("AND    W.WRDNAME <> 'DAYCASE' ");
+			sqlStr.append("AND    W.WRDNAME not like '%CLOSED%' ");
+
+			if (ConstantsServerSide.isTWAH()) {
+				sqlStr.append("AND    B.ROMCODE <> 'NUR' ");
+			}
+//			sqlStr.append("AND    B.BEDOFF = -1 ");
+			sqlStr.append("AND    R.REGSTS = 'N' ");
+
+			if ((emergencyCall != null && emergencyCall.length() > 0)) {
+					sqlStr.append("AND    PS.EMERGENCY = 'e' ");
+			}
+			if (attendedWithin1hour != null && attendedWithin1hour.length() > 0) {
+					sqlStr.append("AND    PS.ATTENDED1HR = 'a' ");
+			}
+
+			if (roomMulti != null) {
+				if (romCode != null && romCode.length() > 0	&& !romCode.equals("ALL")) {
+					sqlStr.append("AND	 (  M.ROMCODE = '" + romCode+ "' ");
+				} else {
+					if (wrdCode != null && wrdCode.length() > 0 && !wrdCode.equals("ALL")) {
+						sqlStr.append("AND	(   W.WRDCODE = '" + wrdCode+ "' ");
+					}
+				}
+
+				if (wrdCode != null && wrdCode.length()> 0 &&!wrdCode.equals("ALL")) {
+					for (int i = 0; i < roomMulti.length; i++) {
+						if (!roomMulti[i].equals("ALL")) {
+							sqlStr.append("OR	    M.ROMCODE = '" + roomMulti[i] + "' ");
+						} else {
+							if (!wardMulti[i].equals("ALL")) {
+								sqlStr.append("OR	    W.WRDCODE = '" + wardMulti[i] + "' ");
+							}
+						}
+					}
+				}
+				if (romCode != null && romCode.length() > 0	&& !romCode.equals("ALL")) {
+					sqlStr.append(") ");
+				} else {
+					if (wrdCode != null && wrdCode.length() > 0 && !wrdCode.equals("ALL")) {
+						sqlStr.append(") ");
+					}
+				}
+			} else {
+				if (wrdCode != null && wrdCode.length() > 0
+						&& !wrdCode.equals("ALL")) {
+					sqlStr.append("AND	    W.WRDCODE = '" + wrdCode+ "' ");
+				}
+
+				if (romCode != null && romCode.length() > 0	&& !romCode.equals("ALL")) {
+					sqlStr.append("AND	    M.ROMCODE = '" + romCode+ "' ");
+				}
+			}
+
+			if (chapStaffID != null && chapStaffID.length() > 0) {
+				ArrayList chapRecord = getChapArea(chapStaffID);
+				if (chapRecord.size() != 0) {
+					ReportableListObject chap = (ReportableListObject)chapRecord.get(0);
+
+					String[] wards = chap.getValue(0).split(",");
+					String[] languages = chap.getValue(1).split(",");
+					String[] religions = chap.getValue(2).split(",");
+					String[] other = chap.getValue(3).split(",");
+					ArrayList<String> tempPatNo = new ArrayList<String>();
+					for (String s : other) {
+						if (s.contains("patNo")) {
+							tempPatNo.add(s);
+						}
+					}
+
+					if (wards.length > 0 || languages.length > 0 || religions.length > 0 ) {
+
+						int i = 0;
+						sqlStr.append("AND	 ( ");
+						for (String w : wards) {
+							if (i == 0) {
+								sqlStr.append(" W.WRDCODE = '" + w+ "' ");
+							} else {
+								sqlStr.append("OR   W.WRDCODE = '" + w+ "' ");
+							}
+
+							i++;
+						}
+
+						for (String l : languages) {
+							if (i == 0) {
+								sqlStr.append(" P.MOTHCODE = '" + l+ "' ");
+							} else {
+								sqlStr.append("OR   P.MOTHCODE = '" + l+ "' ");
+							}
+
+							i++;
+						}
+
+						for (String r : religions) {
+							if (i == 0) {
+								sqlStr.append(" P.RELIGIOUS = '" + r+ "' ");
+							} else {
+								sqlStr.append("OR   P.RELIGIOUS = '" + r+ "' ");
+							}
+
+							i++;
+						}
+
+						for (String s : tempPatNo) {
+
+							if (i == 0) {
+								sqlStr.append(" P.PATNO = '" + s.split("-")[1]+ "' ");
+							} else {
+								sqlStr.append("OR   P.PATNO = '" + s.split("-")[1]+ "' ");
+							}
+
+							i++;
+						}
+						sqlStr.append(") ");
+					}
+				}
+			}
+
+			if (patNo != null && patNo.length() > 0)
+				sqlStr.append("AND	  P.PATNO = '" + patNo + "' ");
+
+			if (sex != null && sex.length() > 0
+					&& !sex.equals("ALL")) {
+				sqlStr.append("AND	   P.PATSEX = '" + sex + "' ");
+			}
+
+			if (inPatVisitStatus != null && inPatVisitStatus.length() > 0
+					&& !inPatVisitStatus.equals("ALL") && diagnosis != null && diagnosis.length()>0) {
+				if (repeatvisitMulti != null) {
+					sqlStr.append("AND	( (   PAT.STATUS = '" + inPatVisitStatus + "' ");
+					for (String repeatvisits:repeatvisitMulti) {
+						if (repeatvisits != null && repeatvisits.length() > 0 && !repeatvisits.equals("ALL")) {
+							sqlStr.append("OR	    PAT.STATUS = '" + repeatvisits + "' ");
+						}
+					}
+					sqlStr.append(") ");
+					sqlStr.append("OR ( PAT.SERVICE_CATEGORY  = 'diagnosis' ");
+					sqlStr.append("AND	  UPPER(TRIM(PAT.REMARK)) LIKE UPPER('%" + diagnosis + "%'))) ");
+				} else {
+					sqlStr.append("AND	  (  PAT.STATUS = '" + inPatVisitStatus + "' ");
+					sqlStr.append("OR ( PAT.SERVICE_CATEGORY  = 'diagnosis' ");
+					sqlStr.append("AND	  UPPER(TRIM(PAT.REMARK)) LIKE UPPER('%" + diagnosis + "%'))) ");
+				}
+			} else {
+				if (inPatVisitStatus != null && inPatVisitStatus.length() > 0
+						&& !inPatVisitStatus.equals("ALL")) {
+					if (repeatvisitMulti != null) {
+						sqlStr.append("AND	 (   PAT.STATUS = '" + inPatVisitStatus + "' ");
+						for (String repeatvisits:repeatvisitMulti) {
+							if (repeatvisits != null && repeatvisits.length() > 0 && !repeatvisits.equals("ALL")) {
+								sqlStr.append("OR	    PAT.STATUS = '" + repeatvisits + "' ");
+							}
+						}
+						sqlStr.append(") ");
+					} else {
+						sqlStr.append("AND	    PAT.STATUS = '" + inPatVisitStatus + "' ");
+					}
+				}
+
+				if (diagnosis != null && diagnosis.length() > 0) {
+					sqlStr.append("AND  PAT.SERVICE_CATEGORY  = 'diagnosis' ");
+					sqlStr.append("AND	  UPPER(TRIM(PAT.REMARK)) LIKE UPPER('%" + diagnosis + "%') ");
+				}
+			}
+
+			if (religion != null && religion.length() > 0
+					&& !religion.equals("ALL")) {
+				if (religionMulti != null) {
+					sqlStr.append("AND	 (   P.RELIGIOUS = '" + religion + "' ");
+					for (String religions:religionMulti) {
+						if (religions != null && religions.length() > 0 && !religions.equals("ALL")) {
+							sqlStr.append("OR	    P.RELIGIOUS = '" + religions + "' ");
+						}
+					}
+					sqlStr.append(") ");
+				} else {
+					sqlStr.append("AND	    P.RELIGIOUS = '" + religion + "' ");
+				}
+			}
+
+			if (language != null && language.length() > 0
+					&& !language.equals("ALL")) {
+				if (languageMulti != null) {
+					sqlStr.append("AND	 (   P.MOTHCODE = '" + language + "' ");
+					for (String languages:languageMulti) {
+						if (languages != null && languages.length() > 0 && !languages.equals("ALL")) {
+							sqlStr.append("OR	    P.MOTHCODE = '" + languages + "' ");
+						}
+					}
+					sqlStr.append(") ");
+				} else {
+					sqlStr.append("AND	    P.MOTHCODE = '" + language + "' ");
+				}
+			}
+
+			if (doccode != null && doccode.length() > 0
+					&& !doccode.equals("ALL")) {
+				if (doccodeMulti != null) {
+					sqlStr.append("AND	 (   D.DOCCODE = '" + doccode + "' ");
+					for (String doccodes:doccodeMulti) {
+						if (doccodes != null && doccodes.length() > 0 && !doccodes.equals("ALL")) {
+							sqlStr.append("OR	    D.DOCCODE = '" + doccodes + "' ");
+						}
+					}
+					sqlStr.append(") ");
+				} else {
+					sqlStr.append("AND	    D.DOCCODE = '" + doccode + "' ");
+				}
+			}
+
+			if (acm != null && acm.length() > 0
+					&& !acm.equals("ALL")) {
+				if (acmMulti != null) {
+					sqlStr.append("AND	 (   A.ACMCODE = '" + acm + "' ");
+					for (String acms:acmMulti) {
+						if (acms != null && acms.length() > 0 && !acms.equals("ALL")) {
+							sqlStr.append("OR	    A.ACMCODE = '" + acms + "' ");
+						}
+					}
+					sqlStr.append(") ");
+				} else {
+					sqlStr.append("AND	    A.ACMCODE = '" + acm + "' ");
+				}
+			}
+
+			if (birthDate != null && birthDate.length() > 0) {
+				sqlStr.append("AND P.PATBDATE BETWEEN TO_DATE('" + birthDate + " 00:00:00' ,'dd/mm/yyyy HH24:MI:SS') " +
+						"AND TO_DATE('" + birthDate+ " 23:59:59' , 'dd/mm/yyyy HH24:MI:SS')");
+			}
+
+			if (admissionDate != null && admissionDate.length() > 0) {
+				sqlStr.append("AND R.REGDATE BETWEEN TO_DATE('" + admissionDate + " 00:00:00' ,'dd/mm/yyyy HH24:MI:SS') " +
+						"AND TO_DATE('" + admissionDate+ " 23:59:59' , 'dd/mm/yyyy HH24:MI:SS')");
+			}
+
+			if (patEName != null && patEName.length() > 0) {
+				sqlStr.append("AND UPPER(TRIM(P.PATFNAME ))||' '||UPPER(TRIM(P.PATGNAME )) LIKE UPPER('%"+ patEName + "%') ");
+			}
+
+			if (patCName != null && patCName.length() > 0) {
+				sqlStr.append("AND	  TRIM(P.PATCNAME) LIKE '%" + patCName + "%' ");
+			}
+
+			Calendar calStartDate = Calendar.getInstance();
+			if (ageStartYrs != null ) {
+				if (ageStartYrs.equals("ALL")) {
+
+				} else {
+					calStartDate.add(Calendar.YEAR, -Integer.parseInt(ageStartYrs));
+				}
+			}
+
+			Calendar calEndDate = Calendar.getInstance();
+			if (ageEndYrs != null ) {
+				if (ageEndYrs.equals("ALL")) {
+					calEndDate.add(Calendar.YEAR, -150);
+				} else {
+					calEndDate.add(Calendar.YEAR, -Integer.parseInt(ageEndYrs));
+				}
+			}
+
+			if ( ageStartYrs != null && ageEndYrs != null) {
+				if (!ageStartYrs.equals("ALL") || !ageEndYrs.equals("ALL")) {
+					sqlStr.append("AND P.PATBDATE BETWEEN TO_DATE('01/01/" + Integer.toString(calEndDate.get(Calendar.YEAR)) +" 00:00:00' , 'dd/MM/yyyy HH24:MI:SS') ");
+					sqlStr.append("AND TO_DATE('31/12/" + Integer.toString(calStartDate.get(Calendar.YEAR)) +" 23:59:59' , 'dd/MM/yyyy HH24:MI:SS') ");
+				}
+			}
+
+			if (dischargedPatient!= null && "y".equals(dischargedPatient)) {
+				Calendar calCurrentDate = Calendar.getInstance();
+				calCurrentDate.add(Calendar.DAY_OF_MONTH, 1);
+
+				Calendar calCurrentDateMinusOneMonth = Calendar.getInstance();
+				calCurrentDateMinusOneMonth.add(Calendar.MONTH, -6);
+
+				sqlStr.append("AND I.INPDDATE BETWEEN TO_DATE('" + DateTimeUtil.formatDate(calCurrentDateMinusOneMonth.getTime()) + " 00:00:00' , 'dd/MM/yyyy HH24:MI:SS') ");
+				sqlStr.append("AND TO_DATE('" + DateTimeUtil.formatDate(calCurrentDate.getTime()) + " 23:59:59' , 'dd/MM/yyyy HH24:MI:SS') ");
+			}
+
+			if (dischargeDate != null && dischargeDate.length() > 0) {
+				sqlStr.append("AND I.INPDDATE BETWEEN TO_DATE('" + dischargeDate + " 00:00:00' ,'dd/mm/yyyy HH24:MI:SS') ");
+				sqlStr.append("AND TO_DATE('" + dischargeDate+ " 23:59:59' , 'dd/mm/yyyy HH24:MI:SS') ");
+			}
+
+			if (displayOutPatient) {
+				sqlStr.append(" UNION ");
+
+				sqlStr.append(" select rownum, PA.PKGNAME, PA.PKGCODE, NULL, NULL, R.REGID, R.REGTYPE, P.PATNO, PATSEX, P.PATFNAME || ', ' || P.PATGNAME, ");//0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+				sqlStr.append(" P.PATCNAME, DECODE(SIGN(TO_NUMBER(TO_CHAR(sysdate,'MM'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'MM'))), -1, ");//10
+				sqlStr.append(" (TO_NUMBER(TO_CHAR(sysdate,'YYYY'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'YYYY'))-1)||'yr '|| ");
+				sqlStr.append(" (12-(TO_NUMBER(TO_CHAR(P.PATBDATE,'MM'))-TO_NUMBER(TO_CHAR(sysdate,'MM'))))||'mths', 0, ");
+				sqlStr.append(" (TO_NUMBER(TO_CHAR(sysdate,'YYYY'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'YYYY')))||'yr ', 1, ");
+				sqlStr.append(" (TO_NUMBER(TO_CHAR(sysdate,'YYYY'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'YYYY')))||'yr '|| ");
+				sqlStr.append(" (TO_NUMBER(TO_CHAR(sysdate,'MM'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'MM')))||'mths') as AGE, TO_CHAR(P.PATBDATE, 'DD/MM/YYYY HH24:MI:SS'), ");//11, 12
+				sqlStr.append(" P.PATADD1, P.PATADD2, P.PATADD3, P.MOTHCODE, P.RELIGIOUS, NULL, R.DOCCODE, L.MOTHDESC, G.RELDESC, NULL, ");//13, 14, 15, 16, 17, 18, 19, 20, 21, 22
+				sqlStr.append(" D.DOCFNAME||' '||D.DOCGNAME, NULL , P.PATADD1,P.PATADD2,P.PATADD3,P.PATHTEL, ");//23, 24, 25, 26, 27, 28
+				sqlStr.append(" P.PATOTEL,P.PATPAGER , P.PATKNAME,P.PATKRELA,P.PATKHTEL,P.PATKOTEL, NULL , ");//29, 30, 31, 32, 33, 34, 35
+				sqlStr.append(" NULL , ");//36
+				sqlStr.append(" NULL, ");//37
+				sqlStr.append(" NULL, ");//38
+				sqlStr.append(" NULL, NULL, NULL, NULL, NULL ");//39, 41, 42, 43
+				sqlStr.append(" from PATIENT@IWEB P ");
+				sqlStr.append(" INNER JOIN REG@IWEB R ON P.PATNO = R.PATNO ");
+				sqlStr.append(" LEFT JOIN MOTHERLANG@IWEB L ON P.MOTHCODE = L.MOTHCODE ");
+				sqlStr.append(" LEFT JOIN RELIGIOUS@IWEB G ON P.RELIGIOUS = G.RELCODE ");
+				sqlStr.append(" INNER JOIN DOCTOR@IWEB D ON R.DOCCODE = D.DOCCODE ");
+				sqlStr.append(" INNER JOIN PACKAGE@IWEB PA ON R.PKGCODE = PA.PKGCODE");
+				sqlStr.append(" WHERE R.REGTYPE = 'O' ");
+				sqlStr.append(" AND   R.REGDATE  >= TO_DATE(TO_CHAR(SYSDATE),'dd-mon-yy') ");
+				sqlStr.append(" AND   R.REGSTS = 'N' ");
+				sqlStr.append(" AND   R.PKGCODE = 'HDU' ");//'HDU'
+
+				if (roomMulti != null) {
+					sqlStr.append("AND P.PATNO = 'NOTDISPLAY' ");
+				} else {
+					if (wrdCode != null && wrdCode.length() > 0
+							&& !wrdCode.equals("ALL")) {
+						sqlStr.append("AND P.PATNO = 'NOTDISPLAY' ");
+					}
+
+					if (romCode != null && romCode.length() > 0	&& !romCode.equals("ALL")) {
+						sqlStr.append("AND P.PATNO = 'NOTDISPLAY' ");
+					}
+				}
+
+				if (patNo != null && patNo.length() > 0)
+					sqlStr.append("AND	  P.PATNO = '" + patNo + "' ");
+
+				if (sex != null && sex.length() > 0
+						&& !sex.equals("ALL")) {
+					sqlStr.append("AND	   P.PATSEX = '" + sex + "' ");
+				}
+
+				if (religion != null && religion.length() > 0
+						&& !religion.equals("ALL")) {
+					if (religionMulti != null) {
+						sqlStr.append("AND	 (   P.RELIGIOUS = '" + religion + "' ");
+						for (String religions:religionMulti) {
+							if (religions != null && religions.length() > 0 && !religions.equals("ALL")) {
+								sqlStr.append("OR	    P.RELIGIOUS = '" + religions + "' ");
+							}
+						}
+						sqlStr.append(") ");
+					} else {
+						sqlStr.append("AND	    P.RELIGIOUS = '" + religion + "' ");
+					}
+				}
+
+				if (language != null && language.length() > 0
+						&& !language.equals("ALL")) {
+					if (languageMulti != null) {
+						sqlStr.append("AND	 (   P.MOTHCODE = '" + language + "' ");
+						for (String languages:languageMulti) {
+							if (languages != null && languages.length() > 0 && !languages.equals("ALL")) {
+								sqlStr.append("OR	    P.MOTHCODE = '" + languages + "' ");
+							}
+						}
+						sqlStr.append(") ");
+					} else {
+						sqlStr.append("AND	    P.MOTHCODE = '" + language + "' ");
+					}
+				}
+
+				if (doccode != null && doccode.length() > 0
+						&& !doccode.equals("ALL")) {
+					if (doccodeMulti != null) {
+						sqlStr.append("AND	 (   D.DOCCODE = '" + doccode + "' ");
+						for (String doccodes:doccodeMulti) {
+							if (doccodes != null && doccodes.length() > 0 && !doccodes.equals("ALL")) {
+								sqlStr.append("OR	    D.DOCCODE = '" + doccodes + "' ");
+							}
+						}
+						sqlStr.append(") ");
+					} else {
+						sqlStr.append("AND	    D.DOCCODE = '" + doccode + "' ");
+					}
+				}
+
+				if (acm != null && acm.length() > 0
+						&& !acm.equals("ALL")) {
+					sqlStr.append("AND P.PATNO = 'NOTDISPLAY' ");
+				}
+
+				if (birthDate != null && birthDate.length() > 0) {
+					sqlStr.append("AND P.PATBDATE BETWEEN TO_DATE('" + birthDate + " 00:00:00' ,'dd/mm/yyyy HH24:MI:SS') " +
+							"AND TO_DATE('" + birthDate+ " 23:59:59' , 'dd/mm/yyyy HH24:MI:SS')");
+				}
+
+				if (admissionDate != null && admissionDate.length() > 0) {
+					sqlStr.append("AND P.PATNO = 'NOTDISPLAY' ");
+				}
+
+				if (patEName != null && patEName.length() > 0) {
+					sqlStr.append("AND UPPER(TRIM(P.PATFNAME ))||' '||UPPER(TRIM(P.PATGNAME )) LIKE UPPER('%"+ patEName + "%') ");
+				}
+
+				if (patCName != null && patCName.length() > 0) {
+					sqlStr.append("AND	  TRIM(P.PATCNAME) LIKE '%" + patCName + "%' ");
+				}
+
+				if ( ageStartYrs != null && ageEndYrs != null) {
+					if (!ageStartYrs.equals("ALL") || !ageEndYrs.equals("ALL")) {
+						sqlStr.append("AND P.PATBDATE BETWEEN TO_DATE('01/01/" +
+						Integer.toString(calEndDate.get(Calendar.YEAR)) +" 00:00:00' , 'dd/MM/yyyy HH24:MI:SS') AND TO_DATE('31/12/" +
+						Integer.toString(calStartDate.get(Calendar.YEAR)) +" 23:59:59' , 'dd/MM/yyyy HH24:MI:SS')");
+					}
+				}
+
+				if (dischargeDate != null && dischargeDate.length() > 0) {
+					sqlStr.append("AND P.PATNO = 'NOTDISPLAY' ");
+				}
+			}
+
+			if (sortBy != null && ordering != null) {
+				if (sortBy.equals("wardRoom")) {
+					sqlStr.append("ORDER BY 2 " + ordering + ", 4 " + ordering + " ");
+				} else if (sortBy.equals("patNo")) {
+					sqlStr.append("ORDER BY 8 " + ordering + " ");
+				} else if (sortBy.equals("patName")) {
+					sqlStr.append("ORDER BY 10 " + ordering + " ");
+				} else if (sortBy.equals("age")) {
+					sqlStr.append("ORDER BY 13 " + ordering + " ");
+				} else if (sortBy.equals("sex")) {
+					sqlStr.append("ORDER BY 9 " + ordering + " ");
+				} else if (sortBy.equals("language")) {
+					sqlStr.append("ORDER BY 17 " + ordering + " ");
+				} else if (sortBy.equals("religion")) {
+					sqlStr.append("ORDER BY 18 " + ordering + " ");
+				} else if (sortBy.equals("admissionDate")) {
+					sqlStr.append("ORDER BY 25 " + ordering + " ");
+				}
+			} else {
+				sqlStr.append("ORDER BY 2, 4 ");
+			}
+		} else if (regType.equals("O")) {
+
+		}
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getOutPatDetails(String patNo, String packageCode) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append(" select rownum,  PA.PKGNAME, PA.PKGCODE , NULL, NULL, R.REGID, R.REGTYPE, P.PATNO, PATSEX, P.PATFNAME || ', ' || P.PATGNAME, ");
+		sqlStr.append(" P.PATCNAME, DECODE(SIGN(TO_NUMBER(TO_CHAR(sysdate,'MM'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'MM'))), -1, ");
+		sqlStr.append(" (TO_NUMBER(TO_CHAR(sysdate,'YYYY'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'YYYY'))-1)||'yr '|| ");
+		sqlStr.append(" (12-(TO_NUMBER(TO_CHAR(P.PATBDATE,'MM'))-TO_NUMBER(TO_CHAR(sysdate,'MM'))))||'mths', 0, ");
+		sqlStr.append(" (TO_NUMBER(TO_CHAR(sysdate,'YYYY'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'YYYY')))||'yr ', 1, ");
+		sqlStr.append(" (TO_NUMBER(TO_CHAR(sysdate,'YYYY'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'YYYY')))||'yr '|| ");
+		sqlStr.append(" (TO_NUMBER(TO_CHAR(sysdate,'MM'))-TO_NUMBER(TO_CHAR(P.PATBDATE,'MM')))||'mths') as AGE, TO_CHAR(P.PATBDATE, 'DD/MM/YYYY HH24:MI:SS'), ");
+		sqlStr.append(" P.PATADD1, P.PATADD2, P.PATADD3, P.MOTHCODE, P.RELIGIOUS, NULL, R.DOCCODE, L.MOTHDESC, G.RELDESC, NULL, ");
+		sqlStr.append(" D.DOCFNAME||' '||D.DOCGNAME, NULL , P.PATADD1,P.PATADD2,P.PATADD3,P.PATHTEL, ");
+		sqlStr.append(" P.PATOTEL,P.PATPAGER , P.PATKNAME,P.PATKRELA,P.PATKHTEL,P.PATKOTEL, NULL , ");
+		sqlStr.append(" NULL , ");
+		sqlStr.append(" NULL, ");
+		sqlStr.append(" NULL, ");
+		sqlStr.append(" NULL ");
+		sqlStr.append(" from PATIENT@IWEB P, REG@IWEB R, MOTHERLANG@IWEB L, ");
+		sqlStr.append(" RELIGIOUS@IWEB G, DOCTOR@IWEB D, PACKAGE@IWEB PA ");
+		sqlStr.append(" where  R.REGTYPE = 'O' ");
+		sqlStr.append(" AND    R.REGSTS = 'N' ");
+		sqlStr.append(" and    PA.PKGCODE = R.PKGCODE ");
+		sqlStr.append(" and    PA.PKGCODE = '" + packageCode + "' ");
+		sqlStr.append(" and    P.PATNO = R.PATNO ");
+		sqlStr.append(" and	   L.MOTHCODE(+) = P.MOTHCODE ");
+		sqlStr.append(" and	   G.RELCODE(+) = P.RELIGIOUS ");
+		sqlStr.append(" and    D.DOCCODE(+) = R.DOCCODE ");
+		sqlStr.append(" and    P.PATNO = '" + patNo + "' ");
+		sqlStr.append(" order by r.regid ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+	/**************************************************************/
+
+	/*******************Patient Service*******************/
+	private static String getNextPatientServiceID() {
+		String psID = null;
+
+		ArrayList result = UtilDBWeb.getReportableList("SELECT MAX(PSID) + 1 FROM PAT_SERVICES");
+		if (result.size() > 0) {
+			ReportableListObject reportableListObject = (ReportableListObject) result.get(0);
+			psID = reportableListObject.getValue(0);
+
+			// set 1 for initial
+			if (psID == null || psID.length() == 0) return "1";
+		}
+		return psID;
+	}
+
+	public static boolean addFoodService(UserBean userBean, String patNo, String patName, String regID,
+								String regType, String wrdCode, String romCode, String bedCode,
+								String allergy, String status, String remark, String effectiveDate) {
+
+		return addPatientService(userBean, "food", patNo, patName, regID, regType, wrdCode, romCode,
+									bedCode, allergy, status, remark, null, null, effectiveDate, null);
+	}
+
+	public static boolean addTempFoodOrder(UserBean userBean, String patNo, String patName,
+								String regType, String wrdCode, String romCode, String bedCode,
+								String allergy, String remark, String effectiveDate) {
+
+		return addPatientService(userBean, "tempOrder", patNo, patName, null, regType, wrdCode, romCode,
+						bedCode, allergy, null, remark, null, null, effectiveDate, null);
+	}
+
+	public static boolean addChaplaincyService(UserBean userBean, String patNo, String patName, String regID,
+							String regType, String wrdCode, String romCode, String bedCode,
+							String allergy, String status, String remark,
+							String serCategory, String serItem, String effectiveDate, String effectiveTime) {
+
+		return addPatientService(userBean, "chaplaincy", patNo, patName, regID, regType, wrdCode,
+									romCode, bedCode, allergy, status, remark, serCategory, serItem,effectiveDate, effectiveTime);
+	}
+
+	private static boolean addPatientService(UserBean userBean, String serType, String patNo, String patName,
+								String regID, String regType, String wrdCode, String romCode,
+								String bedCode, String allergy, String status, String remark,
+								String serCategory, String serItem, String effectiveDate, String effectiveTime) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("INSERT INTO PAT_SERVICES( ");
+		sqlStr.append("CO_SITE_CODE, PSID, PATNO, REGID, REGTYPE, PATIENT_NAME, WRDCODE, ROMCODE, BEDCODE, ");
+		sqlStr.append("ALLERGY, SERVICE_TYPE, SERVICE_CATEGORY, SERVICE_ITEM, STATUS, REMARK, ");
+		sqlStr.append("EFFECTIVE_DATE, CREATE_USER, MODIFIED_USER) ");
+		sqlStr.append("VALUES ( ");
+		sqlStr.append("'" + ConstantsServerSide.SITE_CODE + "', '" + getNextPatientServiceID() + "' ");
+		if (patNo != null && patNo.length() > 0) {
+			sqlStr.append(", '" + patNo + "' ");
+		} else {
+			sqlStr.append(", NULL ");
+		}
+
+		if (regID != null && regID.length() > 0) {
+			sqlStr.append(", '" + regID + "' ");
+		} else {
+			sqlStr.append(", NULL ");
+		}
+
+		if (regType != null && regType.length() > 0) {
+			sqlStr.append(", '" + regType + "' ");
+		} else {
+			sqlStr.append(", NULL ");
+		}
+
+		if (patName != null && patName.length() > 0) {
+			sqlStr.append(", '" + patName.replaceAll("'", "''") + "' ");
+		} else {
+			sqlStr.append(", NULL ");
+		}
+
+		if (wrdCode != null && wrdCode.length() > 0) {
+			sqlStr.append(", '" + wrdCode + "' ");
+		} else {
+			sqlStr.append(", NULL ");
+		}
+
+		if (romCode != null && romCode.length() > 0) {
+			sqlStr.append(", '" + romCode + "' ");
+		} else {
+			sqlStr.append(", NULL ");
+		}
+
+		if (bedCode != null && bedCode.length() > 0) {
+			sqlStr.append(", '" + bedCode + "' ");
+		} else {
+			sqlStr.append(", NULL ");
+		}
+
+		if (allergy != null && allergy.length() > 0) {
+			sqlStr.append(", '" + allergy + "' ");
+		} else {
+			sqlStr.append(", NULL ");
+		}
+
+		if (serType != null && serType.length() > 0) {
+			sqlStr.append(", '" + serType + "' ");
+		} else {
+			sqlStr.append(", NULL ");
+		}
+
+		if (serCategory != null && serCategory.length() > 0) {
+			sqlStr.append(", '" + serCategory + "' ");
+		} else {
+			sqlStr.append(", NULL ");
+		}
+
+		if (serItem != null && serItem.length() > 0) {
+			sqlStr.append(", '" + serItem + "' ");
+		} else {
+			sqlStr.append(", NULL ");
+		}
+
+		if (status != null && status.length() > 0) {
+			sqlStr.append(", '" + status + "' ");
+		} else {
+			sqlStr.append(", NULL ");
+		}
+
+		if (remark != null && remark.length() > 0) {
+			sqlStr.append(", '" + remark.replaceAll("'", "''") + "' ");
+		} else {
+			sqlStr.append(", NULL ");
+		}
+
+		if (effectiveDate != null && effectiveDate.length() > 0) {
+			if (effectiveTime != null && effectiveTime.length() > 0) {
+				sqlStr.append(", TO_DATE('" + effectiveDate+" "+effectiveTime + "', 'DD/MM/YYYY HH24:MI') ");
+			}
+			else {
+				sqlStr.append(", TO_DATE('" + effectiveDate+" ' ||TO_CHAR(SYSDATE, 'HH24:MI'), 'DD/MM/YYYY HH24:MI') ");
+			}
+		} else {
+			sqlStr.append(", SYSDATE ");
+		}
+
+		sqlStr.append(", '" + userBean.getStaffID() + "', '" + userBean.getStaffID() + "') ");
+
+		return UtilDBWeb.updateQueue(sqlStr.toString());
+	}
+
+	//updating selected patient's record, ivan
+	public static boolean updateChaplaincyServiceList(String psID,
+			String remark, UserBean userBean, String date) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("UPDATE PAT_SERVICES ");
+		sqlStr.append("SET REMARK = '" + remark + "', ");
+		sqlStr.append("EFFECTIVE_DATE= TO_DATE('" + date
+				+ "','DD/MM/YYYY HH24:MI'), ");
+		sqlStr.append("MODIFIED_DATE = SYSDATE, ");
+		sqlStr.append("MODIFIED_USER='" + userBean.getStaffID() + "' ");
+		sqlStr.append("WHERE PSID = '" + psID + "' ");
+
+		return UtilDBWeb.updateQueue(sqlStr.toString());
+	}
+
+	public static boolean deleteFoodService(UserBean userBean, String patNo, String regID,
+								String effectiveDate) {
+		return deletePatientService(userBean, null, patNo, regID, effectiveDate, "food");
+	}
+
+	public static boolean deletePatientService(UserBean userBean, String psID, String patNo,
+								String regID, String effectiveDate, String serType) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("UPDATE PAT_SERVICES SET ENABLE = 0, ");
+		sqlStr.append("MODIFIED_DATE = SYSDATE, ");
+		sqlStr.append("MODIFIED_USER = '" + userBean.getStaffID() + "' ");
+		sqlStr.append("WHERE ENABLE = '1' ");
+		if (psID != null) {
+			sqlStr.append("AND PSID = '" + psID + "' ");
+		}
+		if (patNo != null) {
+			sqlStr.append("AND PATNO = '" + patNo + "' ");
+		}
+		if (regID != null) {
+			sqlStr.append("AND REGID = '" + regID + "' ");
+		}
+		if (effectiveDate != null) {
+			sqlStr.append("AND TO_CHAR(EFFECTIVE_DATE, 'DD/MM/YYYY') = '" + effectiveDate + "' ");
+		}
+		if (serType != null) {
+			sqlStr.append("AND SERVICE_TYPE = '" + serType + "' ");
+		}
+
+		return UtilDBWeb.updateQueue(sqlStr.toString());
+	}
+
+	public static boolean deleteAllPatientService(UserBean userBean, String serType) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("UPDATE PAT_SERVICES SET ENABLE = 0, ");
+		sqlStr.append("MODIFIED_DATE = SYSDATE, ");
+		sqlStr.append("MODIFIED_USER = '" + userBean.getStaffID() + "' ");
+		sqlStr.append("WHERE SERVICE_TYPE = '" + serType + "' ");
+
+		return UtilDBWeb.updateQueue(sqlStr.toString());
+	}
+
+	public static ArrayList getPatientServiceByID(String psID) {
+		return getPatientService(psID, null, null, null, null, null);
+	}
+
+	public static ArrayList getPatientServiceByDate(String patNo, String regID, String date) {
+		return getPatientService(null, patNo, regID, date, null, null);
+	}
+
+	//getting using patient number, ivan.
+	public static ArrayList getPatientServiceByPatNo(String patNo) {
+		return getPatientService(null, patNo, null, null, null, null);
+	}
+	public static ArrayList getPatientServiceByPatNo(String patNo, String regType) {
+		return getPatientService(null, patNo, null, null, null,regType);
+	}
+
+	public static ArrayList getPatientServiceByModifiedUser(String modifiedUser) {
+		return getPatientService(null, null, null, null,modifiedUser, null);
+	}
+
+	private static ArrayList getPatientService(String psID, String patNo, String regID,
+			String date, String modifiedUser, String regType) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT PS.CO_SITE_CODE, PS.PSID, PS.PATNO, PS.REGTYPE, PS.REGID, PS.PATIENT_NAME, PS.WRDCODE, PS.ROMCODE, ");
+		sqlStr.append("PS.BEDCODE, PS.ALLERGY, PS.SERVICE_TYPE, PS.SERVICE_CATEGORY, PS.SERVICE_ITEM, ");
+		sqlStr.append("PS.STATUS, PS.REMARK, TO_CHAR(PS.EFFECTIVE_DATE, 'DD/MM/YYYY HH24:MI:SS'), TO_CHAR(PS.CREATE_DATE, 'DD/MM/YYYY HH24:MI:SS'), ");
+		sqlStr.append("PS.CREATE_USER, TO_CHAR(PS.MODIFIED_DATE, 'DD/MM/YYYY HH24:MI:SS'), PS.MODIFIED_USER,S.CO_STAFFNAME ");
+		sqlStr.append("FROM PAT_SERVICES PS ");
+		sqlStr.append("LEFT JOIN CO_STAFFS S ON PS.MODIFIED_USER = S.CO_STAFF_ID ");
+		sqlStr.append("WHERE ENABLE = 1 ");
+		if (psID != null && psID.length() > 0) {
+			sqlStr.append("AND PS.PSID = '" + psID + "' ");
+		}
+		if (date != null && date.length() > 0) {
+			sqlStr.append("AND PS.EFFECTIVE_DATE >= TO_DATE('" + date+" 00:00:00', 'DD/MM/YYYY HH24:MI:SS') ");
+			sqlStr.append("AND PS.EFFECTIVE_DATE <= TO_DATE('" + date+" 23:59:59', 'DD/MM/YYYY HH24:MI:SS') ");
+		}
+		if (patNo != null && patNo.length() > 0) {
+			sqlStr.append("AND PS.PATNO = '" + patNo + "' ");
+		}
+		if (regID != null && regID.length() > 0) {
+			sqlStr.append("AND PS.REGID = '" + regID + "' ");
+		}
+		if (modifiedUser != null && modifiedUser.length() > 0) {
+			sqlStr.append("AND S.CO_STAFF_ID = '" + modifiedUser + "' ");
+		}
+		if (regType != null && regType.length() > 0) {
+			sqlStr.append("AND PS.REGTYPE = '" + regType + "' ");
+		}
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getFoodServiceList(String effectiveDate) {
+		return getPatientServiceList(null, null, false, true, null, "I", "food", null, null,
+					null, effectiveDate);
+	}
+
+	public static ArrayList getFoodServiceList(String patNo, String regID, boolean all,
+												boolean enable, String dateRange, String regType,
+												String noOfDayAfter) {
+		return getPatientServiceList(patNo, regID, all, enable, dateRange, regType,
+							"food", null, null, noOfDayAfter, null);
+	}
+
+	public static ArrayList getChaplaincyServiceList(String patNo,
+									String serCategory, String serItem, String regID) {
+		return getPatientServiceList(patNo, regID, false, true, null, null, "chaplaincy",
+							serCategory, serItem, null, null);
+	}
+
+	public static ArrayList getChaplaincyServiceList(String patNo,
+			String serCategory, String serItem, String regID, String regType) {
+		return getPatientServiceList(patNo, regID, false, true, null, regType, "chaplaincy",
+			serCategory, serItem, null, null);
+	}
+
+	public static ArrayList getTempFoodOrderList() {
+		return getPatientServiceList(null, null, false, true, "0", "I", "tempOrder",
+					null, null, "1", null);
+	}
+
+	private static ArrayList getPatientServiceList(String patNo, String regID, boolean all,
+			boolean enable, String dateRange, String regType,
+			String serType, String serCategory, String serItem,
+			String noOfDayAfter, String effectiveDate) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT PS.CO_SITE_CODE, PS.PSID, PS.PATNO, PS.REGTYPE, PS.REGID, PS.PATIENT_NAME, PS.WRDCODE, PS.ROMCODE, ");
+		sqlStr.append("PS.BEDCODE, PS.ALLERGY, PS.SERVICE_TYPE, PS.SERVICE_CATEGORY, PS.SERVICE_ITEM, ");
+		sqlStr.append("PS.STATUS, PS.REMARK, TO_CHAR(PS.EFFECTIVE_DATE, 'DD/MM/YYYY HH24:MI'), TO_CHAR(PS.CREATE_DATE, 'DD/MM/YYYY HH24:MI:SS'), ");
+		sqlStr.append("PS.CREATE_USER, TO_CHAR(PS.MODIFIED_DATE, 'DD/MM/YYYY HH24:MI:SS'), PS.MODIFIED_USER, PS.ENABLE, S.CO_STAFFNAME ");
+		sqlStr.append("FROM PAT_SERVICES PS ");
+		sqlStr.append("LEFT JOIN CO_STAFFS S ON PS.MODIFIED_USER = S.CO_STAFF_ID ");
+		sqlStr.append("WHERE PS.ENABLE IN ('0', '1') ");
+		if (!all) {
+			sqlStr.append("AND PS.ENABLE = "+(enable?"1 ":"0 "));
+		}
+		if (patNo != null && patNo.length() > 0) {
+			sqlStr.append("AND PS.PATNO = '" + patNo + "' ");
+		}
+		if (regID != null && regID.length() > 0) {
+			sqlStr.append("AND PS.REGID = '" + regID + "' ");
+		}
+		if (regType != null && regType.length() > 0) {
+			sqlStr.append("AND PS.REGTYPE = '" + regType + "' ");
+		}
+		if (serType != null && serType.length() > 0) {
+			sqlStr.append("AND PS.SERVICE_TYPE = '" + serType + "' ");
+		}
+		if (serItem != null && serItem.length() > 0) {
+			sqlStr.append("AND PS.SERVICE_ITEM = '" + serItem + "' ");
+		}
+		if (serCategory != null && serCategory.length() > 0) {
+			sqlStr.append("AND PS.SERVICE_CATEGORY = '" + serCategory + "' ");
+		}
+		if (effectiveDate != null && effectiveDate.length() > 0) {
+			sqlStr.append("AND PS.EFFECTIVE_DATE >= TO_DATE('" + effectiveDate+" 00:00:00', 'DD/MM/YYYY HH24:MI:SS') ");
+			sqlStr.append("AND PS.EFFECTIVE_DATE <= TO_DATE('" + effectiveDate+" 23:59:59', 'DD/MM/YYYY HH24:MI:SS') ");
+		} else {
+			if (dateRange != null && dateRange.length() > 0) {
+				sqlStr.append("AND PS.EFFECTIVE_DATE >= TO_DATE(TO_CHAR(SYSDATE-"+dateRange+", 'DD/MM/YYYY')||' 00:00:00', 'DD/MM/YYYY HH24:MI:SS') ");
+				sqlStr.append("AND PS.EFFECTIVE_DATE <= TO_DATE(TO_CHAR(SYSDATE+"+((noOfDayAfter != null)?noOfDayAfter:"0")+", 'DD/MM/YYYY')||' 23:59:59', 'DD/MM/YYYY HH24:MI:SS') ");
+			}
+		}
+		if (serType != null && serType.equals("food")) {
+			sqlStr.append("ORDER BY PS.ENABLE, PS.EFFECTIVE_DATE ");
+		} else if (serType != null && serType.equals("chaplaincy")) { // Added extra line for ordering chaplaincy
+			sqlStr.append("ORDER BY PS.EFFECTIVE_DATE DESC");
+		} else {
+			sqlStr.append("ORDER BY PS.CREATE_DATE DESC ");
+		}
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	/****************************************************/
+	public static void updateInpatAllergy(String wrdCode) {
+		UUID id = UUID.randomUUID();
+		String uuid = id.toString();
+
+		System.out.println(new Date()+" [Allergy]["+uuid+"]1. Strating to update allergy....");
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT R.PATNO ");
+		sqlStr.append("FROM REG@IWEB R, INPAT@IWEB I, BED@IWEB B, ROOM@IWEB M, WARD@IWEB W ");
+		sqlStr.append("WHERE R.INPID = I.INPID ");
+		sqlStr.append("AND R.REGTYPE = 'I' ");
+		sqlStr.append("AND R.REGSTS = 'N' ");
+		sqlStr.append("AND I.INPDDATE IS NULL ");
+		sqlStr.append("AND I.BEDCODE = B.BEDCODE ");
+		sqlStr.append("AND B.ROMCODE = M.ROMCODE ");
+		sqlStr.append("AND M.WRDCODE = W.WRDCODE ");
+		sqlStr.append("AND W.WRDNAME <> 'DAYCASE' ");
+		sqlStr.append("AND W.WRDNAME not like '%CLOSED%' ");
+		sqlStr.append("AND	B.ROMCODE <> 'NUR' ");
+		sqlStr.append("AND	W.WRDCODE = '" + wrdCode + "' ");
+
+		//System.out.println(new Date()+" [Allergy]["+uuid+"]2. Getting to patNo of "+wrdCode);
+		ArrayList patNos = UtilDBWeb.getReportableList(sqlStr.toString());
+
+		if (patNos.size() > 0) {
+			ReportableListObject patRow = null;
+			String pats = "";
+			for (int j = 0; j < patNos.size(); j++) {
+				patRow = (ReportableListObject) patNos.get(j);
+				pats += "'" + patRow.getValue(0) + "'";
+				if (j+1 < patNos.size()) {
+					pats += ",";
+				}
+			}
+
+			String sqlAllergy = "";
+			if (wrdCode.equals("U100")) {
+				sqlAllergy = sqlStr_allergy100;
+				sqlAllergy += "AND h1.patno in ("+pats+")) ";
+			} else if (wrdCode.equals("U200")) {
+				sqlAllergy = sqlStr_allergy200;
+				sqlAllergy += "AND h1.patno in ("+pats+")) ";
+			} else if (wrdCode.equals("U300")) {
+				sqlAllergy = sqlStr_allergy300;
+				sqlAllergy += " AND h1.patno in ("+pats+")) ";
+			} else if (wrdCode.equals("U3NW")) {
+				sqlAllergy = sqlStr_allergy300NW;
+				sqlAllergy += " AND h1.patno in ("+pats+")) ";
+			} else if (wrdCode.equals("U400")) {
+				sqlAllergy = sqlStr_allergy400;
+				sqlAllergy += " AND h1.patno in ("+pats+")) ";
+			}
+
+			//System.out.println(new Date()+" [Allergy]["+uuid+"]3. Sql of getting allergy \n"+sqlAllergy);
+			//System.out.println(new Date()+" [Allergy]["+uuid+"]4. Getting to allergy of "+wrdCode);
+			updateAllergt(sqlAllergy, wrdCode, uuid);
+		}
+		else {
+
+		}
+	}
+
+	private static void updateAllergt(String sql, String wrdCode, String uuid) {
+		Connection conn = null;
+
+		try {
+			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+			DriverManager.setLoginTimeout(1800);
+			if (ConstantsServerSide.isHKAH()) {
+				conn = DriverManager.getConnection("jdbc:odbc:patientdiet");
+			} else if (ConstantsServerSide.isTWAH()) {
+				conn = DriverManager.getConnection("jdbc:odbc:patientdiet"+wrdCode);
+			}
+
+			conn.setReadOnly(true);
+
+			//System.out.println(new Date()+" [Allergy]["+uuid+"]5. Connecting to access of "+wrdCode);
+
+			ArrayList allergys = UtilDBWeb.getReportableList(conn, sql);
+			//System.out.println(new Date()+" [Allergy]["+uuid+"]6. Getting Data OK - "+wrdCode);
+			ReportableListObject allergyRow = null;
+
+			if (allergys != null && allergys.size() > 0) {
+				//System.out.println(new Date()+" [Allergy]["+uuid+"]7. Deleting the records of "+wrdCode);
+				delInpatAllergy(wrdCode);
+
+				System.out.println(new Date()+" [Allergy]["+uuid+"]8. Updating the records of "+wrdCode);
+				for (int k = 0; k < allergys.size(); k++) {
+					allergyRow = (ReportableListObject) allergys.get(k);
+
+					insertInpatAllergy(allergyRow.getValue(0), allergyRow.getValue(1),
+						allergyRow.getValue(2), allergyRow.getValue(3), wrdCode);
+				}
+			}
+			else {
+				//System.out.println(new Date()+" [Allergy]["+uuid+"]7&8. No records of "+wrdCode);
+			}
+			//System.out.println(new Date()+" [Allergy]["+uuid+"]9. Succeed the records of "+wrdCode);
+		}
+		catch (Exception e) {
+			System.out.println(new Date()+" [Allergy]["+uuid+"]Error of "+wrdCode);
+			e.printStackTrace();
+		}
+		finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	private static boolean insertInpatAllergy(String patNo, String regID, String bedCode,
+								String allergy, String wrdCode) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("INSERT INTO HAT_PATIENT_ALLERGY ");
+		sqlStr.append("(CO_SITE_CODE, PATNO, REGTYPE, REGID, WRDCODE, BEDCODE, ALLERGY) ");
+		sqlStr.append("VALUES ");
+		sqlStr.append("('" + ConstantsServerSide.SITE_CODE + "', ");
+		sqlStr.append("'" + patNo + "', ");
+		sqlStr.append("'I', ");
+		sqlStr.append("'" + regID + "', ");
+		sqlStr.append("'" + wrdCode + "', ");
+		sqlStr.append("'" + bedCode + "', ");
+		sqlStr.append("'" + allergy.replaceAll("'", "''") + "') ");
+
+		return UtilDBWeb.updateQueue(sqlStr.toString());
+	}
+
+	private static boolean delInpatAllergy(String wrdCode) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("DELETE FROM HAT_PATIENT_ALLERGY ");
+		sqlStr.append("WHERE WRDCODE = '" + wrdCode + "' ");
+		sqlStr.append("AND ENABLE = '1' ");
+
+		return UtilDBWeb.updateQueue(sqlStr.toString());
+	}
+
+	public static String getInpatientAllergy(String patNo, String bedCode) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT DECODE(ALLERGY, null, '<Not Found>', ALLERGY) ");
+		sqlStr.append("FROM HAT_PATIENT_ALLERGY ");
+		sqlStr.append("WHERE PATNO = '" + patNo + "' ");
+		sqlStr.append("AND ENABLE = '1' ");
+
+		ArrayList record = UtilDBWeb.getReportableList(sqlStr.toString());
+
+		if (record.size() > 0) {
+			ReportableListObject row = null;
+			row = (ReportableListObject) record.get(0);
+			return row.getValue(0);
+		} else {
+			return "";
+		}
+	}
+
+	static {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.setLength(0);
+		sqlStr.append("select [diet i/o] ");
+		sqlStr.append("from [handover ME] ");
+		sqlStr.append("where id=(select max(id) from [handover ME] where patno= ? ) ");
+		sqlStr_allergyME = sqlStr.toString();
+
+		sqlStr.setLength(0);
+		sqlStr.append("select [diet i/o] ");
+		sqlStr.append("from [handover PD] ");
+		sqlStr.append("where id=(select max(id) from [handover PD] where patno= ? ) ");
+		sqlStr_allergyPD = sqlStr.toString();
+
+		sqlStr.setLength(0);
+		sqlStr.append("select [diet i/o] ");
+		sqlStr.append("from [handover IU] ");
+		sqlStr.append("where id=(select max(id) from [handover IU] where patno= ? ) ");
+		sqlStr_allergyIU = sqlStr.toString();
+
+		sqlStr.setLength(0);
+		sqlStr.append("select [diet i/o] ");
+		sqlStr.append("from [handover SU] ");
+		sqlStr.append("where id=(select max(id) from [handover SU] where patno= ? ) ");
+		sqlStr_allergySU = sqlStr.toString();
+
+		sqlStr.setLength(0);
+		sqlStr.append("select [diet i/o] ");
+		sqlStr.append("from [handover IC] ");
+		sqlStr.append("where id=(select max(id) from [handover IC] where patno= ? ) ");
+		sqlStr_allergyICU = sqlStr.toString();
+
+		sqlStr.setLength(0);
+		sqlStr.append("select PATNO, REGID, BEDCODE, 'Allergy: '+Iif (IsNull(allergy),'n/a',trim(allergy))+'; Diet: '+[diet i/o] ");
+		sqlStr.append("FROM [Handover 100] h1 ");
+		sqlStr.append("WHERE h1.id in ");
+		sqlStr.append("(SELECT MAX(id) ");
+		sqlStr.append(" FROM [Handover 100] h2 ");
+		sqlStr.append(" WHERE h1.patno = h2.patno ");
+		sqlStr_allergy100 = sqlStr.toString();
+
+		sqlStr.setLength(0);
+		//sqlStr.append("select 'Allergy: '+Iif (IsNull(allergy),'n/a',trim(allergy))+'; Diet: '+[diet i/o] ");
+		//sqlStr.append("from [Handover 200] ");
+		//sqlStr.append("where id=(select max(id) from [Handover 200] where patno=? ) ");
+		sqlStr.append("select PATNO, REGID, BEDCODE, 'Allergy: '+Iif (IsNull(allergy),'n/a',trim(allergy))+'; Diet: '+[diet i/o] ");
+		sqlStr.append("FROM [Handover 200] h1 ");
+		sqlStr.append("WHERE h1.id in ");
+		sqlStr.append("(SELECT MAX(id) ");
+		sqlStr.append(" FROM [Handover 200] h2 ");
+		sqlStr.append(" WHERE h1.patno = h2.patno ");
+		sqlStr_allergy200 = sqlStr.toString();
+
+		sqlStr.setLength(0);
+		//sqlStr.append("select 'Allergy: '+Iif (IsNull(allergy),'n/a',trim(allergy))+'; Diet: '+[diet i/o] ");
+		//sqlStr.append("from [Handover 300] ");
+		//sqlStr.append("where id=(select max(id) from [Handover 300] where patno=? ) ");
+		sqlStr.append("select PATNO, REGID, BEDCODE, 'Allergy: '+Iif (IsNull(allergy),'n/a',trim(allergy))+'; Diet: '+[diet i/o] ");
+		sqlStr.append("FROM [Handover 300] h1 ");
+		sqlStr.append("WHERE h1.id in ");
+		sqlStr.append("(SELECT MAX(id) ");
+		sqlStr.append(" FROM [Handover 300] h2 ");
+		sqlStr.append(" WHERE h1.patno = h2.patno ");
+		sqlStr_allergy300 = sqlStr.toString();
+
+		sqlStr.setLength(0);
+		//sqlStr.append("select 'Allergy: '+Iif (IsNull(allergy),'n/a',trim(allergy))+'; Diet: '+[diet i/o] ");
+		//sqlStr.append("from [Handover 300NW] ");
+		//sqlStr.append("where id=(select max(id) from [Handover 300NW] where patno=? ) ");
+		sqlStr.append("select PATNO, REGID, BEDCODE, 'Allergy: '+Iif (IsNull(allergy),'n/a',trim(allergy))+'; Diet: '+[diet i/o] ");
+		sqlStr.append("FROM [Handover 300NW] h1 ");
+		sqlStr.append("WHERE h1.id in ");
+		sqlStr.append("(SELECT MAX(id) ");
+		sqlStr.append(" FROM [Handover 300NW] h2 ");
+		sqlStr.append(" WHERE h1.patno = h2.patno ");
+		sqlStr_allergy300NW = sqlStr.toString();
+
+		sqlStr.setLength(0);
+		//sqlStr.append("select 'Allergy: '+Iif (IsNull(allergy),'n/a',trim(allergy))+'; Diet: '+[diet i/o] ");
+		//sqlStr.append("from [Handover 400] ");
+		//sqlStr.append("where id=(select max(id) from [Handover 400] where patno=? ) ");
+		sqlStr.append("select PATNO, REGID, BEDCODE, 'Allergy: '+Iif (IsNull(allergy),'n/a',trim(allergy))+'; Diet: '+[diet i/o] ");
+		sqlStr.append("FROM [Handover 400] h1 ");
+		sqlStr.append("WHERE h1.id in ");
+		sqlStr.append("(SELECT MAX(id) ");
+		sqlStr.append(" FROM [Handover 400] h2 ");
+		sqlStr.append(" WHERE h1.patno = h2.patno ");
+		sqlStr_allergy400 = sqlStr.toString();
+
+		sqlStr.setLength(0);
+		sqlStr.append("select [diet i/o], Clear, Full, Soft, NPO, Regular, [3 Days], [5 Days], [Non-Package] ");
+		sqlStr.append("from [Handover OB] ");
+		sqlStr.append("where id=(select max(id) from [Handover OB] where patno=?) ");
+		sqlStr_allergyOB = sqlStr.toString();
+	}
+
+	public static ArrayList checkPatientDiagnosisExists(String patNo) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("SELECT PATNO ,REMARK  ");
+		sqlStr.append("FROM PAT_SERVICES ");
+		sqlStr.append("WHERE PATNO ='" + patNo + "' ");
+		sqlStr.append("AND  SERVICE_CATEGORY = 'diagnosis'");
+		sqlStr.append("AND ENABLE ='1' ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static boolean addPatientDiagnosis(UserBean userBean, String patNo, String remark,
+			String serCategory) {
+
+		return addPatientService(userBean, "chaplaincy", patNo, null, null, null, null,
+				null, null, null, null, remark, serCategory, null, null, null);
+	}
+
+	public static boolean editPatientDiagnosis(UserBean userBean, String patNo, String remark) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("UPDATE PAT_SERVICES  ");
+		sqlStr.append("SET REMARK = '" + remark + "', ");
+		sqlStr.append("ENABLE = '1', ");
+		sqlStr.append("MODIFIED_DATE=SYSDATE, ");
+		sqlStr.append("MODIFIED_USER='" + userBean.getStaffID() + "' ");
+		sqlStr.append("WHERE PATNO = '" + patNo + "' ");
+		sqlStr.append("AND SERVICE_TYPE = 'chaplaincy' ");
+		sqlStr.append("AND SERVICE_CATEGORY = 'diagnosis' ");
+
+		return UtilDBWeb.updateQueue(sqlStr.toString());
+	}
+
+	public static ArrayList getPatientAdmissionHistory(String patNo, String limit) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT R.REGTYPE, P.PATNO, TO_CHAR(R.REGDATE , 'DD/MM/YYYY HH24:MI:SS') , R.REGSTS ");
+		sqlStr.append("FROM   PATIENT@IWEB P, REG@IWEB R ");
+		sqlStr.append("WHERE  P.PATNO = R.PATNO  ");
+		sqlStr.append("AND    R.REGSTS != 'C'  ");
+		sqlStr.append("AND P.PATNO = '" + patNo + "' ");
+		if (limit != null) {
+			sqlStr.append("AND rownum<=" + limit + " " );
+		}
+		sqlStr.append("ORDER BY R.REGDATE DESC ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getAdmissionHistoryYearTotal(String modifiedUser, String servCategory, String servItem,
+			String startDate, String endDate, String detail) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		if (detail.equals("patTotal")) {
+				sqlStr.append("SELECT COUNT (DISTINCT CONCAT(PS.PATNO ,TO_CHAR(PS.EFFECTIVE_DATE,'DD/MM/YYYY'))) ");
+		} else {
+			sqlStr.append("SELECT COUNT(PS.MODIFIED_USER) ");
+		}
+		sqlStr.append("FROM PAT_SERVICES PS ");
+		sqlStr.append("LEFT JOIN CO_STAFFS S ON PS.MODIFIED_USER = S.CO_STAFF_ID ");
+		sqlStr.append("WHERE ENABLE = 1  ");
+		if (modifiedUser != null && modifiedUser.length() > 0) {
+			sqlStr.append("AND S.CO_STAFF_ID = '" + modifiedUser + "' ");
+		}
+		sqlStr.append("AND SERVICE_CATEGORY = '" + servCategory + "' ");
+		sqlStr.append("AND SERVICE_ITEM = '" + servItem + "' ");
+		sqlStr.append("AND PS.STATUS IS NULL ");
+		sqlStr.append("AND PS.EFFECTIVE_DATE >= TO_DATE('" + startDate + " 00:00:00', 'DD/MM/YYYY HH24:MI:SS') ");
+		sqlStr.append("AND PS.EFFECTIVE_DATE <= TO_DATE('" + endDate + " 23:59:59', 'DD/MM/YYYY HH24:MI:SS') ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static boolean addPatientVisitStatus(UserBean userBean, String patNo, String emergency, String attend, String visitStatus, String servType, String regType) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("INSERT INTO PAT_SERVICES( CO_SITE_CODE, PSID, PATNO, EMERGENCY, ATTENDED1HR, STATUS, SERVICE_TYPE, CREATE_USER, MODIFIED_USER, REGTYPE) ");
+		sqlStr.append("VALUES ( ");
+		sqlStr.append("'" + ConstantsServerSide.SITE_CODE + "', '" + getNextPatientServiceID() + "' ");
+		if (patNo != null && patNo.length() > 0) {
+			sqlStr.append(", '" + patNo + "' ");
+		} else {
+			sqlStr.append(", NULL ");
+		}
+		if (emergency != null && emergency.length() > 0) {
+			sqlStr.append(", '" + emergency + "' ");
+		} else {
+			sqlStr.append(", NULL ");
+		}
+		if (attend != null && attend.length() > 0) {
+			sqlStr.append(", '" + attend + "' ");
+		} else {
+			sqlStr.append(", NULL ");
+		}
+		if (visitStatus != null && visitStatus.length() > 0) {
+			sqlStr.append(", '" + visitStatus + "' ");
+		} else {
+			sqlStr.append(", NULL ");
+		}
+		if (servType != null && servType.length() > 0) {
+			sqlStr.append(", '" + servType + "' ");
+		} else {
+			sqlStr.append(", NULL ");
+		}
+		sqlStr.append(", '" + userBean.getStaffID() + "', '" + userBean.getStaffID() + "', '" + regType + "') ");
+
+		return UtilDBWeb.updateQueue(sqlStr.toString());
+	}
+
+	public static boolean editPatientVisitStatus(UserBean userBean, String patNo, String visitStatus, String servType) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("UPDATE PAT_SERVICES ");
+		sqlStr.append("SET STATUS = ?, ");
+		sqlStr.append("    ENABLE = '1', ");
+		sqlStr.append("    MODIFIED_DATE = SYSDATE, ");
+		sqlStr.append("    MODIFIED_USER = ? ");
+		sqlStr.append("WHERE PATNO = ? ");
+		sqlStr.append("AND SERVICE_TYPE = ? ");
+		sqlStr.append("AND STATUS IS NOT NULL ");
+
+		return UtilDBWeb.updateQueue(sqlStr.toString(), new String[] {visitStatus, userBean.getStaffID(), patNo, servType});
+	}
+
+	public static boolean editPatientVisitStatus(UserBean userBean, String patNo, String emergency, String attend, String visitStatus, String servType) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("UPDATE PAT_SERVICES ");
+		sqlStr.append("SET EMERGENCY = ?, ");
+		sqlStr.append("    ATTENDED1HR = ?, ");
+		sqlStr.append("    STATUS = ?, ");
+		sqlStr.append("    ENABLE = '1', ");
+		sqlStr.append("    MODIFIED_DATE = SYSDATE, ");
+		sqlStr.append("    MODIFIED_USER = ? ");
+		sqlStr.append("WHERE PATNO = ? ");
+		sqlStr.append("AND SERVICE_TYPE = ? ");
+		sqlStr.append("AND STATUS IS NOT NULL ");
+
+		return UtilDBWeb.updateQueue(sqlStr.toString(), new String[] {emergency, attend, visitStatus, userBean.getStaffID(), patNo, servType});
+	}
+
+	public static ArrayList checkPatientVisitStatusExists(String patNo, String visitStatus) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("SELECT PATNO, STATUS, CREATE_USER, MODIFIED_USER, TO_CHAR(MODIFIED_DATE , 'DD/MM/YYYY HH24:MI:SS')  ");
+		sqlStr.append("FROM PAT_SERVICES ");
+		sqlStr.append("WHERE PATNO = ? ");
+		if (visitStatus != null && visitStatus.length() > 0) {
+			sqlStr.append("AND STATUS = '" + visitStatus + "' ");
+		} else {
+		sqlStr.append("AND STATUS IS NOT NULL ");
+		}
+		sqlStr.append("AND ENABLE ='1' ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString(), new String[] {patNo});
+	}
+
+	public static ArrayList checkLoggingAfterPatientStatus(String patNo, String statusDate) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT PATNO, STATUS, CREATE_USER, MODIFIED_USER, TO_CHAR(CREATE_DATE , 'DD/MM/YYYY HH24:MI:SS') ");
+		sqlStr.append("FROM PAT_SERVICES ");
+		sqlStr.append("WHERE PATNO = ? ");
+		sqlStr.append("AND STATUS IS NULL ");
+		sqlStr.append("AND SERVICE_CATEGORY != 'diagnosis' ");
+		sqlStr.append("AND ENABLE = '1' ");
+		sqlStr.append("AND CREATE_DATE >= TO_DATE('" + statusDate + "', 'DD/MM/YYYY HH24:MI:SS') ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString(), new String[] {patNo});
+	}
+
+	public static String getAccessibleWardList(String ipAddr) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("select listagg(''''||co_key||'''',',') within group (order by co_key) from fs_access where "+
+				"(ip_address='" + ipAddr + "' OR (substr('" + ipAddr + "',0,INSTR('" + ipAddr + "', '.', -1)-1) like IP_ADDRESS) ) and co_enabled = 1");
+		ArrayList result = UtilDBWeb.getReportableList(sqlStr.toString());
+		if (result.size() > 0) {
+			ReportableListObject row = (ReportableListObject) result.get(0);
+			return row.getFields0();
+		} else {
+			return null;
+		}
+
+	}
+
+	public static boolean isLCB(String ipAddr, String LCB) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("select count(1) from fs_access where ip_address= ? and co_key = ? and co_enabled = 1");
+		ArrayList result = UtilDBWeb.getReportableList(sqlStr.toString(), new String[] {ipAddr, LCB});
+		if (result.size() > 0) {
+			ReportableListObject row = (ReportableListObject) result.get(0);
+			if ("0".equals(row.getFields0())) {
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public static ArrayList getPatientStatus(String patNo) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT PATNO, EMERGENCY, ATTENDED1HR, STATUS  ");
+		sqlStr.append("FROM PAT_SERVICES ");
+		sqlStr.append("WHERE PATNO = ? ");
+		sqlStr.append("AND STATUS IS NOT NULL ");
+		sqlStr.append("AND ENABLE ='1' ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString(), new String[] {patNo});
+	}
+
+	private static ArrayList getChapArea(String chapStaffID) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("SELECT WRD_CODE, MOTH_CODE, RELCODE, OTHER ");
+		sqlStr.append("FROM CHAP_AREA ");
+		sqlStr.append("WHERE ENABLE ='1' ");
+		if (chapStaffID != null && chapStaffID.length() > 0) {
+			sqlStr.append("AND CHAPID = '" + chapStaffID + "' ");
+		}
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getPatientPreviousDischargedDate(String patNo) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("SELECT TO_CHAR(I.INPDDATE , 'DD/MM/YYYY HH24:MI:SS')  ");
+		sqlStr.append(", DECODE(TRUNC(TO_NUMBER(SYSDATE - I.INPDDATE), 0),0,'(Today)','('|| TRUNC(TO_NUMBER(SYSDATE - I.INPDDATE),0)||' days ago)') ");
+		sqlStr.append("FROM INPAT@IWEB I, REG@IWEB R, PATIENT@IWEB P ");
+		sqlStr.append(" WHERE  P.PATNO = R.PATNO ");
+		sqlStr.append(" AND    R.INPID = I.INPID  ");
+		sqlStr.append(" AND P.PATNO = '" + patNo + "' ");
+		sqlStr.append(" AND INPDDATE IS NOT NULL ");
+		sqlStr.append(" AND ROWNUM = 1 ");
+		sqlStr.append(" ORDER BY I.INPDDATE DESC ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	private static ArrayList checkPatientChapReferral(String patID, String chapID) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("SELECT REF_CHAPID,REF_CHAPNAME ,TO_CHAR(MODIFIED_DATE , 'DD/MM/YYYY HH24:MI:SS'),REF_NOTES ");
+		sqlStr.append("FROM CHAP_AREA ");
+		sqlStr.append("WHERE REF_PATNO ='" + patID + "' ");
+		if (chapID != null && chapID.length()>0) {
+			sqlStr.append("AND REF_CHAPID = '" + chapID + "' ");
+		}
+
+		sqlStr.append("AND ENABLE ='1' ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList checkPatientChapReferralWithPatID(String patID) {
+		return checkPatientChapReferral(patID, null);
+	}
+
+	public static ArrayList checkPatientChapReferralWithChapID(String patID, String chapID) {
+		if (chapID == null) {
+			chapID = "error";
+		}
+		return checkPatientChapReferral(patID,chapID);
+	}
+
+	public static boolean editPatientReferral(UserBean userBean, String patNo, String chapID, String chapName, String refNote) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("UPDATE CHAP_AREA  ");
+		sqlStr.append("SET REF_CHAPID = ?, ");
+		sqlStr.append("    REF_CHAPNAME = ?, ");
+		sqlStr.append("    REF_NOTES = ?, ");
+		sqlStr.append("    ENABLE = '1', ");
+		sqlStr.append("    MODIFIED_DATE = SYSDATE, ");
+		sqlStr.append("    MODIFIED_USER = ? ");
+		sqlStr.append("WHERE REF_PATNO = ? ");
+
+		return UtilDBWeb.updateQueue(sqlStr.toString(), new String[] {chapID, chapName, refNote, userBean.getStaffID(), patNo});
+	}
+
+	public static boolean savePatientReferralNotes(UserBean userBean, String patNo, String remark) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("UPDATE CHAP_AREA   ");
+		sqlStr.append("SET REF_NOTES ='" + remark + "', ");
+		sqlStr.append("MODIFIED_DATE=SYSDATE, ");
+		sqlStr.append("MODIFIED_USER='" + userBean.getStaffID() + "' ");
+		sqlStr.append("WHERE REF_PATNO = '" + patNo + "' ");
+
+		return UtilDBWeb.updateQueue(sqlStr.toString());
+	}
+
+	public static ArrayList getPatientOTRecord(String patNo, String limit) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT  TO_CHAR(OTAOSDATE , 'DD/MM/YYYY HH24:MI:SS') ,TO_CHAR(OTAOEDATE , 'DD/MM/YYYY HH24:MI:SS') ");
+		sqlStr.append(" FROM OT_APP@IWEB ");
+		sqlStr.append("WHERE PATNO = ? ");
+		sqlStr.append("AND OTAOSDATE >= SYSDATE ");
+		if (limit != null) {
+			sqlStr.append("AND rownum <= " + limit + " " );
+		}
+		sqlStr.append("ORDER BY OTAOSDATE ASC ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString(), new String[] {patNo});
+	}
+
+	public static ArrayList getPatientOTFinishedRecord(String patNo, String limit) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT  TO_CHAR(OTAOSDATE , 'DD/MM/YYYY HH24:MI:SS') , TO_CHAR(OTAOEDATE , 'DD/MM/YYYY HH24:MI:SS') ");
+		sqlStr.append("FROM OT_APP@IWEB ");
+		sqlStr.append("WHERE PATNO = ? ");
+		sqlStr.append("AND OTAOSDATE <= SYSDATE ");
+		if (limit != null) {
+			sqlStr.append("AND rownum <= " + limit + " " );
+		}
+		sqlStr.append("ORDER BY OTAOSDATE ASC ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString(), new String[] {patNo});
+	}
+
+	public static ArrayList getPatientOTHaveLog(String patNo) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT P.PATNO, OT.OTAOSDATE, P.EFFECTIVE_DATE, P.REMARK ");
+		sqlStr.append("FROM OT_APP@IWEB OT,PAT_SERVICES P ");
+		sqlStr.append("WHERE OT.PATNO = P.PATNO ");
+		sqlStr.append("AND P.PATNO = ? ");
+		sqlStr.append("AND P.ENABLE = '1' ");
+		sqlStr.append("AND P.STATUS IS NULL ");
+		sqlStr.append("AND P.EFFECTIVE_DATE > OT.OTAOSDATE  ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString(), new String[] {patNo});
+	}
+
+	public static ArrayList getPatientBookingReport(String fromDate) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("select ");
+		sqlStr.append(" 	r.wrdcode, r.time_slot, nvl(d.col1, 0) col1, nvl(d.col2, 0) col2, nvl(d.col3, 0) col3, nvl(d.col4, 0) col4, ");
+		sqlStr.append(" 	nvl(d.col5, 0) col5, nvl(d.col6, 0) col6, nvl(d.col7, 0) col7, nvl(d.col8, 0) col8, nvl(d.col9, 0) col9, nvl(d.col10, 0) col10, ");
+		sqlStr.append("		nvl(d.col11, 0) col11, nvl(d.col12, 0) col12, nvl(d.col13, 0) col13, nvl(d.col14, 0) col14, nvl(d.col15, 0) col15, nvl(d.col16, 0) col16, ");
+		sqlStr.append("		nvl(d.col17, 0) col17, nvl(d.col18, 0) col18, nvl(d.col19, 0) col19, nvl(d.col20, 0) col20, nvl(d.col21, 0) col21, nvl(d.col22, 0) col22, ");
+		sqlStr.append("		nvl(d.col23, 0) col23, nvl(d.col24, 0) col24, nvl(d.col25, 0) col25, nvl(d.col26, 0) col26, nvl(d.col27, 0) col27, nvl(d.col28, 0) col28, ");
+		sqlStr.append("		nvl(d.col29, 0) col29, nvl(d.col30, 0) col30, nvl(d.col31, 0) col31 ");
+		sqlStr.append("from ( ");
+		sqlStr.append("		select ");
+		sqlStr.append("		wrdcode, time_slot, sum(decode(date_of_m, '01', cnt)) col1, sum(decode(date_of_m, '02', cnt)) col2, ");
+		sqlStr.append("		sum(decode(date_of_m, '03', cnt)) col3, sum(decode(date_of_m, '04', cnt)) col4, sum(decode(date_of_m, '05', cnt)) col5, ");
+		sqlStr.append("		sum(decode(date_of_m, '06', cnt)) col6, sum(decode(date_of_m, '07', cnt)) col7, sum(decode(date_of_m, '08', cnt)) col8, ");
+		sqlStr.append("		sum(decode(date_of_m, '09', cnt)) col9, sum(decode(date_of_m, '10', cnt)) col10,sum(decode(date_of_m, '11', cnt)) col11, ");
+		sqlStr.append("		sum(decode(date_of_m, '12', cnt)) col12, sum(decode(date_of_m, '13', cnt)) col13, sum(decode(date_of_m, '14', cnt)) col14, ");
+		sqlStr.append("		sum(decode(date_of_m, '15', cnt)) col15, sum(decode(date_of_m, '16', cnt)) col16, sum(decode(date_of_m, '17', cnt)) col17, ");
+		sqlStr.append("		sum(decode(date_of_m, '18', cnt)) col18, sum(decode(date_of_m, '19', cnt)) col19, sum(decode(date_of_m, '20', cnt)) col20, ");
+		sqlStr.append("		sum(decode(date_of_m, '21', cnt)) col21, sum(decode(date_of_m, '22', cnt)) col22, sum(decode(date_of_m, '23', cnt)) col23, ");
+		sqlStr.append("		sum(decode(date_of_m, '24', cnt)) col24, sum(decode(date_of_m, '25', cnt)) col25, sum(decode(date_of_m, '26', cnt)) col26, ");
+		sqlStr.append("		sum(decode(date_of_m, '27', cnt)) col27, sum(decode(date_of_m, '28', cnt)) col28, sum(decode(date_of_m, '29', cnt)) col29, ");
+		sqlStr.append("		sum(decode(date_of_m, '30', cnt)) col30, sum(decode(date_of_m, '31', cnt)) col31 ");
+		sqlStr.append("		from ( ");
+		sqlStr.append("		select ");
+		sqlStr.append("			wrdcode, time_slot, date_of_m, count(1) cnt ");
+		sqlStr.append("		from ( ");
+		sqlStr.append("			select ");
+		sqlStr.append("				wrdcode,");
+		sqlStr.append("			(case when time >= '0000' and time <= '0559' then '0000-0559' else ");
+		sqlStr.append("			case when time >= '0600' and time <= '0659' then '0600-0659' else ");
+		sqlStr.append("			case when time >= '0700' and time <= '0759' then '0700-0759' else ");
+		sqlStr.append("			case when time >= '0800' and time <= '0859' then '0800-0859' else ");
+		sqlStr.append("			case when time >= '0900' and time <= '0959' then '0900-0959' else ");
+		sqlStr.append("			case when time >= '1000' and time <= '1059' then '1000-1059' else ");
+		sqlStr.append("			case when time >= '1100' and time <= '1159' then '1100-1159' else ");
+		sqlStr.append("			case when time >= '1200' and time <= '1259' then '1200-1259' else ");
+		sqlStr.append("			case when time >= '1300' and time <= '1359' then '1300-1359' else ");
+		sqlStr.append("			case when time >= '1400' and time <= '1459' then '1400-1459' else ");
+		sqlStr.append("			case when time >= '1500' and time <= '1559' then '1500-1559' else ");
+		sqlStr.append("			case when time >= '1600' and time <= '1659' then '1600-1659' else ");
+		sqlStr.append("			case when time >= '1700' and time <= '1759' then '1700-1759' else ");
+		sqlStr.append("			case when time >= '1800' and time <= '1859' then '1800-1859' else ");
+		sqlStr.append("			case when time >= '1900' and time <= '1959' then '1900-1959' else ");
+		sqlStr.append("			case when time >= '2000' and time <= '2059' then '2000-2059' else ");
+		sqlStr.append("			case when time >= '2100' and time <= '2159' then '2100-2159' else ");
+		sqlStr.append("			case when time >= '2200' and time <= '2259' then '2200-2259' else ");
+		sqlStr.append("			case when time >= '2300' and time <= '2359' then '2300-2359' else ");
+		sqlStr.append("			'0' end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end) time_slot,");
+		sqlStr.append("			date_of_m ");
+		sqlStr.append("			from ( ");
+		sqlStr.append("				select ");
+		sqlStr.append("					wrdcode, to_char(bpbhdate, 'dd') date_of_m, to_char(bpbhdate, 'hh24mi') time ");
+		sqlStr.append("				from bedprebok@iweb ");
+		sqlStr.append("				where bpbsts in ('N', 'F') ");
+		sqlStr.append("				AND TO_CHAR(BPBHDATE,'YYYYMM') = '" + fromDate + "' ");
+		sqlStr.append("			) ");
+		sqlStr.append("			) ");
+		sqlStr.append("			group by wrdcode, time_slot, date_of_m ");
+		sqlStr.append("			) ");
+		sqlStr.append("			GROUP BY WRDCODE, TIME_SLOT ");
+		sqlStr.append("			) d, ");
+		sqlStr.append("			( ");
+		sqlStr.append("			SELECT ");
+		sqlStr.append("			w.WRDCODE, t.time_slot ");
+		sqlStr.append("			from ( ");
+		sqlStr.append("			select ");
+		sqlStr.append("			decode(");
+		sqlStr.append("			rownum,");
+		sqlStr.append("			1, '0000-0559',");
+		sqlStr.append("			2, '0600-0659',");
+		sqlStr.append("			3, '0700-0759',");
+		sqlStr.append("			4, '0800-0859',");
+		sqlStr.append("			5, '0900-0959',");
+		sqlStr.append("			6, '1000-1059',");
+		sqlStr.append("			7, '1100-1159',");
+		sqlStr.append("			8, '1200-1259',");
+		sqlStr.append("			9, '1300-1359',");
+		sqlStr.append("			10, '1400-1459',");
+		sqlStr.append("			11, '1500-1559',");
+		sqlStr.append("			12, '1600-1659',");
+		sqlStr.append("			13, '1700-1759',");
+		sqlStr.append("			14, '1800-1859',");
+		sqlStr.append("			15, '1900-1959',");
+		sqlStr.append("			16, '2000-2059',");
+		sqlStr.append("			17, '2100-2159',");
+		sqlStr.append("			18, '2200-2259',");
+		sqlStr.append("			19, '2300-2359' ");
+		sqlStr.append("			) time_slot ");
+		sqlStr.append("			from dual ");
+		sqlStr.append("			CONNECT BY ROWNUM <=19 ");
+		sqlStr.append("			) t,");
+		sqlStr.append("			(");
+		sqlStr.append("			SELECT WRDCODE FROM WARD@IWEB ");
+		sqlStr.append("			) w WHERE 1 = 1 ");
+		sqlStr.append("			) R ");
+		sqlStr.append("			WHERE R.TIME_SLOT=D.TIME_SLOT(+) ");
+		sqlStr.append("			AND R.WRDCODE=D.WRDCODE(+) ");
+		sqlStr.append("			AND R.WRDCODE IN (SELECT WRDCODE FROM BEDPREBOK@IWEB WHERE BPBSTS IN ('N', 'F') AND TO_CHAR(BPBHDATE,'YYYYMM') = '" + fromDate + "' GROUP BY WRDCODE HAVING COUNT(WRDCODE)>0) ");
+		sqlStr.append("			order by r.wrdcode, r.time_slot ");
+
+		System.out.println(sqlStr.toString());
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getPatientAdmissionReport(String fromDate) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("select ");
+		sqlStr.append(" 	r.wrdcode, r.time_slot, nvl(d.col1, 0) col1, nvl(d.col2, 0) col2, nvl(d.col3, 0) col3, nvl(d.col4, 0) col4, ");
+		sqlStr.append(" 	nvl(d.col5, 0) col5, nvl(d.col6, 0) col6, nvl(d.col7, 0) col7, nvl(d.col8, 0) col8, nvl(d.col9, 0) col9, nvl(d.col10, 0) col10, ");
+		sqlStr.append("		nvl(d.col11, 0) col11, nvl(d.col12, 0) col12, nvl(d.col13, 0) col13, nvl(d.col14, 0) col14, nvl(d.col15, 0) col15, nvl(d.col16, 0) col16, ");
+		sqlStr.append("		nvl(d.col17, 0) col17, nvl(d.col18, 0) col18, nvl(d.col19, 0) col19, nvl(d.col20, 0) col20, nvl(d.col21, 0) col21, nvl(d.col22, 0) col22, ");
+		sqlStr.append("		nvl(d.col23, 0) col23, nvl(d.col24, 0) col24, nvl(d.col25, 0) col25, nvl(d.col26, 0) col26, nvl(d.col27, 0) col27, nvl(d.col28, 0) col28, ");
+		sqlStr.append("		nvl(d.col29, 0) col29, nvl(d.col30, 0) col30, nvl(d.col31, 0) col31 ");
+		sqlStr.append("from ( ");
+		sqlStr.append("		select ");
+		sqlStr.append("		wrdcode, time_slot, sum(decode(date_of_m, '01', cnt)) col1, sum(decode(date_of_m, '02', cnt)) col2, ");
+		sqlStr.append("		sum(decode(date_of_m, '03', cnt)) col3, sum(decode(date_of_m, '04', cnt)) col4, sum(decode(date_of_m, '05', cnt)) col5, ");
+		sqlStr.append("		sum(decode(date_of_m, '06', cnt)) col6, sum(decode(date_of_m, '07', cnt)) col7, sum(decode(date_of_m, '08', cnt)) col8, ");
+		sqlStr.append("		sum(decode(date_of_m, '09', cnt)) col9, sum(decode(date_of_m, '10', cnt)) col10,sum(decode(date_of_m, '11', cnt)) col11, ");
+		sqlStr.append("		sum(decode(date_of_m, '12', cnt)) col12, sum(decode(date_of_m, '13', cnt)) col13, sum(decode(date_of_m, '14', cnt)) col14, ");
+		sqlStr.append("		sum(decode(date_of_m, '15', cnt)) col15, sum(decode(date_of_m, '16', cnt)) col16, sum(decode(date_of_m, '17', cnt)) col17, ");
+		sqlStr.append("		sum(decode(date_of_m, '18', cnt)) col18, sum(decode(date_of_m, '19', cnt)) col19, sum(decode(date_of_m, '20', cnt)) col20, ");
+		sqlStr.append("		sum(decode(date_of_m, '21', cnt)) col21, sum(decode(date_of_m, '22', cnt)) col22, sum(decode(date_of_m, '23', cnt)) col23, ");
+		sqlStr.append("		sum(decode(date_of_m, '24', cnt)) col24, sum(decode(date_of_m, '25', cnt)) col25, sum(decode(date_of_m, '26', cnt)) col26, ");
+		sqlStr.append("		sum(decode(date_of_m, '27', cnt)) col27, sum(decode(date_of_m, '28', cnt)) col28, sum(decode(date_of_m, '29', cnt)) col29, ");
+		sqlStr.append("		sum(decode(date_of_m, '30', cnt)) col30, sum(decode(date_of_m, '31', cnt)) col31 ");
+		sqlStr.append("		from ( ");
+		sqlStr.append("		select ");
+		sqlStr.append("			wrdcode, time_slot, date_of_m, count(1) cnt ");
+		sqlStr.append("		from ( ");
+		sqlStr.append("			select ");
+		sqlStr.append("				wrdcode,");
+		sqlStr.append("			(case when time >= '0000' and time <= '0559' then '0000-0559' else ");
+		sqlStr.append("			case when time >= '0600' and time <= '0659' then '0600-0659' else ");
+		sqlStr.append("			case when time >= '0700' and time <= '0759' then '0700-0759' else ");
+		sqlStr.append("			case when time >= '0800' and time <= '0859' then '0800-0859' else ");
+		sqlStr.append("			case when time >= '0900' and time <= '0959' then '0900-0959' else ");
+		sqlStr.append("			case when time >= '1000' and time <= '1059' then '1000-1059' else ");
+		sqlStr.append("			case when time >= '1100' and time <= '1159' then '1100-1159' else ");
+		sqlStr.append("			case when time >= '1200' and time <= '1259' then '1200-1259' else ");
+		sqlStr.append("			case when time >= '1300' and time <= '1359' then '1300-1359' else ");
+		sqlStr.append("			case when time >= '1400' and time <= '1459' then '1400-1459' else ");
+		sqlStr.append("			case when time >= '1500' and time <= '1559' then '1500-1559' else ");
+		sqlStr.append("			case when time >= '1600' and time <= '1659' then '1600-1659' else ");
+		sqlStr.append("			case when time >= '1700' and time <= '1759' then '1700-1759' else ");
+		sqlStr.append("			case when time >= '1800' and time <= '1859' then '1800-1859' else ");
+		sqlStr.append("			case when time >= '1900' and time <= '1959' then '1900-1959' else ");
+		sqlStr.append("			case when time >= '2000' and time <= '2059' then '2000-2059' else ");
+		sqlStr.append("			case when time >= '2100' and time <= '2159' then '2100-2159' else ");
+		sqlStr.append("			case when time >= '2200' and time <= '2259' then '2200-2259' else ");
+		sqlStr.append("			case when time >= '2300' and time <= '2359' then '2300-2359' else ");
+		sqlStr.append("			'0' end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end ");
+		sqlStr.append("			end) time_slot,");
+		sqlStr.append("			date_of_m ");
+		sqlStr.append("			from ( ");
+		sqlStr.append("				select ");
+		sqlStr.append("					WRD.WRDCODE, TO_CHAR(RG.REGDATE, 'dd') DATE_OF_M, TO_CHAR(RG.REGDATE, 'hh24mi') TIME ");
+		sqlStr.append("				FROM REG@IWEB RG, (");
+		sqlStr.append("					SELECT WRDCODE, I.INPID ");
+		sqlStr.append("					FROM ROOM@IWEB RM, BED@IWEB B, INPAT@IWEB I ");
+		sqlStr.append("				WHERE B.ROMCODE = RM.ROMCODE ");
+		sqlStr.append("				AND B.BEDCODE = I.BEDCODE) WRD ");
+		sqlStr.append("			WHERE RG.INPID = WRD.INPID(+) ");
+		sqlStr.append("			AND RG.REGTYPE = 'I' ");
+		sqlStr.append("			AND RG.REGSTS = 'N' ");
+		sqlStr.append("			AND TO_CHAR(RG.REGDATE,'YYYYMM') = '" + fromDate + "' ");
+		sqlStr.append("			) ");
+		sqlStr.append("			) ");
+		sqlStr.append("			group by wrdcode, time_slot, date_of_m ");
+		sqlStr.append("			) ");
+		sqlStr.append("			GROUP BY WRDCODE, TIME_SLOT ");
+		sqlStr.append("			) d, ");
+		sqlStr.append("			( ");
+		sqlStr.append("			SELECT ");
+		sqlStr.append("			w.WRDCODE, t.time_slot ");
+		sqlStr.append("			from ( ");
+		sqlStr.append("			select ");
+		sqlStr.append("			decode(");
+		sqlStr.append("			rownum,");
+		sqlStr.append("			1, '0000-0559',");
+		sqlStr.append("			2, '0600-0659',");
+		sqlStr.append("			3, '0700-0759',");
+		sqlStr.append("			4, '0800-0859',");
+		sqlStr.append("			5, '0900-0959',");
+		sqlStr.append("			6, '1000-1059',");
+		sqlStr.append("			7, '1100-1159',");
+		sqlStr.append("			8, '1200-1259',");
+		sqlStr.append("			9, '1300-1359',");
+		sqlStr.append("			10, '1400-1459',");
+		sqlStr.append("			11, '1500-1559',");
+		sqlStr.append("			12, '1600-1659',");
+		sqlStr.append("			13, '1700-1759',");
+		sqlStr.append("			14, '1800-1859',");
+		sqlStr.append("			15, '1900-1959',");
+		sqlStr.append("			16, '2000-2059',");
+		sqlStr.append("			17, '2100-2159',");
+		sqlStr.append("			18, '2200-2259',");
+		sqlStr.append("			19, '2300-2359' ");
+		sqlStr.append("			) time_slot ");
+		sqlStr.append("			from dual ");
+		sqlStr.append("			CONNECT BY ROWNUM <=19 ");
+		sqlStr.append("			) t,");
+		sqlStr.append("			(");
+		sqlStr.append("			SELECT WRDCODE FROM WARD@IWEB ");
+		sqlStr.append("			) w WHERE 1 = 1 ");
+		sqlStr.append("			) R ");
+		sqlStr.append("			WHERE R.TIME_SLOT=D.TIME_SLOT(+) ");
+		sqlStr.append("			AND R.WRDCODE=D.WRDCODE(+) ");
+		sqlStr.append("			AND R.WRDCODE IN (SELECT WRD.WRDCODE FROM REG@IWEB RG, (SELECT WRDCODE, I.INPID FROM ROOM@IWEB RM, BED@IWEB B, INPAT@IWEB I WHERE B.ROMCODE = RM.ROMCODE AND B.BEDCODE = I.BEDCODE) WRD WHERE RG.INPID = WRD.INPID(+) AND RG.REGTYPE = 'I' AND RG.REGSTS = 'N' AND TO_CHAR(RG.REGDATE,'YYYYMM') = '" + fromDate + "' GROUP BY WRD.WRDCODE HAVING COUNT(WRD.WRDCODE)>0) ");
+		sqlStr.append("			order by r.wrdcode, r.time_slot ");
+
+		System.out.println(sqlStr.toString());
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getTop20AdmissRateReport(String fromDate, String toDate, String ward) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT ROWNUM AS RANK, DOCNAME, NOOFCASE ");
+		sqlStr.append("FROM (");
+		sqlStr.append("	SELECT (SELECT 'DR. '||D.DOCFNAME||', '||D.DOCGNAME FROM DOCTOR@iweb D WHERE D.DOCCODE = I.DOCCODE_A) AS DOCNAME ,I.DOCCODE_A, COUNT(DOCCODE_A) AS NOOFCASE ");
+		sqlStr.append("	FROM REG@iweb R, INPAT@iweb I ");
+		sqlStr.append("	WHERE R.INPID = I.INPID ");
+		sqlStr.append("	AND R.REGSTS = 'N' ");
+		sqlStr.append("	AND R.REGDATE >= TO_DATE('" + fromDate + " 00:00', 'dd/mm/yyyy hh24:mi') ");
+		sqlStr.append("	AND R.REGDATE < TO_DATE('" + toDate + " 00:00', 'dd/mm/yyyy hh24:mi') + 1 ");
+		if (ward != null && ward.length() > 0) {
+			sqlStr.append(" AND I.BEDCODE IN (SELECT B.BEDCODE FROM ROOM@iweb R, BED@iweb B WHERE R.ROMCODE = B.ROMCODE AND R.WRDCODE = '" + ward + "') ");
+		}
+		sqlStr.append("	GROUP BY I.DOCCODE_A ");
+		sqlStr.append("	ORDER BY NOOFCASE DESC, DOCNAME ASC ");
+		sqlStr.append("	) WHERE ROWNUM <= 20 ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getPatientRehabReport(String fromDate) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("select ");
+		sqlStr.append("YEARMTH AS MON, ");
+		sqlStr.append("TO_CHAR(TO_DATE(YEARMTH||'01','YYYYMMDD'),'MON','NLS_DATE_LANGUAGE=AMERICAN') AS ENG_MON, ");
+		sqlStr.append("AM_TOTAL AS COL1, ");
+		sqlStr.append("AM_CANCEL, ");
+		sqlStr.append("DECODE(AM_TOTAL,0,0,ROUND((AM_CANCEL/AM_TOTAL)*100,2))AS COL2, ");
+		sqlStr.append("AM_NOSHOW, ");
+		sqlStr.append("DECODE(AM_TOTAL,0,0,ROUND((AM_NOSHOW/AM_TOTAL)*100,2))AS COL3, ");
+		sqlStr.append("PM_TOTAL AS COL4, ");
+		sqlStr.append("PM_CANCEL, ");
+		sqlStr.append("DECODE(PM_TOTAL,0,0,ROUND((PM_CANCEL/PM_TOTAL)*100,2))AS COL5, ");
+		sqlStr.append("PM_NOSHOW, ");
+		sqlStr.append("DECODE(PM_TOTAL,0,0,ROUND((PM_NOSHOW/PM_TOTAL)*100,2))AS COL6 ");
+		sqlStr.append("FROM ( ");
+		sqlStr.append("SELECT ");
+		sqlStr.append("TO_CHAR(B.BKGSDATE,'YYYYMM') AS YEARMTH, ");
+		sqlStr.append("NVL(COUNT( ");
+		sqlStr.append("CASE WHEN  ");
+		sqlStr.append("TO_CHAR(B.BKGSDATE, 'hh24mi') >= '0800' AND TO_CHAR(B.BKGSDATE, 'hh24mi') <= '1759'  ");
+		sqlStr.append("AND B.BKGSTS IN ('N', 'F', 'C') ");
+		sqlStr.append("THEN TO_CHAR(B.BKGSDATE, 'YYYYMM') ELSE NULL END),0) AS AM_TOTAL, ");
+		sqlStr.append("NVL(COUNT( ");
+		sqlStr.append("CASE WHEN  ");
+		sqlStr.append("TO_CHAR(B.BKGSDATE, 'hh24mi') >= '0800' AND TO_CHAR(B.BKGSDATE, 'hh24mi') <= '1759'  ");
+		sqlStr.append("AND B.BKGSTS IN ('C') ");
+		sqlStr.append("THEN TO_CHAR(B.BKGSDATE, 'YYYYMM') ELSE NULL END),0) AS AM_CANCEL, ");
+		sqlStr.append("NVL(COUNT( ");
+		sqlStr.append("CASE WHEN  ");
+		sqlStr.append("TO_CHAR(B.BKGSDATE, 'hh24mi') >= '0800' AND TO_CHAR(B.BKGSDATE, 'hh24mi') <= '1759'  ");
+		sqlStr.append("AND B.BKGSTS IN ('N') ");
+		sqlStr.append("AND TRUNC(B.BKGSDATE, 'DD') < TRUNC(SYSDATE, 'DD') ");
+		sqlStr.append("THEN TO_CHAR(B.BKGSDATE, 'YYYYMM') ELSE NULL END),0) AS AM_NOSHOW, ");
+		sqlStr.append("NVL(COUNT( ");
+		sqlStr.append("CASE WHEN ");
+		sqlStr.append("((TO_CHAR(B.BKGSDATE-8/24, 'hh24mi') >= '1600' AND TO_CHAR(B.BKGSDATE-8/24, 'hh24mi') <= '2359') OR ");
+		sqlStr.append("(TO_CHAR(B.BKGSDATE, 'hh24mi') >= '1800' AND TO_CHAR(B.BKGSDATE, 'hh24mi') <= '2359')) ");
+		sqlStr.append("AND B.BKGSTS IN ('N', 'F', 'C' ) ");
+		sqlStr.append("THEN TO_CHAR(B.BKGSDATE, 'YYYYMM') ELSE NULL END),0) AS PM_TOTAL, ");
+		sqlStr.append("NVL(COUNT( ");
+		sqlStr.append("CASE WHEN ");
+		sqlStr.append("((TO_CHAR(B.BKGSDATE-8/24, 'hh24mi') >= '1600' AND TO_CHAR(B.BKGSDATE-8/24, 'hh24mi') <= '2359') OR ");
+		sqlStr.append("(TO_CHAR(B.BKGSDATE, 'hh24mi') >= '1800' AND TO_CHAR(B.BKGSDATE, 'hh24mi') <= '2359')) ");
+		sqlStr.append("AND B.BKGSTS IN ('C') ");
+		sqlStr.append("THEN TO_CHAR(B.BKGSDATE, 'YYYYMM') ELSE NULL END),0) AS PM_CANCEL, ");
+		sqlStr.append("NVL(COUNT( ");
+		sqlStr.append("CASE WHEN ");
+		sqlStr.append("((TO_CHAR(B.BKGSDATE-8/24, 'hh24mi') >= '1600' AND TO_CHAR(B.BKGSDATE-8/24, 'hh24mi') <= '2359') OR ");
+		sqlStr.append("(TO_CHAR(B.BKGSDATE, 'hh24mi') >= '1800' AND TO_CHAR(B.BKGSDATE, 'hh24mi') <= '2359')) ");
+		sqlStr.append("AND B.BKGSTS IN ('N') ");
+		sqlStr.append("AND TRUNC(B.BKGSDATE, 'DD') < TRUNC(SYSDATE, 'DD') ");
+		sqlStr.append("THEN TO_CHAR(B.BKGSDATE, 'YYYYMM') ELSE NULL END),0) AS PM_NOSHOW ");
+		sqlStr.append("FROM BOOKING@IWEB B, SCHEDULE@IWEB SCH, DOCTOR@IWEB DOC, SPEC@IWEB SP ");
+		sqlStr.append("WHERE B.SCHID = SCH.SCHID(+) ");
+		sqlStr.append("AND DOC.SPCCODE = SP.SPCCODE ");
+		sqlStr.append("AND SCH.DOCCODE = DOC.DOCCODE ");
+		sqlStr.append("AND SP.SPCCODE = 'PHYSIO' ");
+		sqlStr.append("AND TO_CHAR(B.BKGSDATE,'YYYY') = '" + fromDate + "' ");
+		sqlStr.append("GROUP BY TO_CHAR(B.BKGSDATE,'YYYYMM')) ");
+		sqlStr.append("ORDER BY 1 ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getPatientRehabStat(String fromDate) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("	 SELECT ");
+		sqlStr.append("  r.time_slot, ");
+		sqlStr.append("  nvl(d.COL1, 0) COL1, ");
+		sqlStr.append("  nvl(d.COL2, 0) COL2, ");
+		sqlStr.append("  nvl(d.COL3, 0) COL3, ");
+		sqlStr.append("  nvl(d.COL4, 0) COL4, ");
+		sqlStr.append("  nvl(d.COL5, 0) COL5, ");
+		sqlStr.append("  nvl(d.COL6, 0) COL6, ");
+		sqlStr.append("  nvl(d.COL7, 0) COL7, ");
+		sqlStr.append("  nvl(d.COL8, 0) COL8, ");
+		sqlStr.append("  nvl(d.COL9, 0) COL9, ");
+		sqlStr.append("  nvl(d.COL10, 0) COL10, ");
+		sqlStr.append("  nvl(d.COL11, 0) COL11, ");
+		sqlStr.append("  nvl(d.COL12, 0) COL12, ");
+		sqlStr.append("  nvl(d.COL13, 0) COL13, ");
+		sqlStr.append("  nvl(d.COL14, 0) COL14, ");
+		sqlStr.append("  nvl(d.COL15, 0) COL15, ");
+		sqlStr.append("  nvl(d.COL16, 0) COL16, ");
+		sqlStr.append("  nvl(d.COL17, 0) COL17, ");
+		sqlStr.append("  nvl(d.COL18, 0) COL18, ");
+		sqlStr.append("  nvl(d.COL19, 0) COL19, ");
+		sqlStr.append("  nvl(d.COL20, 0) COL20, ");
+		sqlStr.append("  nvl(d.COL21, 0) COL21, ");
+		sqlStr.append("  nvl(d.COL22, 0) COL22, ");
+		sqlStr.append("  nvl(d.COL23, 0) COL23, ");
+		sqlStr.append("  nvl(d.COL24, 0) COL24, ");
+		sqlStr.append("  nvl(d.COL25, 0) COL25, ");
+		sqlStr.append("  nvl(d.COL26, 0) COL26, ");
+		sqlStr.append("  nvl(d.COL27, 0) COL27, ");
+		sqlStr.append("  nvl(d.COL28, 0) COL28, ");
+		sqlStr.append("  nvl(d.COL29, 0) COL29, ");
+		sqlStr.append("  nvl(d.COL30, 0) COL30, ");
+		sqlStr.append("  nvl(d.COL31, 0) COL31 ");
+		sqlStr.append("from ( ");
+		sqlStr.append("  select ");
+		sqlStr.append("    time_slot, ");
+		sqlStr.append("    sum(decode(date_of_m, '01', cnt)) COL1, ");
+		sqlStr.append("    sum(decode(date_of_m, '02', cnt)) COL2, ");
+		sqlStr.append("    sum(decode(date_of_m, '03', cnt)) COL3, ");
+		sqlStr.append("    sum(decode(date_of_m, '04', cnt)) COL4, ");
+		sqlStr.append("    sum(decode(date_of_m, '05', cnt)) COL5, ");
+		sqlStr.append("    sum(decode(date_of_m, '06', cnt)) COL6, ");
+		sqlStr.append("    sum(decode(date_of_m, '07', cnt)) COL7, ");
+		sqlStr.append("    sum(decode(date_of_m, '08', cnt)) COL8, ");
+		sqlStr.append("    sum(decode(date_of_m, '09', cnt)) COL9, ");
+		sqlStr.append("    sum(decode(date_of_m, '10', cnt)) COL10, ");
+		sqlStr.append("    sum(decode(date_of_m, '11', cnt)) COL11, ");
+		sqlStr.append("    sum(decode(date_of_m, '12', cnt)) COL12, ");
+		sqlStr.append("    sum(decode(date_of_m, '13', cnt)) COL13, ");
+		sqlStr.append("    sum(decode(date_of_m, '14', cnt)) COL14, ");
+		sqlStr.append("    sum(decode(date_of_m, '15', cnt)) COL15, ");
+		sqlStr.append("    sum(decode(date_of_m, '16', cnt)) COL16, ");
+		sqlStr.append("    sum(decode(date_of_m, '17', cnt)) COL17, ");
+		sqlStr.append("    sum(decode(date_of_m, '18', cnt)) COL18, ");
+		sqlStr.append("    sum(decode(date_of_m, '19', cnt)) COL19, ");
+		sqlStr.append("    sum(decode(date_of_m, '20', cnt)) COL20, ");
+		sqlStr.append("    sum(decode(date_of_m, '21', cnt)) COL21, ");
+		sqlStr.append("    sum(decode(date_of_m, '22', cnt)) COL22, ");
+		sqlStr.append("    sum(decode(date_of_m, '23', cnt)) COL23, ");
+		sqlStr.append("    sum(decode(date_of_m, '24', cnt)) COL24, ");
+		sqlStr.append("    sum(decode(date_of_m, '25', cnt)) COL25, ");
+		sqlStr.append("    sum(decode(date_of_m, '26', cnt)) COL26, ");
+		sqlStr.append("    sum(decode(date_of_m, '27', cnt)) COL27, ");
+		sqlStr.append("    sum(decode(date_of_m, '28', cnt)) COL28, ");
+		sqlStr.append("    sum(decode(date_of_m, '29', cnt)) COL29, ");
+		sqlStr.append("    sum(decode(date_of_m, '30', cnt)) COL30, ");
+		sqlStr.append("    sum(decode(date_of_m, '31', cnt)) COL31 ");
+		sqlStr.append("  from ( ");
+		sqlStr.append("    select ");
+		sqlStr.append("      time_slot, ");
+		sqlStr.append("      date_of_m, ");
+		sqlStr.append("      count(1) cnt ");
+		sqlStr.append("    from ( ");
+		sqlStr.append("      select ");
+		sqlStr.append("        case when time >= '0000' and time <= '0559' then '0000-0559' else ");
+		sqlStr.append("          case when time >= '0600' and time <= '0659' then '0600-0659' else ");
+		sqlStr.append("            case when time >= '0700' and time <= '0759' then '0700-0759' else ");
+		sqlStr.append("              case when time >= '0800' and time <= '0859' then '0800-0859' else ");
+		sqlStr.append("                case when time >= '0900' and time <= '0959' then '0900-0959' else ");
+		sqlStr.append("                  case when time >= '1000' and time <= '1059' then '1000-1059' else ");
+		sqlStr.append("                    case when time >= '1100' and time <= '1159' then '1100-1159' else ");
+		sqlStr.append("                      case when time >= '1200' and time <= '1259' then '1200-1259' else ");
+		sqlStr.append("                        case when time >= '1300' and time <= '1359' then '1300-1359' else ");
+		sqlStr.append("                          case when time >= '1400' and time <= '1459' then '1400-1459' else ");
+		sqlStr.append("                            case when time >= '1500' and time <= '1559' then '1500-1559' else ");
+		sqlStr.append("                              case when time >= '1600' and time <= '1659' then '1600-1659' else ");
+		sqlStr.append("                                case when time >= '1700' and time <= '1759' then '1700-1759' else ");
+		sqlStr.append("                                  case when time >= '1800' and time <= '1859' then '1800-1859' else ");
+		sqlStr.append("                                    case when time >= '1900' and time <= '1959' then '1900-1959' else ");
+		sqlStr.append("                                      case when time >= '2000' and time <= '2059' then '2000-2059' else ");
+		sqlStr.append("                                        case when time >= '2100' and time <= '2159' then '2100-2159' else ");
+		sqlStr.append("                                          case when time >= '2200' and time <= '2259' then '2200-2259' else ");
+		sqlStr.append("                                            case when time >= '2300' and time <= '2359' then '2300-2359' else ");
+		sqlStr.append("                                            '0' end ");
+		sqlStr.append("                                          end ");
+		sqlStr.append("                                        end ");
+		sqlStr.append("                                      end ");
+		sqlStr.append("                                    end ");
+		sqlStr.append("                                  end ");
+		sqlStr.append("                                end ");
+		sqlStr.append("                              end ");
+		sqlStr.append("                            end ");
+		sqlStr.append("                          end ");
+		sqlStr.append("                        end ");
+		sqlStr.append("                      end ");
+		sqlStr.append("                    end ");
+		sqlStr.append("                  end ");
+		sqlStr.append("                end ");
+		sqlStr.append("              end ");
+		sqlStr.append("            end ");
+		sqlStr.append("          end ");
+		sqlStr.append("        end time_slot, ");
+		sqlStr.append("        date_of_m ");
+		sqlStr.append("      from ");
+		sqlStr.append("      ( ");
+		sqlStr.append("        SELECT ");
+		sqlStr.append("          TO_CHAR(B.BKGSDATE, 'dd') DATE_OF_M, ");
+		sqlStr.append("          to_char(B.BKGSDATE, 'hh24mi') time ");
+		sqlStr.append("        FROM BOOKING@IWEB B, SCHEDULE@IWEB SCH, DOCTOR@IWEB DOC, SPEC@IWEB SP ");
+		sqlStr.append("        WHERE B.SCHID = SCH.SCHID(+) ");
+		sqlStr.append("        AND DOC.SPCCODE = SP.SPCCODE ");
+		sqlStr.append("        AND SCH.DOCCODE = DOC.DOCCODE ");
+		sqlStr.append("        AND SP.SPCCODE = 'PHYSIO' ");
+		sqlStr.append("        AND B.BKGSTS IN ('N', 'F') ");
+		sqlStr.append("        AND TO_CHAR(B.BKGSDATE,'YYYYMM') = '" + fromDate + "' ");
+		sqlStr.append("      ) ");
+		sqlStr.append("    ) ");
+		sqlStr.append("    group by time_slot, date_of_m ");
+		sqlStr.append("  ) ");
+		sqlStr.append("  GROUP BY TIME_SLOT ");
+		sqlStr.append(") d, ");
+		sqlStr.append("( ");
+		sqlStr.append("    select ");
+		sqlStr.append("      decode( ");
+		sqlStr.append("        rownum, ");
+		sqlStr.append("        1, '0000-0559', ");
+		sqlStr.append("        2, '0600-0659', ");
+		sqlStr.append("        3, '0700-0759', ");
+		sqlStr.append("        4, '0800-0859', ");
+		sqlStr.append("        5, '0900-0959', ");
+		sqlStr.append("        6, '1000-1059', ");
+		sqlStr.append("        7, '1100-1159', ");
+		sqlStr.append("        8, '1200-1259', ");
+		sqlStr.append("        9, '1300-1359', ");
+		sqlStr.append("        10, '1400-1459', ");
+		sqlStr.append("        11, '1500-1559', ");
+		sqlStr.append("        12, '1600-1659', ");
+		sqlStr.append("        13, '1700-1759', ");
+		sqlStr.append("        14, '1800-1859', ");
+		sqlStr.append("        15, '1900-1959', ");
+		sqlStr.append("        16, '2000-2059', ");
+		sqlStr.append("        17, '2100-2159', ");
+		sqlStr.append("        18, '2200-2259', ");
+		sqlStr.append("        19, '2300-2359' ");
+		sqlStr.append("        ) time_slot ");
+		sqlStr.append("    from dual ");
+		sqlStr.append("    CONNECT BY ROWNUM <=19 ");
+		sqlStr.append(") R ");
+		sqlStr.append("WHERE R.TIME_SLOT=D.TIME_SLOT(+) ");
+		sqlStr.append("order by r.time_slot ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getPatTreatByItem(String fromDate, String toDate) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("	 SELECT SPX.ITMCODE, (SELECT ITEM.ITMNAME FROM ITEM@IWEB WHERE ITEM.ITMCODE = SPX.ITMCODE ) AS ITMNAME, SUM(UNIT) AS COUNT_TREAT  ");
+		sqlStr.append("	 FROM SLIPTX@IWEB SPX ");
+		sqlStr.append("	 WHERE SPX.STNSTS = 'N' ");
+		sqlStr.append("	 AND SPX.GLCCODE LIKE '210-%' ");
+		sqlStr.append("	 AND SPX.STNTDATE >= TO_DATE('" + fromDate+" 00:00', 'dd/mm/yyyy hh24:mi') ");
+		sqlStr.append("	 AND SPX.STNTDATE < TO_DATE('" + toDate+" 00:00', 'dd/mm/yyyy hh24:mi') + 1  ");
+		sqlStr.append("	 GROUP BY SPX.ITMCODE ");
+		sqlStr.append("	 HAVING COUNT(ITMCODE) > 0 ");
+		sqlStr.append("	 ORDER BY 1 ASC ");
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getPatTreatByPatient(String patNo, String fromDate, String toDate) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("	 SELECT  ");
+		sqlStr.append("	 SLP.PATNO, ");
+		sqlStr.append("	 ( ");
+		sqlStr.append("	 SELECT ");
+		sqlStr.append("	 DECODE(SIGN(INSTR(P.TITDESC,'.', 1)),0,P.TITDESC,1,SUBSTR(P.TITDESC,LENGTH(P.TITDESC)*-1,INSTR(P.TITDESC,'.', 1)-1))||'. '||P.PATGNAME||', '||P.PATFNAME ");
+		sqlStr.append("	 FROM PATIENT@IWEB P WHERE P.PATNO = SLP.PATNO ");
+		sqlStr.append("	 ) AS PATNAME, ");
+		sqlStr.append("	 SPX.ITMCODE,  ");
+		sqlStr.append("	 (SELECT ITEM.ITMNAME FROM ITEM@IWEB WHERE ITEM.ITMCODE = SPX.ITMCODE) AS ITMNAME, ");
+		sqlStr.append("	 SUM(SPX.STNNAMT),  ");
+		sqlStr.append("	 SUM( ");
+		sqlStr.append("	   CASE WHEN ");
+		sqlStr.append("	     SPX.STNSTS = 'N' ");
+		sqlStr.append("	   THEN SPX.UNIT ELSE 0 END) AS COUNT_TREAT ");
+		sqlStr.append("	 FROM SLIPTX@IWEB SPX, SLIP@IWEB SLP ");
+		sqlStr.append("	 WHERE SLP.SLPNO = SPX.SLPNO  ");
+		sqlStr.append("	 AND SLP.PATNO = '" + patNo + "' ");
+		sqlStr.append("	 AND SPX.GLCCODE LIKE '210-%' ");
+		sqlStr.append("	 AND SPX.STNSTS IN ('A','N') ");
+		sqlStr.append("	 AND SPX.STNTDATE >= TO_DATE('" + fromDate+" 00:00', 'dd/mm/yyyy hh24:mi') ");
+		sqlStr.append("	 AND SPX.STNTDATE < TO_DATE('" + toDate+" 00:00', 'dd/mm/yyyy hh24:mi') + 1  ");
+		sqlStr.append("	 GROUP BY SLP.PATNO , SPX.ITMCODE " );
+		sqlStr.append("	 ORDER BY SPX.ITMCODE ASC ");
+/*
+ * SELECT
+*
+FROM BEDPREBOK
+WHERE TO_CHAR(BPBHDATE,'YYYYMMDD') = '20150301'
+;
+SELECT B.BPBHDATE, B.ACMCODE
+FROM REG R, BEDPREBOK B
+WHERE B.PBPID = R.PBPID(+)
+AND TO_CHAR(B.BPBHDATE,'YYYYMMDD') = '20130301'
+AND B.WRDCODE IS NOT NULL
+;
+
+SELECT
+COUNT(CASE WHEN TO_CHAR(R.REGDATE,'HH24MI') >= '0700' AND TO_CHAR(R.REGDATE,'HH24MI') <= '1459' THEN RM.WRDCODE ELSE NULL END) AS A1
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE,'HH24MI') >= '1500' AND TO_CHAR(R.REGDATE,'HH24MI') <= '2259' THEN RM.WRDCODE ELSE NULL END) AS P1
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE,'HH24MI') >= '2300' AND TO_CHAR(R.REGDATE,'HH24MI') <= '0659' THEN RM.WRDCODE ELSE NULL END) AS N1
+, RM.WRDCODE
+--R.REGDATE, I.INPDDATE, I.ACMCODE
+FROM REG R, INPAT I, BED B, ROOM RM
+WHERE R.INPID = I.INPID(+)
+AND I.BEDCODE = B.BEDCODE
+AND B.ROMCODE = RM.ROMCODE
+AND TO_CHAR(R.REGDATE,'YYYYMMDD') = '20130301'
+AND R.REGTYPE ='I'
+GROUP BY (CASE WHEN TO_CHAR(R.REGDATE,'HH24MI') >= '2300' AND TO_CHAR(R.REGDATE,'HH24MI') <= '0659' THEN RM.WRDCODE ELSE NULL END), RM.WRDCODE
+;
+SELECT RM.WRDCODE,TO_CHAR(R.REGDATE,'YYYYMMDD HH24MI'), I.INPDDATE, I.ACMCODE
+FROM REG R, INPAT I, BED B, ROOM RM
+WHERE R.INPID = I.INPID(+)
+AND I.BEDCODE = B.BEDCODE
+AND B.ROMCODE = RM.ROMCODE
+AND TO_CHAR(R.REGDATE,'YYYYMMDD') = '20130301'
+AND R.REGTYPE ='I'
+ORDER BY 1,2
+;
+*/
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getWardScheduling(String currDate) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("SELECT ");
+		sqlStr.append("W.WRDCODE ");
+		sqlStr.append(",NVL(BPB.A1_1,0) AS A1_1 ");
+		sqlStr.append(",NVL(BPB.A1_2,0) AS A1_2");
+		sqlStr.append(",NVL(BPB.A1_3,0) AS A1_3 ");
+		sqlStr.append(",NVL(BPB.A1_4,0) AS A1_4 ");
+		sqlStr.append(",NVL(BPB.P1_1,0) AS P1_1 ");
+		sqlStr.append(",NVL(BPB.P1_2,0) AS P1_2 ");
+		sqlStr.append(",NVL(BPB.P1_3,0) AS P1_3 ");
+		sqlStr.append(",NVL(BPB.P1_4,0) AS P1_4 ");
+		sqlStr.append(",NVL(BPB.N1_1,0) AS N1_1 ");
+		sqlStr.append(",NVL(BPB.N1_2,0) AS N1_2 ");
+		sqlStr.append(",NVL(BPB.N1_3,0) AS N1_3 ");
+		sqlStr.append(",NVL(BPB.N1_4,0) AS N1_4 ");
+		sqlStr.append(",NVL(ADM_WO_DISC.A2_1,0) AS A2_1 ");
+		sqlStr.append(",NVL(ADM_WO_DISC.A2_2,0) AS A2_2 ");
+		sqlStr.append(",NVL(ADM_WO_DISC.A2_3,0) AS A2_3 ");
+		sqlStr.append(",NVL(ADM_WO_DISC.A2_4,0) AS A2_4 ");
+		sqlStr.append(",NVL(ADM_WO_DISC.P2_1,0) AS P2_1 ");
+		sqlStr.append(",NVL(ADM_WO_DISC.P2_2,0) AS P2_2 ");
+		sqlStr.append(",NVL(ADM_WO_DISC.P2_3,0) AS P2_3 ");
+		sqlStr.append(",NVL(ADM_WO_DISC.P2_4,0) AS P2_4 ");
+		sqlStr.append(",NVL(ADM_WO_DISC.N2_1,0) AS N2_1 ");
+		sqlStr.append(",NVL(ADM_WO_DISC.N2_2,0) AS N2_2 ");
+		sqlStr.append(",NVL(ADM_WO_DISC.N2_3,0) AS N2_3 ");
+		sqlStr.append(",NVL(ADM_WO_DISC.N2_4,0) AS N2_4 ");
+		sqlStr.append(",NVL(ADM_DISC.A3_1,0) AS A3_1 ");
+		sqlStr.append(",NVL(ADM_DISC.A3_2,0) AS A3_2 ");
+		sqlStr.append(",NVL(ADM_DISC.A3_3,0) AS A3_3 ");
+		sqlStr.append(",NVL(ADM_DISC.A3_4,0) AS A3_4 ");
+		sqlStr.append(",NVL(ADM_DISC.P3_1,0) AS P3_1 ");
+		sqlStr.append(",NVL(ADM_DISC.P3_2,0) AS P3_2 ");
+		sqlStr.append(",NVL(ADM_DISC.P3_3,0) AS P3_3 ");
+		sqlStr.append(",NVL(ADM_DISC.P3_4,0) AS P3_4 ");
+		sqlStr.append(",NVL(ADM_DISC.N3_1,0) AS N3_1 ");
+		sqlStr.append(",NVL(ADM_DISC.N3_2,0) AS N3_2 ");
+		sqlStr.append(",NVL(ADM_DISC.N3_3,0) AS N3_3 ");
+		sqlStr.append(",NVL(ADM_DISC.N3_4,0) AS N3_4 ");
+		sqlStr.append("FROM HKAH.WARD@IWEB W, (SELECT  ");
+		sqlStr.append("COUNT(CASE WHEN TO_CHAR(B.SCH_DATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(B.SCH_DATE-7/24,'HH24MI') <= '0759' AND B.ACMCODE='I' THEN B.WRDCODE ELSE NULL END) AS A1_1 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(B.SCH_DATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(B.SCH_DATE-7/24,'HH24MI') <= '0759' AND B.ACMCODE='P' THEN B.WRDCODE ELSE NULL END) AS A1_2 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(B.SCH_DATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(B.SCH_DATE-7/24,'HH24MI') <= '0759' AND B.ACMCODE='S' THEN B.WRDCODE ELSE NULL END) AS A1_3 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(B.SCH_DATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(B.SCH_DATE-7/24,'HH24MI') <= '0759' AND B.ACMCODE='T' THEN B.WRDCODE ELSE NULL END) AS A1_4 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(B.SCH_DATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(B.SCH_DATE-7/24,'HH24MI') <= '1559' AND B.ACMCODE='I' THEN B.WRDCODE ELSE NULL END) AS P1_1 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(B.SCH_DATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(B.SCH_DATE-7/24,'HH24MI') <= '1559' AND B.ACMCODE='P' THEN B.WRDCODE ELSE NULL END) AS P1_2 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(B.SCH_DATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(B.SCH_DATE-7/24,'HH24MI') <= '1559' AND B.ACMCODE='S' THEN B.WRDCODE ELSE NULL END) AS P1_3 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(B.SCH_DATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(B.SCH_DATE-7/24,'HH24MI') <= '1559' AND B.ACMCODE='T' THEN B.WRDCODE ELSE NULL END) AS P1_4 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(B.SCH_DATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(B.SCH_DATE-7/24,'HH24MI') <= '2359' AND B.ACMCODE='I' THEN B.WRDCODE ELSE NULL END) AS N1_1 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(B.SCH_DATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(B.SCH_DATE-7/24,'HH24MI') <= '2359' AND B.ACMCODE='P' THEN B.WRDCODE ELSE NULL END) AS N1_2 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(B.SCH_DATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(B.SCH_DATE-7/24,'HH24MI') <= '2359' AND B.ACMCODE='S' THEN B.WRDCODE ELSE NULL END) AS N1_3 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(B.SCH_DATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(B.SCH_DATE-7/24,'HH24MI') <= '2359' AND B.ACMCODE='T' THEN B.WRDCODE ELSE NULL END) AS N1_4 ");
+		sqlStr.append(",B.WRDCODE ");
+		sqlStr.append("FROM ( ");
+		sqlStr.append("SELECT B.BPBHDATE AS SCH_DATE, ");
+		sqlStr.append("B.WRDCODE, ");
+		sqlStr.append("B.ACMCODE ");
+		sqlStr.append("FROM BEDPREBOK@IWEB B ");
+		sqlStr.append("WHERE TRUNC(B.BPBHDATE-7/24,'DD') = TO_DATE('" + currDate + "', 'dd/mm/yyyy') ");
+		sqlStr.append("AND BPBSTS='N' ");
+		sqlStr.append("UNION ALL ");
+		sqlStr.append("SELECT ");
+		sqlStr.append("R.REGDATE AS SCH_DATE ");
+		sqlStr.append(", B.WRDCODE ");
+		sqlStr.append(", B.ACMCODE ");
+		sqlStr.append("FROM ( ");
+		sqlStr.append("SELECT ");
+		sqlStr.append("RM.WRDCODE ");
+		sqlStr.append(", R.REGDATE ");
+		sqlStr.append(", I.INPDDATE ");
+		sqlStr.append(", R.PBPID ");
+		sqlStr.append(", R.REGID ");
+		sqlStr.append("FROM REG@IWEB R, INPAT@IWEB I, BED@IWEB B, ROOM@IWEB RM ");
+		sqlStr.append("WHERE R.INPID = I.INPID(+) ");
+		sqlStr.append("AND I.BEDCODE = B.BEDCODE ");
+		sqlStr.append("AND B.ROMCODE = RM.ROMCODE ");
+		sqlStr.append("AND R.REGTYPE ='I' ");
+		sqlStr.append("AND R.REGSTS='N' ");
+		sqlStr.append(") R, BEDPREBOK@IWEB B ");
+		sqlStr.append("WHERE B.PBPID = R.PBPID(+) ");
+		sqlStr.append("AND TRUNC(R.REGDATE-7/24,'DD') = TO_DATE('" + currDate + "', 'dd/mm/yyyy') ");
+		sqlStr.append("AND B.WRDCODE IS NOT NULL ");
+		sqlStr.append("AND B.ACMCODE IS NOT NULL) B ");
+		sqlStr.append("GROUP BY B.WRDCODE) BPB, ( ");
+		sqlStr.append("SELECT ");
+		sqlStr.append("COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '0759'  AND I.ACMCODE='I' THEN RM.WRDCODE ELSE NULL END) AS A2_1 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '0759' AND I.ACMCODE='P' THEN RM.WRDCODE ELSE NULL END) AS A2_2 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '0759' AND I.ACMCODE='S' THEN RM.WRDCODE ELSE NULL END) AS A2_3 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '0759' AND I.ACMCODE='T' THEN RM.WRDCODE ELSE NULL END) AS A2_4 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '1559' AND I.ACMCODE='I' THEN RM.WRDCODE ELSE NULL END) AS P2_1 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '1559' AND I.ACMCODE='P' THEN RM.WRDCODE ELSE NULL END) AS P2_2 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '1559' AND I.ACMCODE='S' THEN RM.WRDCODE ELSE NULL END) AS P2_3 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '1559' AND I.ACMCODE='T' THEN RM.WRDCODE ELSE NULL END) AS P2_4 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '2359' AND I.ACMCODE='I' THEN RM.WRDCODE ELSE NULL END) AS N2_1 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '2359' AND I.ACMCODE='P' THEN RM.WRDCODE ELSE NULL END) AS N2_2 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '2359' AND I.ACMCODE='S' THEN RM.WRDCODE ELSE NULL END) AS N2_3 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '2359' AND I.ACMCODE='T' THEN RM.WRDCODE ELSE NULL END) AS N2_4 ");
+		sqlStr.append(", RM.WRDCODE ");
+		sqlStr.append("FROM REG@IWEB R, INPAT@IWEB I, BED@IWEB B, ROOM@IWEB RM ");
+		sqlStr.append("WHERE R.INPID = I.INPID(+) ");
+		sqlStr.append("AND I.BEDCODE = B.BEDCODE ");
+		sqlStr.append("AND B.ROMCODE = RM.ROMCODE ");
+		sqlStr.append("AND TRUNC(R.REGDATE-7/24,'DD') = TO_DATE('" + currDate + "', 'dd/mm/yyyy') ");
+		sqlStr.append("AND R.REGTYPE ='I' ");
+		sqlStr.append("AND R.REGSTS='N' ");
+		sqlStr.append("AND R.PBPID IS NULL ");
+		sqlStr.append("GROUP BY RM.WRDCODE) ADM_WO_DISC,( ");
+		sqlStr.append("SELECT ");
+		sqlStr.append("COUNT(CASE WHEN TO_CHAR(I.INPDDATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(I.INPDDATE-7/24,'HH24MI') <= '0759' AND I.ACMCODE='I' THEN RM.WRDCODE ELSE NULL END) AS A3_1 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(I.INPDDATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(I.INPDDATE-7/24,'HH24MI') <= '0759' AND I.ACMCODE='P' THEN RM.WRDCODE ELSE NULL END) AS A3_2 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(I.INPDDATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(I.INPDDATE-7/24,'HH24MI') <= '0759' AND I.ACMCODE='S' THEN RM.WRDCODE ELSE NULL END) AS A3_3 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(I.INPDDATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(I.INPDDATE-7/24,'HH24MI') <= '0759' AND I.ACMCODE='T' THEN RM.WRDCODE ELSE NULL END) AS A3_4 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(I.INPDDATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(I.INPDDATE-7/24,'HH24MI') <= '1559' AND I.ACMCODE='I' THEN RM.WRDCODE ELSE NULL END) AS P3_1 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(I.INPDDATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(I.INPDDATE-7/24,'HH24MI') <= '1559' AND I.ACMCODE='P' THEN RM.WRDCODE ELSE NULL END) AS P3_2 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(I.INPDDATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(I.INPDDATE-7/24,'HH24MI') <= '1559' AND I.ACMCODE='S' THEN RM.WRDCODE ELSE NULL END) AS P3_3 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(I.INPDDATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(I.INPDDATE-7/24,'HH24MI') <= '1559' AND I.ACMCODE='T' THEN RM.WRDCODE ELSE NULL END) AS P3_4 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(I.INPDDATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(I.INPDDATE-7/24,'HH24MI') <= '2359' AND I.ACMCODE='I' THEN RM.WRDCODE ELSE NULL END) AS N3_1 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(I.INPDDATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(I.INPDDATE-7/24,'HH24MI') <= '2359' AND I.ACMCODE='P' THEN RM.WRDCODE ELSE NULL END) AS N3_2 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(I.INPDDATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(I.INPDDATE-7/24,'HH24MI') <= '2359' AND I.ACMCODE='S' THEN RM.WRDCODE ELSE NULL END) AS N3_3 ");
+		sqlStr.append(",COUNT(CASE WHEN TO_CHAR(I.INPDDATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(I.INPDDATE-7/24,'HH24MI') <= '2359' AND I.ACMCODE='T' THEN RM.WRDCODE ELSE NULL END) AS N3_4 ");
+		sqlStr.append(", RM.WRDCODE ");
+		sqlStr.append("FROM REG@IWEB R, INPAT@IWEB I, BED@IWEB B, ROOM@IWEB RM ");
+		sqlStr.append("WHERE R.INPID = I.INPID(+) ");
+		sqlStr.append("AND I.BEDCODE = B.BEDCODE ");
+		sqlStr.append("AND B.ROMCODE = RM.ROMCODE ");
+		sqlStr.append("AND TRUNC(I.INPDDATE-7/24,'DD') = TO_DATE('" + currDate + "', 'dd/mm/yyyy') ");
+		sqlStr.append("AND R.REGTYPE ='I' ");
+		sqlStr.append("AND R.REGSTS='N' ");
+		sqlStr.append("AND I.INPDDATE IS NOT NULL ");
+		sqlStr.append("GROUP BY RM.WRDCODE) ADM_DISC ");
+		sqlStr.append("WHERE W.WRDCODE = BPB.WRDCODE(+) ");
+		sqlStr.append("AND W.WRDCODE = ADM_DISC.WRDCODE(+) ");
+		sqlStr.append("AND W.WRDCODE = ADM_WO_DISC.WRDCODE(+) ");
+		sqlStr.append("AND W.ACTIVE = -1 ");
+
+//	System.out.println(sqlStr.toString());
+
+	return UtilDBWeb.getReportableList(sqlStr.toString());
+}
+
+	public static ArrayList getInpAvgLOS(String reportDate) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("SELECT ");
+		sqlStr.append("  WARD \"WARD\", ");
+		sqlStr.append("  TO_CHAR(COUNT(1)) \"TOT_NUM_DISCH\", ");
+		sqlStr.append("  TO_CHAR(SUM(LOS)) \"TOT_LOS\", ");
+		sqlStr.append("  TO_CHAR(ROUND(AVG(LOS), 2)) \"AVG_LOS\" ");
+		sqlStr.append("FROM ");
+		sqlStr.append("( ");
+		sqlStr.append("SELECT ");
+		sqlStr.append("  W.WRDNAME \"WARD\",  ");
+		sqlStr.append("  R.REGDATE \"ADMDATE\",  ");
+		sqlStr.append("  I.INPDDATE \"DISCHAREDATE\", ");
+		sqlStr.append("  TRUNC(I.INPDDATE) - TRUNC(R.REGDATE) + 1 \"LOS\" ");
+		sqlStr.append("FROM  ");
+		sqlStr.append("  REG@IWEB R LEFT JOIN INPAT@IWEB I ON I.INPID = R.INPID ");
+		sqlStr.append("  LEFT JOIN BED@IWEB B ON I.BEDCODE = B.BEDCODE ");
+		sqlStr.append("  LEFT JOIN ROOM@IWEB RM ON B.ROMCODE = RM.ROMCODE ");
+		sqlStr.append("  LEFT JOIN WARD@IWEB W ON RM.WRDCODE = W.WRDCODE ");
+		sqlStr.append("WHERE ");
+		sqlStr.append("  I.INPDDATE >= TO_DATE('" + reportDate + "', 'DD/MM/YYYY HH24:MI:SS') ");
+		sqlStr.append("  AND I.INPDDATE < ADD_MONTHS(TO_DATE('" + reportDate + "', 'DD/MM/YYYY HH24:MI:SS'), 1) ");
+		sqlStr.append("  AND R.REGTYPE = 'I' ");
+		sqlStr.append("  AND R.REGSTS = 'N' ");
+		sqlStr.append(") ");
+		sqlStr.append("GROUP BY WARD ");
+
+		// System.out.println(sqlStr.toString());
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getInpAvgLOSDetail(String reportDate) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT ");
+		sqlStr.append("  W.WRDNAME \"WARD\", ");
+		sqlStr.append("  R.PATNO, ");
+		sqlStr.append("  R.REGID, ");
+		sqlStr.append("  TO_CHAR(R.REGDATE, 'YYYY/MM/DD HH24:MI:SS') \"AdmDate\", ");
+		sqlStr.append("  TO_CHAR(I.INPDDATE, 'YYYY/MM/DD HH24:MI:SS') \"DischarageDate\", ");
+		sqlStr.append("  TRUNC(I.INPDDATE) - TRUNC(R.REGDATE) + 1 \"LOS\", ");
+		sqlStr.append("  I.BEDCODE, ");
+		sqlStr.append("  R.REGSTS ");
+		sqlStr.append("FROM ");
+		sqlStr.append("  REG@IWEB R LEFT JOIN INPAT@IWEB I ON I.INPID = R.INPID ");
+		sqlStr.append("  LEFT JOIN BED@IWEB B ON I.BEDCODE = B.BEDCODE ");
+		sqlStr.append("  LEFT JOIN ROOM@IWEB RM ON B.ROMCODE = RM.ROMCODE ");
+		sqlStr.append("  LEFT JOIN WARD@IWEB W ON RM.WRDCODE = W.WRDCODE ");
+		sqlStr.append("WHERE ");
+		sqlStr.append("  I.INPDDATE >= TO_DATE('" + reportDate + "', 'DD/MM/YYYY HH24:MI:SS') ");
+		sqlStr.append("  AND I.INPDDATE < ADD_MONTHS(TO_DATE('" + reportDate + "', 'DD/MM/YYYY HH24:MI:SS'), 1) ");
+		sqlStr.append("  AND R.REGTYPE = 'I' ");
+		sqlStr.append("  AND R.REGSTS = 'N' ");
+
+		// System.out.println(sqlStr.toString());
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getPatientChargeSummaryReport(String siteCode, String dischargeDateFrom, String dischargeDateTo) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("select ");
+		sqlStr.append("  dr.doccode DOCCODE,");
+		sqlStr.append("  dr.doccode_s DOCCODE_SLIP,");
+		sqlStr.append("  dr.DOCFNAME,");
+		sqlStr.append("  dr.DOCGNAME,");
+		sqlStr.append("  s.REGTYPE,");
+		sqlStr.append("  s.SDSCODE,");
+		sqlStr.append("  s.SDSDESC,");
+		sqlStr.append("  s.ACMNAME,");
+		sqlStr.append("  s.LOS,");
+		sqlStr.append("  s.DISCH_DATE,");
+		sqlStr.append("  s.PATNO,");
+		sqlStr.append("  s.PATFNAME,");
+		sqlStr.append("  s.PATGNAME,");
+		sqlStr.append("  -1,");	//--s.DR_FEE,
+		sqlStr.append("  -1, "); //--s.OTHER_DR,
+		sqlStr.append("  -1, "); //--s.OTHER_DR_FEE,
+		sqlStr.append("  -1, "); //--s.HAS_ANES_ITEM,
+		sqlStr.append("  s.HOSP_FEE,");
+		sqlStr.append("  -1,");	//--s.HOSP_FEE,
+		sqlStr.append("  dr.TITLE,");
+		sqlStr.append("  dr.ADD1,");
+		sqlStr.append("  dr.ADD2,");
+		sqlStr.append("  dr.ADD3,");
+		sqlStr.append("  dr.ADD4 ");
+		sqlStr.append("from ");
+		sqlStr.append("( ");
+
+		sqlStr.append("select  ");
+		sqlStr.append("  r.regid, ");
+		sqlStr.append("  s.doccode \"DOCCODE\", ");
+		sqlStr.append("  inp.doccode_a \"DOCCODE_A\", ");
+		sqlStr.append("  d.docfname \"DOCFNAME\", ");
+		sqlStr.append("  d.docgname \"DOCGNAME\", ");
+		sqlStr.append("  r.regtype \"REGTYPE\", ");
+		sqlStr.append("  CASE WHEN r.regtype = 'D' THEN dayp.sdscode ELSE inp.sdscode END \"SDSCODE\", ");
+		sqlStr.append("  CASE WHEN r.regtype = 'D' THEN sd2.sdsdesc ELSE sd.sdsdesc END \"SDSDESC\", ");
+		sqlStr.append("  a.acmname \"ACMNAME\", ");
+		//sqlStr.append("  --r.regdate \"REGDATE\", ");
+		sqlStr.append("  CASE WHEN r.regtype = 'D' THEN '1' ELSE to_char(TRUNC(Inp.INPDDATE) - TRUNC(R.REGDATE) + 1) END \"LOS\", ");
+		//sqlStr.append("  --inp.inpid \"INPID\", ");
+		sqlStr.append("  CASE WHEN r.regtype = 'D' THEN to_char(r.regdate, 'dd/mm/yyyy') ELSE to_char(inp.inpddate, 'dd/mm/yyyy') END \"DISCH_DATE\", ");
+		sqlStr.append("  r.patno \"PATNO\", ");
+		sqlStr.append("  p.patfname \"PATFNAME\", ");
+		sqlStr.append("  p.patgname \"PATGNAME\", ");
+		//sqlStr.append("  -- doctor charges ");
+		sqlStr.append("  to_char(SUM(CASE WHEN tx.itmtype = 'D' THEN tx.stnnamt ELSE 0 END)) \"DR_FEE\", ");
+		//sqlStr.append("  -- hospital charges (-ve for discount) ");
+		sqlStr.append("  to_char(SUM(case when (tx.glccode not like '400%') then tx.stnnamt ELSE 0 end)) \"HOSP_FEE\" ");
+		sqlStr.append("from  ");
+		sqlStr.append("  reg@iweb r ");
+		sqlStr.append("  join slip@iweb s on r.regid = s.regid ");
+		sqlStr.append("  left join inpat@iweb inp on r.inpid = inp.inpid ");
+		sqlStr.append("  left join daypat@iweb dayp on r.daypid = dayp.daypid ");
+		sqlStr.append("  join sliptx@iweb tx on s.slpno = tx.slpno ");
+		sqlStr.append("  join item@iweb itm on tx.itmcode = itm.itmcode ");
+		sqlStr.append("  join patient@iweb p on r.patno = p.patno ");
+		sqlStr.append("  join doctor@iweb d on s.doccode = d.doccode ");
+		sqlStr.append("  left join acm@iweb a on inp.acmcode = a.acmcode ");
+		sqlStr.append("  left join sdisease@iweb sd on inp.sdscode = sd.sdscode ");
+		sqlStr.append("  left join sdisease@iweb sd2 on dayp.sdscode = sd2.sdscode ");
+		sqlStr.append("  left join patcat@iweb pc on s.pcyid = pc.pcyid ");
+		sqlStr.append("where ");
+		sqlStr.append("1=1 ");
+		//sqlStr.append("-- filter only itmtype D, H ");
+		sqlStr.append("and tx.itmtype in ('D', 'H', 'S') ");
+		//sqlStr.append("-- filter out payment items ");
+		sqlStr.append("and tx.itmcode not in ('PAYME', 'REF') ");
+		//sqlStr.append("-- filter out deposit items ");
+		sqlStr.append("and itm.itmcat <> 'O' ");
+		//sqlStr.append("-- filter by inp(hk)/daycase(tw) ");
+		sqlStr.append("and (('" + siteCode.toLowerCase() + "' = 'hkah' and r.regtype = 'I') or ('" + siteCode.toLowerCase() + "' = 'twah' and r.regtype in ('I', 'D'))) ");
+		//sqlStr.append("-- filter by discharge date ");
+		sqlStr.append("and ");
+		sqlStr.append("	( ");
+		sqlStr.append("		(r.regtype = 'I' and inp.inpddate between to_date('" + dischargeDateFrom + "', 'dd/mm/yyyy') and to_date('" + dischargeDateTo + "', 'dd/mm/yyyy') +1) or ");
+		sqlStr.append("		(r.regtype = 'D' and r.regdate between to_date('" + dischargeDateFrom + "', 'dd/mm/yyyy') and to_date('" + dischargeDateTo + "', 'dd/mm/yyyy') +1) ");
+		sqlStr.append("	) ");
+		//sqlStr.append("-- filter by normal reg, slip and sliptx ");
+		sqlStr.append("and r.regsts in ('N') ");
+		sqlStr.append("and s.slpsts in ('A', 'C') ");
+		sqlStr.append("and tx.stnsts in ('N', 'A', 'P') ");
+		//sqlStr.append("-- filter out patient cateogory: charity ");
+		sqlStr.append("and (('" + siteCode.toLowerCase() + "' = 'hkah' and (s.pcyid is null or pc.pcycode not in ('CH'))) or ('" + siteCode.toLowerCase() + "' = 'twah' and s.slpno not in (select slpno from sliptx@iweb where itmcode in ('MSCHT') and stnsts = 'N'))) ");
+		sqlStr.append("group by r.regid, s.doccode, inp.doccode_a, d.docfname, d.docgname, r.regtype, inp.sdscode, dayp.sdscode, sd.sdsdesc, sd2.sdsdesc, a.acmname, r.regdate, TRUNC(Inp.INPDDATE) - TRUNC(R.REGDATE) + 1, inp.inpddate, r.patno, p.patfname, p.patgname ");
+		sqlStr.append(") s ");
+
+		sqlStr.append("join ");
+
+		sqlStr.append("(");
+		sqlStr.append("	select");
+		sqlStr.append("	  distinct");
+		sqlStr.append("	  txd.regid,");
+		sqlStr.append("	  d.doccode,");
+		sqlStr.append("	  txd.doccode_s,");
+		sqlStr.append("	  d.docfname,");
+		sqlStr.append("	  d.docgname,");
+		sqlStr.append("   d.tittle TITLE, ");
+		sqlStr.append("   decode(d.RPTTO, null,'','C',d.DOCADD1,'H',d.DOCHOMADD1,'O',d.DOCOFFADD1) ADD1, ");
+		sqlStr.append("   decode(d.RPTTO, null,'','C',d.DOCADD2,'H',d.DOCHOMADD2,'O',d.DOCOFFADD2) ADD2, ");
+		sqlStr.append("   decode(d.RPTTO, null,'','C',d.DOCADD3,'H',d.DOCHOMADD3,'O',d.DOCOFFADD3) ADD3, ");
+		sqlStr.append("   decode(d.RPTTO, null,'','C',d.DOCADD4,'H',d.DOCHOMADD4,'O',d.DOCOFFADD4) ADD4 ");
+		sqlStr.append("	from");
+		sqlStr.append("	(");
+		sqlStr.append("	  select ");
+		sqlStr.append("		distinct");
+		sqlStr.append("		r.regid,");
+		sqlStr.append("		d.doccode doccode_tx,");
+		sqlStr.append("		s.doccode doccode_s,");
+		sqlStr.append("		inp.DOCCODE_A");
+		sqlStr.append("	  from ");
+		sqlStr.append("		reg@iweb r");
+		sqlStr.append("		join slip@iweb s on r.regid = s.regid");
+		sqlStr.append("		join sliptx@iweb tx on s.slpno = tx.slpno");
+		sqlStr.append("		join item@iweb itm on tx.itmcode = itm.itmcode");
+		sqlStr.append("		join doctor@iweb d on tx.doccode = d.doccode");
+		sqlStr.append("		left join inpat@iweb inp on r.inpid = inp.inpid");
+		sqlStr.append("		left join patcat@iweb pc on s.pcyid = pc.pcyid");
+		sqlStr.append("	  where");
+		sqlStr.append("		1=1");
+		sqlStr.append("		and r.regsts in ('N')");
+		sqlStr.append("		and s.slpsts in ('A', 'C')");
+		sqlStr.append("		and tx.stnsts in ('N', 'A', 'P')");
+		sqlStr.append("		and tx.itmtype in ('D', 'H', 'S')");
+		sqlStr.append("		and itm.itmcat <> 'O'");
+		sqlStr.append("		and tx.itmcode not in ('PAYME', 'REF')");
+		sqlStr.append("		and (('" + siteCode.toLowerCase() + "' = 'hkah' and r.regtype = 'I') or ('" + siteCode.toLowerCase() + "' = 'twah' and r.regtype in ('I', 'D')))");
+		sqlStr.append("		and ");
+		sqlStr.append("		  (");
+		sqlStr.append("		   (r.regtype = 'I' and inp.inpddate between to_date('" + dischargeDateFrom + "', 'dd/mm/yyyy') and to_date('" + dischargeDateTo + "', 'dd/mm/yyyy') +1) or");
+		sqlStr.append("		   (r.regtype = 'D' and r.regdate between to_date('" + dischargeDateFrom + "', 'dd/mm/yyyy') and to_date('" + dischargeDateTo + "', 'dd/mm/yyyy') +1)");
+		sqlStr.append("		  )");
+		sqlStr.append("		and (('" + siteCode.toLowerCase() + "' = 'hkah' and (s.pcyid is null or pc.pcycode not in ('CH'))) or ('" + siteCode.toLowerCase() + "' = 'twah' and s.slpno not in (select slpno from sliptx@iweb where itmcode in ('MSCHT') and stnsts = 'N')))");
+		sqlStr.append("		and (('" + siteCode.toLowerCase() + "' = 'hkah' and d.spccode <> 'ANAES') or ('" + siteCode.toLowerCase() + "' = 'twah' and d.spccode <> 'AN'))");
+		sqlStr.append("	) txd ");
+		sqlStr.append("	join doctor@iweb d on txd.doccode_s = d.doccode ");
+		sqlStr.append(") dr on s.regid = dr.regid ");
+		sqlStr.append("where dr.DOCCODE is not null ");
+		sqlStr.append("order by dr.DOCFNAME, dr.DOCGNAME, dr.doccode, s.REGTYPE desc, s.sdscode, s.ACMNAME, s.LOS, s.DISCH_DATE");
+
+		// System.out.println("[rptPatientChartSummary] sql=" + sqlStr.toString());
+
+		return UtilDBWeb.getReportableList(sqlStr.toString());
+	}
+
+	public static ArrayList getDmsPatLockList(
+			String patno, String lockBy, String lockedDateFrom, String lockedDateTo,
+			String unlockBy, String unlockDateFrom, String unlockDateTo,
+			String reasonSubString, String remarksSubString
+			) {
+		List<String> params = new ArrayList<String>();
+		StringBuffer sqlStr = new StringBuffer();
+		StringBuffer sqlStrWhere = new StringBuffer();
+
+		sqlStr.append("select SEQNO, PATNO, LOCK_BY, TO_CHAR(LOCK_DATE, 'DD/MM/YYYY HH24:MI:SS'), ");
+		sqlStr.append("UNLOCK_BY, TO_CHAR(UNLOCK_DATE, 'DD/MM/YYYY HH24:MI:SS'), REASON, REMARKS, ");
+		sqlStr.append("UPDATE_USER, TO_CHAR(UPDATE_DATE, 'DD/MM/YYYY HH24:MI:SS'), ");
+		sqlStr.append("slk.co_staffname lock_by_name, sulk.co_staffname unlock_by_name ");
+		sqlStr.append("from  DMS_PAT_LOCK ");
+		sqlStr.append("  left join co_staffs@portal slk on LOCK_BY = slk.co_staff_id ");
+		sqlStr.append("  left join co_staffs@portal sulk on UNLOCK_BY = sulk.co_staff_id ");
+		if (patno != null && !"".equals(patno)) {
+			if (sqlStrWhere.length() > 0 )
+				sqlStrWhere.append(" AND");
+			sqlStrWhere.append(" PATNO = ?");
+			params.add(patno);
+		}
+		if (lockBy != null && !"".equals(lockBy)) {
+			if (sqlStrWhere.length() > 0 )
+				sqlStrWhere.append(" AND");
+			sqlStrWhere.append(" LOCK_BY = ?");
+			params.add(lockBy);
+		}
+		if (lockedDateFrom != null && !"".equals(lockedDateFrom)) {
+			if (sqlStrWhere.length() > 0 )
+				sqlStrWhere.append(" AND");
+			sqlStrWhere.append(" LOCK_DATE >= TRUNC(TO_DATE(?, 'DD/MM/YYYY'))");
+			params.add(lockedDateFrom);
+		}
+		if (lockedDateTo != null && !"".equals(lockedDateTo)) {
+			if (sqlStrWhere.length() > 0 )
+				sqlStrWhere.append(" AND");
+			sqlStrWhere.append(" LOCK_DATE < TRUNC(TO_DATE(?, 'DD/MM/YYYY') + 1)");
+			params.add(lockedDateTo);
+		}
+		if (unlockBy != null && !"".equals(unlockBy)) {
+			if (sqlStrWhere.length() > 0 )
+				sqlStrWhere.append(" AND");
+			sqlStrWhere.append(" UNLOCK_BY = ?");
+			params.add(unlockBy);
+		}
+		if (unlockDateFrom != null && !"".equals(unlockDateFrom)) {
+			if (sqlStrWhere.length() > 0 )
+				sqlStrWhere.append(" AND");
+			sqlStrWhere.append(" UNLOCK_DATE >= TRUNC(TO_DATE(?, 'DD/MM/YYYY'))");
+			params.add(unlockDateFrom);
+		}
+		if (unlockDateTo != null && !"".equals(unlockDateTo)) {
+			if (sqlStrWhere.length() > 0 )
+				sqlStrWhere.append(" AND");
+			sqlStrWhere.append(" UNLOCK_DATE < TRUNC(TO_DATE(?, 'DD/MM/YYYY') + 1)");
+			params.add(unlockDateTo);
+		}
+		if (reasonSubString != null && !"".equals(reasonSubString)) {
+			if (sqlStrWhere.length() > 0 )
+				sqlStrWhere.append(" AND");
+			sqlStrWhere.append(" UPPER(REASON) like UPPER('%" + StringEscapeUtils.escapeSql(reasonSubString) + "%')");
+		}
+		if (remarksSubString != null && !"".equals(remarksSubString)) {
+			if (sqlStrWhere.length() > 0 )
+				sqlStrWhere.append(" AND");
+			sqlStrWhere.append(" UPPER(REMARKS) like UPPER('%" + StringEscapeUtils.escapeSql(remarksSubString) + "%')");
+		}
+
+		if (sqlStrWhere.length() > 0) {
+			sqlStr.append("WHERE ");
+			sqlStr.append(sqlStrWhere.toString());
+		}
+		sqlStr.append(" ORDER BY SEQNO DESC ");
+
+		//System.out.println("SQL=" + sqlStr.toString());
+		String[] paramsArray = params.toArray(new String[]{});
+		return UtilDBWeb.getReportableListCIS(sqlStr.toString(), paramsArray);
+	}
+
+	public static ArrayList getPatLock(String seqno) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("SELECT SEQNO, PATNO, LOCK_BY, TO_CHAR(LOCK_DATE, 'DD/MM/YYYY HH24:MI:SS'), ");
+		sqlStr.append("REASON, REMARKS, UPDATE_USER, TO_CHAR(UPDATE_DATE, 'DD/MM/YYYY HH24:MI:SS'), ");
+		sqlStr.append("UNLOCK_BY, TO_CHAR(UNLOCK_DATE, 'DD/MM/YYYY HH24:MI:SS'), ");
+		sqlStr.append("slk.co_staffname lock_by_name, sulk.co_staffname unlock_by_name, supd.co_staffname ");
+		sqlStr.append("FROM DMS_PAT_LOCK ");
+		sqlStr.append("  left join co_staffs@portal slk on LOCK_BY = slk.co_staff_id ");
+		sqlStr.append("  left join co_staffs@portal sulk on UNLOCK_BY = sulk.co_staff_id ");
+		sqlStr.append("  left join co_staffs@portal supd on UPDATE_USER = supd.co_staff_id ");
+		sqlStr.append("WHERE SEQNO = ? ");
+
+		return UtilDBWeb.getReportableListCIS(sqlStr.toString(), new String[]{seqno});
+	}
+
+	public static ArrayList getPatLockStatus(String patno) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("select  ");
+		sqlStr.append("  p.patno,  ");
+		sqlStr.append("  p.patfname,  ");
+		sqlStr.append("  p.patgname,  ");
+		sqlStr.append("  to_char(l.lock_date, 'dd/mm/yyyy hh24:mi:ss') lock_date,  ");
+		sqlStr.append("  to_char(l.unlock_date, 'dd/mm/yyyy hh24:mi:ss') unlock_date,  ");
+		sqlStr.append("  case when l.seqno is not null and (l.unlock_date is null or sysdate < l.unlock_date) then 'Y' else 'N' end islocked,  ");
+		sqlStr.append("  l.seqno,  ");
+		sqlStr.append("  l.reason ");
+		sqlStr.append("from patient@hat p left join ");
+		sqlStr.append("( ");
+		sqlStr.append("  select * ");
+		sqlStr.append("  from dms_pat_lock ");
+		sqlStr.append("  where seqno = (  ");
+		sqlStr.append("    select  ");
+		sqlStr.append("      max(seqno)  ");
+		sqlStr.append("    from dms_pat_lock  ");
+		sqlStr.append("    where patno = ?  ");
+		sqlStr.append("    group by patno  ");
+		sqlStr.append("  ) ");
+		sqlStr.append(") l on p.patno = l.patno ");
+		sqlStr.append("where p.patno = ? ");
+
+		return UtilDBWeb.getReportableListCIS(sqlStr.toString(), new String[]{patno, patno});
+	}
+
+	public static String addPatLock(UserBean userBean, String patno, String lockBy, String reason, String remarks) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("select SEQ_DMS_PAT_LOCK.nextval from dual");
+		ArrayList record = UtilDBWeb.getReportableListCIS(sqlStr.toString());
+		ReportableListObject row = null;
+		String id = null;
+		if (record.size() > 0) {
+			row = (ReportableListObject) record.get(0);
+			id = row.getFields0();
+		}
+
+		sqlStr.setLength(0);
+		sqlStr.append("INSERT INTO DMS_PAT_LOCK ");
+		sqlStr.append("(SEQNO, PATNO, LOCK_BY, LOCK_DATE, REASON, REMARKS, UPDATE_USER, UPDATE_DATE) ");
+		sqlStr.append("VALUES ");
+		sqlStr.append("(?, ?, ?, sysdate, ?, ?, ?, sysdate)");
+
+		if (!UtilDBWeb.updateQueueCIS(sqlStr.toString(), new String[]{id, patno, lockBy, reason, remarks, lockBy})) {
+			id = null;
+		}
+		return id;
+	}
+
+	public static boolean updatePatLock(UserBean userBean, String seqno, String reason, String remarks) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("UPDATE DMS_PAT_LOCK ");
+		sqlStr.append("SET REASON = ?, REMARKS = ?, UPDATE_USER = ?, UPDATE_DATE = sysdate ");
+		sqlStr.append("WHERE ");
+		sqlStr.append("SEQNO = ?");
+
+		return UtilDBWeb.updateQueueCIS(sqlStr.toString(), new String[]{reason, remarks, userBean.getStaffID(), seqno});
+	}
+
+	public static boolean unlockPatLock(UserBean userBean, String seqno, String unlockBy) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("UPDATE DMS_PAT_LOCK ");
+		sqlStr.append("SET UNLOCK_BY = ?, UNLOCK_DATE = sysdate, UPDATE_USER = ?, UPDATE_DATE = sysdate ");
+		sqlStr.append("WHERE ");
+		sqlStr.append("SEQNO = ?");
+
+		return UtilDBWeb.updateQueueCIS(sqlStr.toString(), new String[]{unlockBy, userBean.getStaffID(), seqno});
+	}
+
+//FTOCC methods
+	public static ArrayList getPatInfoByRegid(String regid) {
+		StringBuffer sqlStr = new StringBuffer();
+		String patno = null;
+
+		sqlStr.append("select patno ");
+		sqlStr.append(" from REG@IWEB ");
+		sqlStr.append(" where regid = ? ");
+
+		ArrayList record = UtilDBWeb.getReportableList(sqlStr.toString(), new String[]{regid});
+
+		if (record.size() > 0) {
+			ReportableListObject row = (ReportableListObject) record.get(0);
+			patno = row.getValue(0);
+		}
+
+		return getPatInfo(patno);
+	}
+
+	public static ArrayList getFTOCCData(String regid) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("select seq, create_sys, create_usr, to_char(create_dt, 'dd/mm/yyyy hh24:mi:ss'), "); //1-4
+		sqlStr.append(" RB_Fever1, RB_Fever2, RB_Travel1, RB_Travel2, RB_Occ1, RB_Occ2, RB_Contact, RB_Cluster, RB_Hosp, "); //5-13
+		sqlStr.append(" TX_Temp, TX_Med, TX_Travel, TX_Hosp, to_char(dt_Adm, 'dd/mm/yyyy'), TX_Duration, TX_Diag, "); //14-20
+		sqlStr.append(" RB_Contact1, RB_Contact2, RB_Contact "); //20240207 add new fields 		
+		sqlStr.append(" from PAT_FTOCC ");
+		sqlStr.append(" where regid = ? ");
+		sqlStr.append(" order by seq desc ");
+
+		return UtilDBWeb.getReportableListCIS(sqlStr.toString(), new String[]{regid});
+	}
+
+	public static ArrayList getFTOCCRec(String regid, String seq) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("select seq, create_sys, create_usr, to_char(create_dt, 'dd/mm/yyyy hh24:mi:ss'), ");
+		sqlStr.append(" RB_Fever1, RB_Fever2, RB_Travel1, RB_Travel2, RB_Occ1, RB_Occ2, RB_Contact, RB_Cluster, RB_Hosp, ");
+		sqlStr.append(" TX_Temp, TX_Med, TX_Travel, TX_Hosp, to_char(dt_Adm, 'dd/mm/yyyy'), TX_Duration, TX_Diag, ");
+		sqlStr.append(" RB_Contact1, RB_Contact2, RB_Contact "); //20240207 add new fields 		
+		sqlStr.append(" from PAT_FTOCC ");
+		sqlStr.append(" where regid = ? ");
+		sqlStr.append(" and seq = ? ");
+
+		return UtilDBWeb.getReportableListCIS(sqlStr.toString(), new String[]{regid, seq});
+	}
+
+	public static ArrayList getLastFTOCC(String patno, String hour) {
+		StringBuffer sqlStr = new StringBuffer();
+		sqlStr.append("select seq, create_sys, create_usr, to_char(create_dt, 'dd/mm/yyyy hh24:mi:ss'), ");
+		sqlStr.append(" RB_Fever1, RB_Fever2, RB_Travel1, RB_Travel2, RB_Occ1, RB_Occ2, RB_Contact, RB_Cluster, RB_Hosp, ");
+		sqlStr.append(" TX_Temp, TX_Med, TX_Travel, TX_Hosp, to_char(dt_Adm, 'dd/mm/yyyy'), TX_Duration, TX_Diag, ");
+		sqlStr.append(" RB_Contact1, RB_Contact2, RB_Contact "); //20240207 add new fields 		
+		sqlStr.append(" from PAT_FTOCC ");
+		sqlStr.append(" where (regid in ");
+		sqlStr.append(" (select to_char(regid) from reg@hat where patno = ?) ");
+		sqlStr.append(" OR REGID like '%-' || ? ");
+		sqlStr.append(" ) ");
+		sqlStr.append(" and (sysdate - create_dt) * 24 < ? ");
+		sqlStr.append(" order by create_dt desc ");
+
+		return UtilDBWeb.getReportableListCIS(sqlStr.toString(), new String[]{patno, patno, hour});
+	}
+
+	public static boolean addFTOCCData(String regid, String sys, String user, String rbFever1, String rbFever2, String rbTravel1,
+			String rbTravel2, String rbOcc1, String rbOcc2, String rbContact, String rbCluster, String rbHosp, String txTemp,
+			String txMed, String txTravel, String txHosp, String dtAdm, String txDuration, String txDiag) {
+
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("insert into PAT_FTOCC (REGID, SEQ, CREATE_SYS, CREATE_USR, CREATE_DT, ");
+		sqlStr.append(" RB_Fever1, RB_Fever2, RB_Travel1, RB_Travel2, RB_Occ1, RB_Occ2, RB_Contact, RB_Cluster, RB_Hosp, ");
+		sqlStr.append(" TX_Temp, TX_Med, TX_Travel, TX_Hosp, dt_Adm, TX_Duration, TX_Diag, ) ");		
+		sqlStr.append(" values (?, ");
+		sqlStr.append(" (select nvl(max(seq), 0) + 1 from PAT_FTOCC where regid = ? ), ");
+		sqlStr.append(" ?, ?, SYSDATE, ");
+		sqlStr.append(" ?, ?, ?, ?, ?, ?, ?, ?, ?, ");
+		sqlStr.append(" ?, ?, ?, ?, to_date(?, 'dd/mm/yyyy'), ?, ?) ");
+
+		return UtilDBWeb.updateQueueCIS(sqlStr.toString(), new String[]{regid, regid, sys, user, rbFever1, rbFever2, rbTravel1,
+				rbTravel2, rbOcc1, rbOcc2, rbContact, rbCluster, rbHosp, txTemp, txMed, txTravel, txHosp, dtAdm, txDuration, txDiag});
+	}
+	
+//20240702 add new fields	
+	public static boolean addFTOCCData(String regid, String sys, String user, String rbFever1, String rbFever2, String rbTravel1,
+			String rbTravel2, String rbOcc1, String rbOcc2, String rbContact, String rbCluster, String rbHosp, String txTemp,
+			String txMed, String txTravel, String txHosp, String dtAdm, String txDuration, String txDiag,
+			String rbContact1, String rbContact2, String rbContact3 ) {
+
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("insert into PAT_FTOCC (REGID, SEQ, CREATE_SYS, CREATE_USR, CREATE_DT, ");
+		sqlStr.append(" RB_Fever1, RB_Fever2, RB_Travel1, RB_Travel2, RB_Occ1, RB_Occ2, RB_Contact, RB_Cluster, RB_Hosp, ");
+		sqlStr.append(" TX_Temp, TX_Med, TX_Travel, TX_Hosp, dt_Adm, TX_Duration, TX_Diag, RB_Contact1, RB_Contact2, RB_Contact3) ");		
+		sqlStr.append(" values (?, ");
+		sqlStr.append(" (select nvl(max(seq), 0) + 1 from PAT_FTOCC where regid = ? ), ");
+		sqlStr.append(" ?, ?, SYSDATE, ");
+		sqlStr.append(" ?, ?, ?, ?, ?, ?, ?, ?, ?, ");
+		sqlStr.append(" ?, ?, ?, ?, to_date(?, 'dd/mm/yyyy'), ?, ?, ?, ?, ?) ");
+
+		return UtilDBWeb.updateQueueCIS(sqlStr.toString(), new String[]{regid, regid, sys, user, rbFever1, rbFever2, rbTravel1,
+				rbTravel2, rbOcc1, rbOcc2, rbContact, rbCluster, rbHosp, txTemp, txMed, txTravel, txHosp, dtAdm, txDuration, txDiag,
+				rbContact1, rbContact2, rbContact3});
+	}
+
+	public static String getRoom(String regid) {
+		StringBuffer sqlStr = new StringBuffer();
+		String room = null;
+
+//20210104 retrieve bed code only
+/*
+		sqlStr.append("select b.romcode from REG@IWEB r ");
+		sqlStr.append(" inner join INPAT@IWEB i on r.inpid = i.inpid ");
+		sqlStr.append(" inner join BED@IWEB b on i.bedcode = b.bedcode ");
+		sqlStr.append(" where r.regid = ? ");
+*/
+		sqlStr.append("select i.bedcode from REG@IWEB r ");
+		sqlStr.append(" inner join INPAT@IWEB i on r.inpid = i.inpid ");
+		sqlStr.append(" where r.regid = ? ");
+
+		ArrayList record = UtilDBWeb.getReportableList(sqlStr.toString(), new String[]{regid});
+
+		if (record.size() > 0) {
+			ReportableListObject row = (ReportableListObject) record.get(0);
+			room = row.getValue(0);
+		}
+
+		return room;
+	}
+
+	public static ArrayList listHatsPatientSearch(String patno, String patidno, String pathtel, String patbdate, String patsex, String patmtel,
+			String patfname, String patgname, String patmname, String patcname, String scr,
+			String ordby, String pattel, String usrid) {
+		return UtilDBWeb.getFunctionResultsHATS("NHS_LIS_PATIENT",
+				new String[] { "LIS", patno, patidno, pathtel, patbdate, patsex, patmtel,
+						patfname, patgname, patmname, patcname, scr, ordby, pattel, usrid });
+	}
+
+	public static ArrayList getPatRegHist(String patno, int intervalDate) {
+		StringBuffer sqlStr = new StringBuffer();
+
+		sqlStr.append("SELECT 	F_GET_PHOTO_COUNT(R.REGID), R.PATNO, R.REGID, R.DOCCODE, TO_CHAR(R.REGDATE, 'DD/MM/YYYY HH24:MI'),  ");
+		sqlStr.append("	DECODE(R.REGTYPE,'I','Inpatient','O','Outpatient','D','Day Case') AS REGTYPE,  ");
+		sqlStr.append("	DECODE(R.REGOPCAT,'W','Walk-in','P','Priority','N','Appointment','U','Urgent Care','N/A','N/A',R.REGOPCAT) AS REGOPCAT, ");
+		sqlStr.append("	(SELECT DOCFNAME||' '||DOCGNAME FROM HAT_DOCTOR X WHERE X.DOCCODE = R.DOCCODE) AS DOCNAME, ");
+		sqlStr.append("	(SELECT SPCCODE FROM HAT_DOCTOR DOC WHERE DOC.DOCCODE = R.DOCCODE) AS SPCCODE, ");
+		sqlStr.append("	CASE WHEN (ROUND(INPDDATE - REGDATE, 0) = 0) THEN 1 ELSE ROUND(INPDDATE - REGDATE, 0) END AS LOS, ");
+		sqlStr.append("	NVL((SELECT SDSDESC FROM HAT_SDISEASE X WHERE R.REGTYPE = 'I' AND I.SDSCODE=X.SDSCODE),  ");
+		sqlStr.append("		(SELECT SDSDESC FROM HAT_SDISEASE X, HAT_DAYPAT D WHERE R.REGTYPE = 'D' AND R.DAYPID = D.DAYPID AND D.SDSCODE=X.SDSCODE)) AS ICD, ");
+		sqlStr.append("	I.BEDCODE, R.REGTYPE, ");
+		sqlStr.append("	(SELECT COUNT(1) FROM OPD_DOCNOTE X WHERE X.REGID=R.REGID) AS CNT_OPD_NOTE,  ");
+		sqlStr.append("	( ");
+		sqlStr.append("		SELECT MAX(A.FS_FILE_INDEX_ID)  ");
+		sqlStr.append("		FROM FS_FILE_PROFILE A, FS_FILE_INDEX B ");
+		sqlStr.append("		WHERE A.FS_FILE_INDEX_ID = B.FS_FILE_INDEX_ID ");
+		sqlStr.append("		AND A.FS_ENABLED=1  ");
+		sqlStr.append("		AND B.FS_APPROVED_DATE IS NOT NULL  ");
+		sqlStr.append("		AND  ");
+		sqlStr.append("		(	A.FS_FORM_CODE IN ('PHYSMCA001','PHYS-MCA001','OBSU-MCA002','OBSUMCA002') ");
+		sqlStr.append("			OR A.FS_FORM_CODE IN  ");
+		sqlStr.append("				(SELECT FS_FORM_CODE FROM FS_FORM_ALIAS WHERE FS_FORM_ID IN ");
+		sqlStr.append("					(SELECT FS_FORM_ID FROM FS_FORM WHERE FS_FORM_CODE IN ('PHYSMCA001','OBSUMCA002')) ");
+		sqlStr.append("			 	) ");
+		sqlStr.append("		) ");
+		sqlStr.append("		AND  FS_REGID = R.REGID ");
+		sqlStr.append("	) AS FS_FILE_INDEX_ID   ");
+		sqlStr.append("FROM HAT_REG R, HAT_INPAT I ");
+		sqlStr.append("WHERE R.INPID = I.INPID (+) AND R.REGSTS='N' ");
+		sqlStr.append("AND R.PATNO = ? ");
+		sqlStr.append("AND R.REGTYPE = 'O' ");
+		if (intervalDate > 0) {
+			sqlStr.append("AND R.REGDATE >= TRUNC(SYSDATE+1) - interval '" + intervalDate + "' day ");
+		}
+		sqlStr.append("ORDER BY R.REGDATE DESC ");
+		//System.out.println(sqlStr.toString());
+		return UtilDBWeb.getReportableListCIS(sqlStr.toString(), new String[]{patno});
+	}
+
+	private static String getSystemParameter(String key) {
+		ArrayList<ReportableListObject> record = UtilDBWeb.getReportableListHATS("select param1 from sysparam where parcde = ?", new String[] { key });
+		if (record.size() > 0) {
+			ReportableListObject row = (ReportableListObject) record.get(0);
+			return row.getValue(0);
+		} else {
+			return null;
+		}
+	}
+
+	public static String getNisData(String data, String regid) throws IOException {
+		String NIS_URL = getSystemParameter("NISSERVER");
+
+		String inputLine;
+		String output = "";
+		String webservice = "";
+
+		if ("ADMISSION".equals(data)) {
+			webservice = getSystemParameter("NISADM");
+		} else if ("FallRisk".equals(data)) {
+			webservice = getSystemParameter("NISFRISK");
+		} else if ("Pain".equals(data)) {
+			webservice = getSystemParameter("NISPAIN");
+		}
+
+		try {
+
+			String strURL = NIS_URL + webservice + "FeeNo=" + regid;
+
+			URL aURL = new URL(strURL);
+			aURL.openConnection();
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+											aURL.openStream()));
+
+			while ((inputLine = in.readLine()) != null) {
+					output = output + inputLine;
+			}
+
+			in.close();
+		} catch (Exception e) {
+			System.out.println("Error: " + e.toString());
+		}
+
+		String result = "";
+		if (output.indexOf("</string>") > -1) {
+			result = output.substring(output.indexOf("<string xmlns=\"http://digisoft.com.tw/\">") + ("<string xmlns=\"http://digisoft.com.tw/\">").length(),
+					output.indexOf("</string>")).replaceAll("'", "''").trim();
+		}
+
+		return result;
+	}
+}

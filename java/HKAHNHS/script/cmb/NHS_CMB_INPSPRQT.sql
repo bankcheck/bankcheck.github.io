@@ -1,0 +1,12 @@
+CREATE OR REPLACE FUNCTION "NHS_CMB_INPSPRQT"
+	RETURN Types.cursor_type
+AS
+	outcur types.cursor_type;
+BEGIN
+	OPEN outcur FOR
+        SELECT '0', 'DND' FROM DUAL
+		UNION
+		SELECT '1', 'INCOGNITO' FROM DUAL;
+	RETURN outcur;
+END NHS_CMB_INPSPRQT;
+/

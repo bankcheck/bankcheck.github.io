@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IPStatementWB" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="85" bottomMargin="70" whenResourceMissingType="Empty">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="P_SLPNO" class="java.lang.String"/>
+	<parameter name="ISCOPY" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\projects\\Reports\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SubDataSource1" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="ALLSLPNO" class="java.lang.String"/>
+	<parameter name="3LINESNOTE" class="java.lang.String"/>
+	<parameter name="ALINESNOTE" class="java.lang.String"/>
+	<parameter name="IPDAYENDMSG" class="java.lang.String"/>
+	<parameter name="PRNRANGENOTE" class="java.lang.String"/>
+	<parameter name="SubDataSource2" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="SubDataSource3" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="SubDataSource4" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="StaOfAut" class="java.lang.String"/>
+	<parameter name="AdmDtTime" class="java.lang.String"/>
+	<parameter name="PatName" class="java.lang.String"/>
+	<parameter name="DisDtTime" class="java.lang.String"/>
+	<parameter name="TreDr" class="java.lang.String"/>
+	<parameter name="BillNo" class="java.lang.String"/>
+	<parameter name="PatNo" class="java.lang.String"/>
+	<parameter name="BedNo" class="java.lang.String"/>
+	<parameter name="Copy" class="java.lang.String"/>
+	<parameter name="Page" class="java.lang.String"/>
+	<parameter name="Date" class="java.lang.String"/>
+	<parameter name="Item" class="java.lang.String"/>
+	<parameter name="Amount" class="java.lang.String"/>
+	<parameter name="TotChg" class="java.lang.String"/>
+	<parameter name="TotRfd" class="java.lang.String"/>
+	<parameter name="Balance" class="java.lang.String"/>
+	<parameter name="watermark" class="java.lang.String"/>
+	<parameter name="DOCBKGCPY" class="java.lang.String"/>
+	<parameter name="Credits" class="java.lang.String"/>
+	<parameter name="StatBalance" class="java.lang.String"/>
+	<parameter name="BalanceFwd" class="java.lang.String"/>
+	<parameter name="BedNum" class="java.lang.String"/>
+	<parameter name="BedClass" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     S."SLPNO" AS SLPNO,
+     P."PATNO",
+     DECODE(S.SLPFNAME,NULL,P.PATFNAME||' '||P.PATGNAME,S.SLPFNAME||' '||S.SLPGNAME)||'   '||P."PATCNAME" AS PATNAME,
+     R."REGDATE",
+     TO_CHAR(R.REGDATE,'HH24:MI')AS REGTIME,
+     I.BEDCODE||'-'||I.ACMCODE AS BEDACM,
+     I."INPDDATE",
+     TO_CHAR(I.INPDDATE,'HH24:MI')AS INPDTIME,
+     D.DOCFNAME||' '||D.DOCGNAME||'   '||D."DOCCNAME" AS DOCNAME
+FROM
+     "SLIP" S,
+     "PATIENT" P,
+     "REG" R,
+     "INPAT" I,
+     "DOCTOR" D
+WHERE
+     S.REGID = R.REGID
+ AND S.PATNO = P.PATNO(+)
+ AND R.INPID = I.INPID(+)
+ AND S.DOCCODE = D.DOCCODE
+ AND S.SLPNO = $P{P_SLPNO}
+GROUP BY
+	S.SLPFNAME, S.SLPGNAME, P.PATFNAME, P.PATGNAME, P.PATCNAME, P.PATNO,
+	R.REGDATE, I.BEDCODE, I.ACMCODE, I.INPDDATE, D.DOCFNAME, D.DOCGNAME,
+	D.DOCCNAME]]>
+	</queryString>
+	<field name="SLPNO" class="java.lang.String"/>
+	<field name="PATNO" class="java.lang.String"/>
+	<field name="PATNAME" class="java.lang.String"/>
+	<field name="REGDATE" class="java.lang.String"/>
+	<field name="REGTIME" class="java.lang.String"/>
+	<field name="BEDACM" class="java.lang.String"/>
+	<field name="INPDDATE" class="java.lang.String"/>
+	<field name="INPDTIME" class="java.lang.String"/>
+	<field name="DOCNAME" class="java.lang.String"/>
+	<field name="PATCNAME" class="java.lang.String"/>
+	<field name="DOCCNAME" class="java.lang.String"/>
+	<field name="FROM_WBDATE" class="java.lang.String"/>
+	<field name="TO_WBDATE" class="java.lang.String"/>
+	<variable name="AMOUNT_1" class="java.math.BigDecimal" calculation="System"/>
+	<variable name="AMOUNT_4" class="java.math.BigDecimal" calculation="System"/>
+	<background>
+		<band height="443" splitType="Stretch">
+			<printWhenExpression><![CDATA[$P{DOCBKGCPY}.equals( "Y" )]]></printWhenExpression>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="48" y="129" width="439" height="297">
+					<printWhenExpression><![CDATA["N".equals($P{ISCOPY})]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.lang.String"><![CDATA[$P{watermark}]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<pageHeader>
+		<band height="135" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="26" width="509" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Arial Unicode MS" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style fontName='Arial Unicode MS'>STATEMENT OF ACCOUNT </style><style fontName='Ming(for ISO10646_V3)'>" + $P{StaOfAut} + "</style>"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="397" y="115" width="112" height="20" forecolor="#CCCCCC"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[INTERIM BILL]]></text>
+			</staticText>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="57" width="511" height="38" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="REGDATE">
+					<subreportParameterExpression><![CDATA[$F{REGDATE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ALLSLPNO">
+					<subreportParameterExpression><![CDATA[$P{ALLSLPNO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DOCBKGCPY">
+					<subreportParameterExpression><![CDATA[$P{DOCBKGCPY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BedNum">
+					<subreportParameterExpression><![CDATA[$P{BedNum}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BEDACM">
+					<subreportParameterExpression><![CDATA[$F{BEDACM}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DisDtTime">
+					<subreportParameterExpression><![CDATA[$P{DisDtTime}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Copy">
+					<subreportParameterExpression><![CDATA[$P{Copy}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ISCOPY">
+					<subreportParameterExpression><![CDATA[$P{ISCOPY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR"/>
+				<subreportParameter name="PATCNAME">
+					<subreportParameterExpression><![CDATA[$F{PATCNAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DOCCNAME">
+					<subreportParameterExpression><![CDATA[$F{DOCCNAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BedNo">
+					<subreportParameterExpression><![CDATA[$P{BedNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BedClass">
+					<subreportParameterExpression><![CDATA[$P{BedClass}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PATNO">
+					<subreportParameterExpression><![CDATA[$F{PATNO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PATNAME">
+					<subreportParameterExpression><![CDATA[$F{PATNAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="INPDTIME">
+					<subreportParameterExpression><![CDATA[$F{INPDTIME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TreDr">
+					<subreportParameterExpression><![CDATA[$P{TreDr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="AdmDtTime">
+					<subreportParameterExpression><![CDATA[$P{AdmDtTime}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PatNo">
+					<subreportParameterExpression><![CDATA[$P{PatNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REGTIME">
+					<subreportParameterExpression><![CDATA[$F{REGTIME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BillNo">
+					<subreportParameterExpression><![CDATA[$P{BillNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DOCNAME">
+					<subreportParameterExpression><![CDATA[$F{DOCNAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PatName">
+					<subreportParameterExpression><![CDATA[$P{PatName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="INPDDATE">
+					<subreportParameterExpression><![CDATA[$F{INPDDATE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "IP_PNAME.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="5">
+			<subreport>
+				<reportElement x="0" y="0" width="511" height="5" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="BalanceFwd">
+					<subreportParameterExpression><![CDATA[$P{BalanceFwd}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Amount">
+					<subreportParameterExpression><![CDATA[$P{Amount}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Credits">
+					<subreportParameterExpression><![CDATA[$P{Credits}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Item">
+					<subreportParameterExpression><![CDATA[$P{Item}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Date">
+					<subreportParameterExpression><![CDATA[$P{Date}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[$P{SubDataSource1}]]></dataSourceExpression>
+				<returnValue subreportVariable="AMOUNT_4" toVariable="AMOUNT_4"/>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "IPStatementWB_Sub4.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="28" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="511" height="25" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="Amount">
+					<subreportParameterExpression><![CDATA[$P{Amount}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TotChg">
+					<subreportParameterExpression><![CDATA[$P{TotChg}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Item">
+					<subreportParameterExpression><![CDATA[$P{Item}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Credits">
+					<subreportParameterExpression><![CDATA[$P{Credits}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Date">
+					<subreportParameterExpression><![CDATA[$P{Date}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TotRfd">
+					<subreportParameterExpression><![CDATA[$P{TotRfd}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Balance">
+					<subreportParameterExpression><![CDATA[$P{Balance}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[$P{SubDataSource2}]]></dataSourceExpression>
+				<returnValue subreportVariable="AMOUNT_1" toVariable="AMOUNT_1"/>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "IPStatementWB_Sub1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="30">
+			<textField pattern="###,###,###,##0.00" isBlankWhenNull="true">
+				<reportElement x="407" y="1" width="100" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{AMOUNT_1}.add($V{AMOUNT_4})]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="511" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="63" y="1" width="344" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style fontName='Arial Unicode MS'>STATEMENT BALANCE </style><style fontName='Ming(for ISO10646_V3)'>" + $P{StatBalance} + "</style>"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="1">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="511" height="1" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PRNRANGENOTE}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="1">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="511" height="1" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{3LINESNOTE}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="1">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="509" height="1" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ALINESNOTE}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="59">
+			<textField>
+				<reportElement x="0" y="5" width="511" height="12"/>
+				<textElement>
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["•  This interim statement includes details entered to the system from "+$F{FROM_WBDATE}+" 00:00 and up to "+$F{TO_WBDATE}+" 23:59 only."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="509" height="1" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{IPDAYENDMSG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="17" width="511" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["    <style fontName='Ming(for ISO10646_V3)'>此中期單包括自</style>"+$F{FROM_WBDATE}+" 00:00 "+"<style fontName='Ming(for ISO10646_V3)'>起至</style>"+$F{TO_WBDATE}+" 23:59 "+"<style fontName='Ming(for ISO10646_V3)'>止輸入的明細。</style>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="32" width="511" height="12"/>
+				<textElement>
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["•  This interim statement does not include all physician fees. For further details, please check with your physician directly."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="44" width="511" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["    <style fontName='Ming(for ISO10646_V3)'>尚有醫生費用未記錄於此中期單，詳情請向醫生查詢。</style>"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="71" splitType="Stretch">
+			<textField>
+				<reportElement x="421" y="0" width="87" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$P{Page}+" "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="67" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(new java.text.SimpleDateFormat(
+    "dd/MMM/yyyy",Locale.ENGLISH)).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm:ss">
+				<reportElement x="67" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

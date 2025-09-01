@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2010?~4??14?? ?W??08:52:05 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.EeElearning" table="EE_ELEARNING">
+        <composite-id name="id" class="com.hkah.web.db.hibernate.EeElearningId">
+            <key-property name="eeSiteCode" type="string">
+                <column name="EE_SITE_CODE" />
+            </key-property>
+            <key-property name="eeElearningId" type="big_decimal">
+                <column name="EE_ELEARNING_ID" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="coSite" class="com.hkah.web.db.hibernate.CoSite" update="false" insert="false" fetch="select">
+            <column name="EE_SITE_CODE" not-null="true" />
+        </many-to-one>
+        <property name="eeModuleCode" type="string">
+            <column name="EE_MODULE_CODE" not-null="true" />
+        </property>
+        <property name="eeEventId" type="big_decimal">
+            <column name="EE_EVENT_ID" not-null="true" />
+        </property>
+        <property name="eeTopic" type="string">
+            <column name="EE_TOPIC" />
+        </property>
+        <property name="eeQuestionNum" type="big_decimal">
+            <column name="EE_QUESTION_NUM" />
+        </property>
+        <property name="eePassgrade" type="big_decimal">
+            <column name="EE_PASSGRADE" />
+        </property>
+        <property name="eeDuration" type="big_decimal">
+            <column name="EE_DURATION" />
+        </property>
+        <property name="eeDocumentsNo" type="big_decimal">
+            <column name="EE_DOCUMENTS_NO" />
+        </property>
+        <property name="eeSwffileEn" type="string">
+            <column name="EE_SWFFILE_EN" />
+        </property>
+        <property name="eeSwffileZh" type="string">
+            <column name="EE_SWFFILE_ZH" />
+        </property>
+        <property name="eeCreatedDate">
+            <column name="EE_CREATED_DATE" />
+        </property>
+        <property name="eeCreatedUser" type="string">
+            <column name="EE_CREATED_USER" />
+        </property>
+        <property name="eeModifiedDate">
+            <column name="EE_MODIFIED_DATE" />
+        </property>
+        <property name="eeModifiedUser" type="string">
+            <column name="EE_MODIFIED_USER" />
+        </property>
+        <property name="eeEnabled" type="java.lang.Integer">
+            <column name="EE_ENABLED" />
+        </property>
+    </class>
+</hibernate-mapping>

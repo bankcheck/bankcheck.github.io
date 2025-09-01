@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2010?~5??21?? ?U??02:30:50 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.CrmPromotionInstruction" table="CRM_PROMOTION_INSTRUCTION">
+        <composite-id name="id" class="com.hkah.web.db.hibernate.CrmPromotionInstructionId">
+            <key-property name="crmSiteCode" type="string">
+                <column name="CRM_SITE_CODE"  />
+            </key-property>
+            <key-property name="crmModuleCode" type="string">
+                <column name="CRM_MODULE_CODE"  />
+            </key-property>
+            <key-property name="crmEventId" type="big_decimal">
+                <column name="CRM_EVENT_ID"   />
+            </key-property>
+            <key-property name="crmPromoInstrPid" type="big_decimal">
+                <column name="CRM_PROMO_INSTR_PID"   />
+            </key-property>
+            <generator class="com.hkah.web.db.hibernate.id.IdGenerator"></generator>
+        </composite-id>
+        <many-to-one name="crmPromotion" class="com.hkah.web.db.hibernate.CrmPromotion" update="false" insert="false" fetch="select">
+            <column name="CRM_SITE_CODE"  not-null="true" />
+            <column name="CRM_MODULE_CODE"  not-null="true" />
+            <column name="CRM_EVENT_ID"   not-null="true" />
+        </many-to-one>
+        <property name="crmPromoInstrCode" type="string">
+            <column name="CRM_PROMO_INSTR_CODE"  />
+        </property>
+        <property name="crmPromoInstrRemarks" type="string">
+            <column name="CRM_PROMO_INSTR_REMARKS"  />
+        </property>
+        <property name="crmCreatedDate" >
+            <column name="CRM_CREATED_DATE"  />
+        </property>
+        <property name="crmCreatedUser" type="string">
+            <column name="CRM_CREATED_USER"  />
+        </property>
+        <property name="crmModifiedDate" >
+            <column name="CRM_MODIFIED_DATE"  />
+        </property>
+        <property name="crmModifiedUser" type="string">
+            <column name="CRM_MODIFIED_USER"  />
+        </property>
+        <property name="crmEnabled" type="java.lang.Integer">
+            <column name="CRM_ENABLED"   />
+        </property>
+    </class>
+</hibernate-mapping>

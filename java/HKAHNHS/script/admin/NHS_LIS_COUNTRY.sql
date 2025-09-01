@@ -1,0 +1,19 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_COUNTRY"
+(V_COUCODE COUNTRY.COUCODE%TYPE,
+v_COUDESC COUNTRY.COUDESC%TYPE)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN outcur FOR
+      SELECT
+        COUCODE, COUDESC
+      FROM COUNTRY
+      WHERE ( COUCODE LIKE '%' || v_COUCODE || '%')
+      AND ( COUDESC like '%' || v_COUDESC || '%')
+      ORDER BY COUCODE;
+   RETURN OUTCUR;
+END NHS_LIS_COUNTRY;
+/
+
+

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='container'>
+    <h1>{% block title %} {{ market.getFullname(code) }}  {% endblock %}</h1>
+    <img src="{{ url_for('static', filename=fname) }}" />
+    <table width="100%" class="table table-bordered">
+        <thead class="table-light"><tr>
+            <th class="col-2">Datetime</th>
+            <th class="col-2 text-end">Open</th>
+            <th class="col-2 text-end">High</th>
+            <th class="col-2 text-end">Low</th>
+            <th class="col-2 text-end">Close</th>
+        </tr></thead>
+        <tbody>
+        {% for index, row in hist.iterrows() %} 
+            <tr>
+                <td>{{index}}</td>
+                <td align="right">{{ row['Open'] }}</td>
+                <td align="right">{{ row['High'] }}</td>
+                <td align="right">{{ row['Low'] }}</td>
+                <td align="right">{{ row['Close'] }}</td>
+            </tr>
+        {% endfor %} 
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+

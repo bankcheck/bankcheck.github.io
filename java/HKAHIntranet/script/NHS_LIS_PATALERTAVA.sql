@@ -1,0 +1,19 @@
+create or replace
+FUNCTION "NHS_LIS_PATALERTAVA"(V_PATNO IN VARCHAR2,
+                                                 V_USRID IN VARCHAR2)
+  RETURN TYPES.CURSOR_TYPE AS
+  OUTCUR TYPES.CURSOR_TYPE;
+BEGIN
+  OPEN OUTCUR FOR
+    SELECT '', ALTCODE, ALTDESC, ALTID
+      FROM ALERT@IWEB
+     WHERE ALTID NOT IN (SELECT ALTID
+                           FROM PATALTLINK@IWEB
+                          WHERE PATNO = V_PATNO
+                            AND USRID_C IS NULL)
+       AND ALTID IN (SELECT DISTINCT R.ALTID
+                       FROM USRROLE@IWEB U, ROLALTLINK@IWEB R
+                      WHERE U.ROLID = R.ROLID
+                        AND U.USRID = V_USRID);
+  RETURN OUTCUR;
+END NHS_LIS_PATALERTAVA;

@@ -1,0 +1,1 @@
+sqlplus username/password@tnsname @frame.sql

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class table="EL_ELEAVE" name="com.hkah.web.db.hibernate.ELeaveObj">
+		<id name="eleaveID" type="int" column="EL_ELEAVE_ID">
+			<generator class="org.hibernate.id.IncrementGenerator"></generator>
+		</id>
+		<property name="staffID" type="string" column="EL_STAFF_ID"></property>
+		<property name="staffName" type="string"
+			formula="( SELECT S.CO_STAFFNAME FROM CO_STAFFS S WHERE EL_STAFF_ID = S.CO_STAFF_ID )">
+		</property>
+		<property name="fromDate" column="EL_FROM_DATE"></property>
+		<property name="toDate" column="EL_TO_DATE"></property>
+		<property name="appliedDays" type="float"
+			column="EL_APPLIED_DAYS">
+		</property>
+		<property name="deptCode" formula="( SELECT S.CO_DEPARTMENT_CODE FROM CO_STAFFS S WHERE S.CO_STAFF_ID = EL_STAFF_ID)" type="string"></property>
+		<property name="deptDesc" formula="( SELECT D.CO_DEPARTMENT_DESC FROM CO_STAFFS S, CO_DEPARTMENTS D WHERE S.CO_STAFF_ID = EL_STAFF_ID AND  S.CO_DEPARTMENT_CODE = D.CO_DEPARTMENT_CODE )" type="string"></property>
+		<property name="leaveStatus" type="string"
+			column="EL_LEAVE_STATUS">
+		</property>
+		<property name="createdDate" 
+			column="EL_CREATED_DATE">
+		</property>
+		<property name="modifiedDate" 
+			column="EL_MODIFIED_DATE">
+		</property>
+		<property name="createdUser" type="string"
+			column="EL_CREATED_USER">
+		</property>
+		<property name="modifiedUser" type="string"
+			column="EL_MODIFIED_USER">
+		</property>
+		<property name="createdUsername"
+			formula="( SELECT S.CO_STAFFNAME FROM CO_STAFFS S, CO_USERS U WHERE EL_CREATED_USER = U.CO_USERNAME AND U.CO_STAFF_ID = S.CO_STAFF_ID )"
+			type="string">
+		</property>
+		<property name="modifiedUsername"
+			formula="( SELECT S.CO_STAFFNAME FROM CO_STAFFS S, CO_USERS U WHERE EL_MODIFIED_USER = U.CO_USERNAME AND U.CO_STAFF_ID = S.CO_STAFF_ID )"
+			type="string">
+		</property>
+		<property name="siteCode" type="string" column="EL_SITE_CODE"></property>
+		<property name="leaveType" type="string" column="EL_LEAVE_TYPE"></property>
+		<property name="enabled" type="int" column="EL_ENABLED"></property>
+		<property name="requestRemarks" type="string" column="EL_REQUEST_REMARKS"></property>
+		<property name="responseRemarks" type="string" column="EL_RESPONSE_REMARKS"></property>
+	</class>
+
+</hibernate-mapping>

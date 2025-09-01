@@ -1,0 +1,13 @@
+mkdir upload_files
+mkdir /opt/apache-tomcat-7.0.72/webapps/upload
+mkdir /opt/apache-tomcat-7.0.72/webapps/swf
+mkdir index
+mkdir policy
+mkdir temp
+mkdir document
+mkdir doctorphoto_src
+mkdir doctorphoto_desc
+
+mount -t cifs -o username=webfolder,password=folder,dirmode=0755,file_mode=0755 //160.100.2.80/Upload /opt/apache-tomcat-7.0.72/webapps/upload
+mount -t cifs -o username=webfolder,password=folder,dirmode=0755,file_mode=0755 //160.100.2.80/Swf /opt/apache-tomcat-7.0.72/webapps/swf
+mount -t cifs -o username=webfolder,password=folder,dirmode=0755,file_mode=0755 //160.100.2.80/index /WebConfig/index

@@ -1,0 +1,14 @@
+CREATE OR REPLACE FUNCTION "HAT_CMB_RACE" 
+RETURN types.cursor_type 
+AS
+outcur types.cursor_type;
+BEGIN
+	OPEN outcur FOR 
+		SELECT RACDESC
+		FROM   RACE@IWEB
+		WHERE  ROWNUM<100
+		ORDER BY RACDESC;
+		RETURN outcur;
+END HAT_CMB_RACE;
+
+/

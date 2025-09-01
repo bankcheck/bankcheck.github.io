@@ -1,0 +1,12 @@
+SET DEFINE OFF
+@./Cashier/NHS_ACT_CASHIERCLOSE.sql
+@./Cashier/NHS_ACT_CASHIERSIGNON.sql
+@./Cashier/NHS_ACT_CASHIERSIGNONRESET.sql
+@./Cashier/NHS_ACT_CASHIERVALIDVOID.sql
+@./Cashier/NHS_ACT_CASHSTAT.sql
+@./Cashier/NHS_ACT_PaymentAndReceipt.sql
+@./Cashier/NHS_LIS_CASHIERHISTORY.sql
+@./Cashier/NHS_LIS_CASHIERSESSIONHISTORY.sql
+@./Cashier/NHS_LIS_CASHSTAT.sql
+@./Cashier/NHS_LIS_SEARCHCASHIER.sql
+exit

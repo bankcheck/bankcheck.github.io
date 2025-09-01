@@ -1,0 +1,5 @@
+drop TYPE OTLOGSURG_TAB;
+create or replace
+TYPE OTLOGSURG_TAB
+AS TABLE OF OTLOGSURG;
+/

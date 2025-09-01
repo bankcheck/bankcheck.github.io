@@ -1,0 +1,1210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPT_WARD_SCHEDULING" pageWidth="842" pageHeight="595" whenNoDataType="AllSectionsNoDetail" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="currDate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+W.WRDCODE
+,NVL(BPB.A1_1,0) AS A1_1
+,NVL(BPB.A1_2,0) AS A1_2
+,NVL(BPB.A1_3,0) AS A1_3
+,NVL(BPB.P1_1,0) AS P1_1
+,NVL(BPB.P1_2,0) AS P1_2
+,NVL(BPB.P1_3,0) AS P1_3
+,NVL(BPB.N1_1,0) AS N1_1
+,NVL(BPB.N1_2,0) AS N1_2
+,NVL(BPB.N1_3,0) AS N1_3
+,NVL(ADM_DISC.A2_1,0) AS A2_1
+,NVL(ADM_DISC.A2_2,0) AS A2_2
+,NVL(ADM_DISC.A2_3,0) AS A2_3
+,NVL(ADM_DISC.P2_1,0) AS P2_1
+,NVL(ADM_DISC.P2_2,0) AS P2_2
+,NVL(ADM_DISC.P2_3,0) AS P2_3
+,NVL(ADM_DISC.N2_1,0) AS N2_1
+,NVL(ADM_DISC.N2_2,0) AS N2_2
+,NVL(ADM_DISC.N2_3,0) AS N2_3
+,NVL(ADM_DISC.A3_1,0) AS A3_1
+,NVL(ADM_DISC.A3_2,0) AS A3_2
+,NVL(ADM_DISC.A3_3,0) AS A3_3
+,NVL(ADM_DISC.P3_1,0) AS P3_1
+,NVL(ADM_DISC.P3_2,0) AS P3_2
+,NVL(ADM_DISC.P3_3,0) AS P3_3
+,NVL(ADM_DISC.N3_1,0) AS N3_1
+,NVL(ADM_DISC.N3_2,0) AS N3_2
+,NVL(ADM_DISC.N3_3,0) AS N3_3
+FROM WARD W, (
+SELECT
+COUNT(CASE WHEN TO_CHAR(B.BPBHDATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(B.BPBHDATE-7/24,'HH24MI') <= '0759' AND B.ACMCODE='P' THEN B.WRDCODE ELSE NULL END) AS A1_1
+,COUNT(CASE WHEN TO_CHAR(B.BPBHDATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(B.BPBHDATE-7/24,'HH24MI') <= '0759' AND B.ACMCODE='S' THEN B.WRDCODE ELSE NULL END) AS A1_2
+,COUNT(CASE WHEN TO_CHAR(B.BPBHDATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(B.BPBHDATE-7/24,'HH24MI') <= '0759' AND B.ACMCODE='T' THEN B.WRDCODE ELSE NULL END) AS A1_3
+,COUNT(CASE WHEN TO_CHAR(B.BPBHDATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(B.BPBHDATE-7/24,'HH24MI') <= '1559' AND B.ACMCODE='P' THEN B.WRDCODE ELSE NULL END) AS P1_1
+,COUNT(CASE WHEN TO_CHAR(B.BPBHDATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(B.BPBHDATE-7/24,'HH24MI') <= '1559' AND B.ACMCODE='S' THEN B.WRDCODE ELSE NULL END) AS P1_2
+,COUNT(CASE WHEN TO_CHAR(B.BPBHDATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(B.BPBHDATE-7/24,'HH24MI') <= '1559' AND B.ACMCODE='T' THEN B.WRDCODE ELSE NULL END) AS P1_3
+,COUNT(CASE WHEN TO_CHAR(B.BPBHDATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(B.BPBHDATE-7/24,'HH24MI') <= '2359' AND B.ACMCODE='P' THEN B.WRDCODE ELSE NULL END) AS N1_1
+,COUNT(CASE WHEN TO_CHAR(B.BPBHDATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(B.BPBHDATE-7/24,'HH24MI') <= '2359' AND B.ACMCODE='S' THEN B.WRDCODE ELSE NULL END) AS N1_2
+,COUNT(CASE WHEN TO_CHAR(B.BPBHDATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(B.BPBHDATE-7/24,'HH24MI') <= '2359' AND B.ACMCODE='T' THEN B.WRDCODE ELSE NULL END) AS N1_3
+,B.WRDCODE
+--B.BPBHDATE, B.ACMCODE,
+FROM REG R, BEDPREBOK B
+WHERE B.PBPID = R.PBPID(+)
+AND TO_CHAR(B.BPBHDATE,'YYYYMMDD') = '20130301'
+AND B.WRDCODE IS NOT NULL
+AND R.REGID IS NULL
+AND B.ACMCODE IS NOT NULL GROUP BY B.WRDCODE) BPB, (
+SELECT
+COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '0759' AND I.INPDDATE IS NULL AND I.ACMCODE='P' THEN RM.WRDCODE ELSE NULL END) AS A2_1
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '0759' AND I.INPDDATE IS NULL AND I.ACMCODE='S' THEN RM.WRDCODE ELSE NULL END) AS A2_2
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '0759' AND I.INPDDATE IS NULL AND I.ACMCODE='T' THEN RM.WRDCODE ELSE NULL END) AS A2_3
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '0759' AND I.INPDDATE IS NOT NULL AND I.ACMCODE='P' THEN RM.WRDCODE ELSE NULL END) AS A3_1
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '0759' AND I.INPDDATE IS NOT NULL AND I.ACMCODE='S' THEN RM.WRDCODE ELSE NULL END) AS A3_2
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0000' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '0759' AND I.INPDDATE IS NOT NULL AND I.ACMCODE='T' THEN RM.WRDCODE ELSE NULL END) AS A3_3
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '1559' AND I.INPDDATE IS NULL AND I.ACMCODE='P' THEN RM.WRDCODE ELSE NULL END) AS P2_1
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '1559' AND I.INPDDATE IS NULL AND I.ACMCODE='S' THEN RM.WRDCODE ELSE NULL END) AS P2_2
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '1559' AND I.INPDDATE IS NULL AND I.ACMCODE='T' THEN RM.WRDCODE ELSE NULL END) AS P2_3
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '1559' AND I.INPDDATE IS NOT NULL AND I.ACMCODE='P' THEN RM.WRDCODE ELSE NULL END) AS P3_1
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '1559' AND I.INPDDATE IS NOT NULL AND I.ACMCODE='S' THEN RM.WRDCODE ELSE NULL END) AS P3_2
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '0800' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '1559' AND I.INPDDATE IS NOT NULL AND I.ACMCODE='T' THEN RM.WRDCODE ELSE NULL END) AS P3_3
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '2359' AND I.INPDDATE IS NULL AND I.ACMCODE='P' THEN RM.WRDCODE ELSE NULL END) AS N2_1
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '2359' AND I.INPDDATE IS NULL AND I.ACMCODE='S' THEN RM.WRDCODE ELSE NULL END) AS N2_2
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '2359' AND I.INPDDATE IS NULL AND I.ACMCODE='T' THEN RM.WRDCODE ELSE NULL END) AS N2_3
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '2359' AND I.INPDDATE IS NOT NULL AND I.ACMCODE='P' THEN RM.WRDCODE ELSE NULL END) AS N3_1
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '2359' AND I.INPDDATE IS NOT NULL AND I.ACMCODE='S' THEN RM.WRDCODE ELSE NULL END) AS N3_2
+,COUNT(CASE WHEN TO_CHAR(R.REGDATE-7/24,'HH24MI') >= '1600' AND TO_CHAR(R.REGDATE-7/24,'HH24MI') <= '2359' AND I.INPDDATE IS NOT NULL AND I.ACMCODE='T' THEN RM.WRDCODE ELSE NULL END) AS N3_3
+, RM.WRDCODE
+--R.REGDATE, I.INPDDATE, I.ACMCODE
+FROM REG R, INPAT I, BED B, ROOM RM
+WHERE R.INPID = I.INPID(+)
+AND I.BEDCODE = B.BEDCODE
+AND B.ROMCODE = RM.ROMCODE
+AND TO_CHAR(R.REGDATE,'YYYYMMDD') = '20130301'
+AND R.REGTYPE ='I'
+GROUP BY RM.WRDCODE) ADM_DISC
+WHERE W.WRDCODE = BPB.WRDCODE(+)
+AND W.WRDCODE = ADM_DISC.WRDCODE(+)]]>
+	</queryString>
+	<field name="WRDCODE" class="java.lang.String"/>
+	<field name="A1_1" class="java.lang.String"/>
+	<field name="A1_2" class="java.lang.String"/>
+	<field name="A1_3" class="java.lang.String"/>
+	<field name="A1_4" class="java.lang.String"/>
+	<field name="P1_1" class="java.lang.String"/>
+	<field name="P1_2" class="java.lang.String"/>
+	<field name="P1_3" class="java.lang.String"/>
+	<field name="P1_4" class="java.lang.String"/>
+	<field name="N1_1" class="java.lang.String"/>
+	<field name="N1_2" class="java.lang.String"/>
+	<field name="N1_3" class="java.lang.String"/>
+	<field name="N1_4" class="java.lang.String"/>
+	<field name="A2_1" class="java.lang.String"/>
+	<field name="A2_2" class="java.lang.String"/>
+	<field name="A2_3" class="java.lang.String"/>
+	<field name="A2_4" class="java.lang.String"/>
+	<field name="P2_1" class="java.lang.String"/>
+	<field name="P2_2" class="java.lang.String"/>
+	<field name="P2_3" class="java.lang.String"/>
+	<field name="P2_4" class="java.lang.String"/>
+	<field name="N2_1" class="java.lang.String"/>
+	<field name="N2_2" class="java.lang.String"/>
+	<field name="N2_3" class="java.lang.String"/>
+	<field name="N2_4" class="java.lang.String"/>
+	<field name="A3_1" class="java.lang.String"/>
+	<field name="A3_2" class="java.lang.String"/>
+	<field name="A3_3" class="java.lang.String"/>
+	<field name="A3_4" class="java.lang.String"/>
+	<field name="P3_1" class="java.lang.String"/>
+	<field name="P3_2" class="java.lang.String"/>
+	<field name="P3_3" class="java.lang.String"/>
+	<field name="P3_4" class="java.lang.String"/>
+	<field name="N3_1" class="java.lang.String"/>
+	<field name="N3_2" class="java.lang.String"/>
+	<field name="N3_3" class="java.lang.String"/>
+	<field name="N3_4" class="java.lang.String"/>
+	<pageHeader>
+		<band height="17">
+			<staticText>
+				<reportElement x="0" y="0" width="819" height="17"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ward Scheduling Report]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="74">
+			<staticText>
+				<reportElement x="27" y="32" width="88" height="28"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Scheduled
+Case]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="27" y="0" width="176" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="115" y="32" width="88" height="28"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Non-scheduled
+Case]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="32" width="88" height="28"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Scheduled  Case]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="467" y="32" width="88" height="28"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Discharge]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="555" y="32" width="88" height="28"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Scheduled  Case]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="731" y="32" width="88" height="28"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Discharge]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="27" height="17"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="17" width="264" height="15"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AM (7:00 am ~ 2:59 pm)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="17" width="264" height="15"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PM (3:00 pm ~ 10:59 pm)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="32" width="27" height="28"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ward]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="32" width="88" height="28"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Discharge]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="379" y="32" width="88" height="28"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Non-scheduled
+Case]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="643" y="32" width="88" height="28"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Non-scheduled
+Case]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="555" y="17" width="264" height="15"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Night (11:00 pm ~ 06:59 am)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="93" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="357" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="621" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="181" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="445" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="797" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="533" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="709" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="71" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[S]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="335" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[S]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="599" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[S]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="159" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[S]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="247" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[S]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="423" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[S]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="775" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[S]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="511" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[S]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="687" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[S]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[P]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="313" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[P]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="577" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[P]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="137" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[P]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="225" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[P]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="401" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[P]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="753" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[P]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="489" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[P]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="665" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[P]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[I]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[I]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="555" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[I]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[I]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[I]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="379" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[I]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="731" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[I]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="467" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[I]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="643" y="60" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[I]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="27" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{WRDCODE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="27" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{A1_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="49" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{A1_2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="225" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{A3_2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="71" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{A1_3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="93" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{A1_4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="115" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{A2_1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="137" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{A2_2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="159" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{A2_3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="181" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{A2_4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="203" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{A3_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="247" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{A3_3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="269" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{A3_4}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="291" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{P1_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="313" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{P1_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="335" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{P1_3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{P2_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="401" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{P2_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="423" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{P2_3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="467" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{P3_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="489" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{P3_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="511" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{P3_3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="357" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{P1_4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="555" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{N1_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="577" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{N1_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="599" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{N1_3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="621" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{N1_4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="643" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{N2_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="665" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{N2_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="687" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{N2_3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="709" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{N2_4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="731" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{N3_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="753" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{N3_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="775" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{N3_3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="445" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{P2_4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="797" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{N3_4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="533" y="0" width="22" height="14"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{P3_4}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

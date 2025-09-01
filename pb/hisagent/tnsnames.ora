@@ -1,0 +1,92 @@
+#####################################
+## CIS - HK UAT Setting
+#####################################
+
+PROFILE  =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.1.77)(PORT = 1521))
+   (CONNECT_DATA = (SERVICE_NAME = urpt))	
+  )
+
+
+hat =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.1.77)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = uhat)
+    )
+  )
+
+CIS = 
+  (DESCRIPTION =
+    (ADDRESS_LIST =  (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.1.77)(PORT = 1521)))
+    (CONNECT_DATA = (SERVICE_NAME = ucis))
+  )
+
+
+hat_uat =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.1.77)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = uhat)
+    )
+  )
+
+LIS = 
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+	  (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.1.77)(PORT = 1521))
+    )
+    (CONNECT_DATA = (SERVICE_NAME = ulis))
+  )
+
+
+######################################################
+AMC2CIS = 
+  (DESCRIPTION =
+    (ADDRESS_LIST =  (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.11.22)(PORT = 1521)))
+    (CONNECT_DATA = (SERVICE_NAME = AMC2CIS))
+  )
+
+HKCIS = 
+  (DESCRIPTION =
+    (ADDRESS_LIST =  (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.3.55)(PORT = 1521)))
+    (CONNECT_DATA = (SERVICE_NAME = hkcis))
+  )
+
+TWCIS = 
+  (DESCRIPTION =
+    (ADDRESS_LIST =  (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.0.166)(PORT = 1521)))
+    (CONNECT_DATA = (SERVICE_NAME = twcis))
+  )
+
+UCIS = 
+  (DESCRIPTION =
+    (ADDRESS_LIST =  (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.1.77)(PORT = 1521)))
+    (CONNECT_DATA = (SERVICE_NAME = ucis))
+  )
+
+
+TCIS = 
+  (DESCRIPTION =
+    (ADDRESS_LIST =  (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.2.88)(PORT = 1521)))
+    (CONNECT_DATA = (SERVICE_NAME = tcis))
+  )
+
+UTWCIS = 
+  (DESCRIPTION =
+    (ADDRESS_LIST =  (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.2.88)(PORT = 1521)))
+    (CONNECT_DATA = (SERVICE_NAME = utwcis))
+  )
+
+
+CIS_UAT = 
+  (DESCRIPTION =
+    (ADDRESS_LIST =  (ADDRESS = (PROTOCOL = TCP)(HOST = 160.100.1.77)(PORT = 1521)))
+    (CONNECT_DATA = (SERVICE_NAME = ucis))
+  )
+

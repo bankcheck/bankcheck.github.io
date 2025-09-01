@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2010?~4??14?? ?W??08:52:05 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.CrmQuestionaire" table="CRM_QUESTIONAIRE">
+        <composite-id name="id" class="com.hkah.web.db.hibernate.CrmQuestionaireId">
+            <key-property name="crmSiteCode" type="string">
+                <column name="CRM_SITE_CODE" length="10" />
+            </key-property>
+            <key-property name="crmQuestionaireId" type="big_decimal">
+                <column name="CRM_QUESTIONAIRE_ID" precision="22" scale="0" />
+            </key-property>
+        </composite-id>
+        <property name="crmQuestionaireDesc" type="string">
+            <column name="CRM_QUESTIONAIRE_DESC" length="100" />
+        </property>
+        <property name="crmDocumentId" type="big_decimal">
+            <column name="CRM_DOCUMENT_ID" precision="22" scale="0" />
+        </property>
+        <property name="crmCreatedDate" type="date">
+            <column name="CRM_CREATED_DATE" length="7" />
+        </property>
+        <property name="crmCreatedUser" type="string">
+            <column name="CRM_CREATED_USER" length="30" />
+        </property>
+        <property name="crmModifiedDate" type="date">
+            <column name="CRM_MODIFIED_DATE" length="7" />
+        </property>
+        <property name="crmModifiedUser" type="string">
+            <column name="CRM_MODIFIED_USER" length="30" />
+        </property>
+        <property name="crmEnabled" type="big_decimal">
+            <column name="CRM_ENABLED" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

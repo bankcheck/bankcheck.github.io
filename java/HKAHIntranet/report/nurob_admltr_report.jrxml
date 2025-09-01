@@ -1,0 +1,2017 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LifestyleReferral" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.7715610000000432"/>
+	<property name="ireport.x" value="30"/>
+	<property name="ireport.y" value="232"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[".\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nurobAdmltrId" class="java.math.BigDecimal">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="BaseDir" class="java.io.File"/>
+	<parameter name="tf_nurobPatient" class="java.lang.String"/>
+	<parameter name="tf_nurobAge" class="java.lang.String"/>
+	<parameter name="tf_nurobTelno" class="java.lang.String"/>
+	<parameter name="tf_nurobBookno" class="java.lang.String"/>
+	<parameter name="rb_nurobStatus" class="java.lang.String"/>
+	<parameter name="tf_nurobGravida" class="java.lang.String"/>
+	<parameter name="tf_nurobPara" class="java.lang.String"/>
+	<parameter name="tf_nurobEdc" class="java.lang.String"/>
+	<parameter name="tf_nurobDr" class="java.lang.String"/>
+	<parameter name="tf_nurobClinic" class="java.lang.String"/>
+	<parameter name="tf_nurobAllergy" class="java.lang.String"/>
+	<parameter name="cb_nurobCardiac" class="java.lang.String"/>
+	<parameter name="cb_nurobDiabetes" class="java.lang.String"/>
+	<parameter name="cb_nurobDm" class="java.lang.String"/>
+	<parameter name="cb_nurobGdm" class="java.lang.String"/>
+	<parameter name="cb_nurobIgt" class="java.lang.String"/>
+	<parameter name="cb_nurobAnemia" class="java.lang.String"/>
+	<parameter name="cb_nurobRenal" class="java.lang.String"/>
+	<parameter name="cb_nurobLiver" class="java.lang.String"/>
+	<parameter name="cb_nurobResp" class="java.lang.String"/>
+	<parameter name="cb_nurobGi" class="java.lang.String"/>
+	<parameter name="cb_nurobEpilepsy" class="java.lang.String"/>
+	<parameter name="cb_nurobPsychiatric" class="java.lang.String"/>
+	<parameter name="cb_nurobImmun" class="java.lang.String"/>
+	<parameter name="cb_nurobThyroid" class="java.lang.String"/>
+	<parameter name="cb_nurobSurg" class="java.lang.String"/>
+	<parameter name="cb_nurobMulti" class="java.lang.String"/>
+	<parameter name="cb_nurobPrevious" class="java.lang.String"/>
+	<parameter name="cb_nurobHyper" class="java.lang.String"/>
+	<parameter name="cb_nurobAph" class="java.lang.String"/>
+	<parameter name="cb_nurobPreterm" class="java.lang.String"/>
+	<parameter name="cb_nurobBadob" class="java.lang.String"/>
+	<parameter name="cb_nurobIugr" class="java.lang.String"/>
+	<parameter name="cb_nurobFetal" class="java.lang.String"/>
+	<parameter name="cb_nurobRoutine" class="java.lang.String"/>
+	<parameter name="cb_nurobInduct" class="java.lang.String"/>
+	<parameter name="cb_nurobElective" class="java.lang.String"/>
+	<parameter name="tf_nurobCurrmed" class="java.lang.String"/>
+	<parameter name="rb_nurobRoom" class="java.lang.String"/>
+	<parameter name="cb_nurobCord" class="java.lang.String"/>
+	<parameter name="cb_nurobTriallabor" class="java.lang.String"/>
+	<parameter name="cb_nurobTrialscar" class="java.lang.String"/>
+	<parameter name="cb_nurobFleet" class="java.lang.String"/>
+	<parameter name="cb_nurobShaving" class="java.lang.String"/>
+	<parameter name="cb_nurobPain" class="java.lang.String"/>
+	<parameter name="tf_nurobPainPeth" class="java.lang.String"/>
+	<parameter name="cb_nurobNotify" class="java.lang.String"/>
+	<parameter name="cb_nurobAnytime" class="java.lang.String"/>
+	<parameter name="cb_nurobAfter06" class="java.lang.String"/>
+	<parameter name="cb_nurobNpo" class="java.lang.String"/>
+	<parameter name="cb_nurobHep" class="java.lang.String"/>
+	<parameter name="cb_nurobPps" class="java.lang.String"/>
+	<parameter name="cb_nurobPost" class="java.lang.String"/>
+	<parameter name="cb_nurobCs" class="java.lang.String"/>
+	<parameter name="cb_nurobCsbtl" class="java.lang.String"/>
+	<parameter name="tf_nurobCsdate" class="java.lang.String"/>
+	<parameter name="cb_nurobCsseltime" class="java.lang.String"/>
+	<parameter name="cb_nurobGa" class="java.lang.String"/>
+	<parameter name="cb_nurobSa" class="java.lang.String"/>
+	<parameter name="cb_nurobIndication" class="java.lang.String"/>
+	<parameter name="tf_nurobIndicationText" class="java.lang.String"/>
+	<parameter name="cb_nurobAbdominal" class="java.lang.String"/>
+	<parameter name="cb_nurobPublic" class="java.lang.String"/>
+	<parameter name="tf_nurobAnesdr" class="java.lang.String"/>
+	<parameter name="tf_nurobPremed" class="java.lang.String"/>
+	<parameter name="tf_nurobPeddr" class="java.lang.String"/>
+	<parameter name="tf_nurobOther" class="java.lang.String"/>
+	<parameter name="rb_nurobFeed" class="java.lang.String"/>
+	<parameter name="tf_nurobCreatedDate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select a.*, d.x
+from
+(
+  select *
+  from nurob_admltr
+  where nurob_admltr_id = $P{nurobAdmltrId}
+  and nurob_enabled = 1
+) a
+full join
+(
+  select count(1) x
+  from nurob_admltr
+  where $P{nurobAdmltrId} is null
+) d
+on 1 = 1]]>
+	</queryString>
+	<field name="NUROB_ADMLTR_ID" class="java.math.BigDecimal"/>
+	<field name="NUROB_PATIENT" class="java.lang.String"/>
+	<field name="NUROB_AGE" class="java.math.BigDecimal"/>
+	<field name="NUROB_TELNO" class="java.lang.String"/>
+	<field name="NUROB_BOOKNO" class="java.lang.String"/>
+	<field name="NUROB_STATUS" class="java.lang.String"/>
+	<field name="NUROB_GRAVIDA" class="java.math.BigDecimal"/>
+	<field name="NUROB_PARA" class="java.math.BigDecimal"/>
+	<field name="NUROB_EDC" class="java.sql.Timestamp"/>
+	<field name="NUROB_DR" class="java.lang.String"/>
+	<field name="NUROB_CLINIC" class="java.lang.String"/>
+	<field name="NUROB_ALLERGY" class="java.lang.String"/>
+	<field name="NUROB_CARDIAC" class="java.lang.String"/>
+	<field name="NUROB_DIABETES" class="java.lang.String"/>
+	<field name="NUROB_DM" class="java.lang.String"/>
+	<field name="NUROB_GDM" class="java.lang.String"/>
+	<field name="NUROB_IGT" class="java.lang.String"/>
+	<field name="NUROB_ANEMIA" class="java.lang.String"/>
+	<field name="NUROB_RENAL" class="java.lang.String"/>
+	<field name="NUROB_LIVER" class="java.lang.String"/>
+	<field name="NUROB_RESP" class="java.lang.String"/>
+	<field name="NUROB_GI" class="java.lang.String"/>
+	<field name="NUROB_EPILEPSY" class="java.lang.String"/>
+	<field name="NUROB_PSYCHIATRIC" class="java.lang.String"/>
+	<field name="NUROB_IMMUN" class="java.lang.String"/>
+	<field name="NUROB_THYROID" class="java.lang.String"/>
+	<field name="NUROB_SURG" class="java.lang.String"/>
+	<field name="NUROB_MULTI" class="java.lang.String"/>
+	<field name="NUROB_PREVIOUS" class="java.lang.String"/>
+	<field name="NUROB_HYPER" class="java.lang.String"/>
+	<field name="NUROB_APH" class="java.lang.String"/>
+	<field name="NUROB_PRETERM" class="java.lang.String"/>
+	<field name="NUROB_BADOB" class="java.lang.String"/>
+	<field name="NUROB_IUGR" class="java.lang.String"/>
+	<field name="NUROB_FETAL" class="java.lang.String"/>
+	<field name="NUROB_ROUTINE" class="java.lang.String"/>
+	<field name="NUROB_INDUCT" class="java.lang.String"/>
+	<field name="NUROB_ELECTIVE" class="java.lang.String"/>
+	<field name="NUROB_CURRMED" class="java.lang.String"/>
+	<field name="NUROB_ROOM" class="java.lang.String"/>
+	<field name="NUROB_CORD" class="java.lang.String"/>
+	<field name="NUROB_TRIALLABOR" class="java.lang.String"/>
+	<field name="NUROB_TRIALSCAR" class="java.lang.String"/>
+	<field name="NUROB_FLEET" class="java.lang.String"/>
+	<field name="NUROB_SHAVING" class="java.lang.String"/>
+	<field name="NUROB_PAIN" class="java.lang.String"/>
+	<field name="NUROB_NOTIFY" class="java.lang.String"/>
+	<field name="NUROB_ANYTIME" class="java.lang.String"/>
+	<field name="NUROB_AFTER06" class="java.lang.String"/>
+	<field name="NUROB_NPO" class="java.lang.String"/>
+	<field name="NUROB_HEP" class="java.lang.String"/>
+	<field name="NUROB_PPS" class="java.lang.String"/>
+	<field name="NUROB_POST" class="java.lang.String"/>
+	<field name="NUROB_CS" class="java.lang.String"/>
+	<field name="NUROB_CSBTL" class="java.lang.String"/>
+	<field name="NUROB_CSDATE" class="java.sql.Timestamp"/>
+	<field name="NUROB_GA" class="java.lang.String"/>
+	<field name="NUROB_SA" class="java.lang.String"/>
+	<field name="NUROB_INDICATION" class="java.lang.String"/>
+	<field name="NUROB_ABDOMINAL" class="java.lang.String"/>
+	<field name="NUROB_PUBLIC" class="java.lang.String"/>
+	<field name="NUROB_ANESDR" class="java.lang.String"/>
+	<field name="NUROB_PREMED" class="java.lang.String"/>
+	<field name="NUROB_PEDDR" class="java.lang.String"/>
+	<field name="NUROB_FEED" class="java.lang.String"/>
+	<field name="NUROB_OTHER" class="java.lang.String"/>
+	<field name="NUROB_CREATED_DATE" class="java.sql.Timestamp"/>
+	<field name="NUROB_CREATED_USER" class="java.lang.String"/>
+	<field name="NUROB_MODIFIED_DATE" class="java.sql.Timestamp"/>
+	<field name="NUROB_MODIFIED_USER" class="java.lang.String"/>
+	<field name="NUROB_ENABLED" class="java.math.BigDecimal"/>
+	<field name="NUROB_INDICATION_TEXT" class="java.lang.String"/>
+	<field name="NUROB_PAIN_PETH" class="java.lang.String"/>
+	<field name="NUROB_CSSELTIME" class="java.lang.String"/>
+	<field name="X" class="java.math.BigDecimal"/>
+	<variable name="img_tick" class="java.lang.String"/>
+	<variable name="fmt_nurobCreatedDate" class="java.lang.String">
+		<variableExpression><![CDATA[$F{NUROB_CREATED_DATE}.getDay() + "/" +
+$F{NUROB_CREATED_DATE}.getMonth() + "/" +
+$F{NUROB_CREATED_DATE}.getYear()]]></variableExpression>
+	</variable>
+	<title>
+		<band height="204">
+			<staticText>
+				<reportElement x="0" y="90" width="555" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[荃灣港安醫院]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="115" width="555" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Tsuen Wan Adventist Hospital]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="140" width="555" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Admission Letter for Maternity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="165" width="555" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[產科入院信]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="0" width="214" height="90"/>
+				<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/logo_twah.gif")]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="130">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="130"/>
+				<staticText>
+					<reportElement x="0" y="0" width="134" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<text><![CDATA[Personal Information:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="198" y="24" width="31" height="15"/>
+					<box leftPadding="0"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font fontName="Arial" size="10" isBold="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252"/>
+					</textElement>
+					<text><![CDATA[Age:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="44" width="84" height="15"/>
+					<box leftPadding="0"/>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Arial" size="10" isBold="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252"/>
+					</textElement>
+					<text><![CDATA[Telephone no.:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement key="tf_patName" x="37" y="24" width="136" height="15" forecolor="#000000"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Top" markup="html">
+						<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobPatient} : $F{NUROB_PATIENT})]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="24" width="37" height="15"/>
+					<box leftPadding="0"/>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Arial" size="10" isBold="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252"/>
+					</textElement>
+					<text><![CDATA[Name:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="198" y="44" width="70" height="15"/>
+					<box leftPadding="0"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font fontName="Arial" size="10" isBold="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252"/>
+					</textElement>
+					<text><![CDATA[Booking no.:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement key="tf_patName" x="84" y="44" width="89" height="15" forecolor="#000000"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Top" markup="html">
+						<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobTelno} : $F{NUROB_TELNO})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement key="tf_patName" x="229" y="24" width="39" height="15" forecolor="#000000"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Top" markup="html">
+						<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobAge} : $F{NUROB_AGE}.toString())]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement key="tf_patName" x="268" y="44" width="68" height="15" forecolor="#000000"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Top" markup="html">
+						<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobBookno} : $F{NUROB_BOOKNO})]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="65" width="52" height="15"/>
+					<box leftPadding="0"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font fontName="Arial" size="10" isBold="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252"/>
+					</textElement>
+					<text><![CDATA[Status:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="64" y="65" width="109" height="15"/>
+					<box leftPadding="10"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font fontName="Arial" size="10" isBold="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252"/>
+					</textElement>
+					<text><![CDATA[HK Resident]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="210" y="66" width="104" height="15"/>
+					<box leftPadding="10"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font fontName="Arial" size="10" isBold="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252"/>
+					</textElement>
+					<text><![CDATA[Non HK Resident]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="87" width="41" height="15"/>
+					<box leftPadding="0"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font fontName="Arial" size="10" isBold="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252"/>
+					</textElement>
+					<text><![CDATA[Gravida:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement key="tf_patName" x="41" y="87" width="39" height="15" forecolor="#000000"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Top" markup="html">
+						<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobGravida} : $F{NUROB_GRAVIDA}.toString())]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement key="tf_patName" x="134" y="87" width="39" height="15" forecolor="#000000"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Top" markup="html">
+						<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobPara} : $F{NUROB_PARA}.toString())]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="107" y="87" width="27" height="15"/>
+					<box leftPadding="0"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font fontName="Arial" size="10" isBold="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252"/>
+					</textElement>
+					<text><![CDATA[Para:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="198" y="87" width="33" height="15"/>
+					<box leftPadding="0"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font fontName="Arial" size="10" isBold="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252"/>
+					</textElement>
+					<text><![CDATA[E.D.C.:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement key="tf_patName" x="231" y="87" width="83" height="15" forecolor="#000000"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Top" markup="html">
+						<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobEdc} : $F{NUROB_EDC})]]></textFieldExpression>
+				</textField>
+				<frame>
+					<reportElement x="390" y="0" width="165" height="130"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+						<reportElement key="tf_patName" x="55" y="10" width="98" height="15" forecolor="#000000"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.0"/>
+						</box>
+						<textElement verticalAlignment="Top" markup="html">
+							<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobDr} : $F{NUROB_DR})]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="10" y="10" width="45" height="15"/>
+						<box leftPadding="0"/>
+						<textElement textAlignment="Left" verticalAlignment="Bottom">
+							<font fontName="Arial" size="10" isBold="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252"/>
+						</textElement>
+						<text><![CDATA[From: Dr.]]></text>
+					</staticText>
+					<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+						<reportElement key="tf_patName" x="40" y="44" width="113" height="15" forecolor="#000000"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.0"/>
+						</box>
+						<textElement verticalAlignment="Top" markup="html">
+							<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobClinic} : $F{NUROB_CLINIC})]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="10" y="44" width="30" height="15"/>
+						<box leftPadding="0"/>
+						<textElement textAlignment="Left" verticalAlignment="Bottom">
+							<font fontName="Arial" size="10" isBold="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252"/>
+						</textElement>
+						<text><![CDATA[Clinic:]]></text>
+					</staticText>
+					<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+						<reportElement key="tf_patName" x="10" y="87" width="143" height="15" forecolor="#000000"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.0"/>
+						</box>
+						<textElement verticalAlignment="Top" markup="html">
+							<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobAllergy} : $F{NUROB_ALLERGY})]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="10" y="72" width="45" height="15"/>
+						<box leftPadding="0"/>
+						<textElement textAlignment="Left" verticalAlignment="Bottom">
+							<font fontName="Arial" size="10" isBold="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252"/>
+						</textElement>
+						<text><![CDATA[Allergy:]]></text>
+					</staticText>
+				</frame>
+				<ellipse>
+					<reportElement x="54" y="68" width="10" height="10"/>
+				</ellipse>
+				<ellipse>
+					<reportElement mode="Opaque" x="57" y="71" width="4" height="4" backcolor="#000000">
+						<printWhenExpression><![CDATA["hk".equals( $P{rb_nurobStatus} )]]></printWhenExpression>
+					</reportElement>
+				</ellipse>
+				<ellipse>
+					<reportElement x="200" y="68" width="10" height="10"/>
+				</ellipse>
+				<ellipse>
+					<reportElement mode="Opaque" x="203" y="71" width="4" height="4" backcolor="#000000">
+						<printWhenExpression><![CDATA["nonhk".equals( $P{rb_nurobStatus} )]]></printWhenExpression>
+					</reportElement>
+				</ellipse>
+			</frame>
+		</band>
+		<band height="450">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="424"/>
+				<staticText>
+					<reportElement x="0" y="0" width="134" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<text><![CDATA[Antenatal History]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="28" width="555" height="31"/>
+					<box leftPadding="40" rightPadding="40"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<text><![CDATA[(Report of Routine AN blood, Down's Screening, Detail Scan etc. should be attached to this letter)]]></text>
+				</staticText>
+				<frame>
+					<reportElement x="0" y="71" width="260" height="352"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<frame>
+						<reportElement x="11" y="10" width="221" height="342"/>
+						<frame>
+							<reportElement x="1" y="20" width="219" height="322"/>
+							<rectangle>
+								<reportElement x="1" y="4" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="13" y="0" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Cardiac disease]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="1" y="24" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="13" y="20" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Diabetes:]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="13" y="120" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Renal Disease]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="1" y="104" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<rectangle>
+								<reportElement x="1" y="124" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="13" y="100" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Anemia]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="1" y="144" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="13" y="140" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Liver Disease]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="40" y="40" width="125" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[DM on insulin]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="28" y="44" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="40" y="60" width="125" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[GDM on diet]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="28" y="64" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="40" y="80" width="125" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[IGT]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="28" y="84" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="13" y="160" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Respiratory Disease]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="1" y="164" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<rectangle>
+								<reportElement x="1" y="184" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<rectangle>
+								<reportElement x="1" y="204" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="13" y="200" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Epilepsy]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="13" y="180" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[GI/ Biliary Disease]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="1" y="284" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="13" y="280" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Surgical Disease]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="1" y="264" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<rectangle>
+								<reportElement x="1" y="224" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="13" y="220" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Psychiatric Disease]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="1" y="244" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="13" y="240" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Immunological Disease]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="13" y="260" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Thyroid Disease]]></text>
+							</staticText>
+							<image>
+								<reportElement mode="Transparent" x="2" y="5" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobCardiac} : $F{NUROB_CARDIAC})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobCardiac} : $F{NUROB_CARDIAC}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="2" y="25" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobDiabetes} : $F{NUROB_DIABETES})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobDiabetes} : $F{NUROB_DIABETES}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="29" y="45" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobDm} : $F{NUROB_DM})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobDm} : $F{NUROB_DM}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="29" y="65" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobGdm} : $F{NUROB_GDM})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobGdm} : $F{NUROB_GDM}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="29" y="85" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobIgt} : $F{NUROB_IGT})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobIgt} : $F{NUROB_IGT}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="2" y="105" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobAnemia} : $F{NUROB_ANEMIA})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobAnemia} : $F{NUROB_ANEMIA}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="2" y="125" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobRenal} :$F{NUROB_RENAL})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobRenal} : $F{NUROB_RENAL}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="2" y="145" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobLiver} : $F{NUROB_LIVER})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobLiver} : $F{NUROB_LIVER}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="2" y="165" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobResp} : $F{NUROB_RESP})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobResp} : $F{NUROB_RESP}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="2" y="185" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobGi} : $F{NUROB_GI})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobGi} : $F{NUROB_GI}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="2" y="205" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobEpilepsy} : $F{NUROB_EPILEPSY})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobEpilepsy} : $F{NUROB_EPILEPSY}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="2" y="225" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobPsychiatric} : $F{NUROB_PSYCHIATRIC})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobPsychiatric} : $F{NUROB_PSYCHIATRIC}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="2" y="245" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobImmun} : $F{NUROB_IMMUN})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobImmun} : $F{NUROB_IMMUN}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="2" y="265" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobThyroid} : $F{NUROB_THYROID})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobThyroid} : $F{NUROB_THYROID}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="2" y="285" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobSurg} : $F{NUROB_SURG})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobSurg} : $F{NUROB_SURG}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+						</frame>
+						<staticText>
+							<reportElement x="1" y="0" width="220" height="20"/>
+							<textElement>
+								<font fontName="Arial" isBold="true" pdfFontName="Helvetica-Bold"/>
+							</textElement>
+							<text><![CDATA[Medical History/Complications:]]></text>
+						</staticText>
+					</frame>
+				</frame>
+				<frame>
+					<reportElement x="295" y="71" width="260" height="352"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<frame>
+						<reportElement x="11" y="10" width="221" height="342"/>
+						<frame>
+							<reportElement x="1" y="20" width="219" height="322"/>
+							<staticText>
+								<reportElement x="13" y="60" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Previous Uterine Scar: CS,]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="1" y="44" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<rectangle>
+								<reportElement x="1" y="64" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="13" y="40" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Multiple pregnancies]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="13" y="80" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Hysterotomy, Myomectomy]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="13" y="100" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Hypertension: Chronic, Gestational]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="1" y="104" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<rectangle>
+								<reportElement x="1" y="124" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="13" y="140" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Abruption, Others]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="13" y="120" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[APH: Placenta Praevia, Placenta]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="1" y="224" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="13" y="220" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Fetal Abnormalities]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="1" y="204" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<rectangle>
+								<reportElement x="1" y="164" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="13" y="160" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Pre-term Labor]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="1" y="184" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="13" y="180" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Bad Obstetric History]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="13" y="200" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[IUGR]]></text>
+							</staticText>
+							<image>
+								<reportElement mode="Transparent" x="2" y="45" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobMulti} : $F{NUROB_MULTI})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobMulti} : $F{NUROB_MULTI}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="2" y="65" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobPrevious} : $F{NUROB_PREVIOUS})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobPrevious} : $F{NUROB_PREVIOUS}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="2" y="105" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobHyper} : $F{NUROB_HYPER})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobHyper} : $F{NUROB_HYPER}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="2" y="125" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobAph} : $F{NUROB_APH})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobAph} : $F{NUROB_APH}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="2" y="165" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobPreterm} : $F{NUROB_PRETERM})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobPreterm} : $F{NUROB_PRETERM}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="2" y="185" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobBadob} : $F{NUROB_BADOB})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobBadob} : $F{NUROB_BADOB}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="2" y="205" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobIugr} : $F{NUROB_IUGR})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobIugr} : $F{NUROB_IUGR}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="2" y="225" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobFetal} : $F{NUROB_FETAL})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobFetal} : $F{NUROB_FETAL}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+						</frame>
+						<staticText>
+							<reportElement x="1" y="0" width="220" height="20"/>
+							<textElement>
+								<font fontName="Arial" isBold="true" pdfFontName="Helvetica-Bold"/>
+							</textElement>
+							<text><![CDATA[Obstetric Complaints:]]></text>
+						</staticText>
+					</frame>
+				</frame>
+			</frame>
+			<textField>
+				<reportElement x="207" y="430" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page 1 of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="287" y="430" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" 2"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="802" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="16" width="555" height="763"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<frame>
+					<reportElement x="13" y="7" width="530" height="751"/>
+					<frame>
+						<reportElement x="1" y="684" width="528" height="67"/>
+						<staticText>
+							<reportElement x="0" y="42" width="27" height="15"/>
+							<box topPadding="0" leftPadding="0"/>
+							<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+								<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+							</textElement>
+							<text><![CDATA[Date:]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="0" y="25" width="60" height="15"/>
+							<box topPadding="0" leftPadding="0"/>
+							<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+								<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+							</textElement>
+							<text><![CDATA[Dr. Signature:]]></text>
+						</staticText>
+						<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+							<reportElement key="tf_patName" x="27" y="42" width="167" height="15" forecolor="#000000"/>
+							<box>
+								<pen lineWidth="0.5"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textElement verticalAlignment="Top" markup="html">
+								<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobCreatedDate} : $V{fmt_nurobCreatedDate})]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+							<reportElement key="tf_patName" x="60" y="25" width="167" height="15" forecolor="#000000"/>
+							<box>
+								<pen lineWidth="0.5"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textElement verticalAlignment="Top" markup="html">
+								<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+							</textElement>
+						</textField>
+					</frame>
+					<frame>
+						<reportElement x="0" y="126" width="530" height="473"/>
+						<staticText>
+							<reportElement x="0" y="0" width="134" height="20"/>
+							<textElement verticalAlignment="Middle">
+								<font fontName="Arial" isBold="true" pdfFontName="Helvetica-Bold"/>
+							</textElement>
+							<text><![CDATA[C. Labor Plan:]]></text>
+						</staticText>
+						<frame>
+							<reportElement x="11" y="20" width="518" height="453"/>
+							<staticText>
+								<reportElement x="157" y="0" width="40" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Single, ]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="0" y="0" width="145" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[1. Request room accommodation:]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="209" y="0" width="44" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[2-beds,]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="265" y="0" width="44" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[3-beds,]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="321" y="0" width="44" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[5-beds,]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="0" y="38" width="103" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[2. Cord blood collection]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="103" y="42" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="0" y="77" width="129" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[3. Intending Vaginal Delivery:]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="130" y="81" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="142" y="77" width="64" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Trial of labor,]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="207" y="81" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="219" y="77" width="60" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Trial of Scar,]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="21" y="121" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="33" y="177" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[NPO]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="33" y="117" width="248" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Shaving (Half shave/Whole share/no shave)]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="21" y="101" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<rectangle>
+								<reportElement x="21" y="181" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="33" y="197" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Hep. Block]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="33" y="157" width="89" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Notify Obstetrician:]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="33" y="97" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Fleet Enema,]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="33" y="137" width="95" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Pain relief: Pethidine:]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="21" y="141" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<rectangle>
+								<reportElement x="21" y="161" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<rectangle>
+								<reportElement x="21" y="201" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+								<reportElement key="tf_patName" x="128" y="138" width="57" height="15" forecolor="#000000"/>
+								<box>
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement verticalAlignment="Top" markup="html">
+									<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobPainPeth} : $F{NUROB_PAIN_PETH})]]></textFieldExpression>
+							</textField>
+							<staticText>
+								<reportElement x="185" y="138" width="96" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Epidural Anaesthesia]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="123" y="161" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="135" y="157" width="100" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[anytime on admission,]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="248" y="158" width="172" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[After 0600 if admitted after mid-night]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="236" y="162" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="33" y="237" width="256" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Post partum:  Syntometrin, Syntocinon only, Duratocin]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="33" y="217" width="152" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Intended PPS]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="21" y="241" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<rectangle>
+								<reportElement x="21" y="221" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="1" y="273" width="125" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[4. Elective CS]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="34" y="293" width="45" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[CS only, ]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="22" y="297" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<rectangle>
+								<reportElement x="80" y="297" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="92" y="293" width="57" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[CS + BTL,]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="22" y="313" width="57" height="20"/>
+								<box topPadding="0" leftPadding="0"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Date/Time:]]></text>
+							</staticText>
+							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+								<reportElement key="tf_patName" x="79" y="315" width="115" height="15" forecolor="#000000"/>
+								<box>
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement verticalAlignment="Top" markup="html">
+									<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobCsdate} : $F{NUROB_CSDATE})]]></textFieldExpression>
+							</textField>
+							<staticText>
+								<reportElement x="210" y="313" width="79" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Selective time]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="198" y="317" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="22" y="333" width="57" height="20"/>
+								<box topPadding="0" leftPadding="0"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Anesthetsia:]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="128" y="333" width="24" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[SA]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="80" y="337" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<rectangle>
+								<reportElement x="116" y="337" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="92" y="333" width="23" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[GA,]]></text>
+							</staticText>
+							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+								<reportElement key="tf_patName" x="82" y="356" width="207" height="15" forecolor="#000000"/>
+								<box>
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement verticalAlignment="Top" markup="html">
+									<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobIndicationText} : $F{NUROB_INDICATION_TEXT})]]></textFieldExpression>
+							</textField>
+							<rectangle>
+								<reportElement x="22" y="357" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="34" y="353" width="48" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Indication:]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="182" y="377" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<staticText>
+								<reportElement x="194" y="373" width="87" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Public shaving only]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="22" y="373" width="57" height="20"/>
+								<box topPadding="0" leftPadding="0"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Shaving:]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="92" y="373" width="90" height="20"/>
+								<box topPadding="0" leftPadding="5"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Abdominal shaving,]]></text>
+							</staticText>
+							<rectangle>
+								<reportElement x="79" y="377" width="12" height="12"/>
+								<graphicElement>
+									<pen lineWidth="0.5"/>
+								</graphicElement>
+							</rectangle>
+							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+								<reportElement key="tf_patName" x="97" y="395" width="192" height="15" forecolor="#000000"/>
+								<box>
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement verticalAlignment="Top" markup="html">
+									<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobAnesdr} : $F{NUROB_ANESDR})]]></textFieldExpression>
+							</textField>
+							<staticText>
+								<reportElement x="22" y="393" width="75" height="20"/>
+								<box topPadding="0" leftPadding="0"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Anesthetist: Dr:]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="22" y="413" width="75" height="20"/>
+								<box topPadding="0" leftPadding="0"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+									<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+								</textElement>
+								<text><![CDATA[Pre-Medication:]]></text>
+							</staticText>
+							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+								<reportElement key="tf_patName" x="97" y="415" width="192" height="15" forecolor="#000000"/>
+								<box>
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement verticalAlignment="Top" markup="html">
+									<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobPremed} : $F{NUROB_PREMED})]]></textFieldExpression>
+							</textField>
+							<image>
+								<reportElement mode="Transparent" x="104" y="43" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobCord} : $F{NUROB_CORD})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobCord} : $F{NUROB_CORD}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="131" y="82" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobTriallabor} : $F{NUROB_TRIALLABOR})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobTriallabor} : $F{NUROB_TRIALLABOR}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="208" y="82" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobTrialscar} : $F{NUROB_TRIALSCAR})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobTrialscar} : $F{NUROB_TRIALSCAR}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="22" y="102" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobFleet} : $F{NUROB_FLEET})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobFleet} : $F{NUROB_FLEET}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="22" y="122" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobShaving} : $F{NUROB_SHAVING})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobShaving} : $F{NUROB_SHAVING}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="22" y="142" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobPain} : $F{NUROB_PAIN})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobPain} : $F{NUROB_PAIN}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="22" y="162" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobNotify} : $F{NUROB_NOTIFY})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobNotify} : $F{NUROB_NOTIFY}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="124" y="162" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobAnytime} : $F{NUROB_ANYTIME})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobAnytime} : $F{NUROB_ANYTIME}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="237" y="163" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobAfter06} : $F{NUROB_AFTER06})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobAfter06} : $F{NUROB_AFTER06}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="22" y="182" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobNpo} : $F{NUROB_NPO})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobNpo} : $F{NUROB_NPO}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="22" y="202" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobHep} : $F{NUROB_HEP})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobHep} : $F{NUROB_HEP}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="22" y="222" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobPps} : $F{NUROB_PPS})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobPps} : $F{NUROB_PPS}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="22" y="242" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobPost} : $F{NUROB_POST})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobPost} : $F{NUROB_POST}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="23" y="298" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobCs} : $F{NUROB_CS})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobCs} : $F{NUROB_CS}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="81" y="298" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobCsbtl} : $F{NUROB_CSBTL})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobCsbtl} : $F{NUROB_CSBTL}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="199" y="318" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobCsseltime} : $F{NUROB_CSSELTIME})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobCsseltime} : $F{NUROB_CSSELTIME}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="81" y="338" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobGa} :$F{NUROB_GA})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobGa} : $F{NUROB_GA}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="117" y="338" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobSa} : $F{NUROB_SA})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobSa} : $F{NUROB_SA}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="23" y="358" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobIndication} : $F{NUROB_INDICATION})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobIndication} : $F{NUROB_INDICATION}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="80" y="378" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobAbdominal} : $F{NUROB_ABDOMINAL})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobAbdominal} : $F{NUROB_ABDOMINAL}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<image>
+								<reportElement mode="Transparent" x="183" y="378" width="10" height="10">
+									<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobPublic} : $F{NUROB_PUBLIC})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobPublic} : $F{NUROB_PUBLIC}))]]></printWhenExpression>
+								</reportElement>
+								<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+							</image>
+							<ellipse>
+								<reportElement x="146" y="6" width="10" height="10"/>
+							</ellipse>
+							<ellipse>
+								<reportElement mode="Opaque" x="149" y="9" width="4" height="4" backcolor="#000000">
+									<printWhenExpression><![CDATA["1".equals(($P{nurobAdmltrId} == null ? $P{rb_nurobRoom} : $F{NUROB_ROOM}))]]></printWhenExpression>
+								</reportElement>
+							</ellipse>
+							<ellipse>
+								<reportElement x="198" y="6" width="10" height="10"/>
+							</ellipse>
+							<ellipse>
+								<reportElement mode="Opaque" x="201" y="9" width="4" height="4" backcolor="#000000">
+									<printWhenExpression><![CDATA["2".equals(($P{nurobAdmltrId} == null ? $P{rb_nurobRoom} : $F{NUROB_ROOM}))]]></printWhenExpression>
+								</reportElement>
+							</ellipse>
+							<ellipse>
+								<reportElement x="254" y="6" width="10" height="10"/>
+							</ellipse>
+							<ellipse>
+								<reportElement mode="Opaque" x="257" y="9" width="4" height="4" backcolor="#000000">
+									<printWhenExpression><![CDATA["3".equals(($P{nurobAdmltrId} == null ? $P{rb_nurobRoom} : $F{NUROB_ROOM}))]]></printWhenExpression>
+								</reportElement>
+							</ellipse>
+							<ellipse>
+								<reportElement x="310" y="6" width="10" height="10"/>
+							</ellipse>
+							<ellipse>
+								<reportElement mode="Opaque" x="313" y="9" width="4" height="4" backcolor="#000000">
+									<printWhenExpression><![CDATA["5".equals(($P{nurobAdmltrId} == null ? $P{rb_nurobRoom} : $F{NUROB_ROOM}))]]></printWhenExpression>
+								</reportElement>
+							</ellipse>
+						</frame>
+					</frame>
+					<staticText>
+						<reportElement x="0" y="0" width="134" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+						</textElement>
+						<text><![CDATA[Current Admission:]]></text>
+					</staticText>
+					<frame>
+						<reportElement x="1" y="21" width="529" height="70"/>
+						<staticText>
+							<reportElement x="149" y="0" width="379" height="21"/>
+							<box topPadding="0" leftPadding="5"/>
+							<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+								<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+							</textElement>
+							<text><![CDATA[Routine admission in labor]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="0" y="0" width="134" height="20"/>
+							<textElement verticalAlignment="Middle">
+								<font fontName="Arial" isBold="true" pdfFontName="Helvetica-Bold"/>
+							</textElement>
+							<text><![CDATA[A. Reason for admission:]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="149" y="41" width="380" height="20"/>
+							<box topPadding="0" leftPadding="5"/>
+							<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+								<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+							</textElement>
+							<text><![CDATA[Elective CS]]></text>
+						</staticText>
+						<rectangle>
+							<reportElement x="137" y="44" width="12" height="12"/>
+							<graphicElement>
+								<pen lineWidth="0.5"/>
+							</graphicElement>
+						</rectangle>
+						<staticText>
+							<reportElement x="149" y="21" width="380" height="20"/>
+							<box topPadding="0" leftPadding="5"/>
+							<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+								<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+							</textElement>
+							<text><![CDATA[Induction for post term, SROM, IUD, IUGR, Unsatisfactory CTG]]></text>
+						</staticText>
+						<rectangle>
+							<reportElement x="137" y="24" width="12" height="12"/>
+							<graphicElement>
+								<pen lineWidth="0.5"/>
+							</graphicElement>
+						</rectangle>
+						<rectangle>
+							<reportElement x="137" y="4" width="12" height="12"/>
+							<graphicElement>
+								<pen lineWidth="0.5"/>
+							</graphicElement>
+						</rectangle>
+						<image>
+							<reportElement mode="Transparent" x="138" y="5" width="10" height="10">
+								<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobRoutine} : $F{NUROB_ROUTINE})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobRoutine} : $F{NUROB_ROUTINE}))]]></printWhenExpression>
+							</reportElement>
+							<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+						</image>
+						<image>
+							<reportElement mode="Transparent" x="138" y="25" width="10" height="10">
+								<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobInduct} : $F{NUROB_INDUCT})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobInduct} : $F{NUROB_INDUCT}))]]></printWhenExpression>
+							</reportElement>
+							<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+						</image>
+						<image>
+							<reportElement mode="Transparent" x="138" y="45" width="10" height="10">
+								<printWhenExpression><![CDATA["true".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobElective} : $F{NUROB_ELECTIVE})) ||
+"Y".equals(($P{nurobAdmltrId} == null ? $P{cb_nurobElective} : $F{NUROB_ELECTIVE}))]]></printWhenExpression>
+							</reportElement>
+							<imageExpression class="java.io.File"><![CDATA[new File($P{BaseDir}, "../images/tick.jpg")]]></imageExpression>
+						</image>
+					</frame>
+					<frame>
+						<reportElement x="1" y="599" width="528" height="85"/>
+						<staticText>
+							<reportElement x="0" y="0" width="134" height="20"/>
+							<textElement verticalAlignment="Middle">
+								<font fontName="Arial" isBold="true" pdfFontName="Helvetica-Bold"/>
+							</textElement>
+							<text><![CDATA[Postnatal:]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="0" y="20" width="80" height="15"/>
+							<box topPadding="0" leftPadding="0"/>
+							<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+								<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+							</textElement>
+							<text><![CDATA[1. Pediatrician: Dr.]]></text>
+						</staticText>
+						<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+							<reportElement key="tf_patName" x="80" y="20" width="139" height="15" forecolor="#000000"/>
+							<box>
+								<pen lineWidth="0.5"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textElement verticalAlignment="Top" markup="html">
+								<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobPeddr} : $F{NUROB_PEDDR})]]></textFieldExpression>
+						</textField>
+						<staticText>
+							<reportElement x="0" y="38" width="51" height="15"/>
+							<box topPadding="0" leftPadding="0"/>
+							<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+								<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+							</textElement>
+							<text><![CDATA[2. Feeding:]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="104" y="38" width="24" height="15"/>
+							<box topPadding="0" leftPadding="5"/>
+							<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+								<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+							</textElement>
+							<text><![CDATA[AF,]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="64" y="38" width="27" height="15"/>
+							<box topPadding="0" leftPadding="5"/>
+							<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+								<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+							</textElement>
+							<text><![CDATA[BF,]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="140" y="39" width="36" height="15"/>
+							<box topPadding="0" leftPadding="5"/>
+							<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+								<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+							</textElement>
+							<text><![CDATA[Mixed]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="0" y="57" width="51" height="15"/>
+							<box topPadding="0" leftPadding="0"/>
+							<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+								<font fontName="Arial" size="9" pdfFontName="Helvetica" pdfEncoding="Cp1252"/>
+							</textElement>
+							<text><![CDATA[3. Other:]]></text>
+						</staticText>
+						<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+							<reportElement key="tf_patName" x="52" y="57" width="249" height="15" forecolor="#000000"/>
+							<box>
+								<pen lineWidth="0.5"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textElement verticalAlignment="Top" markup="html">
+								<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobOther} : $F{NUROB_OTHER})]]></textFieldExpression>
+						</textField>
+						<ellipse>
+							<reportElement x="52" y="40" width="10" height="10"/>
+						</ellipse>
+						<ellipse>
+							<reportElement mode="Opaque" x="55" y="43" width="4" height="4" backcolor="#000000">
+								<printWhenExpression><![CDATA["bf".equals(($P{nurobAdmltrId} == null ? $P{rb_nurobFeed} : $F{NUROB_FEED}))]]></printWhenExpression>
+							</reportElement>
+						</ellipse>
+						<ellipse>
+							<reportElement x="93" y="41" width="10" height="10"/>
+						</ellipse>
+						<ellipse>
+							<reportElement mode="Opaque" x="96" y="44" width="4" height="4" backcolor="#000000">
+								<printWhenExpression><![CDATA["af".equals(($P{nurobAdmltrId} == null ? $P{rb_nurobFeed} : $F{NUROB_FEED}))]]></printWhenExpression>
+							</reportElement>
+						</ellipse>
+						<ellipse>
+							<reportElement x="129" y="41" width="10" height="10"/>
+						</ellipse>
+						<ellipse>
+							<reportElement mode="Opaque" x="132" y="44" width="4" height="4" backcolor="#000000">
+								<printWhenExpression><![CDATA["mix".equals(($P{nurobAdmltrId} == null ? $P{rb_nurobFeed} : $F{NUROB_FEED}))]]></printWhenExpression>
+							</reportElement>
+						</ellipse>
+					</frame>
+					<frame>
+						<reportElement x="1" y="91" width="529" height="35"/>
+						<staticText>
+							<reportElement x="0" y="0" width="115" height="20"/>
+							<textElement verticalAlignment="Middle">
+								<font fontName="Arial" isBold="true" pdfFontName="Helvetica-Bold"/>
+							</textElement>
+							<text><![CDATA[B. Current Medication:]]></text>
+						</staticText>
+						<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+							<reportElement key="tf_patName" x="115" y="2" width="243" height="15" forecolor="#000000"/>
+							<box>
+								<pen lineWidth="0.5"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textElement verticalAlignment="Top" markup="html">
+								<font fontName="SansSerif" size="10" pdfFontName="MHei-Medium" pdfEncoding="UniCNS-UCS2-H"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[($P{nurobAdmltrId} == null ? $P{tf_nurobCurrmed} : $F{NUROB_CURRMED})]]></textFieldExpression>
+						</textField>
+					</frame>
+				</frame>
+			</frame>
+			<textField>
+				<reportElement x="210" y="782" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page 2 of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="290" y="782" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" 2"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

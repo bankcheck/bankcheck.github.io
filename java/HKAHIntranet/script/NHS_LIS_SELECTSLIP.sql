@@ -1,0 +1,23 @@
+create or replace
+FUNCTION "NHS_LIS_SELECTSLIP"
+(
+	v_REGID in varchar2
+)
+	RETURN Types.cursor_type
+AS
+	outcur types.cursor_type;
+BEGIN
+	OPEN outcur FOR
+  select DECODE(S.SLPREMARK, '', '', '*') as REMARKEXIST,  S.SLPNO, S.SLPTYPE,
+          P.PATNO, NVL(S.SLPFNAME, P.PATFNAME) AS PATFNAME,
+          NVL(S.SLPGNAME, P.PATGNAME) as PATGNAME, NVL(S.PATCNAME, P.PATCNAME) as PATCNAME,
+          D.DOCCODE, D.DOCFNAME, D.DOCGNAME, D.DOCCNAME, I.INPDDATE,
+          S.SLPCAMT + S.SLPDAMT + S.SLPPAMT as SLPNAMT, S.SLPSTS, S.USRID
+  FROM    SLIP S, REG R, PATIENT P, DOCTOR D, INPAT I
+  where   S.SLPSTS in ('A','C') 
+  and     S.REGID = v_REGID and  S.REGID = R.REGID(+)
+  and     S.PATNO = P.PATNO(+) and S.DOCCODE = D.DOCCODE
+  and     R.INPID = I.INPID(+)
+  ORDER BY SLPNO DESC;
+	return OUTCUR;
+END NHS_LIS_SELECTSLIP;

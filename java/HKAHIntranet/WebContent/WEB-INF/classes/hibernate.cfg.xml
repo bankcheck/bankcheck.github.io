@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory name="HKAHIntranet">
+    	
+    	<!-- Connection -->
+    	<property name="connection.datasource">java:comp/env/jdbc/Intranet</property>
+        <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
+        <property name="hibernate.connection.autocommit">false</property>
+        
+        <!-- Print SQL to stdout. -->
+        <property name="show_sql">true</property>
+        
+        <!-- Mapping files -->
+        <mapping resource="com/hkah/web/db/hibernate/ELeaveObj.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/ELeaveApprovedObj.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/ELeaveBalanceObj.hbm.xml"/>
+        
+        <mapping resource="com/hkah/web/db/hibernate/HaaChecklist.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/HaaChecklistDate.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/HaaChecklistProgress.hbm.xml"/>
+        
+        <mapping resource="com/hkah/web/db/hibernate/DbComment.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/DbCommentHistory.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/DbCommentTypes.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/DbCommentDocument.hbm.xml"/>
+        <!-- 
+        <mapping resource="com/hkah/web/db/hibernate/DbCommentContact.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/DbCommentContactHistory.hbm.xml"/>
+        -->
+        
+        <mapping resource="com/hkah/web/db/hibernate/CoDocument.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/CoDocumentMailList.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/CoGroups.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/AcDocumentAccess.hbm.xml"/>
+        
+        <mapping resource="com/hkah/web/db/hibernate/EeMenuModule.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/EeMenuContent.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/EeMenuDocument.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/EeMenuContentInservReview.hbm.xml"/>
+        
+        <mapping resource="com/hkah/web/db/hibernate/CrmClients.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/CoEvent.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/CrmPromotion.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/CrmPromotionDepartment.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/CrmPromotionDocument.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/CrmPromotionEnquiry.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/CrmPromotionInstruction.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/CrmPromotionTarget.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/CrmTarget.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/CrmPromotionRefCode.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/CoDepartments.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/CoSite.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/CrmPromotionClient.hbm.xml"/>
+        
+        <mapping resource="com/hkah/web/db/hibernate/CoDocscan.hbm.xml"/>
+        <mapping resource="com/hkah/web/db/hibernate/CoDocscanDocument.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>

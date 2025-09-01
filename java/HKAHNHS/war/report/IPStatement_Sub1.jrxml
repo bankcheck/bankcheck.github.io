@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IPStatement_Sub1" language="groovy" pageWidth="510" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="510" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty">
+	<property name="ireport.zoom" value="1.3310000000000013"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Date" class="java.lang.String"/>
+	<parameter name="Item" class="java.lang.String"/>
+	<parameter name="Amount" class="java.lang.String"/>
+	<parameter name="TotChg" class="java.lang.String"/>
+	<parameter name="TotRfd" class="java.lang.String"/>
+	<parameter name="Balance" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT TB.STNTDATE, SUM(TB.STNNAMT) AMOUNT, TB.DESCRIPTION,88 AS QTY,89 AS TOTALREFUND,99 AS TOTALCHARGE
+      FROM (SELECT TO_CHAR(ST.STNTDATE, 'dd-mm-yyyy') STNTDATE,
+                   ST.STNNAMT,
+                   DECODE(ST.STNRLVL,
+                          1,
+                          DPS.DSCDESC,
+                          2,
+                          DP.DPTNAME,
+                          3,
+                          ST.STNDESC,
+                          4,
+                          PK.PKGNAME,
+                          NULL) DESCRIPTION
+              FROM SLIPTX ST, DPSERV DPS, DEPT DP, PACKAGE PK
+             WHERE ST.DSCCODE = DPS.DSCCODE(+)
+               AND SUBSTR(ST.GLCCODE, 1, 4) = DP.DPTCODE(+)
+               AND ST.PKGCODE = PK.PKGCODE(+)
+               AND ST.SLPNO IN ('20092770243','20092770244' )
+               AND ST.STNSTS IN ('N','A')
+               AND ST.STNTYPE IN ('S', 'R')
+               AND ST.STNRLVL <> 3) TB
+     GROUP BY TB.STNTDATE, TB.DESCRIPTION
+    UNION ALL
+    SELECT TB2.*,-41 AS QTY,89 AS TOTALREFUND,99 AS TOTALCHARGE
+      FROM (SELECT TO_CHAR(ST.STNTDATE, 'dd-mm-yyyy') STNTDATE,
+                   ST.STNNAMT,
+                   DECODE(ST.STNRLVL,
+                          1,
+                          DPS.DSCDESC,
+                          2,
+                          DP.DPTNAME,
+                          3,
+                          ST.STNDESC,
+                          4,
+                          PK.PKGNAME,
+                          NULL) DESCRIPTION
+              FROM SLIPTX ST, DPSERV DPS, DEPT DP, PACKAGE PK
+             WHERE ST.DSCCODE = DPS.DSCCODE(+)
+               AND SUBSTR(ST.GLCCODE, 1, 4) = DP.DPTCODE(+)
+               AND ST.PKGCODE = PK.PKGCODE(+)
+               AND ST.SLPNO IN ('20092770243','20092770244' )
+               AND ST.STNSTS IN ('N', 'A')
+               AND ST.STNTYPE IN ('S', 'R')
+               AND ST.STNRLVL = 3) TB2]]>
+	</queryString>
+	<field name="STNTDATE" class="java.lang.String"/>
+	<field name="AMOUNT" class="java.math.BigDecimal"/>
+	<field name="DESCRIPTION" class="java.lang.String"/>
+	<field name="QTY" class="java.math.BigDecimal"/>
+	<field name="TOTALREFUND" class="java.math.BigDecimal"/>
+	<field name="TOTALCHARGE" class="java.math.BigDecimal"/>
+	<field name="CDESCCODE" class="java.lang.String"/>
+	<variable name="AMOUNT_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{AMOUNT}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="SQTY" class="java.lang.String">
+		<variableExpression><![CDATA[($F{QTY}.intValue() > 1) ? " X "+$F{QTY}:""]]></variableExpression>
+	</variable>
+	<group name="STNTDATE">
+		<groupExpression><![CDATA[$F{STNTDATE}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="19" width="508" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="4" width="58" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Date <style fontName='Ming(for ISO10646_V3)'>" + org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{Date}) + "</style>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="63" y="4" width="345" height="15"/>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Description <style fontName='Ming(for ISO10646_V3)'>" + $P{Item} + "</style>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="408" y="4" width="100" height="15"/>
+				<textElement textAlignment="Right" markup="styled">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Amount <style fontName='Ming(for ISO10646_V3)'>" + org.apache.commons.lang.StringEscapeUtils.escapeHtml($P{Amount}) + "</style>"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<printWhenExpression><![CDATA[$F{STNTDATE}.length()!=0]]></printWhenExpression>
+			<textField pattern="###,###,###,##0.00" isBlankWhenNull="true">
+				<reportElement x="408" y="0" width="100" height="12"/>
+				<box rightPadding="0">
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="63" y="0" width="345" height="12"/>
+				<textElement verticalAlignment="Bottom" markup="styled">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style fontName='Arial Unicode MS'>" + org.apache.commons.lang.StringEscapeUtils.escapeHtml($F{DESCRIPTION}) + "</style> <style fontName='Ming(for ISO10646_V3)'>" + org.apache.commons.lang.StringEscapeUtils.escapeHtml($F{CDESCCODE}) + "</style> <style fontName='Arial Unicode MS'>" + $V{SQTY} + "</style>"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="58" height="12" printWhenGroupChanges="STNTDATE"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial Unicode MS" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[!"31/12/9999".equals( $F{STNTDATE}.trim() )?$F{STNTDATE}:""]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="58" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="21" width="69" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Charges ]]></text>
+			</staticText>
+			<textField pattern="###,###,###,##0.00" isBlankWhenNull="true">
+				<reportElement x="389" y="21" width="119" height="15"/>
+				<box>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[0+$V{AMOUNT_1}+$F{TOTALREFUND}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="10" width="510" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="42" width="69" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Refund]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="302" y="21" width="39" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Balance ]]></text>
+			</staticText>
+			<textField pattern="###,###,###,##0.00" isBlankWhenNull="true">
+				<reportElement x="114" y="21" width="116" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[0+$F{TOTALCHARGE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###,###,##0.00" isBlankWhenNull="true">
+				<reportElement x="114" y="42" width="116" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Unicode MS" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[0+$F{TOTALREFUND}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="21" width="45" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" isBold="true" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TotChg} + ":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="42" width="45" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" isBold="true" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TotRfd} + ":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="341" y="21" width="48" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="8" isBold="true" pdfFontName="Ming(for ISO10646_V3)" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Balance} + ":"]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spring boot with Thymeleaf</title>
+  </head>
+  <body>
+  	<footer th:insert="~{/footer.html:: /div[@id='footer1']}"></footer>
+  	<hr>
+  	<footer th:insert="~{/footer.html:: //div[@id='footer2']}"></footer>  	
+  	<hr>
+  	<footer th:insert="~{/footer.html:: span[@class='content']}"></footer>  	
+  	<hr>
+  	<footer th:insert="~{/footer.html:: span[@class='content' and @id='footer4']}"></footer>  	
+  	<hr>  		    
+  </body>
+</html>

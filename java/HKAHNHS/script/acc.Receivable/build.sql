@@ -1,0 +1,11 @@
+@./Acc.Receivable/NHS_ACT_ACCOUNTSLIP.sql
+@./Acc.Receivable/NHS_ACT_ARCREDITALLOC.sql
+@./Acc.Receivable/NHS_ACT_ARPAYMENTENTRY.sql
+@./Acc.Receivable/NHS_ACT_CREDITALLOCATION.sql
+@./Acc.Receivable/NHS_GET_ACCRECEIVABLE.sql
+@./Acc.Receivable/NHS_LIS_ACCOUNTSLIP.sql
+@./Acc.Receivable/NHS_LIS_ACCOUNTTRAN.sql
+@./Acc.Receivable/NHS_LIS_ACCRECEIVABLE.sql
+@./Acc.Receivable/NHS_LIS_ARCCODE.sql
+@./Acc.Receivable/NHS_LIS_ARCREDITALLOC.sql
+exit

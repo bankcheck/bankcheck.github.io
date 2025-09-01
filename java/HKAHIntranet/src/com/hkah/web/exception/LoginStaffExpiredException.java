@@ -1,0 +1,5 @@
+package com.hkah.web.exception;
+
+public class LoginStaffExpiredException extends LoginException {
+	public static final String MSG_KEY = "error.staffID.expired";
+}

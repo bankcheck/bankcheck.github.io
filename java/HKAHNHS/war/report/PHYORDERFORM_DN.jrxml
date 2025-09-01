@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PHYORDERFORM_DN" pageWidth="510" pageHeight="802" columnWidth="510" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.6105100000000236"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF" hAlign="Center">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF" fill="Solid" isBlankWhenNull="true">
+		<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="2">
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="BreastImg" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<detail>
+		<band height="237" splitType="Stretch">
+			<staticText>
+				<reportElement style="table_TD" x="50" y="31" width="405" height="40"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[預約牙科檢查可於辦公時間內致電2275-6881 或可親臨牙科診所進行預約。
+此牙科檢查表格會於一個月後失效，敬請儘快預約！]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="50" y="131" width="215" height="95"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Ming(for ISO10646_V3)" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[營業時間:<br>
+星期一至四：&emsp;上午9時至下午9時<br>
+星期五：&emsp;&emsp;&emsp;上午9時至中午12時;<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;下午1時至5時<br>
+星期日：&emsp;&emsp;&emsp;上午9時至中午12時;<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;下午1時至6時<br>
+星期六及醫院假期：休息]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="265" y="131" width="190" height="95"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Opening hours:<br>
+Mon - Thurs:&emsp;&emsp;9AM – 9PM<br>
+Fri:  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;9AM - 12N; 1 - 5PM<br>
+Sun:  &emsp;&emsp;&emsp;&emsp;&emsp;  9AM - 12N; 1 - 6PM<br>
+Sat & Hospital Holidays: Closed]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="50" y="71" width="405" height="60"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Please call 2275-6881 or visit our Dental Clinic for dental assessment appointment.
+This dental checkup form will be expired in one month. Please book as soon as possible!]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

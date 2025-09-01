@@ -1,0 +1,40 @@
+-- SlipPaymentAllocation.bas / SCMArCrReverse
+CREATE OR REPLACE FUNCTION "NHS_UTL_SCMARCRREVERSE"(
+	i_StnType IN VARCHAR2,
+	i_PayRef IN VARCHAR2
+)
+	RETURN NUMBER
+AS
+	o_errcode NUMBER;
+	v_SydID   SpecomDtl.SydID%TYPE;
+	v_tmpCur  TYPES.CURSOR_TYPE;
+
+	SLIP_PAYMENT_USER_ALLOCATE VARCHAR2(1) := 'N';
+	SLIP_PAYMENT_AUTO_ALLOCATE VARCHAR2(1) := 'A';
+BEGIN
+	OPEN v_tmpCur FOR
+		SELECT SydID
+		FROM   SpecomDtl
+		WHERE  StnType = i_StnType
+		AND    PayRef = i_PayRef
+		AND    SydSts in (SLIP_PAYMENT_USER_ALLOCATE, SLIP_PAYMENT_AUTO_ALLOCATE);
+	LOOP
+		FETCH v_tmpCur INTO v_SydID;
+		EXIT WHEN v_tmpCur%NOTFOUND;
+
+		o_errcode := NHS_UTL_SCMREVERSE(v_SydID, NULL, NULL);
+		IF o_errcode < 0 THEN
+			EXIT;
+		END IF;
+	END LOOP;
+
+	CLOSE v_tmpCur;
+
+	RETURN o_errcode;
+EXCEPTION
+WHEN OTHERS THEN
+	dbms_output.put_line('An ERROR was encountered - '||SQLCODE||' -ERROR- '||SQLERRM);
+
+	RETURN -1;
+END NHS_UTL_SCMARCRREVERSE;
+/

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2010?~3??23?? ?U??02:52:35 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.hkah.web.db.hibernate.CoDocument" table="CO_DOCUMENT">
+        <id name="coDocumentId" type="big_decimal">
+            <column name="CO_DOCUMENT_ID"   />
+            <generator class="com.hkah.web.db.hibernate.id.IdGenerator"></generator>
+        </id>
+        <property name="coDescription" type="string">
+            <column name="CO_DESCRIPTION"  />
+        </property>
+        <property name="coLocation" type="string">
+            <column name="CO_LOCATION"  not-null="true" />
+        </property>
+        <property name="coWebFolder" type="string">
+            <column name="CO_WEB_FOLDER"  />
+        </property>
+        <property name="coLocationWithFilename" type="string">
+            <column name="CO_LOCATION_WITH_FILENAME"  />
+        </property>
+        <property name="coFilePrefix" type="string">
+            <column name="CO_FILE_PREFIX"  />
+        </property>
+        <property name="coFileSuffix" type="string">
+            <column name="CO_FILE_SUFFIX"  />
+        </property>
+        <property name="coCreatedDate" >
+            <column name="CO_CREATED_DATE"  />
+        </property>
+        <property name="coCreatedUser" type="string">
+            <column name="CO_CREATED_USER"  />
+        </property>
+        <property name="coModifiedDate" >
+            <column name="CO_MODIFIED_DATE"  />
+        </property>
+        <property name="coModifiedUser" type="string">
+            <column name="CO_MODIFIED_USER"  />
+        </property>
+        <property name="coEnabled" type="java.lang.Integer">
+            <column name="CO_ENABLED"   />
+        </property>
+        <property name="coFileLastModified" type="big_decimal">
+            <column name="CO_FILE_LAST_MODIFIED" />
+        </property>
+    </class>
+</hibernate-mapping>

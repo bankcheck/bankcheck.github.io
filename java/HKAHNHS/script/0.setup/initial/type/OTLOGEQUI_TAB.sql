@@ -1,0 +1,4 @@
+create or replace
+TYPE OTLOGEQUI_TAB
+AS TABLE OF OTLOGEQUI;
+/

@@ -1,0 +1,40 @@
+_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+_/
+_/              (C) Copyright 2008
+_/              HKAH System Config Properties file
+_/
+_/              $Author: johnny $
+_/              $Date: 2014/08/06 14:42:25 $
+_/
+_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+
+system.version.number=HKAH-VERSION_NUMBER
+system.default.protocol=http
+
+# development 1 (HKAH)
+#system.default.host=160.100.1.115
+#system.default.port=8000
+
+# development 2 (HKAH)
+system.default.host=160.100.2.73
+system.default.port=9080
+
+system.contextRoot=portal
+
+system.client.log=true
+system.client.log.dir=log
+system.login.skip=true
+system.module.code=NHS
+system.jndiName=hats1
+
+server.tx.servlet=HKAHTxServlet
+server.master.servlet=HKAHMasterServlet
+
+client.print.applet.name=HKAHNHSApplet
+
+login.site.code=HKAH
+login.site.name=Hong Kong Adventist Hospital
+login.user.id=
+login.user.name=
+login.user.deptCode=
+=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*=*-*

@@ -1,0 +1,20 @@
+CREATE OR REPLACE FUNCTION "NHS_LIS_GLCODE"
+(V_GLCCODE GLCODE.GLCCODE%TYPE,
+v_GLCNAME GLCODE.GLCNAME%TYPE)
+  RETURN Types.cursor_type
+AS
+  outcur types.cursor_type;
+BEGIN
+  OPEN outcur FOR
+      SELECT
+        GLCCODE, GLCNAME, STECODE
+      FROM GLCODE
+      WHERE ( GLCCODE LIKE '%' || v_GLCCODE || '%')
+      AND ( GLCNAME like '%' || v_GLCNAME || '%')
+      AND ROWNUM < 100
+      ORDER BY GLCCODE;
+   RETURN OUTCUR;
+END NHS_LIS_GLCODE;
+/
+
+
